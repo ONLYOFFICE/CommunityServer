@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ namespace ASC.AuditTrail.Data
 {
     public class LoginEventsRepository
     {
-        private const string auditDbId = "core";
+        private const string auditDbId = "default";
 
         private static readonly List<string> auditColumns = new List<string>
         {
@@ -53,7 +53,7 @@ namespace ASC.AuditTrail.Data
 
         private static IDbManager GetDbManager()
         {
-            return DbManager.FromHttpContext(auditDbId);
+            return new DbManager(auditDbId);
         }
 
         public static int GetCount(int tenant, DateTime? from = null, DateTime? to = null)

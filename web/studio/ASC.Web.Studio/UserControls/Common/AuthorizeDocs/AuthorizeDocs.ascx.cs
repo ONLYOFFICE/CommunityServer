@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 
 using System;
 using System.Configuration;
-using System.Globalization;
 using System.Security.Authentication;
 using System.Web;
 using System.Web.UI;
@@ -27,6 +26,7 @@ using ASC.Core;
 using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
@@ -67,11 +67,28 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             LoginMessage = Auth.GetAuthMessage(Request["am"]);
 
-            Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/authorizedocs.less", "~/UserControls/Common/AuthorizeDocs/css/slick.less")
+            var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
+
+            if (theme == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/dark-authorizedocs.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/authorizedocs.less");
+            }
+            Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/slick.less")
                 .RegisterBodyScripts("~/js/third-party/lodash.min.js", "~/js/third-party/masonry.pkgd.min.js", "~/UserControls/Common/AuthorizeDocs/js/reviews.js", "~/UserControls/Common/AuthorizeDocs/js/review_builder_script.js", "~/UserControls/Common/AuthorizeDocs/js/authorizedocs.js", "~/UserControls/Common/Authorize/js/authorize.js", "~/js/third-party/slick.min.js");
 
             if (CoreContext.Configuration.CustomMode)
-                Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/custom-mode.less");
+                if (theme == ModeTheme.dark)
+                {
+                    Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/dark-custom-mode.less");
+                }
+                else
+                {
+                    Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/custom-mode.less");
+                }
 
             ThirdpartyEnable = SetupInfo.ThirdPartyAuthEnabled && AccountLinkControl.IsNotEmpty;
             if (Request.DesktopApp()
@@ -106,8 +123,10 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
             if (IsPostBack)
             {
-                var loginCounter = 0;
-                ShowRecaptcha = false;
+                var requestIp = MessageSettings.GetFullIPAddress(Request);
+                var bruteForceLoginManager = new BruteForceLoginManager(cache, Login, requestIp);
+                var bruteForceSuccessAttempt = false;
+
                 try
                 {
                     Login = Request["login"].Trim();
@@ -126,43 +145,29 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
                     if (!SetupInfo.IsSecretEmail(Login))
                     {
-                        int.TryParse(cache.Get<string>("loginsec/" + Login), out loginCounter);
+                        bruteForceSuccessAttempt = bruteForceLoginManager.Increment(out ShowRecaptcha);
 
-                        loginCounter++;
-
-                        if (!RecaptchaEnable)
+                        if (!bruteForceSuccessAttempt)
                         {
-                            if (loginCounter > SetupInfo.LoginThreshold)
+                            if (!RecaptchaEnable)
                             {
                                 throw new Authorize.BruteForceCredentialException();
                             }
-                        }
-                        else
-                        {
-                            if (loginCounter > SetupInfo.LoginThreshold - 1)
+                            else
                             {
-                                ShowRecaptcha = true;
-                            }
-                            if (loginCounter > SetupInfo.LoginThreshold)
-                            {
-                                var ip = Request.Headers["X-Forwarded-For"] ?? Request.UserHostAddress;
-
                                 var recaptchaResponse = Request["g-recaptcha-response"];
                                 if (String.IsNullOrEmpty(recaptchaResponse)
-                                    || !Authorize.ValidateRecaptcha(recaptchaResponse, ip))
+                                    || !Authorize.ValidateRecaptcha(recaptchaResponse, requestIp))
                                 {
                                     throw new Authorize.RecaptchaException();
                                 }
                             }
                         }
-
-                        cache.Insert("loginsec/" + Login, loginCounter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                     }
 
                     var session = string.IsNullOrEmpty(Request["remember"]);
                     CookiesManager.AuthenticateMeAndSetCookies(Login, passwordHash, MessageAction.LoginSuccess, session);
 
-                    cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
                 catch (InvalidCredentialException ex)
                 {
@@ -208,9 +213,9 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     return;
                 }
 
-                if (loginCounter > 0)
+                if (bruteForceSuccessAttempt)
                 {
-                    cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    bruteForceLoginManager.Decrement();
                 }
 
                 Response.Redirect(Context.GetRefererURL());

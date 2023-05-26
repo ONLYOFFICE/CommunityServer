@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,11 @@ namespace ASC.Mail.Data.Contracts
             IsLinked = isLinked;
         }
 
+        ///<example type="int" name="messageId">12354</example>
         [DataMember(Name = "messageId")]
         public int MessageId { get; private set; }
 
+        ///<example name="isLinked">true</example>
         [DataMember(Name = "isLinked")]
         public bool IsLinked { get; private set; }
     }

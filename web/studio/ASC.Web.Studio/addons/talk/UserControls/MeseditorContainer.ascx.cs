@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Talk.UserControls
 {
@@ -37,7 +39,10 @@ namespace ASC.Web.Talk.UserControls
 
         public String GetMeseditorStyle()
         {
-            return VirtualPathUtility.ToAbsolute("~/addons/talk/css/default/talk.messagearea.css");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+                return VirtualPathUtility.ToAbsolute("~/addons/talk/css/dark/dark-talk.messagearea.less");
+            else
+                return VirtualPathUtility.ToAbsolute("~/addons/talk/css/default/talk.messagearea.less");
         }
     }
 }

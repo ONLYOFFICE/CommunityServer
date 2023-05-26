@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,13 +125,14 @@ namespace ASC.Web.Files
 
         private static void BulkDownloadFile(HttpContext context)
         {
-            if (!SecurityContext.IsAuthenticated)
+            var filename = context.Request.QueryString["filename"];
+            var session = context.Request.QueryString["session"];
+
+            if (!SecurityContext.IsAuthenticated && string.IsNullOrEmpty(session))
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 return;
             }
-
-            var filename = context.Request.QueryString["filename"];
 
             if (String.IsNullOrEmpty(filename))
             {
@@ -144,8 +145,27 @@ namespace ASC.Web.Files
                 filename = InstanceCrypto.Decrypt(Uri.UnescapeDataString(filename));
             }
 
+            string path = null;
 
-            var path = string.Format(@"{0}\{1}", SecurityContext.CurrentAccount.ID, filename);
+            if (!string.IsNullOrEmpty(session))
+            {
+                if (FileShareLink.ParseDownloadSessionKey(session, out var linkId, out var sessionId)
+                    && FileShareLink.TryGetSessionId(out var cookieSessionId) 
+                    && sessionId == cookieSessionId
+                    && FileShareLink.CheckCookieKey(linkId, out _))
+                {
+                    path = string.Format(@"{0}\{1}\{2}", linkId, sessionId, filename);
+                }
+                else
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    return;
+                }
+            }
+            else
+            {
+                path = string.Format(@"{0}\{1}", SecurityContext.CurrentAccount.ID, filename);
+            }
 
             var store = Global.GetStore();
 
@@ -158,7 +178,11 @@ namespace ASC.Web.Files
 
             if (store.IsSupportedPreSignedUri)
             {
-                var url = store.GetPreSignedUri(FileConstant.StorageDomainTmp, path, TimeSpan.FromHours(1), null).ToString();
+                var headers = SecurityContext.IsAuthenticated
+                    ? null
+                    : new string[] { ASC.Data.Storage.SecureHelper.GenerateSecureKeyHeader(path) };
+
+                var url = store.GetPreSignedUri(FileConstant.StorageDomainTmp, path, TimeSpan.FromHours(1), headers).ToString();
                 context.Response.Redirect(url);
                 return;
             }
@@ -203,7 +227,8 @@ namespace ASC.Web.Files
                 using (var fileDao = Global.DaoFactory.GetFileDao())
                 {
                     int version = 0;
-                    var readLink = FileShareLink.Check(doc, true, fileDao, out File file, out FileShare linkShare);
+                    var readLink = FileShareLink.Check(doc, true, fileDao, out File file, out FileShare linkShare, out Guid linkId);
+
                     if (!readLink && file == null)
                     {
                         fileDao.InvalidateCache(id);
@@ -239,6 +264,12 @@ namespace ASC.Web.Files
                         Global.Logger.ErrorFormat("Download file error. File is not exist on storage. File id: {0}.", file.ID);
                         context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
+                        return;
+                    }
+
+                    if (readLink && !FileShareLink.CheckCookieKey(linkId, out string _))
+                    {
+                        context.Response.Redirect(FileShareLink.GetPasswordProtectedFileLink(doc));
                         return;
                     }
 
@@ -320,7 +351,7 @@ namespace ASC.Web.Files
                                     var fullLength = store.GetFileSize(string.Empty, mp4Path);
 
                                     length = ProcessRangeHeader(context, fullLength, ref offset);
-                                    fileStream = store.GetReadStream(string.Empty, mp4Path, (int)offset);
+                                    fileStream = store.GetReadStream(string.Empty, mp4Path, offset);
 
                                     title = FileUtility.ReplaceFileExtension(title, ".mp4");
                                 }
@@ -514,7 +545,8 @@ namespace ASC.Web.Files
                     fileDao.InvalidateCache(id);
 
                     File file;
-                    var linkRight = FileShareLink.Check(doc, fileDao, out file);
+                    var linkRight = FileShareLink.Check(doc, fileDao, out file, out Guid linkId);
+
                     if (linkRight == FileShare.Restrict && !SecurityContext.IsAuthenticated)
                     {
                         var auth = context.Request[FilesLinkUtility.AuthKey];
@@ -604,6 +636,12 @@ namespace ASC.Web.Files
                     {
                         context.Response.StatusDescription = file.Error;
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return;
+                    }
+
+                    if (linkRight != FileShare.Restrict && !FileShareLink.CheckSignatureKey(doc))
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                         return;
                     }
 
@@ -803,7 +841,8 @@ namespace ASC.Web.Files
                     var doc = context.Request[FilesLinkUtility.DocShareKey];
 
                     File file;
-                    var linkRight = FileShareLink.Check(doc, fileDao, out file);
+                    var linkRight = FileShareLink.Check(doc, fileDao, out file, out Guid linkId);
+
                     if (linkRight == FileShare.Restrict && !SecurityContext.IsAuthenticated)
                     {
                         var auth = context.Request[FilesLinkUtility.AuthKey];
@@ -846,6 +885,12 @@ namespace ASC.Web.Files
                     {
                         context.Response.StatusDescription = file.Error;
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return;
+                    }
+
+                    if (linkRight != FileShare.Restrict && !FileShareLink.CheckSignatureKey(doc))
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                         return;
                     }
 
@@ -1147,10 +1192,12 @@ namespace ASC.Web.Files
         {
             var auth = context.Request[FilesLinkUtility.AuthKey];
             var fileId = context.Request[FilesLinkUtility.FileId];
-            Global.Logger.Debug("DocService track fileid: " + fileId);
+            var linkId = context.Request[FilesLinkUtility.LinkId];
+
+            Global.Logger.Debug("DocService track fileid: " + fileId + " linkId: " + linkId);
 
             var callbackSpan = TimeSpan.FromDays(128);
-            var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileId, auth ?? "", callbackSpan);
+            var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileId + linkId, auth ?? "", callbackSpan);
             if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
             {
                 Global.Logger.ErrorFormat("DocService track auth error: {0}, {1}: {2}", validateResult.ToString(), FilesLinkUtility.AuthKey, auth);
@@ -1253,7 +1300,7 @@ namespace ASC.Web.Files
             DocumentServiceTracker.TrackResponse result;
             try
             {
-                result = DocumentServiceTracker.ProcessData(fileId, fileData);
+                result = DocumentServiceTracker.ProcessData(fileId, fileData, linkId);
             }
             catch (Exception e)
             {

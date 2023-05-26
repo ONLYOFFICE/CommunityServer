@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -186,7 +186,7 @@ namespace ASC.Web.Core.Client.Bundling
 
                                 var cache = TimeSpan.FromDays(365);
 
-                                customHeaders.Add("Cache-Control", String.Format("public, maxage={0}", (int)cache.TotalSeconds));
+                                customHeaders.Add("Cache-Control", String.Format("public, max-age={0}", (int)cache.TotalSeconds));
                                 customHeaders.Add("Expires", DateTime.UtcNow.Add(cache));
 
                                 client.UploadFileAsync(_container, key, true, true, inputStream, etag, null, mime, null, null, customHeaders).Wait();

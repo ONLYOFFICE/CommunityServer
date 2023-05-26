@@ -63,7 +63,7 @@
                     <div>
                         <%foreach (var prop in service.Props){%>
                         <div class="bold headerPanelSmall"><%= prop.Title %>:</div>
-                        <input id="<%= prop.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= prop.Title %>" <%= SaveAvailable ? "" : "disabled = disabled" %>" value="<%= prop.Value %>" />
+                        <input id="<%= prop.Name %>" <%= prop.IsPassword ? "type=\"password\" autocomplete=\"new-password\""  : "type=\"text\"" %> class="auth-service-key textEdit <%= prop.IsOptional ? "optional" : "" %>" placeholder="<%= prop.Title %>" <%= SaveAvailable ? "" : "disabled = disabled" %>" value="<%= prop.Value %>" />
                         <%}%>
                     </div>
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,19 @@ namespace ASC.Thrdparty.Twitter
 {
     public class TwitterUserInfo
     {
+        ///<example type="dobule">1,1</example>
         public decimal UserID { get; set; }
+
+        ///<example>Screen name</example>
         public string ScreenName { get; set; }
+
+        ///<example>User Name</example>
         public string UserName { get; set; }
+
+        ///<example>url to img</example>
         public string SmallImageUrl { get; set; }
+
+        ///<example>Description</example>
         public string Description { get; set; }
     }
 }

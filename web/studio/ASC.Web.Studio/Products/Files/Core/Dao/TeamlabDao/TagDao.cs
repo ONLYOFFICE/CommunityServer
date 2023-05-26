@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
+using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -95,7 +96,14 @@ namespace ASC.Files.Core.Data
 
         private IEnumerable<Tag> SelectTagByQuery(SqlQuery q)
         {
-            return dbManager.ExecuteList(q).ConvertAll(ToTag);
+            List<object[]> fromDb;
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                fromDb = dbManager.ExecuteList(q);
+            }
+
+            return fromDb.ConvertAll(ToTag);
         }
 
         public IEnumerable<Tag> GetTags(string name, TagType tagType)
@@ -134,6 +142,7 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
                 using (var tx = dbManager.BeginTransaction())
                 {
                     DeleteTagsBeforeSave();
@@ -160,6 +169,7 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
                 using (var tx = dbManager.BeginTransaction())
                 {
                     DeleteTagsBeforeSave();
@@ -178,7 +188,11 @@ namespace ASC.Files.Core.Data
 
         private void DeleteTagsBeforeSave()
         {
-            var mustBeDeleted = dbManager.ExecuteList(Query("files_tag ft")
+            var mustBeDeleted = new List<object[]>();
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                mustBeDeleted = dbManager.ExecuteList(Query("files_tag ft")
                                               .Select("ftl.tag_id",
                                                       "ftl.entry_id",
                                                       "ftl.entry_type")
@@ -188,24 +202,36 @@ namespace ASC.Files.Core.Data
                                                          Exp.EqColumns("ft.id", "ftl.tag_id"))
                                               .Where((Exp.Eq("ft.flag", (int)TagType.New) | Exp.Eq("ft.flag", (int)TagType.Recent))
                                                      & Exp.Le("ftl.create_on", TenantUtil.DateTimeNow().AddMonths(-1))));
+            }
 
             foreach (var row in mustBeDeleted)
             {
-                dbManager.ExecuteNonQuery(Delete("files_tag_link")
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    dbManager.ExecuteNonQuery(Delete("files_tag_link")
                                               .Where(Exp.Eq("tag_id", row[0]) &
                                                      Exp.Eq("entry_id", row[1]) &
                                                      Exp.Eq("entry_type", row[2])));
+                }
             }
 
-            var tagsToRemove = dbManager.ExecuteList(
+            List<int> tagsToRemove;
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                tagsToRemove = dbManager.ExecuteList(
                 Query("files_tag tbl_ft ")
                     .Select("tbl_ft.id")
                     .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
                                                              Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
                     .Where("tbl_ftl.tag_id is null"))
                 .ConvertAll(r => Convert.ToInt32(r[0]));
+            }
 
-            dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
+            }
         }
 
         private Tag SaveTag(Tag t, Dictionary<String, int> cacheTagId, DateTime createOn)
@@ -216,11 +242,14 @@ namespace ASC.Files.Core.Data
 
             if (!cacheTagId.TryGetValue(cacheTagIdKey, out id))
             {
-                id = dbManager.ExecuteScalar<int>(Query("files_tag")
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    id = dbManager.ExecuteScalar<int>(Query("files_tag")
                                                       .Select("id")
                                                       .Where("owner", t.Owner.ToString())
                                                       .Where("name", t.TagName)
                                                       .Where("flag", (int)t.TagType));
+                }
 
                 if (id == 0)
                 {
@@ -230,7 +259,11 @@ namespace ASC.Files.Core.Data
                         .InColumnValue("owner", t.Owner.ToString())
                         .InColumnValue("flag", (int)t.TagType)
                         .Identity(1, 0, true);
-                    id = dbManager.ExecuteScalar<int>(i1);
+
+                    using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                    {
+                        id = dbManager.ExecuteScalar<int>(i1);
+                    }
                 }
 
                 cacheTagId.Add(cacheTagIdKey, id);
@@ -246,7 +279,10 @@ namespace ASC.Files.Core.Data
                 .InColumnValue("create_on", createOn)
                 .InColumnValue("tag_count", t.Count);
 
-            dbManager.ExecuteNonQuery(i2);
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                dbManager.ExecuteNonQuery(i2);
+            }
 
             return t;
         }
@@ -257,13 +293,14 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
                 using (var tx = dbManager.BeginTransaction(true))
                 {
                     var createOn = TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow());
 
                     foreach (var tag in tags)
                     {
-                        UpdateNewTagsInDb(tag, createOn);
+                        UpdateNewTagsInDb(dbManager, tag, createOn);
                     }
                     tx.Commit();
                 }
@@ -278,11 +315,14 @@ namespace ASC.Files.Core.Data
             {
                 var createOn = TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow());
 
-                UpdateNewTagsInDb(tag, createOn);
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    UpdateNewTagsInDb(dbManager, tag, createOn);
+                }
             }
         }
 
-        private void UpdateNewTagsInDb(Tag tag, DateTime createOn)
+        private void UpdateNewTagsInDb(IDbManager dbManager, Tag tag, DateTime createOn)
         {
             if (tag == null) return;
 
@@ -303,11 +343,12 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
                 using (var tx = dbManager.BeginTransaction(true))
                 {
                     foreach (var t in tags)
                     {
-                        RemoveTagInDb(t);
+                        RemoveTagInDb(dbManager, t);
                     }
                     tx.Commit();
                 }
@@ -320,16 +361,17 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
                 using (var tx = dbManager.BeginTransaction(true))
                 {
-                    RemoveTagInDb(tag);
+                    RemoveTagInDb(dbManager, tag);
 
                     tx.Commit();
                 }
             }
         }
 
-        private void RemoveTagInDb(Tag tag)
+        private void RemoveTagInDb(IDbManager dbManager, Tag tag)
         {
             if (tag == null) return;
 
@@ -358,7 +400,7 @@ namespace ASC.Files.Core.Data
 
         public IEnumerable<Tag> GetNewTags(Guid subject, IEnumerable<FileEntry> fileEntries)
         {
-            return GetNewTags(subject, () =>
+            return GetNewTags(subject, (dbManager) =>
             {
                 while (fileEntries.Any())
                 {
@@ -384,7 +426,7 @@ namespace ASC.Files.Core.Data
 
         public IEnumerable<Tag> GetNewTags(Guid subject, FileEntry fileEntry)
         {
-            return GetNewTags(subject, () =>
+            return GetNewTags(subject, (dbManager) =>
             {
                 var insertQuery = new SqlInsert("files_tag_temporary", true)
                     .InColumns(new[] { GetTenantColumnName("files_tag_temporary"), "entry_id", "entry_type" });
@@ -400,10 +442,11 @@ namespace ASC.Files.Core.Data
             });
         }
 
-        private IEnumerable<Tag> GetNewTags(Guid subject, Action insert)
+        private IEnumerable<Tag> GetNewTags(Guid subject, Action<IDbManager> insert)
         {
             List<Tag> result;
 
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
             using (var tx = dbManager.BeginTransaction())
             {
                 var sqlQuery = Query("files_tag ft")
@@ -434,7 +477,7 @@ namespace ASC.Files.Core.Data
 
                 dbManager.ExecuteNonQuery(sqlQueryStr);
 
-                insert();
+                insert(dbManager);
 
                 var resultSql = sqlQuery
                     .InnerJoin("files_tag_temporary ftt", Exp.EqColumns("ftl.tenant_id", "ftt.tenant_id") &
@@ -456,6 +499,7 @@ namespace ASC.Files.Core.Data
             if (parentFolder == null || parentFolder.ID == null)
                 throw new ArgumentException("folderId");
 
+            List<object[]> fromDb;
             var result = new List<Tag>();
 
             var monitorFolderIds = new[] { parentFolder.ID }.AsEnumerable();
@@ -496,30 +540,41 @@ namespace ASC.Files.Core.Data
                             Exp.EqColumns("fs.entry_id", "ftl.entry_id") &
                             Exp.EqColumns("fs.entry_type", "ftl.entry_type")))));
 
-                var tmpShareFileTags = dbManager.ExecuteList(
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    fromDb = dbManager.ExecuteList(
                     shareQuery().InnerJoin("files_file f",
                                             Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
                                             !Exp.Eq("f.create_by", subject) &
                                             Exp.EqColumns("f.id", "ftl.entry_id") &
                                             Exp.Eq("ftl.entry_type", (int)FileEntryType.File))
-                                .Select(GetRootFolderType("folder_id")))
-                                                .Where(r => ParseRootFolderType(r[7]) == FolderType.USER).ToList()
-                                                .ConvertAll(ToTag);
-                tempTags = tempTags.Concat(tmpShareFileTags);
+                                .Select(GetRootFolderType("folder_id")));
+                }
 
+                tempTags = tempTags.Concat(fromDb
+                    .Where(r => ParseRootFolderType(r[7]) == FolderType.USER)
+                    .Select(ToTag)
+                    .ToList());
 
-                var tmpShareFolderTags = dbManager.ExecuteList(
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    fromDb = dbManager.ExecuteList(
                     shareQuery().InnerJoin("files_folder f",
                                             Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
                                             !Exp.Eq("f.create_by", subject) &
                                             Exp.EqColumns("f.id", "ftl.entry_id") &
                                             Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder))
-                                .Select(GetRootFolderType("parent_id")))
-                                                    .Where(r => ParseRootFolderType(r[7]) == FolderType.USER).ToList()
-                                                    .ConvertAll(ToTag);
-                tempTags = tempTags.Concat(tmpShareFolderTags);
+                                .Select(GetRootFolderType("parent_id")));
+                }
 
-                var tmpShareSboxTags = dbManager.ExecuteList(
+                tempTags = tempTags.Concat(fromDb
+                                                    .Where(r => ParseRootFolderType(r[7]) == FolderType.USER)
+                                                    .Select(ToTag)
+                                                    .ToList());
+
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    fromDb = dbManager.ExecuteList(
                     shareQuery()
                         .InnerJoin("files_thirdparty_id_mapping m",
                                     Exp.EqColumns("m.tenant_id", "ftl.tenant_id") &
@@ -530,9 +585,10 @@ namespace ASC.Files.Core.Data
                                     !Exp.Eq("ac.user_id", subject) &
                                     Exp.Eq("ac.folder_type", FolderType.USER)
                         )
-                    ).ConvertAll(ToTag);
+                    );
+                }
 
-                tempTags = tempTags.Concat(tmpShareSboxTags);
+                tempTags = tempTags.Concat(fromDb.ConvertAll(ToTag));
             }
             else if (parentFolder.FolderType == FolderType.Privacy)
             {
@@ -545,38 +601,50 @@ namespace ASC.Files.Core.Data
                             Exp.EqColumns("fs.entry_id", "ftl.entry_id") &
                             Exp.EqColumns("fs.entry_type", "ftl.entry_type")))));
 
-                var tmpShareFileTags = dbManager.ExecuteList(
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    fromDb = dbManager.ExecuteList(
                     shareQuery().InnerJoin("files_file f",
                                             Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
                                             !Exp.Eq("f.create_by", subject) &
                                             Exp.EqColumns("f.id", "ftl.entry_id") &
                                             Exp.Eq("ftl.entry_type", (int)FileEntryType.File))
-                                .Select(GetRootFolderType("folder_id")))
+                                .Select(GetRootFolderType("folder_id")));
+                }
+
+                tempTags = tempTags.Concat(fromDb
                                                 .Where(r => ParseRootFolderType(r[7]) == FolderType.Privacy).ToList()
-                                                .ConvertAll(ToTag);
-                tempTags = tempTags.Concat(tmpShareFileTags);
+                                                .ConvertAll(ToTag));
 
-
-                var tmpShareFolderTags = dbManager.ExecuteList(
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    fromDb = dbManager.ExecuteList(
                     shareQuery().InnerJoin("files_folder f",
                                             Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
                                             !Exp.Eq("f.create_by", subject) &
                                             Exp.EqColumns("f.id", "ftl.entry_id") &
                                             Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder))
-                                .Select(GetRootFolderType("parent_id")))
-                                                    .Where(r => ParseRootFolderType(r[7]) == FolderType.Privacy).ToList()
-                                                    .ConvertAll(ToTag);
-                tempTags = tempTags.Concat(tmpShareFolderTags);
+                                .Select(GetRootFolderType("parent_id")));
+                }
+
+                tempTags = tempTags.Concat(fromDb
+                                                    .Where(r => ParseRootFolderType(r[7]) == FolderType.Privacy)
+                                                    .Select(ToTag)
+                                                    .ToList());
             }
             else if (parentFolder.FolderType == FolderType.Projects)
-                tempTags = tempTags.Concat(
-                    dbManager.ExecuteList(getBaseSqlQuery()
+            {
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    fromDb = dbManager.ExecuteList(getBaseSqlQuery()
                                                 .InnerJoin("files_bunch_objects fbo",
                                                             Exp.EqColumns("fbo.tenant_id", "ftl.tenant_id") &
                                                             Exp.EqColumns("fbo.left_node", "ftl.entry_id") &
                                                             Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder))
-                                                .Where(Exp.Eq("fbo.tenant_id", TenantID) & Exp.Like("fbo.right_node", "projects/project/", SqlLike.StartWith)))
-                                .ConvertAll(ToTag));
+                                                .Where(Exp.Eq("fbo.tenant_id", TenantID) & Exp.Like("fbo.right_node", "projects/project/", SqlLike.StartWith)));
+                }
+                tempTags = tempTags.Concat(fromDb.ConvertAll(ToTag));
+            }
 
             if (tempTags.Any())
             {
@@ -593,26 +661,39 @@ namespace ASC.Files.Core.Data
             if (!deepSearch)
                 subFoldersSqlQuery.Where(Exp.Eq("level", 1));
 
-            monitorFolderIds = monitorFolderIds.Concat(dbManager.ExecuteList(subFoldersSqlQuery).ConvertAll(x => x[0]));
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                fromDb = dbManager.ExecuteList(subFoldersSqlQuery);
+            }
 
-            var newTagsForFolders = dbManager.ExecuteList(getBaseSqlQuery()
+            monitorFolderIds = monitorFolderIds.Concat(fromDb.ConvertAll(x => x[0]));
+
+            List<object[]> newTagsForFolders;
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                newTagsForFolders = dbManager.ExecuteList(getBaseSqlQuery()
                                                                 .Where(Exp.In("ftl.entry_id", monitorFolderIds.ToArray()) &
-                                                                        Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder)))
-                                                .ConvertAll(ToTag);
+                                                                        Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder)));
+            }
 
-            result.AddRange(newTagsForFolders);
+            result.AddRange(newTagsForFolders.ConvertAll(ToTag));
 
-            var newTagsForFiles = dbManager.ExecuteList(getBaseSqlQuery()
+            List<object[]> newTagsForFiles;
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                newTagsForFiles = dbManager.ExecuteList(getBaseSqlQuery()
                                                             .InnerJoin("files_file ff",
                                                                         Exp.EqColumns("ftl.tenant_id", "ff.tenant_id") &
                                                                         Exp.EqColumns("ftl.entry_id", "ff.id"))
                                                             .Where(Exp.In("ff.folder_id", (deepSearch
                                                                                                 ? monitorFolderIds.ToArray()
                                                                                                 : new[] { parentFolder.ID })) &
-                                                                    Exp.Eq("ftl.entry_type", (int)FileEntryType.File)))
-                                            .ConvertAll(ToTag);
+                                                                    Exp.Eq("ftl.entry_type", (int)FileEntryType.File)));
+            }
 
-            result.AddRange(newTagsForFiles);
+            result.AddRange(newTagsForFiles.ConvertAll(ToTag));
 
             if (parentFolder.FolderType == FolderType.USER || parentFolder.FolderType == FolderType.COMMON)
             {
@@ -626,7 +707,13 @@ namespace ASC.Files.Core.Data
                 if (folderType == FolderType.USER)
                     querySelect = querySelect.Where(Exp.Eq("user_id", subject.ToString()));
 
-                var folderIds = dbManager.ExecuteList(querySelect);
+                List<object[]> folderIds;
+
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    folderIds = dbManager.ExecuteList(querySelect);
+                }
+
                 var thirdpartyFolderIds = folderIds.ConvertAll(r => "sbox-" + r[0])
                                                     .Concat(folderIds.ConvertAll(r => "box-" + r[0]))
                                                     .Concat(folderIds.ConvertAll(r => "dropbox-" + r[0]))
@@ -634,16 +721,19 @@ namespace ASC.Files.Core.Data
                                                     .Concat(folderIds.ConvertAll(r => "drive-" + r[0]))
                                                     .Concat(folderIds.ConvertAll(r => "onedrive-" + r[0]));
 
-                var newTagsForSBox = dbManager.ExecuteList(getBaseSqlQuery()
+                List<object[]> newTagsForSBox;
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    newTagsForSBox = dbManager.ExecuteList(getBaseSqlQuery()
                                                                 .InnerJoin("files_thirdparty_id_mapping mp",
                                                                             Exp.EqColumns("mp.tenant_id", "ftl.tenant_id") &
                                                                             Exp.EqColumns("ftl.entry_id", "mp.hash_id"))
                                                                 .Where(Exp.In("mp.id", thirdpartyFolderIds.ToList()) &
                                                                         Exp.Eq("ft.owner", subject) &
-                                                                        Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder)))
-                                                .ConvertAll(ToTag);
+                                                                        Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder)));
+                }
 
-                result.AddRange(newTagsForSBox);
+                result.AddRange(newTagsForSBox.ConvertAll(ToTag));
             }
 
             return result;

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="MigrationApi.cs" />
     <Compile Include="MigrationStatus.cs" />
+    <Compile Include="MigratorInfo.cs" />
     <Compile Include="OngoingMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

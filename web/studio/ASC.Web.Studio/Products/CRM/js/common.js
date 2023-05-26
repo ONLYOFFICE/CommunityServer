@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -658,8 +658,8 @@ ASC.CRM.Common = (function() {
                 options.afterScrollFunc();
             }
 
-            element.css({ "background-color": "#ffffcc" });
-            element.animate({ backgroundColor: '#ffffff' }, 2000, function () {
+            element.css({ "background-color": ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffcc" : "rgba(204, 184, 102, 0.2)" });
+            element.animate({ backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333" }, 2000, function () {
                 element.css({ "background-color": "" });
             });
         },

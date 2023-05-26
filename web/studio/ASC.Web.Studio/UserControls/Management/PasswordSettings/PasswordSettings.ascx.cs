@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,13 @@ using System;
 using System.Web;
 using System.Web.UI;
 
-using AjaxPro;
-
-using ASC.Core;
-using ASC.MessagingSystem;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
     [ManagementControl(ManagementType.PortalSecurity, Location)]
-    [AjaxNamespace("PasswordSettingsController")]
     public partial class PasswordSettings : UserControl
     {
         public const string Location = "~/UserControls/Management/PasswordSettings/PasswordSettings.ascx";
@@ -46,49 +41,18 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             if (!Enabled) return;
 
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
+            Page.RegisterBodyScripts("~/UserControls/Management/PasswordSettings/js/passwordsettings.js");
 
-            Page.RegisterBodyScripts("~/UserControls/Management/PasswordSettings/js/passwordsettings.js")
-                .RegisterStyle("~/UserControls/Management/PasswordSettings/css/passwordsettings.less");
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/PasswordSettings/css/dark-passwordsettings.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/PasswordSettings/css/passwordsettings.less");
+            }
 
             HelpLink = CommonLinkUtility.GetHelpLink();
-        }
-
-        [AjaxMethod]
-        public object SavePasswordSettings(string objData)
-        {
-            try
-            {
-                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-                var jsSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var passwordSettingsObj = jsSerializer.Deserialize<Web.Core.Utility.PasswordSettings>(objData);
-                passwordSettingsObj.Save();
-
-                MessageService.Send(HttpContext.Current.Request, MessageAction.PasswordStrengthSettingsUpdated);
-
-                return new
-                {
-                    Status = 1,
-                    Message = Resource.SuccessfullySaveSettingsMessage
-                };
-            }
-            catch (Exception e)
-            {
-                return new { Status = 0, Message = e.Message.HtmlEncode() };
-            }
-        }
-
-        [AjaxMethod]
-        public string LoadPasswordSettings()
-        {
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-
-            var passwordSettingsObj = Web.Core.Utility.PasswordSettings.Load();
-
-            return serializer.Serialize(passwordSettingsObj);
         }
     }
 }

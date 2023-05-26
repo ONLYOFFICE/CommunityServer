@@ -438,6 +438,9 @@
   <data name="CaptionConvertPassword" xml:space="preserve">
     <value>The file is password protected. Enter the password for conversion.</value>
   </data>
+  <data name="CaptionConvertPasswordWhenUploading" xml:space="preserve">
+    <value>Enter the password for conversion</value>
+  </data>
   <data name="CaptionCopyConvertOpen" xml:space="preserve">
     <value>Convert and open document</value>
   </data>
@@ -524,6 +527,9 @@
   </data>
   <data name="ConvertAndDownload" xml:space="preserve">
     <value>Download as</value>
+  </data>
+  <data name="ConvertErrorInvalidPassword" xml:space="preserve">
+    <value>Error! Invalid password</value>
   </data>
   <data name="CopyConvertEnd" xml:space="preserve">
     <value>The conversion was successful.</value>
@@ -687,6 +693,9 @@
   <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
     <value>You haven't connected any third-party clouds yet</value>
   </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -770,6 +779,9 @@
   </data>
   <data name="GetShorten" xml:space="preserve">
     <value>Shorten</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
   </data>
   <data name="LinkViaMail" xml:space="preserve">
     <value>via email</value>
@@ -1103,5 +1115,47 @@
   </data>
   <data name="SettingForcesaveHelper" xml:space="preserve">
     <value>Save revisions to track intermediate versions of the documents</value>
+  </data>
+  <data name="ButtonSetLifetime" xml:space="preserve">
+    <value>Limit by time</value>
+  </data>
+  <data name="ButtonSetPassword" xml:space="preserve">
+    <value>Set a password</value>
+  </data>
+  <data name="ButtonClean" xml:space="preserve">
+    <value>Clean</value>
+  </data>
+  <data name="ButtonDeleteExpiredLink" xml:space="preserve">
+    <value>Delete link after timeout</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="EnablePassword" xml:space="preserve">
+    <value>Enable password access</value>
+  </data>
+  <data name="EnableTimeLimit" xml:space="preserve">
+    <value>Enable time limit</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="ButtonCopyLinkAndPassword" xml:space="preserve">
+    <value>Copy link and password</value>
+  </data>
+  <data name="RandomPassword" xml:space="preserve">
+    <value>Random password</value>
+  </data>
+  <data name="DeleteThisLink" xml:space="preserve">
+    <value>Delete this link?</value>
+  </data>
+  <data name="ButtonCopyQuickExternalLink" xml:space="preserve">
+    <value>Quick external link</value>
+  </data>
+  <data name="ButtonCopyDirectLink" xml:space="preserve">
+    <value>Copy direct link</value>
+  </data>
+  <data name="ButtonCreateNewExternalLink" xml:space="preserve">
+    <value>Create new external link</value>
   </data>
 </root>

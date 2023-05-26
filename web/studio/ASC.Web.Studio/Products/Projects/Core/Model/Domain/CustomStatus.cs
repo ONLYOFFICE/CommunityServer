@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,22 +28,31 @@ namespace ASC.Web.Projects
 {
     public abstract class CustomStatus
     {
+        ///<example type="int">12</example>
         public int Id { get; set; }
 
+        ///<example>Image</example>
         public string Image { get; set; }
 
+        ///<example>ImageType</example>
         public string ImageType { get; set; }
 
+        ///<example>Title</example>
         public string Title { get; set; }
 
+        ///<example>Description</example>
         public string Description { get; set; }
 
+        ///<example>Color</example>
         public string Color { get; set; }
 
+        ///<example type="int">1</example>
         public int Order { get; set; }
 
+        ///<example>true</example>
         public bool IsDefault { get; set; }
 
+        ///<example>true</example>
         public bool? Available { get; set; }
 
         protected static string GetImageBase64Content(string path)
@@ -54,10 +63,13 @@ namespace ASC.Web.Projects
         }
     }
 
+    ///<inherited>ASC.Web.Projects.CustomStatus, ASC.Web.Projects</inherited>
     public class CustomTaskStatus : CustomStatus
     {
+        ///<example type="int">1</example>
         public TaskStatus StatusType { get; set; }
 
+        ///<example>true</example>
         public bool CanChangeAvailable { get { return StatusType != TaskStatus.Open; } set { } }
 
         public static List<CustomTaskStatus> GetDefaults()

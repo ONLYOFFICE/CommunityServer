@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 ASC.StorageSettings = (function () {
+
     function init() {
         var $storageSettingsTemplateBlock = jq("#storageSettingsBlockTemplate");
         var storageBlock = { id: "storage", title: ASC.Resources.Master.ResourceJS.StorageStorageTitle };
@@ -25,18 +26,52 @@ ASC.StorageSettings = (function () {
             .append($storageSettingsTemplateBlock.tmpl(storageBlock))
             .append($storageSettingsTemplateBlock.tmpl(cdnBlock));
 
-        Teamlab.getAllStorages({},
-        {
-            success: onGet.bind(null, storageBlock.id, Teamlab.updateStorage, Teamlab.resetToDefaultStorage)
-        });
+        async.parallel([
+            function (cb) {
+                Teamlab.getAmazonS3Regions(null, {
+                    success: function (_, response) {
+                        cb(null, response);
+                    },
+                    error: function (_, errors) {
+                        cb(errors[0]);
+                    }
+                });
+            },
+            function (cb) {
+                Teamlab.getAllStorages(null, {
+                    success: function (_, response) {
+                        cb(null, response);
+                    },
+                    error: function (_, errors) {
+                        cb(errors[0]);
+                    }
+                });
+            },
+            function (cb) {
+                Teamlab.getAllCdnStorages(null, {
+                    success: function (_, response) {
+                        cb(null, response);
+                    },
+                    error: function (_, errors) {
+                        cb(errors[0]);
+                    }
+                });
+            }
+        ], function (error, results) {
+            if (error) {
+                toastr.error(error);
+                return;
+            }
 
-        Teamlab.getAllCdnStorages({},
-        {
-            success: onGet.bind(null, cdnBlock.id, Teamlab.updateCdnStorage, Teamlab.resetToDefaultCdn)
+            window.ConsumerStorageSettings.initS3Regions(results[0]);
+
+            onGet(storageBlock.id, Teamlab.updateStorage, Teamlab.resetToDefaultStorage, results[1]);
+
+            onGet(cdnBlock.id, Teamlab.updateCdnStorage, Teamlab.resetToDefaultCdn, results[2]);
         });
     }
 
-    function onGet(storageid, updateFunc, resetFunc, params, data) {
+    function onGet(storageid, updateFunc, resetFunc, data) {
         var current = data.find(function (item) { return item.current; }) ||
             data.find(function (item) { return item.isSet; }) ||
             data[0];
@@ -47,6 +82,8 @@ ASC.StorageSettings = (function () {
         var $link = $authService.find(".link");
         var $storageSettingsTemplate = jq("#storageSettingsTemplate");
         var $storageBlock = $storage.find(".auth-data");
+
+        var disableClass = "disable";
 
         $link.advancedSelector(
                 {
@@ -59,8 +96,24 @@ ASC.StorageSettings = (function () {
 
         $link.on("showList", function (event, item) {
             selected = data.find(function (dataItem) { return dataItem.id === item.id; });
+
             $link.text(selected.title);
-            $storageBlock.html($storageSettingsTemplate.tmpl(selected));
+
+            var tmplData = window.ConsumerStorageSettings.getTmplData(selected);
+
+            var $storageSettings = $storageSettingsTemplate.tmpl(tmplData);
+            $storageBlock.html($storageSettings);
+
+            $storageSettings.find(".storage").removeClass("display-none");
+
+            if (selected.properties && selected.properties.length) {
+                window.ConsumerStorageSettings.bindEvents($storageSettings.find(".storage"), $storageSettings.find(".button"), selected);
+
+                if (selected.current) {
+                    window.ConsumerStorageSettings.setProps($storageSettings, selected);
+                    $storageSettings.find("input, select").prop("disabled", true);
+                }
+            }
         });
 
         $link.advancedSelector("selectBeforeShow", current);
@@ -70,15 +123,17 @@ ASC.StorageSettings = (function () {
         var clickEvent = "click";
         $storageBlock.on(clickEvent, "[id^='saveBtn']",function () {
             var $currentButton = jq(this);
-            if ($currentButton.hasClass("disable")) return;
-            $currentButton.addClass("disable");
+            if ($currentButton.hasClass(disableClass)) return;
+            $currentButton.addClass(disableClass);
 
             var $item = $currentButton.parents(".storageItem");
 
             var data = {
                 module: selected.id,
-                props: initProps($item.find("input"))
+                props: window.ConsumerStorageSettings.getProps($item)
             };
+
+            if (!data.props) return;
 
             updateFunc({},
             data,
@@ -94,8 +149,8 @@ ASC.StorageSettings = (function () {
 
         $storageBlock.on(clickEvent, "[id^='setDefault']", function () {
             var $currentButton = jq(this);
-            if ($currentButton.hasClass("disable")) return;
-            $currentButton.addClass("disable");
+            if ($currentButton.hasClass(disableClass)) return;
+            $currentButton.addClass(disableClass);
 
             resetFunc({},
             {
@@ -107,18 +162,6 @@ ASC.StorageSettings = (function () {
                 }
             });
         });
-    }
-
-    function initProps($inputs) {
-        var result = [];
-        for (var i = 0; i < $inputs.length; i++) {
-            var $inputItem = jq($inputs[i]);
-            result.push({
-                key: $inputItem.attr("id"),
-                value: $inputItem.val()
-            });
-        }
-        return result;
     }
 
     return { init: init };

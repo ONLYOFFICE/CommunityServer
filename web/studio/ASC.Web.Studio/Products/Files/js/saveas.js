@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,6 @@ window.ASC.Files.FileChoice = (function () {
     var init = function (originForPost, folderId, displayPrivacy) {
         if (isInit === false) {
             isInit = true;
-
-            if (!displayPrivacy && ASC.Files.FileSelector.fileSelectorTree) {
-                var privacyFolderData = ASC.Files.FileSelector.fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_PRIVACY);
-                if (privacyFolderData) {
-                    privacyFolderData.entryObject.addClass("privacy-node");
-                }
-            }
 
             if (ASC.Files.Utility.CanWebView(jq("#saveAsTitle").data("title"))) {
                 jq("#saveAsOpenTabPanel").insertBefore(".middle-button-container");
@@ -70,14 +63,14 @@ window.ASC.Files.FileChoice = (function () {
                         url: createFileUrl,
                         success: function (response) {
                             if (response && response.indexOf("error: ") == 0) {
-                                var data = {error: response.replace("error: ", "")};
+                                var data = { error: response.replace("error: ", "") };
                             } else {
-                                data = {message: response.replace("ok: ", "")};
+                                data = { message: response.replace("ok: ", "") };
                             }
                             finishSubmit(data);
                         },
                         error: function (data) {
-                            finishSubmit({error: data.statusText});
+                            finishSubmit({ error: data.statusText });
                         }
                     });
                 }
@@ -95,7 +88,7 @@ window.ASC.Files.FileChoice = (function () {
                 }
             });
 
-            ASC.Files.FileSelector.openDialog(folderId || null, true);
+            ASC.Files.FileSelector.openDialog({ folderId: folderId || null, onlyFolder: true, displayPrivacy: displayPrivacy, scrolled: true });
 
             ASC.Files.UI.checkCharacter(jq("#saveAsTitle"));
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Linq;
 using System.Web;
 
 using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
 
@@ -48,7 +49,14 @@ namespace ASC.Web.Projects
             _moveTaskOutMilestone.Options.IsPopup = true;
             _addNewLinkPopup.Options.IsPopup = true;
 
-            Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/ganttchart.css");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/dark/dark-ganttchart.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/ganttchart.less");
+            }
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,9 +35,13 @@ namespace ASC.Api.Bookmarks
         {
         }
 
+        ///<example>Sample tag</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public string Name { get; set; }
 
+        ///<example type="int">10</example>
+        ///<order>10</order>
         [DataMember(Order = 10)]
         public long Count { get; set; }
 

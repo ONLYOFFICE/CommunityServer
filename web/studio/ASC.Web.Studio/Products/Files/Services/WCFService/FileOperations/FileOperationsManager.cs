@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Web;
 
 using ASC.Common.Threading;
-using ASC.Core;
 using ASC.Web.Files.Resources;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
@@ -30,20 +30,20 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
     {
         private readonly DistributedTaskQueue tasks = new DistributedTaskQueue("fileOperations", 10);
 
-
         public ItemList<FileOperationResult> GetOperationResults()
         {
             var operations = tasks.GetTasks();
             var processlist = Process.GetProcesses();
 
             foreach (var o in operations.Where(o => string.IsNullOrEmpty(o.InstanseId)
-                                                    || processlist.All(p => p.Id != int.Parse(o.InstanseId))))
+                                                    || processlist.All(p => p.Id != int.Parse(o.InstanseId))
+                                                    || (DistributedTaskStatus.Running < o.Status && DateTime.UtcNow - o.LastModifiedOn > TimeSpan.FromMinutes(10)))) // Delete orphaned instances
             {
                 o.SetProperty(FileOperation.PROGRESS, 100);
                 tasks.RemoveTask(o.Id);
             }
 
-            operations = operations.Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == SecurityContext.CurrentAccount.ID);
+            operations = operations.Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == FileOperation.CurrentUserId);
             foreach (var o in operations.Where(o => DistributedTaskStatus.Running < o.Status))
             {
                 o.SetProperty(FileOperation.PROGRESS, 100);
@@ -70,7 +70,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         public ItemList<FileOperationResult> CancelOperations()
         {
             var operations = tasks.GetTasks()
-                .Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == SecurityContext.CurrentAccount.ID);
+                .Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == FileOperation.CurrentUserId);
 
             foreach (var o in operations)
             {
@@ -87,10 +87,10 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             return QueueTask(op);
         }
 
-        public ItemList<FileOperationResult> Download(Dictionary<object, string> folders, Dictionary<object, string> files, Dictionary<string, string> headers)
+        public ItemList<FileOperationResult> Download(Dictionary<object, string> folders, Dictionary<object, string> files, Dictionary<string, string> headers, IEnumerable<HttpCookie> cookies)
         {
             var operations = tasks.GetTasks()
-                .Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == SecurityContext.CurrentAccount.ID)
+                .Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == FileOperation.CurrentUserId)
                 .Where(t => t.GetProperty<FileOperationType>(FileOperation.OPERATION_TYPE) == FileOperationType.Download);
 
             if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
@@ -98,13 +98,13 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 throw new InvalidOperationException(FilesCommonResource.ErrorMassage_ManyDownloads);
             }
 
-            var op = new FileDownloadOperation(folders, files, headers);
+            var op = new FileDownloadOperation(folders, files, headers, cookies);
             return QueueTask(op);
         }
 
-        public ItemList<FileOperationResult> MoveOrCopy(List<object> folders, List<object> files, string destFolderId, bool copy, FileConflictResolveType resolveType, bool holdResult, Dictionary<string, string> headers)
+        public ItemList<FileOperationResult> MoveOrCopy(List<object> folders, List<object> files, string destFolderId, bool copy, FileConflictResolveType resolveType, bool holdResult, Dictionary<string, string> headers, IEnumerable<HttpCookie> cookies)
         {
-            var op = new FileMoveCopyOperation(folders, files, destFolderId, copy, resolveType, holdResult, headers);
+            var op = new FileMoveCopyOperation(folders, files, destFolderId, copy, resolveType, holdResult, headers, cookies);
             return QueueTask(op);
         }
 
@@ -113,7 +113,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             var op = new FileDeleteOperation(folders, files, ignoreException, holdResult, immediately, headers, isEmptyTrash);
             return QueueTask(op);
         }
-
 
         private ItemList<FileOperationResult> QueueTask(FileOperation op)
         {

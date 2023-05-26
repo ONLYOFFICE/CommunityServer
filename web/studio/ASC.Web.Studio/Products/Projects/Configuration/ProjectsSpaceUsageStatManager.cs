@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,7 @@ namespace ASC.Web.Projects.Configuration
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
-            using (var filedb = DbManager.FromHttpContext(FileConstant.DatabaseId))
-            using (var projdb = DbManager.FromHttpContext(Global.DbID))
+            using (var db = new DbManager(Global.DbID))
             {
                 var q = new SqlQuery("files_file f")
                     .Select("b.right_node")
@@ -45,7 +44,7 @@ namespace ASC.Web.Projects.Configuration
                     .Where(Exp.Like("b.right_node", "projects/project/", SqlLike.StartWith))
                     .GroupBy(1);
 
-                var sizes = filedb.ExecuteList(q)
+                var sizes = db.ExecuteList(q)
                     .Select(r => new { ProjectId = Convert.ToInt32(((string)r[0]).Substring(17)), Size = Convert.ToInt64(r[1]) })
                     .GroupBy(r => r.ProjectId)
                     .ToDictionary(g => g.Key, g => g.Sum(a => a.Size));
@@ -55,7 +54,7 @@ namespace ASC.Web.Projects.Configuration
                     .Where("tenant_id", TenantProvider.CurrentTenantID)
                     .Where(Exp.In("id", sizes.Keys.ToList()));
 
-                return projdb.ExecuteList(q)
+                return db.ExecuteList(q)
                     .Select(r => new UsageSpaceStatItem
                     {
                         Name = Convert.ToString(r[1]),

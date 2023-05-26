@@ -43,6 +43,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.Projects.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -53,19 +55,36 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
-    <Content Include="App_Themes\default\css\addmilestonecontainer.css" />
+    <Content Include="App_Themes\dark\dark-params.less" />
+    <Content Include="App_Themes\dark\dark-ganttchart.less" />
+    <Content Include="App_Themes\dark\dark-addmilestonecontainer.less" />
+    <Content Include="App_Themes\dark\dark-settings.less" />
+    <Content Include="App_Themes\dark\dark-reportsprint.less" />
+    <Content Include="App_Themes\dark\dark-allprojects.less" />
+    <Content Include="App_Themes\dark\dark-common.less" />
+    <Content Include="App_Themes\default\css\addmilestonecontainer.less" />
     <Content Include="App_Themes\default\images\common-icons.png" />
-    <Content Include="App_Themes\default\images\dashboard\design-project-hierarchy.png" />
-    <Content Include="App_Themes\default\images\dashboard\manage-access-rights.png" />
-    <Content Include="App_Themes\default\images\dashboard\track-time-and-progress.png" />
-    <Content Include="App_Themes\default\images\dashboard\use-more-tools.png" />
-    <Content Include="App_Themes\default\images\empty_screen_comments.png" />
-    <Content Include="App_Themes\default\images\empty_screen_relatedtasks.png" />
-    <Content Include="App_Themes\default\images\empty_screen_subtasks.png" />
+    <Content Include="App_Themes\default\images\dark_gantt_icons_left_panel.png" />
+    <Content Include="App_Themes\default\images\dashboard\design-project-hierarchy.svg" />
+    <Content Include="App_Themes\default\images\dashboard\manage-access-rights.svg" />
+    <Content Include="App_Themes\default\images\dashboard\track-time-and-progress.svg" />
+    <Content Include="App_Themes\default\images\dashboard\use-more-tools.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_comments.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_discussions.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_milestones.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_persons.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_relatedtasks.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_subtasks.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_tasks.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_time_tracking.svg" />
     <Content Include="App_Themes\default\images\gantt-legend.png" />
     <Content Include="App_Themes\default\images\gantt_icons_left_panel.png" />
     <Content Include="App_Themes\default\images\gantt_mode_butts.png" />
+    <Content Include="App_Themes\default\images\icon_empty_gantt.svg" />
+    <Content Include="App_Themes\default\images\project-templates_logo.svg" />
+    <Content Include="App_Themes\default\images\projects_logo.svg" />
     <Content Include="App_Themes\default\images\small-icons.png" />
     <Content Include="App_Themes\default\images\timer-icons.png" />
     <Content Include="Controls\Common\CommonList.ascx" />
@@ -413,25 +432,18 @@
     <None Include="App_Data\ASC.Projects.db3" />
     <Content Include="App_Themes\default\css\allprojects.less" />
     <Content Include="App_Themes\default\css\alltasks.less" />
-    <Content Include="App_Themes\default\css\ganttchart.css" />
-    <Content Include="App_Themes\default\css\import.css" />
+    <Content Include="App_Themes\default\css\ganttchart.less" />
+    <Content Include="App_Themes\default\css\import.less" />
     <Content Include="App_Themes\default\css\milestones.less" />
-    <Content Include="App_Themes\default\css\projectaction.css" />
-    <Content Include="App_Themes\default\css\projecttemplates.css" />
-    <Content Include="App_Themes\default\images\empty_screen_discussions.png" />
-    <Content Include="App_Themes\default\images\empty_screen_milestones.png" />
-    <Content Include="App_Themes\default\images\empty_screen_persons.png" />
-    <Content Include="App_Themes\default\images\empty_screen_tasks.png" />
-    <Content Include="App_Themes\default\images\empty_screen_time_tracking.png" />
+    <Content Include="App_Themes\default\css\params.less" />
+    <Content Include="App_Themes\default\css\full.less" />
+    <Content Include="App_Themes\default\css\projectaction.less" />
+    <Content Include="App_Themes\default\css\projecttemplates.less" />
     <Content Include="App_Themes\default\images\gantt-icons.png" />
-    <Content Include="App_Themes\default\images\icon_empty_gantt.png" />
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
-    <Content Include="App_Themes\default\images\project-templates_logo.png" />
     <Content Include="App_Themes\default\images\projects_entity_statuses.png" />
-    <Content Include="App_Themes\default\images\projects_logo.png" />
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
     <Content Include="App_Themes\default\images\sort-btn.gif" />
-    <Content Include="App_Themes\default\css\reportsprint.css" />
+    <Content Include="App_Themes\default\css\reportsprint.less" />
     <Content Include="Contacts.aspx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
     <Content Include="Controls\Messages\DiscussionAction.ascx" />
@@ -439,10 +451,11 @@
     <Content Include="Controls\Reports\ReportTemplateView.ascx" />
     <Content Include="Controls\Reports\ReportView.ascx" />
     <Content Include="App_Themes\default\css\projectteam.less" />
-    <Content Include="App_Themes\default\css\reports.css" />
+    <Content Include="App_Themes\default\css\reports.less" />
     <Content Include="App_Themes\default\css\settings.less" />
     <Content Include="App_Themes\default\css\projectdocumentspopup.less" />
-    <None Include="App_Themes\default\css\timetracking.less" />
+    <Content Include="App_Themes\dark\dark-full.less" />
+    <Content Include="App_Themes\default\css\timetracking.less" />
     <Content Include="App_Themes\default\images\product_logo.png" />
     <Content Include="Default.aspx" />
     <Content Include="GanttChart.aspx" />

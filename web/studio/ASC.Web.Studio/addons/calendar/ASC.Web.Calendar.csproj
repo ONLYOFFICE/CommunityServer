@@ -39,6 +39,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.Calendar.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -54,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NLog">
-      <Version>4.7.11</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -347,7 +349,7 @@
     <Content Include="App_Themes\default\images\disabledlogo.png" />
     <Content Include="App_Themes\default\images\minilogo.png" />
     <Content Include="App_Themes\default\images\product_logolarge.png" />
-    <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
+    <Content Include="Controls\DocumentsPopup\css\images\warning.svg" />
     <Content Include="Controls\DocumentsPopup\DocumentsPopup.ascx" />
     <Content Include="Controls\DocumentsPopup\js\documentspopup.js" />
     <Content Include="Default.aspx" />
@@ -369,6 +371,18 @@
     <Content Include="UserControls\fullcalendar\css\asc-datepicker\images\ui-icons_454545_256x240.png" />
     <Content Include="UserControls\fullcalendar\css\asc-datepicker\images\ui-icons_888888_256x240.png" />
     <Content Include="UserControls\fullcalendar\css\asc-datepicker\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="App_Themes\bright-blue\params.less" />
+    <Content Include="App_Themes\dark-bright-blue\params.less" />
+    <Content Include="App_Themes\dark-dark-green\params.less" />
+    <Content Include="App_Themes\dark-deep-blue\params.less" />
+    <Content Include="App_Themes\dark-default\params.less" />
+    <Content Include="App_Themes\dark-green\params.less" />
+    <Content Include="App_Themes\dark-pure-orange\params.less" />
+    <Content Include="App_Themes\dark-wild-pink\params.less" />
+    <Content Include="App_Themes\deep-blue\params.less" />
+    <Content Include="App_Themes\default\params.less" />
+    <Content Include="App_Themes\pure-orange\params.less" />
+    <Content Include="App_Themes\wild-pink\params.less" />
     <Content Include="UserControls\fullcalendar\css\asc-datepicker\jquery-ui-1.8.14.custom.css" />
     <Content Include="UserControls\fullcalendar\css\asc-dialog\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="UserControls\fullcalendar\css\asc-dialog\images\ui-bg_flat_100_2f3438_40x100.png" />
@@ -393,26 +407,36 @@
     <Content Include="App_Themes\wild-pink\calendar.less" />
     <Content Include="UserControls\fullcalendar\css\attachments.less" />
     <Content Include="Controls\DocumentsPopup\css\documentspopup.less" />
-    <None Include="UserControls\fullcalendar\css\fullcalendar.less" />
+    <Content Include="App_Themes\dark-pure-orange\calendar.less" />
+    <Content Include="App_Themes\dark-bright-blue\calendar.less" />
+    <Content Include="App_Themes\dark-dark-green\calendar.less" />
+    <Content Include="App_Themes\dark-deep-blue\calendar.less" />
+    <Content Include="App_Themes\dark-default\calendar.less" />
+    <Content Include="App_Themes\dark-wild-pink\calendar.less" />
+    <Content Include="UserControls\fullcalendar\css\dark-attachments.less" />
+    <Content Include="UserControls\fullcalendar\css\fullcalendar.less" />
     <Content Include="UserControls\fullcalendar\css\fullcalendar.print.css" />
+    <Content Include="UserControls\fullcalendar\dark-img\base_sprite.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\circle-close.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\event-alert.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\event-repeat.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\guest_statements.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\ical.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\list-header-add.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\list-item-shared.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\profile.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\resizer.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\settings_16.png" />
+    <Content Include="UserControls\fullcalendar\dark-img\trash.png" />
     <Content Include="UserControls\fullcalendar\fullcalendar.js" />
     <Content Include="UserControls\fullcalendar\img\base_sprite.png" />
-    <Content Include="UserControls\fullcalendar\img\calendar_16.png" />
     <Content Include="UserControls\fullcalendar\img\circle-close.png" />
-    <Content Include="UserControls\fullcalendar\img\edit_pencil.png" />
     <Content Include="UserControls\fullcalendar\img\event-alert.png" />
     <Content Include="UserControls\fullcalendar\img\event-repeat.png" />
     <Content Include="UserControls\fullcalendar\img\guest_statements.png" />
-    <Content Include="UserControls\fullcalendar\img\header-add-calendar.png" />
-    <Content Include="UserControls\fullcalendar\img\header-add-event.png" />
-    <Content Include="UserControls\fullcalendar\img\header-add-subscriptions.png" />
-    <Content Include="UserControls\fullcalendar\img\header-list.png" />
     <Content Include="UserControls\fullcalendar\img\ical.png" />
     <Content Include="UserControls\fullcalendar\img\list-header-add.png" />
-    <Content Include="UserControls\fullcalendar\img\list-item-edit.png" />
-    <Content Include="UserControls\fullcalendar\img\list-item-hidden.png" />
     <Content Include="UserControls\fullcalendar\img\list-item-shared.png" />
-    <Content Include="UserControls\fullcalendar\img\list-item-visible.png" />
     <Content Include="UserControls\fullcalendar\img\profile.png" />
     <Content Include="UserControls\fullcalendar\img\resizer.png" />
     <Content Include="UserControls\fullcalendar\img\settings_16.png" />
@@ -426,7 +450,8 @@
     <Content Include="UserControls\js\jquery.jscrollpane.min.js" />
     <Content Include="UserControls\js\jquery.mousewheel.js" />
     <Content Include="UserControls\SidePanel.ascx" />
-    <Content Include="UserControls\popup\css\popup.css" />
+    <Content Include="UserControls\popup\css\dark-popup.less" />
+    <Content Include="UserControls\popup\css\popup.less" />
     <Content Include="UserControls\popup\img\popup-arrow-big.png" />
     <Content Include="UserControls\popup\img\popup-arrow.png" />
     <Content Include="UserControls\popup\popup.js" />
@@ -474,6 +499,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

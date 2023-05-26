@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,14 +39,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns the detailed information about an opportunity with the ID specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
-        /// <returns>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// Opportunity
         /// </returns>
-        /// <short>Get an opportunity by ID</short> 
+        /// <short>Get an opportunity</short> 
         /// <category>Opportunities</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
+        ///<path>api/2.0/crm/opportunity/{opportunityid}</path>
+        ///<httpMethod>GET</httpMethod>
         [Read(@"opportunity/{opportunityid:[0-9]+}")]
         public OpportunityWrapper GetDealByID(int opportunityid)
         {
@@ -61,15 +63,17 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Updates the selected opportunity to the stage with the ID specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
-        /// <param name="stageid">New opportunity stage ID</param>
-        /// <returns>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Int32, System" name="stageid">New opportunity stage ID</param>
+        /// <returns type="ASC.Api.CRM.Wrappers.ObjectWrapperBase, ASC.Api.CRM">
         /// Opportunity with the updated stage
         /// </returns>
         /// <short>Update an opportunity stage by ID</short> 
         /// <category>Opportunities</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
+        ///<path>api/2.0/crm/opportunity/{opportunityid}/stage/{id}</path>
+        ///<httpMethod>PUT</httpMethod>
         [Update(@"opportunity/{opportunityid:[0-9]+}/stage/{id:[0-9]+}")]
         public OpportunityWrapper UpdateToDealMilestone(int opportunityid, int stageid)
         {
@@ -94,16 +98,18 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Sets access rights to the selected opportunity with the parameters specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
-        /// <param name="isPrivate">Opportunity privacy: private or not</param>
-        /// <param name="accessList">List of users with access rights</param>
-        /// <short>Set access rights to the opportunity</short> 
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Boolean, System" name="isPrivate">Opportunity privacy: private or not</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="accessList">List of users with access rights</param>
+        /// <short>Set opportunity access rights</short> 
         /// <category>Opportunities</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// Opportunity 
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/{opportunityid}/access</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"opportunity/{opportunityid:[0-9]+}/access")]
         public OpportunityWrapper SetAccessToDeal(int opportunityid, bool isPrivate, IEnumerable<Guid> accessList)
         {
@@ -156,23 +162,26 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Sets access rights to the list of all the opportunities matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="responsibleid">Opportunity responsible ID</param>
-        /// <param optional="true" name="opportunityStagesid">Opportunity stage ID</param>
-        /// <param optional="true" name="tags">Opportunity tags</param>
-        /// <param optional="true" name="contactid">Contact ID</param>
-        /// <param optional="true" name="contactAlsoIsParticipant">Participation status: take into account opportunities where the contact is a participant or not</param>
-        /// <param optional="true" name="fromDate">Start date</param>
-        /// <param optional="true" name="toDate">End date</param>
-        /// <param optional="true" name="stageType" remark="Allowed values: {Open, ClosedAndWon, ClosedAndLost}">Opportunity stage type</param>
-        /// <param name="isPrivate">Opportunity privacy: private or not</param>
-        /// <param name="accessList">List of users with access rights</param>
+        /// <param type="System.Guid, System" optional="true" name="responsibleid">Opportunity responsible ID</param>
+        /// <param type="System.Int32, System" optional="true" name="opportunityStagesid">Opportunity stage ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.String}, System.Collections.Generic" optional="true" name="tags">Opportunity tags</param>
+        /// <param type="System.Int32, System" optional="true" name="contactid">Contact ID</param>
+        /// <param type="System.Nullable{ASC.CRM.Core.DealMilestoneStatus}, System" optional="true" name="stageType" remark="Allowed values: 0 (Open), 1 (ClosedAndWon), 2 (ClosedAndLost)">Opportunity stage type</param>
+        /// <param type="System.Nullable{System.Boolean}, System" optional="true" name="contactAlsoIsParticipant">Participation status: take into account opportunities where the contact is a participant or not</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="fromDate">Start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="toDate">End date</param>
+        /// <param type="System.Boolean, System" name="isPrivate">Opportunity privacy: private or not</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="accessList">List of users with access rights</param>
         /// <short>Set access rights to the filtered opportunities</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/filter/access</path>
+        /// <httpMethod>PUT</httpMethod>
+        ///  <collection>list</collection>
         [Update(@"opportunity/filter/access")]
         public IEnumerable<OpportunityWrapper> SetAccessToBatchDeal(
             Guid responsibleid,
@@ -215,16 +224,19 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Sets access rights to the list of opportunities with the IDs specified in the request.
         /// </summary>
-        /// <param name="opportunityid">List of opportunity IDs</param>
-        /// <param name="isPrivate">Opportunity privacy: private or not</param>
-        /// <param name="accessList">List of users with access rights</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" name="opportunityid">List of opportunity IDs</param>
+        /// <param type="System.Boolean, System" name="isPrivate">Opportunity privacy: private or not</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="accessList">List of users with access rights</param>
         /// <short>Set access rights to the opportunities by IDs</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/access</path>
+        /// <httpMethod>PUT</httpMethod>
+        ///  <collection>list</collection>
         [Update(@"opportunity/access")]
         public IEnumerable<OpportunityWrapper> SetAccessToBatchDeal(IEnumerable<int> opportunityid, bool isPrivate, IEnumerable<Guid> accessList)
         {
@@ -253,14 +265,17 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Deletes a group of opportunities with the IDs specified in the request.
         /// </summary>
-        /// <param name="opportunityids">List of opportunity IDs</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" name="opportunityids">List of opportunity IDs</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <short>Delete opportunities by IDs</short> 
         /// <category>Opportunities</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity</path>
+        /// <httpMethod>PUT</httpMethod>
+        ///  <collection>list</collection>
         [Update(@"opportunity")]
         public IEnumerable<OpportunityWrapper> DeleteBatchDeals(IEnumerable<int> opportunityids)
         {
@@ -275,21 +290,24 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Deletes a list of all the opportunities matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="responsibleid">Opportunity responsible ID</param>
-        /// <param optional="true" name="opportunityStagesid">Opportunity stage ID</param>
-        /// <param optional="true" name="tags">Opportunity tags</param>
-        /// <param optional="true" name="contactid">Contact ID</param>
-        /// <param optional="true" name="contactAlsoIsParticipant">Participation status: take into account opportunities where the contact is a participant or not</param>
-        /// <param optional="true" name="fromDate">Start date</param>
-        /// <param optional="true" name="toDate">End date</param>
-        /// <param optional="true" name="stageType" remark="Allowed values: {Open, ClosedAndWon, ClosedAndLost}">Opportunity stage type</param>
+        /// <param type="System.Guid, System" optional="true" name="responsibleid">Opportunity responsible ID</param>
+        /// <param type="System.Int32, System" optional="true" name="opportunityStagesid">Opportunity stage ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.String}, System.Collections.Generic" optional="true" name="tags">Opportunity tags</param>
+        /// <param type="System.Int32, System" optional="true" name="contactid">Contact ID</param>
+        /// <param type="System.Nullable{ASC.CRM.Core.DealMilestoneStatus}, System" optional="true" name="stageType" remark="Allowed values: 0 (Open), 1 (ClosedAndWon), 2 (ClosedAndLost)">Opportunity stage type</param>
+        /// <param type="System.Nullable{System.Boolean}, System" optional="true" name="contactAlsoIsParticipant">Participation status: take into account opportunities where the contact is a participant or not</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="fromDate">Start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="toDate">End date</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <short>Delete filtered opportunities</short> 
         /// <category>Opportunities</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/filter</path>
+        /// <httpMethod>DELETE</httpMethod>
+        ///  <collection>list</collection>
         [Delete(@"opportunity/filter")]
         public IEnumerable<OpportunityWrapper> DeleteBatchDeals(
             Guid responsibleid,
@@ -321,19 +339,22 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of all the opportunities matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="responsibleid">Opportunity responsible ID</param>
-        /// <param optional="true" name="opportunityStagesid">Opportunity stage ID</param>
-        /// <param optional="true" name="tags">Opportunity tags</param>
-        /// <param optional="true" name="contactid">Contact ID</param>
-        /// <param optional="true" name="contactAlsoIsParticipant">Participation status: take into account opportunities where the contact is a participant or not</param>
-        /// <param optional="true" name="fromDate">Start date</param>
-        /// <param optional="true" name="toDate">End date</param>
-        /// <param optional="true" name="stageType" remark="Allowed values: {Open, ClosedAndWon, ClosedAndLost}">Opportunity stage type</param>
+        /// <param type="System.Guid, System" method="url" optional="true" name="responsibleid">Opportunity responsible ID</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="opportunityStagesid">Opportunity stage ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.String}, System.Collections.Generic" method="url" optional="true" name="tags">Opportunity tags</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="contactid">Contact ID</param>
+        /// <param type="System.Nullable{ASC.CRM.Core.DealMilestoneStatus}, System" method="url" optional="true" name="stageType" remark="Allowed values: 0 (Open), 1 (ClosedAndWon), 2 (ClosedAndLost)">Opportunity stage type</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="contactAlsoIsParticipant">Participation status: take into account opportunities where the contact is a participant or not</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="fromDate">Start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="toDate">End date</param>
         /// <short>Get filtered opportunities</short> 
         /// <category>Opportunities</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        ///  <collection>list</collection>
         [Read(@"opportunity/filter")]
         public IEnumerable<OpportunityWrapper> GetDeals(
             Guid responsibleid,
@@ -434,14 +455,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Deletes an opportunity with the ID specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
         /// <short>Delete an opportunity</short> 
         /// <category>Opportunities</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// Opportunity
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/{opportunityid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"opportunity/{opportunityid:[0-9]+}")]
         public OpportunityWrapper DeleteDeal(int opportunityid)
         {
@@ -459,28 +482,30 @@ namespace ASC.Api.CRM
         /// Creates an opportunity with the parameters specified in the request.
         /// </summary>
         /// <short>Create an opportunity</short> 
-        /// <param name="contactid">Opportunity primary contact ID</param>
-        /// <param optional="true" name="members">Opportunity participants</param>
-        /// <param name="title">Opportunity title</param>
-        /// <param optional="true" name="description">Opportunity description</param>
-        /// <param name="responsibleid">Opportunity responsible ID</param>
-        /// <param name="bidType" remark="Allowed values: FixedBid, PerHour, PerDay,PerWeek, PerMonth, PerYear">Bid type</param>
-        /// <param optional="true" name="bidValue">Amount of transactions</param>
-        /// <param name="bidCurrencyAbbr" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Currency (abbreviation)</param>
-        /// <param name="perPeriodValue">Amount per period</param>
-        /// <param name="stageid">Stage ID</param>
-        /// <param optional="true" name="successProbability">Opportunity success probability</param>
-        /// <param optional="true" name="actualCloseDate">Actual opportunity closure date</param>
-        /// <param optional="true" name="expectedCloseDate">Expected opportunity closure date</param>
-        /// <param optional="true" name="customFieldList">Custom field list</param>
-        /// <param name="isPrivate">Opportunity privacy: private or not</param>
-        /// <param optional="true" name="accessList">List of users with access rights to the opportunity</param>
-        /// <param name="isNotify" optional="true">Notifies users from the access list about the opportunity</param>
+        /// <param type="System.Int32, System" name="contactid">Opportunity primary contact ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" optional="true" name="members">Opportunity participants</param>
+        /// <param type="System.String, System" name="title">Opportunity title</param>
+        /// <param type="System.String, System" optional="true" name="description">Opportunity description</param>
+        /// <param type="System.Guid, System" name="responsibleid">Opportunity responsible ID</param>
+        /// <param type="ASC.CRM.Core.BidType, ASC.CRM.Core" name="bidType" remark="Allowed values: FixedBid, PerHour, PerDay,PerWeek, PerMonth, PerYear">Bid type</param>
+        /// <param type="System.Decimal, System" optional="true" name="bidValue">Amount of transactions</param>
+        /// <param type="System.String, System" name="bidCurrencyAbbr" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by API">Currency (abbreviation)</param>
+        /// <param type="System.Int32, System" name="perPeriodValue">Amount per period</param>
+        /// <param type="System.Int32, System" name="stageid">Stage ID</param>
+        /// <param type="System.Int32, System" optional="true" name="successProbability">Opportunity success probability</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="actualCloseDate">Actual opportunity closure date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="expectedCloseDate">Expected opportunity closure date</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.Int32, System.String}}" optional="true" name="customFieldList">Custom field list</param>
+        /// <param type="System.Boolean, System" name="isPrivate">Opportunity privacy: private or not</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" optional="true" name="accessList">List of users with access rights to the opportunity</param>
+        /// <param type="System.Boolean, System" name="isNotify" optional="true">Notifies users from the access list about the opportunity or not</param>
         /// <category>Opportunities</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// Opportunity
         /// </returns>
         ///<exception cref="ArgumentException"></exception>
+        ///<path>api/2.0/crm/opportunity</path>
+        ///<httpMethod>POST</httpMethod>
         [Create(@"opportunity")]
         public OpportunityWrapper CreateDeal(
             int contactid,
@@ -555,29 +580,31 @@ namespace ASC.Api.CRM
         /// Updates the selected opportunity with the parameters specified in the request.
         /// </summary>
         /// <short>Update an opportunity</short>
-        ///<param name="opportunityid">Opportunity ID</param>
-        ///<param name="contactid">New opportunity primary contact ID</param>
-        /// <param optional="true" name="members">New opportunity participants</param>
-        /// <param name="title">New opportunity title</param>
-        /// <param optional="true" name="description">New opportunity description</param>
-        /// <param name="responsibleid">New opportunity responsible ID</param>
-        /// <param name="bidType" remark="Allowed values: FixedBid, PerHour, PerDay,PerWeek, PerMonth, PerYear">New bid type</param>
-        /// <param optional="true" name="bidValue">New amount of transactions</param>
-        /// <param optional="true" name="bidCurrencyAbbr" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">New currency (abbreviation)</param>
-        /// <param name="perPeriodValue">New amount per period</param>
-        /// <param name="stageid">New stage ID</param>
-        /// <param optional="true" name="successProbability">New opportunity success probability</param>
-        /// <param optional="true" name="actualCloseDate">New actual opportunity closure date</param>
-        /// <param optional="true" name="expectedCloseDate">New expected opportunity closure date</param>
-        /// <param optional="true" name="customFieldList">New custom field list</param>
-        /// <param name="isPrivate">New opportunity privacy: private or not</param>
-        /// <param optional="true" name="accessList">New list of users with access rights to the opportunity</param>
-        /// <param name="isNotify" optional="true">Notifies users from the access list about the opportunity</param>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Int32, System" name="contactid">New opportunity primary contact ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" optional="true" name="members">New opportunity participants</param>
+        /// <param type="System.String, System" name="title">New opportunity title</param>
+        /// <param type="System.String, System" optional="true" name="description">New opportunity description</param>
+        /// <param type="System.Guid, System" name="responsibleid">New opportunity responsible ID</param>
+        /// <param type="ASC.CRM.Core.BidType, ASC.CRM.Core" name="bidType" remark="Allowed values: FixedBid, PerHour, PerDay, PerWeek, PerMonth, PerYear">New bid type</param>
+        /// <param type="System.Decimal, System" optional="true" name="bidValue">New amount of transactions</param>
+        /// <param type="System.String, System" optional="true" name="bidCurrencyAbbr" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by API">New currency (abbreviation)</param>
+        /// <param type="System.Int32, System" name="perPeriodValue">New amount per period</param>
+        /// <param type="System.Int32, System" name="stageid">New stage ID</param>
+        /// <param type="System.Int32, System" optional="true" name="successProbability">New opportunity success probability</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="actualCloseDate">New actual opportunity closure date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="expectedCloseDate">New expected opportunity closure date</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.Int32, System.String}}" optional="true" name="customFieldList">New custom field list</param>
+        /// <param type="System.Boolean, System" name="isPrivate">New opportunity privacy: private or not</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" optional="true" name="accessList">New list of users with access rights to the opportunity</param>
+        /// <param type="System.Boolean, System" name="isNotify" optional="true">Notifies users from the access list about the opportunity or not</param>
         /// <category>Opportunities</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// Updated opportunity
         /// </returns>
         ///<exception cref="ArgumentException"></exception>
+        ///<path>api/2.0/crm/opportunity/{opportunityid}</path>
+        ///<httpMethod>PUT</httpMethod>
         [Update(@"opportunity/{opportunityid:[0-9]+}")]
         public OpportunityWrapper UpdateDeal(
             int opportunityid,
@@ -652,12 +679,15 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of all the contacts related to the opportunity with the ID specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
         /// <short>Get opportunity contacts</short> 
         /// <category>Opportunities</category>
-        /// <returns>List of contacts</returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactWrapper, ASC.Api.CRM">List of contacts</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
+        ///<path>api/2.0/crm/opportunity/{opportunityid}/contact</path>
+        ///<httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"opportunity/{opportunityid:[0-9]+}/contact")]
         public IEnumerable<ContactWrapper> GetDealMembers(int opportunityid)
         {
@@ -678,14 +708,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Adds the selected contact to the opportunity with the ID specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
-        /// <param name="contactid">Contact ID</param>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
         /// <short>Add an opportunity contact</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactWrapper, ASC.Api.CRM">
         /// Contact
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/{opportunityid}/contact/{contactid}</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"opportunity/{opportunityid:[0-9]+}/contact/{contactid:[0-9]+}")]
         public ContactWrapper AddMemberToDeal(int opportunityid, int contactid)
         {
@@ -710,15 +742,17 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Deletes the selected contact from the opportunity with the ID specified in the request.
         /// </summary>
-        /// <param name="opportunityid">Opportunity ID</param>
-        /// <param name="contactid">Contact ID</param>
+        /// <param type="System.Int32, System" method="url" name="opportunityid">Opportunity ID</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
         /// <short>Delete an opportunity contact</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactWrapper, ASC.Api.CRM">
         /// Contact
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/{opportunityid}/contact/{contactid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"opportunity/{opportunityid:[0-9]+}/contact/{contactid:[0-9]+}")]
         public ContactWrapper DeleteMemberFromDeal(int opportunityid, int contactid)
         {
@@ -743,13 +777,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of 30 opportunities in the CRM module with a prefix specified in the request.
         /// </summary>
-        /// <param optional="true" name="prefix">Opportunity prefix</param>
-        /// <param optional="true" name="contactID">Contact ID</param>
-        /// <param optional="true" name="internalSearch">Internal search or not</param>
+        /// <param type="System.String, System" optional="true" name="prefix">Opportunity prefix</param>
+        /// <param type="System.Int32, System" optional="true" name="contactID">Contact ID</param>
+        /// <param type="System.Boolean, System" optional="true" name="internalSearch">Internal search or not</param>
         /// <category>Opportunities</category>
         /// <returns>
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/byprefix</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Read(@"opportunity/byprefix")]
         public IEnumerable<OpportunityWrapper> GetDealsByPrefix(string prefix, int contactID, bool internalSearch = true)
@@ -785,12 +822,15 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of all the opportunities for the contact with the ID specified in the request.
         /// </summary>
-        /// <param optional="true" name="contactid">Contact ID</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="contactid">Contact ID</param>
         /// <short>Get contact opportunities</short> 
         /// <category>Opportunities</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.OpportunityWrapper, ASC.Api.CRM">
         /// List of opportunities
         /// </returns>
+        /// <path>api/2.0/crm/opportunity/bycontact/{contactid}</path>
+        /// <httpMethod>GET</httpMethod>
+        ///  <collection>list</collection>
         [Read(@"opportunity/bycontact/{contactid:[0-9]+}")]
         public IEnumerable<OpportunityWrapper> GetDeals(int contactid)
         {
@@ -801,10 +841,12 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Sets the opportunity creation date specified in the request.
         /// </summary>
-        /// <param optional="true" name="opportunityid">Opportunity ID</param>
-        /// <param optional="true" name="creationDate">Opportunity creation date</param>
+        /// <param type="System.Int32, System" optional="true" name="opportunityid">Opportunity ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="creationDate">Opportunity creation date</param>
         /// <short>Set the opportunity creation date</short> 
         /// <category>Opportunities</category>
+        /// <path>api/2.0/crm/opportunity/{opportunityid}/creationdate</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update(@"opportunity/{opportunityid:[0-9]+}/creationdate")]
         public void SetDealCreationDate(int opportunityid, ApiDateTime creationDate)
@@ -821,10 +863,12 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Sets the opportunity last modified date specified in the request.
         /// </summary>
-        /// <param optional="true" name="opportunityid">Opportunity ID</param>
-        /// <param optional="true" name="lastModifedDate">Opportunity last modified date</param>
+        /// <param type="System.Int32, System" optional="true" name="opportunityid">Opportunity ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="lastModifedDate">Opportunity last modified date</param>
         /// <short>Set the opportunity last modified date</short> 
         /// <category>Opportunities</category>
+        /// <path>api/2.0/crm/opportunity/{opportunityid}/lastmodifeddate</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update(@"opportunity/{opportunityid:[0-9]+}/lastmodifeddate")]
         public void SetDealLastModifedDate(int opportunityid, ApiDateTime lastModifedDate)

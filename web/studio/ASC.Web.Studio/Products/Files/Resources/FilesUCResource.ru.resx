@@ -331,6 +331,9 @@
   <data name="CaptionConvertPassword" xml:space="preserve">
     <value>Файл защищен с помощью пароля. Введите пароль, чтобы сконвертировать файл.</value>
   </data>
+  <data name="CaptionConvertPasswordWhenUploading" xml:space="preserve">
+    <value>Введите пароль, чтобы сконвертировать файл</value>
+  </data>
   <data name="CaptionCopyConvertOpen" xml:space="preserve">
     <value>Конвертация и открытие документа</value>
   </data>
@@ -567,6 +570,9 @@
   </data>
   <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
     <value>Вы еще не подключили сторонние облачные сервисы</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Ввести пароль</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Notify.Model;
 using ASC.Notify.Recipients;
 using ASC.Web.Core;
 using ASC.Web.Core.Subscriptions;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.PublicResources;
@@ -67,8 +68,15 @@ namespace ASC.Web.Studio.UserControls.Users
             try
             {
                 Page.RegisterBodyScripts("~/UserControls/Users/UserSubscriptions/js/subscription_manager.js")
-                    .RegisterInlineScript("CommonSubscriptionManager.InitNotifyByComboboxes();")
-                    .RegisterStyle("~/UserControls/Users/UserSubscriptions/css/subscriptions.less");
+                    .RegisterInlineScript("CommonSubscriptionManager.InitNotifyByComboboxes();");
+                if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+                {
+                    Page.RegisterStyle("~/UserControls/Users/UserSubscriptions/css/dark-subscriptions.less");
+                }
+                else
+                {
+                    Page.RegisterStyle("~/UserControls/Users/UserSubscriptions/css/subscriptions.less");
+                }
             }
             catch
             {
@@ -418,7 +426,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
         private static IDbManager GetDb()
         {
-            return DbManager.FromHttpContext(TeamlabSiteDbId);
+            return new DbManager(TeamlabSiteDbId);
         }
 
         private static void UnsubscribeFromSpam(string email)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using ASC.Core.Tenants;
 using ASC.Data.Backup.Extensions;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
+using ASC.Data.Storage.ZipOperators;
 
 namespace ASC.Data.Backup.Tasks
 {
@@ -81,6 +82,8 @@ namespace ASC.Data.Backup.Tasks
                 //save db data to temporary file
                 var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath, Limit) { ProcessStorage = false };
                 backupTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
+                backupTask.WriteOperator = ZipWriteOperatorFactory.GetDefaultWriteOperator(backupFilePath);
+
                 foreach (var moduleName in IgnoredModules)
                 {
                     backupTask.IgnoreModule(moduleName);

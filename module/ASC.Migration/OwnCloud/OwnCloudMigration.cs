@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -6,7 +23,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 using ASC.Core;
 using ASC.Migration.Core;
@@ -17,48 +33,40 @@ using ASC.Migration.Resources;
 
 namespace ASC.Migration.OwnCloud
 {
-    [ApiMigrator("OwncloudMigrate")]
+    [ApiMigrator("Owncloud", 6, false)]
     public class OwnCloudMigration : AbstractMigration<OCMigrationInfo, OCMigratingUser, OCMigratingContacts, OCMigratingCalendar, OCMigratingFiles, OCMigratingMail>
     {
-        private string takeouts;
+        private string takeout;
         public string[] tempParse;
         private string tmpFolder;
 
         public override void Init(string path, CancellationToken cancellationToken)
         {
             this.cancellationToken = cancellationToken;
-            var files = Directory.GetFiles(path);
-            if (!files.Any() || !files.Any(f => f.EndsWith(".zip")))
+
+            takeout = Directory.GetFiles(path).LastOrDefault(f => f.EndsWith(".zip"));
+            if (string.IsNullOrEmpty(takeout))
             {
                 throw new Exception("Folder must not be empty and should contain only .zip files.");
-            }
-            for (var i = 0; i < files.Length; i++)
-            {
-                if (files[i].EndsWith(".zip"))
-                {
-                    DateTime creationTime = File.GetCreationTimeUtc(files[i]);
-                    takeouts = files[i];
-                }
             }
 
             migrationInfo = new OCMigrationInfo();
             migrationInfo.MigratorName = this.GetType().CustomAttributes.First().ConstructorArguments.First().Value.ToString();
             tmpFolder = path;
         }
-        public override Task<MigrationApiInfo> Parse()
+        public override MigrationApiInfo Parse()
         {
             ReportProgress(0, MigrationResource.Unzipping);
             try
             {
                 try
                 {
-                    ZipFile.ExtractToDirectory(takeouts, tmpFolder);
+                    ZipFile.ExtractToDirectory(takeout, tmpFolder);
                 }
                 catch (Exception ex)
                 {
-                    Log($"Couldn't to unzip {takeouts}", ex);
+                    Log($"Couldn't to unzip {takeout}", ex);
                 }
-                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
                 ReportProgress(30, MigrationResource.UnzippingFinished);
                 var bdFile = "";
                 try
@@ -71,12 +79,12 @@ namespace ASC.Migration.OwnCloud
                 }
                 catch (Exception ex)
                 {
-                    migrationInfo.failedArchives.Add(Path.GetFileName(takeouts));
+                    migrationInfo.failedArchives.Add(Path.GetFileName(takeout));
                     Log("Archive must not be empty and should contain .bak files.", ex);
                 }
 
                 ReportProgress(40, MigrationResource.DumpParse);
-                var users = DBExtractUser(bdFile);                
+                var users = DBExtractUser(bdFile);
                 var progress = 40;
                 foreach (var item in users)
                 {
@@ -106,11 +114,12 @@ namespace ASC.Migration.OwnCloud
                         }
                     }
                 }
-                
+
                 var groups = DBExtractGroup(bdFile);
                 progress = 80;
                 foreach (var item in groups)
                 {
+                    if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
                     ReportProgress(progress, MigrationResource.DataProcessing);
                     progress += 10 / groups.Count;
                     var group = new OCMigratingGroups(item, Log);
@@ -128,14 +137,15 @@ namespace ASC.Migration.OwnCloud
             }
             catch (Exception ex)
             {
-                migrationInfo.failedArchives.Add(Path.GetFileName(takeouts));
-                Log($"Couldn't parse users from {Path.GetFileNameWithoutExtension(takeouts)} archive", ex);
+                migrationInfo.failedArchives.Add(Path.GetFileName(takeout));
+                Log($"Couldn't parse users from {Path.GetFileNameWithoutExtension(takeout)} archive", ex);
             }
             ReportProgress(100, MigrationResource.DataProcessingCompleted);
-            return Task.FromResult(migrationInfo.ToApiInfo());
+            return migrationInfo.ToApiInfo();
         }
 
-        public List<OCGroup> DBExtractGroup(string dbFile)        {
+        public List<OCGroup> DBExtractGroup(string dbFile)
+        {
             var groups = new List<OCGroup>();
 
             var sqlFile = File.ReadAllText(dbFile);
@@ -175,7 +185,7 @@ namespace ASC.Migration.OwnCloud
                 throw new Exception();
             }
 
-                var accounts = GetDumpChunk("oc_accounts", sqlFile);
+            var accounts = GetDumpChunk("oc_accounts", sqlFile);
             if (accounts == null) return userDataList.Values.ToList();
 
             foreach (var account in accounts)
@@ -340,7 +350,7 @@ namespace ASC.Migration.OwnCloud
                     {
                         Id = int.Parse(values[0]),
                         ShareWith = values[2],
-                        Premissions = int.Parse(values[11 ])
+                        Premissions = int.Parse(values[11])
                     });
                 }
             }
@@ -360,7 +370,7 @@ namespace ASC.Migration.OwnCloud
                 .Select(m => m.Groups[1].Value.Trim(new[] { '(', ')' }));
         }
 
-        public override Task Migrate(MigrationApiInfo migrationApiInfo)
+        public override void Migrate(MigrationApiInfo migrationApiInfo)
         {
             ReportProgress(0, MigrationResource.PreparingForMigration);
             migrationInfo.Merge(migrationApiInfo);
@@ -376,7 +386,7 @@ namespace ASC.Migration.OwnCloud
             var i = 1;
             foreach (var user in usersForImport)
             {
-                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
+                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return; }
                 ReportProgress(GetProgress() + progressStep, String.Format(MigrationResource.UserMigration, user.DisplayName, i++, usersCount));
                 try
                 {
@@ -398,11 +408,10 @@ namespace ASC.Migration.OwnCloud
             if (groupsCount != 0)
             {
                 progressStep = 25 / groupsForImport.Count();
-                //Create all groups
                 i = 1;
                 foreach (var group in groupsForImport)
                 {
-                    if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
+                    if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return; }
                     ReportProgress(GetProgress() + progressStep, String.Format(MigrationResource.GroupMigration, group.GroupName, i++, groupsCount));
                     try
                     {
@@ -420,16 +429,17 @@ namespace ASC.Migration.OwnCloud
             }
 
             i = 1;
+            progressStep = 50 / usersForImport.Count();
             foreach (var user in usersForImport)
             {
-                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
+                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return; }
                 if (failedUsers.Contains(user))
                 {
                     ReportProgress(GetProgress() + progressStep, String.Format(MigrationResource.UserSkipped, user.DisplayName, i, usersCount));
                     continue;
                 }
 
-                var smallStep = progressStep / 3;
+                var smallStep = progressStep / 2;
 
                 try
                 {
@@ -443,19 +453,6 @@ namespace ASC.Migration.OwnCloud
                 {
                     ReportProgress(GetProgress() + smallStep, String.Format(MigrationResource.MigratingUserContacts, user.DisplayName, i, usersCount));
                 }
-
-                /*try
-                {
-                    user.MigratingCalendar.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    Log($"Couldn't migrate user {user.DisplayName} ({user.Email}) calendar", ex);
-                }
-                finally
-                {
-                    ReportProgress(GetProgress() + smallStep, String.Format(MigrationResource.UserCalendarMigration, user.DisplayName, i, usersCount));
-                }*/
 
                 try
                 {
@@ -482,7 +479,6 @@ namespace ASC.Migration.OwnCloud
                 Directory.Delete(tmpFolder, true);
             }
             ReportProgress(100, MigrationResource.MigrationCompleted);
-            return Task.CompletedTask;
         }
     }
 }

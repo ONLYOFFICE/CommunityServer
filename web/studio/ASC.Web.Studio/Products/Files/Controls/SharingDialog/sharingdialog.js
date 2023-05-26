@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,8 @@ window.ASC.Files.Share = (function () {
         internalLink: null,
         externalLinkAction: null,
         externalLinkShare: null,
-        externalLinkEmbed: null
+        externalLinkEmbed: null,
+        externalLinkPassword: null
     };
 
     that.targetData = {
@@ -77,7 +78,6 @@ window.ASC.Files.Share = (function () {
 
         notifyAvailable: false,
         externalLinksAvailable: false,
-        externalLinksEnabled: false,
 
         asFlat: false,
         showTooltop: false,
@@ -93,22 +93,28 @@ window.ASC.Files.Share = (function () {
         canWebRestrictedEditing: false,
         canWebComment: false,
 
-        canLinkReadWrite: false
+        canLinkReadWrite: false,
+
+        hasMailAccounts: undefined
     };
 
     that.$dialog = jq("#sharingDialog");
     that.$dialogHeader = that.$dialog.find(".containerHeaderBlock td:first-of-type");
 
+    that.$topContentContainer = that.$dialog.find(".dialog-top-content-container");
+
     that.$topButtonContainer = that.$dialog.find(".top-button-container");
     that.$addUserBtn = that.$topButtonContainer.find(".user-button");
     that.$addLinkBtn = that.$topButtonContainer.find(".link-button");
+    that.$addLinkBtnArrow = that.$topButtonContainer.find(".arrow-part");
     that.$linkSettingsInput = that.$topButtonContainer.find(".link-settings");
 
     that.$bottomButtonContainer = that.$dialog.find(".bottom-button-container");
     that.$saveBtnMain = that.$bottomButtonContainer.find(".button.blue.main-part");
     that.$saveBtnArrow = that.$bottomButtonContainer.find(".button.blue.arrow-part");
-    that.$cancelBtn = that.$bottomButtonContainer.find(".button.gray");
-    that.$settingsBtn = that.$bottomButtonContainer.find(".settings-link");
+    that.$cancelBtn = that.$bottomButtonContainer.find(".button.gray:not(.settings-link)");
+    that.$settingsBtnContainer = that.$bottomButtonContainer.find(".settings-link-container");
+    that.$settingsBtns = that.$settingsBtnContainer.find(".settings-link");
 
     that.$actionsContainer = that.$dialog.find(".group-actions");
     that.$menuActionSelectAll = that.$actionsContainer.find(".menuActionSelectAll");
@@ -129,8 +135,15 @@ window.ASC.Files.Share = (function () {
     that.$linkActionDialog = that.$contentListParent.find(".link-action-dialog");
     that.$linkShareDialog = that.$contentListParent.find(".link-share-dialog");
     that.$linkEmbedDialog = that.$contentListParent.find(".link-embed-dialog");
+    that.$linkPasswordDialog = that.$contentListParent.find(".link-password-dialog");
+    that.$linkLifetimeDialog = that.$contentListParent.find(".link-lifetime-dialog");
+    that.$linkDeleteDialog = that.$contentListParent.find(".link-delete-dialog");
 
     that.$itemTooltipDialog = that.$contentListParent.find(".item-tooltip-dialog");
+
+    that.$addLinkActionDialog = that.$topContentContainer.find(".addlink-action-dialog");
+    that.$addLinkActionDialogNew = that.$addLinkActionDialog.find(".addlink-new-action");
+    that.$addLinkActionDialogCopy = that.$addLinkActionDialog.find(".addlink-copy-action");
 
     that.$linkShareDialogSocialContainer = that.$linkShareDialog.find(".link-share-social");
     that.$linkShareDialogInput = that.$linkShareDialog.find(".link-share-around input");
@@ -139,13 +152,37 @@ window.ASC.Files.Share = (function () {
     that.$linkEmbedDialogSizeCustom = that.$linkEmbedDialog.find(".embed-size-custom");
     that.$linkEmbedDialogSizeCustomWidth = that.$linkEmbedDialog.find(".embed-size-width");
     that.$linkEmbedDialogSizeCustomHeight = that.$linkEmbedDialog.find(".embed-size-height");
-    that.$linkEmbedDialogInput = that.$linkEmbedDialog.find(".link-embed-around input");
+    that.$linkEmbedDialogInput = that.$linkEmbedDialog.find(".link-embed-around input.border-none");
+
+    that.$linkPasswordDialogCbx = that.$linkPasswordDialog.find(".on-off-checkbox");
+    that.$linkPasswordDialogInput = that.$linkPasswordDialog.find(".textEdit");
+    that.$linkPasswordDialogShow = that.$linkPasswordDialog.find(".img-btn.show");
+    that.$linkPasswordDialogRandom = that.$linkPasswordDialog.find(".img-btn.random");
+    that.$linkPasswordDialogClean = that.$linkPasswordDialog.find(".link.dotline.clean");
+    that.$linkPasswordDialogCopy = that.$linkPasswordDialog.find(".link.dotline.copy");
+    that.$linkPasswordDialogSaveBtn = that.$linkPasswordDialog.find(".button.blue");
+    that.$linkPasswordDialogCancelBtn = that.$linkPasswordDialog.find(".button.gray");
+
+    that.$linkLifetimeDialogCbx = that.$linkLifetimeDialog.find(".on-off-checkbox");
+    that.$linkLifetimeDialogDateInput = that.$linkLifetimeDialog.find(".textEditCalendar.date");
+    that.$linkLifetimeDialogTimeInput = that.$linkLifetimeDialog.find(".textEdit.time");
+    that.$linkLifetimeDialogClean = that.$linkLifetimeDialog.find(".link.dotline");
+    that.$linkLifetimeDialogAutodeleteCbx = that.$linkLifetimeDialog.find(".autodelete");
+    that.$linkLifetimeDialogSaveBtn = that.$linkLifetimeDialog.find(".button.blue");
+    that.$linkLifetimeDialogCancelBtn = that.$linkLifetimeDialog.find(".button.gray");
+
+    that.$linkDeleteDialogOkBtn = that.$linkDeleteDialog.find(".button.blue");
+    that.$linkDeleteDialogCancelBtn = that.$linkDeleteDialog.find(".button.gray");
 
     that.$linkActionDialogCopy = that.$linkActionDialog.find(".link-action-copy");
     that.$linkShareDialogCopy = that.$linkShareDialog.find(".link-share-action-copy");
     that.$linkEmbedDialogCopy = that.$linkEmbedDialog.find(".link-embed-action-copy");
 
     that.$linkActionDialogEmbed = that.$linkActionDialog.find(".link-action-embed");
+    that.$linkActionDialogPassword = that.$linkActionDialog.find(".link-action-password");
+    that.$linkActionDialogLifetime = that.$linkActionDialog.find(".link-action-lifetime");
+    that.$linkActionDialogRename = that.$linkActionDialog.find(".link-action-rename");
+    that.$linkActionDialogDelete = that.$linkActionDialog.find(".link-action-delete");
 
     that.$linkActionDialogShort = that.$linkActionDialog.find(".link-action-short");
     that.$linkShareDialogShort = that.$linkShareDialog.find(".link-share-action-short");
@@ -227,8 +264,25 @@ window.ASC.Files.Share = (function () {
 
     that.show = function () {
 
-        that.$addLinkBtn.toggle(that.viewSettings.externalLinksAvailable);
-        that.$addLinkBtn.toggleClass("disable", that.viewSettings.externalLinksEnabled);
+        var displayLinkBtn = that.viewSettings.externalLinksAvailable && !that.targetData.multiple;
+
+        if (displayLinkBtn && that.targetData.entryData && that.targetData.entryData.entryType === "file" && that.$addLinkBtn.data("trial")) {
+            displayLinkBtn = ASC.Files.Utility.CanWebView(that.targetData.entryData.title);
+        }
+
+        if (displayLinkBtn) {
+            that.$addLinkBtn.removeClass("display-none");
+            if (that.targetData.entryLink) {
+                that.$addLinkBtn.addClass("main-part");
+                that.$addLinkBtnArrow.removeClass("display-none");
+            } else {
+                that.$addLinkBtn.removeClass("main-part");
+                that.$addLinkBtnArrow.addClass("display-none");
+            }
+        } else {
+            that.$addLinkBtn.addClass("display-none");
+            that.$addLinkBtnArrow.addClass("display-none");
+        }
 
         if (that.targetData.entryLink) {
             that.$saveActionDialogCopyParent.show();
@@ -238,9 +292,9 @@ window.ASC.Files.Share = (function () {
 
         that.viewSettings.displaySettings = that.viewSettings.displaySettings && that.targetData.ownerId == Teamlab.profile.id;
         if (that.viewSettings.displaySettings) {
-            that.$settingsBtn.show();
+            that.$settingsBtnContainer.show();
         } else {
-            that.$settingsBtn.hide();
+            that.$settingsBtnContainer.hide();
         }
 
         if (that.viewSettings.notifyAvailable) {
@@ -260,10 +314,10 @@ window.ASC.Files.Share = (function () {
         hideSaveBtn();
 
         if (!that.targetData.entryLink && !that.viewSettings.notifyAvailable) {
-            that.$saveBtnMain.removeClass("main-part")
+            that.$saveBtnMain.removeClass("main-part").addClass("single-btn");
             that.$saveBtnArrow.hide();
         } else {
-            that.$saveBtnMain.addClass("main-part")
+            that.$saveBtnMain.addClass("main-part").removeClass("single-btn");
             that.$saveBtnArrow.removeAttr("style");
         }
 
@@ -278,7 +332,7 @@ window.ASC.Files.Share = (function () {
         if (that.viewSettings.asFlat) {
             that.$dialog.addClass("flat").show();
 
-            PopupKeyUpActionProvider.EnterAction = PopupKeyUpActionProvider.CtrlEnterAction = "jq('.button.main-part:visible').trigger('click');";
+            PopupKeyUpActionProvider.EnterAction = PopupKeyUpActionProvider.CtrlEnterAction = "jq('.bottom-button-container .button:visible:first').trigger('click');";
             PopupKeyUpActionProvider.CloseDialogAction = "ASC.Files.Share.updateForParent();";
             PopupKeyUpActionProvider.ForceBinding = true;
         } else {
@@ -316,7 +370,7 @@ window.ASC.Files.Share = (function () {
         var accessRightForVisitor = accessRights.find(function (x) { return x.id == defaultAccessRight && !x.hideForVisitor });
         that.defaultAccessRightForVisitor = accessRightForVisitor ? accessRightForVisitor.id : ASC.Files.Constants.AceStatusEnum.Read;
 
-        that.userSelector.changeData(selected, accessRights, that.defaultAccessRight);
+        that.userSelector.changeData(that.selected, that.accessRights, that.defaultAccessRight);
 
         that.pagging.contentItemsNumber = 0;
 
@@ -348,7 +402,9 @@ window.ASC.Files.Share = (function () {
         }
         that.userSelector.resetTempData();
         that.userSelector.render();
-        that.userSelector.dialogElement.style.top = (addUserBtnElement.offsetTop + addUserBtnElement.offsetHeight + 4) + "px";
+        if (!that.viewSettings.asFlat) {
+            that.userSelector.dialogElement.style.top = (addUserBtnElement.offsetTop + addUserBtnElement.offsetHeight + 4) + "px";
+        }
         return true;
     }
 
@@ -383,41 +439,74 @@ window.ASC.Files.Share = (function () {
             available = true;
             break;
         }
-        that.$settingsBtn.toggleClass("disable", !available);
+        that.$settingsBtns.toggleClass("disable", !available);
     }
 
     function clickOnAddLinkBtn() {
-        if (that.$addLinkBtn.hasClass("disable") || !that.viewSettings.externalLinksAvailable || that.viewSettings.externalLinksEnabled) {
+        if (that.$addLinkBtn.hasClass("disable") || !that.viewSettings.externalLinksAvailable) {
             return;
         }
 
-        for (var itemId in that.selected) {
-            var item = that.selected[itemId];
+        var entryId = that.targetData.entryData ? that.targetData.entryData.id : ASC.Files.UI.parseItemId(that.targetData.id).entryId;
+        var entryType = that.targetData.entryData ? that.targetData.entryData.entryType : ASC.Files.UI.parseItemId(that.targetData.id).entryType;
 
-            if (!item.isLink) {
-                continue;
-            }
-
-            var access = that.defaultAccessRight == ASC.Files.Constants.AceStatusEnum.ReadWrite
+        var access = that.defaultAccessRight == ASC.Files.Constants.AceStatusEnum.FillForms
+            ? ASC.Files.Constants.AceStatusEnum.Read
+            : that.defaultAccessRight == ASC.Files.Constants.AceStatusEnum.ReadWrite
                 ? that.viewSettings.canLinkReadWrite ? that.defaultAccessRight : ASC.Files.Constants.AceStatusEnum.Read
                 : that.defaultAccessRight;
 
-            changeLinkAccess(itemId, access);
-
-            item.shortened = isShortenedLink(item.link);
-            item.shortenedText = FilesJSResource.Shortened;
-
-            var linkElement = that.userDomGenerator.createLink(item);
-            that.contentListElement.prepend(linkElement);
-
-            that.viewSettings.externalLinksEnabled = true;
-            that.$addLinkBtn.addClass("disable");
-
-            that.pagging.contentItemsNumber++;
-            that.$emptyList.hide();
-
-            break;
+        var data = {
+            isFolder: entryType === "folder"
         }
+
+        Teamlab.getSharedLinkTemplate(entryId, data, {
+            before: function () {
+                LoadingBanner.displayLoading();
+            },
+            success: function (_, data) {
+                var item = {
+                    id: data.id,
+                    link: data.link,
+                    linkSettings: data.linkSettings,
+                    name: data.title || FilesJSResource.ExternalLink,
+                    isLink: true,
+                    canEdit: true,
+                    canRemove: true,
+                    access: access,
+                    accessName: getAceString(access),
+                    infoText: that.viewSettings.externalLinksAvailable ? isShortenedLink(data.link) ? FilesJSResource.Shortened : "" : FilesJSResource.ExternalLinkDisabled,
+                    entryType: data.entryType
+                };
+
+                var newSelected = {};
+                newSelected[item.id] = item;
+                that.selected = Object.assign(newSelected, that.selected);
+                that.userSelector.changeData(that.selected, that.accessRights, that.defaultAccessRight);
+
+                var linkElement = that.userDomGenerator.createLink(item);
+                linkElement.classList.add("new");
+                that.contentListElement.prepend(linkElement);
+
+                that.currentElement = linkElement;
+
+                displayLinkRenameBlock(linkElement, true);
+
+                that.pagging.contentItemsNumber++;
+                that.$emptyList.hide();
+
+                showSaveBtn();
+            },
+            after: function () {
+                LoadingBanner.hideLoading();
+            },
+            error: function (_, error) {
+                console.log(error);
+            },
+            processUrl: function (url) {
+                return ASC.Files.Utility.AddExternalShareKey(url);
+            }
+        });
     }
 
     function renderSearch() {
@@ -535,9 +624,9 @@ window.ASC.Files.Share = (function () {
                 var itemElement = that.openedGroupElement.nextElementSibling.children[element.id];
                 if (itemElement && itemElement.classList.contains("us-name")) {
                     itemElement.querySelector(".us-access").setAttribute("class", "us-access access-" + selectedAccessRight);
-                    var individual = that.userDomGenerator.createNameInfoText(FilesJSResource.IndividualRights);
-                    itemElement.querySelector(".us-name-text").append(individual);
-                    itemElement.classList.add("individual");
+                    var infoText = that.userDomGenerator.createNameInfoText(FilesJSResource.IndividualRights);
+                    itemElement.querySelector(".us-name-text").append(infoText);
+                    itemElement.classList.add("info");
                 }
             }
         }
@@ -606,15 +695,17 @@ window.ASC.Files.Share = (function () {
 
         if (hasSelected || force) {
             that.$actionsContainer.show();
-            that.$searchContainer.hide();
+            that.$topContentContainer.addClass("hidden");
             that.$addUserBtn.addClass("disable");
             that.$addLinkBtn.addClass("disable");
+            that.$addLinkBtnArrow.addClass("disable");
             that.$menuActionRemoveBtn.toggle(that.selectionMode != selectionModeEnum.group);
         } else {
             that.$actionsContainer.hide();
-            that.$searchContainer.show();
+            that.$topContentContainer.removeClass("hidden");
             that.$addUserBtn.removeClass("disable");
-            that.$addLinkBtn.toggleClass("disable", that.viewSettings.externalLinksEnabled);
+            that.$addLinkBtn.removeClass("disable");
+            that.$addLinkBtnArrow.removeClass("disable");
             return false;
         }
 
@@ -783,6 +874,7 @@ window.ASC.Files.Share = (function () {
 
         var canReadWrite = true;
         var canFillForms = true;
+        var canRemove = false;
         var hasVisitors = false;
         var onlyRestrict = false;
 
@@ -792,16 +884,15 @@ window.ASC.Files.Share = (function () {
                 canReadWrite = that.viewSettings.canLinkReadWrite;
                 canFillForms = false;
                 onlyRestrict = !that.viewSettings.externalLinksAvailable;
-                break;
+                continue;
             }
             var user = that.userCache[itemId];
             if (user && user.isVisitor) {
                 hasVisitors = true;
-                break;
             }
         }
 
-        adjustAccessRightsDialogs(that.$menuAccessRightsDialog, canReadWrite, canFillForms, hasVisitors, onlyRestrict);
+        adjustAccessRightsDialogs(that.$menuAccessRightsDialog, canReadWrite, canFillForms, canRemove, hasVisitors, onlyRestrict);
         return true;
     }
 
@@ -816,7 +907,7 @@ window.ASC.Files.Share = (function () {
             }
 
             if (item.isLink) {
-                changeLinkAccess(itemId, ASC.Files.Constants.AceStatusEnum.Restrict);
+                deleteLink(itemId);
             } else {
                 delete that.selected[itemId];
             }
@@ -827,11 +918,26 @@ window.ASC.Files.Share = (function () {
 
     function clickOnMenuActionCloseElement(element, event) {
         that.$actionsContainer.hide();
-        that.$searchContainer.show();
+        that.$topContentContainer.removeClass("hidden");
         that.$addUserBtn.removeClass("disable");
-        that.$addLinkBtn.toggleClass("disable", that.viewSettings.externalLinksEnabled);
+        that.$addLinkBtn.removeClass("disable");
+        that.$addLinkBtnArrow.removeClass("disable");
 
         setSelectionMode(selectionModeEnum.none);
+    }
+
+    function clickOnLinkPasswordElement(element, event) {
+        if (!that.viewSettings.externalLinksAvailable) {
+            return;
+        }
+        displayContentListDialog(element, that.linkPasswordDialogHelper, that.$linkPasswordDialog);
+    }
+
+    function clickOnLinkLifetimeElement(element, event) {
+        if (!that.viewSettings.externalLinksAvailable) {
+            return;
+        }
+        displayContentListDialog(element, that.linkLifetimeDialogHelper, that.$linkLifetimeDialog);
     }
 
     function clickOnLinkNameElement(element, event) {
@@ -862,7 +968,7 @@ window.ASC.Files.Share = (function () {
 
         $dialog.css("top", dialogTop + "px");
 
-        dialogHelper.show();
+        setTimeout(function () { dialogHelper.show(); }, 0);
 
         var dialogHeight = $dialog.outerHeight();
 
@@ -892,42 +998,98 @@ window.ASC.Files.Share = (function () {
         else if (classList.contains("link-action-short")) {
             getShortenLink();
         }
+        else if (classList.contains("link-action-password")) {
+            displayContentListDialog(that.currentElement, that.linkPasswordDialogHelper, that.$linkPasswordDialog);
+        }
+        else if (classList.contains("link-action-lifetime")) {
+            displayContentListDialog(that.currentElement, that.linkLifetimeDialogHelper, that.$linkLifetimeDialog);
+        }
+        else if (classList.contains("link-action-rename")) {
+            displayLinkRenameBlock(that.currentElement, true);
+        }
         else if (classList.contains("link-action-delete")) {
-            changeLinkAccess(id, ASC.Files.Constants.AceStatusEnum.Restrict);
+            displayContentListDialog(that.currentElement, that.linkDeleteDialogHelper, that.$linkDeleteDialog);
         }
 
         that.linkActionDialogHelper.hide();
     }
 
-    function changeLinkAccess(linkId, access) {
-        var linkItem = that.selected[linkId];
-
-        if (linkItem.access == access) {
-            return;
+    function displayLinkRenameBlock(linkElement, display) {
+        var nameBlock = linkElement.querySelector(".us-name-text");
+        var renameBlock = linkElement.querySelector(".us-rename");
+        if (display) {
+            linkElement.classList.add("rename");
+            var newElement = false;
+            if (renameBlock) {
+                renameBlock.style.display = "flex";
+            } else {
+                renameBlock = that.userDomGenerator.createLinkRenameBlock();
+                nameBlock.after(renameBlock);
+                newElement = true;
+            }
+            var input = renameBlock.querySelector(".textEdit");
+            if (newElement) {
+                input.addEventListener("keyup", function (event) {
+                    if (event.keyCode === 27) {
+                        event.stopPropagation();
+                        displayLinkRenameBlock(linkElement, false);
+                    }
+                    if (event.keyCode === 13) {
+                        event.stopPropagation();
+                        renameLink(linkElement);
+                    }
+                });
+            }
+            input.value = that.selected[linkElement.id].name;
+            input.focus();
+        } else {
+            if (linkElement.classList.contains("new")) {
+                that.currentElement = linkElement;
+                deleteLink(linkElement.id);
+            } else {
+                linkElement.classList.remove("rename");
+                renameBlock.remove();
+            }
         }
+    }
 
-        that.targetData.needUpdate = true;
+    function renameLink(linkElement) {
+        linkElement.classList.remove("new");
+        var linkName = linkElement.querySelector(".textEdit").value;
+        if (linkName) {
+            var textElement = linkElement.querySelector(".us-name-text span");
+            textElement.setAttribute("title", linkName);
+            textElement.textContent = linkName;
+            if (that.selected[linkElement.id].name != linkName) {
+                that.selected[linkElement.id].name = linkName;
+                showSaveBtn();
+            }
+        }
+        displayLinkRenameBlock(linkElement, false);
+    }
 
-        linkItem.access = access;
-        linkItem.accessName = getAceString(access);
-
-        if (access == ASC.Files.Constants.AceStatusEnum.Restrict) {
+    function deleteLink(linkId) {
+        if (linkId === ASC.Files.Constants.ShareLinkId) {
+            var linkItem = that.selected[linkId];
+            linkItem.access = ASC.Files.Constants.AceStatusEnum.Restrict;
+            linkItem.accessName = getAceString(ASC.Files.Constants.AceStatusEnum.Restrict);
             linkItem.canEdit = false;
             linkItem.canRemove = false;
-            that.viewSettings.externalLinksEnabled = false;
-            that.$addLinkBtn.toggleClass("disable", that.selectionMode != selectionModeEnum.none);
-            if (that.currentElement) {
-                that.currentElement.remove();
-                that.pagging.contentItemsNumber--;
-                that.$emptyList.toggle(that.pagging.contentItemsNumber == 0);
-            }
         } else {
-            linkItem.canEdit = true;
-            linkItem.canRemove = true;
+            delete that.selected[linkId];
+        }
+
+        removeCurrentElement();
+    }
+
+    function removeCurrentElement() {
+        if (that.currentElement) {
+            that.currentElement.remove();
+            that.pagging.contentItemsNumber--;
+            that.$emptyList.toggle(that.pagging.contentItemsNumber == 0);
         }
 
         showSaveBtn();
-        //setLinkAccess(linkItem);
     }
 
     function clickOnShowMore(element, event) {
@@ -990,7 +1152,7 @@ window.ASC.Files.Share = (function () {
                 }
             });
 
-            that.$topButtonContainer.append(that.ownerSelector.dialogElement);
+            that.$topContentContainer.append(that.ownerSelector.dialogElement);
 
             that.ownerSelector.dialogElement.style.top = "90px";
 
@@ -1010,27 +1172,36 @@ window.ASC.Files.Share = (function () {
             return;
         }
 
-        var isLink = element.classList.contains("us-linkname");
+        var isLink = element.classList.contains("us-linkname") || element.classList.contains("us-folder-linkname");
         var canReadWrite = isLink ? that.viewSettings.canLinkReadWrite : true;
         var canFillForms = !isLink;
         var user = that.userCache[element.id];
         var hasVisitor = user && user.isVisitor;
         var onlyRestrict = isLink && !that.viewSettings.externalLinksAvailable;
+        var selectedItem = that.selected[element.id];
+        var canRemove = selectedItem && selectedItem.canRemove && !element.getAttribute("data-group");
 
-        adjustAccessRightsDialogs(that.$itemAccessRightsDialog, canReadWrite, canFillForms, hasVisitor, onlyRestrict);
+        adjustAccessRightsDialogs(that.$itemAccessRightsDialog, canReadWrite, canFillForms, canRemove, hasVisitor, onlyRestrict);
 
         displayContentListDialog(element, that.itemAccessRightsDialogHelper, that.$itemAccessRightsDialog);
     }
 
     function clickOnItemAccessRightsElement(element, event) {
-        var hasChanges = true;
-        var access = +element.getAttribute("data-id");
+        var attr = element.getAttribute("data-id");
+
+        if (attr == "remove") {
+            clickOnItemAccessRightsRemoveElement(element);
+            return;
+        }
+
+        var access = +attr;
         var accessName = getAceString(access);
         var id = that.currentElement.id;
         var isGroup = that.currentElement.classList.contains("us-groupname");
-        var isLink = that.currentElement.classList.contains("us-linkname");
+        var isLink = that.currentElement.classList.contains("us-linkname") || that.currentElement.classList.contains("use-folder-linkname");
         var accessElement = that.currentElement.querySelector(".us-access");
-        accessElement.setAttribute("class", "us-access access-" + access);
+        var static = accessElement.classList.contains("static");
+        accessElement.setAttribute("class", "us-access access-" + access + (static ? " static" : ""));
         accessElement.setAttribute("title", accessName);
 
         if (isGroup) {
@@ -1038,8 +1209,8 @@ window.ASC.Files.Share = (function () {
             that.selected[id].accessName = accessName;
             openGroup(that.currentElement, true);
         } else if (isLink) {
-            //hasChanges = false;
-            changeLinkAccess(id, access);
+            that.selected[id].access = access;
+            that.selected[id].accessName = accessName;
         } else {
             var groupId = that.currentElement.getAttribute("data-group");
             if (groupId) {
@@ -1048,12 +1219,14 @@ window.ASC.Files.Share = (function () {
                     that.selected[id].accessName = accessName;
                     var itemElement = that.contentListElement.children[id];
                     if (itemElement && itemElement.classList.contains("us-name")) {
-                        itemElement.querySelector(".us-access").setAttribute("class", "us-access access-" + access);
+                        var itemAccessElement = itemElement.querySelector(".us-access");
+                        itemAccessElement.setAttribute("class", "us-access access-" + access);
+                        itemAccessElement.setAttribute("title", accessName);
                     }
                 } else {
-                    var individual = that.userDomGenerator.createNameInfoText(FilesJSResource.IndividualRights);
-                    that.currentElement.querySelector(".us-name-text").append(individual);
-                    that.currentElement.classList.add("individual");
+                    var infoText = that.userDomGenerator.createNameInfoText(FilesJSResource.IndividualRights);
+                    that.currentElement.querySelector(".us-name-text").append(infoText);
+                    that.currentElement.classList.add("info");
 
                     var user = that.userCache[id];
                     that.selected[id] = { id: id, name: user.displayName, avatar: user.avatarSmall, access: access, accessName: accessName, canEdit: true, canRemove: true };
@@ -1080,15 +1253,51 @@ window.ASC.Files.Share = (function () {
                     if (index != -1) {
                         var itemElement = that.openedGroupElement.nextElementSibling.children[id];
                         if (itemElement && itemElement.classList.contains("us-name")) {
-                            itemElement.querySelector(".us-access").setAttribute("class", "us-access access-" + access);
+                            var itemAccessElement = itemElement.querySelector(".us-access");
+                            itemAccessElement.setAttribute("class", "us-access access-" + access);
+                            itemAccessElement.setAttribute("title", accessName);
                         }
                     }
                 }
             }
         }
 
-        if (hasChanges) {
-            showSaveBtn();
+        showSaveBtn();
+
+        that.itemAccessRightsDialogHelper.hide();
+    }
+
+    function clickOnItemAccessRightsRemoveElement(element) {
+
+        var id = that.currentElement.id;
+        var isGroup = that.currentElement.classList.contains("us-groupname");
+        var isLink = that.currentElement.classList.contains("us-linkname") || that.currentElement.classList.contains("us-folder-linkname");
+
+        if (isGroup) {
+            if (that.currentElement == that.openedGroupElement) {
+                that.openedGroupElement = null;
+            }
+            delete that.selected[id];
+            removeCurrentElement();
+        } else if (isLink) {
+            displayContentListDialog(that.currentElement, that.linkDeleteDialogHelper, that.$linkDeleteDialog);
+        } else {
+            if (that.openedGroupElement) {
+                var index = that.groupCache[that.openedGroupElement.id].users.indexOf(id);
+                if (index != -1) {
+                    var itemElement = that.openedGroupElement.nextElementSibling.children[id];
+                    if (itemElement && itemElement.classList.contains("us-name")) {
+                        var openedGroup = that.selected[that.openedGroupElement.id];
+                        var accessElement = itemElement.querySelector(".us-access");
+                        accessElement.setAttribute("class", "us-access access-" + openedGroup.access);
+                        accessElement.setAttribute("title", openedGroup.accessName);
+                        itemElement.classList.remove("info");
+                    }
+                }
+            }
+
+            delete that.selected[id];
+            removeCurrentElement();
         }
 
         that.itemAccessRightsDialogHelper.hide();
@@ -1100,12 +1309,8 @@ window.ASC.Files.Share = (function () {
         for (var itemId in that.tmpSelected) {
             var item = that.selected[itemId];
             if (item) {
-                if (item.isLink) {
-                    changeLinkAccess(itemId, access);
-                } else {
-                    item.access = access;
-                    item.accessName = getAceString(access);
-                }
+                item.access = access;
+                item.accessName = getAceString(access);
             } else {
                 var user = that.userCache[itemId];
                 that.selected[itemId] = { id: itemId, name: user.displayName, avatar: user.avatarSmall, access: access, accessName: getAceString(access), canEdit: true, canRemove: true };
@@ -1130,7 +1335,7 @@ window.ASC.Files.Share = (function () {
             markItemSelected(element.id, selected);
         }
 
-        if (element.classList.contains("us-groupname") || element.classList.contains("us-linkname")) {
+        if (element.classList.contains("us-groupname") || element.classList.contains("us-linkname") || element.classList.contains("us-folder-linkname")) {
             setSelectionMode(selectionModeEnum.root);
         } else {
             var groupId = element.getAttribute("data-group");
@@ -1164,7 +1369,19 @@ window.ASC.Files.Share = (function () {
         if (that.selectionMode == selectionModeEnum.root) {
             //clickOnAvatarElement(element, event);
         } else {
-            clickOnLinkNameElement(element, event);
+            if (event.target.classList.contains("us-settings-password")) {
+                clickOnLinkPasswordElement(element, event);
+            } else if (event.target.classList.contains("us-settings-lifetime")) {
+                clickOnLinkLifetimeElement(element, event);
+            } else if (event.target.classList.contains("textEdit")) {
+                //event.stopPropagation();
+            } else if (event.target.classList.contains("__apply")) {
+                renameLink(element);
+            } else if (event.target.classList.contains("__reset")) {
+                displayLinkRenameBlock(element, false);
+            } else {
+                clickOnLinkNameElement(element, event);
+            }
         }
     }
 
@@ -1235,8 +1452,7 @@ window.ASC.Files.Share = (function () {
                 item.selected = selected;
                 item.disabled = that.selectionMode == selectionModeEnum.group && !userItem.canEdit;
                 item.withoutTitle = that.viewSettings.showTooltop;
-                item.individual = true;
-                item.individualText = FilesJSResource.IndividualRights;
+                item.infoText = FilesJSResource.IndividualRights;
                 result.fragment.append(that.userDomGenerator.createGroupItem(item));
             } else {
                 var item = { id: userId, group: groupId, name: user.displayName, avatar: user.avatarSmall, selected: selected, access: groupAccess, accessName: groupAccessName };
@@ -1285,7 +1501,7 @@ window.ASC.Files.Share = (function () {
         for (var itemId in that.selected) {
             var item = Object.assign({}, that.selected[itemId]);
 
-            if (item.isLink && !item.canEdit) {
+            if (item.isLink && !item.canEdit && !item.inherited) {
                 continue;
             }
 
@@ -1303,8 +1519,7 @@ window.ASC.Files.Share = (function () {
             item.disabled = groupSelectionMode || (rootSelectionMode && !item.canEdit);
 
             if (item.isLink) {
-                item.shortened = isShortenedLink(item.link);
-                item.shortenedText = FilesJSResource.Shortened;
+                item.infoText = that.viewSettings.externalLinksAvailable ? isShortenedLink(item.link) ? FilesJSResource.Shortened : "" : FilesJSResource.ExternalLinkDisabled
                 var linkElement = that.userDomGenerator.createLink(item);
                 result.fragment.append(linkElement);
             } else if (item.isGroup) {
@@ -1347,7 +1562,7 @@ window.ASC.Files.Share = (function () {
         rerenderDialog(that.$menuSelectDialog.find(".dropdown-content:last").get(0));
     }
 
-    function adjustAccessRightsDialogs($accessRightsDialog, canReadWrite, canFillForms, hasVisitor, onlyRestrict) {
+    function adjustAccessRightsDialogs($accessRightsDialog, canReadWrite, canFillForms, canRemove, hasVisitor, onlyRestrict) {
         for (var item of that.accessRights) {
             if (item.disabled) {
                 continue;
@@ -1363,6 +1578,31 @@ window.ASC.Files.Share = (function () {
                 && (item.id == ASC.Files.Constants.AceStatusEnum.FillForms ? canFillForms : true);
 
             $accessRightsDialog.find(".access-rights-item[data-id=" + item.id + "]").toggle(display);
+        }
+
+        $accessRightsDialog.find(".dropdown-item-seporator, .access-rights-item[data-id=remove]").toggle(canRemove);
+    }
+
+    function onBeforeShowAddLinkActionDialog() {
+        if (that.$addLinkBtnArrow.hasClass("disable")) {
+            return false;
+        }
+
+        var btnArrowPosition = that.$addLinkBtnArrow.position();
+        var btnArrowHeight = that.$addLinkBtnArrow.outerHeight();
+        var btnArrowWidth = that.$addLinkBtnArrow.outerWidth();
+        var addLinkActionDialogWidth = that.$addLinkActionDialog.outerWidth();
+        that.$addLinkActionDialog.css("top", (btnArrowPosition.top + btnArrowHeight + 4) + "px");
+        var left = btnArrowPosition.left + btnArrowWidth - addLinkActionDialogWidth;
+        that.$addLinkActionDialog.css("left", (left > 0 ? left : 0) + "px");
+        return true;
+    }
+
+    function clickOnAddLinkActionDialogItemElement() {
+        that.addLinkActionDialogHelper.hide();
+
+        if (jq(this).is(that.$addLinkActionDialogNew)) {
+            that.$addLinkBtn.trigger("click");
         }
     }
 
@@ -1388,7 +1628,7 @@ window.ASC.Files.Share = (function () {
     }
 
     function onBeforeShowAdvancedSettingsDialog() {
-        if (that.$settingsBtn.hasClass("disable")) {
+        if (that.$settingsBtns.hasClass("disable")) {
             return false;
         }
 
@@ -1417,18 +1657,44 @@ window.ASC.Files.Share = (function () {
 
     function onBeforeShowLinkActionDialog() {
         checkIsEmbedEnabled();
-        checkIsShortenedLink();
+        checkIsShortenedLink(false);
+        checkIsSettingsEnabled();
+        checkIsDeletionEnabled();
         return true;
     }
 
     function onBeforeShowLinkShareDialog() {
+        checkMailAccounts();
         updateSocialLink();
         that.$linkShareDialogSocialContainer.find(".facebook, .twitter").toggle(that.$linkSettingsInput.data("social"));
         return true;
     }
 
+    function checkMailAccounts() {
+        if (that.viewSettings.hasMailAccounts !== undefined) {
+            return;
+        }
+
+        window.Teamlab.getAccounts({}, {
+            success: function (params, res) {
+                if (res && res.length) {
+                    that.viewSettings.hasMailAccounts = res.some(function (item) {
+                        return item.enabled && !item.isGroup;
+                    });
+                } else {
+                    that.viewSettings.hasMailAccounts = false;
+                }
+            },
+            error: function (params, err) {
+                that.viewSettings.hasMailAccounts = false;
+                console.log(err);
+            }
+        });
+    }
+
     function updateSocialLink() {
         var url = that.selected[that.currentElement.id].link;
+        var entryType = that.targetData.entryData ? that.targetData.entryData.entryType : ASC.Files.UI.parseItemId(that.targetData.id).entryType;
 
         that.$linkShareDialogInput.val(url);
 
@@ -1446,8 +1712,14 @@ window.ASC.Files.Share = (function () {
         }
 
         var urlShareMail = "mailto:?subject={1}&body={0}";
-        var subject = ASC.Files.FilesJSResource.shareLinkMailSubject.format(that.viewSettings.title);
-        var body = ASC.Files.FilesJSResource.shareLinkMailBody.format(that.viewSettings.title, url);
+        var subject = entryType === "file" ? 
+            ASC.Files.FilesJSResource.shareLinkMailSubject.format(that.viewSettings.title) : 
+            ASC.Files.FilesJSResource.shareFolderLinkMailSubject.format(that.viewSettings.title);
+        
+        var body = entryType === "file" ? 
+            ASC.Files.FilesJSResource.shareLinkMailBody.format(that.viewSettings.title, url) : 
+            ASC.Files.FilesJSResource.shareFolderLinkMailBody.format(that.viewSettings.title, url);
+        
         that.$linkShareDialogSocialContainer.find(".mail").attr("href", urlShareMail.format(encodeURIComponent(body), encodeURIComponent(subject)));
     }
 
@@ -1458,19 +1730,28 @@ window.ASC.Files.Share = (function () {
 
     function clickOnLinkShareDialogSocialItemElement(element, event) {
         var openLink = element.getAttribute("href");
+        var entryType = that.targetData.entryData ? that.targetData.entryData.entryType : ASC.Files.UI.parseItemId(that.targetData.id).entryType;
 
         if (element.classList.contains("mail") && !ASC.Resources.Master.Personal) {
+
+            if (that.viewSettings.hasMailAccounts === false) {
+                return true;
+            }
 
             var winMail = window.open(ASC.Desktop ? "" : ASC.Files.Constants.URL_LOADER);
 
             var message = new ASC.Mail.Message();
-            message.subject = ASC.Files.FilesJSResource.shareLinkMailSubject.format(that.viewSettings.title);
+            message.subject = entryType === "file" ?
+                ASC.Files.FilesJSResource.shareLinkMailSubject.format(that.viewSettings.title) :
+                ASC.Files.FilesJSResource.shareFolderLinkMailSubject.format(that.viewSettings.title);
 
             var linkFormat = "<a href=\"{0}\">{1}</a>";
             var linkUrl = that.selected[that.currentElement.id].link;
             var linkName = linkFormat.format(Encoder.htmlEncode(linkUrl), Encoder.htmlEncode(that.viewSettings.title));
             var link = linkFormat.format(Encoder.htmlEncode(linkUrl), Encoder.htmlEncode(linkUrl));
-            var body = ASC.Files.FilesJSResource.shareLinkMailBody.format(linkName, link);
+            var body = entryType === "file" ?
+                ASC.Files.FilesJSResource.shareLinkMailBody.format(linkName, link) :
+                ASC.Files.FilesJSResource.shareFolderLinkMailBody.format(linkName, link);
 
             message.body = body;
 
@@ -1556,14 +1837,20 @@ window.ASC.Files.Share = (function () {
         that.$linkEmbedDialogInput.val(embeddedString).attr("title", embeddedString);
     }
 
-    function checkIsShortenedLink() {
-        var url = that.selected[that.currentElement.id].link;
-        var shortened = isShortenedLink(url);
-
-        that.currentElement.classList.toggle("shortened", shortened);
+    function checkIsShortenedLink(afterShortening) {
+        var item = that.selected[that.currentElement.id];
+        var shortened = isShortenedLink(item.link);
 
         that.$linkActionDialogShort.toggle(!shortened);
         that.$linkShareDialogShort.toggle(!shortened);
+
+        if (afterShortening && shortened) {
+            item.infoText = FilesJSResource.Shortened;
+            var newLink = that.userDomGenerator.createLink(item);
+            that.currentElement.replaceWith(newLink);
+        } else {
+            that.currentElement.classList.toggle("info", shortened || !that.viewSettings.externalLinksAvailable);
+        }
     }
 
     function isShortenedLink(url) {
@@ -1572,8 +1859,11 @@ window.ASC.Files.Share = (function () {
 
     function getShortenLink() {
         var fileId = that.targetData.entryData ? that.targetData.entryData.id : ASC.Files.UI.parseItemId(that.targetData.id).entryId;
+        var linkId = that.currentElement.id;
+        var entryType = that.targetData.entryData ? that.targetData.entryData.entryType : ASC.Files.UI.parseItemId(that.targetData.id).entryType;
+        var isFolder = entryType !== "file";
 
-        ASC.Files.ServiceManager.getShortenLink(ASC.Files.ServiceManager.events.GetShortenLink, { fileId: fileId });
+        ASC.Files.ServiceManager.getShortenLink(ASC.Files.ServiceManager.events.GetShortenLink, { fileId: fileId, linkId: linkId, isFolder: isFolder });
     };
 
     function onGetShortenLink(result, params, errorMessage) {
@@ -1585,7 +1875,7 @@ window.ASC.Files.Share = (function () {
         that.selected[that.currentElement.id].link = result;
 
         updateSocialLink();
-        checkIsShortenedLink();
+        checkIsShortenedLink(true);
 
         if (tryCopyTextToClipboard(result)) {
             ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
@@ -1617,6 +1907,25 @@ window.ASC.Files.Share = (function () {
         that.$linkActionDialogEmbed.toggle(enabled);
     }
 
+    function checkIsSettingsEnabled() {
+        var currentElement = that.selected[that.currentElement.id];
+        
+        var hasSettings = that.viewSettings.externalLinksAvailable && !!currentElement.linkSettings 
+            && !currentElement.inherited;
+
+        that.$linkActionDialog.find(".dropdown-item-seporator:first").toggle(hasSettings);
+        that.$linkActionDialogPassword.toggle(hasSettings);
+        that.$linkActionDialogLifetime.toggle(hasSettings);
+        that.$linkActionDialogRename.toggle(hasSettings);
+    }
+    
+    function checkIsDeletionEnabled() {
+        var currentElement = that.selected[that.currentElement.id];
+
+        that.$linkActionDialog.find(".dropdown-item-seporator:last").toggle(!currentElement.inherited);
+        that.$linkActionDialogDelete.toggle(!currentElement.inherited);
+    }
+
     function mousedownOnReadonlyInput() {
         this.select();
         return false;
@@ -1626,15 +1935,171 @@ window.ASC.Files.Share = (function () {
         return event.ctrlKey && (event.charCode === ASC.Files.Common.keyCode.C || event.keyCode === ASC.Files.Common.keyCode.insertKey);
     }
 
+    function clearDialogElements(link, dialog) {
+        if (!link.classList.contains("disabled")) {
+            dialog.find(".textEdit, .textEditCalendar").val("");
+        }
+    }
+
+    function disableDialogElements(disable, dialog) {
+        dialog.find(".textEdit, .textEditCalendar, .autodelete").prop("disabled", disable);
+        dialog.find(".img-btn, .link").toggleClass("disabled", disable);
+    }
+
+    function onBeforeShowLinkPasswordDialog() {
+        var settings = that.selected[that.currentElement.id].linkSettings;
+        that.$linkPasswordDialogInput.attr("type", "password").val(settings.password || "");
+        that.$linkPasswordDialogShow.removeClass("hide");
+        that.$linkPasswordDialogCbx.prop("checked", !!settings.password).change();
+        return true;
+    }
+
+    function showHidePassword() {
+        if (that.$linkPasswordDialogShow.hasClass("disabled")) {
+            return;
+        }
+
+        if (that.$linkPasswordDialogShow.hasClass("hide")) {
+            that.$linkPasswordDialogInput.attr("type", "password");
+            that.$linkPasswordDialogShow.removeClass("hide");
+            return;
+        }
+
+        that.$linkPasswordDialogInput.attr("type", "text");
+        that.$linkPasswordDialogShow.addClass("hide");
+    }
+
+    function setRandomPassword() {
+        if (that.$linkPasswordDialogRandom.hasClass("disabled")) {
+            return;
+        }
+
+        Teamlab.getRandomPassword(
+            null,
+            {
+                before: function () {
+                    LoadingBanner.displayLoading();
+                },
+                success: function (_, pwd) {
+                    that.$linkPasswordDialogInput.attr("type", "text").val(pwd);
+                    that.$linkPasswordDialogShow.addClass("hide");
+                },
+                after: function () {
+                    LoadingBanner.hideLoading();
+                },
+                error: function (_, error) {
+                    console.log(error);
+                }
+            });
+    }
+
+    function onSaveLinkPasswordSettings() {
+        var password = null;
+        if (that.$linkPasswordDialogCbx.prop("checked")) {
+            password = that.$linkPasswordDialogInput.val().trim() || null;
+        }
+        var settings = that.selected[that.currentElement.id].linkSettings;
+        if (settings.password == password) {
+            return;
+        }
+        settings.password = password;
+        var iconElement = that.currentElement.querySelector(".us-settings-password");
+        iconElement.classList.toggle("enabled", password);
+        showSaveBtn();
+    }
+
+    function onBeforeShowLinkLifetimeDialog() {
+        var settings = that.selected[that.currentElement.id].linkSettings;
+        if (settings.expirationDate) {
+            var expirationDate = new Date(settings.expirationDate);
+            //that.$linkLifetimeDialogDateInput.datepicker("setDate", expirationDate); can't set past date
+            that.$linkLifetimeDialogDateInput.val(jQuery.datepicker.formatDate(ASC.Resources.Master.DatepickerDatePattern, expirationDate));
+            that.$linkLifetimeDialogTimeInput.val(expirationDate.toLocaleTimeString("en-US", { hourCycle: 'h23' }).substring(0, 5));
+        } else {
+            that.$linkLifetimeDialogDateInput.val("");
+            that.$linkLifetimeDialogTimeInput.val("");
+        }
+        that.$linkLifetimeDialogDateInput.removeClass("error");
+        that.$linkLifetimeDialogTimeInput.removeClass("error");
+        that.$linkLifetimeDialogCbx.prop("checked", !!settings.expirationDate).change();
+        that.$linkLifetimeDialogAutodeleteCbx.prop("checked", !!settings.autoDelete);
+        return true;
+    }
+
+    function onSaveLinkLifetimeSettings() {
+        var autoDelete = false;
+        var expirationDate = null;
+        var expired = false;
+        if (that.$linkLifetimeDialogCbx.prop("checked")) {
+            var date = that.$linkLifetimeDialogDateInput.datepicker("getDate");
+            var datestr = that.$linkLifetimeDialogDateInput.val().trim();
+
+            if (!date || !jq.isDateFormat(datestr)) {
+                that.$linkLifetimeDialogDateInput.addClass("error");
+                return;
+            }
+
+            autoDelete = that.$linkLifetimeDialogAutodeleteCbx.prop("checked");
+
+            var timestr = that.$linkLifetimeDialogTimeInput.val().trim();
+            var timeParts = timestr.split(":");
+            date.setHours(timeParts[0]);
+            date.setMinutes(timeParts.length > 1 ? timeParts[1] : 0);
+            expirationDate = ServiceFactory.serializeTimestamp(date);
+
+            var localDate = new Date();
+            var utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
+            var tenantDate = new Date(utcDate.getTime() + ASC.Resources.Master.CurrentTenantTimeZone.UtcOffset * 60000);
+            expired = tenantDate > date;
+
+            if (expired) {
+                that.$linkLifetimeDialogDateInput.addClass("error");
+                that.$linkLifetimeDialogTimeInput.addClass("error");
+                return;
+            }
+        }
+
+        var settings = that.selected[that.currentElement.id].linkSettings;
+        if (settings.expirationDate == expirationDate && settings.autoDelete == autoDelete) {
+            that.linkLifetimeDialogHelper.hide();
+            return;
+        }
+
+        settings.autoDelete = autoDelete;
+        settings.expirationDate = expirationDate;
+        settings.expired = expired;
+
+        var iconElement = that.currentElement.querySelector(".us-settings-lifetime");
+        iconElement.classList.toggle("enabled", expirationDate);
+        iconElement.classList.toggle("warning", expired);
+
+        that.linkLifetimeDialogHelper.hide();
+        showSaveBtn();
+    }
+
     function initClipboard() {
         if (!ASC.Clipboard.enable) {
+            that.$addLinkActionDialogCopy.parent().remove();
             that.$linkActionDialogCopy.remove();
             that.$linkShareDialogCopy.remove();
             that.$linkEmbedDialogCopy.remove();
             that.$saveActionDialogCopyParent.remove();
             that.$saveActionDialogSeporator.remove();
+            that.$linkPasswordDialogCopy.remove();
             return;
         }
+
+        that.clipboard.directLink = ASC.Clipboard.createManually(
+            that.$addLinkActionDialogCopy.get(0),
+            {
+                text: function () {
+                    return window.location.protocol + '//' + window.location.hostname + that.targetData.entryLink;
+                }
+            },
+            function () {
+                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
+            }
+        );
 
         that.clipboard.internalLink = ASC.Clipboard.createManually(
             that.$saveActionDialogCopy.get(0),
@@ -1681,6 +2146,18 @@ window.ASC.Files.Share = (function () {
             },
             function () {
                 ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.CodeCopySuccess);
+            }
+        );
+
+        that.clipboard.externalLinkPassword = ASC.Clipboard.createManually(
+            that.$linkPasswordDialogCopy.get(0),
+            {
+                text: function () {
+                    return that.$linkPasswordDialogCopy.hasClass("disabled") ? false : 'link: ' + that.selected[that.currentElement.id].link + '\npassword: ' + that.$linkPasswordDialogInput.val()
+                }
+            },
+            function () {
+                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
             }
         );
     }
@@ -1743,7 +2220,6 @@ window.ASC.Files.Share = (function () {
             && (!ASC.Files.Folders || ASC.Files.Folders.folderContainer == "my" || ASC.Files.Folders.folderContainer == "forme" || ASC.Files.Folders.folderContainer == "privacy");
 
         that.viewSettings.externalLinksAvailable = false;
-        that.viewSettings.externalLinksEnabled = false;
 
         that.viewSettings.originForPost = asFlat && origin ? origin : "*";
 
@@ -1806,6 +2282,7 @@ window.ASC.Files.Share = (function () {
                 }
 
             } else {
+                that.viewSettings.canLinkReadWrite = true;
                 that.viewSettings.displaySettings = false;
             }
         }
@@ -1827,26 +2304,31 @@ window.ASC.Files.Share = (function () {
     function getSelectedFromSharingInfo(sharingInfo) {
         that.targetData.sharingInfo = sharingInfo;
         that.targetData.needUpdate = false;
+        that.viewSettings.externalLinksAvailable = that.$linkSettingsInput.data("available");
 
         var selected = {};
 
         sharingInfo.forEach(function (item) {
-            if (item.id === ASC.Files.Constants.ShareLinkId) {
-                that.viewSettings.externalLinksAvailable = that.$linkSettingsInput.data("available");
-                that.viewSettings.externalLinksEnabled = item.ace_status != ASC.Files.Constants.AceStatusEnum.Restrict;
+            if (item.id === ASC.Files.Constants.ShareLinkId || item.linkSettings) {
                 that.targetData.encrypted = false;
+
+                var canEdit = item.id === ASC.Files.Constants.ShareLinkId ? 
+                    item.ace_status != ASC.Files.Constants.AceStatusEnum.Restrict : !item.inherited;
 
                 selected[item.id] = {
                     id: item.id,
                     link: item.link,
-                    name: FilesJSResource.ExternalLink + (that.viewSettings.externalLinksAvailable ? "" : " (" + FilesJSResource.ExternalLinkDisabled + ")"),
+                    linkSettings: item.linkSettings ? Object.assign({}, item.linkSettings) : item.linkSettings,
+                    name: item.title || FilesJSResource.QuickExternalLink,
                     isLink: true,
-                    canEdit: that.viewSettings.externalLinksEnabled,
-                    canRemove: that.viewSettings.externalLinksEnabled,
+                    canEdit: canEdit,
+                    canRemove: canEdit,
                     access: item.ace_status,
-                    accessName: getAceString(item.ace_status)
+                    accessName: getAceString(item.ace_status),
+                    entryType: item.entryType,
+                    inherited: item.inherited
                 };
-            } else {
+            } else if (item.id !== ASC.Files.Constants.GUEST_USER_ID) {
                 if (item.is_group) {
                     selected[item.id] = {
                         id: item.id,
@@ -2064,27 +2546,6 @@ window.ASC.Files.Share = (function () {
         window.parent.postMessage(message, that.viewSettings.originForPost);
     }
 
-    function setLinkAccess(linkItem) {
-        var fileId = that.targetData.entryData ? that.targetData.entryData.id : ASC.Files.UI.parseItemId(that.targetData.id).entryId;
-
-        ASC.Files.ServiceManager.setAceLink(ASC.Files.ServiceManager.events.SetAceLink,
-            {
-                showLoading: true,
-                fileId: fileId,
-                share: linkItem.access
-            });
-    }
-
-    function onSetLinkAccess(jsonData, params, errorMessage) {
-        if (typeof errorMessage != "undefined") {
-            ASC.Files.UI.displayInfoPanel(errorMessage, true);
-            return;
-        }
-        if (that.targetData.entryData) {
-            that.targetData.entryData.entryObject.toggleClass("__active", jsonData);
-        }
-    }
-
     function setAccess(notify, message) {
         var data = new Array();
         var newOwner = null;
@@ -2095,16 +2556,16 @@ window.ASC.Files.Share = (function () {
             var change = true;
             for (var oldItem of that.targetData.sharingInfo) {
                 if (oldItem.id === item.id) {
-                    change = oldItem.ace_status != item.access;
+                    change = oldItem.ace_status != item.access
+                        ? true
+                        : oldItem.linkSettings
+                            ? oldItem.title != item.name || JSON.stringify(oldItem.linkSettings) != JSON.stringify(item.linkSettings)
+                            : false;
                     break;
                 }
             }
             if (change) {
-                data.push({
-                    id: item.id,
-                    is_group: item.isGroup,
-                    ace_status: item.access
-                });
+                data.push(getAceEntryItem(item, item.access));
             }
             if (item.isOwner && item.id != that.targetData.ownerId) {
                 newOwner = item.id;
@@ -2117,11 +2578,7 @@ window.ASC.Files.Share = (function () {
         //remove
         for (var oldItem of that.targetData.sharingInfo) {
             if (!that.selected[oldItem.id]) {
-                data.push({
-                    id: oldItem.id,
-                    is_group: oldItem.isGroup,
-                    ace_status: ASC.Files.Constants.AceStatusEnum.None
-                });
+                data.push(getAceEntryItem(oldItem, ASC.Files.Constants.AceStatusEnum.None));
             }
         }
 
@@ -2152,6 +2609,32 @@ window.ASC.Files.Share = (function () {
             },
             { ace_collection: dataJson });
     };
+
+    function getAceEntryItem(item, access) {
+        function removeFieldsWithDefaultValue(obj) {
+            for (var propName in obj) {
+                if (!obj[propName]) {
+                    delete obj[propName];
+                }
+            }
+            return obj;
+        }
+
+        if (item.isLink && item.linkSettings) {
+            return {
+                id: item.id,
+                title: item.name,
+                ace_status: access,
+                linkSettings: removeFieldsWithDefaultValue(item.linkSettings)
+            }
+        }
+
+        return {
+            id: item.id,
+            is_group: item.isGroup,
+            ace_status: access
+        }
+    }
 
     function onSetAccess(jsonData, params, errorMessage) {
         if (typeof errorMessage != "undefined") {
@@ -2259,10 +2742,9 @@ window.ASC.Files.Share = (function () {
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetShortenLink, onGetShortenLink);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetSharedInfoShort, onGetSharedInfoShort);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetSharedInfo, onGetSharedInfo);
-        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SetAceLink, onSetLinkAccess);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SetAceObject, onSetAccess);
 
-        that.$topButtonContainer.append(that.userSelector.dialogElement);
+        that.$topContentContainer.append(that.userSelector.dialogElement);
 
         that.userSelectorDialogHelper = new DialogHelper(that.$addUserBtn.get(0), that.userSelector.dialogElement, onBeforeShowUserSelectorDialog, null, false, true);
 
@@ -2270,10 +2752,18 @@ window.ASC.Files.Share = (function () {
 
         that.$addLinkBtn.on("click", clickOnAddLinkBtn);
 
-        that.searchDialogHelper = new DialogHelper(null, that.$searchDialog.get(0), onBeforeShowSearchDialog, onBeforeHideSearchDialog, true, true);
+        that.addLinkActionDialogHelper = new DialogHelper(that.$addLinkBtnArrow.get(0), that.$addLinkActionDialog.get(0), onBeforeShowAddLinkActionDialog);
 
-        that.$searchInput.on("click", function (event) {
-            event.stopPropagation();
+        that.$addLinkActionDialog.on("click", ".dropdown-item", clickOnAddLinkActionDialogItemElement);
+
+        that.searchDialogHelper = new DialogHelper(null, that.$searchDialog.get(0), onBeforeShowSearchDialog, onBeforeHideSearchDialog, true, true, that.$searchInput.get(0));
+
+        that.$searchInput.on("mousedown", function () {
+            that.searchDialogHelper.addSelection();
+        })
+
+        that.$searchInput.on("mouseup blur", function () {
+            that.searchDialogHelper.removeSelection();
         })
 
         that.$searchDialogContentListParent.on("click", ".us-name, .us-show-more", function (event) {
@@ -2301,6 +2791,8 @@ window.ASC.Files.Share = (function () {
                 clickOnGroupElement(this, event);
             } else if (this.classList.contains("us-linkname")) {
                 clickOnLinkElement(this, event);
+            } else if (this.classList.contains("us-folder-linkname")) {
+                clickOnLinkElement(this, event);
             } else {
                 clickOnGroupItemElement(this, event);
             }
@@ -2308,7 +2800,7 @@ window.ASC.Files.Share = (function () {
 
         that.itemTooltipDialogHelper = new DialogHelper(null, that.$itemTooltipDialog.get(0));
 
-        that.$contentListParent.on("mouseover mouseout", ".us-name:not(.us-linkname):not(.us-groupname):not(.disabled) .us-name-text span", function (event) {
+        that.$contentListParent.on("mouseover mouseout", ".us-name:not(.us-linkname):not(.us-folder-linkname):not(.us-groupname):not(.disabled) .us-name-text span", function (event) {
             var element = this.closest(".us-name");
 
             if (event.type == "mouseover") {
@@ -2382,6 +2874,88 @@ window.ASC.Files.Share = (function () {
 
         that.$linkEmbedDialogInput.on("keypress", keypressOnReadonlyInput);
 
+
+        that.linkPasswordDialogHelper = new DialogHelper(null, that.$linkPasswordDialog.get(0), onBeforeShowLinkPasswordDialog);
+
+        that.$linkPasswordDialogCbx.on("change", function () {
+            disableDialogElements(!this.checked, that.$linkPasswordDialog);
+            if (this.checked) {
+                setTimeout(function () {
+                    that.$linkPasswordDialogInput.get(0).focus();
+                }, 0);
+            }
+        })
+
+        that.$linkPasswordDialogShow.on("click", showHidePassword);
+
+        that.$linkPasswordDialogRandom.on("click", setRandomPassword);
+
+        that.$linkPasswordDialogClean.on("click", function () {
+            clearDialogElements(this, that.$linkPasswordDialog);
+        })
+
+        that.$linkPasswordDialogSaveBtn.on("click", function () {
+            that.linkPasswordDialogHelper.hide();
+            onSaveLinkPasswordSettings();
+        })
+
+        that.$linkPasswordDialogCancelBtn.on("click", function () {
+            that.linkPasswordDialogHelper.hide();
+        })
+
+
+        that.$linkLifetimeDialogCbx.on("change", function () {
+            disableDialogElements(!this.checked, that.$linkLifetimeDialog);
+        })
+
+        that.$linkLifetimeDialogDateInput.datepicker({ selectDefaultDate: false, minDate: new Date() });
+        that.$linkLifetimeDialogDateInput.mask(ASC.Resources.Master.DatePatternJQ);
+
+        var datepicker = jq("#ui-datepicker-div").addClass("blockMsg");
+
+        that.linkLifetimeDialogHelper = new DialogHelper(null, that.$linkLifetimeDialog.get(0), onBeforeShowLinkLifetimeDialog, null, false, true, datepicker.get(0));
+
+        var maskBehavior = function (val) {
+            val = val.split(":");
+            return (parseInt(val[0]) > 19) ? "Hh:M0" : "H0:M0";
+        }
+
+        spOptions = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(maskBehavior.apply({}, arguments), options);
+            },
+            translation: {
+                'H': { pattern: /[0-2]/, optional: false },
+                'h': { pattern: /[0-3]/, optional: false },
+                'M': { pattern: /[0-5]/, optional: false }
+            }
+        };
+
+        that.$linkLifetimeDialogTimeInput.mask(maskBehavior, spOptions);
+
+        that.$linkLifetimeDialogClean.on("click", function () {
+            clearDialogElements(this, that.$linkLifetimeDialog);
+        })
+
+        that.$linkLifetimeDialogSaveBtn.on("click", function () {
+            onSaveLinkLifetimeSettings();
+        })
+
+        that.$linkLifetimeDialogCancelBtn.on("click", function () {
+            that.linkLifetimeDialogHelper.hide();
+        })
+
+        that.linkDeleteDialogHelper = new DialogHelper(null, that.$linkDeleteDialog.get(0));
+
+        that.$linkDeleteDialogOkBtn.on("click", function () {
+            that.linkDeleteDialogHelper.hide();
+            deleteLink(that.currentElement.id);
+        })
+
+        that.$linkDeleteDialogCancelBtn.on("click", function () {
+            that.linkDeleteDialogHelper.hide();
+        })
+
         that.itemAccessRightsDialogHelper = new DialogHelper(null, that.$itemAccessRightsDialog.get(0));
 
         that.$itemAccessRightsDialog.on("click", ".access-rights-item", function (event) {
@@ -2411,7 +2985,7 @@ window.ASC.Files.Share = (function () {
             that.messageDialogHelper.hide();
         })
 
-        that.advancedSettingsDialogHelper = new DialogHelper(that.$settingsBtn.get(0), that.$advancedSettingsDialog.get(0), onBeforeShowAdvancedSettingsDialog);
+        that.advancedSettingsDialogHelper = new DialogHelper(that.$settingsBtnContainer.get(0), that.$advancedSettingsDialog.get(0), onBeforeShowAdvancedSettingsDialog);
 
         that.$advancedSettingsDialogSaveBtn.on("click", function (event) {
             that.viewSettings.denyDownload = that.$advancedSettingsDialogDenyDownloadCbx.prop("checked");

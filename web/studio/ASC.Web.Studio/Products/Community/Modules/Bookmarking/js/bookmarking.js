@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -281,13 +281,13 @@ function animateBookmarkChange(singleBookmarkDivID) {
 		var el = jq('#' + singleBookmarkDivID);
 		var bg = el.css("background-color");
 		bg = bg.toLowerCase();
-		el.css({ "background-color": "#ffffcc" });
+		el.css({ "background-color": ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffcc" : "rgba(204, 184, 102, 0.2)" });
 		if (bg == "#edf6fd" || bg == "rgb(237, 246, 253)") {
 			el.animate({ backgroundColor: '##EDF6FD' }, 2000);
 		} else {
-			el.animate({ backgroundColor: "#ffffff" }, 2000);
+			el.animate({ backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333" }, 2000);
 		}
-	} catch (err) { el.css({ "background-color": "#ffffff" }); }
+	} catch (err) { el.css({ "background-color": ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333" }); }
 }
 ///////////////////////////////////////////////////////////////
 ///////			Ajax Request preparation end

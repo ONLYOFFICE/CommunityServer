@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,18 @@
 */
 
 
+@import "../../../../skins/default/params.less";
+
 .subs-tabs 
 {
-    border-bottom: 1px solid #D1D1D1;   
+    border-bottom: 1px solid @border-line-profile;   
     margin-bottom:20px;
     padding-bottom:16px;    
     position: relative;    
     
     .subs-module 
     {
-        color:#000;
+        color:@bg-a-activate;
         cursor:pointer;
         display:inline-block;
         margin-right:40px;
@@ -49,7 +51,7 @@
         }
     }
     .subs-selector {
-        background:url("img/hmenu-selected.png") no-repeat 0 bottom #fff; 
+        background: url("img/@{hmenu-selected-img}") no-repeat 0 bottom @body-color; 
         position: absolute;
         width: 11px;
         height: 7px;
@@ -67,7 +69,7 @@ body.media-width-0-1200 {
     margin-bottom:20px;   
     
     & > .module {
-        border-right: 1px dotted #333;
+        border-right: 1px dotted @textColor;
         display: inline-block;
         cursor:pointer;
         padding-right: 5px;
@@ -126,17 +128,17 @@ body.media-width-0-1200 {
     }    
 .subscribe-link a
 {
-    color:#333;
+    color:@textColor;
     }
 .subs-only-button
 {
-    border-bottom: 1px solid #D1D1D1;
+    border-bottom: 1px solid @borderColor;
     margin-bottom:15px;
     padding-bottom:15px;
     }
 .module-settings,
 .subtabs {
-    border-bottom: 1px solid #D1D1D1;
+    border-bottom: 1px solid @borderColor;
     margin-bottom: 15px;
     padding-bottom: 8px;
 }

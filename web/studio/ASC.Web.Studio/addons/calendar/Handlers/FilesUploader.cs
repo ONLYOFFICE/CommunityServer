@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,27 +44,27 @@ namespace ASC.Web.Calendar.Handlers
 
         public override FileUploadResult ProcessUpload(HttpContext context)
         {
-            if (!SecurityContext.IsAuthenticated)
-            {
-                throw new HttpException(403, "Access denied.");
-            }
-
             var result = new FileUploadResult { Success = false };
 
             try
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+
                 if (FileToUpload.HasFilesToUpload(context))
                 {
                     var file = new FileToUpload(context);
                     var maxFileSize = MaxFileSizeInMegabytes * 1024 * 1024;
 
-                    if (string.IsNullOrEmpty(file.FileName))
+                    var fileName = System.IO.Path.GetFileName(file.FileName);
+
+                    if (string.IsNullOrEmpty(fileName))
                         throw new ArgumentException("Empty file name");
 
                     if (maxFileSize < file.ContentLength)
                         throw new Exception(CalendarJSResource.calendarEventAttachments_fileSizeError);
-
-                    var fileName = System.IO.Path.GetFileName(file.FileName);
 
                     var document = new File
                     {

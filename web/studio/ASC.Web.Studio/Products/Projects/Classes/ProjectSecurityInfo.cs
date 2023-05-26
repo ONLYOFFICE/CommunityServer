@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,45 +30,59 @@ namespace ASC.Web.Projects.Classes
     [DataContract(Name = "project_security", Namespace = "")]
     public class ProjectSecurityInfo
     {
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateMilestone { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateMessage { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateTask { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateTimeSpend { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanEditTeam { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanReadFiles { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanReadMilestones { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanReadMessages { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanReadTasks { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanLinkContact { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanReadContacts { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanEdit { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanDelete { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool IsInTeam { get; set; }
 
@@ -122,14 +136,19 @@ namespace ASC.Web.Projects.Classes
 
     public class TaskSecurityInfo
     {
+        ///<example>false</example>
         public bool CanEdit { get; set; }
 
+        ///<example>false</example>
         public bool CanCreateSubtask { get; set; }
 
+        ///<example>false</example>
         public bool CanCreateTimeSpend { get; set; }
 
+        ///<example>false</example>
         public bool CanDelete { get; set; }
 
+        ///<example>false</example>
         public bool CanReadFiles { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,8 +65,8 @@ namespace ASC.Web.Community.Wiki
             Context = new ModuleContext
             {
                 DefaultSortOrder = 5,
-                SmallIconFileName = "wikilogo16.png",
-                IconFileName = "wikilogo32.png",
+                SmallIconFileName = "wikilogo16.svg",
+                IconFileName = "wikilogo32.svg",
                 SubscriptionManager = new WikiSubscriptionManager(),
                 GetCreateContentPageAbsoluteUrl = GetCreateContentPageUrl,
                 SearchHandler = new WikiSearchHandler(),

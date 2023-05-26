@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,18 +26,23 @@ namespace ASC.Mail.Data.Contracts
     [DataContract]
     public class MailCommonSettings : BaseSettings<MailCommonSettings>
     {
+        ///<example name="EnableConversations">true</example>
         [DataMember(Name = "EnableConversations")]
         public bool EnableConversationsSetting { get; set; }
 
+        ///<example name="AlwaysDisplayImages">true</example>
         [DataMember(Name = "AlwaysDisplayImages")]
         public bool AlwaysDisplayImagesSetting { get; set; }
 
+        ///<example name="CacheUnreadMessages">true</example>
         [DataMember(Name = "CacheUnreadMessages")]
         public bool CacheUnreadMessagesSetting { get; set; }
 
+        ///<example name="EnableGoNextAfterMove">true</example>
         [DataMember(Name = "EnableGoNextAfterMove")]
         public bool EnableGoNextAfterMoveSetting { get; set; }
 
+        ///<example name="ReplaceMessageBody">true</example>
         [DataMember(Name = "ReplaceMessageBody")]
         public bool ReplaceMessageBodySetting { get; set; }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ window.ASC.Files.Filter = (function () {
                 options: getTypeOptions(ASC.Files.Constants.FilterType.FoldersOnly),
                 type: "combobox",
                 title: ASC.Files.FilesJSResource.ButtonFilterFolder,
-                visible: !isFavorites && !isRecent && !isTemplates
+                visible: !isRecent && !isTemplates
             },
             {
                 id: "selected-type-text",
@@ -125,7 +125,7 @@ window.ASC.Files.Filter = (function () {
             }
         ];
 
-        if (ASC.Resources.Master.Personal != true) {
+        if (ASC.Resources.Master.IsAuthenticated && !ASC.Resources.Master.Personal) {
             filterItems.push({
                 id: "selected-person",
                 group: ASC.Files.FilesJSResource.ButtonFilterAuthor,
@@ -173,7 +173,7 @@ window.ASC.Files.Filter = (function () {
         var isTemplates = ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_TEMPLATES;
 
         var options = [];
-        if (!isFavorites && !isRecent && !isTemplates) {
+        if (!isRecent && !isTemplates) {
             options = [{
                 def: defaultType == ASC.Files.Constants.FilterType.FoldersOnly,
                 title: ASC.Files.FilesJSResource.ButtonFilterFolder,

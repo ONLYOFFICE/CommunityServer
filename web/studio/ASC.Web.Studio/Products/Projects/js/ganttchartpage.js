@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -193,7 +193,7 @@ ASC.Projects.GantChartPage = (function () {
         localStorageManager.setItem("ganttProjects", currentFilteredProjectsIds.join(','));
     };
     var setProjectsFilterFromStorage = function () {
-        // project in url - не забыть, что закрытых проектов в списке нет!
+        // project in url - do not forget that there are no closed projects in the list!
         var prjId = currentProjectId, prjCount = 0;
 
         if (localStorageManager.getItem("ganttProjects") && null === currentProjectId) {
@@ -210,7 +210,7 @@ ASC.Projects.GantChartPage = (function () {
             currentFilteredProjectsIds[k] = parseInt(currentFilteredProjectsIds[k]);
         }
 
-        // проект может быть удален или стать недоступен, поэтому надо проверить
+        // the project may be deleted or become unavailable, so you need to check
 
         var i, j, project;
 
@@ -229,8 +229,8 @@ ASC.Projects.GantChartPage = (function () {
         }
 
 
-        // Отсекаем закрытые или запауженные проекты на просмотр
-        // Отсекаем приватные проекты в которых юзер не в команде проекта
+        // Cut off closed or paused projects for viewing
+        // We cut off private projects in which the user is not in the project team
 
         if (showOnlyActiveProjects) {
 
@@ -921,7 +921,7 @@ ASC.Projects.GantChartPage = (function () {
             currentUserProjects = [],
             otherProjects = [];
 
-        for (var i = 0; i < projectsCount; i++) {               // добавить проверки на доступ к задачам и вехам
+        for (var i = 0; i < projectsCount; i++) {               //add access checks to tasks and milestones
             allProjectsHash[projects[i].id] = projects[i];
 
             if (showOnlyActiveProjects) {
@@ -1034,7 +1034,7 @@ ASC.Projects.GantChartPage = (function () {
         if (!localStorageManager.getItem("hideActionHelpPlag") && !readMode) {
             helpActionsPanel.removeClass("display-none").addClass("display-block");
         }
-        //checkLeftPanel(); // может быть уже можно удалить эту настройку
+        //checkLeftPanel(); // it may be possible to remove this setting
 
         setReadMode();
         chart.userDefaults().setFontFamily(jq("body").css("fontFamily"));
@@ -1390,8 +1390,8 @@ ASC.Projects.GantChartPage = (function () {
 
         jq("#ganttChartZoom").width(width);
         if (firstLoad) {
-            jq("#ganttChartZoom").css("border", "1px solid #ccc");
-            jq("#ganttChartZoom").css("backgroundColor", "#fff");
+            jq("#ganttChartZoom").css("border", ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "1px solid #ccc" : "1px solid #474747");
+            jq("#ganttChartZoom").css("backgroundColor", ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#fff" : "#333");
         }
 
         // set max-width responsible filter

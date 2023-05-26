@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +30,15 @@ namespace ASC.Api.Documents
     {
         /// <summary>
         /// </summary>
+        /// <example name="shareTo">2fdfe577-3c26-4736-9df9-b5a683bb8520</example>
+        /// <order>0</order>
         [DataMember(Name = "shareTo", Order = 0)]
         public Guid ShareTo { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example name="access">0</example>
+        /// <order>1</order>
         [DataMember(Name = "access", Order = 1)]
         public FileShare Access { get; set; }
 

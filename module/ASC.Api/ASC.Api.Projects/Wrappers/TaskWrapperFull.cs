@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,30 +25,41 @@ using ASC.Web.Studio.UserControls.Common.Comments;
 
 namespace ASC.Api.Projects.Wrappers
 {
+    ///<inherited>ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects</inherited>
     [DataContract(Name = "task", Namespace = "")]
     public class TaskWrapperFull : TaskWrapper
     {
+        ///<type>ASC.Api.Documents.FileWrapper, ASC.Api.Documents</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<FileWrapper> Files { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Common.Comments.CommentInfo, ASC.Web.Studio</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<CommentInfo> Comments { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember]
         public int CommentsCount { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool IsSubscribed { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanEditFiles { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateComment { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.ProjectWrapperFull, ASC.Api.Projects</type>
         [DataMember]
         public ProjectWrapperFull Project { get; set; }
-
+        
+        ///<example type="double">3.5</example>
         [DataMember]
         public float TimeSpend { get; set; }
 

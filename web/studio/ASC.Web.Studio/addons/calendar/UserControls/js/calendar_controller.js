@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -281,7 +281,7 @@ ASC.CalendarController = new function() {
             for (var i = 0; i < attachments.length; i++) {
                 if (!attachments[i].error) {
                     var attach = new ICAL.Property("ATTACH");
-                    attach.setParameter("FILENAME", attachments[i].title);
+                    attach.setParameter("FILENAME", attachments[i].title != undefined ? attachments[i].title : "");
                     if (attachments[i].contentType) {
                         attach.setParameter("FMTTYPE", attachments[i].contentType);
                     }
@@ -382,7 +382,6 @@ ASC.CalendarController = new function() {
 
     this.init = function (timeZones, editorUrl) {
 
-        jq('.mainPageTable.with-mainPageTableSidePanel .mainPageContent').addClass('calendar');
         var $icon = jq("link[rel*=icon][type^='image']:last");
         if ($icon.attr('href').indexOf('logo_favicon_general.ico') !== -1) {//not default
             $icon.attr('href', $icon.attr('href'));
@@ -512,13 +511,15 @@ ASC.CalendarController = new function() {
             characterString: ASC.CalendarController.characterString
         });
 
-        new ResizeObserver(function () {
-            var barContentHeight = document.querySelector("main .bar-content").clientHeight;
-            if (barContentHeight != ASC.CalendarSizeManager.cache.barContentHeight) {
-                ASC.CalendarSizeManager.cache.barContentHeight = barContentHeight;
-                jq("#asc_calendar").data().fullCalendar.updateSize()
-            }
-        }).observe(document.querySelector("main .bar-content"));
+        if (window.ResizeObserver) {
+            new ResizeObserver(function () {
+                var barContentHeight = document.querySelector("main .bar-content").clientHeight;
+                if (barContentHeight != ASC.CalendarSizeManager.cache.barContentHeight) {
+                    ASC.CalendarSizeManager.cache.barContentHeight = barContentHeight;
+                    jq("#asc_calendar").data().fullCalendar.updateSize()
+                }
+            }).observe(document.querySelector("main .bar-content"));
+        }
 
         ASC.Mail.Enabled = true;
         ASC.Mail.Accounts = [];

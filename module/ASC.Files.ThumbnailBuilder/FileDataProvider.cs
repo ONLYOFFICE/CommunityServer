@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,7 +99,7 @@ namespace ASC.Files.ThumbnailBuilder
                 )
                 .GroupBy("t.tenant");
 
-            using (var db = DbManager.FromHttpContext(config.ConnectionStringName))
+            using (var db = new DbManager(config.ConnectionStringName))
             {
                 result = db.ExecuteList(search)
                     .Where(row => Convert.ToBoolean(row[1]))
@@ -130,7 +130,7 @@ namespace ASC.Files.ThumbnailBuilder
                 search.Where(where);
             }
 
-            using (var db = DbManager.FromHttpContext(config.ConnectionStringName))
+            using (var db = new DbManager(config.ConnectionStringName))
             {
                 return db.ExecuteList(search).Select(row => new FileData(
                     Convert.ToInt32(row[0]),

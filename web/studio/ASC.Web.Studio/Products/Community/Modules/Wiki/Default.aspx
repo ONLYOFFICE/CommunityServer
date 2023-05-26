@@ -16,7 +16,7 @@
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
-    <link href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/App_Themes/default/css/wikicssprint.css")%>"
+    <link href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Wiki/App_Themes/default/css/wikicssprint.less")%>"
         rel="stylesheet" type="text/css" media="print" />
 </asp:Content>
 

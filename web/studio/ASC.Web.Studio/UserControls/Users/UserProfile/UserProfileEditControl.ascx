@@ -4,6 +4,8 @@
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
+<%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Core.Users" %>
 
 <div id="userProfileEditPage" class="containerBodyBlock">
     <div class="profile-action-content clearFix">
@@ -119,7 +121,7 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= Resource.MobilePhone %></td>
                 <td class="userdata-value" colspan="2">
-                    <div class="text-alignment"><%= IsLdapField(LdapSettings.MappingFields.MobilePhoneAttribute) ? "" : "+" %><%= SmsSender.GetPhoneValueDigits(Phone) %></div>
+                    <div class="text-alignment">+<%= SmsSender.GetPhoneValueDigits(Phone) %></div>
                 </td>
             </tr>
             <% } %>
@@ -146,17 +148,17 @@
                         <p class="gray-text" style="margin-top: 2px;"><%= Resource.TemporaryPasswordToAccess %></p>
                     </div>
                     <div class="validationBlock">
-                        <input id="password" autocomplete="new-password" class="textEdit" type="password" maxlength="<%= PasswordSettings.MaxLength %> " size="10" title="<%= Resource.Password %>"/>
+                        <input id="password" autocomplete="new-password" class="textEdit" type="password" maxlength="<%= TenantPasswordSettings.MaxLength %> " size="10" title="<%= Resource.Password %>"/>
                         <a class="infoChecking" id="passwordGen">&nbsp;</a>
                         <div id="bubleBlock">
                         <div id="passwordInfo" style="display:none;"><%= Resource.ErrorPasswordMessage %>:
-                            <br /><span id="passMinLength" class="infoItem"><%= String.Format(Resource.ErrorPasswordLength.HtmlEncode(), UserPasswordMinLength, PasswordSettings.MaxLength) %></span>
+                            <br /><span id="passMinLength" class="infoItem"><%= String.Format(Resource.ErrorPasswordLength.HtmlEncode(), TenantPasswordSettings.MinLength, TenantPasswordSettings.MaxLength) %></span>
                             <br /><span id="passLatinLetters" class="infoItem"><%= Resource.ErrorPasswordOnlyASCII %></span>
-                            <% if (UserPasswordDigits) { %>
+                            <% if (TenantPasswordSettings.Digits) { %>
                             <br /><span id="passDigits" class="infoItem"><%= Resource.ErrorPasswordNoDigits %></span>
-                            <% } if (UserPasswordUpperCase) { %>
+                            <% } if (TenantPasswordSettings.UpperCase) { %>
                             <br /><span id="passUpper" class="infoItem"><%= Resource.ErrorPasswordNoUpperCase %></span>
-                            <% } if (UserPasswordSpecSymbols) { %>
+                            <% } if (TenantPasswordSettings.SpecSymbols) { %>
                             <br /><span id="passSpecial" class="infoItem"><%= Resource.ErrorPasswordNoSpecialSymbols %></span>
                             <% } %>
                         </div>
@@ -219,6 +221,24 @@
                 </td>
             </tr>
             <% } %>
+            <%--Lead--%>
+            <% if (!IsPersonal) { %>
+            <tr class="userdata-field">
+                <td class="userdata-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserLead").HtmlEncode() %></td>
+                <td class="userdata-value userdata-title" colspan="2" >
+                    <% if (CurrentUserIsPeopleAdmin) { %>
+                    <span id="leadSelector" class="link dotline plus"><%: CustomNamingPeople.Substitute<Resource>("AddLeadButton").HtmlEncode() %></span>
+                    <div id="leadManager" class="advanced-selector-select-result display-none">
+                        <span class="result-name" data-id="<%= Lead != null ? Lead.ID : (Guid?)null %>"><%= Lead != null ? Lead.DisplayUserName() : "" %></span>
+                        <span class="reset-icon"></span>
+                    </div>
+                    <% } else { %>
+                    <input type="text" class="textEdit" value="<%= Lead != null ? Lead.DisplayUserName() : "" %>" autocomplete="off"  disabled="" title="<%= CustomNamingPeople.Substitute<Resource>("UserLead").HtmlEncode()%>" />
+                    <% } %>
+                </td>
+            </tr>
+            <% } %>
+
             <%--Location--%>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= Resource.Location %></td>

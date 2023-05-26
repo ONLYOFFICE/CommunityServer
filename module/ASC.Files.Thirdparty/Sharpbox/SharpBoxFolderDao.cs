@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@ using AppLimit.CloudComputing.SharpBox.Exceptions;
 
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Core.ChunkedUploader;
+using ASC.Data.Storage.ZipOperators;
 using ASC.Files.Core;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
@@ -339,6 +341,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 storageMaxUploadSize = long.MaxValue;
 
             return chunkedUpload ? storageMaxUploadSize : Math.Min(storageMaxUploadSize, SetupInfo.AvailableFileSize);
+        }
+
+        public IDataWriteOperator CreateDataWriteOperator(
+            string folderId,
+            CommonChunkedUploadSession chunkedUploadSession,
+            CommonChunkedUploadSessionHolder sessionHolder)
+        {
+            return null;
         }
 
         #region Only for TMFolderDao

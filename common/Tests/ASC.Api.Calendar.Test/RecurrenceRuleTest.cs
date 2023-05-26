@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ namespace ASC.Api.Calendar.Test
                 ByMonth = new int[] { 6, 7 }
             };
 
-            var dates = r1.GetDates(new DateTime(1997, 6, 10, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 6, 10, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){new DateTime(1997, 6, 10, 9, 0, 0), new DateTime(1997, 7, 10, 9, 0, 0),
             new DateTime(1998, 6, 10, 9, 0, 0),new DateTime(1998, 7, 10, 9, 0, 0),
@@ -57,7 +57,7 @@ namespace ASC.Api.Calendar.Test
                 Count = 10,
                 ByMonth = new int[] { 1, 2,3 }
             };
-            dates = r1.GetDates(new DateTime(1997, 3, 10, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 3, 10, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){new DateTime(1997, 3, 10, 9, 0, 0),
                 new DateTime(1999, 1, 10, 9, 0, 0),new DateTime(1999, 2, 10, 9, 0, 0), new DateTime(1999, 3, 10, 9, 0, 0),
@@ -74,7 +74,7 @@ namespace ASC.Api.Calendar.Test
                 Count = 10,
                 ByYearDay = new int[] { 1, 100, 200 }
             };
-            dates = r1.GetDates(new DateTime(1997, 1, 1, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 1, 1, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
                 new DateTime(1997, 1, 1, 9, 0, 0),new DateTime(1997, 4, 10, 9, 0, 0),new DateTime(1997, 7, 19, 9, 0, 0), 
@@ -91,7 +91,7 @@ namespace ASC.Api.Calendar.Test
                 Count = 3,
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("20MO") }
             };
-            dates = r1.GetDates(new DateTime(1997, 5, 19, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 5, 19, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
                 new DateTime(1997, 5, 19, 9, 0, 0),new DateTime(1998, 5, 18, 9, 0, 0),new DateTime(1999, 5, 17, 9, 0, 0)
@@ -106,7 +106,7 @@ namespace ASC.Api.Calendar.Test
                 ByWeekNo = new int[]{20},
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("MO") }
             };
-            dates = r1.GetDates(new DateTime(1997, 5, 12, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 5, 12, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
                 new DateTime(1997, 5, 12, 9, 0, 0),new DateTime(1998, 5, 11, 9, 0, 0),new DateTime(1999, 5, 17, 9, 0, 0)
@@ -120,7 +120,7 @@ namespace ASC.Api.Calendar.Test
                 ByMonth = new int[] { 3 },
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("TH") }
             };
-            dates = r1.GetDates(new DateTime(1997, 3, 13, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 3, 13, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
                new DateTime(1997, 3, 13, 9, 0, 0), new DateTime(1997, 3, 20, 9, 0, 0),new DateTime(1997, 3, 27, 9, 0, 0),
@@ -137,7 +137,7 @@ namespace ASC.Api.Calendar.Test
                 ByMonth = new int[] { 6,7,8 },
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("TH") }
             };
-            dates = r1.GetDates(new DateTime(1997, 6, 5, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 6, 5, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
                new DateTime(1997, 6, 5, 9, 0, 0), new DateTime(1997, 6, 12, 9, 0, 0),new DateTime(1997, 6, 19, 9, 0, 0),new DateTime(1997, 6, 26, 9, 0, 0),
@@ -156,7 +156,7 @@ namespace ASC.Api.Calendar.Test
                 ByMonthDay = new int[] { 2,3,4,5,6,7,8 },
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("TU") }
             };
-            dates = r1.GetDates(new DateTime(1996, 11, 5, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1996, 11, 5, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
                new DateTime(1996, 11, 5, 9, 0, 0), 
@@ -173,7 +173,7 @@ namespace ASC.Api.Calendar.Test
                 ByMonthDay = new int[] { 13 },
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("fr") }
             };
-            dates = r1.GetDates(new DateTime(2012, 1, 1, 0, 0, 0), _fromDate, new DateTime(2014, 1, 1, 0, 0, 0));
+            dates = r1.GetDates(new DateTime(2012, 1, 1, 0, 0, 0), TimeZoneInfo.Utc, false, _fromDate, new DateTime(2014, 1, 1, 0, 0, 0));
            
 
 
@@ -190,7 +190,7 @@ namespace ASC.Api.Calendar.Test
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("1FR") }
             };
 
-            var dates = r1.GetDates(new DateTime(1997, 9, 5, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 9, 5, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 5, 9, 0, 0), new DateTime(1997, 10, 3, 9, 0, 0),
@@ -207,7 +207,7 @@ namespace ASC.Api.Calendar.Test
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("1FR") }
             };
 
-            dates = r1.GetDates(new DateTime(1997, 9, 5, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 5, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 5, 9, 0, 0), new DateTime(1997, 10, 3, 9, 0, 0),
@@ -223,7 +223,7 @@ namespace ASC.Api.Calendar.Test
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("1SU"), RecurrenceRule.WeekDay.Parse("-1SU") }
             };
 
-            dates = r1.GetDates(new DateTime(1997, 9, 7, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 7, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 7, 9, 0, 0), new DateTime(1997, 9, 28, 9, 0, 0),
@@ -242,7 +242,7 @@ namespace ASC.Api.Calendar.Test
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("-2MO")}
             };
 
-            dates = r1.GetDates(new DateTime(1997, 9, 22, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 22, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 22, 9, 0, 0), new DateTime(1997, 10, 20, 9, 0, 0),
@@ -260,7 +260,7 @@ namespace ASC.Api.Calendar.Test
                 ByMonthDay = new int[] {10,11,12,13,14,15 }
             };
 
-            dates = r1.GetDates(new DateTime(1997, 9, 10, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 10, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 10, 9, 0, 0), new DateTime(1997, 9, 11, 9, 0, 0),
@@ -283,7 +283,7 @@ namespace ASC.Api.Calendar.Test
                 Count = 10                
             };
 
-            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 2, 9, 0, 0), new DateTime(1997, 9, 9, 9, 0, 0),
@@ -302,7 +302,7 @@ namespace ASC.Api.Calendar.Test
                 Count = 10
             };
 
-            dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 2, 9, 0, 0), new DateTime(1997, 9, 16, 9, 0, 0),
@@ -321,7 +321,7 @@ namespace ASC.Api.Calendar.Test
                 ByDay = new RecurrenceRule.WeekDay[] { RecurrenceRule.WeekDay.Parse("tu"), RecurrenceRule.WeekDay.Parse("th") }
             };
 
-            dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 2, 9, 0, 0), new DateTime(1997, 9, 4, 9, 0, 0),
@@ -331,7 +331,7 @@ namespace ASC.Api.Calendar.Test
 
 
             r1 = RecurrenceRule.Parse("freq=weekly;count=3;interval=2;byday=mo");
-            dates = r1.GetDates(new DateTime(2012, 1, 2, 0, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(2012, 1, 2, 0, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(2012, 1, 2, 0, 0, 0), new DateTime(2012, 1, 16, 0, 0, 0),
@@ -353,7 +353,7 @@ namespace ASC.Api.Calendar.Test
                 Interval = 10
             };
 
-            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 2, 9, 0, 0), new DateTime(1997, 9, 12, 9, 0, 0),
@@ -373,7 +373,7 @@ namespace ASC.Api.Calendar.Test
                 Interval = 3
             };
 
-            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 2, 9, 0, 0), new DateTime(1997, 9, 2, 12, 0, 0),            
@@ -392,7 +392,7 @@ namespace ASC.Api.Calendar.Test
                 Interval = 20
             };
 
-            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 9, 2, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
 
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 2, 9, 0, 0), new DateTime(1997, 9, 2, 9, 20, 0),            
@@ -404,7 +404,7 @@ namespace ASC.Api.Calendar.Test
         {
             //test 1
             var r1 = RecurrenceRule.Parse("FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2;count=7");
-            var dates = r1.GetDates(new DateTime(1997, 9, 29, 9, 0, 0), _fromDate, _toDate);
+            var dates = r1.GetDates(new DateTime(1997, 9, 29, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 29, 9, 0, 0), new DateTime(1997, 10, 30, 9, 0, 0),            
             new DateTime(1997, 11, 27, 9, 0, 0),new DateTime(1997, 12, 30, 9, 0, 0),new DateTime(1998, 1, 29, 9, 0, 0),
@@ -413,7 +413,7 @@ namespace ASC.Api.Calendar.Test
 
             //test 2
             r1 = RecurrenceRule.Parse("FREQ=MONTHLY;COUNT=3;BYDAY=TU,WE,TH;BYSETPOS=3");
-            dates = r1.GetDates(new DateTime(1997, 9, 4, 9, 0, 0), _fromDate, _toDate);
+            dates = r1.GetDates(new DateTime(1997, 9, 4, 9, 0, 0), TimeZoneInfo.Utc, false, _fromDate, _toDate);
             CollectionAssert.AreEqual(new List<DateTime>(){
             new DateTime(1997, 9, 4, 9, 0, 0), new DateTime(1997, 10, 7, 9, 0, 0),            
             new DateTime(1997, 11, 6, 9, 0, 0)}, dates);

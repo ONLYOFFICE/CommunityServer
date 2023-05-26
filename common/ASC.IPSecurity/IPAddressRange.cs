@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 */
 
 
+using System;
 using System.Net;
 using System.Net.Sockets;
 
@@ -57,6 +58,25 @@ namespace ASC.IPSecurity
             }
 
             return true;
+        }
+
+        public static bool IsInRange(string ipAddress, string CIDRmask)
+        {
+            string[] parts = CIDRmask.Split('/');
+
+            var requestIP = IPAddress.Parse(ipAddress);
+            var restrictionIP = IPAddress.Parse(parts[0]);
+
+            if (requestIP.AddressFamily != restrictionIP.AddressFamily)
+            {
+                return false;
+            }
+
+            int IP_addr = BitConverter.ToInt32(requestIP.GetAddressBytes(), 0);
+            int CIDR_addr = BitConverter.ToInt32(restrictionIP.GetAddressBytes(), 0);
+            int CIDR_mask = IPAddress.HostToNetworkOrder(-1 << (32 - int.Parse(parts[1])));
+
+            return (IP_addr & CIDR_mask) == (CIDR_addr & CIDR_mask);
         }
     }
 }

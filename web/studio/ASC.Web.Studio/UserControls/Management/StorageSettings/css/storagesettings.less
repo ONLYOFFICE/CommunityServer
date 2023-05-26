@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,34 +15,31 @@
 */
 
 
+@import "../../../../skins/default/params.less";
+
 #storageContainer {
-    margin-bottom: 45px;
-    max-width: 770px;
+    max-width: 800px;
 
     .auth-service-text,.auth-service{
         margin-bottom: 32px;
     }
 
     .storageBlock {
-        width: 850px;
-        margin-bottom: 45px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
 
+        > div {
+            margin-bottom: 45px;
+        }
+
         .storageItem {
-            border-color: #d1d1d1;
+            border-color: @borderColor;
             border-style: solid none;
             border-width: 1px;
-            float: left;
-            height: auto;
-            margin: 0 16px -1px 0;
+            margin: 0 16px 0 0;
             padding: 16px;
             width: 350px;
-
-            [id^='props'] {
-                margin-bottom: 40px;
-            }
 
             .storageKey {
                 display: block;
@@ -50,30 +47,27 @@
                 width: 100%;
             }
 
-            .storageName {
-                display: block;
-                font-weight: bold;
-                margin-bottom: 15px;
-
-                img {
-                    float: left;
-                }
+            .textEdit {
+                margin-bottom: 10px;
+                width: 100%;
+                height: 22px;
+                box-sizing: border-box;
             }
 
-            .button {
+            input[type=radio], input[type=checkbox] {
                 float: left;
+                margin-left: 0;
+            }
+
+            input[type=radio] {
+                margin-top: 2px;
+            }
+
+            input[type=radio] + label, input[type=checkbox] + label {
+                float: left;
+                margin: 0 0 8px 8px;
+                width: 320px;
             }
         }
-    }
-
-    .auth-service-item .sub-button {
-        float: right;
-        margin-top: 4px;
-    }
-
-    .auth-service-dscr {
-        max-height: 50px;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 }

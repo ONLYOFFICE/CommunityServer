@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +77,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 names.UserPostCaption,
                 names.RegDateCaption,
                 names.GroupHeadCaption,
+                names.UserLeadCaption,
                 names.GuestCaption,
                 names.GuestsCaption,
             };
@@ -107,7 +108,7 @@ namespace ASC.Web.Studio.UserControls.Management
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object SaveCustomNamingSettings(string usrCaption, string usrsCaption, string grpCaption, string grpsCaption,
                                                string usrStatusCaption, string regDateCaption,
-                                               string grpHeadCaption,
+                                               string grpHeadCaption, string usrLeadCaption,
                                                string guestCaption, string guestsCaption)
         {
             try
@@ -121,6 +122,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 usrStatusCaption = (usrStatusCaption ?? "").Trim();
                 regDateCaption = (regDateCaption ?? "").Trim();
                 grpHeadCaption = (grpHeadCaption ?? "").Trim();
+                usrLeadCaption = (usrLeadCaption ?? "").Trim();
                 guestCaption = (guestCaption ?? "").Trim();
                 guestsCaption = (guestsCaption ?? "").Trim();
 
@@ -131,6 +133,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     || String.IsNullOrEmpty(usrStatusCaption)
                     || String.IsNullOrEmpty(regDateCaption)
                     || String.IsNullOrEmpty(grpHeadCaption)
+                    || String.IsNullOrEmpty(usrLeadCaption)
                     || String.IsNullOrEmpty(guestCaption)
                     || String.IsNullOrEmpty(guestsCaption))
                 {
@@ -147,6 +150,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     UserPostCaption = usrStatusCaption.Substring(0, Math.Min(30, usrStatusCaption.Length)),
                     RegDateCaption = regDateCaption.Substring(0, Math.Min(30, regDateCaption.Length)),
                     GroupHeadCaption = grpHeadCaption.Substring(0, Math.Min(30, grpHeadCaption.Length)),
+                    UserLeadCaption = usrLeadCaption.Substring(0, Math.Min(30, usrLeadCaption.Length)),
                     GuestCaption = guestCaption.Substring(0, Math.Min(30, guestCaption.Length)),
                     GuestsCaption = guestsCaption.Substring(0, Math.Min(30, guestsCaption.Length)),
                 };

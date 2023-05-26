@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,10 @@
 
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
+
+using ASC.Common.Utils;
 
 using UAParser;
 
@@ -66,21 +69,39 @@ namespace ASC.MessagingSystem
             return request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null;
         }
 
-        public static string GetIP(Dictionary<string, string> headers)
+        public static string GetFullIPAddress(Dictionary<string, string> headers)
+        {
+            var ips = GetIPs(headers);
+            return ips == null ? null : string.Join(",", ips);
+        }
+
+        public static IEnumerable<string> GetIPs(Dictionary<string, string> headers)
         {
             var forwarded = headers.ContainsKey(forwardedHeader) ? headers[forwardedHeader] : null;
             var host = headers.ContainsKey(hostHeader) ? headers[hostHeader] : null;
-            return forwarded ?? host;
+            var address = forwarded ?? host;
+            return address == null ? null : GetClearIPs(address);
         }
 
-        public static string GetIP(HttpRequest request)
+        public static string GetFullIPAddress(HttpRequest request)
         {
-            if (request != null)
+            var ips = GetIPs(request);
+            return ips == null ? null : string.Join(",", ips);
+        }
+
+        public static IEnumerable<string> GetIPs(HttpRequest request)
+        {
+            if (request == null)
             {
-                string str = request.Headers[forwardedHeader] ?? request.UserHostAddress;
-                return str.Substring(0, str.IndexOf(':') != -1 ? str.IndexOf(':') : str.Length);
+                return null;
             }
-            return null;
+            var address = request.Headers[forwardedHeader] ?? request.UserHostAddress;
+            return address == null ? null : GetClearIPs(address);
+        }
+
+        private static IEnumerable<string> GetClearIPs(string address)
+        {
+            return IpAddressParser.ParseAddress(address).Select(IpAddressParser.GetIpWithoutPort);
         }
 
         public static void AddInfoMessage(EventMessage message, Dictionary<string, ClientInfo> dict = null)

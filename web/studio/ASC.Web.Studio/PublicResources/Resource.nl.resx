@@ -1357,9 +1357,6 @@ Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Vertrouwde Maildomein Instellingen{2} is een manier om de mailservers te specificeren die worden gebruikt voor zelfstandige registratie van gebruikers.{0}U kunt de optie {1}Aangepaste domeinen{2} aanvinken en de vertrouwde mailserver invullen in het veld hieronder, zodat een persoon die daar een account heeft, zichzelf kan registreren door op de uitnodigingslink te klikken op de {1}Inlog{2}pagina of deze optie uit te schakelen.{0} Om de parameters die u heeft ingesteld door te voeren, klik op de knop {1}Opslaan{2} onderaan in het gedeelte.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Wachtwoord Sterkte Instellingen{2}is een manier om de effectiviteit van een wachtwoord te bepalen voor het tegengaan van raden en brute kracht aanvallen.{0}Gebruik de {1}Minimale wachtwoordlengte{2} balk om te bepalen hoe lang het wachtwoord moet worden. Controleer de juiste vakken hieronder om de tekenreeks te bepalen die in het wachtwoord moet worden gebruikt.{0}Om de parameters die u instelt, in werking te laten stellen, klik op de knop {1}Opslaan{2} aan de onderkant van het onderdeel.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Openbaar Portaal{2} is een gratis optie waarmee iedereen uw publieke inhoud zonder registratie kan bekijken. Er zijn geen privéprojecten zichtbaar en de CRM-module is uitgeschakeld voor dergelijke portalen.{0}Registratie voor openbare portalen is niet beperkt in het aantal gebruikers, nieuwe gebruikers worden toegevoegd na verzoek aan de portaalbeheerder. Gebruik de optie {1}Registreer onmiddellijk nieuwe gebruikers{2} om vereiste registratiebevestiging te verwijderen.</value>
   </data>
@@ -1552,9 +1549,6 @@ Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Activeren</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP-beveiliging{1} wordt gebruikt om de mogelijkheid tot inloggen bij de portal te beperken tot specifieke IP-adressen. Je kunt de toegestane IP-adressen instellen door exacte IP-adressen op te geven in de IPv4-notatie (#.#.#.#, waarbij # staat voor een numerieke waarde tussen 0 en 255) of door een IP-bereik op te geven (in de notatie #.#.#.#-#.#.#.#). De IP-beveiliging werkt niet voor eigenaars van de portal. Zij hebben toegang tot de portal vanaf elk IP-adres.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP Beveiliging</value>
@@ -2118,9 +2112,6 @@ als u de geblokkeerde profielvelden wilt veranderen.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Wachtwoord aanpassing</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimumlengte wachtwoord</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Wachtwoordherstel</value>

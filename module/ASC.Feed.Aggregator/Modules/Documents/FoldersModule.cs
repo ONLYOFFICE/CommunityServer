@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                 .GroupBy(1)
                 .Having(Exp.Gt("count(*)", 0));
 
-            using (var db = DbManager.FromHttpContext(DbId))
+            using (var db = new DbManager(DbId))
             {
                 return db.ExecuteList(q1)
                          .ConvertAll(r => Convert.ToInt32(r[0]))
@@ -154,7 +154,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                 );
 
             List<Tuple<Folder, SmallShareRecord>> folders;
-            using (var db = DbManager.FromHttpContext(DbId))
+            using (var db = new DbManager(DbId))
             {
                 folders = db.ExecuteList(q1.UnionAll(q2))
                     .ConvertAll(ToFolder)

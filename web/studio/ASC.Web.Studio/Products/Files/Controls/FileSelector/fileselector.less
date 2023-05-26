@@ -1,0 +1,96 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.popup-modal {
+    display: none;
+}
+
+#fileSelectorTree {
+    max-height: 500px;
+    width: 240px;
+}
+
+#fileSelectorTree.scrolled {
+    overflow: auto;
+}
+
+.hide-thirdparty .third-party-entry {
+    display: none;
+}
+
+.only-folder #fileSelectorTree {
+    width: 370px;
+}
+
+.only-folder .file-selector-files {
+    display: none;
+}
+
+.file-selector-tree {
+    padding-right: 24px;
+}
+
+.file-selector-files {
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    padding-left: 24px;
+}
+
+.file-selector-tree,
+.file-selector-files {
+    vertical-align: top;
+}
+
+#fileSelectorDialog .template-action,
+#fileSelectorDialog .pencil,
+#fileSelectorDialog .menu-small,
+#fileSelectorDialog .file-lock,
+#fileSelectorDialog .favorite,
+#fileSelectorDialog .version,
+#fileSelectorDialog .btn-row {
+    display: none !important;
+}
+
+.file-selector-files #filesMainContent.compact .file-row .entry-title,
+.file-selector-files #filesMainContent.compact .file-row .entry-title .name{
+    max-width: 400px;
+    width: 400px;
+}
+
+.file-selector-files #filesMainContent.compact .file-row .is-new {
+    display: none;
+}
+
+.file-selector-single .file-row .checkbox input[type=checkbox] {
+    display: none;
+}
+.file-selector-single .file-row .checkbox input[type=radio] {
+    display: inline;
+}
+
+.file-selector-compact #fileSelectorTree {
+    height: 400px;
+}
+.file-selector-compact #mainContent {
+    height: 400px;
+    min-height: 400px;
+}
+
+#fileSelectorDialog #emptyContainer .emptyScrCtrl > table {
+    margin: 0 auto;
+}

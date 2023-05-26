@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,14 +30,18 @@ using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Api.MailServer
 {
+    ///<name>mailserver</name>
     public partial class MailServerApi
     {
         /// <summary>
         /// Returns a list of all the web domains associated with the current tenant.
         /// </summary>
-        /// <returns>List of web domains for the current tenant</returns>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainData, ASC.Mail">List of web domains for the current tenant</returns>
         /// <short>Get web domains</short> 
         /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/get</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"domains/get")]
         public List<ServerDomainData> GetDomains()
         {
@@ -56,9 +60,11 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Returns the common web domain.
         /// </summary>
-        /// <returns>Common web domain</returns>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainData, ASC.Mail">Common web domain</returns>
         /// <short>Get common web domain</short> 
         /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/common</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"domains/common")]
         public ServerDomainData GetCommonDomain()
         {
@@ -69,11 +75,13 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Adds a web domain to the current tenant.
         /// </summary>
-        /// <param name="name">Web domain name</param>
-        /// <param name="id_dns">DNS ID</param>
-        /// <returns>Web domain data associated with the tenant</returns>
+        /// <param type="System.String, System" name="name">Web domain name</param>
+        /// <param type="System.Int32, System" name="id_dns">DNS ID</param>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainData, ASC.Mail">Web domain data associated with the tenant</returns>
         /// <short>Add a domain to the mail server</short> 
         /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/add</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"domains/add")]
         public ServerDomainData AddDomain(string name, int id_dns)
         {
@@ -85,10 +93,12 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Deletes a web domain with the ID specified in the request from the mail server.
         /// </summary>
-        /// <param name="id">Web domain ID</param>
-        /// <returns>Operation status</returns>
+        /// <param type="System.Int32, System" method="url" name="id">Web domain ID</param>
+        /// <returns type="ASC.Mail.Core.Engine.Operations.Base.MailOperationStatus, ASC.Mail">Operation status</returns>
         /// <short>Remove a domain from the mail server</short> 
         /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/remove/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"domains/remove/{id}")]
         public MailOperationStatus RemoveDomain(int id)
         {
@@ -100,10 +110,12 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Returns DNS records related to the domain with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Domain ID</param>
-        /// <returns>DNS records associated with the domain</returns>
+        /// <param type="System.Int32, System" method="url" name="id">Domain ID</param>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainDnsData, ASC.Mail">DNS records associated with the domain</returns>
         /// <short>Get DNS records by domain ID</short>
-        /// <category>DNS records</category>
+        /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/dns/get</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"domains/dns/get")]
         public ServerDomainDnsData GetDnsRecords(int id)
         {
@@ -113,12 +125,14 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        /// Checks if the web domain name specified in the request already exists or not.
+        /// Checks if a web domain name specified in the request already exists or not.
         /// </summary>
-        /// <param name="name">Web domain name</param>
-        /// <returns>Boolean value: True - domain name exists, False - domain name does not exist</returns>
+        /// <param type="System.String, System" method="url" name="name">Web domain name</param>
+        /// <returns>Boolean value: true - domain name exists, false - domain name does not exist</returns>
         /// <short>Check the domain name existence</short> 
         /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/exists</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"domains/exists")]
         public bool IsDomainExists(string name)
         {
@@ -128,12 +142,14 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        /// Checks if the web domain specified in the request belongs to the current user or not.
+        /// Checks if a web domain specified in the request belongs to the current user or not.
         /// </summary>
-        /// <param name="name">Web domain name</param>
-        /// <returns>Boolean value: True - current user is the domain owner, False - current user is not the domain owner</returns>
+        /// <param type="System.String, System" method="url" name="name">Web domain name</param>
+        /// <returns>Boolean value: true - current user is the domain owner, false - current user is not the domain owner</returns>
         /// <short>Check the domain ownership</short> 
         /// <category>Domains</category>
+        /// <path>api/2.0/mailserver/domains/ownership/check</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"domains/ownership/check")]
         public bool CheckDomainOwnership(string name)
         {

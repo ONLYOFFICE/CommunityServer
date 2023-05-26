@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,11 @@ namespace ASC.Web.Community.News
 {
     public class NewsModule : Module
     {
+        public static Guid ModuleId = new Guid("3CFD481B-46F2-4a4a-B55C-B8C0C9DEF02C");
+
         public override Guid ID
         {
-            get { return NewsConst.ModuleId; }
+            get { return ModuleId; }
         }
 
         public override Guid ProjectId
@@ -57,8 +59,8 @@ namespace ASC.Web.Community.News
         {
             Context = new ModuleContext
             {
-                SmallIconFileName = "newslogo.png",
-                IconFileName = "32x_news.png",
+                SmallIconFileName = "newslogo.svg",
+                IconFileName = "32x_news.svg",
                 SubscriptionManager = new SubscriptionManager(),
                 GetCreateContentPageAbsoluteUrl = () => CommunitySecurity.CheckPermissions(NewsConst.Action_Add) ? FeedUrls.EditNewsUrl : null,
                 SearchHandler = new SearchHandler(),

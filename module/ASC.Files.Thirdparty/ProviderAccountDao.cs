@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ namespace ASC.Files.Thirdparty
 
         protected IDbManager GetDb()
         {
-            return DbManager.FromHttpContext(storageKey);
+            return new DbManager(storageKey);
         }
 
         private List<IProviderInfo> GetProvidersInfoInternal(int linkId = -1, FolderType folderType = FolderType.DEFAULT, string searchText = null)

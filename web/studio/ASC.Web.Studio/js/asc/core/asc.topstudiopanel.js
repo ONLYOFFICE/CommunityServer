@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,23 @@ jq(document).ready(function () {
             localStorage.setItem('onlyoffice', 'logout');
         }
     });
+
+    jq("#back_to_yourself").on('click', function () {
+
+        var reverseAddress = jq.cookies.get("reverse_address") || window.location.origin;
+
+        Teamlab.impersonateLogout({}, {
+            success: function (_, data) {
+                window.location.href = reverseAddress;
+            },
+            error: function (params, errors) {
+                toastr.error(errors[0]);
+                window.location.reload(true);
+            }
+        });
+    });
+
+    ShowSuccessImpersonateMessage();
     
     jq.dropdownToggle({
         switcherSelector: ".studio-top-panel .product-menu",
@@ -93,17 +110,8 @@ jq(document).ready(function () {
         addTop: 8,
         addLeft: 0,
         afterShowFunction: function () {
+            jq("#studio_searchPopupPanel").css("left", "auto");
             jq("#studio_search").trigger("focus");
-
-            var w = jq(window),
-                scrWidth = w.width(),
-                leftPadding = w.scrollLeft(),
-                elem = jq(".studio-top-panel .searchActiveBox"),
-                dropElem = jq("#studio_searchPopupPanel");
-
-            if ((elem.offset().left + dropElem.outerWidth()) > scrWidth + leftPadding) {
-                dropElem.css("left", Math.max(0, elem.offset().left - dropElem.outerWidth() + elem.outerWidth()) + "px");
-            }
         }
     });
 
@@ -230,6 +238,17 @@ jq(document).ready(function () {
         });
     }
 });
+
+function ShowSuccessImpersonateMessage() {
+
+    var needShowMessage = jq.cookies.get("showImpersonateLoginMessage");
+
+    if (needShowMessage && jq("#back_to_yourself").length) {
+        jq.cookies.del("showImpersonateLoginMessage");
+        var userName = UserManager.getUser(Teamlab.profile.id).displayName;
+        toastr.success(ASC.Resources.Master.ResourceJS.ImpersonateLoginMessage.format(userName));
+    }
+}
 
 var Searcher = new function () {
     this.Search = function () {

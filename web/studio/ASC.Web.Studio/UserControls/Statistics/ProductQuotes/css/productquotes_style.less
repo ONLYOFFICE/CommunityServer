@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,42 @@
 */
 
 
+@import "../../../../skins/default/params.less";
+
+.memoryQuotaBlock{
+    margin-bottom: 45px;
+}
+div.recalculate {
+    margin: 0 auto 30px auto;
+    width: 600px;
+}
+.recalculateQuotaBlock {
+    background: no-repeat url('../../../../skins/default/images/svg/settings/recalculate_quota.svg') 60px 40px transparent;
+    background-size: 150px;
+    height: 255px;
+    display: flex;
+    padding-left: 225px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    outline: none;
+
+    .inner {
+        .background {
+        }
+
+        .title {
+            display: block;
+            margin: 0 0 12px 0;
+        }
+
+        .description {
+            display: block;
+            line-height: 20px;
+            margin-bottom: 15px;
+        }
+    }
+}
 .informationBlock {
     tr:not(:last-child) td {
         padding: 0px 16px 8px 0;
@@ -24,7 +60,173 @@
         padding: 0px 16px 0 0;
     }
 }
+.editUsersQuotaForm {
+    display: inline-block;
+}
+p.lastUpdate{
+    color: #787878;
+    font-size: 11px;
+}
 
+#peopleHeaderMenu.no-quota {
+    .menuActionSelectAll,
+    .editUsersQuotaForm,
+    .menuEditQuota,
+    .menuNoQuota {
+        display: none !important;
+    }
+}
+.menuActionSelectAll,
+.editUsersQuotaForm,
+.menuEditQuota,
+.menuNoQuota {
+    &.display-none {
+        display: none !important;
+    }
+}
+.quotaSettingBlock {
+    .set-quota {
+        margin-top: 7px;
+    }
+}
+#tableForPeopleNavigation {
+    height: 24px;
+    width: 100%;
+
+    .tl-combobox {
+        margin-bottom: 1px;
+        vertical-align: middle;
+    }
+}
+#totalUsers {
+    margin-right: 20px;
+}
+#peopleContent {
+    .used-space-info {
+        width: 115px;
+
+        .dotted {
+            position: relative;
+            padding-left: 2px;
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid @textColorGrayDark;
+                content: "";
+                height: 0;
+                position: absolute;
+                right: -10px;
+                top: 50%;
+                width: 0;
+                margin-top: -1px;
+            }
+        }
+    }
+
+    .item-icon {
+        width: 16px;
+        height: 16px;
+        margin: 0 5px 0 0;
+        float: left;
+
+        .item-svg {
+            width: 16px;
+            height: 16px;
+            fill: @textColorGrayDark;
+        }
+    }
+}
+
+#peopleHeaderMenu,
+#peopleContent,
+.quotaSettingBlock {
+    .set-quota.display-none {
+        display: none;
+    }
+
+    .set-quota {
+        display: flex;
+        width: 100%;
+        color: @textColor;
+
+        input {
+            width: 45px;
+            height: 20px;
+            margin-right: 3px;
+        }
+
+        .sizes {
+            width: auto;
+            padding-top: 1px;
+            margin-right: 8px;
+            cursor: pointer;
+
+            .val {
+                border: solid 1px @borderColor2;
+                padding: 3px 22px 0px 4px;
+                height: 19px;
+                margin-top: -1px;
+                position: relative;
+                background: @body-color;
+
+                &:after {
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 4px solid @textColorGrayDark;
+                    content: "";
+                    height: 0;
+                    position: absolute;
+                    right: 7px;
+                    top: 50%;
+                    width: 0;
+                    margin-top: -1px;
+                }
+            }
+        }
+
+        .save-btn {
+            position: relative;
+            cursor: pointer;
+            width: 23px;
+            height: 23px;
+            border: 1px solid @border-button-default;
+            border-radius: 3px;
+            margin-right: 5px;
+            background: @body-color;
+
+            .mark {
+                position: absolute;
+                width: 8px;
+                height: 5px;
+                right: 6px;
+                top: 6px;
+                border: 3px solid @textColorGrayDark;
+                transform: rotate(-45deg);
+                border-width: 0 0 3px 3px;
+            }
+        }
+
+        .close-btn {
+            position: relative;
+            cursor: pointer;
+            width: 23px;
+            height: 23px;
+            border: 1px solid @border-button-default;
+            border-radius: 3px;
+            background: @body-color;
+
+            .mark {
+                background: url('../../../../skins/default/images/svg/people/close.svg') center no-repeat;
+                background-size: contain;
+                display: block;
+                margin: 5px 0px 0px 6px;
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+}
 .quotesBlock {
     margin: 0 0 45px 0;
 
@@ -112,7 +314,7 @@
     }
 
     .tabs-header-corner {
-        background: url(../img/corner.png) center no-repeat;
+        background: url("../img/@{corner-img}") center no-repeat;
         position: absolute;
         width: 11px;
         height: 7px;

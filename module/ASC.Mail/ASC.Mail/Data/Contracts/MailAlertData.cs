@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,19 @@ namespace ASC.Mail.Data.Contracts
     [DataContract]
     public class MailAlertData
     {
+        ///<example type="int">1234</example>
         [DataMember]
         public Int64 id;
+
+        ///<example type="int">1</example>
         [DataMember]
         public MailAlertTypes type;
+
+        ///<example type="int">1234</example>
         [DataMember]
         public int id_mailbox;
+
+        ///<example>data</example>
         [DataMember]
         public string data;
     }

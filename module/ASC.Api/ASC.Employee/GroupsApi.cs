@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,9 @@ using ASC.MessagingSystem;
 namespace ASC.Api.Employee
 {
     ///<summary>
-    /// Access to the groups.
+    /// Groups API.
     ///</summary>
+    ///<name>group</name>
     public class GroupsApi : IApiEntryPoint
     {
         public string Name
@@ -54,12 +55,15 @@ namespace ASC.Api.Employee
         ///Returns the general information about all the groups, such as group ID and group manager.
         ///</summary>
         ///<short>
-        ///Get all groups
+        ///Get groups
         ///</short>
-        ///<returns>List of groups</returns>
+        ///<returns type="ASC.Api.Employee.GroupWrapperSummary, ASC.Api.Employee">List of groups</returns>
         /// <remarks>
         /// This method returns partial group information.
         /// </remarks>
+        /// <path>api/2.0/group</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("")]
         public IEnumerable<GroupWrapperSummary> GetAll()
         {
@@ -72,8 +76,11 @@ namespace ASC.Api.Employee
         ///<short>
         ///Get groups by a group name
         ///</short>
-        ///<param name="groupName">Group name</param>
+        ///<param type="System.String, System" name="groupName">Group name</param>
         ///<returns>List of groups</returns>
+        ///<path>api/2.0/group/search</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("search")]
         public IEnumerable<GroupWrapperSummary> GetTagsByName(string groupName)
         {
@@ -87,16 +94,18 @@ namespace ASC.Api.Employee
         }
 
         ///<summary>
-        ///Returns the detailed information about the selected group: group name, category, description, manager, members and parent group if it exists.
+        ///Returns the detailed information about the selected group: group name, category, description, manager, members, and parent group if it exists.
         ///</summary>
         ///<short>
         ///Get a group
         ///</short>
-        ///<param name="groupid">Group ID</param>
-        ///<returns>Group</returns>
+        ///<param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        ///<returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Group</returns>
         /// <remarks>
-        /// That method returns full group information.
+        /// This method returns full group information.
         /// </remarks>
+        /// <path>api/2.0/group/{groupid}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("{groupid}")]
         public GroupWrapperFull GetById(Guid groupid)
         {
@@ -109,8 +118,11 @@ namespace ASC.Api.Employee
         ///<short>
         ///Get user groups
         ///</short>
-        ///<param name="userid">User ID</param>
-        ///<returns>Group</returns>
+        ///<param type="System.Guid, System" method="url" name="userid">User ID</param>
+        ///<returns type="ASC.Api.Employee.GroupWrapperSummary, ASC.Api.Employee">Group</returns>
+        /// <path>api/2.0/group/user/{userid}</path>
+        /// <httpMethod>GET</httpMethod>
+        ///  <collection>list</collection>
         [Read("user/{userid}")]
         public IEnumerable<GroupWrapperSummary> GetByUserId(Guid userid)
         {
@@ -118,15 +130,17 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Adds a new group with the group manager, name and members specified in the request.
+        /// Adds a new group with the group manager, name, and members specified in the request.
         /// </summary>
         /// <short>
         /// Add a new group
         /// </short>
-        /// <param name="groupManager">Group manager</param>
-        /// <param name="groupName">Group name</param>
-        /// <param name="members">List of group members</param>
-        /// <returns>Newly created group</returns>
+        /// <param type="System.Guid, System" name="groupManager">Group manager</param>
+        /// <param type="System.String, System" name="groupName">Group name</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="members">List of group members</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Newly created group</returns>
+        /// <path>api/2.0/group</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("")]
         public GroupWrapperFull AddGroup(Guid groupManager, string groupName, IEnumerable<Guid> members)
         {
@@ -149,16 +163,18 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Updates the existing group changing the group manager, name and/or members.
+        /// Updates the existing group changing the group manager, name, and/or members.
         /// </summary>
         /// <short>
         /// Update a group
         /// </short>
-        /// <param name="groupid">Group ID</param>
-        /// <param name="groupManager">New group manager</param>
-        /// <param name="groupName">New group name</param>
-        /// <param name="members">New list of group members</param>
-        /// <returns>Updated group</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        /// <param type="System.Guid, System" name="groupManager">New group manager</param>
+        /// <param type="System.String, System" name="groupName">New group name</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="members">New list of group members</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Updated group</returns>
+        /// <path>api/2.0/group/{groupid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{groupid}")]
         public GroupWrapperFull UpdateGroup(Guid groupid, Guid groupManager, string groupName, IEnumerable<Guid> members)
         {
@@ -194,8 +210,10 @@ namespace ASC.Api.Employee
         /// <short>
         /// Delete a group
         /// </short>
-        /// <param name="groupid">Group ID</param>
-        /// <returns>Group</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Group</returns>
+        /// <path>api/2.0/group/{groupid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("{groupid}")]
         public GroupWrapperFull DeleteGroup(Guid groupid)
         {
@@ -226,9 +244,11 @@ namespace ASC.Api.Employee
         /// <short>
         /// Move group members
         /// </short>
-        /// <param name="groupid">Group ID to move from</param>
-        /// <param name="newgroupid">Group ID to move to</param>
-        /// <returns>New group information</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID to move from</param>
+        /// <param type="System.Guid, System" method="url" name="newgroupid">Group ID to move to</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">New group information</returns>
+        /// <path>api/2.0/group/{groupid}/members/{newgroupid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{groupid}/members/{newgroupid}")]
         public GroupWrapperFull TransferMembersTo(Guid groupid, Guid newgroupid)
         {
@@ -246,14 +266,16 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Manages the group members deleting the current members and setting new ones specified in the request instead.
+        /// Replaces the group members with those specified in the request.
         /// </summary>
         /// <short>
-        /// Set group members
+        /// Replace group members
         /// </short>
-        /// <param name="groupid">Group ID</param>
-        /// <param name="members">List of new members</param>
-        /// <returns>Group information</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="members">List of new members</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Group information</returns>
+        /// <path>api/2.0/group/{groupid}/members</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("{groupid}/members")]
         public GroupWrapperFull SetMembersTo(Guid groupid, IEnumerable<Guid> members)
         {
@@ -263,14 +285,16 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Manages the group members keeping the current members and adding new ones specified in the request instead.
+        /// Adds new group members to the group with the ID specified in the request.
         /// </summary>
         /// <short>
         /// Add group members
         /// </short>
-        /// <param name="groupid">Group ID</param>
-        /// <param name="members">List of new members</param>
-        /// <returns>Group information</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="members">List of new members</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Group information</returns>
+        /// <path>api/2.0/group/{groupid}/members</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{groupid}/members")]
         public GroupWrapperFull AddMembersTo(Guid groupid, IEnumerable<Guid> members)
         {
@@ -285,14 +309,16 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Sets a user with the ID specified in the request as a manager.
+        /// Sets a user with the ID specified in the request as a group manager.
         /// </summary>
         /// <short>
         /// Set a group manager
         /// </short>
-        /// <param name="groupid">Group ID</param>
-        /// <param name="userid">User ID</param>
-        /// <returns>Group information</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        /// <param type="System.Guid, System" name="userid">User ID</param>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Group information</returns>
+        /// <path>api/2.0/group/{groupid}/manager</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <exception cref="ItemNotFoundException"></exception>
         [Update("{groupid}/manager")]
         public GroupWrapperFull SetManager(Guid groupid, Guid userid)
@@ -315,9 +341,11 @@ namespace ASC.Api.Employee
         /// <short>
         /// Remove group members
         /// </short>
-        /// <param name="groupid">Group ID</param>
-        /// <param name="members">List of members</param>
-        /// <returns>Group information</returns>
+        /// <param type="System.Guid, System" method="url" name="groupid">Group ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="members">List of group members</param>
+        /// <path>api/2.0/group/{groupid}/members</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns type="ASC.Api.Employee.GroupWrapperFull, ASC.Api.Employee">Group information</returns>
         [Delete("{groupid}/members")]
         public GroupWrapperFull RemoveMembersFrom(Guid groupid, IEnumerable<Guid> members)
         {

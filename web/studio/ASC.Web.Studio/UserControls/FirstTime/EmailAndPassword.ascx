@@ -13,11 +13,11 @@
         <div class="clearFix">
             <div class="pwd clearFix">
                 <div class="label">
-                    <%= Resource.EmailAndPasswordTypePassword %> <span class="info"><%= string.Format(Resource.EmailAndPasswordTypePasswordRecommendation, PasswordSetting.MinLength) %></span><span>*</span>
+                    <%= Resource.EmailAndPasswordTypePassword %> <span class="info"><%= string.Format(Resource.EmailAndPasswordTypePasswordRecommendation, TenantPasswordSettings.MinLength) %></span><span>*</span>
                 </div>
                 <div class="float-left">
-                    <input type="password" id="newPwd" class="textEdit" maxlength="<%= PasswordSettings.MaxLength %>"
-                        data-regex="<%: ASC.Web.Core.Utility.PasswordSettings.GetPasswordRegex(PasswordSetting) %>"
+                    <input type="password" id="newPwd" class="textEdit" maxlength="<%= TenantPasswordSettings.MaxLength %>"
+                        data-regex="<%: ASC.Web.Core.Utility.PasswordSettings.GetPasswordRegex(TenantPasswordSettings) %>"
                         data-help="<%= UserManagerWrapper.GetPasswordHelpMessage() %>" />
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <%= Resource.EmailAndPasswordConfirmPassword %><span>*</span>
                 </div>
                 <div>
-                    <input type="password" id="confPwd" class="textEdit" maxlength="<%= PasswordSettings.MaxLength %>" />
+                    <input type="password" id="confPwd" class="textEdit" maxlength="<%= TenantPasswordSettings.MaxLength %>" />
                 </div>
             </div>
             <% if (IsVisiblePromocode)

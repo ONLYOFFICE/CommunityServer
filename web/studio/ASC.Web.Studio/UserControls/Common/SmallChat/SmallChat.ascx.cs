@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Web;
 using System.Web.UI;
 
 using ASC.Data.Storage;
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.SmallChat
 {
@@ -39,9 +40,16 @@ namespace ASC.Web.Studio.UserControls.Common.SmallChat
         {
             SoundPath = WebPath.GetPath("UserControls/Common/SmallChat/css/sounds/chat");
 
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/SmallChat/css/dark-smallchat.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/SmallChat/css/smallchat.less");
+            }
             Page
                 .RegisterStyle(
-                    "~/UserControls/Common/SmallChat/css/smallchat.css",
                     "~/UserControls/Common/SmallChat/css/jquery.cssemoticons.css")
                 .RegisterBodyScripts(
                     "~/js/third-party/jquery/jquery.linkify.js",

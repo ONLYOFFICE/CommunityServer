@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,24 +30,34 @@ using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Api.Projects.Wrappers
 {
+    ///<inherited>ASC.Api.Projects.Wrappers.MessageWrapper, ASC.Api.Projects</inherited>
     [DataContract(Name = "message", Namespace = "")]
     public class MessageWrapperFull : MessageWrapper
     {
+        ///<example>true</example>
         [DataMember]
         public bool CanEditFiles { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool CanReadFiles { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<EmployeeWraperFull> Subscribers { get; set; }
 
+        ///<type>ASC.Api.Documents.FileWrapper, ASC.Api.Documents</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<FileWrapper> Files { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Common.Comments.CommentInfo, ASC.Web.Studio</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<CommentInfo> Comments { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.ProjectWrapperFull, ASC.Api.Projects</type>
         [DataMember]
         public ProjectWrapperFull Project { get; set; }
 

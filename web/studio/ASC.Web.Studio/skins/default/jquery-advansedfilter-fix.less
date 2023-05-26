@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "params.less";
 
 .advansed-filter {
     margin-bottom: 32px;
@@ -112,4 +114,84 @@ body.media-width-0-1030 div.advansed-filter {
 body.media-width-0-1024 div.advansed-filter
 {   
      max-width:  687px;
+}
+
+.ui-widget.ui-widget-content {
+    border-color: @border-ui-datepicker !important;
+}
+
+.ui-widget-content {
+    background: @body-color !important;
+    color: @textColor !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border-color: @border-ui-datepicker-dark !important;
+    background-color: @bg-ui-datepicker-dark !important;
+    color: @color-ui-datepicker-dark !important;
+}
+
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item:hover {
+    background-color: @menu-selected-bg-filter !important;
+}
+div.advansed-filter div.advansed-filter-container {
+    background-color: @back-ground-text !important;
+}
+div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters, div.advansed-filter-container div.advansed-filter-filters div.filter-item {
+    border-color: @bor-col-adv-fil !important;
+}
+
+div.advansed-filter-container span.custom-combobox div.combobox-container {
+    background-color: @body-color !important;
+    border-color: @borderColor !important;
+}
+
+div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item {
+    background-color: @body-color !important;
+}
+div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item:hover {
+    background-color: @menu-selected-bg-filter !important;
+}
+
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.custom-value span.inner-text, div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.default-value span.inner-text, div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value span.inner-text, div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.default-value span.inner-text {
+    color: @jquery-custom-color !important;
+}
+
+div.advansed-filter-container span.custom-combobox span.combobox-title .inner-text {
+    border-bottom-color: @jquery-custom-color !important;
+}
+div.advansed-filter-container span.custom-combobox span.combobox-title {
+    color: @jquery-custom-color !important;
+}
+.ui-widget-header .ui-icon {
+    background-image: url("images/@{jquery-icons-light}") !important;
+}
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon, .ui-buttton:hover .ui-icon, .ui-button:focus .ui-icon, .ui-state-default .ui-icon {
+    background-image: url("images/@{jquery-icons-light-hover}") !important;
+}
+div.advansed-filter label.advansed-filter-hint::after {
+    color: @body-color !important;
+    background-color: @menu-item-svg !important;
+}
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container {
+    background: @body-color !important;
+    border-color: @borderColor !important;
+}
+
+.asc-datepicker .ui-widget-header {
+    background: @body-color url("images/@{asc-datepicker-bg}") 50% 50% repeat-x !important;
+}
+
+.asc-datepicker .ui-state-default, .asc-datepicker .ui-widget-content .ui-state-default, .asc-datepicker .ui-widget-header .ui-state-default {
+    background: @body-color url("images/@{asc-datepicker-bg}") 50% 50% repeat-x !important;
+}
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container span.btn-show-datepicker-title {
+    border-bottom-color: @jquery-custom-color !important;
+}
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container {
+    color: @jquery-custom-color !important;
 }

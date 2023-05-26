@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ html
 }
 
 .h_line {
-    background-color: #D1D1D1;
+    background-color: @borderColor;
     height: 1px;
     line-height: 1px;
     margin-bottom: 20px;
@@ -74,8 +74,8 @@ html
    base markup
 *******************************************************************************/
 body {
-    background-color: #fff;
-    color: #333333;
+    background-color: @body-color;
+    color: @textColor;
     font: normal 12px @baseFont;
     height: 100%;
     margin: 0px;
@@ -91,7 +91,7 @@ body.desktop {
     MozUserSelect: none;
 }
 pre {
-    color: #333333;
+    color: @textColor;
     font-family: @baseFont;
     font-size: 12px;
     text-decoration: none;
@@ -104,6 +104,10 @@ div {
 }
 input,textarea, select {
     font-family: @baseFont;
+    background-color: @back-ground-text;
+    color:@bg-a-activate;
+    accent-color: @checkbox-accent-color;
+    color-scheme: @checkbox-color-sheme;
 }
 .ui-datepicker {
     font-family: @baseFont !important;
@@ -128,49 +132,6 @@ input,textarea, select {
     width: auto;
     height: auto;
     overflow: hidden;
-}
-
-.mainPageTable {
-    float: none;
-    width: 100%;
-    height: 100%;
-	min-height:350px;
-    overflow: auto;
-
-    .mainPageTableSidePanel {
-        border-bottom: medium none;
-        border-left: medium none;
-        border-top: medium none;
-        overflow: hidden;
-        .textOverflowEllipsis();
-        min-width: 240px;
-        width: 240px;
-        padding-bottom: 24px;
-        padding-right: 24px;
-        vertical-align: top;
-
-        &.ui-resizable {
-            overflow: visible;
-
-            .ui-resizable-handle.ui-resizable-e {
-                cursor: col-resize;
-            }
-        }
-    }
-
-    .mainPageContent {
-        padding-bottom: 24px;
-        vertical-align: top;
-    }
-
-    &.with-mainPageTableSidePanel .mainPageContent {
-        padding-left: 24px;
-
-        &.calendar{
-            padding-left: 0;
-            padding-bottom: 0;
-        }
-    }
 }
 
 #studio_sidePanel {
@@ -201,17 +162,17 @@ input,textarea, select {
     border: none;
 
     .ui-datepicker-next.ui-corner-all.ui-state-hover, .ui-datepicker-prev.ui-corner-all.ui-state-hover {
-        border-color:#ddd !important;
-        background-color:#ddd !important;
+        border-color: @datepick-ui-bg !important;
+        background-color: @datepick-ui-bg !important;
     }
 }
 .ui-widget-header .ui-corner-all.ui-state-hover {
-    border-color:#ddd;
-    background-color:#ddd;
+    border-color: @datepick-ui-bg;
+    background-color: @datepick-ui-bg;
 }
 .ui-datepicker-title {
     .ui-datepicker-month, .ui-datepicker-year {
-        border: 1px solid #ffffff;
+        border: 1px solid @body-color;
         text-decoration: underline;
         text-decoration-style: dotted;
         font-weight: bold;
@@ -219,7 +180,7 @@ input,textarea, select {
         cursor: pointer;
         padding-bottom: 0.1em;
         appearance: none;
-        background-color: transparent;
+        background-color: @body-color;
         width: auto;
     }
 }
@@ -238,10 +199,10 @@ input,textarea, select {
 }
 
 .ui-datepicker a.ui-state-default {
-    border: 1px solid #ffffff;
-    background: #fff;
+    border: 1px solid @body-color;
+    background: @body-color;
     font-weight: normal;
-    color: #555555;
+    color: @textColor;
     text-align: center;
     border-radius: 3px;
     width: 16px;
@@ -250,34 +211,34 @@ input,textarea, select {
 }
 
 .ui-datepicker-prev-hover.ui-corner-all {
-    border-color:#ddd !important;
-    background:#ddd !important;
+    border-color: @datepick-ui-bg !important;
+    background: @datepick-ui-bg !important;
 }
 
 .ui-datepicker-calendar a.ui-state-default {
     &.ui-state-hover {
-        border: 1px solid #ddd !important;
-        background: #ddd !important;
+        border: 1px solid @datepick-ui-bg !important;
+        background: @datepick-ui-bg !important;
         font-weight: normal;
-        color: #555555 !important;
+        color: @textColor !important;
     }
 }
 
 .ui-datepicker a.ui-state-default {
     &.ui-state-hover, &.ui-state-active, &.ui-state-highlight.ui-state-active, &.ui-state-highlight.ui-state-hover {
-        border: 1px solid #ddd !important;
-        background: #ddd !important;
+        border: 1px solid @datepick-ui-bg !important;
+        background: @datepick-ui-bg !important;
         font-weight: normal;
-        color: #555555 !important;
+        color: @textColor !important;
     }
 }
 
 .ui-datepicker a.ui-state-default {
     &.ui-state-highlight {
-        border: 1px solid #fefde9 !important;
-        background: #fefde9 !important;
+        border: 1px solid @ui-state-highlight !important;
+        background: @ui-state-highlight !important;
         font-weight: normal;
-        color: #555555 !important;
+        color: @textColor !important;
     }
 }
 
@@ -289,8 +250,8 @@ input,textarea, select {
         }
 
         .ui-widget-header .ui-corner-all.ui-state-hover {
-            border-color: #ddd;
-            background: #ddd;
+            border-color: @datepick-ui-bg;
+            background: @datepick-ui-bg;
         }
 
         .ui-datepicker-title .ui-datepicker-month, .ui-datepicker-title .ui-datepicker-year {
@@ -348,10 +309,13 @@ input,textarea, select {
 }
 
 .textEdit {
-    border: solid 1px #c7c7c7;
+    border: solid 1px @borderColor2;
+    background-color: @back-ground-text;
+    color: @bg-a-activate;
     font-size: 12px;
     height: 16px;
     .borderRadius(0);
+
 
     &.with-error {
         border-color: #cc3300;
@@ -361,20 +325,22 @@ input,textarea, select {
 .pwdLoginTextbox {
     .borderRadius(3px);
 
-    background-color: #ffffff;
-    border: solid 1px #c7c7c7;
-    color: #434341;
+    background-color: @body-color;
+    border: solid 1px @borderColor2;
+    color: @pwdloginTextbox-col;
     font-size: 18px;
     padding: 8px 20px;
     width: 358px;
 }
 
 textarea {
-    border: 1px solid #c7c7c7;
+    border: 1px solid @borderColor2;
+    background-color: @back-ground-text;
+    color: @bg-a-activate;
     font-size: 12px;
     resize: vertical;
     scrollbar-width: thin;
-    scrollbar-color: #BFBFBF #F5F5F5;
+    scrollbar-color: #BFBFBF @bg-button-default-hover;
 
     &::-webkit-resizer {
         background-image: url("data:image/svg+xml,%3Csvg%20width%3D%229%22%20height%3D%229%22%20viewBox%3D%220%200%209%209%22%20fill%3D%22%23657077%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%222%22%20height%3D%2210.2007%22%20rx%3D%221%22%20transform%3D%22matrix(-0.707107%20-0.707107%20-0.707107%200.707107%208.6272%201.41418)%22%20fill%3D%22%23C4C4C4%22%2F%3E%0A%3Crect%20width%3D%222%22%20height%3D%223.13727%22%20rx%3D%221%22%20transform%3D%22matrix(-0.707107%20-0.707107%20-0.707107%200.707107%208.63062%206.41077)%22%20fill%3D%22%23C4C4C4%22%2F%3E%0A%3C%2Fsvg%3E");
@@ -390,8 +356,10 @@ textarea {
 }
 
 .comboBox {
-    border: solid 1px #c7c7c7;
+    border: solid 1px @borderColor2;
     font-size: 12px;
+    background-color: @back-ground-text;
+    color: @bg-a-activate;
 }
 select.comboBox {
      height: 23px;
@@ -404,18 +372,18 @@ select:focus {
     margin: 1px;
 }
 .comboBoxHiddenBorder:hover, .comboBoxHiddenBorderFocused {
-    border: solid 1px #c7c7c7;
+    border: solid 1px @borderColor2;
     margin: 0px;
 }
 
 :disabled,
-input.disabled, 
+input.disabled,
 textarea.disabled,
 option.disabled,
 /* fix ie8 */
 input[disabled="disabled"] {
-    background-color: #efefef;
-    color: #666562;
+    background-color: @disabled;
+    color: @input-disabled-col;
 }
 input:focus {
     outline: none;
@@ -460,9 +428,9 @@ input[type="checkbox"][disabled="disabled"] {
     color: #74af00;
 }
 .okBox {
-    background-color: #E5EFD1;
-    border: 1px solid #dddddd;
-    color: #74af00;
+    background-color: @okBox-bg;
+    border: 1px solid @okBox-bor;
+    color: @okBox-col;
     font-weight: bolder;
     padding: 8px 11px;
     margin: 5px 0px;
@@ -495,7 +463,7 @@ a:focus {
 }
 /*header link as common header*/
 a.linkHeader, a.linkHeader:visited, a.linkHeader:hover, a.linkHeader:active {
-    color: #333333;
+    color: @textColor;
     font-size: 16px;
     font-weight: bolder;
     text-decoration: none;
@@ -509,7 +477,7 @@ a.linkHeader:active {
 /*medium link font-size 12*/
 a.linkHeaderMedium, a.linkHeaderMedium:visited, a.linkHeaderMedium:active
 {
-    color: #333333;
+    color: @textColor;
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
@@ -517,7 +485,7 @@ a.linkHeaderMedium, a.linkHeaderMedium:visited, a.linkHeaderMedium:active
 }
 a.linkMedium, a.linkMedium:visited, a.linkMedium:active
 {
-    color: #333333;
+    color: @textColor;
     font-size: 12px;
     text-decoration: none;
     cursor: pointer;
@@ -529,7 +497,7 @@ a.linkHeaderMedium:hover, a.linkMedium:hover
 
 /*---------gray profile and so on links----*/
 a.linkDescribe, a.linkDescribe:visited ,a.linkDescribe:active  {
-    color: #646567;
+    color: @a-link-describe;
     font-size: 11px;
     text-decoration: underline;
 }
@@ -537,9 +505,9 @@ a.linkDescribe:hover {
     text-decoration: none;
 }
 
-a.linkText, a.linkText:visited,a.linkText:active {
+a.linkText, a.linkText:visited, a.linkText:active {
     font-size: 12px;
-    color: #333333;
+    color: @textColor;
     text-decoration: none;
 }
 a.linkText:hover {
@@ -552,8 +520,8 @@ a.linkText:hover {
     white-space:nowrap;
 }
 
-a.linkAction, a.linkAction:visited,a.linkAction:active  {
-    color: #333;
+a.linkAction, a.linkAction:visited, a.linkAction:active {
+    color: @textColor;
     font-size: 12px !important;
     text-decoration: underline;
 }
@@ -565,13 +533,13 @@ a.linkAction:hover {
 /*-------------------------Backgrounds--------------------------*/
 
 .tintLight {
-    background-color: #ffffff;
+    background-color: @body-color;
 }
 .tintGray {
     background-color: #f0f0f0;
 }
 .tintMedium {
-    background-color: #fff;
+    background-color: @bg-tint-medium;
 }
 .tintDangerous {
     background-color: #fff6df;
@@ -613,7 +581,7 @@ a.linkAction:hover {
 /*----------------Borders and Corners------------------*/
 .borderBase
 {
-    border: solid 1px #d1d1d1;
+    border: solid 1px @bg-border-base;
 }
 
 .borderLight
@@ -624,20 +592,20 @@ a.linkAction:hover {
 
 /*----------------loaders------------------*/
 .loader-text-block {
-    background: url("images/loader_32.gif") no-repeat scroll left center transparent;
+    background: url("images/@{loader-gif-32}") no-repeat scroll left center transparent;
     display:inline-block;
     color: @textColorGrayDark;
     font-size: 11px;    
     padding:10px 0 10px 40px;
     text-decoration:none;
 }
-.loading-link, .loading-link:hover{
-    background: url("images/loader_16.gif") no-repeat scroll left center transparent;
+.loading-link, .loading-link:hover {
+    background: url("images/@{loader-gif-16}") no-repeat scroll left center transparent;
     color: @textColorGrayDark;
     cursor: default;
     font-weight: bold;
     padding-left: 20px;
-    text-decoration:none;
+    text-decoration: none;
 }
 /*----------------Style Placeholder------------------*/
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -675,5 +643,25 @@ a.linkAction:hover {
         .arrow-down(4px, #212121);
         left: 0;
         margin-top: -2px;
+    }
+}
+
+/*----------------Beta label------------------*/
+
+.beta {
+    padding: 2px 4px 2px 4px;
+    line-height: 14px;
+    color: @beta-text;
+    background-color: @beta-background;
+    text-align: center;
+    border: none;
+    font-size: 10px;
+    margin: 0 0 0 12px;
+    border-radius: 2px;
+    width: 22px;
+    height: 14px;
+
+    &:after {
+        content: "Beta";
     }
 }

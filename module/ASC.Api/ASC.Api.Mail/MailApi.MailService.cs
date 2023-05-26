@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,8 @@ namespace ASC.Api.Mail
         /// <returns>Mail server information</returns>
         /// <short>Get the mail server information</short> 
         /// <category>Mail service</category>
+        /// <path>api/2.0/mail/mailservice/get</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("mailservice/get")]
         public object GetMailServerInfo()
@@ -46,14 +48,16 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Connects the mail server to the portal.
         /// </summary>
-        /// <param name="ip">Mail server IP</param>
-        /// <param name="sqlip">Mail server SQL IP</param>
-        /// <param name="database">Mail server database</param>
-        /// <param name="user">User</param>
-        /// <param name="password">Password</param>
+        /// <param type="System.String, System" name="ip">Mail server IP</param>
+        /// <param type="System.String, System" name="sqlip">Mail server SQL IP</param>
+        /// <param type="System.String, System" name="database">Mail server database</param>
+        /// <param type="System.String, System" name="user">User</param>
+        /// <param type="System.String, System" name="password">Password</param>
         /// <returns>Mail server information</returns>
         /// <short>Connect the mail server</short> 
         /// <category>Mail service</category>
+        /// <path>api/2.0/mail/mailservice/connect</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create("mailservice/connect")]
         public object ConnectMailServer(string ip, string sqlip, string database, string user, string password)
@@ -115,16 +119,18 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Saves the mail server information specified in the request.
         /// </summary>
-        /// <param name="ip">Mail server IP</param>
-        /// <param name="sqlip">Mail server SQL IP</param>
-        /// <param name="database">Mail server database</param>
-        /// <param name="user">User</param>
-        /// <param name="password">Password</param>
-        /// <param name="token">Token</param>
-        /// <param name="host">Mail server host</param>
+        /// <param type="System.String, System" name="ip">Mail server IP</param>
+        /// <param type="System.String, System" name="sqlip">Mail server SQL IP</param>
+        /// <param type="System.String, System" name="database">Mail server database</param>
+        /// <param type="System.String, System" name="user">User</param>
+        /// <param type="System.String, System" name="password">Password</param>
+        /// <param type="System.String, System" name="token">Token</param>
+        /// <param type="System.String, System" name="host">Mail server host</param>
         /// <returns>Operation result</returns>
         /// <short>Save the mail server information</short> 
         /// <category>Mail service</category>
+        /// <path>api/2.0/mail/mailservice/save</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create("mailservice/save")]
         public object SaveMailServerInfo(string ip, string sqlip, string database, string user, string password, string token, string host)
@@ -177,13 +183,15 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Connects the mail server and saves its information.
         /// </summary>
-        /// <param name="host">Mail server host</param>
-        /// <param name="database">Mail server database</param>
-        /// <param name="user">User</param>
-        /// <param name="password">Password</param>
+        /// <param type="System.String, System" name="host">Mail server host</param>
+        /// <param type="System.String, System" name="database">Mail server database</param>
+        /// <param type="System.String, System" name="user">User</param>
+        /// <param type="System.String, System" name="password">Password</param>
         /// <returns>Operation result</returns>
         /// <short>Connect the mail server and save its information</short> 
         /// <category>Mail service</category>
+        /// <path>api/2.0/mail/mailservice/connectandsave</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create("mailservice/connectandsave")]
         public object ConnectAndSaveMailServerInfo(string host, string database, string user, string password)
@@ -242,14 +250,16 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Connects the mail server and saves its partitional information.
         /// </summary>
-        /// <param name="mailHost">Mail server host</param>
-        /// <param name="mysqlHost">MySQL host</param>
-        /// <param name="mysqlDatabase">MySQL database</param>
-        /// <param name="mysqlUser">MySQL user</param>
-        /// <param name="mysqlPassword">MySQL password</param>
+        /// <param type="System.String, System" name="mailHost">Mail server host</param>
+        /// <param type="System.String, System" name="mysqlHost">MySQL host</param>
+        /// <param type="System.String, System" name="mysqlDatabase">MySQL database</param>
+        /// <param type="System.String, System" name="mysqlUser">MySQL user</param>
+        /// <param type="System.String, System" name="mysqlPassword">MySQL password</param>
         /// <returns>Operation result</returns>
         /// <short>Connect the mail server and save its partitional information</short> 
         /// <category>Mail service</category>
+        /// <path>api/2.0/mail/mailservice/connectandsavepartitional</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create("mailservice/connectandsavepartitional")]
         public object ConnectAndSavePartitionalMailServerInfo(string mailHost, string mysqlHost, string mysqlDatabase, string mysqlUser, string mysqlPassword)

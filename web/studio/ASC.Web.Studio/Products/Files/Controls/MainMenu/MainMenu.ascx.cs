@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Web.UI;
 
+using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.InviteLink;
@@ -33,12 +34,15 @@ namespace ASC.Web.Files.Controls
             get { return PathProvider.GetFileControlPath("MainMenu/MainMenu.ascx"); }
         }
 
+        public Folder ExternalFolder;
         public bool EnableThirdParty;
         public bool Desktop;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ControlHolder.Controls.Add(LoadControl(TreeBuilder.Location));
+            var treeBuilder = (TreeBuilder)LoadControl(TreeBuilder.Location);
+            treeBuilder.ExternalFolder = ExternalFolder;
+            ControlHolder.Controls.Add(treeBuilder);
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
             if (!Desktop)

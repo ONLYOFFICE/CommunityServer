@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -206,9 +206,9 @@ namespace ASC.Core
             return quotaService.GetTenantQuotas().Where(q => q.Id < 0 && (all || q.Visible)).OrderByDescending(q => q.Id).ToList();
         }
 
-        public TenantQuota GetTenantQuota(int tenant)
+        public TenantQuota GetTenantQuota(int tenant, bool useCache = true)
         {
-            var defaultQuota = quotaService.GetTenantQuota(tenant) ?? quotaService.GetTenantQuota(Tenant.DEFAULT_TENANT) ?? TenantQuota.Default;
+            var defaultQuota = quotaService.GetTenantQuota(tenant, useCache) ?? quotaService.GetTenantQuota(Tenant.DEFAULT_TENANT, useCache) ?? TenantQuota.Default;
             if (defaultQuota.Id != tenant && tariffService != null)
             {
                 var tariff = tariffService.GetTariff(tenant);
@@ -254,6 +254,15 @@ namespace ASC.Core
         public List<TenantQuotaRow> FindTenantQuotaRows(int tenantId)
         {
             return quotaService.FindTenantQuotaRows(tenantId).ToList();
+        }
+
+        public List<TenantQuotaRow> FindUserQuotaRows(int tenantId, Guid userId, bool useCache = true)
+        {
+            return quotaService.FindUserQuotaRows(tenantId, userId, useCache).ToList();
+        }
+        public TenantQuotaRow FindUserQuotaRow(int tenantId, Guid userId, Guid tag)
+        {
+            return quotaService.FindUserQuotaRow(tenantId, userId, tag);
         }
     }
 }

@@ -15,21 +15,18 @@
 
 <script id="storageSettingsTemplate" type="text/x-jquery-tmpl">
 <div class="storageItem">
-    <div id="prop${title}">
-        {{each(i, prop) properties}} 
-            <div class="bold headerPanelSmall">${prop.title}:</div>
-            {{if !isSet || current}}
-                <input id="${prop.name}" type="text" class="storageKey disabled textEdit" value="${prop.value}" />
-            {{else}}
-                <input id="${prop.name}" type="text" class="storageKey textEdit" value="${prop.value}" />
-            {{/if}} 
-        {{/each}}
-    </div>
+
+    {{if id == "S3"}}
+    {{tmpl($data) "consumerItemS3Tmpl"}}
+    {{else}}
+    {{tmpl($data) "consumerItemBaseTmpl"}}
+    {{/if}}
+
     <div class="small-button-container">
         {{if !current}}
-            <a id="saveBtn${title}" class="button blue {{if !isSet}} disable {{/if}} middle saveButton">${ASC.Resources.Master.ResourceJS.StorageButtonEnable}</a>
+            <a id="saveBtn${id}" class="button blue {{if !isSet}} disable {{/if}} middle saveButton">${ASC.Resources.Master.ResourceJS.StorageButtonEnable}</a>
         {{else}}
-            <a id="setDefault${title}" class="button blue middle saveButton">${ASC.Resources.Master.ResourceJS.StorageButtonResetToDefault}</a>
+            <a id="setDefault${id}" class="button blue middle saveButton">${ASC.Resources.Master.ResourceJS.StorageButtonResetToDefault}</a>
         {{/if}}
     </div>
 </div>

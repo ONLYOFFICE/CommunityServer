@@ -1371,9 +1371,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Güvenli Posta Alanı Ayarları{2} kullanıcı kaydı için kullanılan posta sunucularını belirlemek için kullanılır. {0}{1}Özel alanlar{2}seçeneğini kontrol edebilir ve aşağıdaki alana güvenli posta sunucusunu girebilirsiniz. Böylece hesabı olan kişi {1}Giriş Yap{2} sayfasındaki Katıl bağlantısına tıklayarak kendini kaydettirebilir yada bu seçeneği devre dışı bırakabilir.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Şifre Gücü Ayarları{2}brute force ataklarına ve tahmin etmeye karşı şifrenizin güçlülüğünü belirlemeye yarar.{0}{1}Minimum Şifre Uzunluğu{2} göstergesini kullanarak şifrenizin ne kadar uzun olması gerektiğine karar verin. İlgili kutuları işaretleyerek hangi karakterlerin şifrede kullanılması gerektiğine karar verin.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Açık Portal{2} herkese açık içeriklerinizin kayıt olunmadan görüntülenmesini sağlayan ücretsiz bir seçenektir. Özel projelerden hiçbiri burada gösterilemez ve CRM modülü bu portallar için devre dışıdır.{0}Açık portallara kayıt için kullanıcı sayısı limiti yoktur, yeni kullanıcılar portal yöneticisine yapılan taleplerle eklenir. {1}Hemen Yeni Kullanıcı Ekle{2} seçeneğini kullanarak dilediğiniz kayıt onay gereksinimini kaldırabilirsiniz.</value>
   </data>
@@ -1566,9 +1563,6 @@
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Etkinleştir</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP Güvenliği{1} belli adresler dışında IP adreslerinden portala girişi engellemek için kullanılır. İzin verilen IP adreslerini IPv4 formatında yazarak girebilirsiniz (#.#.#.#.#, 0'dan 255'e sayısal değerin girileceği yerdir) ya da IP aralığı verebilirsiniz(#.#.#.#-#.#.#.# formatında). IP güvenliği portal sahipleri için geçerli değildir, onlar portala tüm IP adreslerinden giriş yapabilirler.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP Güvenliği</value>
@@ -2139,9 +2133,6 @@ LDAP yöneticiniz ile irtibata geçin.
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Şifre değişimi</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimum şifre uzunluğu</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Şifre isteme</value>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ using ASC.Web.Core;
 namespace ASC.ActiveDirectory.Base.Settings
 {
     [Serializable]
-[DataContract]
+    [DataContract]
     public class LdapSettings : BaseSettings<LdapSettings>, ICloneable
     {
         public override Guid ID
@@ -58,7 +58,9 @@ namespace ASC.ActiveDirectory.Base.Settings
             AdditionalPhone,
             AdditionalMobilePhone,
             AdditionalMail,
-            Skype
+            Skype,
+
+            UserQuotaLimit
         }
 
         public enum AccessRight
@@ -92,7 +94,7 @@ namespace ASC.ActiveDirectory.Base.Settings
                 .Where("IFNULL(JSON_EXTRACT(`Data`, '$.EnableLdapAuthentication'), 'false')", "true")
                 .Distinct();
 
-            using (var dbManager = DbManager.FromHttpContext("default", 180000))
+            using (var dbManager = new DbManager("default", 180000))
             {
                 return dbManager.ExecuteList(query).ConvertAll(r => Convert.ToInt32(r[0]));
             }
@@ -216,41 +218,53 @@ namespace ASC.ActiveDirectory.Base.Settings
             return MemberwiseClone();
         }
 
+        ///<example>true</example>
         [DataMember]
         public bool EnableLdapAuthentication { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool StartTls { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool Ssl { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool SendWelcomeEmail { get; set; }
 
+        ///<example>Server</example>
         [DataMember]
         public string Server { get; set; }
 
+        ///<example>UserDN</example>
         [DataMember]
         // ReSharper disable once InconsistentNaming
         public string UserDN { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember]
         public int PortNumber { get; set; }
 
+        ///<example>UserFilter</example>
         [DataMember]
         public string UserFilter { get; set; }
 
+        ///<example>LoginAttribute</example>
         [DataMember]
         public string LoginAttribute { get; set; }
 
+        ///<example>null</example>
         [DataMember]
         public Dictionary<MappingFields, string> LdapMapping { get; set; }
 
         //ToDo: use SId instead of group name
+        ///<example>null</example>
         [DataMember]
         public Dictionary<AccessRight, string> AccessRights { get; set; }
 
+        ///<example>FirstNameAttribute</example>
         [DataMember]
         public string FirstNameAttribute
         {
@@ -265,6 +279,7 @@ namespace ASC.ActiveDirectory.Base.Settings
             }
         }
 
+        ///<example>SecondNameAttribute</example>
         [DataMember]
         public string SecondNameAttribute
         {
@@ -279,6 +294,7 @@ namespace ASC.ActiveDirectory.Base.Settings
             }
         }
 
+        ///<example>MailAttribute</example>
         [DataMember]
         public string MailAttribute
         {
@@ -293,6 +309,7 @@ namespace ASC.ActiveDirectory.Base.Settings
             }
         }
 
+        ///<example>TitleAttribute</example>
         [DataMember]
         public string TitleAttribute
         {
@@ -307,6 +324,7 @@ namespace ASC.ActiveDirectory.Base.Settings
             }
         }
 
+        ///<example>MobilePhoneAttribute</example>
         [DataMember]
         public string MobilePhoneAttribute
         {
@@ -321,6 +339,7 @@ namespace ASC.ActiveDirectory.Base.Settings
             }
         }
 
+        ///<example>LocationAttribute</example>
         [DataMember]
         public string LocationAttribute
         {
@@ -335,43 +354,57 @@ namespace ASC.ActiveDirectory.Base.Settings
             }
         }
 
+        ///<example>true</example>
         [DataMember]
         public bool GroupMembership { get; set; }
 
+        ///<example>GroupDN</example>
         [DataMember]
         // ReSharper disable once InconsistentNaming
         public string GroupDN { get; set; }
 
+        ///<example>GroupNameAttribute</example>
         [DataMember]
         public string GroupNameAttribute { get; set; }
 
+        ///<example>GroupFilter</example>
         [DataMember]
         public string GroupFilter { get; set; }
 
+        ///<example>UserAttribute</example>
         [DataMember]
         public string UserAttribute { get; set; }
 
+        ///<example>GroupAttribute</example>
         [DataMember]
         public string GroupAttribute { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool Authentication { get; set; }
 
+        ///<example>Login</example>
         [DataMember]
         public string Login { get; set; }
 
+        ///<example>Password</example>
         [DataMember]
         public string Password { get; set; }
 
+        ///<example type="int">1</example>
+        ///<collection>list</collection>
         [DataMember]
         public byte[] PasswordBytes { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool IsDefault { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool AcceptCertificate { get; set; }
 
+        ///<example>AcceptCertificateHash</example>
         [DataMember]
         public string AcceptCertificateHash { get; set; }
 

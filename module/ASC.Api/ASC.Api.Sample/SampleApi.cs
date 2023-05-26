@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ using ASC.Web.Sample.Classes;
 namespace ASC.Api.Sample
 {
     /// <summary>
-    /// Sample CRUD Api
+    /// Sample CRUD API.
     /// </summary>
     public class SampleApi : IApiEntryPoint
     {
@@ -37,10 +37,16 @@ namespace ASC.Api.Sample
         }
 
         /// <summary>
-        /// Create item
+        /// Creates a new module for the current portal.
         /// </summary>
-        /// <param name="value">item value</param>
-        /// <returns>SampleClass item</returns>
+        /// <short>
+        /// Create a module
+        /// </short>
+        /// <param type="System.String, System" name="value">Module name</param>
+        /// <returns>Newly created module</returns>
+        /// <path>api/2.0/sample/create</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
         [Create("create", false)]
         public SampleClass Create(string value)
         {
@@ -48,10 +54,16 @@ namespace ASC.Api.Sample
         }
 
         /// <summary>
-        /// Read item by id
+        /// Returns a module with the ID specified in the request.
         /// </summary>
-        /// <param name="id">item id</param>
-        /// <returns>SampleClass item</returns>
+        /// <short>
+        /// Get a module
+        /// </short>
+        /// <param type="System.Int32, System" name="id">Module ID</param>
+        /// <returns>Module</returns>
+        /// <path>api/2.0/sample/read/{id}</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"read/{id:[0-9]+}", false)]
         public SampleClass Read(int id)
         {
@@ -59,9 +71,17 @@ namespace ASC.Api.Sample
         }
 
         /// <summary>
-        /// Read all items
+        /// Returns all the portal modules.
         /// </summary>
-        /// <returns>SampleClass items list</returns>
+        /// <short>
+        /// Get modules
+        /// </short>
+        /// <returns>List of portal modules</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/sample/read</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <collection>list</collection>
         [Read("read", false)]
         public List<SampleClass> Read()
         {
@@ -69,10 +89,16 @@ namespace ASC.Api.Sample
         }
 
         /// <summary>
-        /// Update item
+        /// Updates the selected module with a name specified in the request.
         /// </summary>
-        /// <param name="id">item id</param>
-        /// <param name="value">new item value</param>
+        /// <short>
+        /// Update a module
+        /// </short>
+        /// <param type="System.Int32, System" name="id">Module ID</param>
+        /// <param type="System.String, System" name="value">New module name</param>
+        /// <path>api/2.0/sample/update</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <httpMethod>PUT</httpMethod>
         [Update("update", false)]
         public void Update(int id, string value)
         {
@@ -80,9 +106,15 @@ namespace ASC.Api.Sample
         }
 
         /// <summary>
-        /// Update item by id
+        /// Deletes a module with the ID specified in the request.
         /// </summary>
-        /// <param name="id">item id</param>
+        /// <short>
+        /// Delete a module
+        /// </short>
+        /// <param type="System.Int32, System" name="id">Module ID</param>
+        /// <path>api/2.0/sample/delete/{id}</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("delete/{id:[0-9]+}", false)]
         public void Delete(int id)
         {

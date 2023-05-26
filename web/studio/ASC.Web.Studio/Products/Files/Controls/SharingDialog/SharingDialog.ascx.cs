@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,14 @@ using System;
 using System.Web.UI;
 
 using ASC.Web.Files.Classes;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files.Controls
 {
     public partial class SharingDialog : UserControl
     {
         public bool IsPopup = true;
+        protected bool Trial { get; set; }
 
         public static string Location
         {
@@ -35,6 +37,12 @@ namespace ASC.Web.Files.Controls
         {
             SharingDialogContainer.Options.IsPopup = IsPopup;
             SharingDialogContainer.Header.Visible = IsPopup;
+
+            if (TenantExtra.Saas)
+            {
+                var quota = TenantExtra.GetTenantQuota();
+                Trial = quota.Trial || quota.Free;
+            }
         }
     }
 }

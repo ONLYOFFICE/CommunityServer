@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using ASC.Bookmarking;
 using ASC.Bookmarking.Common;
 using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Community.Product;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 
@@ -39,8 +40,15 @@ namespace ASC.Web.Community.Bookmarking.Util
         {
             BookmarkingBusinessConstants.CommunityProductID = CommunityProduct.ID;
 
-            Page.RegisterStyle("~/Products/Community/Modules/Bookmarking/App_Themes/default/css/bookmarkingstyle.css")
-                .RegisterBodyScripts("~/Products/Community/Modules/Bookmarking/js/bookmarking.js",
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Community/App_Themes/dark/dark-bookmarkingstyle.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Community/Modules/Bookmarking/App_Themes/default/css/bookmarkingstyle.less");
+            }
+            Page.RegisterBodyScripts("~/Products/Community/Modules/Bookmarking/js/bookmarking.js",
                 "~/Products/Community/js/tagsautocompletebox.js");
 
             ServiceHelper = BookmarkingServiceHelper.GetCurrentInstanse();

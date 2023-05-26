@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,52 +25,48 @@
  * Date: Sat Apr 9 14:09:51 2011 -0700
  *
  */
+@import "../../../App_Themes/default/params.less";
 @imagepath: "/addons/calendar/UserControls/fullcalendar/img/";
 @mageCssPath: "/skins/default/imagescss/";
 @defaultColor:#62B5DF;
 
-@hover-color-calendar: #ddd;
-@bg-color-calendar-common: #f5f5f5;
-@color-calendar-common: #e2e2e2;
 
-@todo-list-width: 208px;
+#calendarSidePanelContent {
 
-#calendarSidePanelContent{
-    
-    .asc-datepicker .ui-state-hover, 
-    .asc-datepicker .ui-widget-content .ui-state-hover, 
-    .asc-datepicker .ui-widget-header .ui-state-hover, .asc-datepicker .ui-state-focus, 
+    .asc-datepicker .ui-state-hover,
+    .asc-datepicker .ui-widget-content .ui-state-hover,
+    .asc-datepicker .ui-widget-header .ui-state-hover, .asc-datepicker .ui-state-focus,
     .asc-datepicker .ui-widget-content .ui-state-focus, .asc-datepicker .ui-widget-header .ui-state-focus {
-         border: 1px solid @hover-color-calendar !important;
-         background: @hover-color-calendar !important;
+        border: 1px solid @hover-color-calendar !important;
+        background: @hover-color-calendar !important;
     }
+
     .asc-datepicker .ui-state-highlight,
     .asc-datepicker .ui-widget-content .ui-state-highlight,
-    .asc-datepicker .ui-widget-header .ui-state-highlight{
-        border: 1px solid #fefde9; 
-        background: #fefde9; 
-        color: #363636; 
+    .asc-datepicker .ui-widget-header .ui-state-highlight {
+        border: 1px solid #fefde9;
+        background: #fefde9;
+        color: #363636;
     }
 
-    .asc-datepicker .ui-state-active, 
+    .asc-datepicker .ui-state-active,
     .asc-datepicker .ui-widget-content .ui-state-active,
-    .asc-datepicker .ui-widget-header .ui-state-active{
+    .asc-datepicker .ui-widget-header .ui-state-active {
         border: 1px solid @color-calendar-common !important;
         background: @color-calendar-common !important;
         font-weight: normal;
         color: #212121 !important;
     }
-        
-    .asc-datepicker .ui-state-default, 
-    .asc-datepicker .ui-widget-content .ui-state-default, 
-    .asc-datepicker .ui-widget-header .ui-state-default{
+
+    .asc-datepicker .ui-state-default,
+    .asc-datepicker .ui-widget-content .ui-state-default,
+    .asc-datepicker .ui-widget-header .ui-state-default {
         text-align: center;
         border-radius: 3px;
         width: 16px;
         height: 13px;
         line-height: 13px;
     }
-
 }
 
 html .fc {
@@ -127,9 +123,9 @@ main {
 }
 
 .fc-shadow {
-	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	box-shadow: 0 0 10px #888;
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px @shadow-color;
 }
 
 .fc-modal {
@@ -163,7 +159,7 @@ main {
     &:after {
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
-        border-top: 4px solid #212121;
+        border-top: 4px solid @fc-dropdown-border-top-col;
         content: "";
         height: 0;
         margin-top: -2px;
@@ -178,7 +174,7 @@ main {
 
 
 .fc-border-right {
-	border-right: 1px solid #c7c7c7;
+    border-right: 1px solid @text-area-border-color;
 }
 
 /* border around the calendar*/
@@ -219,6 +215,7 @@ main {
 	border-collapse: separate;
 	margin: 0;
 	padding: 0;
+    background-color:@body-color;
 }
 #fc_common_dp .ui-datepicker-calendar th {
     width: .8em;
@@ -231,9 +228,8 @@ main {
 	z-index: 1999;
 }
 
-#fc_color_picker
-{
-    min-width:100px;
+#fc_color_picker {
+    min-width: 100px;
 }
 
 #fc_color_picker-outer .asc-ui-blocker {
@@ -370,10 +366,10 @@ main {
 	padding-bottom: .2em;
 }
 .fc-header .new-event .label {
-	display: inline-block;
-	margin-left: 0;
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    display: inline-block;
+    margin-left: 0;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 
 /* View selector */
@@ -400,16 +396,16 @@ main {
 	background-image: url('../../../../../skins/default/images/svg/calendar/checklist.svg');
 }
 .fc-view-selector .label {
-	display: inline-block;
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    display: inline-block;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 
 /* Title block */
 
 .fc-header-title {
-	display: inline-block;
-	margin: 1em 0 0 0;
+    display: inline-block;
+    margin: 1em 0 0 0;
 }
 
 .fc-header-title .title-text {
@@ -428,8 +424,8 @@ main {
 
 .fc-header-title .month,
 .fc-header-title .year {
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 
 .fc-header-title .link {
@@ -438,8 +434,8 @@ main {
 	vertical-align: top;
 }
 .fc-header-title .link .inner {
-	border-bottom: 1px dotted #000;
-	display: inline-block;
+    border-bottom: 1px dotted @dark-text-color;
+    display: inline-block;
 }
 
 .fc-header-title.month .link {
@@ -472,8 +468,8 @@ main {
 	text-align: center;
 }
 .fc-header-title.day .h2 {
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 
 .fc-header-title.list .link {
@@ -495,12 +491,12 @@ main {
 /* Todo label */
 
 .fc-header-right .todo-label {
-	display: inline-block;
-	margin-left: 1em;
-	margin-right: 1em;
-	border-top: 1px solid transparent;
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    display: inline-block;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-top: 1px solid transparent;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 
 
@@ -558,10 +554,10 @@ main {
     &.fc-view-agendaDay{
         .fc-agenda-slots td{
             border-width: 1px 1px 0px 1px;
-            background: #fff;
+            background: @body-color;
         }
         .fc-state-highlight {
-	        background: #fff;
+	        background: @body-color;
         }
     }
 }
@@ -574,7 +570,7 @@ main {
  */
 
 .fc-widget-header {
-	color: #000;
+    color: @dark-text-color;
 }
 
 /*.fc-widget-header.fc-sun,
@@ -583,18 +579,18 @@ main {
 }*/
 
 .fc-widget-content {
-	background-color: #fff;
+    background-color: @body-color;
 }
 
 .fc-widget-header,    /* <th>, usually */
 .fc-widget-content {  /* <td>, usually */
 	border-style: solid;
-	border-color: #e2e2e2;
+    border-color: @color-calendar-common;
 	border-width: 1px 1px 0px 1px;
 }
 
 .fc-state-highlight { /* <td> today cell */
-	background: @bg-color-calendar-common;
+    background: @column-gorizint-line-today-bg;
 }
 
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
@@ -638,10 +634,10 @@ main {
 }
 
 .fc-button-content {
-	position: relative;
-	float: left;
-	white-space: nowrap;
-	border-bottom: 1px dotted #000;
+    position: relative;
+    float: left;
+    white-space: nowrap;
+    border-bottom: 1px dotted @dark-text-color;
 }
 
 .fc-state-active .fc-button-content {
@@ -649,8 +645,8 @@ main {
 }
 
 .fc-header-center .fc-button-content {
-	color: #000;
-	border-bottom-style: none;
+    color: @dark-text-color;
+    border-bottom-style: none;
 }
 
 /* icon (for jquery ui) */
@@ -685,7 +681,7 @@ main {
 	height: 100px;
 	border-width: 100px 0 0 1px;
 	border-style: solid;
-	border-color: #fff;
+	border-color: @body-color;
 	background: #444;
 	opacity: .09;
 	filter: alpha(opacity=9);
@@ -695,10 +691,10 @@ main {
 
 .fc-state-default,
 .fc-state-default .fc-button-inner {
-	/*border-style: solid;*/
-	/*border-color: #ccc #bbb #aaa;*/
-	/*background: #F3F3F3;*/
-	color: #000;
+    /*border-style: solid;*/
+    /*border-color: #ccc #bbb #aaa;*/
+    /*background: #F3F3F3;*/
+    color: @dark-text-color;
 }
 
 .fc-state-hover,
@@ -727,7 +723,7 @@ main {
 .fc-state-active .fc-button-inner {
 	border-color: @color-calendar;
 	background-color: @color-calendar;
-	color: #fff;
+	color: @body-color;
 }
 
 .fc-state-disabled,
@@ -746,8 +742,8 @@ main {
 
 
 .triangle-w, .triangle-e {
-	width: 16px;
-	display: inline-block;
+    width: 16px;
+    display: inline-block;
     position: relative;
 
     &:after {
@@ -759,8 +755,7 @@ main {
         right: 3px;
         top: 50%;
         width: 7px;
-
-        border: 1px solid #333333;
+        border: 1px solid @text-color;
         border-right: none;
         border-top: none;
     }
@@ -820,15 +815,15 @@ a.fc-event {
 }
 
 .fc-event-skin {
-	border-color: #36c;     /* default BORDER color */
-	background-color: #36c; /* default BACKGROUND color */
-	color: #fff;            /* default TEXT color */
+    border-color: #36c; /* default BORDER color */
+    background-color: #36c; /* default BACKGROUND color */
+    color: @body-color; /* default TEXT color */
 }
 
 .fc-event-skin-day {
-	border-color: #e5a2ba;
-	background-color: #fbd5ee;
-	color: #000;
+    border-color: #e5a2ba;
+    background-color: #fbd5ee;
+    color: @dark-text-color;
 }
 
 .fc-event-inner {
@@ -857,11 +852,11 @@ a.fc-event {
     font-size: 17px;
 }
 
-.fc-todo-completed{
+.fc-todo-completed {
     .fc-event-time,
     .fc-event-title {
 	    text-decoration: line-through;
-        color: #8a8f94;
+        color: @fc-event-complete;
     }
 
 }
@@ -1133,13 +1128,13 @@ table.fc-border-separate {
 .fc-event-popup {
   position: absolute;
   padding: 3px;
-  background-color: white;
-  border: 1px solid gray;
+  background-color: @body-color-bg;
+  border: 1px solid @events_popup_bor;
   z-index: 10;
 }
 .fc-event-popup .fc-day-number {
   margin-bottom: 5px;
-	background-color: whitesmoke;
+	background-color: @fc-event-popup;
 }
 .fc-event-popup .fc-event-inner {
 	height: auto;
@@ -1154,10 +1149,9 @@ table.fc-border-separate {
 	padding-left: .5em;
 	font-weight: normal;
 	text-align: left;
-	
-	border-top: 1px solid #fff;
-	border-right: 1px solid #c7c7c7;
-	border-left: 1px solid #fff;
+	border-top: 1px solid @fc-grid-color;
+	border-right: 1px solid @fc-grid-color;
+	border-left: 1px solid @fc-grid-color;
 
     &:first-letter{
         text-transform: uppercase;
@@ -1234,11 +1228,11 @@ table.fc-border-separate {
 /* today cell */
 
 .fc-grid .fc-today .fc-day-number {
-	color: #fff;
+    color: @body-color;
 }
 .fc-grid .fc-today .fc-day-number > span {
     background-color: @color-calendar;
-	border-bottom-color: #fff;
+    border-bottom-color: @body-color;
 }
 
 .fc-grid td.no-events.fc-today .fc-day-number-big {
@@ -1246,16 +1240,16 @@ table.fc-border-separate {
 }
 
 .fc-grid td.fc-today {
-	//border-color: @color-calendar;
-	border-color: #e2e2e2;
+    //border-color: @color-calendar;
+    border-color: @color-calendar-common;
 }
 .fc-grid td.fc-today-left {
-	//border-right-color: @color-calendar;
-	border-right-color: #e2e2e2;
+    //border-right-color: @color-calendar;
+    border-right-color: @color-calendar-common;
 }
 .fc-grid td.fc-today-top {
-	//border-bottom-color:@color-calendar;
-	border-bottom-color: #e2e2e2;
+    //border-bottom-color:@color-calendar;
+    border-bottom-color: @color-calendar-common;
 }
 .fc-grid tr.fc-last td.fc-today {
 	border-bottom-width: 1px;
@@ -1274,7 +1268,7 @@ table.fc-border-separate {
 }
 
 .fc-grid .fc-event-skin {
-	color: black;
+    color: @event-editor-color;
 }
 
 /* right-to-left */
@@ -1341,18 +1335,18 @@ table.fc-border-separate {
 }
 
 .fc-agenda .day-list .today-label {
-	display: none;
-	color: white;
-	background-color: @color-calendar;
-	font-weight: bolder;
-	position: absolute;
-	left: 1.5em;
-	bottom: .2em;
-	/* round corners */
-	margin-left: 1px;
-	margin-right: 1px;
-	border-top: 1px solid @color-calendar;
-	border-bottom: 1px solid @color-calendar;
+    display: none;
+    color: @body-color-bg;
+    background-color: @color-calendar;
+    font-weight: bolder;
+    position: absolute;
+    left: 1.5em;
+    bottom: .2em;
+    /* round corners */
+    margin-left: 1px;
+    margin-right: 1px;
+    border-top: 1px solid @color-calendar;
+    border-bottom: 1px solid @color-calendar;
 }
 .fc-agenda .day-list .today-label .inner {
 	padding: 2px 4px;
@@ -1483,19 +1477,19 @@ table.fc-border-separate {
 }
 
 .fc-agenda-days th {
-	text-align: center;
-	border-top: 1px solid #fff;
-	border-right: 1px solid #e2e2e2;
-	border-left: 1px solid #fff;
+    text-align: center;
+    border-top: 1px solid @body-color;
+    border-right: 1px solid @color-calendar-common;
+    border-left: 1px solid @body-color;
 }
 .fc-agenda-days th.fc-first {
-	border-left-color: #e2e2e2;
-	border-right: 1px solid #e2e2e2;
+    border-left-color: @color-calendar-common;
+    border-right: 1px solid @color-calendar-common;
 }
 .fc-agenda-days th.fc-today {
-	//color: #fff;
+    //color: #fff;
     font-weight: bold;
-	background-color: @bg-color-calendar-common;
+    background-color: @column-gorizint-line-today-bg;
 }
 
 .fc-agenda-days thead th {
@@ -1530,9 +1524,9 @@ table.fc-border-separate {
 }
 
 .fc-agenda-days tbody th {
-	text-align: center;
-	background-color: #fff;
-	border-top-color: #c7c7c7;
+    text-align: center;
+    background-color: @body-color;
+    border-top-color: @fc-grid-day-week;
 }
 
 .fc-agenda-days td.fc-today {
@@ -1566,8 +1560,8 @@ table.fc-border-separate {
 }
 
 .fc-widget-header .fc-agenda-divider-inner {
-	background: #e2e2e2;
-	border-bottom: 1px solid #e2e2e2;
+    background: @color-calendar-common;
+    border-bottom: 1px solid @color-calendar-common;
 }
 .fc-widget-header.fc-agenda-axis {
     white-space:pre-wrap;
@@ -1584,7 +1578,7 @@ table.fc-border-separate {
 	position: relative;
 	width: 100%;
 	margin-top: -.75em;
-	background-color: white;
+	background-color: @body-color;
 	text-align: center;
 }
 
@@ -1624,7 +1618,7 @@ table.fc-border-separate {
 
     .left-side {
         border-bottom: 7px solid transparent;
-        border-left: 7px solid #b40000;
+        border-left: 7px solid @time-maker-col;
         border-top: 7px solid transparent;
 
         position: absolute;
@@ -1645,16 +1639,16 @@ table.fc-border-separate {
         left: -41px;
         top: -3px;
         font-size: 13px;
-        color:#b40000;
-        background: rgba(255,255,255,.9);
+        color: @time-maker-col;
+        background: @time-maker-bg;
     }
     .center-line {
         position: absolute;
         top: 6px;
         left: 1px;
         height: 0px;
-        border-top: 1px solid #b40000;
-        border-bottom: 1px solid #ddd;
+        border-top: 1px solid @time-maker-col;
+        border-bottom: 1px solid @time-maker-bor;
     }
 }
 
@@ -1691,15 +1685,15 @@ table.fc-border-separate {
 }
 
 .fc-event-vert .fc-event-bg { /* makes the event lighter w/ a semi-transparent overlay  */
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #fff;
-	opacity: .3;
-	filter: alpha(opacity=30);
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: @body-color;
+    opacity: .3;
+    filter: alpha(opacity=30);
 }
 
 .fc .ui-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
@@ -1754,13 +1748,13 @@ table.fc-border-separate {
 }
 
 .fc-lv-no-events {
-	margin: 2em;
-	color: #000;
-	background-color: #ffe;
-	border: 1px solid #e2e277;
-	margin: 1.5em;
-	padding: 1.5em;
-	font-size: 120%;
+    margin: 2em;
+    color: @dark-text-color;
+    background-color: @fc-lv-no-events-bg;
+    border: 1px solid @fc-lv-no-events-bor;
+    margin: 1.5em;
+    padding: 1.5em;
+    font-size: 120%;
 }
 
 table.fc-lv-events {
@@ -1777,17 +1771,18 @@ table.fc-lv-events tr.event-row {
 }
 
 table.fc-lv-events th {
-	padding: .3em 0 .3em 0;
-	color: #000;
+    padding: .3em 0 .3em 0;
+    color: @dark-text-color;
 
-    span:first-child{
+    span:first-child {
         display: block;
 
-        &:first-letter{
+        &:first-letter {
             text-transform: uppercase;
         }
     }
-    span:not(:first-child){
+
+    span:not(:first-child) {
         font-weight: 500;
     }
 }
@@ -1795,8 +1790,8 @@ table.fc-lv-events th {
 table.fc-lv-events.first th {
 	border-top-width: 1px;
 }
-table.fc-lv-events.today{
-    background-color: #f5f5f5;
+table.fc-lv-events.today {
+    background-color: @fc-lv-events-today;
 }
 table.fc-lv-events.today th {
 }
@@ -1850,18 +1845,18 @@ table.fc-lv-events td .title {
     }
 }
 table.fc-lv-events td .note {
-    color: #808080;
+    color: @events-note-col;
 }
 
 table.fc-lv-events td .time {
-	color: #656565;
+    color: @events-today-col;
     text-align: left;
 
     .dash{
         display: inline-block;
         width: 11px;
         height: 1px;
-        background: #656565;
+        background: @events-today-col;
         margin: 3px 3px;
     }
 }
@@ -1895,7 +1890,7 @@ td.fc-catlist.hidden {
 
 div.fc-catlist {
 	position: relative;
-	background-color: #fff;
+	background-color: @body-color;
 }
 
 /* Content */
@@ -1994,15 +1989,15 @@ div.fc-catlist {
 }
 
 .fc-catlist .content-li .bullet {
-	cursor: pointer;
-	position: relative;
-	width: 1em;
-	height: 1em;
-	margin-top: 0;
-	margin-right: .5em;
-	display: inline-block;
+    cursor: pointer;
+    position: relative;
+    width: 1em;
+    height: 1em;
+    margin-top: 0;
+    margin-right: .5em;
+    display: inline-block;
 
-    &:before{
+    &:before {
         content: '';
         display: block;
         position: absolute;
@@ -2010,10 +2005,10 @@ div.fc-catlist {
         left: 4px;
         width: 3px;
         height: 7px;
-        border-bottom: 1px solid #fff;
-        border-right: 1px solid #fff;
-        border-top: 0 solid #fff;
-        border-left: 0 solid #fff;
+        border-bottom: 1px solid @body-color;
+        border-right: 1px solid @body-color;
+        border-top: 0 solid @body-color;
+        border-left: 0 solid @body-color;
         transform: rotate(45deg);
     }
 }
@@ -2046,13 +2041,12 @@ div.fc-catlist {
 	overflow: hidden;
 }
 .fc-label-tooltip {
-	position: absolute;
-	color: #000;
-	border: 1px solid #000;
-	background-color: #ffc;
-	z-index: 10000;
-	line-height: 120%;
-
+    position: absolute;
+    color: @dark-text-color;
+    border: 1px solid @dark-text-color;
+    background-color: #ffc;
+    z-index: 10000;
+    line-height: 120%;
     max-width: 250px;
     white-space: pre-wrap;
     overflow: hidden;
@@ -2069,17 +2063,17 @@ div.fc-catlist {
 }
 
 .fc-catlist .content-li .edit-icon {
-	display: none;
-	cursor: pointer;
-	background-color: white;
-	background-position: right;
-	background-repeat: no-repeat;
-	width: 16px;
-	height: 16px;
-	padding-left: .5em;
-	position: absolute;
-	top: 0;
-	margin: 0;
+    display: none;
+    cursor: pointer;
+    background-color: @body-color-bg;
+    background-position: right;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    padding-left: .5em;
+    position: absolute;
+    top: 0;
+    margin: 0;
 }
 .fc-catlist .content-li:hover .edit-icon {
 	display: block;
@@ -2143,9 +2137,10 @@ div.fc-catlist {
 
 .fc-catlist-picker #fc_datepicker .ui-datepicker .ui-datepicker-month,
 .fc-catlist-picker #fc_datepicker .ui-datepicker .ui-datepicker-year {
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
-	padding-bottom: .1em;
+    border-color: @border-color-mini-calendar;
+    cursor: pointer;
+    padding-bottom: .1em;
+    color: @dark-text-color;
 }
 
 .fc-catlist-picker #fc_datepicker table.ui-datepicker-calendar {
@@ -2165,8 +2160,8 @@ div.fc-catlist {
 }
 
 .fc-catlist-picker #fc_datepicker .ui-datepicker-calendar tbody td {
-	border-left: 1px solid #fff;
-	border-top: 1px solid #fff;
+    border-left: 1px solid @body-color;
+    border-top: 1px solid @body-color;
 }
 .fc-catlist-picker #fc_datepicker .ui-datepicker-calendar tbody td:first-child {
 	border-left-width: 0;
@@ -2181,9 +2176,8 @@ div.fc-catlist {
 	font-weight: bolder;
 }
 
-.fc-main
-{
-    border: 1px solid #e2e2e2;    
+.fc-main {
+    border: 1px solid @color-calendar-common;
     border-left: none;
 }
 
@@ -2201,7 +2195,7 @@ div.fc-catlist {
     transition: margin-right 0.5s;
     margin-top: 10px;
     padding-top: 18px;
-    border-top: 1px solid #e2e2e2;
+    border-top: 1px solid @color-calendar-common;
     margin-right: -235px;
     .fc-todo-list{
         height: 100%;
@@ -2214,8 +2208,8 @@ div.fc-catlist {
 }
 
 td.fc-todo-list {
-	border-right: 1px solid #c7c7c7;
-	border-bottom: 1px solid #c7c7c7;
+    border-right: 1px solid @text-area-border-color;
+    border-bottom: 1px solid @text-area-border-color;
 }
 
 div.fc-todo-list {
@@ -2246,7 +2240,7 @@ div.fc-todo-list {
     right: 0px;
     width: 12px;
     font-size: 23px;
-    color: #333333;
+    color: @text-color;
     margin-left: 10px;
 }
 
@@ -2257,7 +2251,7 @@ div.fc-todo-list {
 .fc-todo-list .add-btn{
 	float: left;
     position: relative;
-    border-bottom: 1px dotted black;
+    border-bottom: 1px dotted @event-editor-color;
     font-size: 12px;
     margin-left: 47px;
     margin-top: 14px;
@@ -2373,7 +2367,8 @@ div.fc-todo-list {
 	width: 13px;
     height: 13px;
     border-radius: 2px;
-	border:1px solid rgba(0,0,0,.3);
+	border:1px solid @custom-checkbox-not-checked-bor;
+    background-color:@custom-checkbox-not-checked-bg ;
 	outline:none;
     margin:5px;
     margin-top: 0;
@@ -2388,9 +2383,9 @@ div.fc-todo-list {
 		border: none;
 	}
 }
-.fc-todo-list input[type="checkbox"]:checked+span{
-    background:#fbedc9;
-    border-color: #ecdeba;
+.fc-todo-list input[type="checkbox"]:checked + span {
+    background: @custom-checkbox-bg;
+    border-color: @custom-checkbox-bor;
 }
 .fc-todo-list input[type="checkbox"]:checked+span:before{
 	content: "";
@@ -2419,30 +2414,30 @@ div.fc-todo-list {
     }
 }
 
-.fc-todo-list .content-li .edit-todo-button{
-    &:after{
+.fc-todo-list .content-li .edit-todo-button {
+    &:after {
         content: '';
         width: 15px;
         height: 15px;
         position: absolute;
         top: 0;
         right: 13px;
-        background: linear-gradient(to left, #fff, rgba(255,255,255,0));
+        background: linear-gradient(to left, @body-color, rgba(255,255,255,0));
     }
 }
 .fc-todo-list .content-li .del-todo-button,
-.fc-todo-list .content-li .edit-todo-button{
+.fc-todo-list .content-li .edit-todo-button {
     display: none;
-	width: 15px;
+    width: 15px;
     height: 17px;
     top: -3px;
     right: 18px;
     cursor: pointer;
     position: absolute;
-    background: #fff;
-    
-    &:hover{
-         display: block;
+    background: @body-color;
+
+    &:hover {
+        display: block;
     }
 }
 .fc-todo-list .content-li .del-todo-button{
@@ -2527,8 +2522,9 @@ div.fc-todo-list {
 .export,
 .shared-list {
     display: inline-block;
+
     .link {
-        border-bottom: 1px dotted #000;
+        border-bottom: 1px dotted @dark-text-color;
         cursor: pointer;
 
         &:hover {
@@ -2556,7 +2552,7 @@ div.fc-todo-list {
             width: 12px;
             font-weight: 800;
             font-size: 22px;
-            color: #888;
+            color: @add-icon-bg;
         }
     }
 
@@ -2685,15 +2681,13 @@ div.fc-todo-list {
 }
 
 .repeat-settings {
-	display: inline-block;
-	
-	min-width: 16em;
-	max-width: 18em;
-	
-	background-color: #f5f5f5;
-	vertical-align: top;
-	margin: -1em -1em -1.5em 1em;
-	padding: 0 1em;
+    display: inline-block;
+    min-width: 16em;
+    max-width: 18em;
+    background-color: @fc-lv-events-today;
+    vertical-align: top;
+    margin: -1em -1em -1.5em 1em;
+    padding: 0 1em;
 }
 
 .repeat-settings.hidden {
@@ -2726,15 +2720,15 @@ div.fc-todo-list {
 }
 
 .event-editor.add-dialog {
-	padding-top: 0;
-	padding-bottom: 2.2em;
-	border: 1px solid #D1D1D1;
+    padding-top: 0;
+    padding-bottom: 2.2em;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 #fc_delete_settings.add-popup,
 #fc_ical_stream.add-popup {
-    border: 1px solid #d1d1d1;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     min-width: 25em;
     padding: 0 2em 2em;
@@ -2745,8 +2739,8 @@ div.fc-todo-list {
 .event-editor textarea,
 .repeat-settings input,
 .repeat-settings select {
-	border: solid 1px #c7c7c7;
-	margin: 0;
+    border: solid 1px @text-area-border-color;
+    margin: 0;
 }
 
 .event-editor input:focus,
@@ -2977,7 +2971,8 @@ div.fc-todo-list {
 	    width: 13px;
         height: 13px;
         border-radius: 2px;
-	    border:1px solid rgba(0,0,0,.3);
+	    border:1px solid @custom-checkbox-not-checked-bor;
+        background-color:@custom-checkbox-not-checked-bg;
 	    outline:none;
         margin: 2px 1px 0px 7px;
 	    box-sizing:border-box;
@@ -2985,8 +2980,8 @@ div.fc-todo-list {
 	    cursor: pointer;
     }
     input[type="checkbox"]:checked+span{
-        background:#fbedc9;
-        border-color: #ecdeba;
+        background:@custom-checkbox-bg;
+        border-color: @custom-checkbox-bor;
     }
     input[type="checkbox"]:checked+span:before{
 	    content: "";
@@ -3032,19 +3027,19 @@ div.fc-todo-list {
 #fc_delete_todo .header,
 #fc_todo_editor .header,
 .event-editor.add-dialog .header {
-	display: block;
-	color: #333;
-	background-color: #E2E2E2;
-	margin: 0 -2em 1.5em;
-	padding: 9px 23px 9px 24px;
+    display: block;
+    color: @text-color;
+    background-color: @bc-fc-widget-header;
+    margin: 0 -2em 1.5em;
+    padding: 9px 23px 9px 24px;
 }
 
 #fc_ical_stream.add-popup .header,
 #fc_delete_settings.add-popup .header {
-    background-color: #e2e2e2;
+    background-color: @header-bc-bg;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    color: #333333;
+    color: @text-color;
     display: block;
     margin: 0 -2em 2em;
     padding: 9px 23px 9px 24px;
@@ -3064,31 +3059,31 @@ div.fc-todo-list {
 .event-editor .header .close-btn,
 #fc_delete_settings .header .close-btn,
 #fc_ical_stream .header .close-btn {
-	position: absolute;
+    position: absolute;
     cursor: pointer;
     top: -8px;
     right: 0;
     width: 12px;
     font-size: 28px;
-    color: #333333;
+    color: @text-color;
     margin-left: 10px;
 }
 
 /* viewer */
 #fc_todo_viewer .viewer .title.big,
 .event-editor .viewer .title.big {
-	color: #000;
-	font-size: 15pt;
-	line-height: 15pt;
-	max-height: 45pt;
-	font-weight: bold;
-	padding: 0;
-	margin-top: .5em;
-	margin-bottom: 1em;
-	word-wrap: break-word;
-	overflow: hidden;
-	white-space: normal;
-	max-width: 18em;
+    color: @dark-text-color;
+    font-size: 15pt;
+    line-height: 15pt;
+    max-height: 45pt;
+    font-weight: bold;
+    padding: 0;
+    margin-top: .5em;
+    margin-bottom: 1em;
+    word-wrap: break-word;
+    overflow: hidden;
+    white-space: normal;
+    max-width: 18em;
 }
 
 .event-editor .viewer .owner.hidden {
@@ -3246,7 +3241,7 @@ div.fc-todo-list {
 }
 .event-editor .editor .title input,
 .event-editor .editor .location input {
-	width: 100%;
+    width: 100%;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -3255,6 +3250,8 @@ div.fc-todo-list {
 .event-editor .editor .all-day input {
     float: left;
     margin-top: 2px;
+    color-scheme: @checkbox-color-sheme;
+    accent-color: @checkbox-accent-color;
 }
 .event-editor .editor .all-day .label {
 	padding-left: 0.5em;
@@ -3287,7 +3284,7 @@ div.fc-todo-list {
             content: '';
             width: 14px;
             height: 1px;
-            border-top: 1px solid black;
+            border-top: 1px solid @event-editor-color;
             display: block;
             position: absolute;
             right: -7px;
@@ -3308,11 +3305,11 @@ div.fc-todo-list {
 	overflow: hidden;
 }
 #fc_todo_editor .date-time .wrapper:first-child,
-.event-editor .editor .date-time .wrapper:first-child{
-    &:after{
+.event-editor .editor .date-time .wrapper:first-child {
+    &:after {
         content: '';
-        wight: 30px;
-        border-top: 1px solid #000;
+        width: 30px;
+        border-top: 1px solid @dark-text-color;
     }
 }
 .event-editor .editor .todo_editor .date-time input, 
@@ -3327,12 +3324,12 @@ div.fc-todo-list {
 .event-editor .editor .date-time .to-date,
 .repeat-settings .date-time .from-date,
 .repeat-settings .date-time .to-date {
-	float: left;
-	width: 6.5em;
-	padding-right: 18px;
+    float: left;
+    width: 6.5em;
+    padding-right: 18px;
 }
 
-#fc_todo_editor .date-time .date{
+#fc_todo_editor .date-time .date {
     padding-left: 1px;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -3342,10 +3339,10 @@ div.fc-todo-list {
 .event-editor .editor .date-time .from-time,
 .event-editor .editor .todo_editor .date-time .time,
 .event-editor .editor .date-time .to-time {
-	/*float: right;*/
-	display: inline-block;
-	margin-left: 0.5em;
-	width: 3.5em;
+    /*float: right;*/
+    display: inline-block;
+    margin-left: 0.5em;
+    width: 3.5em;
 }
 #fc_todo_editor .date-time .time{
     padding-top: 2px;
@@ -3357,15 +3354,19 @@ div.fc-todo-list {
 .event-editor .editor .todo_editor .date-time .cal-icon,
 .event-editor .editor .date-time .cal-icon,
 .repeat-settings .date-time .cal-icon {
-	background-image: url('../../../../../skins/default/images/svg/calendar/calendar.svg');
-	background-position: 100% 60%;
-	background-repeat: no-repeat;
-	width: 16px;
-	height: 16px;
-	padding: 0;
-	margin: 3px 0 0 -18px;
-	float: left;
-	cursor: pointer;
+    -webkit-mask-image: url('../../../../../skins/default/images/svg/calendar/calendar.svg');
+    mask-image: url('../../../../../skins/default/images/svg/calendar/calendar.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    background-color: #83888d;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 3px 0 0 -18px;
+    float: left;
+    cursor: pointer;
 }
 
 .event-editor .editor .repeat-alert{
@@ -3457,9 +3458,9 @@ div.fc-todo-list {
 
 .event-editor .editor .calendar select,
 .repeat-settings .calendar select {
-	margin: 0;
-	width: 100%;
-	max-width: 320px;
+    margin: 0;
+    width: 100%;
+    max-width: 320px;
 }
 .event-editor .editor .calendar select option,
 .repeat-settings .calendar select option {
@@ -3469,10 +3470,10 @@ div.fc-todo-list {
 }
 .event-editor .editor .todo_editor .description textarea,
 .event-editor .editor .description textarea {
-	width: 100%;
-	padding: 2px;
-	max-width: 33em;
-	max-height: 8em;
+    width: 100%;
+    padding: 2px;
+    max-width: 33em;
+    max-height: 8em;
 }
 
 
@@ -3482,9 +3483,9 @@ div.fc-todo-list {
  */
 #fc_delete_todo,
 #fc_todo_editor {
-	z-index: 100;
+    z-index: 100;
     padding: 0 2em 2em;
-    border: 1px solid #d1d1d1;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     min-width: 31em;
 }
@@ -3519,7 +3520,7 @@ div.fc-todo-list {
 #fc_todo_editor input,
 #fc_todo_editor select,
 #fc_todo_editor textarea {
-	border: solid 1px #c7c7c7;
+    border: solid 1px @text-area-border-color;
 }
 
 #fc_todo_editor input:focus,
@@ -3558,7 +3559,8 @@ div.fc-todo-list {
 }
 
 #fc_todo_editor #fc_todo_title {
-	font-size: 12px;
+    background-color: @body-color-text-box;
+    font-size: 12px;
     margin-bottom: 0.5em;
     padding-left: 4px;
     padding-top: 1px;
@@ -3572,22 +3574,24 @@ div.fc-todo-list {
  */
 
 #fc_cal_editor {
-	z-index: 100;
-	padding: 0 2em 2em;
-	border: 1px solid #D1D1D1;
+    z-index: 100;
+    padding: 0 2em 2em;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-	min-width: 31em;
+    min-width: 31em;
 }
 #fc_cal_editor.edit-mode {
 	width: 30em;
 }
 
-#fc_cal_editor .choose_event_source{
-    span{
+#fc_cal_editor .choose_event_source {
+    span {
         margin: 0 1em 0 0;
-        border-bottom: 1px dotted black;
+        border-bottom: 1px dotted @dark-text-color;
         cursor: pointer;
-        &.active{
+        color: @text-color;
+
+        &.active {
             border-bottom: none;
             font-weight: bold;
         }
@@ -3597,10 +3601,10 @@ div.fc-todo-list {
 #fc_cal_editor input,
 #fc_cal_editor select,
 #fc_cal_editor textarea {
-	border: solid 1px #c7c7c7;
+    border: solid 1px @text-area-border-color;
 }
-#fc_cal_editor select option:disabled{
-    background: #fff;
+#fc_cal_editor select option:disabled {
+    background: @body-color;
 }
 
 #fc_cal_editor input:focus,
@@ -3618,9 +3622,9 @@ div.fc-todo-list {
 }
 
 #fc_cal_editor .header {
-	display: block;
-	color: #333;
-    background-color: #E2E2E2;
+    display: block;
+    color: @text-color;
+    background-color: @bc-fc-widget-header;
     margin: 0 -2em 1.6em;
     padding: 9px 23px 9px 24px;
     border-top-left-radius: 5px;
@@ -3629,6 +3633,7 @@ div.fc-todo-list {
 #fc_cal_editor .header .inner {
 	font-size: 18px;
 	position: relative;
+    color:@text-color;
 }
 #fc_cal_editor .header .import-label,
 #fc_cal_editor .header .edit-label {
@@ -3651,7 +3656,7 @@ div.fc-todo-list {
     right: 0;
     width: 12px;
     font-size: 28px;
-    color: #333333;
+    color: @text-color;
     margin-left: 10px;
 }
 
@@ -3660,32 +3665,34 @@ div.fc-todo-list {
     position: relative;
 }
 #fc_cal_editor .title input {
-	width: 25em;
-	padding: .2em .2em .2em 1.5em;
-	margin: 0;
+    width: 25em;
+    padding: .2em .2em .2em 1.5em;
+    margin: 0;
 }
 #fc_cal_editor .sync-with-calendar{
     margin-top: 9px;
 }
-#fc_cal_editor .sync-with-calendar input{
+#fc_cal_editor .sync-with-calendar input {
     float: left;
     margin: 2px 3px 3px 0;
     vertical-align: top;
+    accent-color: @checkbox-accent-color;
+    color-scheme: @checkbox-color-sheme;
 }
 #fc_cal_editor .calendar{
     margin-top: 18px;
     margin-bottom: 26px;
 }
-#fc_cal_editor .calendar select{
+#fc_cal_editor .calendar select {
     min-width: 230px;
     width: 26.85em;
 
-    option{
-        width: 26.85em!important;;
-        overflow:hidden;
+    option {
+        width: 26.85em !important;
+        overflow: hidden;
     }
 }
-#fc_cal_editor .calendar .halfwidth .label{
+#fc_cal_editor .calendar .halfwidth .label {
     margin-bottom: 3px;
 }
 #fc_cal_editor .choose_event_source{
@@ -3693,9 +3700,9 @@ div.fc-todo-list {
 }
 
 #fc_cal_editor .ical-url-input input {
-	padding: .2em;
-	width: 26.3em;
-	margin: 0;
+    padding: .2em;
+    width: 26.3em;
+    margin: 0;
 }
 
 #fc_cal_editor .color .label {
@@ -3734,7 +3741,7 @@ div.fc-todo-list {
 	margin: 1em 0 .5em;
 }
 #fc_cal_editor .alert select {
-	width: 12em;
+    width: 12em;
 }
 #fc_cal_editor .timezone {
 	display: inline-block;
@@ -3748,7 +3755,7 @@ div.fc-todo-list {
 	margin: 1em 0 .5em;
 }
 #fc_cal_editor .timezone select {
-	width: 10em;
+    width: 10em;
 }
 
 #fc_cal_editor .shared-list {
@@ -3798,21 +3805,20 @@ div.fc-todo-list {
  * --------------------------------------------------------
  */
 
-#fc_subscription_dlg 
-{
+#fc_subscription_dlg {
     padding: 2em;
     padding-top: 0;
-	border: 1px solid #D1D1D1;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-	z-index: 100;
-	min-width: 30em;
-	max-width: 45em;
+    z-index: 100;
+    min-width: 30em;
+    max-width: 45em;
 }
 
 #fc_subscription_dlg input,
 #fc_subscription_dlg select,
 #fc_subscription_dlg textarea {
-	border: solid 1px #c7c7c7;
+    border: solid 1px @text-area-border-color;
 }
 
 #fc_subscription_dlg input:focus,
@@ -3827,9 +3833,9 @@ div.fc-todo-list {
 }
 
 #fc_subscription_dlg .header {
-	display: block;
-    color: #333;
-    background-color: #E2E2E2;
+    display: block;
+    color: @text-color;
+    background-color: @bc-fc-widget-header;
     padding: 1em 2em;
     margin: 0 -2em 1.5em;
 }
@@ -3839,14 +3845,14 @@ div.fc-todo-list {
 }
 
 #fc_subscription_dlg .header .close-btn {
-	cursor: pointer;
-	position: absolute;
-	top: -2px;
-	right: 0;
-	width: 12px;
+    cursor: pointer;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    width: 12px;
     font-size: 24px;
     font-weight: 600;
-    color: #333;
+    color: @text-color;
 }
 
 #fc_subscription_dlg .title {
@@ -3855,9 +3861,9 @@ div.fc-todo-list {
     position: relative;
 }
 #fc_subscription_dlg .title input {
-	width: 100%;
-	padding: 2px 2px 2px 20px;
-	margin: 0;
+    width: 100%;
+    padding: 2px 2px 2px 20px;
+    margin: 0;
 }
 #fc_subscription_dlg .title .bullet {
 	position: absolute;
@@ -3901,7 +3907,7 @@ div.fc-todo-list {
 	margin: 1em 0 .5em;
 }
 #fc_subscription_dlg .alert select {
-	width: 12em;
+    width: 12em;
 }
 
 #fc_subscription_dlg .timezone,
@@ -3918,7 +3924,7 @@ div.fc-todo-list {
 	margin: 1em 0 .5em;
 }
 #fc_subscription_dlg .timezone select {
-	width: 10em;
+    width: 10em;
 }
 
 #fc_subscription_dlg .owner .label {
@@ -3965,10 +3971,10 @@ div.fc-todo-list {
 }
 
 #fc_subscription_dlg-outer .asc-ui-blocker {
-	background-color: #000;
-	opacity: .2;
-	filter: alpha(opacity=20);
-	z-index: 99;
+    background-color: @dark-text-color;
+    opacity: .2;
+    filter: alpha(opacity=20);
+    z-index: 99;
 }
 
 
@@ -3981,7 +3987,7 @@ div.fc-todo-list {
 #fc_subscr_editor {
     padding: 2em;
     padding-top: 0;
-    border: 1px solid #D1D1D1;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     z-index: 100;
     min-width: 40em;
@@ -3992,8 +3998,7 @@ div.fc-todo-list {
 
     .header {
         display: block;
-        color: #333;
-        background-color: #E2E2E2;
+        background-color: @bc-fc-widget-header;
         padding: 1em 2em;
         margin: 0 -2em 1.5em;
 
@@ -4010,7 +4015,7 @@ div.fc-todo-list {
             width: 12px;
             font-size: 24px;
             font-weight: 600;
-            color: #333;
+            color: @text-color;
         }
     }
 
@@ -4020,13 +4025,13 @@ div.fc-todo-list {
         position: relative;
 
         input {
-            border: solid 1px #c7c7c7;
-            color: #c7c7c7;
+            border: solid 1px @text-area-border-color;
+            color: @text-area-border-color;
             width: 100%;
             padding: 1px;
 
             &:focus {
-                border: solid 1px #c7c7c7;
+                border: solid 1px @text-area-border-color;
                 outline: none;
             }
         }
@@ -4066,7 +4071,7 @@ div.fc-todo-list {
             &:after {
                 border-left: 5px solid transparent;
                 border-right: 5px solid transparent;
-                border-top: 5px solid #333333;
+                border-top: 5px solid @text-color;
                 content: "";
                 height: 0;
                 left: 0;
@@ -4079,7 +4084,7 @@ div.fc-todo-list {
             &.folded {
                 &:after {
                     border-bottom: 5px solid transparent;
-                    border-left: 5px solid #333;
+                    border-left: 5px solid @text-color;
                     border-top: 5px solid transparent;
                     border-right: 0 none;
                     left: 2px;
@@ -4127,10 +4132,10 @@ div.fc-todo-list {
 }
 
 #fc_subscr_editor-outer .asc-ui-blocker {
-	background-color: #000;
-	opacity: .2;
-	filter: alpha(opacity=20);
-	z-index: 99;
+    background-color: @dark-text-color;
+    opacity: .2;
+    filter: alpha(opacity=20);
+    z-index: 99;
 }
 
 /*
@@ -4272,12 +4277,12 @@ div.fc-todo-list {
 }
 
 .ical-link {
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 .caldav-link {
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
+    border-bottom: 1px dotted @dark-text-color;
+    cursor: pointer;
 }
 
 .ical-file-selected {
@@ -4326,7 +4331,7 @@ div.fc-todo-list {
     margin-bottom: 2em;
 
     a {
-        color: #333333;
+        color: @text-color;
         font: normal 12px 'Open Sans', sans-serif;
     }
 }
@@ -4389,10 +4394,10 @@ div.fc-todo-list {
     .button {
         position: absolute;
         border-radius: 0;
-        color: #333333;
+        color: @text-color;
         font-size: 11px;
         font-weight: normal;
-        background: #fff;
+        background: @body-color;
         cursor: pointer;
         right: 0;
         padding: 3px 8px 6px;
@@ -4404,14 +4409,14 @@ div.fc-todo-list {
         }
 
         &:hover {
-            background-color: #fff;
-            color: #333333;
+            background-color: @body-color;
+            color: @text-color;
         }
     }
 
     span.textinput__box {
         position: absolute;
-        border: solid 1px #c7c7c7;
+        border: solid 1px @text-area-border-color;
         top: 22px;
         left: -1px;
         bottom: -3px;
@@ -4420,11 +4425,11 @@ div.fc-todo-list {
     }
 }
 
-.url-link .control.disabled{
+.url-link .control.disabled {
     .button,
     .textinput__box,
-    input{
-        background-color: #efefef;
+    input {
+        background-color: @carddav-bg;
         color: #666562;
     }
 }
@@ -4481,6 +4486,7 @@ div.fc-todo-list {
 
 .asc-popup {
     border-radius: 5px;
+    background-color:@body-color !important;
 }
 
 @media all and (max-width: 1200px) {
@@ -4588,6 +4594,9 @@ div.fc-todo-list {
         box-sizing: border-box;
         height: 22px;
         line-height: 22px;
+        color: @text-color;
+        background-color: @body-color-text-box;
+        border-color: @text-area-border-color;
 
         &.date {
             float: left;
@@ -4597,6 +4606,7 @@ div.fc-todo-list {
 
         &.time {
             width: 45px;
+            background-color: @text-edit-time-bg;
 
             &.to-time {
                 float: left;
@@ -4615,6 +4625,8 @@ div.fc-todo-list {
 
     .fullwidth {
         width: 100%;
+        background-color: @body-color-text-box;
+        border-color: @text-area-border-color;
     }
 
     textarea.textEdit {
@@ -4671,6 +4683,8 @@ div.fc-todo-list {
         input[type=checkbox] {
             float: left;
             margin: 3px 8px 0 0;
+            color-scheme: @checkbox-color-sheme;
+            accent-color: @checkbox-accent-color;
         }
     }
 
@@ -4832,7 +4846,7 @@ div.fc-todo-list {
 
     &.active {
         border-bottom: medium none;
-        color: #333333;
+        color: @text-color;
         font-weight: bold;
         cursor: text;
     }
@@ -4840,7 +4854,7 @@ div.fc-todo-list {
 
 .view-details {
     border-bottom: 1px dotted;
-    color: #333333;
+    color: @text-color;
     cursor: pointer;
     display: inline-block;
     float: right;
@@ -4853,24 +4867,22 @@ div.fc-todo-list {
  * --------------------------------------------------------
  */
 
-#attendeeConfirmNotification 
-{
+#attendeeConfirmNotification {
     padding: 2em;
     padding-top: 0;
-	border: 1px solid #D1D1D1;
+    border: 1px solid @fc_todo_editor_bor;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-	z-index: 100;
+    z-index: 100;
 }
 
 #attendeeConfirmNotification > div {
 	margin: .5em 0;
 }
 
-#attendeeConfirmNotification .header 
-{
+#attendeeConfirmNotification .header {
     display: block;
-    color: #333;
-    background-color: #E2E2E2;
+    color: @text-color;
+    background-color: @bc-fc-widget-header;
     padding: 1em 2em;
     margin: 0 -2em 1.5em;
 }
@@ -4880,13 +4892,13 @@ div.fc-todo-list {
 }
 
 #attendeeConfirmNotification .header .close-btn {
-	position: absolute;
+    position: absolute;
     cursor: pointer;
     top: -8px;
     right: 0;
     width: 12px;
     font-size: 28px;
-    color: #333333;
+    color: @text-color;
     margin-left: 10px;
 }
 
@@ -4906,7 +4918,7 @@ div.fc-todo-list {
 }
 
 .fc-lv-scroller {
-    background: #F5F5F5;
+    background: @fc-lv-events-today;
 }
 
 table.fc-lv-events td .title {
@@ -4920,7 +4932,7 @@ table.fc-lv-events td .title {
 }
 
 .fc-lv-events .note p, .fc-lv-events .note ol, .fc-lv-events .note ul {
-    color: #333333;
+    color: @text-color;
     margin-top: 0px;
     margin-bottom: 12px;
 }

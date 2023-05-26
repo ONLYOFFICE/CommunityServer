@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,10 @@
 
 
 @import "../../../../skins/base.less";
-
+@import "../../../../skins/default/params.less";
 .userProfileCard {
 
     .additionInfo {
-        border: 1px solid #BFBFBF;
-        .borderRadius(3px);
         float: left;
         text-align: center;
         width: auto;
@@ -31,7 +29,7 @@
         }
 
         .action-block {
-            border-top: 1px solid #BFBFBF;
+            border-top: 1px solid @addition-info;
             cursor: pointer;
             padding: 8px 0;
             text-align: center;
@@ -51,6 +49,10 @@
             padding: 0;
         }
     }
+}
+
+.radio-but-theme{
+    padding-bottom:12px;
 }
 
 .editUser {
@@ -169,7 +171,7 @@
         }
 
         .field-value, a {
-            color: #333;
+            color: @textColor;
         }
     }
 
@@ -182,7 +184,7 @@
         margin: -8px 0 -3px 8px;
         overflow: hidden;
         text-decoration: none;
-        color: #FFF !important;
+        color: @body-color !important;
 
         &:hover {
             background: url('../../../../skins/default/images/svg/people/pencilblue.svg') no-repeat 0 0 transparent;
@@ -205,8 +207,8 @@ body.media-width-0-1200 {
     margin: 0 0 0 224px;
 }
 .profile-container .baseLinkAction {
-    border-color: #333;
-    color: #333;
+    border-color: @textColor;
+    color: @textColor;
 }
 .profile-contacts,
 .social-links {
@@ -235,7 +237,7 @@ body.media-width-0-1200 {
                     height: 16px;
                     line-height: 16px;
                     padding: 0 0 0 24px;
-                    color: #000;
+                    color: @bg-a-activate;
                     text-decoration: none;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -247,7 +249,7 @@ body.media-width-0-1200 {
 
                 .inner-text {
                     display: block;
-                    background: #FFF;
+                    background: @body-color;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
@@ -339,11 +341,10 @@ body.media-width-0-1200 {
 
 /* <AccountLinkControl> */
 .social-logins ul.account-links {
-    height: 80px;
 
     li {
         margin: 0 32px 16px 0;
-        float: left;
+        display: inline-block;
         white-space: nowrap;
 
         span {
@@ -360,8 +361,8 @@ body.media-width-0-1200 {
         }
 
         a {
-            border-bottom: 1px dotted #000000;
-            color: #000000;
+            border-bottom: 1px dotted @bg-a-activate;
+            color: @bg-a-activate;
             display: inline-block;
             margin: 4px 0 0;
             text-decoration: none;
@@ -382,8 +383,8 @@ body.media-width-0-1200 {
             .borderRadius(3px);
         }
 
-        .opacity{
-            opacity:0.5;
+        .opacity {
+            opacity: 0.5;
         }
 
         &.google .icon {
@@ -445,7 +446,7 @@ body.media-width-0-1200 {
 
 
 .birthday-fest {
-    background: url("images/birthday.png") 0 0 no-repeat;
+    background: url("images/birthday.svg") 0 0 no-repeat;
     color: #ff9000;
     display: inline-block;
     margin: -4px 3px 0;
@@ -456,54 +457,176 @@ body.media-width-0-1200 {
 a {
     color: #666;
 }
-.profile-user-photo {
-    position: relative;
+.user-quota-info.no-quota #editQuota {
+    display: none;
+}
+.user-quota-info {
+    margin-top: 16px;
     width: 200px;
+    text-align: left;
 
-    .profile-action-usericon {
-        width: 200px;
-        height: 200px;
+    #editQuota {
+        display: inline-block;
+    }
 
-        img {
-            border: none;
-            display: block;
-            margin: 0 auto;
-            max-height: 200px;
-            max-width: 200px;
+    .dotted {
+        border-bottom: 1px dotted;
+        position: relative;
+
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #83888d;
+            content: "";
+            height: 0;
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            width: 0;
+            margin-top: -1px;
         }
     }
 
     .profile-status {
-        background: none repeat scroll 0 0 #FFFFFF;
+        background: none repeat scroll 0 0 @body-color;
         border: 1px solid #919191;
         display: none;
-        opacity: 0.6;
-        position: absolute;
-        text-align: center;
-        width: auto;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
+    }
 
-        div {
-            font-weight: bold;
-            padding: 42px 16px 5px;
+    #setQuotaForm.show {
+        display: flex;
+    }
+
+    .set-quota {
+        display: flex;
+        width: 100%;
+        margin-top: 7px;
+
+        input {
+            width: 45px;
+            height: 20px;
+            margin-right: 3px;
         }
 
-        &.pending div {
-            background: url("images/user-waiting.png") no-repeat center 7px transparent;
-            color: #333;
+        .sizes {
+            width: auto;
+            padding-top: 1px;
+            margin-right: 8px;
             cursor: pointer;
+
+            .val {
+                border: solid 1px #c7c7c7;
+                padding: 3px 22px 0px 4px;
+                height: 19px;
+                margin-top: -1px;
+                position: relative;
+
+                &:after {
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 4px solid #83888d;
+                    content: "";
+                    height: 0;
+                    position: absolute;
+                    right: 7px;
+                    top: 50%;
+                    width: 0;
+                    margin-top: -1px;
+                }
+            }
         }
 
-        &.blocked div {
-            background: url("images/user-blocked.png") no-repeat center 7px transparent;
-            color: #A83200;
+        .save-btn {
+            position: relative;
+            cursor: pointer;
+            width: 23px;
+            height: 23px;
+            border: 1px solid #C4C4C4;
+            border-radius: 3px;
+            margin-right: 5px;
+
+            .mark {
+                position: absolute;
+                width: 8px;
+                height: 5px;
+                right: 6px;
+                top: 6px;
+                border: 3px solid #83888D;
+                transform: rotate(-45deg);
+                border-width: 0 0 3px 3px;
+            }
+        }
+
+        .close-btn {
+            position: relative;
+            cursor: pointer;
+            width: 23px;
+            height: 23px;
+            border: 1px solid #C4C4C4;
+            border-radius: 3px;
+
+            .mark {
+                background: url('../../../../skins/default/images/svg/people/close.svg') center no-repeat;
+                background-size: contain;
+                display: block;
+                margin: 5px 0px 0px 6px;
+                width: 12px;
+                height: 12px;
+            }
         }
     }
 }
 
-#studio_deleteProfileDialog .email {
+    .profile-user-photo {
+        border: 1px solid @user-photo-dialog-bor;
+        .borderRadius(3px);
+        position: relative;
+        width: 200px;
+
+        .profile-action-usericon {
+            width: 200px;
+            height: 200px;
+
+            img {
+                border: none;
+                display: block;
+                margin: 0 auto;
+                max-height: 200px;
+                max-width: 200px;
+            }
+        }
+
+        .profile-status {
+            background: none repeat scroll 0 0 #FFFFFF;
+            border: 1px solid #919191;
+            display: none;
+            opacity: 0.6;
+            position: absolute;
+            text-align: center;
+            width: auto;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+
+            div {
+                font-weight: bold;
+                padding: 42px 16px 5px;
+            }
+
+            &.pending div {
+                background: url("images/user-waiting.png") no-repeat center 7px transparent;
+                color: #333;
+                cursor: pointer;
+            }
+
+            &.blocked div {
+                background: url("images/user-blocked.svg") no-repeat center 7px transparent;
+                color: #A83200;
+            }
+        }
+    }
+
+    f #studio_deleteProfileDialog .email {
     padding-top:3px;   
 }
 

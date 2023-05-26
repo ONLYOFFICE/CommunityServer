@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using ASC.Common.Caching;
@@ -24,6 +23,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Core;
 
@@ -35,7 +35,6 @@ namespace ASC.Files.Core.Data
     {
         protected int TenantID { get; private set; }
         protected readonly ICache cache = AscCache.Default;
-        protected IDbManager dbManager { get; private set; }
         protected ILifetimeScope scope { get; private set; }
 
 
@@ -43,7 +42,6 @@ namespace ASC.Files.Core.Data
         {
             TenantID = tenantID;
             scope = DIHelper.Resolve();
-            dbManager = scope.Resolve<IDbManager>();
         }
 
         public void Dispose()
@@ -150,7 +148,7 @@ namespace ASC.Files.Core.Data
                 .SelectCount()
                 .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
                 .Where("s.entry_type", (int)type)
-                .Where(!Exp.In("s.subject", new[] { FileConstant.DenyDownloadId, FileConstant.DenySharingId }))
+                .Where(!Exp.Eq("s.subject_type", SubjectType.Restriction))
                 .SetMaxResults(1);
 
             return result;
@@ -162,7 +160,7 @@ namespace ASC.Files.Core.Data
                 .Select("group_concat(s.subject)")
                 .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
                 .Where("s.entry_type", (int)type)
-                .Where(Exp.In("s.subject", new[] { FileConstant.DenyDownloadId, FileConstant.DenySharingId }));
+                .Where("s.subject_type", SubjectType.Restriction);
 
             return result;
         }
@@ -212,20 +210,27 @@ namespace ASC.Files.Core.Data
             }
             else
             {
-                result = dbManager.ExecuteScalar<String>(
-                    Query("files_thirdparty_id_mapping")
+                var query = Query("files_thirdparty_id_mapping")
                         .Select("id")
-                        .Where(Exp.Eq("hash_id", id))
-                    );
+                        .Where(Exp.Eq("hash_id", id));
+
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    result = dbManager.ExecuteScalar<string>(query);
+                }
             }
 
             if (saveIfNotExist)
             {
-                dbManager.ExecuteNonQuery(
+                var query =
                     Insert("files_thirdparty_id_mapping")
                         .InColumnValue("id", id)
-                        .InColumnValue("hash_id", result)
-                    );
+                        .InColumnValue("hash_id", result);
+
+                using (var dbManager = new DbManager(FileConstant.DatabaseId))
+                {
+                    dbManager.ExecuteNonQuery(query);
+                }
             }
 
             return result;

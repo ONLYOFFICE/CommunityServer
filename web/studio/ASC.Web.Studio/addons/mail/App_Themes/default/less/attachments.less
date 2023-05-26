@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  *
 */
 
-
-@import "settings.less";
 
 .attachment_drag_highlight {
   background-color: #E0FFE0;
@@ -80,8 +78,8 @@
 
                     .upload-progress
                     {
-                        background-color: #D1D1D1;
-                        color: #FFFFFF;
+                        background-color: @border-color-panel;
+                        color: @body-color;
                         width: 100px;
                         position: relative;
                         height: 15px;

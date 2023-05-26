@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 
 using ASC.Files.Core;
+using ASC.Files.Core.Security;
+using ASC.Web.Files.Core;
 using ASC.Web.Files.Core.Compress;
 using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Helpers;
@@ -42,6 +44,8 @@ namespace ASC.Web.Files.Services.WCFService
 
         Folder CreateNewFolder(String parentId, String title);
 
+        Folder CreateNewFolders(String parentId, IEnumerable<string> relativePaths);
+
         Folder FolderRename(String folderId, String title);
 
         DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
@@ -58,7 +62,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         void ReassignStorage(Guid userFromId, Guid userToId);
 
-        void DeleteStorage(Guid userId);
+        void DeleteStorage(Guid userId, Guid initiatorId);
 
         #endregion
 
@@ -106,6 +110,10 @@ namespace ASC.Web.Files.Services.WCFService
 
         EntryProperties SetFileProperties(String fileId, EntryProperties fileProperties);
 
+        FileReference GetReferenceData(string fileKey, string instanceId, string sourceFileId, string path);
+
+        IEnumerable<FileEntry> GetFilterReadFiles(IEnumerable<string> fileIds);
+
         #endregion
 
         #region Favorites Manager
@@ -140,7 +148,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<FileOperationResult> TerminateTasks();
 
-        String GetShortenLink(String fileId);
+        String GetShortenLink(String fileId, String linkId, bool isFolder);
 
         bool StoreOriginal(bool store);
 
@@ -187,6 +195,12 @@ namespace ASC.Web.Files.Services.WCFService
         object GetNewItems(String folderId);
 
         bool SetAceLink(String fileId, FileShare share);
+
+        Tuple<File, FileShareRecord> ParseFileShareLinkKey(string key);
+
+        Tuple<File, FileShareRecord> GetFileShareLink(string fileId, Guid shareLinkId);
+        Tuple<Folder, FileShareRecord> ParseFolderShareLinkKey(string key);
+        Tuple<Folder, FileShareRecord> GetFolderShareLink(string folderId, Guid shareLinkId);
 
         ItemList<MentionWrapper> SharedUsers(String fileId);
 

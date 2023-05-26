@@ -7,7 +7,7 @@
     <script id="restriction-tmpl" type="text/x-jquery-tmpl">
         <div class="restriction clearFix" data-restrictionid="${id}">
             <div>
-                <input value="${ip}" class="ip textEdit" />
+                <input value="${ip}" data-admin="${forAdmin}" class="ip textEdit" />
                 <% if (!TenantAccessAnyone)
                    { %>
                     <span class="menu-item-icon trash delete-btn icon-link"></span>
@@ -36,7 +36,12 @@
             <% if (!TenantAccessAnyone)
                { %>
                 <div id="restrictions-list" class="<%= !RestrictionsSettings.Enable ? "none" : "" %> ">
+
+                    <div class="header-base-small"> <%= Resource.IpSecurityHeaderForAllUsers %></div>
                     <span id="add-restriction-btn" class="link dotline plus"><%= Resource.AddIPRestrictionBtn %></span>
+
+                    <div class="header-base-small"><%= Resource.IpSecurityHeaderForAdmins %></div>
+                    <span id="add-restriction-btn-admin" class="link dotline plus"><%= Resource.AddIPRestrictionBtn %></span>
 
                     <div class="header-base red-text"><%= Resource.Warning %></div>
                     <div><%= Resource.IpSecurityWarning %></div>
@@ -49,7 +54,7 @@
 
         </div>
         <div class="settings-help-block">
-            <p><%= string.Format(Resource.IpSecurityHelp.HtmlEncode(), "<b>", "</b>") %></p>
+            <p><%= string.Format(Resource.IpSecurityDescription.HtmlEncode(), "<b>", "</b>") %></p>
         </div>
     </div>
 </div>

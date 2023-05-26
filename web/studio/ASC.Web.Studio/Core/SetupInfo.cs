@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,7 +155,7 @@ namespace ASC.Web.Studio.Core
         public static long ChunkUploadSize
         {
             get;
-            private set;
+            set;
         }
 
         public static long ProviderMaxUploadSize
@@ -358,12 +358,6 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static int LoginThreshold
-        {
-            get;
-            private set;
-        }
-
         public static string AmiMetaUrl
         {
             get;
@@ -429,8 +423,6 @@ namespace ASC.Web.Studio.Core
             RecaptchaPublicKey = GetAppSettings("web.recaptcha.public-key", "");
             RecaptchaPrivateKey = GetAppSettings("web.recaptcha.private-key", "");
             RecaptchaVerifyUrl = GetAppSettings("web.recaptcha.verify-url", "https://www.recaptcha.net/recaptcha/api/siteverify");
-            LoginThreshold = Convert.ToInt32(GetAppSettings("web.login.threshold", "0"));
-            if (LoginThreshold < 1) LoginThreshold = 5;
 
             web_display_mobapps_banner = (ConfigurationManagerExtension.AppSettings["web.display.mobapps.banner"] ?? "").Trim().Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ShareTwitterUrl = GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}");

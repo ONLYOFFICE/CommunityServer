@@ -1,0 +1,315 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../../../skins/default/params.less";
+
+#ssoIdPCertificateContainer.disable .link.delete,
+#ssoIdPCertificateContainer.disable .link.edit,
+#ssoSPCertificateContainer.disable .link.delete,
+#ssoSPCertificateContainer.disable .link.edit {
+    cursor: default;
+}
+.sso-settings-main-container.disable #ssoSPSettingsSpoiler,
+.sso-settings-main-container.disable #ssoSPMetadataSpoiler {
+    display: none;
+}
+#ssoSPCertificateContainer,
+#ssoIdPCertificateContainer {
+    display: inline-block;
+}
+#ssoIdPCertificateContainer .delete, #ssoIdPCertificateContainer .edit,
+#ssoSPCertificateContainer .delete, #ssoSPCertificateContainer .edit {
+    float: right;
+    margin-left: 6px;
+}
+#ssoIdPCertificateContainer .edit::after,
+#ssoSPCertificateContainer .edit::after
+{
+    display: none
+}
+#ssoIdPCertificateContainer .action,
+#ssoSPCertificateContainer .action
+{
+    margin-left: 6px;
+    float: left;
+    width: 59px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#ssoIdPCertificateContainer .domain,
+#ssoSPCertificateContainer .domain
+{
+    margin-right: 6px;
+    width: 73px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+}
+#ssoIdPCertificateContainer .expires,
+#ssoSPCertificateContainer .expires
+{
+    margin-right: 6px;
+    float: left;
+}
+#ssoIdPCertificateContainer .crt-data-row,
+#ssoSPCertificateContainer .crt-data-row
+{
+    display: inline-block;
+    width:350px;
+    margin-top: 8px;
+}
+.crt-data-row .domain.green {
+    color: #66bb6a;
+}
+.crt-data-row .expires.red {
+    color: #bf3703;
+}
+.ssoSelectMetadataBtnContainer {
+    overflow: hidden;
+}
+#ssoSelectMetadataBtn {
+    max-width: 60px;
+    position: relative;
+}
+#ssoSelectMetadataInput{
+    height: 100%;
+}
+#ssoIdpPublicCertificate,
+#ssoSpPublicCertificate,
+#ssoSpPrivateKey {
+    width: ~"calc(100% - 6px)";
+    max-width: ~"calc(100% - 6px)";
+    min-width: ~"calc(100% - 6px)";
+}
+#ssoSpCertificateActionType,
+#ssoIdpCertificateActionType,
+input[type="text"] {
+    width: 100%;
+}
+.requiredFieldError textarea {
+    border-color: #c00;
+}
+input.error {
+    border-color: #c00;
+}
+.upload-svg {
+    fill: #50565c;
+    width: 13px;
+    height: 13px;
+}
+#ssoUploadMetadataBtn{
+    vertical-align: top;
+}
+
+.sso-settings-label-checkbox {
+    width: ~"calc(100% - 20px)";
+    margin: 0 2px 22px 0;
+    float: left;
+    clear: both;
+}
+
+.top-indent-big{
+    margin-top: 20px;
+}
+.top-indent-big .link.dotted {
+    display: inline-block;
+    margin-top: 5px;
+    vertical-align: top;
+}
+.top-indent-big .sso-settings-title {
+    max-width: 276px;
+}
+
+
+.settings-checkbox-text {
+    display: inline-block;
+    width: ~"calc(100% - 50px)";
+    vertical-align: top;
+    margin-left: 5px;
+}
+#ssoNameIdFormat {
+    width: 350px;
+    overflow: hidden !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#ssoSigningAlgorithm {
+    margin-bottom: 8px;
+}
+#ssoSpCertificateGenerateBtn
+{
+    float: right;
+    margin-bottom:3px;
+}
+.link.dotted {
+    border-bottom: 1px dotted;
+}
+.algorithm-select-container{
+    padding-top: 5px;
+}
+.algorithm-select-container select{
+    width: 100%;
+}
+.certificate-spoiler,
+.certificate-btn-container {
+    margin-top: 10px;
+}
+.sso-spoiler-link,
+.sso-settings-spoiler-link {
+    margin-left: 16px;
+}
+
+.sso-settings-title {
+    display: inline-block;
+    margin: 0 0 20px 0;
+}
+
+.sso-main-container .sso-settings-block {
+    margin: 20px 0 0 0;
+}
+.sso-main-container .sso-attribute-block {
+    margin: 8px 0 0 0;
+}
+
+.ssoUploadMetadataContainer > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ssoUploadMetadataContainer .withUploadBtn input[type="text"] {
+    width: ~"calc(100% - 52px)";
+}
+.ssoUploadMetadataContainer .withUploadBtn {
+    width: 225px;
+}
+
+.sso-settings-block {
+    margin: 14px 0 0 0;
+}
+
+.button.uploadBtn input[type="file"], .button:visited.uploadBtn input[type="file"], .button:active.uploadBtn input[type="file"] {
+    position: absolute;
+    height: 48px;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0;
+}
+
+.sso-settings-container {
+    clear: both;
+}
+
+.sso-settings-disabled {
+    color: @borderColor;
+    cursor: default;
+    -moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.sso-settings-block {
+    clear: both;
+    margin: 14px 0 0 0;
+}
+
+.sso-settings-container .textEdit {
+    padding: 1px;
+    width: 350px;
+}
+
+.radio-container {
+    display: block;
+    vertical-align: bottom;
+    margin-top: 10px;
+}
+.radio-container span{
+    display: inline-block;
+    vertical-align: bottom;
+}
+.radio-container span:first-child {
+    margin-right: 5px;
+}
+.sso-settings-block input[type=radio] + label {
+    width: auto;
+    margin: 0;
+}
+
+.sso-settings-text {
+    padding: 0 0 4px 0;
+    font-weight: bold;
+}
+
+.sso-settings-public-key-area, .sso-settings-client-public-key-area {
+    resize: none;
+    width: 350px;
+}
+
+.sso-settings-loader {
+    width: 12px;
+    height: 12px;
+    background: url(images/loader_12.gif) no-repeat transparent;
+    margin: 10px 5px 0 0;
+    float: left;
+}
+
+.sso-settings-status {
+    margin: 7px 0 0 0;
+    float: left;
+}
+
+#ssoCertFile {
+    margin: 10px 0;
+    display: none;
+}
+
+#ssoCertFile .name {
+    width: 170px;
+    display: inline-block;
+}
+
+#ssoCertFile .trash {
+    display: inline-block;
+    float: none;
+    margin: 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.sso-required-field {
+    color: #c00;
+    font-size: 12px;
+    vertical-align: text-top;
+    height: 16px;
+    width: 6px;
+    display: inline-block;
+    margin-top: -4px;
+    margin-left: -2px;
+}
+
+.sso-link-not-active {
+   pointer-events: none;
+   cursor: default !important;
+   color: #b2b2b2 !important;
+}

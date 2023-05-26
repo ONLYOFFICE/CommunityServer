@@ -165,6 +165,9 @@ module.exports = (io) => {
         };
 
         function getCleanIP (ipAddress) {
+			if(typeof(ipAddress) == "undefined"){
+				return "127.0.0.1";
+			}
             const indexOfColon = ipAddress.indexOf(':');
             if (indexOfColon === -1){
                 return ipAddress;

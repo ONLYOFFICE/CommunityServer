@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ namespace ASC.Common.Data.Sql
     {
         private readonly string table;
         private Exp where = Exp.Empty;
+        private int limit;
 
         public SqlDelete(string table)
         {
@@ -45,6 +46,7 @@ namespace ASC.Common.Data.Sql
             var sql = new StringBuilder();
             sql.AppendFormat("delete from {0}", table);
             if (where != Exp.Empty) sql.AppendFormat(" where {0}", where.ToString(dialect));
+            if (limit > 0)  sql.AppendFormat(" limit {0}", limit);
             return sql.ToString();
         }
 
@@ -64,6 +66,12 @@ namespace ASC.Common.Data.Sql
         public SqlDelete Where(string column, object value)
         {
             return Where(Exp.Eq(column, value));
+        }
+
+        public SqlDelete SetLimit(int limit)
+        {
+            this.limit = limit;
+            return this;
         }
 
         public override string ToString()

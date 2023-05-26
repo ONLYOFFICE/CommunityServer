@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 .Where(Exp.Between("pp.created", filter.Time.From, filter.Time.To) &
                        !Exp.Between("TIMESTAMPDIFF(MINUTE,p.create_on, pp.created)", -filterTimeInterval, filterTimeInterval));
 
-            using (var db = DbManager.FromHttpContext(DbId))
+            using (var db = new DbManager(DbId))
             {
                 var participants = db.ExecuteList(q).ConvertAll(ToParticipant);
                 return participants.Select(p => new Tuple<Feed, object>(ToFeed(p), p));

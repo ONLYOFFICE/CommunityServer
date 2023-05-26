@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Geolocation;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.PublicResources;
@@ -104,13 +105,22 @@ namespace ASC.Web.Studio.UserControls.Management
             Page
                 .RegisterBodyScripts("~/UserControls/Management/TariffSettings/js/tariffcustom.js",
                     "~/js/asc/plugins/countries.js",
-                    "~/js/asc/plugins/phonecontroller.js")
-                .RegisterStyle(
-                    "~/skins/default/phonecontroller.css",
+                    "~/js/asc/plugins/phonecontroller.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle(
+                    "~/skins/dark/dark-phonecontroller.less",
+                    "~/UserControls/Management/TariffSettings/css/dark-tariff.less",
+                    "~/UserControls/Management/TariffSettings/css/dark-tariffcustom.less");
+            }
+            else
+            {
+                Page.RegisterStyle(
+                    "~/skins/default/phonecontroller.less",
                     "~/UserControls/Management/TariffSettings/css/tariff.less",
-                    "~/UserControls/Management/TariffSettings/css/tariffcustom.less")
-                .RegisterClientScript(new CountriesResources());
-
+                    "~/UserControls/Management/TariffSettings/css/tariffcustom.less");
+            }
+            Page.RegisterClientScript(new CountriesResources());
             CurrentRegion = RegionDefault;
 
             UsersCount = TenantStatisticsProvider.GetUsersCount();

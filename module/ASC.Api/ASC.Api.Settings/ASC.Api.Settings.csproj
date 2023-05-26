@@ -62,6 +62,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BuildVersion.cs" />
+    <Compile Include="TfaSettingsWrapper.cs" />
     <Compile Include="RadicaleSettingsApi.cs" />
     <Compile Include="StatisticsWrapper.cs" />
     <Compile Include="Smtp\SmtpOperation.cs" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

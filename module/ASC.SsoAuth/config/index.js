@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,8 @@ const nconf = require("nconf"),
 
 nconf.argv()
     .env()
-    .file({ file: path.join(__dirname, "config.json") });
+    .file({ file: path.join(__dirname, `config.${process.argv[2]}.json`) });
 
-if (nconf.get("NODE_ENV") !== "development" && fs.existsSync(path.join(__dirname, nconf.get("NODE_ENV") + ".json"))) {
-    nconf.file({ file: path.join(__dirname, nconf.get("NODE_ENV") + ".json") });
-}
+nconf.file("default", path.join(__dirname, "config.json"));
 
 module.exports = nconf;

@@ -1379,9 +1379,6 @@ Jste si jistý, že chcete odstranit {0}{!group}?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Nastavení důvěryhodné mailové domény{2} je možnost, která nastaví mailové servery používané pro vlastní registraci uživatele.{0}Buď můžete zaškrtnout možnost {1}Vlastní domény{2} a zadat důvěryhodné mailové server v polích níže, takže osoba, která má na něm účet, se bude moci zaregistrovat sám pomocí odkazu Připojit na {1}Přihlašovací{2}stránce nebo zakázat tuto volbu.{0}Chcete-li nově nastavené parametry aktivovat, klikněte na tlačítko {1}Uložit{2} v dolní části.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Nastavení síly hesla{2} je způsob, jak určit efektivitu a odolnost hesla, pokud ho někdo bude chtít prolomit.{0}Použijte lištu{1}Minimální délka hesla{2} pro určení jeho délky. Zaškrtněte příslušné pole níže pro určení znaků, které musí heslo obsahovat.{0}Chcete-li nastavené parametry aktivovat, klikněte na tlačítko {1}Uložit{2} v dolní části.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Veřejný portál{2} je volná volba, která umožňuje komukoli vidět Váš veřejný obsah bez registrace. Žádné soukromé projekty nejsou k dispozici a CRM modul je pro takové portály zakázán.{0}Registrace veřejných portálů není omezena počtem uživatelů, noví uživatelé jsou přidáni na žádost portálového administrátora. Použijte možnost {1}Zaregistrovat nové uživatele okamžitě{2}, aby jste odstranili nutnost potvrzení registrace.</value>
   </data>
@@ -1574,9 +1571,6 @@ Jste si jistý, že chcete odstranit {0}{!group}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Povolit</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}Zabezpečení IP{1} je použita pro omezení přihlášení do portálu ze všech IP adres kromě určitých adres. Můžete nastavit povolené IP adresy použitím jejich přesné IP adresy v IPv4 formátu (#.#.#.#, kde # jsou hodnoty od 0 až 255) nebo rozsah IP (ve formátu #.#.#.#-#.#.#.#). IP zabezpečení nefunguje pro majitele portálů, ti se mohou přihlásit z jakékoli IP adresy.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Zabezpečení protokolu TCP/IP</value>
@@ -2146,9 +2140,6 @@ pokud chce změnit uzamčené pole profilu</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Změna hesla</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimální délka hesla</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Obnovení hesla</value>

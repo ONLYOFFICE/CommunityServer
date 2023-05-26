@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
@@ -118,10 +119,20 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return CoreContext.Configuration.Personal; }
         }
 
+        protected Web.Core.Utility.PasswordSettings TenantPasswordSettings;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/UserControls/Management/ConfirmInviteActivation/js/confirm_invite_activation.js")
-                .RegisterStyle("~/UserControls/Management/ConfirmInviteActivation/css/confirm_invite_activation.less");
+            Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/UserControls/Management/ConfirmInviteActivation/js/confirm_invite_activation.js");
+
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/ConfirmInviteActivation/css/dark-confirm_invite_activation.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/ConfirmInviteActivation/css/confirm_invite_activation.less");
+            }
 
             var uid = Guid.Empty;
             try
@@ -209,12 +220,14 @@ namespace ASC.Web.Studio.UserControls.Management
             if (tenant != null)
             {
                 var settings = IPRestrictionsSettings.Load();
-                if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
+                if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant, email))
                 {
                     ShowError(Resource.ErrorAccessRestricted);
                     return;
                 }
             }
+
+            TenantPasswordSettings = Web.Core.Utility.PasswordSettings.Load();
 
             if (!IsPostBack)
                 return;

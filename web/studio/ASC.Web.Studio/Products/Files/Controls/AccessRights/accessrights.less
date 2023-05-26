@@ -1,0 +1,230 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../App_Themes/default/params.less";
+/*******************************************************************************
+    shareaccess
+*******************************************************************************/
+.share-container-head,
+.share-container-head-corporate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 370px;
+}
+
+#sharingSettingsDialogBody .change-owner-selector {
+    max-width: 300px;
+}
+
+#shareLinkBody {
+    display: none;
+    margin-bottom: 16px;
+}
+.sharing-link-items {
+    float: left;
+    padding: 0 0 12px;
+}
+
+#sharingLinkAce {
+    float: left;
+    width: 140px;
+    padding: 1px 0 12px 10px;
+}
+#sharingLinkAce .combobox-container {
+    min-width: 120px;
+}
+#shareLinkDescr,
+#shareLinkEnable {
+    float: left;
+    margin: 1px 0 0 12px;
+}
+.sharelink-around {
+    float: left;
+    margin-bottom: 16px;
+    padding: 0 0 0 8px;
+    position: relative;
+    width: 360px;
+}
+.without-emb .sharelink-around {
+    width: 100%;
+}
+#shareLink {
+    border: none;
+    font-size: 14px;
+    height: 16px;
+    margin: 4px 0;
+    text-overflow: ellipsis;
+    width: 278px;
+}
+.without-emb #shareLink {
+    width: 468px;
+}
+.desktop #shareLink {
+    width: 308px;
+}
+.desktop .without-emb #shareLink {
+    width: 498px;
+}
+.custom-mode #shareLink {
+    width: 328px;
+}
+.desktop.custom-mode #shareLink {
+    width: 348px;
+}
+.custom-mode .without-emb #shareLink {
+    width: 518px;
+}
+.desktop.custom-mode .without-emb #shareLink {
+    width: 538px;
+}
+#shareLinkAction {
+    background-color: white;
+    padding: 2px 4px 2px 0;
+    position: absolute;
+    top: 2px;
+    right: 74px;
+}
+.desktop #shareLinkAction {
+    right: 50px;
+}
+.custom-mode #shareLinkAction {
+    right: 26px;
+}
+.custom-mode.desktop #shareLinkAction {
+    right: 0;
+}
+#shareLinkCopy,
+#getShortenLink {
+    background: white;
+    cursor: pointer;
+    margin-left: 4px;
+}
+#shareViaSocPanel {
+    float: right;
+    list-style: none;
+    margin: 2px 0 0;
+    padding: 0;
+}
+#shareViaSocPanel > li {
+    float: left;
+}
+#shareViaSocPanel a {
+    background-color: #ccc;
+    cursor: pointer;
+    display: block;
+    margin-right: 2px;
+    
+    border-radius: 2px;
+    -moz-topright: 2px;
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
+}
+#shareViaSocPanel a:hover {
+    background-color: #83888d;
+}
+#shareViaSocPanel a span {
+    background: url("images/link_via.png") no-repeat 0 0 transparent;
+    display: block;
+    height: 22px;
+    width: 22px;
+}
+#shareViaSocPanel .mail span {
+    background-position-x: 0;
+}
+#shareViaSocPanel .facebook span {
+    background-position-x: -44px;
+}
+#shareViaSocPanel .twitter span {
+    background-position-x: -66px;
+}
+
+/*******************************************************************************
+    Embedded panel
+*******************************************************************************/
+#toggleEmbeddPanel {
+    cursor: pointer;
+    float: right;
+    margin: 6px 0 0 0;
+    max-width: 165px;
+    padding-right: 13px;
+    position: relative;
+}
+#toggleEmbeddPanel::after {
+    border-color: #212121 transparent transparent;
+    border-style: solid solid outset;
+    border-width: 4px 4px 0;
+    content: "";
+    height: 0;
+    margin-top: -2px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+.without-emb #toggleEmbeddPanel {
+    display: none;
+}
+#shareEmbeddedPanel {
+    padding: 17px 24px 24px;
+}
+#shareEmbeddedPanel th {
+    font-weight: normal;
+    padding-bottom: 4px;
+    text-align: left;
+}
+.embedd-space {
+    width: 50px;
+}
+.embedded-size-item {
+    cursor: pointer;
+    margin-right: 2px;
+    padding: 2px 6px;
+}
+.embedded-size-item:hover {
+    background-color: @body-color-hover-another;
+}
+.embedded-size-item.selected {
+    background-color: @body-color-selected;
+}
+.embedded-size-item.selected span {
+    border-bottom: none;
+}
+.embedded-size-custom {
+    padding: 3px;
+    width: 45px;
+}
+.share-embed-around {
+    margin-top: 16px;
+    padding: 0 8px;
+    position: relative;
+}
+#shareEmbedded {
+    border: none;
+    font-size: 14px;
+    height: 16px;
+    margin: 4px 0;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+#shareEmbedCopy {
+    background: white;
+    cursor: pointer;
+    padding: 4px 8px 6px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

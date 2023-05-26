@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using ASC.Core.Users;
 using ASC.VoipService.Dao;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 
@@ -108,7 +109,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
             return SecurityContext.CurrentAccount.ID +
                    (SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal
                         ? (CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
-                           CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture))
+                           CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
+                           ((int)ModeThemeSettings.GetModeThemesSettings().ModeThemeName).ToString(CultureInfo.InvariantCulture))
                         : string.Empty);
         }
 

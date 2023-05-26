@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 @import "base.less";
+@import "params.less";
 /*******************************************************************************
    CSS Reset
 *******************************************************************************/
@@ -83,12 +84,12 @@ textarea {
     background: url("../images/icons.png") 0 -240px no-repeat transparent;
     .crm-actionLinkBase;
 }
-.crm-addNewLink{
+.crm-addNewLink {
     .crm-actionLinkBase;
     position: relative;
 
     &:after {
-        color: #83888d;
+        color: @generalListEdit-after;
         content: "+";
         cursor: pointer;
         display: block;
@@ -195,7 +196,7 @@ textarea {
 
     &:after{
         background-image: url('../../../../../skins/default/images/svg/crm/up.svg');
-        color: @textColor;
+        color: @text-color;
         cursor: pointer;
         .crm-img-pseudo-base(50%, 0);
         left: -19px;
@@ -333,7 +334,7 @@ Button with a triangle (arrow down) on the right
     &:after {
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
-        border-top: 4px solid #212121;
+        border-top: 4px solid @crm-withArrowDown-after;
         content: "";
         display: block;
         height: 0;
@@ -399,7 +400,7 @@ a.attachLink, a.attachLink:active, a.attachLink:hover, a.attachLink:visited{
 }
 .border-panel {
     background-color: @defaultBgColor;
-    border: 1px solid #BBD5E9;
+    border: 1px solid @defaultBorColor;
 }
 
 .crm-pageHeader {
@@ -419,8 +420,8 @@ a.attachLink, a.attachLink:active, a.attachLink:hover, a.attachLink:visited{
 /*******************************************************************************
 containers for batch deleting elements
 *******************************************************************************/
-.containerForListBatchDelete{
-    border: 1px solid @borderColor;
+.containerForListBatchDelete {
+    border: 1px solid @border-color;
     line-height: 20px;
     margin: 15px 0;
     max-height: 300px;
@@ -493,7 +494,7 @@ ContactInfoCard.ascx
 }
 
 .crm-contactInfoCardImg {
-    border: 1px solid #C7C7C7;
+    border: 1px solid @text-area-border-color;
     display: block;
 }
 
@@ -523,11 +524,11 @@ TagView.ascx
         padding: 1px 22px 1px 12px;
         margin: 0 2px 4px 0;
         position: relative;
-        background-color: #E9E9E9;
+        background-color: @tag-item-bg;
 
         &:after {
-            border-left: 8px solid #E9E9E9;
-            border-top: 9px solid #FFFFFF;
+            border-left: 8px solid @tag-item-bg;
+            border-top: 9px solid @defaultBgColor;
             content: "";
             display: block;
             height: 0;
@@ -537,9 +538,10 @@ TagView.ascx
             top: 0;
             width: 0;
         }
+
         &:before {
-            border-left: 8px solid #E9E9E9;
-            border-bottom: 10px solid #FFFFFF;
+            border-left: 8px solid @tag-item-bg;
+            border-bottom: 10px solid @defaultBgColor;
             content: "";
             display: block;
             height: 0;
@@ -551,7 +553,7 @@ TagView.ascx
         }
 
         a.delete_tag {
-            color: #83888d;
+            color: @generalListEdit-after;
             cursor: pointer;
             display: none;
             font-family: Arial;
@@ -567,11 +569,11 @@ TagView.ascx
         }
     }
 
-        span.tag_item:hover a.delete_tag,
-        span.tag_item.tag_hover a.delete_tag,
-        span.tag_item a.delete_tag:hover {
-            display: inline-block;
-        }
+    span.tag_item:hover a.delete_tag,
+    span.tag_item.tag_hover a.delete_tag,
+    span.tag_item a.delete_tag:hover {
+        display: inline-block;
+    }
 
     .clear {
         clear: both;
@@ -607,7 +609,7 @@ TagView.ascx
     }
 
     input {
-        border: 1px solid #C7C7C7;
+        border: 1px solid @text-area-border-color;
         float: left;
         &:focus {
             border: 1px solid #3186AF;
@@ -634,7 +636,7 @@ Navigation panel with page navigator
         margin-bottom: 1px;
         vertical-align: middle;
         .combobox-title:after {
-            border-top-color: #83888D;
+            border-top-color: @generalListEdit-after;
         }
     }
 }
@@ -663,7 +665,7 @@ File Uploader css style
 .pm_overAllProcessBarCssClass {
     height:8px;
     width:100%;
-    border: 1px solid @borderColor;
+    border: 1px solid @border-color;
     .borderRadius(2px);
     margin-top:10px;
 }
@@ -710,9 +712,10 @@ CategorySelector.ascx
 *******************************************************************************/
 
 .categorySelector-selector-container {
-    border: 1px solid #C7C7C7;
+    border: 1px solid @text-area-border-color;
     height: 20px;
     padding-left: 5px;
+    background-color: @categorySelector-selector-container-bg;
 }
 .categorySelector-selector {
     cursor: pointer;
@@ -722,10 +725,10 @@ CategorySelector.ascx
     width: 18px;
     position: relative;
 
-    &:after{
+    &:after {
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-top: 6px solid #83888D;
+        border-top: 6px solid @generalListEdit-after;
         content: "";
         display: block;
         height: 0;
@@ -735,12 +738,11 @@ CategorySelector.ascx
         right: 4px;
         top: 8px;
     }
-
 }
 
 .categorySelector-categoriesContainer {
-    background-color: #FFFFFF;
-    border: 1px solid #C7C7C7;
+    background-color: @defaultBgColor;
+    border: 1px solid @text-area-border-color;
     display: none;
     max-height: 200px;
     margin-top: -1px;
@@ -756,13 +758,13 @@ CategorySelector.ascx
     z-index: 100;
 
     &:hover {
-        background-color: @hoverRowColor;
+        background-color: @hover-row-color;
         cursor:pointer;
     }
 }
 
 .categorySelector-categories {
-    border-right: 1px solid #C7C7C7;
+    border-right: 1px solid @text-area-border-color;
     display: block;
     max-height: 200px;
     overflow: auto;
@@ -1026,13 +1028,13 @@ ContactSelector.ascx
         position: relative;
         .crm-actionLinkBase;
 
-        &:before{content: " "; position: absolute; width: 7px; height: 7px; border: 2px solid #8d9195; .borderRadius(7px); top: 1px; left: 1px; }
-        &:after{content: " "; position: absolute; width: 0; height: 6px; border-right: 2px solid #8d9195; top: 9px; left: 11px; .rotateTransform(135deg); }
+        &:before{content: " "; position: absolute; width: 7px; height: 7px; border: 2px solid @search-icon-bg; .borderRadius(7px); top: 1px; left: 1px; }
+        &:after{content: " "; position: absolute; width: 0; height: 6px; border-right: 2px solid @search-icon-bg; top: 9px; left: 11px; .rotateTransform(135deg); }
     }
 }
 
 .noMatches {
-    background: #FFFFCC;
+    background: @no-matches;
     display: none;
     position: absolute;
     z-index: 10;
@@ -1168,6 +1170,7 @@ table td.activityData {
         margin: 8px 0;
         overflow: auto;
         height: 100%;
+		background-color: #fff;
     }
 
     .importance {
@@ -1203,7 +1206,7 @@ table td.activityData {
 
         .head {
             border-top: 1px solid #D7D8DC;
-            background-color: #F2F2F2;
+            background-color: @hover-row-color;
             padding: 3px 0;
 
             .row {
@@ -1221,7 +1224,7 @@ table td.activityData {
                 }
 
                 .value a {
-                    color: #000000;
+                    color: @dark-text-color;
                     cursor: pointer;
                     outline: medium none;
                     text-decoration: none;
@@ -1243,7 +1246,7 @@ table td.activityData {
     margin-top: 16px;
 
     .percent {
-        color: #333333;
+        color: @text-color;
         float: right;
         font-size: 12px;
         font-weight: bold;
@@ -1281,7 +1284,7 @@ ContactSelectorAutocomplete
 
     .ui-menu-item {
         background-color: @defaultBgColor;
-        border-bottom: 1px solid @borderColor;
+        border-bottom: 1px solid @border-color;
         list-style: none outside none;
 
         .ui-state-focus {
@@ -1292,7 +1295,7 @@ ContactSelectorAutocomplete
             padding: 3px !important;
         }
         a, a:hover {
-            color: black !important;
+            color: @ui-autocomplete-a-col !important;
             display: block !important;
             padding: 3px !important;
             text-decoration: none !important;
@@ -1306,9 +1309,9 @@ ContactSelectorAutocomplete
     border-radius: 2px 2px 2px 2px !important;
 }
 .ui-widget-content {
-    background-color: #FFFFFF;
-    border: 1px solid #D1D1D1;
-    color: #333333;
+    background-color: @defaultBgColor;
+    border: 1px solid @border-color;
+    color: @text-color;
 }
 
 /********************************************************************************
@@ -1364,12 +1367,12 @@ Import From CSV
         vertical-align: middle;
         .combobox-title {
             &:after {
-                border-top-color: #83888D;
+                border-top-color: @generalListEdit-after;
             }
 
             .inner-text {
-                border-bottom: 1px dotted @textColorBlackDark;
-                color: @textColorBlackDark;
+                border-bottom: 1px dotted @grey-text;
+                color: @grey-text;
             }
         }
     }
@@ -1431,10 +1434,11 @@ body.media-width-min {
 #eventCategorySelector{
     width: 180px;
 }
+
 button.ui-datepicker-trigger,
 button.ui-datepicker-trigger:active,
 button.ui-datepicker-trigger:hover {
-    background: url('../../../../../skins/default/images/svg/crm/calendar.svg') no-repeat #ffffff;
+    background: url("../../../../../skins/default/images/svg/crm/@{button-ui}") no-repeat @button-ui-svg-bg;
     cursor: pointer;
     height: 19px;
     border: 0 none;

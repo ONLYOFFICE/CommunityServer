@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ using ASC.Geolocation;
 using ASC.MessagingSystem;
 using ASC.Specific;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
@@ -49,6 +50,10 @@ using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Security
 {
+    /// <summary>
+    /// Security API.
+    /// </summary>
+    /// <name>security</name>
     public class SecurityApi : IApiEntryPoint
     {
         ILog Log = LogManager.GetLogger("ASC.Api");
@@ -70,6 +75,17 @@ namespace ASC.Api.Security
             Context = apiContext;
         }
 
+        /// <summary>
+        /// Returns all the latest user login activity including successful logins and failed attempts with an indication of reasons.
+        /// </summary>
+        /// <short>
+        /// Get login history
+        /// </short>
+        /// <category>Login history</category>
+        /// <returns>List of login events</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/security/audit/login/last</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/login/last")]
         public IEnumerable<LoginEventWrapper> GetLastLoginEvents()
         {
@@ -80,6 +96,17 @@ namespace ASC.Api.Security
             return LoginEventsRepository.GetByFilter(startIndex: 0, limit: 20).Select(x => new LoginEventWrapper(x));
         }
 
+        /// <summary>
+        /// Returns a list of the latest changes (creation, modification, deletion, etc.) made by users to the entities (tasks, opportunities, files, etc.) on the portal.
+        /// </summary>
+        /// <short>
+        /// Get audit trail data
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <returns>List of audit trail data</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/security/audit/events/last</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/events/last")]
         public IEnumerable<AuditEventWrapper> GetLastAuditEvents()
         {
@@ -91,13 +118,20 @@ namespace ASC.Api.Security
         }
 
         /// <summary>
-        /// Returns a list of login events by filter
+        /// Returns a list of the login events by the parameters specified in the request.
         /// </summary>
-        /// <param name="userId">User ID</param>
-        /// <param name="action">Action</param>
-        /// <param name="from">From date</param>
-        /// <param name="to">To date</param>
-        /// <returns>Events</returns>
+        /// <short>
+        /// Get filtered login events
+        /// </short>
+        /// <category>Login history</category>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <param type="ASC.MessagingSystem.MessageAction, ASC.MessagingSystem" name="action">Action</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="from">Start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="to">End date</param>
+        /// <returns>List of filtered login events</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/security/audit/login/filter</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/login/filter")]
         public IEnumerable<LoginEventWrapper> GetLoginEventsByFilter(Guid userId,
             MessageAction action,
@@ -124,18 +158,25 @@ namespace ASC.Api.Security
             }
         }
         /// <summary>
-        /// Returns a list of audit events by filter
+        /// Returns a list of the audit events by the parameters specified in the request.
         /// </summary>
-        /// <param name="userId">User id</param>
-        /// <param name="productType">Product</param>
-        /// <param name="moduleType">Module</param>
-        /// <param name="actionType">Action type</param>
-        /// <param name="action">Action</param>
-        /// <param name="entryType">Entry</param>
-        /// <param name="target">Target</param>
-        /// <param name="from">From date</param>
-        /// <param name="to">To date</param>
-        /// <returns>Actions</returns>
+        /// <short>
+        /// Get filtered audit trail data
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <param type="ASC.AuditTrail.Types.ProductType, ASC.AuditTrail.Types" name="productType">Product</param>
+        /// <param type="ASC.AuditTrail.Types.ModuleType, ASC.AuditTrail.Types" name="moduleType">Module</param>
+        /// <param type="ASC.AuditTrail.Types.ActionType, ASC.AuditTrail.Types" name="actionType">Action type</param>
+        /// <param type="ASC.MessagingSystem.MessageAction, ASC.MessagingSystem" name="action">Action</param>
+        /// <param type="ASC.AuditTrail.Types.EntryType, ASC.AuditTrail.Types" name="entryType">Entry</param>
+        /// <param type="System.String, System" name="target">Target</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="from">Start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="to">End date</param>
+        /// <returns>List of filtered audit trail data</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/security/audit/events/filter</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/events/filter")]
         public IEnumerable<AuditEventWrapper> GetAuditEventsByFilter(Guid userId,
             ProductType productType,
@@ -167,6 +208,17 @@ namespace ASC.Api.Security
             }
         }
 
+        /// <summary>
+        /// Returns all the available audit trail types.
+        /// </summary>
+        /// <short>
+        /// Get audit trail types
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <returns>Audit trail types</returns>
+        /// <path>api/2.0/security/audit/types</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/types", false)]
         public ModelTypes GetTypes()
         {
@@ -180,6 +232,19 @@ namespace ASC.Api.Security
             };
         }
 
+        /// <summary>
+        /// Returns the mappers for the audit trail types.
+        /// </summary>
+        /// <short>
+        /// Get audit trail mappers
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <param type="System.Nullable{ASC.AuditTrail.Types.ProductType}, Systems" name="productType">Product</param>
+        /// <param type="System.Nullable{ASC.AuditTrail.Types.ModuleType}, System" name="moduleType">Module</param>
+        /// <returns>Audit trail mappers</returns>
+        /// <path>api/2.0/security/audit/mappers</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/mappers", false)]
         public object GetMappers(ProductType? productType, ModuleType? moduleType)
         {
@@ -203,6 +268,16 @@ namespace ASC.Api.Security
                 });
         }
 
+        /// <summary>
+        /// Generates the login history report.
+        /// </summary>
+        /// <short>
+        /// Generate the login history report
+        /// </short>
+        /// <category>Login history</category>
+        /// <returns>URL to the xlsx report file</returns>
+        /// <path>api/2.0/security/audit/login/report</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("/audit/login/report")]
         public string CreateLoginHistoryReport()
         {
@@ -225,6 +300,16 @@ namespace ASC.Api.Security
             return result;
         }
 
+        /// <summary>
+        /// Generates the audit trail report.
+        /// </summary>
+        /// <short>
+        /// Generate the audit trail report
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <returns>URL to the xlsx report file</returns>
+        /// <path>api/2.0/security/audit/events/report</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("/audit/events/report")]
         public string CreateAuditTrailReport()
         {
@@ -248,6 +333,16 @@ namespace ASC.Api.Security
             return result;
         }
 
+        /// <summary>
+        /// Returns the audit trail settings.
+        /// </summary>
+        /// <short>
+        /// Get the audit trail settings
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <returns>Audit settings</returns>
+        /// <path>api/2.0/security/audit/settings/lifetime</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/audit/settings/lifetime")]
         public TenantAuditSettings GetAuditSettings()
         {
@@ -258,6 +353,17 @@ namespace ASC.Api.Security
             return TenantAuditSettings.LoadForTenant(TenantProvider.CurrentTenantID);
         }
 
+        /// <summary>
+        /// Sets the audit trail settings for the current portal.
+        /// </summary>
+        /// <short>
+        /// Set the audit trail settings
+        /// </short>
+        /// <category>Audit trail data</category>
+        /// <param type="ASC.Core.Tenants.TenantAuditSettings, ASC.Core.Tenants" name="settings">Audit trail settings</param>
+        /// <returns>Audit trail settings</returns>
+        /// <path>api/2.0/security/audit/settings/lifetime</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("/audit/settings/lifetime")]
         public TenantAuditSettings SetAuditSettings(TenantAuditSettings settings)
         {
@@ -297,6 +403,16 @@ namespace ASC.Api.Security
             }
         }
 
+        /// <summary>
+        /// Returns all the active connections to the portal.
+        /// </summary>
+        /// <short>
+        /// Get active connections
+        /// </short>
+        /// <category>Active connections</category>
+        /// <returns>Active portal connections</returns>
+        /// <path>api/2.0/security/activeconnections</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/activeconnections")]
         public object GetAllActiveConnections()
         {
@@ -322,7 +438,7 @@ namespace ASC.Api.Security
                     var clientInfo = MessageSettings.GetClientInfo(uaHeader);
                     var platformAndDevice = MessageSettings.GetPlatformAndDevice(clientInfo);
                     var browser = MessageSettings.GetBrowser(clientInfo);
-                    var ip = MessageSettings.GetIP(request);
+                    var ip = MessageSettings.GetFullIPAddress(request);
 
                     var baseEvent = new CustomEvent
                     {
@@ -336,7 +452,7 @@ namespace ASC.Api.Security
                     listLoginEvents.Add(Convert(baseEvent));
                 }
             }
-            
+
             var result = new
             {
                 Items = listLoginEvents,
@@ -345,6 +461,16 @@ namespace ASC.Api.Security
             return result;
         }
 
+        /// <summary>
+        /// Logs out from all the active connections for the current user and changes their password.
+        /// </summary>
+        /// <short>
+        /// Log out and change password
+        /// </short>
+        /// <category>Active connections</category>
+        /// <returns>URL to the confirmation message for changing a password</returns>
+        /// <path>api/2.0/security/activeconnections/logoutallchangepassword</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("/activeconnections/logoutallchangepassword")]
         public string LogOutAllActiveConnectionsChangePassword()
         {
@@ -371,6 +497,17 @@ namespace ASC.Api.Security
             }
         }
 
+        /// <summary>
+        /// Logs out from all the active connections for the user with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Log out for the user by ID
+        /// </short>
+        /// <category>Active connections</category>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <path>api/2.0/security/activeconnections/logoutall/{userId}</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <returns></returns>
         [Update("/activeconnections/logoutall/{userId}")]
         public void LogOutAllActiveConnectionsForUser(Guid userId)
         {
@@ -381,6 +518,16 @@ namespace ASC.Api.Security
             LogOutAllActiveConnections(userId);
         }
 
+        /// <summary>
+        /// Logs out from all the active connections except the current connection.
+        /// </summary>
+        /// <short>
+        /// Log out from all connections
+        /// </short>
+        /// <category>Active connections</category>
+        /// <returns>Current user name</returns>
+        /// <path>api/2.0/security/activeconnections/logoutallexceptthis</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("/activeconnections/logoutallexceptthis")]
         public string LogOutAllExceptThisConnection()
         {
@@ -402,6 +549,17 @@ namespace ASC.Api.Security
             }
         }
 
+        /// <summary>
+        /// Logs out from the connection with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Log out from the connection
+        /// </short>
+        /// <category>Active connections</category>
+        /// <param type="System.Int32, System" name="loginEventId">Login event ID</param>
+        /// <returns>Boolean value: true if the operation is successful</returns>
+        /// <path>api/2.0/security/activeconnections/logout/{loginEventId}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("/activeconnections/logout/{loginEventId}")]
         public bool LogOutActiveConnection(int loginEventId)
         {
@@ -419,6 +577,203 @@ namespace ASC.Api.Security
             {
                 Log.Error(ex);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Updates the login settings with the parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update login settings
+        /// </short>
+        /// <category>Login history</category>
+        /// <param type="System.Int32, System" name="attemptsCount">Maximum number of the user attempts to log in</param>
+        /// <param type="System.Int32, System" name="blockTime">The time for which the user will be blocked after unsuccessful login attempts</param>
+        /// <param type="System.Int32, System" name="checkPeriod">The time to wait for a response from the server</param>
+        /// <returns>Updated login settings</returns>
+        /// <path>api/2.0/security/loginsettings</path>
+        /// <httpMethod>PUT</httpMethod>
+        [Update("/loginsettings")]
+        public LoginSettings UpdateLoginSettings(int attemptsCount, int blockTime, int checkPeriod)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (attemptsCount < 1)
+            {
+                throw new ArgumentOutOfRangeException("attemptsCount");
+            }
+            if (checkPeriod < 1)
+            {
+                throw new ArgumentOutOfRangeException("checkPeriod");
+            }
+            if (blockTime < 0)
+            {
+                throw new ArgumentOutOfRangeException("blockTime");
+            }
+
+
+            var settings = new LoginSettings { CheckPeriod = checkPeriod, AttemptCount = attemptsCount, BlockTime = blockTime };
+            settings.Save();
+
+            return settings;
+        }
+
+        /// <summary>
+        /// Returns the impersonation settings for the current portal.
+        /// </summary>
+        /// <short>
+        /// Get impersonation settings
+        /// </short>
+        /// <category>Impersonation</category>
+        /// <returns>Impersonation settings</returns>
+        /// <path>api/2.0/security/impersonate/settings</path>
+        /// <httpMethod>GET</httpMethod>
+        [Read("/impersonate/settings")]
+        public ImpersonationSettings GetImpersonateSettings()
+        {
+            CheckImpersonateSettingsPermissions();
+
+            var settings = ImpersonationSettings.LoadAndRefresh();
+            return settings;
+        }
+
+        /// <summary>
+        /// Uppdates the impersonation settings with the parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update impersonation settings
+        /// </short>
+        /// <category>Impersonation</category>
+        /// <param type="System.Boolean, System" name="enable">Specifies whether impersonation is enabled or not</param>
+        /// <param type="ASC.Web.Core.Utility.ImpersonateEnableType, ASC.Web.Core.Utility" name="enableType">Specifies for whom impersonation is enabled (DisableForAdmins, EnableForAllFullAdmins, or EnableWithLimits)</param>
+        /// <param type="System.Boolean, System" name="onlyForOwnGroups">Specifies if impersonation is enabled only for the current user groups or not</param>
+        /// <param type="System.Collections.Generic.List{System.Guid}, System" name="allowedAdmins">List of admins who can be impersonated</param>
+        /// <param type="System.Collections.Generic.List{System.Guid}, System" name="restrictionUsers">List of users who cannot be impersonated</param>
+        /// <param type="System.Collections.Generic.List{System.Guid}, System" name="restrictionGroups">List of groups who cannot be impersonated</param>
+        /// <returns>Updated impersonation settings</returns>
+        /// <path>api/2.0/security/impersonate/settings</path>
+        /// <httpMethod>PUT</httpMethod>
+        [Update("/impersonate/settings")]
+        public ImpersonationSettings UpdateImpersonateSettings(bool enable, ImpersonateEnableType enableType, bool onlyForOwnGroups, List<Guid> allowedAdmins, List<Guid> restrictionUsers, List<Guid> restrictionGroups)
+        {
+            CheckImpersonateSettingsPermissions();
+
+            var settings = !enable ?
+                new ImpersonationSettings() :
+                new ImpersonationSettings
+                {
+                    Enabled = enable,
+                    EnableType = enableType,
+                    OnlyForOwnGroups = onlyForOwnGroups,
+                    AllowedAdmins = allowedAdmins,
+                    RestrictionUsers = restrictionUsers,
+                    RestrictionGroups = restrictionGroups
+                };
+
+            settings.Save();
+
+            return settings;
+        }
+
+        /// <summary>
+        /// Checks if a user with the ID specified in the request can be impersonated or not.
+        /// </summary>
+        /// <short>
+        /// Check user impersonation
+        /// </short>
+        /// <category>Impersonation</category>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <returns>Boolean value: true - the user can be impersonated, false - the user cannot be impersonated</returns>
+        /// <path>api/2.0/security/impersonate/{userId}</path>
+        /// <httpMethod>GET</httpMethod>
+        [Read("/impersonate/{userId}")]
+        public bool CanImpersonateUser(Guid userId)
+        {
+            return ImpersonationSettings.CanImpersonateUser(userId);
+        }
+
+        /// <summary>
+        /// Impersonates a user with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Impersonate a user
+        /// </short>
+        /// <category>Impersonation</category>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <returns>Cookies</returns>
+        /// <path>api/2.0/security/impersonate/{userId}</path>
+        /// <httpMethod>POST</httpMethod>
+        [Create("/impersonate/{userId}")]
+        public string ImpersonateUser(Guid userId)
+        {
+            if (!ImpersonationSettings.CanImpersonateUser(userId))
+            {
+                throw new SecurityException("Impossible to impersonate this user");
+            }
+
+            var currentTenantId = TenantProvider.CurrentTenantID;
+
+            var currentUserId = SecurityContext.CurrentAccount.ID;
+            var currentUser = CoreContext.UserManager.GetUsers(currentUserId);
+            var currentUserName = currentUser.DisplayUserName(false);
+
+            var targetUser = CoreContext.UserManager.GetUsers(userId);
+            var targetUserName = targetUser.DisplayUserName(false);
+
+            if (!ImpersonationSettings.IsImpersonator())
+            {
+                var currentAuthCookies = CookiesManager.GetCookies(CookiesType.AuthKey);
+                CookiesManager.SetCookies(CookiesType.ComebackAuthKey, currentAuthCookies);
+            }
+
+            var cookies = CookiesManager.AuthenticateMeAndSetCookies(currentTenantId, userId, MessageAction.LoginSuccess);
+
+            var userData = new MessageUserData(currentTenantId, currentUser.ID);
+
+            var httpHeaders = HttpContext.Current.Request.Headers.AllKeys.ToDictionary(key => key, key => HttpContext.Current.Request.Headers[key]);
+
+            MessageService.Send(userData, httpHeaders, MessageAction.ImpersonateUserLogin, MessageTarget.Create(userId), currentUserName, targetUserName);
+
+            return cookies;
+        }
+
+        /// <summary>
+        /// Log out from the account of the impersonated user.
+        /// </summary>
+        /// <short>
+        /// Log out impersonated user
+        /// </short>
+        /// <category>Impersonation</category>
+        /// <path>api/2.0/security/impersonate/logout</path>
+        /// <httpMethod>PUT</httpMethod>
+        [Update("/impersonate/logout")]
+        public void ImpersonateLogout()
+        {
+            var targetUserId = SecurityContext.CurrentAccount.ID;
+            var targetUser = CoreContext.UserManager.GetUsers(targetUserId);
+            var targetUserName = targetUser.DisplayUserName(false);
+
+            var currentAuthCookies = CookiesManager.GetCookies(CookiesType.AuthKey);
+            var comebackAuthCookies = CookiesManager.GetCookies(CookiesType.ComebackAuthKey);
+
+            var loginEventId = CookieStorage.GetLoginEventIdFromCookie(currentAuthCookies);
+            DbLoginEventsManager.LogOutEvent(loginEventId);
+
+            MessageService.Send(HttpContext.Current.Request, targetUserName, MessageAction.Logout);
+
+            CookiesManager.ClearCookies(CookiesType.ComebackAuthKey);
+
+            Auth.ProcessLogout();
+
+            if (SecurityContext.AuthenticateMe(comebackAuthCookies))
+            {
+                CookiesManager.SetCookies(CookiesType.AuthKey, comebackAuthCookies);
+
+                var currentUserId = SecurityContext.CurrentAccount.ID;
+                var currentUser = CoreContext.UserManager.GetUsers(currentUserId);
+                var currentUserName = currentUser.DisplayUserName(false);
+
+                MessageService.Send(HttpContext.Current.Request, currentUserName, MessageAction.ImpersonateUserLogout, MessageTarget.Create(targetUserId), targetUserName);
             }
         }
 
@@ -440,6 +795,21 @@ namespace ASC.Api.Security
             var cookie = CookiesManager.GetCookies(CookiesType.AuthKey);
             int loginEventId = CookieStorage.GetLoginEventIdFromCookie(cookie);
             return loginEventId;
+        }
+
+        private void CheckImpersonateSettingsPermissions()
+        {
+            if (!ImpersonationSettings.Available)
+            {
+                throw new SecurityException("Setting is not available");
+            }
+
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            if (!currentUser.IsOwner())
+            {
+                throw new SecurityException("Setting available only for the owner");
+            }
         }
 
         private CustomEvent Convert(BaseEvent baseEvent)

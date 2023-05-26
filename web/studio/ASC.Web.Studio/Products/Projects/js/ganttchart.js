@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,11 +44,14 @@ ASC.Projects.GantChart = (function (window) {
 
         kTaskEndFailSetup = { bigClampPct: 0.75, smallClampPx: 45 },
 
-        kTaskNormalColor = '#A4C7E5',
+        kTaskNormalColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#A4C7E5' : '#49525F',
+        kTaskNormalColorPrint = '#A4C7E5',
         kTaskOverdueColor = '#CC3300',
-        kTaskCompleteColor = '#BDDA7F',
+        kTaskCompleteColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#BDDA7F' : '#428621',
+        kTaskCompleteColorPrint = '#BDDA7F',
 
-        kTaskNormalBorderColor = '#82A0B9',
+        kTaskNormalBorderColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#82A0B9' : '#778FAF',
+        kTaskNormalBorderColorPrint = '#82A0B9',
         kTaskOverdueBorderColor = '#872200',
         kTaskCompleteBorderColor = '#9EB56C',
 
@@ -62,7 +65,8 @@ ASC.Projects.GantChart = (function (window) {
         kTaskNormalHitColor = '#78A8D6',
         kTaskCompleteHitColor = '#9AC54A',
         kTaskOverdueHitColor = '#B00600',
-        kTaskNoEndTimeColor = '#A4C7E5',
+        kTaskNoEndTimeColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#A4C7E5' : '#49525F',
+        kTaskNoEndTimeColorPrint = '#A4C7E5',
 
         kTaskNormalPriorityArrowColor = '#1d5381',
         kTaskOverduePriorityArrowColor = '#621C05',
@@ -70,8 +74,10 @@ ASC.Projects.GantChart = (function (window) {
 
         kTaskSelectedBackColor = 'rgba(100,100,100,0.15)',
 
-        kTaskTextColor = '#333333',
-        kTaskArrowPriorityBaseColor = '#FFFFFF',
+        kTaskTextColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB',
+        kTaskTextColorPrint = '#333333',
+        kTaskArrowPriorityBaseColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#FFFFFF' : '#98BAE9',
+        kTaskArrowPriorityBaseColorPrint = '#FFFFFF',
 
         kMilestoneColor = '#7e7e7e',
         kMilestoneSelectedColor = '#666666',
@@ -82,7 +88,8 @@ ASC.Projects.GantChart = (function (window) {
 
         kMilestoneColorBackLight = 'rgba(100,100,100,0.1)',
 
-        kTaskDragDropFillColor = '#ffffff',
+        kTaskDragDropFillColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333',
+        kTaskDragDropFillColorPrint = '#ffffff',
         kTaskDragDropBorderColor = '#6699ff',
         kTaskDragDropInvalidBorderColor = '#cc3300',
         kTaskTextUnderEditColor = '#999999',
@@ -93,13 +100,18 @@ ASC.Projects.GantChart = (function (window) {
         kLinkAddEditColor = '#24547E',
 
         kDayLineColor = '#97b8fa',
-        kDayBandColor = '#EFF5FF',
-        kWeekendColor = '#FFF5EB',
+        kDayBandColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#EFF5FF' : '#37475E',
+        kDayBandColorPrint = '#EFF5FF',
+        kWeekendColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#FFF5EB' : '#31353A',
+        kWeekendColorPrint = '#FFF5EB',
 
-        kLinesHorizontalColor = '#CCCCCC',
-        kLinesVerticalColor = '#CCCCCC',
-        kLinesDateScaleTopColor = '#D9D9D9',
-        kDateScaleCurrentDayColor = '#666666',
+        kLinesHorizontalColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#CCCCCC' : '#474747',
+        kLinesVerticalColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#CCCCCC' : '#474747',
+        kLinesVerticalColorPrint = '#CCCCCC',
+        kLinesDateScaleTopColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#D9D9D9' : '#474747',
+        kLinesDateScaleTopColorPrint = '#D9D9D9',
+        kDateScaleCurrentDayColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#666666' : '#ffffff',
+        kDateScaleCurrentDayColorPrint = '#666666',
 
         kLinkPinColor = '#628BAE',
         kLinkPinSize = 8,
@@ -123,9 +135,9 @@ ASC.Projects.GantChart = (function (window) {
 
         kEditBoxClipboardDebugMode = false,
 
-        kEditBoxSettings = { backgroundColor: '#FAFAFA', dash: [1, 2], dashColor: '#4FA7D1', fontColor: '#333333', fontSelColor: '#FFFFFF', backgroundSelTextColor: '#3399FF', fontHeight: 9, caretColor: '#000000', placeHolderColor: '#999999', marginWidth: 10, minBoxW: 100 },
+        kEditBoxSettings = { backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#FAFAFA' : '#333', dash: [1, 2], dashColor: '#4FA7D1', fontColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#fff', fontSelColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#FFFFFF' : '#333', backgroundSelTextColor: '#3399FF', fontHeight: 9, caretColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#000000' : '#fff', placeHolderColor: '#999999', marginWidth: 10, minBoxW: 100 },
 
-        kMaxTitleSymbolsCount = 250,    // максимальная длина названия для вех и задав
+        kMaxTitleSymbolsCount = 250,    // maximum name length for milestones and tasks
 
         kUIScrollBarThumbColor = 'rgba(0, 0, 0, 0.25)',
         kUIScrollBarThumbPressedColor = 'rgba(0, 0, 0, 0.5)',
@@ -135,7 +147,7 @@ ASC.Projects.GantChart = (function (window) {
 
         kLPCompleteColor = '#83888d',
         kLPOverdueColor = '#cc3300',
-        kLPNormalColor = '#333333',
+        kLPNormalColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB',
         kLockProjectColor = '#83888d',
 
         kHandlerAddTask = '101',
@@ -192,8 +204,8 @@ ASC.Projects.GantChart = (function (window) {
         kOperationDummy = 999,
 
         kZoomBarCurDayLineColor = '#6699FF',
-        kZoomBarThumbColor = '#E2E2E2',
-        kZoomBarThumbHandlesColor = '#CCCCCC',
+        kZoomBarThumbColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E2E2E2' : '#474747',
+        kZoomBarThumbHandlesColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#CCCCCC' : '#474747',
         kZoomBarThumbMinWidth = 20,  // px
 
         kScaleUnitMinSize = 28,  // kScaleUnitNormalizeDays
@@ -224,21 +236,23 @@ ASC.Projects.GantChart = (function (window) {
         kTypeScaleMinutes = 5,
         kTypeScaleSeconds = 6,
 
-        kDateScaleTextColor = '#999999',
-        kDateScaleDayOffTextColor = '#FFC78F',
-        kDateScaleBackgroundColor = '#ffffff',
+        kDateScaleTextColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#999999' : '#FFFFFFEB',
+        kDateScaleTextColorPrint = '#999999',
+        kDateScaleDayOffTextColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#FFC78F' : '#D8B97C',
+        kDateScaleDayOffTextColorPrint = '#FFC78F',
+        kDateScaleBackgroundColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333',
 
         kUIDateScaleUpMargin = 8,          //   px
 
-        kMilestoneMinDurationInHours = 168,        //  в часах 7 дней
+        kMilestoneMinDurationInHours = 168,        //  in hours 7 days
 
-        kEnableQueryTaskWithLinksMove = true,       //  двигаем связные задачи со связью End-Begin
+        kEnableQueryTaskWithLinksMove = true,       //  moving connected tasks with End-Begin connection
 
         kAnimationScaleFactor = 0.15,
         kAnimationScrollFactor = 0.2,        //  0.2;    // 0.0002;// test value
 
-        kTaskDateCaption = { width: 63, height: 15, offX: 13, bkcolor: '#FFFFFF', color: '#999999' },
-        kHitLightLink = true,       //  подсветка связи для виджета
+        kTaskDateCaption = { width: 63, height: 15, offX: 13, bkcolor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#FFFFFF' : '#333', color: '#999999' },
+        kHitLightLink = true,       // connection highlight for widget
 
         kMenuSettings = { backgroundColor: '#888d92', borderColor: '#fafafa', icoSize: 16, elementsWidth2X: 36, elementsWidth3X: 56, elementsWidth4X: 76, elementsWidth5X: 96, elementsWidth6X: 116, borderSz: 7 },
         kLinksWidgetSettings = { w: 36, h: 24, trx: 11, titleFx: 18, titleFy: 10 },
@@ -248,12 +262,12 @@ ASC.Projects.GantChart = (function (window) {
 
         kHitSidePixels = 5,
 
-        kEditModeNoUse = 100,        //  обычный режим в котором overlay используется только для popup элементов
-        kEditModeElementDrag = 200,        //  режим переноса задачи
-        kEditModeAddLink = 300,        //  режим добавления связей
-        kEditElementTitle = 400,        //  режим редактирование названия элемента (задача, веха)
+        kEditModeNoUse = 100,        //  normal mode in which overlay is used only for popup elements
+        kEditModeElementDrag = 200,        //  task transfer mode
+        kEditModeAddLink = 300,        //  adding link mode
+        kEditElementTitle = 400,        //  mode editing the name of the element (task, milestone)
 
-        kEndBeginLinksEditMode = true,       //  можем только работать со связами End-Begin
+        kEndBeginLinksEditMode = true,       //  we can only work with End-Begin connections
 
         kTimeLineItemHeight = 18,
         kTimeLineItemMargin = 30,
@@ -261,7 +275,7 @@ ASC.Projects.GantChart = (function (window) {
 
         kLinkCircleZone = 12,         //  px
 
-        kDetailsWidgetSettings = { backgroundColor: '#ffffff', titleColor: '#999999', descriptionColor: '#666666', width: 170, maxWidth: 300 },
+        kDetailsWidgetSettings = { backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333', titleColor: '#999999', descriptionColor: '#666666', width: 170, maxWidth: 300 },
         lockImg = new Image();
 
     function findCustomStatus(fn) {
@@ -306,7 +320,7 @@ ASC.Projects.GantChart = (function (window) {
                     // depending what you would like here,
                     // just keep the reference, or create new object
 
-                    // NOTE: закоментил, потому что ругается минимизатор
+                    // NOTE: commented out because the minimizer swears
 
                     //                    if (false && obj.constructor) {
                     //                        // would not advice to do that, reason? Read below
@@ -782,7 +796,7 @@ ASC.Projects.GantChart = (function (window) {
 
         roundRect: function (ctx, x, y, w, h, r) {
 
-            //              в IE10+ не работает
+            //             does not work in IE10+
 
             //            if (w < 2 * r) r = w / 2;
             //            if (h < 2 * r) r = h / 2;
@@ -974,14 +988,14 @@ ASC.Projects.GantChart = (function (window) {
             this.screenAddX = 0;
             this.clampBound = { left: 0, right: 0 };
 
-            // позиция каретки, автоматически устанавливается на конец текста
+            // caret position, automatically set to end of text
 
             this.carriage = 0;
             this.carriageFrame = 0;
             this.carriageWidth = 0;
             this.clickCarriage = 0;
 
-            // смещение при отрисовке текста, что бы была видна корректка
+            // offset when rendering text so that the adjustment is visible
 
             this.carriageLeft = 0;
             this.carriageLeftBuild = true;
@@ -1098,12 +1112,12 @@ ASC.Projects.GantChart = (function (window) {
 
             var ctx = this.ctx;
 
-            // белый фон заднего фона
+            // white background color
 
             ctx.fillStyle = kEditBoxSettings.backgroundColor;
             ctx.fillRect(this.clampBound.left, this.bound.y, this.clampBound.right - this.clampBound.left + 2, this.bound.h);
 
-            // пунктирная обводка вокруг текстового поля
+            // dotted stroke around the text box
 
             ctx.fillStyle = kEditBoxSettings.dashColor;
             ctx.lineWidth = 1;
@@ -1167,7 +1181,7 @@ ASC.Projects.GantChart = (function (window) {
                     spaceLeft >= this.parent.ctxWidth - kUIScrollBarWidth * 3 || spaceW < 0)
                     return;
 
-                // выделенный текст
+                // the selected text
 
                 this.ctx.fillStyle = kEditBoxSettings.backgroundSelTextColor;
                 this.ctx.fillRect(spaceLeft, Math.floor(this.bound.y + 2), spaceW, this.bound.h - 3);
@@ -1228,7 +1242,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.carriageLeft = 0;
                 }
 
-                // обрезка
+                // pruning
 
                 this.clampBound.left = this.bound.x - this.screenAddX;
                 this.clampBound.right = this.clampBound.left + this.screenBound.w + this.screenAddX;
@@ -1586,7 +1600,7 @@ ASC.Projects.GantChart = (function (window) {
                             this.setCarriage(this.findWord(this.text, this.carriage));
                         } else if (e.shiftKey) {
 
-                            // выделение текста
+                            // text selection
 
                             if (-1 === this.mouseSelectDirection) {
 
@@ -1643,7 +1657,7 @@ ASC.Projects.GantChart = (function (window) {
                                 this.setCarriage(this.findWord(this.text, this.carriage, true));
                         } else if (e.shiftKey) {
 
-                            // выделение текста
+                            // text selection
 
                             if (-1 === this.mouseSelectDirection) {
 
@@ -2118,7 +2132,7 @@ ASC.Projects.GantChart = (function (window) {
             if (length) {
                 if (direction) {
 
-                    // нормальный символ
+                    // normal character
 
                     if (-1 === separators.indexOf(s[ind])) {
                         for (i = ind; i < length; ++i) {
@@ -2595,7 +2609,7 @@ ASC.Projects.GantChart = (function (window) {
 
             this.ctxWidth = width - kUIScrollBarWidth * 2;
             this.ctxHeight = height;
-            this.leftX = this.delegate.visibleLeft + 2; // +2 px что бы ползунок не плотно прилигал если его сдвинуть влево до упора
+            this.leftX = this.delegate.visibleLeft + 2; // +2 px so that the slider does not fit tightly if it is moved to the left until it stops
         },
 
         refresh: function () {
@@ -2603,7 +2617,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (this.begin < this.end) {
 
-                // фон
+                // background
 
                 this.ctx.fillStyle = kUIScrollBarBackgroundColor;
                 this.ctx.fillRect(0, this.ctxHeight - (kUIScrollBarWidth + kUIScrollBarIndentWidth), this.ctxWidth, kUIScrollBarWidth);
@@ -2623,7 +2637,7 @@ ASC.Projects.GantChart = (function (window) {
                     // if (this.isLBMDown) {this.ctx.fillStyle = '#FF0000';} else {this.ctx.fillStyle = '#0000FF';}   // debug
                 }
 
-                // ползунок с закругленными углами
+                // slider with rounded corners
 
                 this.delegate.painter.roundRect(this.ctx, thumbX, this.ctxHeight - (kUIScrollBarWidth + kUIScrollBarIndentWidth), thumbW, kUIScrollBarWidth, 2);
                 this.ctx.fill();
@@ -2780,7 +2794,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 //this.element.style.font            =   '13px ' + kDefaultFontName;
                 this.element.style.border = 'solid';
-                this.element.style.borderColor = '#CCCCCC';
+                this.element.style.borderColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#CCCCCC' : '#474747';
                 this.element.style.borderWidth = '1px';
                 this.element.style.outline = 'none';
 
@@ -2831,7 +2845,7 @@ ASC.Projects.GantChart = (function (window) {
                             } else {
                                 if (t.baseText === text) {
 
-                                    // текст не изменился, поэтому выкидываем операцию из стека undo
+                                    // the text has not changed, so we pop the undo operation from the stack
 
                                     t.delegate._undoManager.flushPop(0);
 
@@ -2904,7 +2918,7 @@ ASC.Projects.GantChart = (function (window) {
                                 } else {
                                     if (t.baseText === text) {
 
-                                        // текст не изменился, поэтому выкидываем операцию из стека undo
+                                        // the text has not changed, so we pop the undo operation from the stack
 
                                         t.delegate._undoManager.flushPop(0);
 
@@ -2974,7 +2988,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.element.style.zIndex = 1000;
                     this.element.style.display = '';
 
-                    // устанавливаем текст после того как уже все метрики выставлены. (что бы не было моргания)
+                    // set the text after all the metrics have already been set. (so that there is no blinking)
 
                     this.updateInnerValue();
                 }
@@ -3277,7 +3291,9 @@ ASC.Projects.GantChart = (function (window) {
                 header = fakeAbsolute;
 
                 var fakeRelative = document.createElement('div');
-                fakeRelative.style.cssText = 'height:100%; width:100%;overflow:hidden;position:relative;background:#D3D3D3;border-right: 1px solid #CCCCCC;';
+                fakeRelative.style.cssText = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ?
+                    'height:100%; width:100%;overflow:hidden;position:relative;background:#D3D3D3;border-right: 1px solid #CCCCCC;' :
+                'height:100%; width:100%;overflow:hidden;position:relative;background:#242424;border-right: 1px solid #2A2A2A;';
                 header.appendChild(fakeRelative);
 
                 header = fakeRelative;
@@ -3306,7 +3322,7 @@ ASC.Projects.GantChart = (function (window) {
                     clsBtn.className = 'cell-close-button';
                     this.rows[i].el.appendChild(clsBtn);
 
-                    // перемещение колонок
+                    // move columns
 
                     txtBtn.onmousedown = (function (e) {
                         var index = i;
@@ -3428,7 +3444,7 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     })(i);
 
-                    // удаление
+                    // removal
 
                     clsBtn.onclick = (function (e) {
                         var index = i;
@@ -3558,7 +3574,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         return function (e) {
 
-                            // в режиме редактирование не отрабатываем эвент
+                            // in edit mode we do not work out the event
                             if (inner.editBox.isEnable()) {
                                 return true;
                             }
@@ -3568,14 +3584,14 @@ ASC.Projects.GantChart = (function (window) {
                                 targ = targ.parentNode;
                             }
 
-                            targ.style.background = '#F3F3F3';
+                            targ.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#F3F3F3' : '#333';
                             inner.hit = undefined;
 
                             return true;
                         }
                     })(i);
                     line.onclick = function (e) {
-                        // уже находимся в режиме редактирование
+                        // already in edit mode
                         if (inner.editBox.isEnable()) {
                             inner.closeEditing();
                             return true;
@@ -4195,7 +4211,7 @@ ASC.Projects.GantChart = (function (window) {
 
                                 if (undefined !== inner.dragIndex) {
                                     inner.collection.elements[inner.dragIndex].childNodes[8].style.display = 'none';
-                                    inner.collection.elements[inner.hit.line].style.background = '#F3F3F3';
+                                    inner.collection.elements[inner.hit.line].style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#F3F3F3' : '#333';
                                     inner.dragIndex = undefined;
                                     inner.clearHighlightElement();
                                 }
@@ -4213,7 +4229,7 @@ ASC.Projects.GantChart = (function (window) {
                                     t.viewController().collapseProjects(false);
                                     t.viewController().collapse(true);
 
-                                    // Прямое обновление
+                                    // Direct Update
 
                                     t.updateData();
                                     t.needUpdateContent = true;
@@ -4331,7 +4347,7 @@ ASC.Projects.GantChart = (function (window) {
                 t.dragIndex = undefined;
             }
 
-            // в режиме редактирование не отрабатываем эвент
+            // in edit mode we do not work out the event
 
             if (t.editBox.isEnable()) {
                 return true;
@@ -4356,7 +4372,7 @@ ASC.Projects.GantChart = (function (window) {
                 return true;
             }
 
-            targ.style.background = '#E1E1E1';
+            targ.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
 
             //t.splitterLine.style.top = targ.style.top;
             //t.splitterLine.style.display = '';
@@ -4401,7 +4417,7 @@ ASC.Projects.GantChart = (function (window) {
 
             // var start = performance.now();
 
-            // TODO: двигать контент, без изменения содержимого
+            // TODO: move content without changing content
             if (this.OK) {
                 this.elInner.style.top = -this.timeline.rightScroll.value() + 'px';
                 return;
@@ -4427,15 +4443,15 @@ ASC.Projects.GantChart = (function (window) {
                 this.collection.elements[i].className = 'line-element';
                 this.collection.elements[i].style.display = 'none';
 
-                this.collection.elements[i].style.background = '#F3F3F3';
+                this.collection.elements[i].style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#F3F3F3' : '#333';
 
                 this.collection.elements[i].childNodes[0].style.font = '';
-                this.collection.elements[i].childNodes[0].style.color = '#333333';
-                this.collection.elements[i].childNodes[1].style.color = '#333333';
-                this.collection.elements[i].childNodes[2].style.color = '#333333';  // resp
-                this.collection.elements[i].childNodes[3].style.color = '#333333';
-                this.collection.elements[i].childNodes[4].style.color = '#333333';
-                this.collection.elements[i].childNodes[5].style.color = '#333333';
+                this.collection.elements[i].childNodes[0].style.color = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB';
+                this.collection.elements[i].childNodes[1].style.color = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB';
+                this.collection.elements[i].childNodes[2].style.color = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB';  // resp
+                this.collection.elements[i].childNodes[3].style.color = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB';
+                this.collection.elements[i].childNodes[4].style.color = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB';
+                this.collection.elements[i].childNodes[5].style.color = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#333333' : '#FFFFFFEB';
 
                 this.collection.elements[i].childNodes[0].className = 'name-column';
                 this.collection.elements[i].childNodes[2].className = 'name-column-resp';
@@ -4692,10 +4708,10 @@ ASC.Projects.GantChart = (function (window) {
                             this.editBox.element.className = 'milestone-edit';
                             this.editBox.element.style.display = '';
 
-                            domLine.style.background = '#E1E1E1';
+                            domLine.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
                         }
                         else if (this.hit && this.hit.p === j && this.hit.m === i && this.hit.t === undefined) {
-                            domLine.style.background = '#E1E1E1';
+                            domLine.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
                         }
 
                         ++element;
@@ -4820,10 +4836,10 @@ ASC.Projects.GantChart = (function (window) {
                                 this.editBox.element.className = 'task-edit';
                                 this.editBox.element.style.display = '';
 
-                                domLine.style.background = '#E1E1E1';
+                                domLine.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
                             }
                             else if (this.hit && this.hit.p === j && this.hit.m === i && this.hit.t === it) {
-                                domLine.style.background = '#E1E1E1';
+                                domLine.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
                             }
 
                             ++element;
@@ -5011,10 +5027,10 @@ ASC.Projects.GantChart = (function (window) {
                             this.editBox.element.className = 'task-edit';
                             this.editBox.element.style.display = '';
 
-                            domLine.style.background = '#E1E1E1';
+                            domLine.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
                         }
                         else if (this.hit && this.hit.p === j && this.hit.m === undefined && this.hit.t === it) {
-                            domLine.style.background = '#E1E1E1';
+                            domLine.style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
                         }
 
                         ++element;
@@ -5368,7 +5384,7 @@ ASC.Projects.GantChart = (function (window) {
             this.editBox.close();
 
             if (this.select && this.select.line) {
-                this.collection.elements[this.select.line].style.background = '#F3F3F3';
+                this.collection.elements[this.select.line].style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#F3F3F3' : '#333';
                 if (clearHit) return;
             }
 
@@ -5403,7 +5419,7 @@ ASC.Projects.GantChart = (function (window) {
         highlightElement: function (p, m, t) {
             if (this.hit) {
                 if (this.hit.line) {
-                    this.collection.elements[this.hit.line].style.background = '#F3F3F3';
+                    this.collection.elements[this.hit.line].style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#F3F3F3' : '#333';
                     this.collection.elements[this.hit.line].childNodes[8].style.display = 'none';
                     //this.splitterLine.style.display = 'none';
                     this.hit = undefined;
@@ -5427,7 +5443,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.collection.indexer[i].t === t) {
 
                     this.hit = { p: p, m: m, t: t, line: i };
-                    this.collection.elements[i].style.background = '#E1E1E1';
+                    this.collection.elements[i].style.background = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#E1E1E1' : '#474747';
 
                     if (undefined === this.dragMode && undefined !== this.hit.t) {
                         var task = this.timeline.storage.getTask(this.hit.p, this.hit.m, this.hit.t);
@@ -5576,7 +5592,7 @@ ASC.Projects.GantChart = (function (window) {
                             project.setFullCollapse(false);
                             project.m[i].setCollapse(false);
 
-                            // сначала отрисуем все объекты с изменениям схлопывания, а затем выполним центрирование
+                            // first draw all objects with collapse changes and then do the centering
 
                             t.updateData();
                             t.needUpdateContent = true;
@@ -5594,7 +5610,7 @@ ASC.Projects.GantChart = (function (window) {
                         project.setCollapse(false);
                         project.setFullCollapse(false);
 
-                        // сначала отрисуем все объекты с изменениям схлопывания, а затем выполним центрирование
+                        // first draw all objects with collapse changes and then do the centering
 
                         t.updateData();
                         t.needUpdateContent = true;
@@ -5995,7 +6011,7 @@ ASC.Projects.GantChart = (function (window) {
         },
         addTempOperation: function (id, arg) {
 
-            // храним undo-операцию отдельно и в случае надобности добавим в стек undo
+            // we store the undo operation separately and, if necessary, add undo to the stack
 
             this.tempOperation = { id: id, arg: deepCopy(arg) };
         },
@@ -6005,7 +6021,7 @@ ASC.Projects.GantChart = (function (window) {
         },
         applyTempOperation: function () {
 
-            // добавим временную операцию в стек undo
+            // add a temporary operation to the undo stack
 
             if (this.tempOperation) {
                 this.add(this.tempOperation.id, this.tempOperation.arg);
@@ -6214,7 +6230,7 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // если связные задачи изменились нет смысла дальше проводить валидацию
+                    // if related tasks have changed, there is no point in further validation
 
                     if (validate && !isQueryChange) {
                         beginTime = storage.getTask(cur.arg.p, cur.arg.m, cur.arg.index).beginTime;
@@ -6458,7 +6474,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.timeline.rightScroll.save();
                     storage.addTaskWithIndex(cur.arg.t, cur.arg.index);
 
-                    // восстановим связи для которых текущая задача главная ( из нее идет связь )
+                    // restore connections for which the current task is the main one (there is a connection from it)
 
                     length = cur.arg.linksToRemove.length;
 
@@ -6576,7 +6592,7 @@ ASC.Projects.GantChart = (function (window) {
                         storage.addTaskWithIndex(copy_m, cur.arg.index);
                     }
 
-                    // восстановим связи для которых текущая задача главная ( из нее идет связь )
+                    // restore connections for which the current task is the main one (there is a connection from it)
 
                     if (cur.arg.linksToRemove) {
                         length = cur.arg.linksToRemove.length;
@@ -6603,7 +6619,7 @@ ASC.Projects.GantChart = (function (window) {
                 case kOperationMoveGroupTasks:
                     var tasksNeedMove = cur.arg.group;
 
-                    // в веху из свободной зоны
+                    // to the milestone from the free zone
 
                     if ('MtoF' === cur.arg.type) {
 
@@ -6621,7 +6637,7 @@ ASC.Projects.GantChart = (function (window) {
                     }
 
 
-                    // из вехи в веху
+                    // from milestone to milestone
 
                     if ('MtoM' === cur.arg.type) {
 
@@ -6640,7 +6656,7 @@ ASC.Projects.GantChart = (function (window) {
                         storage.p[cur.arg.toProject]._calcTimes();
                     }
 
-                    // из свободной зоны в веху
+                    // from free zone to milestone
 
                     if ('FtoM' === cur.arg.type) {
 
@@ -6698,7 +6714,7 @@ ASC.Projects.GantChart = (function (window) {
 
             this.perform(this.ind, true, undefined, reference);
 
-            // скрываем все всплывающие элементы
+            // hide all popups
 
             this.timeline.offMenus();
             this.timeline.offWidgets();
@@ -6735,7 +6751,7 @@ ASC.Projects.GantChart = (function (window) {
                 case kOperationDeleteTask:
                     this.timeline.rightScroll.save();
 
-                    // удалим связи для которых текущая задача главная ( из нее идет связь )
+                    // remove the links for which the current task is the main one (the link comes from it)
 
                     length = cur.arg.linksToRemove.length;
                     if (undefined !== cur.arg.m) {
@@ -6760,7 +6776,7 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // удаляем саму задачу
+                    // delete the task
 
                     storage.projects()[cur.arg.p].removeTask(cur.arg.index, cur.arg.m);
 
@@ -6851,7 +6867,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 case kOperationMoveTask:
 
-                    // удалим связи для которых текущая задача главная ( из нее идет связь )
+                    // remove the links for which the current task is the main one (the link comes from it)
 
                     if (cur.arg.linksToRemove) {
                         length = cur.arg.linksToRemove.length;
@@ -6894,7 +6910,7 @@ ASC.Projects.GantChart = (function (window) {
                 case kOperationMoveGroupTasks:
                     var tasksNeedMove = cur.arg.group;
 
-                    // из свободной зоны в веху
+                    // from free zone to milestone
 
                     if ('MtoF' === cur.arg.type) {
 
@@ -6911,7 +6927,7 @@ ASC.Projects.GantChart = (function (window) {
                         storage.p[cur.arg.fromProject]._calcTimes();
                     }
 
-                    //  из вехи в веху
+                    //  from milestone to milestone
 
                     if ('MtoM' === cur.arg.type) {
 
@@ -6928,7 +6944,7 @@ ASC.Projects.GantChart = (function (window) {
                         storage.p[cur.arg.toProject].m[cur.arg.toMilestone].updateTimes();
                     }
 
-                    // из свободной зоны в веху
+                    // from free zone to milestone
 
                     if ('FtoM' === cur.arg.type) {
 
@@ -6992,7 +7008,7 @@ ASC.Projects.GantChart = (function (window) {
 
             this.perform(this.ind, undefined, undefined, reference);
 
-            // скрываем все всплывающие элементы
+            // hide all popups
 
             this.timeline.offMenus();
             this.timeline.offWidgets();
@@ -7031,7 +7047,7 @@ ASC.Projects.GantChart = (function (window) {
             }
         },
         _updateDebug: function () {
-            //  NOTE: отдельно переопределять
+            //  NOTE: redefine separately
         }
     };
 
@@ -7050,7 +7066,7 @@ ASC.Projects.GantChart = (function (window) {
                 this._canvas.id = 'ZoomBarId';
                 this._canvas.width = this._dom.clientWidth;
                 this._canvas.height = this._dom.clientHeight;
-                this._dom.style.backgroundColor = '#ffffff';
+                this._dom.style.backgroundColor = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333';
 
                 this._dom.appendChild(this._canvas);
             }
@@ -7175,7 +7191,7 @@ ASC.Projects.GantChart = (function (window) {
                             this.ctx.fillRect(this.thumbX + 0.5 - 1, 2, 1, this.ctxHeight - 4);
                             this.ctx.fillRect(Math.floor(this.thumbX + this.thumbW), 2, 1, this.ctxHeight - 4);
 
-                            // боковые треугольники
+                            // side triangles
 
                             this.ctx.beginPath();
                             this.ctx.moveTo(this.thumbX + 0.5, this.ctxHeight * 0.5 - this.indent);
@@ -7198,7 +7214,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         this.renderMilestoneLines();
 
-                        // линия текущего дня
+                        // current day line
 
                         this.ctx.fillStyle = kZoomBarCurDayLineColor;
                         this.ctx.fillRect(this.dX, 0, 1, this.ctxHeight);
@@ -7292,8 +7308,8 @@ ASC.Projects.GantChart = (function (window) {
 
             if (timeLeft) {
 
-                // + один полный месяц дополнительно что бы было место для маневров
-                // на максимальной шкале месяцев будет хотть один полный видимый месяц
+                // + one full month in addition to have place to maneuver
+                // on the maximum month scale there will be at least one full visible month
 
                 var timeMargin = (31 + 31 + 1) * 24 * 3600000,
 
@@ -7376,7 +7392,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (this.thumbW === kZoomBarThumbMinWidth) {
 
-                // в режиме 'узкого ползунка'
+                // in 'narrow slider' mode
 
                 return (this.mouse.x > this.thumbX && this.mouse.x < this.thumbX + this.thumbW);
             }
@@ -7389,7 +7405,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (this.thumbW === kZoomBarThumbMinWidth) {
 
-                // в режиме 'узкого ползунка'
+                // in 'narrow slider' mode
 
                 if (this.mouse.x > this.thumbX && this.mouse.x < this.thumbX + this.thumbW)
                     this.handler = 0;
@@ -7558,7 +7574,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 } else if (-1 === this.handler) {
 
-                    // двигаем за левую часть ползунка
+                    // move the left side of the slider
 
                     t.animator.stop();
 
@@ -7608,7 +7624,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 } else if (1 === this.handler) {
 
-                    // двигаем за правую часть ползунка
+                    // move the right side of the slider
 
                     t.animator.stop();
 
@@ -7753,14 +7769,14 @@ ASC.Projects.GantChart = (function (window) {
         this.zoom = 1;
 
         this.textDateLineHeight = 15 * this.zoom;
-        this.hourInPixels = 35 * this.zoom;                             //  при максимальной развертке величина деления для часа (TODO: сделать до минут)
+        this.hourInPixels = 35 * this.zoom;                             //  at maximum sweep, the division value for the hour (TODO: make to minutes)
         this.fontHeight = 9 * this.zoom;
         this.font = this.fontHeight + 'pt ' + kDefaultFontName;
         //
         this.ctx = delegate.ctx;
         this.ctxWidth = this.ctx.canvas.width;
         this.ctxHeight = this.ctx.canvas.height;
-        this.scaleX = factor;                                     //  единичный фактор, соотвествует максимальной развертки шкалы до часа
+        this.scaleX = factor;                                     //  single factor, meets the requirement of a maximum scale sweep up to an hour
 
         this.dayUTC = 0;
         this.weekDay = 0;
@@ -7769,10 +7785,10 @@ ASC.Projects.GantChart = (function (window) {
 
         this._fX = 0.0;
 
-        // внутренние данные
-        this.scaleType = 0;                                          //   тип шкалы
-        this.divisionInOneHours = 1;                                          //   кол-во часов в одном делении
-        this.divisionInDays = 7;                                          //   кол-во дней видимых на шкале ( если меньше 7, то числами )
+        // internal data
+        this.scaleType = 0;                                          //   scale type
+        this.divisionInOneHours = 1;                                          //   number of hours in one division
+        this.divisionInDays = 7;                                          //   number of days visible on the scale (if less than 7, then in numbers)
 
         this.lineSize = this.delegate.itemMargin;
         this.headTextPosY = this.lineSize * 0.55 + 1;
@@ -7843,7 +7859,7 @@ ASC.Projects.GantChart = (function (window) {
             this.calculateScaleType();
         },
 
-        draw: function () {
+        draw: function (printVer) {
             // this.calculateScaleType();
 
             var j, i, m, ind, offLine;
@@ -7874,7 +7890,7 @@ ASC.Projects.GantChart = (function (window) {
             this.ctx.beginPath();
 
             if (kTypeScaleWeek === this.scaleType) { this.drawWeekScheme(); } else
-                if (kTypeScaleDays === this.scaleType) { this.drawDaysScheme(); } else
+                if (kTypeScaleDays === this.scaleType) { this.drawDaysScheme(printVer); } else
                     if (kTypeScaleHours === this.scaleType) { this.drawHoursScheme(); } else
                         if (kTypeScaleMonth === this.scaleType) { this.drawMonthScheme(); }
 
@@ -7941,7 +7957,7 @@ ASC.Projects.GantChart = (function (window) {
             }
 
         },
-        drawDaysScheme: function () {
+        drawDaysScheme: function (printVer) {
             var i, j, m, y, offLine, str, w, label;
 
             var monthNeedDraw = false;
@@ -7982,13 +7998,13 @@ ASC.Projects.GantChart = (function (window) {
                     if (offLine < -divWX * 3)
                         continue;
 
-                    if (w == 5 || w == 6) { this.ctx.fillStyle = kDateScaleDayOffTextColor; } else { this.ctx.fillStyle = kDateScaleTextColor; }
+                    if (w == 5 || w == 6) { this.ctx.fillStyle = printVer ? kDateScaleDayOffTextColorPrint : kDateScaleDayOffTextColor; } else { this.ctx.fillStyle = printVer ? kDateScaleTextColorPrint :  kDateScaleTextColor; }
 
                     if (1 === day) {
-                        this.ctx.fillStyle = kLinesDateScaleTopColor;
+                        this.ctx.fillStyle = printVer ? kLinesDateScaleTopColorPrint : kLinesDateScaleTopColor;
                         this.ctx.fillRect(floor2(offLine), 0, 1, this.delegate.itemMargin);
 
-                        this.ctx.fillStyle = kDateScaleTextColor;
+                        this.ctx.fillStyle = printVer ? kDateScaleTextColorPrint : kDateScaleTextColor;
                         this.ctx.fillText(names[m - 1] + ' ' + y, offLine + this.lineSize * 0.25, this.headTextPosY);
                     }
 
@@ -8012,19 +8028,19 @@ ASC.Projects.GantChart = (function (window) {
                     if (offLine < -divWX * 3 || offLine > ctxWidth)
                         continue;
 
-                    if (w == 5 || w == 6) { this.ctx.fillStyle = kDateScaleDayOffTextColor; } else { this.ctx.fillStyle = kDateScaleTextColor; }
+                    if (w == 5 || w == 6) { this.ctx.fillStyle = printVer ? kDateScaleDayOffTextColorPrint : kDateScaleDayOffTextColor; } else { this.ctx.fillStyle = printVer ? kDateScaleTextColorPrint : kDateScaleTextColor; }
 
                     if (1 === day) {
-                        this.ctx.fillStyle = kLinesDateScaleTopColor;
+                        this.ctx.fillStyle = printVer ? kLinesDateScaleTopColorPrint : kLinesDateScaleTopColor;
                         this.ctx.fillRect(floor2(offLine), 0, 1, this.delegate.itemMargin);
 
-                        this.ctx.fillStyle = kDateScaleTextColor;
+                        this.ctx.fillStyle = printVer ? kDateScaleTextColorPrint : kDateScaleTextColor;
                         this.ctx.fillText(names[m - 1] + ' ' + y, offLine + this.lineSize * 0.25, this.headTextPosY);
                     }
 
                     if (dayBold) {
                         if (j === 0) {
-                            this.ctx.fillStyle = kDateScaleCurrentDayColor;
+                            this.ctx.fillStyle = printVer ? kDateScaleCurrentDayColorPrint : kDateScaleCurrentDayColor;
                             this.ctx.font = 'bold ' + this.fontHeight + 'pt ' + kDefaultFontName;
                         }
                     }
@@ -8062,10 +8078,10 @@ ASC.Projects.GantChart = (function (window) {
                 }
 
                 if (monthNeedDraw) {
-                    this.ctx.fillStyle = kLinesDateScaleTopColor;
+                    this.ctx.fillStyle = printVer ? kLinesDateScaleTopColorPrint : kLinesDateScaleTopColor;
                     this.ctx.fillRect(floor2(offLine), 0, 1, this.delegate.itemMargin);
 
-                    this.ctx.fillStyle = kDateScaleTextColor;
+                    this.ctx.fillStyle = printVer ? kDateScaleTextColorPrint : kDateScaleTextColor;
                     label = (!shortDates ? y : y % 100); if (1 === label.length) label = '0' + label;
                     this.ctx.fillText(names[m] + ' ' + label, offLine + this.lineSize * 0.25, this.headTextPosY);
                     monthNeedDraw = false;
@@ -8209,10 +8225,10 @@ ASC.Projects.GantChart = (function (window) {
                 }
 
                 if (needPrintMonth) {
-                    this.ctx.fillStyle = kLinesDateScaleTopColor;
+                    this.ctx.fillStyle = kLinesDateScaleTopColorPrint;
                     this.ctx.fillRect(floor2(lastMonthOffX), 0, 1, this.delegate.itemMargin);
 
-                    this.ctx.fillStyle = kDateScaleTextColor;
+                    this.ctx.fillStyle = kDateScaleTextColorPrint;
                     this.ctx.fillText(names[m] + ' ' + y, lastMonthOffX + this.lineSize * 0.5, this.headTextPosY);
                     needPrintMonth = false;
                 }
@@ -8282,10 +8298,10 @@ ASC.Projects.GantChart = (function (window) {
                 }
 
                 if (needPrintMonth) {
-                    this.ctx.fillStyle = kLinesDateScaleTopColor;
+                    this.ctx.fillStyle = kLinesDateScaleTopColorPrint;
                     this.ctx.fillRect(floor2(lastMonthOffX), 0, 1, this.delegate.itemMargin);
 
-                    this.ctx.fillStyle = kDateScaleTextColor;
+                    this.ctx.fillStyle = kDateScaleTextColorPrint;
                     this.ctx.fillText(names[m] + ' ' + y, lastMonthOffX + this.lineSize * 0.5, this.headTextPosY);
                     needPrintMonth = false;
                 }
@@ -8479,7 +8495,7 @@ ASC.Projects.GantChart = (function (window) {
             }
         },
 
-        drawLines: function () {
+        drawLines: function (printVer) {
             if (kTypeScaleMonth === this.scaleType)
                 return;
 
@@ -8507,7 +8523,7 @@ ASC.Projects.GantChart = (function (window) {
             var offTL = fromX - index;
             this._offTL = fromX - index;
 
-            this.ctx.strokeStyle = kLinesDateScaleTopColor;
+            this.ctx.strokeStyle = printVer ? kLinesDateScaleTopColorPrint : kLinesDateScaleTopColor;
             this.ctx.lineWidth = 1;
 
             this.ctx.beginPath();
@@ -8788,8 +8804,8 @@ ASC.Projects.GantChart = (function (window) {
         },
 
         calculateTime: function (date) {
-            // переводит дату в вид понятный для контрола ( в часы от текущей даты )
-            // учет на данный момент идет по дням
+            // converts the date to a form understandable for the control (in hours from the current date)
+            // the account currently goes by the day
             if (undefined == Task.curDate) {
                 Task.curDate = new Date();
                 Task.curDate.setHours(0);
@@ -8992,7 +9008,7 @@ ASC.Projects.GantChart = (function (window) {
 
         // for second view mode
 
-        this.collapse = false;          // если в вехе нету задач то она всегда раскрыта
+        this.collapse = false;          // if there are no tasks in the milestone, then it is always open
 
         this.isInEditMode = false;
     }
@@ -9017,7 +9033,7 @@ ASC.Projects.GantChart = (function (window) {
 
         add: function (t) {
 
-            // сортировка
+            // sort
 
             //if (this.sortedByDates) {
             //    var up = false;
@@ -9118,8 +9134,8 @@ ASC.Projects.GantChart = (function (window) {
         },
 
         calculateTime: function (date) {
-            // переводит дату в вид понятный для контрола ( в часы от текущей даты )
-            // учет на данный момент идет по дням
+            // converts the date to a form understandable for the control (in hours from the current date)
+            // accounting is currently going by the day
             if (undefined == Task.curDate) {
                 Task.curDate = new Date();
                 Task.curDate.setHours(0);
@@ -9818,7 +9834,7 @@ ASC.Projects.GantChart = (function (window) {
                             }
                         }
 
-                        // есть вехи не имеющие индексов (добавляем в конец)
+                        // there are milestones that do not have indexes (add to the end)
 
                         if (this.p[i].m.length > milestones.length) {
 
@@ -9861,7 +9877,7 @@ ASC.Projects.GantChart = (function (window) {
                                     }
                                 }
 
-                                // есть задачи не имеющие индексов (добавляем в конец)
+                                // there are tasks that do not have indexes (add to the end)
 
                                 if (length > tasks.length) {
 
@@ -9900,7 +9916,7 @@ ASC.Projects.GantChart = (function (window) {
                                 }
                             }
 
-                            // есть задачи не имеющие индексов (добавляем в конец)
+                            // there are tasks that do not have indexes (add to the end)
 
                             if (length > tasks.length) {
 
@@ -10121,7 +10137,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         // undo
 
-                        // NOTE: отключено временно
+                        // NOTE: disabled temporarily
 
                         //t._undoManager.add(kOperationDeleteTask,
                         //    {p: element.p, m: undefined, t: ref, index: element.t,
@@ -10150,7 +10166,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         // undo
 
-                        // NOTE: отключено временно
+                        // NOTE: disabled temporarily
 
                         //t._undoManager.add(kOperationDeleteTask,
                         //    {p: element.p, m: element.m, t: ref, index: element.t,
@@ -10287,7 +10303,7 @@ ASC.Projects.GantChart = (function (window) {
         },
         checkStatus: function (element) {
 
-            // только для задач в вехе
+            // only for tasks in milestone
 
             var t = this.delegate, task = null, milestone = null;
             if (t) {
@@ -10636,7 +10652,7 @@ ASC.Projects.GantChart = (function (window) {
             var t = this.delegate, addInd = 0, scrollY = 0, milestoneRef = null;
             if (t) {
 
-                // из вехи в зону свободных задач
+                // from a milestone to a zone of free tasks
 
                 if ('MtoF' === data.type) {
 
@@ -10653,7 +10669,7 @@ ASC.Projects.GantChart = (function (window) {
                     data.place = addInd - 1;
                 }
 
-                //  из вехи в веху
+                //  from milestone to milestone
 
                 if ('MtoM' === data.type) {
 
@@ -10665,7 +10681,7 @@ ASC.Projects.GantChart = (function (window) {
                     t.storage.p[data.toProject].m[data.toMilestone].updateTimes();
                 }
 
-                // из свободной зоны в веху
+                // from free zone to milestone
 
                 if ('FtoM' === data.type) {
 
@@ -10712,7 +10728,7 @@ ASC.Projects.GantChart = (function (window) {
                 data.group = tasksNeedMove;
                 data.tasksIds = ids;
 
-                // из вехи в зону свободных задач
+                // from a milestone to a zone of free tasks
 
                 if ('MtoF' === data.type) {
 
@@ -10737,7 +10753,7 @@ ASC.Projects.GantChart = (function (window) {
                     t.animator.moveToY(Math.min(Math.max(0, scrollY - t.ctxHeight * 0.5), t.rightScroll._maxValue - t.rightScroll.viewWidth));
                 }
 
-                //  из вехи в веху
+                //  from milestone to milestone
 
                 if ('MtoM' === data.type) {
 
@@ -10757,7 +10773,7 @@ ASC.Projects.GantChart = (function (window) {
                     t.storage.p[data.toProject].m[data.toMilestone].updateTimes();
                 }
 
-                // из свободной зоны в веху
+                // from free zone to milestone
 
                 if ('FtoM' === data.type) {
 
@@ -10884,7 +10900,7 @@ ASC.Projects.GantChart = (function (window) {
                             // t.hitLink = undefined;
                             // }
 
-                            // undo только для открытых задач
+                            // undo only for open tasks
 
                             //var fromT = t.storage.taskWithId(par);
                             //if (kElementCompleted !== task.ref.status() && kElementCompleted !== fromT.ref.status()) {
@@ -11024,7 +11040,7 @@ ASC.Projects.GantChart = (function (window) {
                     return items;
                 }
 
-                // разобьем на элементы в которых есть однозначное соотвествение с элементов его вся связи
+                // we will break it into elements in which there is an unambiguous correspondence with the elements of its entire connection
 
                 for (i = tasks.length - 1; i >= 0; --i) {
                     for (linkInd = tasks[i].links.length - 1; linkInd >= 0; --linkInd) {
@@ -11077,11 +11093,11 @@ ASC.Projects.GantChart = (function (window) {
 
                 subItems = [], internal = [];
 
-                // добавляем текущий индекс (основной элемент)
+                // add the current index (main element)
                 items.push(id);
                 subItems.push(id);
 
-                // вся связи с основным элементом
+                // all connections to the main element
                 for (i = cur.links.length - 1; i >= 0; --i) {
                     subItems.push(cur.links[i]);
                     items.push(cur.links[i]);
@@ -11142,7 +11158,7 @@ ASC.Projects.GantChart = (function (window) {
 
         collectBeginEndItems: function (p, m, id) {
 
-            // собираем все элементы для данной задачи с связью Begin-End
+            // collect all elements for a given task with a Begin-End relationship
 
             var i = 0,
                 j = 0,
@@ -11159,7 +11175,7 @@ ASC.Projects.GantChart = (function (window) {
                 curTask = this.delegate.storage.taskWithId(id).ref,
                 tasks = this.getTasks(p, m),
 
-                // все элементы в виде дерева справа
+                // all elements in the form of a tree on the right
 
                 rightTree = new TreeNode(),
                 leftTree = new TreeNode();
@@ -11175,7 +11191,7 @@ ASC.Projects.GantChart = (function (window) {
                 return cn;
             }
 
-            // NOTE: разбить рекурсию на блоки
+            // NOTE: break the recursion into blocks
 
             function walkInternalRight(tree, _id) {
                 ++curDepth;
@@ -11230,7 +11246,7 @@ ASC.Projects.GantChart = (function (window) {
             hash = this.collectBeginEndLinksRight(p, m, id);
             if (hash.length) {
                 rightTree.root = curTask;
-                maxDepth = countOfTasksWithLinks(tasks); // TODO: еще больше оптимизации, максимальная глубина это размер звена   //  hash.length + 1;
+                maxDepth = countOfTasksWithLinks(tasks); // TODO: even more optimization, max depth is link size   //  hash.length + 1;
                 curDepth = 0;
 
                 for (k = 0; k < tasks.length; ++k) {
@@ -11311,7 +11327,7 @@ ASC.Projects.GantChart = (function (window) {
             if (cycleExist) { return null; }
 
             leftTree.root = curTask;
-            maxDepth = countOfTasksWithLinks(tasks); // TODO: еще больше оптимизации, максимальная глубина это размер звена // curTask.links.length;
+            maxDepth = countOfTasksWithLinks(tasks); // TODO: even more optimization, max depth is link size // curTask.links.length;
             curDepth = 0;
 
             for (k = 0; k < curTask.links.length; ++k) {
@@ -11334,7 +11350,7 @@ ASC.Projects.GantChart = (function (window) {
                                 if (tasks[j].links.length) {
                                     walkInternalLeft(nextNode, tasks[j]._id);
                                 } else {
-                                    //  nextNode.data   =   null;   // NOTE ! понять почему раньше это было выставлено, а сейчас взял да закоментил Bug 20521
+                                    //  nextNode.data   =   null;   // NOTE ! understand why it was posted earlier, but now I took it and commented it out Bug 20521
                                 }
 
                                 break;
@@ -11375,7 +11391,7 @@ ASC.Projects.GantChart = (function (window) {
                     return items;
                 }
 
-                // разобьем на элементы в которых есть однозначное соотвествение с элементов его вся связи
+                // we will break it into elements in which there is an unambiguous correspondence with the elements of its entire connection
 
                 for (i = tasks.length - 1; i >= 0; --i) {
                     for (linkInd = tasks[i].links.length - 1; linkInd >= 0; --linkInd) {
@@ -11453,11 +11469,11 @@ ASC.Projects.GantChart = (function (window) {
 
                 subItems = [], internal = [];
 
-                // добавляем текущий индекс (основной элемент)
+                // add the current index (main element)
                 items.push(id);
                 subItems.push(id);
 
-                // вся связи с основным элементом
+                // all connections to the main element
                 for (i = cur.links.length - 1; i >= 0; --i) {
                     subItems.push(cur.links[i]);
                     items.push(cur.links[i]);
@@ -11525,9 +11541,9 @@ ASC.Projects.GantChart = (function (window) {
                     }
                 }
 
-                // только для задач
-                // каждый элемент который имеет связи и попал под фильтр надо проверить
-                // на полный путь от данного элемента до элемента без фильтра в связных с этим элементом
+                // for tasks only
+                // each element that has connections and falls under the filter must be checked
+                // to the full path from the given element to the element without a filter associated with this element
 
                 for (p = projects.length - 1; p >= 0; --p) {
                     for (i = projects[p].m.length - 1; i >= 0; --i) {
@@ -11575,7 +11591,7 @@ ASC.Projects.GantChart = (function (window) {
         },
         clearFilter: function (repaint) {
 
-            // убираем метки фильтра у всех элементов
+            // remove filter labels from all elements
 
             var i, j, p, length, projects = this.delegate.storage.p;
 
@@ -11685,7 +11701,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             if (data['direction']) {
 
-                                // изменяем конечную дату
+                                // change end date
 
                                 checkDate = this.statusElement.ref.endDate();
 
@@ -11704,7 +11720,7 @@ ASC.Projects.GantChart = (function (window) {
                                 }
                             } else {
 
-                                // изменяем начальную дату
+                                // change start date
 
                                 checkDate = this.statusElement.ref.beginDate();
 
@@ -11808,7 +11824,7 @@ ASC.Projects.GantChart = (function (window) {
             var t = this.delegate;
             if (t) {
 
-                //  отключаем отсылку сообщение об изменении масштаба
+                //  disable sending zoom message
                 this.disableScaleEvents = (undefined !== disableEvents);
 
                 if (forse) {
@@ -11937,7 +11953,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     if ((to - from) < (endTime - beginTime)) {
 
-                        // включаем отсылку сообщение об изменении масштаба
+                        // turn on sending a message about changing the scale
                         this.disableScaleEvents = false;
 
                         mul = t.timeScale.scaleX * ((endTime - beginTime) / (to - from) * 1.05);
@@ -12160,7 +12176,7 @@ ASC.Projects.GantChart = (function (window) {
                     if (t._leftPanelController) { t._leftPanelController.scrollContent(t.rightScroll.value()); }
                 }
 
-                // Плавное масштабирование
+                // Smooth Zoom
 
                 if (0 != this.scaleOffset) {
 
@@ -12192,7 +12208,7 @@ ASC.Projects.GantChart = (function (window) {
                         var pixelsMove = -t.offsetX * t.timeScale.hourInPixels + t.centerScreen;
                         t.offsetX = (t.centerScreen - pixelsMove * mul) / t.timeScale.hourInPixels;
 
-                        // корректируем положение таким образом что бы не вышли из зоны доступного просмотра
+                        // adjust the position in such a way that it would not leave the viewable area
                         //console.log('from : ' + t.offsetX);
                         if (this.boundView.from !== this.boundView.to) {
 
@@ -12374,7 +12390,7 @@ ASC.Projects.GantChart = (function (window) {
             this.worldToScreen = this.t.timeScale.hourInPixels / this.t.timeScale.scaleX;
         },
 
-        drawTask: function (task, offY, free, p, i, j, tasks) {
+        drawTask: function (task, offY, free, p, i, j, tasks, printVer) {
             this.tx = this.offX + task.beginTime * this.worldToScreen;
             this.te = task.duration * this.worldToScreen;
             this.rel = offY - this.scrollY;
@@ -12385,7 +12401,7 @@ ASC.Projects.GantChart = (function (window) {
                 return;
             }
 
-            // позиция значка 'бесконечность' у задач без конечной даты
+            // position of the 'infinity' icon for tasks without an end date
 
             if (task.endFail && i === -1) {
 
@@ -12399,19 +12415,19 @@ ASC.Projects.GantChart = (function (window) {
                 // this.te     =   (Math.floor ( (this.te / this.worldToScreen) / 24 ) * 24) * this.worldToScreen;
             }
 
-            // настроки цветов
+            // color settings
 
             var showDates = false;
             var taskInLinkEditMode = false;
             var active = false;
             var inEditMode = false;
 
-            var taskColor = kTaskCompleteColor;
+            var taskColor = printVer ? kTaskCompleteColorPrint : kTaskCompleteColor;
             var priorityColor = kTaskNormalPriorityArrowColor;
             var borderColor = kTaskCompleteBorderColor;
 
             if (kElementCompleted === task._status) {
-                taskColor = kTaskCompleteColor;
+                taskColor = printVer ? kTaskCompleteColorPrint : kTaskCompleteColor;
                 priorityColor = kTaskCompletePriorityArrowColor;
                 borderColor = kTaskCompleteBorderColor;
 
@@ -12463,13 +12479,13 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
                 } else {
-                    taskColor = kTaskNormalColor;
+                    taskColor = printVer ? kTaskNormalColorPrint : kTaskNormalColor;
                     priorityColor = kTaskNormalPriorityArrowColor;
-                    borderColor = kTaskNormalBorderColor;
+                    borderColor = printVer ? kTaskNormalBorderColorPrint : kTaskNormalBorderColor;
 
                     if (!this.t.editBox.enable && !this.t._leftPanelController.getPanel().editBox.isEnable()) {
                         if (free) {
-                            taskColor = kTaskNoEndTimeColor;
+                            taskColor = printVer ? kTaskNoEndTimeColorPrint : kTaskNoEndTimeColor;
                         }
 
                         if ((this.t.hitTask === j && this.t.hitMilestone === i && this.t.hitProject === p)) {
@@ -12494,7 +12510,7 @@ ASC.Projects.GantChart = (function (window) {
                 }
             }
 
-            // иконка для быстрого перемещения к задачке
+            // icon to quickly move to the task
 
             if (this.tx > this.t.ctxWidth - 24) {                    // right
                 if (this.t.visibleUp < this.rel) {
@@ -12515,7 +12531,7 @@ ASC.Projects.GantChart = (function (window) {
                 return;
             }
 
-            // устанавливаем bounds для окна редактирование
+            // set bounds for the edit window
 
             if (this.t.editBox.enable) {
                 if (p == this.t.editBox.p && i == this.t.editBox.m && j === this.t.editBox.t) {
@@ -12563,12 +12579,12 @@ ASC.Projects.GantChart = (function (window) {
             var bound = { x: floor2(this.tx) + 0.5, y: floor2(this.rel) + 0.5, w: floor2(this.te), h: floor2(tH) };
 
             if (this.t.animator.status()) {
-                bound = { x: (this.tx) + 0.5, y: (this.rel) + 0.5, w: (this.te) + 0.5, h: (tH) + 0.5 }; // дрожание рамки
+                bound = { x: (this.tx) + 0.5, y: (this.rel) + 0.5, w: (this.te) + 0.5, h: (tH) + 0.5 }; // frame jitter
             }
 
-            // отрисовка самой задачи
+            // drawing the task itself
 
-            // если задача имеет свойство фильтр-связь, то делаем ее прозрачной
+            // if the task has the filter-link property, then we make it transparent
 
             if (task.linkFilter) {
                 this.t.ctx.fillStyle = 'rgba(0, 0, 0, 0)';  //  this.t.ctx.globalAlpha = 0.50;   this.t.ctx.fillStyle    =   taskColor;
@@ -12576,7 +12592,7 @@ ASC.Projects.GantChart = (function (window) {
                 this.t.ctx.fillStyle = taskColor;
             }
 
-            // отрисовка самой задачи (прямоугольник задачи)
+            // drawing the task itself (task rectangle)
 
             this.t.ctx.fillRect(bound.x, bound.y, bound.w, bound.h);
 
@@ -12584,11 +12600,11 @@ ASC.Projects.GantChart = (function (window) {
             //  this.t.ctx.globalAlpha = 1.0;
             //}
 
-            // рисуем рамку вокруг задачи
+            // draw a box around the task
 
             var isBorder = (task.links.length > 0);
             if (!isBorder) {
-                // TODO: обязательно оптимизировать
+                // TODO: be sure to optimize
                 for (var ind = tasks.length - 1; ind >= 0; --ind) {
                     for (var linkInd = tasks[ind].links.length - 1; linkInd >= 0; --linkInd) {
                         if (task._id === (tasks[ind].links[linkInd].parentTaskId || tasks[ind].links[linkInd]['parentTaskId'])) {   // minimizator fix
@@ -12601,7 +12617,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (isBorder || taskInLinkEditMode) {
 
-                // пунктирная рамка вокруг задач со связями
+                // dotted box around tasks with links
 
                 var dash = kTaskWithLinkBorderSettings.dash;
                 var margin = 0;
@@ -12625,7 +12641,7 @@ ASC.Projects.GantChart = (function (window) {
                 }
 
                 if (this.t.animator.status()) {
-                    bound = { x: floor2(this.tx) + 0.5, y: floor2(this.rel) + 0.5, w: floor2(this.te) + 0.5, h: floor2(tH) };   // дрожание рамки
+                    bound = { x: floor2(this.tx) + 0.5, y: floor2(this.rel) + 0.5, w: floor2(this.te) + 0.5, h: floor2(tH) };   // frame shake
                 }
 
                 this.t.painter.drawDashedLineH(this.t.ctx, bound.x, bound.y, bound.x + bound.w, bound.y, dash);
@@ -12639,7 +12655,7 @@ ASC.Projects.GantChart = (function (window) {
 
             var lockProject = (kOpenProject !== this.t.storage.getProject(p).status());
 
-            // квадратики вне задача на связываемых задачах
+            // squares outside the task on the linked tasks
 
             var main = false;
             if (active && !this.t.readMode && !lockProject) {
@@ -12651,7 +12667,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.t.ctx.fillStyle = kLinkPinColor;
                     this.t.ctx.fillRect(floor2(bound.x - kLinkPinSize - 2), floor2(bY + tH * 0.5 - kLinkPinSize * 0.5 + 1), kLinkPinSize, kLinkPinSize);
 
-                    this.t.ctx.fillStyle = '#FFFFFF';
+                    this.t.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
                     this.t.ctx.fillRect(floor2(bound.x - kLinkPinSize * 0.5 - 3), floor2(bY + tH * 0.5 - 0.5), kLinkSmallPinSize, kLinkSmallPinSize);
 
                     main = true;
@@ -12660,7 +12676,7 @@ ASC.Projects.GantChart = (function (window) {
                         this.t.ctx.fillStyle = kLinkPinColor;
                         this.t.ctx.fillRect(floor2(bound.x + 3 + bound.w), floor2(bY + tH * 0.5 - kLinkPinSize * 0.5 + 1), kLinkPinSize, kLinkPinSize);
 
-                        this.t.ctx.fillStyle = '#FFFFFF';
+                        this.t.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
                         this.t.ctx.fillRect(floor2(bound.x + 3 + bound.w + 3), floor2(bY + tH * 0.5 - 0.5), kLinkSmallPinSize, kLinkSmallPinSize);
 
                         main = true;
@@ -12676,29 +12692,29 @@ ASC.Projects.GantChart = (function (window) {
                         this.t.ctx.fillStyle = kLinkPinColor;
                         this.t.ctx.fillRect(floor2(bound.x - kLinkPinSize - 2), floor2(bound.y + tH * 0.5 - kLinkPinSize * 0.5 + 1), kLinkPinSize, kLinkPinSize);
 
-                        this.t.ctx.fillStyle = '#FFFFFF';
+                        this.t.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
                         this.t.ctx.fillRect(floor2(bound.x - kLinkPinSize * 0.5 - 3), floor2(bound.y + tH * 0.5), kLinkSmallPinSize, kLinkSmallPinSize);
 
                         if (!this.t._mouseInLinkZone.task.endFail) {
                             this.t.ctx.fillStyle = kLinkPinColor;
                             this.t.ctx.fillRect(floor2(bound.x + 3 + bound.w), floor2(bound.y + tH * 0.5 - kLinkPinSize * 0.5 + 1), kLinkPinSize, kLinkPinSize);
 
-                            this.t.ctx.fillStyle = '#FFFFFF';
+                            this.t.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
                             this.t.ctx.fillRect(floor2(bound.x + 3 + bound.w + 3), floor2(bound.y + tH * 0.5 - 0.5), kLinkSmallPinSize, kLinkSmallPinSize);
                         }
                     }
                 }
             }
 
-            // рисуем стрелку (приоритет)
+            // draw an arrow (priority)
 
             if (task._priority && !main) {
                 if (this.te > this.t.itemHeight * 0.8) {
-                    this.t.painter.drawIcoArrowUp(this.t.ctx, this.tx, this.rel, this.t.itemHeight, kTaskArrowPriorityBaseColor);
+                    this.t.painter.drawIcoArrowUp(this.t.ctx, this.tx, this.rel, this.t.itemHeight, printVer ? kTaskArrowPriorityBaseColorPrint : kTaskArrowPriorityBaseColor);
                 }
             }
 
-            // выпадающий список
+            // drop-down list
 
             if (task.dropDownWidget) {
                 this.t.taskDescWidget.set(this.tx, this.rel + this.t.itemHeight, task, borderColor);
@@ -12708,8 +12724,8 @@ ASC.Projects.GantChart = (function (window) {
             } else {
                 if (this.t.fullscreen) {
                     if (this.tx + this.te > 0) {
-                        this.t.ctx.fillStyle = kTaskTextColor;
-                        this.t.ctx.strokeStyle = kTaskTextColor;
+                        this.t.ctx.fillStyle = printVer ? kTaskTextColorPrint : kTaskTextColor;
+                        this.t.ctx.strokeStyle = printVer ? kTaskTextColorPrint : kTaskTextColor;
                         this.t.ctx.lineWidth = 1;
 
                         this.t.ctx.fillText(task._title, Math.max(this.tx + this.t.taskTextIndent * this.t.zoom, 0),
@@ -12722,7 +12738,7 @@ ASC.Projects.GantChart = (function (window) {
                 }
             }
 
-            // рисуем даты справа слева
+            // draw dates from right to left
 
             if (!this.t.readMode && showDates && !this.t.pressedButtonRight
                 && kElementCompleted !== task._status &&
@@ -12764,16 +12780,16 @@ ASC.Projects.GantChart = (function (window) {
                 }
             }
 
-            // бесконечная задача
+            // endless task
 
             if (task.endFail) {
                 this.t.ctx.drawImage(this.infinity, this.tx + this.te + 5, this.rel + 2);
             }
 
-            // стрелки на задачах которы выходят одной стороной за границу видимой области
+            // arrows on tasks that go one side beyond the border of the visible area
 
             if (this.tx < this.t.visibleLeft + 2 && this.tx + this.te > this.t.visibleLeft + 2) {  // left
-                this.t.ctx.fillStyle = '#FFFFFF';
+                this.t.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
                 this.t.painter.drawArrowRight(this.t.visibleLeft - 2, this.rel + 2, 16, 16);
             }
 
@@ -12803,7 +12819,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (this.t.backLightMilestone.enable || (this.t.backLightMilestone.p == p && this.t.backLightMilestone.m == i)) {
 
-                // Подсветка вехи серым цветом
+                // Highlight the milestone in gray
 
                 if (!this.t.fullscreen) {
                     itemH = floor2(offY - this.scrollY - this.t.itemHeight * 0.5);
@@ -12864,7 +12880,7 @@ ASC.Projects.GantChart = (function (window) {
             if (mX + mW > this.t.ctxWidth)
                 txtX = this.t.ctxWidth - textW;
 
-            // ключевая веха
+            // milestone
 
             if (milestone._isKey) {
                 this.t.painter.drawIcoKey(this.t.ctx, floor2(txtX + textW), floor2(itemH + this.t.itemHeight + 2 * (!this.t.fullscreen)), this.t.zoom);
@@ -12960,7 +12976,7 @@ ASC.Projects.GantChart = (function (window) {
                                 yFrom = floor2(rel + margin * (cur - linkToCnY) + itemHalfH) + 0.5;
                                 yTo = floor2(rel + margin * (to - linkFromCnY) + itemHalfH) + 0.5;
 
-                                // рисуем связь в режиме добавления
+                                // draw a link in add mode
 
                                 if (this.t.pushLink) {
                                     if (linkType === this.t.pushLink.linkObj['linkType']
@@ -12972,7 +12988,7 @@ ASC.Projects.GantChart = (function (window) {
                                 }
 
                                 if (tasks[cur].beginTime + tasks[cur].duration > tasks[to].beginTime) {
-                                    //                                  NOTE : если нужно подсвечивать выделенную связь нужно разкоментить код
+                                    //                                  NOTE : if you need to highlight the selected link, you need to uncomment the code
 
                                     //if (linkId === selEnd && task.id() === selBeg) {
                                     if (linkId === hitEnd && task.id() === hitBeg) {
@@ -13019,7 +13035,7 @@ ASC.Projects.GantChart = (function (window) {
                                 yTo = floor2(rel + margin * (to - linkFromCnY) + itemHalfH) + 0.5;
                             }
 
-                            // рисуем связь в режиме добавления
+                            // draw a link in add mode
 
                             if (this.t.pushLink) {
                                 if (linkType === this.t.pushLink.linkObj['linkType'] && linkId == this.t.pushLink.linkObj['parentTaskId'] && tasks[to]._id == this.t.pushLink.linkObj['dependenceTaskId']) {
@@ -13028,7 +13044,7 @@ ASC.Projects.GantChart = (function (window) {
                                 }
                             }
 
-                            // NOTE : если нужно подсвечивать выделенную связь нужно разкоментить код
+                            // NOTE : if you need to highlight the selected link, you need to uncomment the code
                             //if (linkId === selEnd && task.id() === selBeg) {
                             if (linkId === hitEnd && task.id() === hitBeg) {
                                 selectedLink = { linkType: linkType, xFrom: xFrom + 0.5, yFrom: yFrom + 0.5, xTo: xTo + 0.5, yTo: yTo + 0.5, linkColor: kLinkNormalColor };
@@ -13061,7 +13077,7 @@ ASC.Projects.GantChart = (function (window) {
                 this.t.ctx.stroke();
             }
 
-            // NOTE : если нужно подсвечивать выделенную связь нужно разкоментить код
+            // NOTE : if you need to highlight the selected link, you need to uncomment the code
             if (selectedLink) {
                 this.t.ctx.beginPath();
 
@@ -13511,8 +13527,8 @@ ASC.Projects.GantChart = (function (window) {
 
             this.bound = bound;
 
-            // 0 - горизонтальное расположение
-            // 1 - вертикальное расположение
+            // 0 - horizontal arrangement
+            // 1 - vertical arrangement
 
             this.direction = direction;
             this.linkDays = days;
@@ -13573,7 +13589,7 @@ ASC.Projects.GantChart = (function (window) {
                         this.internalBound.w + kLinksWidgetSettings.h,
                         this.internalBound.h + kLinksWidgetSettings.h, 5);
 
-                // отрисовка виджета (задний серый фон)
+                // widget drawing (grey background)
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.lineWidth = 1;
@@ -13589,15 +13605,15 @@ ASC.Projects.GantChart = (function (window) {
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                // белый прямоугольник для иконки
+                // white rectangle for icon
 
-                this.t.overlayctx.fillStyle = '#FFFFFF';
+                this.t.overlayctx.fillStyle = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333';
                 this.t.overlayctx.fillRect(floor2(this.bound.x - kLinksWidgetIcoSettings.s * 0.5 + 1.0),
                         floor2(this.internalBound.y + kLinksWidgetSettings.h * 0.5) - kLinksWidgetIcoSettings.yh - kLinksWidgetIcoSettings.s,
                     kLinksWidgetIcoSettings.s,
                     kLinksWidgetIcoSettings.s);
 
-                // иконка удаления
+                // delete icon
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.beginPath();
@@ -13608,11 +13624,11 @@ ASC.Projects.GantChart = (function (window) {
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                // надпись с днями
+                // inscription with days
 
                 if (this.days.length && this.linkDays <= 9999 && this.linkDays >= -9999) {
 
-                    this.t.overlayctx.fillStyle = '#FFFFFF';
+                    this.t.overlayctx.fillStyle = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333';
 
                     if (abs2(this.linkDays) < 100)
                         this.t.overlayctx.font = '7pt ' + kDefaultFontName;
@@ -13632,7 +13648,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.internalBound.y,
                         this.internalBound.w + kLinksWidgetSettings.h, this.internalBound.h, 5);
 
-                // отрисовка виджета (задний серый фон)
+                // widget drawing (grey background)
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.lineWidth = 1;
@@ -13647,15 +13663,15 @@ ASC.Projects.GantChart = (function (window) {
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                // белый прямоугольник для иконки
+                // white rectangle for icon
 
-                this.t.overlayctx.fillStyle = '#FFFFFF';
+                this.t.overlayctx.fillStyle = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333';
                 this.t.overlayctx.fillRect(floor2(this.bound.x + kLinksWidgetIcoSettings.xw + this.titleIndent.x),
                     floor2(this.internalBound.y + kLinksWidgetIcoSettings.yh),
                     kLinksWidgetIcoSettings.s,
                     kLinksWidgetIcoSettings.s);
 
-                // иконка удаления
+                // delete icon
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.beginPath();
@@ -13667,11 +13683,11 @@ ASC.Projects.GantChart = (function (window) {
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                // надпись с днями
+                // inscription with days
 
                 if (this.days.length && this.linkDays <= 9999 && this.linkDays >= -9999) {
 
-                    this.t.overlayctx.fillStyle = '#FFFFFF';
+                    this.t.overlayctx.fillStyle = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#ffffff' : '#333';
 
                     if (abs2(this.linkDays) < 100)
                         this.t.overlayctx.font = '7pt ' + kDefaultFontName;
@@ -13700,11 +13716,11 @@ ASC.Projects.GantChart = (function (window) {
             this.t.needUpdate = true;
         },
 
-        // проверка на попадание в область баунд меню
+        // check for hitting the bound menu area
 
         checkZone: function (x, y) {
 
-            // вертикально оринтирован
+            // vertically oriented
 
             if (this.direction) {
                 if (this.internalBound.x >= x || x >= this.internalBound.x + this.internalBound.w ||
@@ -13715,7 +13731,7 @@ ASC.Projects.GantChart = (function (window) {
 
             } else {
 
-                // горизонтально ориентирован
+                // horizontally oriented
 
                 if (this.internalBound.x - 20 > x || x > this.internalBound.x + this.internalBound.w + 7 ||
                     this.internalBound.y - 2 > y || y > this.internalBound.y + this.internalBound.h) {      //  TODO:
@@ -13971,7 +13987,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.overlayctx = this.overlay.getContext('2d');
                     this.updateDragDrop = false;
 
-                    // если выходим за границу контрола то скрываем все всплывающие менюшки
+                    // if we go beyond the border of the control, then we hide all pop-up menu
 
                     this.overlay.onmouseout = function (e) {
                         t.leftPanelController().updateFocus();
@@ -14002,7 +14018,7 @@ ASC.Projects.GantChart = (function (window) {
                     this._leftPanelController.init();
                 }
 
-                // данны для связи
+                // communication data
                 this._mouseInLinkZone = null;
 
                 this.repaint = true;
@@ -14084,7 +14100,7 @@ ASC.Projects.GantChart = (function (window) {
                     return true;
                 },
 
-                // проверка на попадание в область баунд меню
+                // check for hitting the bound menu area
 
                 checkZone: function (x, y) {
                     var cw, cx = this.bound.x + this.bound.w * 0.5;
@@ -14278,7 +14294,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     var posX = t.menuTask.bound.x + t.menuTask.bound.w * 0.5;
 
-                    // назначения отвественных для задачи
+                    // assignment of responsible for the task
 
                     t.showPopUpResp(t.menuTask.p, t.menuTask.m === -1 ? undefined : t.menuTask.m, t.menuTask.t, posX);
                 }
@@ -14364,7 +14380,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.bound = { x: x, y: y, w: w, h: h };
                 },
                 //
-                // проверка на попадание в область баунд меню
+                // check for hitting the bound menu area
 
                 checkZone: function (x, y) {
                     if (this.disable) { return false; }
@@ -14554,7 +14570,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     var posX = t.menuMileStone.bound.x + t.menuMileStone.bound.w * 0.5;
 
-                    // назначения отвественных для вехи
+                    // assignment of responsible persons for the milestone
 
                     t.showPopUpResp(t.menuMileStone.p, t.menuMileStone.m, t.menuMileStone.t, posX);
                 } else {
@@ -14790,7 +14806,7 @@ ASC.Projects.GantChart = (function (window) {
             this.projectsLines = [];
             this.projectsLinesY = [];
 
-            // в случае когда нужно скролить до первого видимого горизонтального элемента нужно сделать пересчет высоты контента
+            // in the case when you need to scroll to the first visible horizontal element, you need to recalculate the height of the content
 
             if (rebuild) {
                 this.contentHeight = this.getContentHeight();
@@ -14874,7 +14890,7 @@ ASC.Projects.GantChart = (function (window) {
             this.drawScene();
             this.drawEditLayer();
 
-            // TODO: переделать
+            // TODO: remake
             if (this.mouse) {
                 if (kEditModeElementDrag === this.editMode) {
                     if (this.mouse.y <= this.visibleUp) {
@@ -14932,7 +14948,7 @@ ASC.Projects.GantChart = (function (window) {
                 this.menuTask.onmousemove(mouse.x, mouse.y);
                 this.menuMileStone.onmousemove(mouse.x, mouse.y);
 
-                // находимся на шкале дат, сбрасываем фокус с активного элемента
+                // we are on the date scale, we reset focus from the active element
 
                 if (!(this.menuTask.checkZone(mouse.x, mouse.y) || this.linkWidget.checkZone(mouse.x, mouse.y))) {
                     this.overlay.style.cursor = '';
@@ -15061,7 +15077,7 @@ ASC.Projects.GantChart = (function (window) {
                                     this.overlay.style.cursor = '';
                                 } else {
 
-                                    // связь имеет право на добавление
+                                    // connection is eligible to be added
 
                                     if (this.linkLineEdit.parentSide === kTaskSideRight && this.linkLineEdit.side === kTaskSideRight)
                                         typeLink = kLinkEndEnd;
@@ -15160,7 +15176,7 @@ ASC.Projects.GantChart = (function (window) {
                                     this.overlay.style.cursor = '';
                                 } else {
 
-                                    // связь имеет право на добавление
+                                    // connection is eligible to be added
 
                                     this.pushLink = { task: taskTo };
                                     this.pushLink.linkObj = {};
@@ -15248,7 +15264,7 @@ ASC.Projects.GantChart = (function (window) {
                 }
             }
 
-            // находимся в всплывающем меню задачи
+            // we are in the task pop-up menu
 
             if (this.menuTask.checkZone(mouse.x, mouse.y)) {
 
@@ -15272,7 +15288,7 @@ ASC.Projects.GantChart = (function (window) {
                 return;
             }
 
-            // находимся в всплывающем меню задачи
+            // we are in the task pop-up menu
 
             if (this.menuMileStone.checkZone(mouse.x, mouse.y)) {
 
@@ -15390,13 +15406,13 @@ ASC.Projects.GantChart = (function (window) {
 
                 if (-1 !== this.capProject && -1 !== this.capTask && -1 === this.capMilestone && !this.readMode && !lockProject) {
 
-                    // двигаем задачу у проекта (непривязана к вехе)
+                    // move the task for the project (not tied to the milestone)
 
                     task = this.storage.p[this.capProject].t[this.capTask];
 
                     if (undefined !== task && kElementCompleted != task._status && (!this.editBox.enable || this.editBox.createMode)) {
 
-                        // вертикальный перенос задачи
+                        // vertical task transfer
 
                         if (this.moveMouse.y - mouse.y !== 0 && !this._modeStrafe && !this.editBox.enable && 0 === this.capSide) {
 
@@ -15453,14 +15469,14 @@ ASC.Projects.GantChart = (function (window) {
 
                         if (kTaskSideLeft === this.capSide) {
 
-                            // при ведении влево больше чем сегодняшний день делаем принудительно увеличение на один день
+                            // when driving to the left more than today, we force an increase by one day
 
                             if (timeNX <= 0) timeX -= 24;
 
                             task.updateBegin(timeX);
                         } else if (kTaskSideRight === this.capSide) {
 
-                            // при ведении вправо больше чем сегодняшний день делаем принудительно увеличение на один день
+                            // when driving to the right more than today, we force an increase by one day
 
                             if (timeNX >= 0) timeX += 24;
 
@@ -15526,13 +15542,13 @@ ASC.Projects.GantChart = (function (window) {
 
                 } else if (-1 != this.capProject && -1 != this.capTask && -1 !== this.capMilestone && !this.readMode && !lockProject) {
 
-                    //  двигаем задачу у вехи
+                    //  we move the task at the milestone
 
                     task = this.storage.getTask(this.capProject, this.capMilestone, this.capTask);
 
                     if (undefined !== task && kElementCompleted != task._status && (!this.editBox.enable || this.editBox.createMode)) {
 
-                        // вертикальный перенос задачи
+                        // vertical task transfer
 
                         if (this.moveMouse.y - mouse.y !== 0 && !this._modeStrafe && !this.editBox.enable && 0 === this.capSide) {
 
@@ -15591,14 +15607,14 @@ ASC.Projects.GantChart = (function (window) {
 
                         if (kTaskSideLeft === this.capSide) {
 
-                            // при ведении влево больше чем сегодняшний день делаем принудительно увеличение на один день
+                            // when driving to the left more than today, we force an increase by one day
 
                             if (timeNX <= 0) timeX -= 24;
 
                             task.updateBegin(timeX, milestone.endTime);
                         } else if (kTaskSideRight === this.capSide) {
 
-                            // при ведении вправо больше чем сегодняшний день делаем принудительно увеличение на один день
+                            // when driving to the right more than today, we force an increase by one day
 
                             if (timeNX >= 0) timeX += 24;
 
@@ -15655,7 +15671,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 } else if (-1 != this.capProject && -1 === this.capTask && -1 !== this.capMilestone && !this.readMode && !lockProject) {
 
-                    //  двигаем веху
+                    //  move milestone
 
                     milestone = this.storage.getMilestone(this.capProject, this.capMilestone);
 
@@ -15667,7 +15683,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 } else {
 
-                    //  двигаем весь TimeLine
+                    //  move the entire TimeLine
 
                     this.pressedButtonRight = false;
                     if (e.buttons) {
@@ -15907,7 +15923,7 @@ ASC.Projects.GantChart = (function (window) {
                 this.capLink = this.hitLink;
             }
 
-            // создаем начальную точку-связи
+            // create a starting point
 
             if (this._mouseInLinkZone) {
                 if (this.addEditLink()) {
@@ -15929,7 +15945,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     } else {
 
-                        // при клике правой кнопнкой мыши создаем задачу
+                        // right click to create a task
 
                         if (!this.editBox.enable) {
 
@@ -16066,7 +16082,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (-1 !== this.capProject && -1 !== this.capTask && -1 === this.capMilestone && !this.readMode) {
 
-                // задача в свободной зоне
+                // task in the free zone
 
                 taskRef = this.storage.p[this.capProject].t[this.capTask];
                 if (kElementCompleted === taskRef._status)
@@ -16077,7 +16093,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 if (kEnableQueryTaskWithLinksMove) {
 
-                    // собираем связи для данной задачи
+                    // collect connections for this task
 
                     this.queryMoveLinks = this._modelController.collectBeginEndItems(this.capProject, undefined, taskId);
 
@@ -16109,7 +16125,7 @@ ASC.Projects.GantChart = (function (window) {
 
             } else if (-1 != this.capProject && -1 != this.capTask && -1 !== this.capMilestone && !this.readMode) {
 
-                // задача принадлежит вехе
+                // task belongs to milestone
 
                 taskRef = this.storage.getTask(this.capProject, this.capMilestone, this.capTask);
                 if (kElementCompleted === taskRef._status)
@@ -16121,7 +16137,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 if (kEnableQueryTaskWithLinksMove) {
 
-                    // собираем связи для данной задачи
+                    // collect connections for this task
 
                     this.queryMoveLinks = this._modelController.collectBeginEndItems(this.capProject, this.capMilestone, taskId);
 
@@ -16334,7 +16350,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     // undo
 
-                    // проверяем все задачи на изменения времени
+                    // check all tasks for time changes
 
                     this._undoManager.applyTempOperation();
                     this._undoManager.updateOperation(true, t, this.queryMoveLinks);
@@ -16406,7 +16422,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     // undo
 
-                    // проверяем все задачи на изменения времени
+                    // check all tasks for time changes
 
                     this._undoManager.applyTempOperation();
                     this._undoManager.updateOperation(true, t, this.queryMoveLinks);
@@ -16805,7 +16821,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (hidePopUp) {
 
-                // скрываем все всплывающие элементы
+                // hide all popups
 
                 this.offMenus();
                 this.offWidgets();
@@ -16886,13 +16902,13 @@ ASC.Projects.GantChart = (function (window) {
                 this.offX = this.timeScale.hourInPixels * this.offsetX;
                 this.scrollY = (this.rightScroll.value()) >> 0;
 
-                this.drawWeekend();
-                this.timeScale.drawLines();
-                this.timeScale.draw();
+                this.drawWeekend(print);
+                this.timeScale.drawLines(print);
+                this.timeScale.draw(print);
 
-                this.drawElementHorLines();
+                this.drawElementHorLines(print);
                 this.drawDayLine();
-                this.drawWeekendLines();
+                this.drawWeekendLines(print);
 
                 if (this.fullscreen) {
                     this.ctx.save();
@@ -16900,7 +16916,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.ctx.clip();
                 }
 
-                this.drawProjects();
+                this.drawProjects(print);
 
                 if (this.fullscreen) {
                     this.ctx.restore();
@@ -16934,7 +16950,7 @@ ASC.Projects.GantChart = (function (window) {
             }
         },
 
-        drawProjects: function () {
+        drawProjects: function (printVer) {
             var i, j, tx, tn, te, textW;
 
             var offY = floor2(this.timeScale.height());
@@ -16967,15 +16983,15 @@ ASC.Projects.GantChart = (function (window) {
                 tx = this.offX + p[j].beginTime * this.worldToScreen;
                 te = p[j].duration * this.worldToScreen;
 
-                this.ctx.strokeStyle = kLinesVerticalColor;
+                this.ctx.strokeStyle = printVer ? kLinesVerticalColorPrint : kLinesVerticalColor;
                 this.ctx.lineWidth = 1;
 
                 offY += (this.itemMargin - this.itemHeight) * 0.5;
 
                 if (j === this.capProject)
-                    offY = this.drawProject(p[j], offY, this.capTask, scrollY, j);
+                    offY = this.drawProject(p[j], offY, this.capTask, scrollY, j, printVer);
                 else
-                    offY = this.drawProject(p[j], offY, -1, scrollY, j);
+                    offY = this.drawProject(p[j], offY, -1, scrollY, j, printVer);
 
                 if (offY - scrollY > this.ctxHeight) { break; }
 
@@ -16989,7 +17005,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (!this.editBox.boundUpdate) { this.editBox.setBound(0, 0, 0, 0, true); }
         },
-        drawProject: function (project, offY, capture, scrollY, p) {
+        drawProject: function (project, offY, capture, scrollY, p, printVer) {
             var i, j, x, tasksCount, length, free = false, outFactor = false;
 
             var m = project.m, realTasksCount;
@@ -16998,11 +17014,11 @@ ASC.Projects.GantChart = (function (window) {
             for (i = 0; i < count; ++i) {
                 tasksCount = m[i].t.length;
 
-                //  в фильтре поэтому пропускаем
+                //  in the filter so skip
 
                 if (m[i].filter) { continue; }
 
-                // подсчитываем реально видимые задачи с учетом фильтра
+                // we count really visible tasks taking into account the filter
 
                 realTasksCount = tasksCount;
 
@@ -17013,7 +17029,7 @@ ASC.Projects.GantChart = (function (window) {
                 this._renderer.drawBackLightMilestone(p, i, -1, offY - scrollY + 3);
                 this._renderer.drawMilestone(m[i], offY, p, i, realTasksCount);
 
-                // выходим за видимую область по высоте для вех с задачами, поэтому не рисуем свободные задачи
+                // we go beyond the visible area in height for milestones with tasks, so we do not draw free tasks
 
                 if (offY - scrollY > this.ctxHeight) {
                     outFactor = true;
@@ -17033,12 +17049,12 @@ ASC.Projects.GantChart = (function (window) {
 
                 for (j = 0; j < tasksCount; ++j) {
 
-                    //  в фильтре поэтому пропускаем
+                    //  in the filter so skip
 
                     if (m[i].t[j].filter) { continue; }
 
                     this._renderer.drawBackLightTask(p, i, j, offY - scrollY + 3);         // TODO: fix
-                    this._renderer.drawTask(m[i].t[j], offY, free, p, i, j, m[i].t);
+                    this._renderer.drawTask(m[i].t[j], offY, free, p, i, j, m[i].t, printVer);
 
                     offY += this.itemMargin;
                 }
@@ -17070,12 +17086,12 @@ ASC.Projects.GantChart = (function (window) {
 
                 for (j = 0; j < length; ++j) {
 
-                    //  в фильтре поэтому пропускаем
+                    //  in the filter so skip
 
                     if (project.t[j].filter) { continue; }
 
                     this._renderer.drawBackLightFreeTask(p, i, j, offY - scrollY + 3);     // TODO: fix
-                    this._renderer.drawTask(project.t[j], offY, free, p, i, j, project.t);
+                    this._renderer.drawTask(project.t[j], offY, free, p, i, j, project.t, printVer);
 
                     offY += this.itemMargin;
                 }
@@ -17242,8 +17258,8 @@ ASC.Projects.GantChart = (function (window) {
 
                 // draw text lines
 
-                t.ctx.fillStyle = '#000000';
-                t.ctx.strokeStyle = '#000000';
+                t.ctx.fillStyle = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#000000' : '#fff';
+                t.ctx.strokeStyle = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#000000' : '#fff';
 
                 var lineY = widget.y + t.fontPx + 1;
 
@@ -17255,7 +17271,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 lineY += t.fontPx * 0.5;
 
-                t.ctx.fillStyle = (isOverdue) ? widget.fill : '#000000';
+                t.ctx.fillStyle = (isOverdue) ? widget.fill : ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#000000' : '#fff';
                 t.ctx.fillText(dayTxt, widgetTxtOffX, lineY);
 
                 if (isOverdue) {
@@ -17353,7 +17369,7 @@ ASC.Projects.GantChart = (function (window) {
                 var dayTxt = widgetms.t.formatEndDate();
                 if (widgetms.t.endTime > 0 && !isComplete) dayTxt += ' (' + window['Gantt']['Localize_strings']['statusOpenMilestone'] + ')';
                 if (isComplete) dayTxt += ' (' + window['Gantt']['Localize_strings']['statusClosedMilestone'] + ')';
-                t.ctx.fillStyle = (isOverdue) ? widgetms.fill : '#000000';
+                t.ctx.fillStyle = (isOverdue) ? widgetms.fill : ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '#000000' : '#fff';
                 if (isOverdue) { dayTxt += ' (' + window['Gantt']['Localize_strings']['overdue'] + ')'; }
                 t.ctx.fillText(dayTxt, widgetTxtOffX, lineY);
 
@@ -17405,7 +17421,7 @@ ASC.Projects.GantChart = (function (window) {
                 this.painter.drawLineH(offX, 0, offX, this.ctxHeight, kDayLineColor, 1);
             }
         },
-        drawElementHorLines: function () {
+        drawElementHorLines: function (printVer) {
 
             if (!this.fullscreen) {
 
@@ -17420,11 +17436,11 @@ ASC.Projects.GantChart = (function (window) {
 
                 if (maxOffY < height) {
 
-                    // первая строчка более темная
+                    // first line is darker
 
                     this.ctx.beginPath();
 
-                    this.ctx.strokeStyle = kLinesVerticalColor;
+                    this.ctx.strokeStyle = printVer ? kLinesVerticalColorPrint : kLinesVerticalColor;
                     this.ctx.lineWidth = 1;
 
                     this.ctx.moveTo(0, this.itemMargin + 0.5);
@@ -17449,7 +17465,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 this.ctx.beginPath();
 
-                this.ctx.strokeStyle = kLinesVerticalColor;
+                this.ctx.strokeStyle = printVer ? kLinesVerticalColorPrint : kLinesVerticalColor;
                 this.ctx.lineWidth = 1;
 
                 for (; height <= this.ctxHeight; height += this.itemMargin) {
@@ -17478,11 +17494,11 @@ ASC.Projects.GantChart = (function (window) {
 
                 this.ctx.stroke();
 
-                // первая строчка более темная
+                // the first line is darker
 
                 this.ctx.beginPath();
 
-                this.ctx.strokeStyle = kLinesVerticalColor;
+                this.ctx.strokeStyle = printVer ? kLinesVerticalColorPrint : kLinesVerticalColor;
                 this.ctx.lineWidth = 1;
 
                 this.ctx.moveTo(0, this.itemMargin + 0.5);
@@ -17498,7 +17514,7 @@ ASC.Projects.GantChart = (function (window) {
                 if (kTypeScaleDays !== this.timeScale.scaleType) {
                     var width = this.itemMargin;
 
-                    this.ctx.fillStyle = '#ffffff';
+                    this.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
 
                     var margin = this.itemMargin;
 
@@ -17516,7 +17532,7 @@ ASC.Projects.GantChart = (function (window) {
             }
         },
 
-        drawWeekend: function () {
+        drawWeekend: function (printVer) {
             var weekend = this.timeScale.weekend();
             if (weekend) {
                 var ind = -1;
@@ -17529,7 +17545,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     var stepRight = (offX / weekend.off - ((offX / weekend.off) >> 0)) * weekend.off + weekend.x;
 
-                    this.ctx.fillStyle = kWeekendColor;
+                    this.ctx.fillStyle = printVer ? kWeekendColorPrint : kWeekendColor;
 
                     for (ind = -1; ind < arrItems; ++ind) {
                         this.ctx.fillRect(stepRight + ind * weekend.off, y, weekend.width, height);
@@ -17537,11 +17553,11 @@ ASC.Projects.GantChart = (function (window) {
                 }
 
                 offX = floor2(this.timeToSceneX(0)) + 0.5;
-                this.ctx.fillStyle = kDayBandColor;
+                this.ctx.fillStyle = printVer ? kDayBandColorPrint: kDayBandColor;
                 this.ctx.fillRect(offX, this.itemMargin, weekend.width / 2, this.ctxHeight - this.itemMargin);
             }
         },
-        drawWeekendLines: function () {
+        drawWeekendLines: function (printVer) {
             var weekend = this.timeScale.weekend();
             if (weekend) {
                 var ind = -1;
@@ -17555,7 +17571,7 @@ ASC.Projects.GantChart = (function (window) {
                     var stepRight = (offX / weekend.off - ((offX / weekend.off) >> 0)) * weekend.off + weekend.x;
 
                     this.ctx.lineWidth = 1;
-                    this.ctx.strokeStyle = kLinesVerticalColor;
+                    this.ctx.strokeStyle = printVer ? kLinesVerticalColorPrint : kLinesVerticalColor;
 
                     this.ctx.beginPath();
 
@@ -17571,7 +17587,7 @@ ASC.Projects.GantChart = (function (window) {
                     this.ctx.stroke();
 
                     this.ctx.lineWidth = 1;
-                    this.ctx.strokeStyle = kLinesVerticalColor;
+                    this.ctx.strokeStyle = printVer ? kLinesVerticalColorPrint : kLinesVerticalColor;
 
                     this.ctx.beginPath();
 
@@ -17591,7 +17607,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     // project's white lines
 
-                    this.ctx.fillStyle = '#ffffff';
+                    this.ctx.fillStyle = printVer ? kTaskDragDropFillColorPrint : kTaskDragDropFillColor;
 
                     var margin = this.itemMargin;
                     var lineY = 0;
@@ -17714,7 +17730,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 for (var j = 0; j < pl; ++j) {
 
-                    // весь контент у проекты скрыт
+                    // all content in projects is hidden
 
                     if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -17726,11 +17742,11 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (var i = 0; i < length; ++i) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].m[i].filter) { continue; }
 
-                            // подсчитываем реально видимые задачи с учетом фильтра
+                            // we count really visible tasks taking into account the filter
 
                             tasksCount = p[j].m[i].t.length;
                             realTasksCount = tasksCount;
@@ -17741,10 +17757,10 @@ ASC.Projects.GantChart = (function (window) {
 
                             if (j === t.dragTo.p && i === t.dragTo.m) {
 
-                                // если веха закрытая то ничего не рисуем
+                                // if the milestone is closed, then do not draw anything
                                 if (1 === p[j].m[i]._status) return;
 
-                                // перенос работает в рамках одного проекта
+                                // transfer works within one project
                                 if (t.dragTo.p !== t.itemToDrop.p) return;
 
                                 var tx = t.offX + p[j].m[i].beginTime * t.worldToScreen;
@@ -17767,7 +17783,7 @@ ASC.Projects.GantChart = (function (window) {
                                 if (tx < clampX) { te -= clampX - tx; tx = clampX; }
 
                                 if (tx + te > clampX) {
-                                    // три линии для отрисовки той вехи в которую мы переносим задачу
+                                    // three lines for drawing the milestone to which we transfer the task
 
                                     t.overlayctx.strokeStyle = kMilestoneBeforeDragColor;
                                     t.overlayctx.lineWidth = 1;
@@ -17794,7 +17810,7 @@ ASC.Projects.GantChart = (function (window) {
                             if (!p[j].m[i].collapse) { offY += margin * realTasksCount; }
                         }
 
-                        // свободные задачи в проекте скрыты
+                        // free tasks in the project are hidden
 
                         if (p[j].collapse) { offY += margin; continue; }
 
@@ -17804,7 +17820,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             for (i = p[j].t.length - 1; i >= 0; --i) {
 
-                                // применен фильтр
+                                // filter applied
 
                                 if (p[j].t[i].filter) { continue; }
 
@@ -17812,7 +17828,7 @@ ASC.Projects.GantChart = (function (window) {
                             }
                         } else {
 
-                            // линия свободных задач
+                            // line of free tasks
 
                             offY += margin;
                         }
@@ -17822,7 +17838,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     } else {
 
-                        // пустой проект имеет только две линии - сам проект и свободные задачи
+                        // an empty project has only two lines - the project itself and free tasks
 
                         offY += margin * 2;
                     }
@@ -18046,7 +18062,7 @@ ASC.Projects.GantChart = (function (window) {
             }
         },
 
-        // элементы захвата и пересечений
+        // capture and intersection elements
 
         calculateHit: function (e, cursor, ctr) {
 
@@ -18099,7 +18115,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 lockProject = p[j]._status;
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -18109,7 +18125,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (mi = 0; mi < p[j].m.length; ++mi) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].m[mi].filter) { continue; }
 
@@ -18118,7 +18134,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         if (!this.fullscreen && m.collapse) { offY += margin; continue; }
 
-                        // подсчитываем реально видимые задачи с учетом фильтра
+                        // we count really visible tasks taking into account the filter
 
                         realTasksCount = mc;
 
@@ -18144,7 +18160,7 @@ ASC.Projects.GantChart = (function (window) {
                         offY += margin;
                         offY += margin * realTasksCount;
 
-                        // элементы в вехе
+                        // elements in milestone
 
                         taskBeginY = mbegin + margin - this.itemHeight;
                         taskEnY = mbegin + margin;
@@ -18153,11 +18169,11 @@ ASC.Projects.GantChart = (function (window) {
 
                             t = m.t[ti];
 
-                            // применен фильтр
+                            // filter applied
 
                             if (t.filter) { continue; }
 
-                            // находимся на 'кнопках-стрелках' для центрирование позиций элементов
+                            // we are on the 'arrow buttons' to center the positions of the elements
 
                             if ((this.downMouse.y >= taskBeginY && this.downMouse.y <= taskEnY)) {
 
@@ -18233,7 +18249,7 @@ ASC.Projects.GantChart = (function (window) {
                                         this.anchorMouse.x = t.endTime - this.downMouse.x / (this.timeScale.hourInPixels * scaleUnitStep) * scaleUnitStep * this.timeScale.scaleX;
                                     }
 
-                                    // зона появления 'квадрата связи'
+                                    // 'link square' spawn zone
 
                                     if (this.editMode !== kEditModeAddLink) {
 
@@ -18272,7 +18288,7 @@ ASC.Projects.GantChart = (function (window) {
                             taskEnY += margin;
                         }
 
-                        // боковая левая часть (изменяем дедлайн вехи)
+                        // side left part (change milestone deadline)
 
                         if (Math.abs(this.downMouse.x - m.endTime * worldToScreen) < kHitSidePixels && (this.downMouse.y >= milestoneBeginY && milestoneEndY >= this.downMouse.y)) {
                             if (p[j].m[mi]._status == kElementCompleted - 1) return;
@@ -18303,7 +18319,7 @@ ASC.Projects.GantChart = (function (window) {
                             return;
                         }
 
-                        // веха (показываем всплывающюю менюшку или при клике показываем виджет с описанием)
+                        // milestone (show a pop-up menu or, when clicked, show a widget with a description)
 
                         if (kEditModeNoUse === this.editMode) {
                             if ((mousedx >= m.beginTime && mousedx <= m.endTime) && (this.downMouse.y >= billet && this.downMouse.y <= billet + margin * 0.5)) {
@@ -18323,7 +18339,7 @@ ASC.Projects.GantChart = (function (window) {
                             }
                         }
 
-                        // проверка связей идет только после того как мы прочекали все задачи
+                        // connection checks only after we have checked all the tasks
 
                         if (!lockProject && this.calculateLinksHit(p[j].m[mi].t, offX, linkBeginY, scrollY, 1, mousedx, linkMouseY, 0)) {
                             if (cursor) { this.overlay.style.cursor = 'pointer'; } return;
@@ -18334,11 +18350,11 @@ ASC.Projects.GantChart = (function (window) {
                         if (0 === mc && this.fullscreen) offY += margin;
                     }
 
-                    // свободные задачи в проекте скрыты
+                    // free tasks in the project are hidden
 
                     if (p[j].collapse) { offY += margin; continue; }
 
-                    // свободные задачи
+                    // free tasks
 
                     if (p[j].t.length) {
 
@@ -18350,7 +18366,7 @@ ASC.Projects.GantChart = (function (window) {
                         linkBeginY = offY + scrollY;
                         linkMouseY = this.downMouse.y + scrollY - this.timeScale.height() + margin + offLinkY;
 
-                        // подсчитываем реально видимые задачив свободной зоне
+                        // counting realistically visible tasks in the free zone
 
                         mc = p[j].t.length;
                         realTasksCount = mc;
@@ -18359,7 +18375,7 @@ ASC.Projects.GantChart = (function (window) {
                             if (p[j].t[x].filter) { --realTasksCount; }
                         }
 
-                        // элементы в вехе
+                        // elements in milestone
 
                         mbegin = offY + margin * 0.5 - this.itemHeight;
 
@@ -18369,7 +18385,7 @@ ASC.Projects.GantChart = (function (window) {
                         for (k = 0; k < p[j].t.length; ++k) {
                             t = p[j].t[k];
 
-                            // применен фильтр
+                            // filter applied
 
                             if (t.filter) { continue; }
 
@@ -18398,7 +18414,7 @@ ASC.Projects.GantChart = (function (window) {
                                 endTime = this.worldToSceneX(endFailX);
                             }
 
-                            // находимся на 'кнопках-стрелках' для центрирование позиций элементов
+                            // we are on the 'arrow buttons' to center the positions of the elements
 
                             if ((this.downMouse.y >= taskBeginY && this.downMouse.y <= taskEnY)) {
 
@@ -18484,7 +18500,7 @@ ASC.Projects.GantChart = (function (window) {
                                         }
                                     }
 
-                                    // зона появления 'кружка связи'
+                                    // 'communication circle' spawn zone
 
                                     if (this.editMode !== kEditModeAddLink) {
                                         timeTaskScreen = this.timeToSceneX(t.beginTime);
@@ -18522,7 +18538,7 @@ ASC.Projects.GantChart = (function (window) {
                             taskEnY += margin;
                         }
 
-                        // проверка связей идет только после того как мы прочекали все задачи
+                        // connection checks only after we have checked all the tasks
 
                         if (!lockProject && this.calculateLinksHit(p[j].t, offX, linkBeginY, scrollY, 1, mousedx, linkMouseY, margin)) {
                             if (cursor) { this.overlay.style.cursor = 'pointer'; } return;
@@ -18531,13 +18547,13 @@ ASC.Projects.GantChart = (function (window) {
                         offY += margin * realTasksCount;
                     } else {
 
-                        // линия свободных задач
+                        // line of free tasks
 
                         offY += margin;
                     }
                 } else {
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += margin * 2;
                 }
@@ -18574,17 +18590,17 @@ ASC.Projects.GantChart = (function (window) {
 
             for (j = 0; j < pl; ++j) {
 
-                // строка проекта
+                // project line
 
                 if (offY <= mouseY && mouseY <= offY + margin) {
 
-                    // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
+                    // if the project is empty, then the milestone index (-1), otherwise point to the first milestone (0)
 
                     this.hitLine = { p: j, m: p[j].m.length ? 0 : -1, t: -1 };
                     return true;
                 }
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) {
 
@@ -18598,7 +18614,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (m = 0; m < p[j].m.length; ++m) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].m[m].filter) { continue; }
 
@@ -18615,7 +18631,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (i = 0; i < p[j].m[m].t.length; ++i) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].m[m].t[i].filter) { continue; }
 
@@ -18628,13 +18644,13 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // свободные задачи в проекте скрыты
+                    // free tasks in the project are hidden
 
                     if (p[j].collapse) {
 
                         if (offY <= mouseY && mouseY <= offY + margin) {
 
-                            // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
+                            // if the project is empty, then the milestone index (-1), otherwise point to the first milestone (0)
 
                             this.hitLine = { p: j, m: -1, t: -1 };
                             return true;
@@ -18655,7 +18671,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (i = 0; i < p[j].t.length; ++i) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -18670,13 +18686,13 @@ ASC.Projects.GantChart = (function (window) {
 
                         if (offY <= mouseY && mouseY <= offY + margin) {
 
-                            // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
+                            // if the project is empty, then the milestone index (-1), otherwise point to the first milestone (0)
 
                             this.hitLine = { p: j, m: -1, t: -1 };
                             return true;
                         }
 
-                        // линия свободных задач
+                        // line of free tasks
 
                         offY += this.itemMargin;
                     }
@@ -18684,13 +18700,13 @@ ASC.Projects.GantChart = (function (window) {
 
                     if (offY <= mouseY && mouseY <= offY + margin * 2) {
 
-                        // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
+                        // if the project is empty, then the milestone index (-1), otherwise point to the first milestone (0)
 
                         this.hitLine = { p: j, m: -1, t: -1 };
                         return true;
                     }
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += this.itemMargin * 2;
                 }
@@ -18724,7 +18740,7 @@ ASC.Projects.GantChart = (function (window) {
 
             for (j = 0; j < pl; ++j) {
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -18750,7 +18766,7 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // свободные задачи в проекте скрыты
+                    // free tasks in the project are hidden
 
                     if (p[j].collapse) { offY += margin; continue; }
 
@@ -18760,7 +18776,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (i = p[j].t.length - 1; i >= 0; --i) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -18771,13 +18787,13 @@ ASC.Projects.GantChart = (function (window) {
                             return { p: j, m: undefined };
                         }
                     } else {
-                        // линия свободных задач
+                        // line of free tasks
 
                         offY += margin;
                     }
                 } else {
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += margin * 2;
                 }
@@ -19212,11 +19228,11 @@ ASC.Projects.GantChart = (function (window) {
             return this.exist;
         },
 
-        // расчеты
+        // calculations
 
         getTheMilestoneTaskToDrag: function (e) {
 
-            // Получаем веху куда над которой находится перемещаемая задача (пересечение двух баунд боксов, задачи и всех вех)
+            // We get the milestone where the task being moved is located above (the intersection of two bound boxes, the task and all milestones)
 
             this.dragTo = { t: -1, m: -1, p: -1 };
 
@@ -19250,7 +19266,7 @@ ASC.Projects.GantChart = (function (window) {
                     return true;
                 }
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -19260,13 +19276,13 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].m[i].filter) { continue; }
 
                         tasksCount = p[j].m[i].t.length;
 
-                        // подсчитываем реально видимые задачи с учетом фильтра
+                        // we count really visible tasks taking into account the filter
 
                         realTasksCount = tasksCount;
 
@@ -19316,7 +19332,7 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // свободные задачи в проекте скрыты
+                    // free tasks in the project are hidden
 
                     if (p[j].collapse) {
 
@@ -19356,7 +19372,7 @@ ASC.Projects.GantChart = (function (window) {
                             return true;
                         }
 
-                        // линия свободных задач
+                        // line of free tasks
 
                         offY += margin;
                     }
@@ -19367,7 +19383,7 @@ ASC.Projects.GantChart = (function (window) {
                         return true;
                     }
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += margin * 2;
                 }
@@ -19391,17 +19407,17 @@ ASC.Projects.GantChart = (function (window) {
 
             for (j = 0; j < pl; ++j) {
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
                 if (!p[j].isEmpty()) {
 
-                    // линия проектов
+                    // project line
 
                     offY += margin;
 
-                    // линии вех
+                    // milestone lines
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
@@ -19418,11 +19434,11 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // свободные задачи в проекте скрыты
+                    // free tasks in the project are hidden
 
                     if (p[j].collapse) { offY += margin; continue; }
 
-                    // линии свободных задач в проекте
+                    // lines of free tasks in the project
 
                     if (p[j].t.length) {
 
@@ -19434,13 +19450,13 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // линия свободных задач
+                    // lines of free tasks
 
                     offY += margin;
 
                 } else {
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += margin * 2;
                 }
@@ -19459,7 +19475,7 @@ ASC.Projects.GantChart = (function (window) {
 
             for (j = 0; j < pl; ++j) {
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -19469,13 +19485,13 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].m[i].filter) { continue; }
 
                         tasksCount = p[j].m[i].t.length;
 
-                        // подсчитываем реально видимые задачи с учетом фильтра
+                        // we count really visible tasks taking into account the filter
 
                         realTasksCount = tasksCount;
 
@@ -19490,7 +19506,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (s = 0; s < p[j].m[i].t.length; ++s) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].m[i].t[s].filter) { continue; }
 
@@ -19501,7 +19517,7 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // свободные задачи в проекте скрыты
+                    // free tasks in the project are hidden
 
                     if (p[j].collapse) { offY += margin; continue; }
 
@@ -19511,7 +19527,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (i = 0; i < p[j].t.length; ++i) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -19526,7 +19542,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (i = 0; i < p[j].t.length; ++i) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -19535,7 +19551,7 @@ ASC.Projects.GantChart = (function (window) {
                     }
                 } else {
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += margin * 2;
                 }
@@ -19545,7 +19561,7 @@ ASC.Projects.GantChart = (function (window) {
         },
         getLeftMostElement: function () {
 
-            // получаем самый крайний левый элемент слева
+            // get the leftmost element on the left
 
             var i, j, s;
 
@@ -19566,7 +19582,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].m[i].filter) { continue; }
 
@@ -19574,7 +19590,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (s = 0; s < p[j].m[i].t.length; ++s) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].m[i].t[s].filter) { continue; }
 
@@ -19596,7 +19612,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (s = 0; s < p[j].t.length; ++s) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].t[s].filter) { continue; }
 
@@ -19617,7 +19633,7 @@ ASC.Projects.GantChart = (function (window) {
         },
         getTopElementInVisibleRange: function () {
 
-            // получаем самый первый элемент в области видимости по вертикали
+            // get the very first element in the scope vertically
 
             var duration = (this.zoomBar.rightDate.getTime() - this.zoomBar.leftDate.getTime()) / 3600000;      //  hours
             var from = (this.zoomBar.thumb.begin - this.zoomBar.fraction) * duration;
@@ -19631,7 +19647,7 @@ ASC.Projects.GantChart = (function (window) {
 
             for (j = 0; j < pl; ++j) {
 
-                // весь контент у проекты скрыт
+                // all content in projects is hidden
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -19641,7 +19657,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        // применен фильтр
+                        // filter applied
 
                         if (p[j].m[i].filter) { continue; }
 
@@ -19651,7 +19667,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             task = p[j].m[i].t[s];
 
-                            // применен фильтр
+                            // filter applied
 
                             if (task.filter) { continue; }
 
@@ -19690,7 +19706,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         task = p[j].t[s];
 
-                        // применен фильтр
+                        // filter applied
 
                         if (task.filter) { continue; }
 
@@ -19720,7 +19736,7 @@ ASC.Projects.GantChart = (function (window) {
                     offY += this.itemHeight;
                 } else {
 
-                    // пустой проект имеет только две линии - сам проект и свободные задачи
+                    // an empty project has only two lines - the project itself and free tasks
 
                     offY += margin * 2;
                 }
@@ -19748,7 +19764,7 @@ ASC.Projects.GantChart = (function (window) {
             var taskDrag, milestoneRef, projectRef, indexRemove, changePosition = false, elementLine = -1, elementPlace = -1, elementRemove = -1;
             var links = null;
 
-            // TODO : перенос можем делать в рамках одного проекта
+            // TODO : transfer can be done within one project
 
             if (this.itemToDrop.p !== this.dragTo.p) {
                 this.dragTo = { t: -1, m: -1, p: -1 };
@@ -19777,11 +19793,11 @@ ASC.Projects.GantChart = (function (window) {
 
                         if (kElementCompleted - 1 !== milestoneRef.status()) {
 
-                            // есть связи и перемещение между разными вехами
+                            // there are connections and movement between different milestones
 
                             if (links.length) {
 
-                                // задача имеет связи
+                                // the task has connections
 
                                 this.modelController().addTaskOperation(kHandlerBeforeMoveTaskWithLinks,
                                     {
@@ -19796,7 +19812,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             } else {
 
-                                // если связей нету, то напрямую делаем перенос задачи
+                                // if there are no connections, then we directly transfer the task
 
                                 if (taskDrag.endFail && taskDrag.beginTime >= milestoneRef.endTime) {
                                     taskDrag.updateBegin(milestoneRef.endTime - 24);
@@ -19833,11 +19849,11 @@ ASC.Projects.GantChart = (function (window) {
                         }
                     }
 
-                    // перемещаем задачу из вехи в веху
+                    // moving a task from milestone to milestone
 
                     if (-1 !== this.itemToDrop.m && -1 !== this.dragTo.m) {
 
-                        // переносим только в открытую веху
+                        // transfer only to an open milestone
 
                         if (kElementCompleted - 1 !== this.storage.getMilestone(this.dragTo.p, this.dragTo.m).status()) {
 
@@ -19845,7 +19861,7 @@ ASC.Projects.GantChart = (function (window) {
                             elementLine = this.hitLine.t + 1;
                             elementPlace = elementLine;
 
-                            // была попытка переместить задачу на место самой себя
+                            // there was an attempt to move the task to its place
 
                             if (this.hitLine.t + 1 === indexRemove && this.dragTo.m === this.itemToDrop.m) {
                                 this.dragTo = { t: -1, m: -1, p: -1 };
@@ -19856,7 +19872,7 @@ ASC.Projects.GantChart = (function (window) {
                                 return;
                             }
 
-                            // переместили элемент в ту же веху
+                            // moved the element to the same milestone
 
                             if (this.dragTo.m === this.itemToDrop.m) {
                                 changePosition = true;
@@ -19876,13 +19892,13 @@ ASC.Projects.GantChart = (function (window) {
 
                             links = this.modelController().collectLinks(this.itemToDrop.p, this.itemToDrop.m, ids.t);
 
-                            // есть связи и перемещение между разными вехами
+                            // there are connections and movement between different milestones
 
                             if (links.length && !changePosition) {
 
                                 this.offMenus();
 
-                                // задача имеет связи
+                                // the task has connections
 
                                 this.modelController().addTaskOperation(kHandlerBeforeMoveTaskWithLinks,
                                     {
@@ -19897,7 +19913,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             } else {
 
-                                // если связей нету, то напрямую делаем перенос задачи
+                                // if there are no connections, then we directly transfer the task
 
                                 milestoneRef.addTaskWithIndex(taskDrag, elementPlace);
                                 this.storage.p[this.itemToDrop.p].m[this.itemToDrop.m].removeTask(indexRemove);
@@ -19943,11 +19959,11 @@ ASC.Projects.GantChart = (function (window) {
                 elementLine = this.hitLine.t + 1;
                 elementPlace = elementLine;
 
-                // переместили элемент в ту же веху
+                // moved the element to the same milestone
 
                 if (this.dragTo.m === this.itemToDrop.m) {
 
-                    // была попытка переместить задачу на место самой себя
+                    // there was an attempt to move the task to its place
 
                     if (this.hitLine.t + 1 === indexRemove && this.dragTo.m === this.itemToDrop.m) {
                         this.dragTo = { t: -1, m: -1, p: -1 };
@@ -19971,13 +19987,13 @@ ASC.Projects.GantChart = (function (window) {
                     }
                 }
 
-                // есть связи и перемещение между разными вехами
+                // there are connections and movement between different milestones
 
                 if (links.length && !changePosition) {
 
                     this.offMenus();
 
-                    // задача имеет связи
+                    // the task has connections
 
                     this.modelController().addTaskOperation(kHandlerBeforeMoveTaskWithLinks,
                         {
@@ -20014,7 +20030,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     } else {
 
-                        // если связей нету, то напрямую делаем перенос задачи
+                        // if there are no connections, then we directly transfer the task
 
                         // taskDrag.milestone  =   -1;
                         // var addInd          =   this.storage.p[this.itemToDrop.p].addTask(taskDrag);
@@ -20194,7 +20210,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 if (viewHeight > t.contentHeight && viewHeight > endH && t.rightScroll.offDown === 0) {
 
-                    // по вертикали контент оказался меньше чем видимая область, возможно нужно отскролить выпдадашку вправо
+                    // vertically the content turned out to be smaller than the visible area, you may need to scroll the popup to the right
 
                     if (t.taskDescWidget.isValid()) {
                         if (t.widgetX + t.taskDescWidget.bound.w > t.ctxWidth)
@@ -20252,7 +20268,7 @@ ASC.Projects.GantChart = (function (window) {
             }
         },
 
-        // добавление задачи или вехи (+ctr) через клик мышью на диаграмме
+        // adding a task or milestone (+ctr) by clicking on the diagram
 
         createTask: function (p, m, ind, placeholder) {
             if (this.editBox.enable || this.readMode)
@@ -20314,7 +20330,7 @@ ASC.Projects.GantChart = (function (window) {
                             silentUpdateMode: true
                         });
 
-                    // в проекте было пусто в списке пустых задач, но добавили одну редактируемую задачку
+                    // the project was empty in the list of empty tasks, but one editable task was added
 
                     scrollY = this.getElementPosVertical(p, -1, (1 === this.storage.getProject(p).t.length) ? ind : ind + 1);
                     if (this.rightScroll.value() + this.rightScroll.viewWidth < scrollY) {
@@ -20330,7 +20346,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 this.queryMoveLinks = null;
 
-                // в закрытую веху не добавляем элементы
+                // do not add elements to a closed milestone
 
                 if (this.storage.p[p].m[m]._status == kElementCompleted - 1) {
                     return;
@@ -20453,7 +20469,7 @@ ASC.Projects.GantChart = (function (window) {
                             silentUpdateMode: true
                         });
 
-                    // центрируем элемент по вертикали (веха может быть добавлена вне видимой области)
+                    // center the element vertically (the milestone can be added outside the visible area)
 
                     var t = this;
                     this.viewController().centeringElement(milestoneRef.id(), true, function () { t.updateContent() }, true);
@@ -20793,16 +20809,16 @@ ASC.Projects.GantChart = (function (window) {
                 if (this.linkLineEdit) {
                     if (this.linkLineEdit.parent) {
 
-                        // проверяем по id
+                        // check by id
                         if (this.linkLineEdit.parent._id !== this.linkLineEdit.task._id) {
 
-                            // стороны на валидность
+                            // parties for validity
                             if (kTaskSideNone !== this.linkLineEdit.side && kTaskSideNone !== this.linkLineEdit.parentSide) {
 
-                                // добавляем связь между задачами в одном проекте
+                                // add a link between tasks in one project
                                 if (this.linkLineEdit.pp === this.linkLineEdit.p) {
 
-                                    // добавляем связь между задачами в одной вехе или в свободной зоне
+                                    // add links between tasks in the same milestone or free zone
                                     if (this.linkLineEdit.pm === this.linkLineEdit.m) {
 
                                         if (kElementCompleted !== this.linkLineEdit.parent._status) {
@@ -20856,7 +20872,7 @@ ASC.Projects.GantChart = (function (window) {
 
                                             if (!dublicate) {
 
-                                                // между двуями задачми может быть только одна связь
+                                                // there can only be one connection between two tasks
 
                                                 var haveLink = false;
 
@@ -20985,7 +21001,7 @@ ASC.Projects.GantChart = (function (window) {
 
             if (!dublicate) {
 
-                // между двуями задачми может быть только одна связь
+                // there can only be one connection between two tasks
 
                 var haveLink = false;
 
@@ -21111,7 +21127,7 @@ ASC.Projects.GantChart = (function (window) {
 
                 // background
 
-                ctx.fillStyle = '#F3F3F3';
+                ctx.fillStyle =  '#F3F3F3';
                 ctx.fillRect(0, 0, rect.width, this.ctxHeight);
                 ctx.fillStyle = '#CCCCCC';
                 ctx.fillRect(rect.width, 0, 1, this.ctxWidth);
@@ -21140,7 +21156,7 @@ ASC.Projects.GantChart = (function (window) {
 
                     lockProject = p[j].isLocked() || p[j].isInReadMode();
 
-                    // строка проекта
+                    // project line
 
                     if (offY >= 0) {
 
@@ -21171,7 +21187,7 @@ ASC.Projects.GantChart = (function (window) {
                         drawCollapseArrow(p[j].fullCollapse, 230, offY + margin * 0.35 + topAdd);
                     }
 
-                    // весь контент у проекты скрыт
+                    // all content in projects is hidden
 
                     if (p[j].fullCollapse) {
                         offY += margin;
@@ -21193,7 +21209,7 @@ ASC.Projects.GantChart = (function (window) {
 
                         for (m = 0; m < p[j].m.length; ++m) {
 
-                            // применен фильтр
+                            // filter applied
 
                             if (p[j].m[m].filter) { continue; }
 
@@ -21253,7 +21269,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             for (i = 0; i < p[j].m[m].t.length; ++i) {
 
-                                // применен фильтр
+                                // filter applied
 
                                 if (p[j].m[m].t[i].filter) { continue; }
 
@@ -21334,7 +21350,7 @@ ASC.Projects.GantChart = (function (window) {
                             ctx.fillRect(0, offY + margin + topAdd, rect.width - 15, 1);
                         }
 
-                        // свободные задачи в проекте скрыты
+                        // free tasks in the project are hidden
 
                         if (p[j].collapse) {
                             drawCollapseArrow(p[j].collapse, 230, offY + margin * 0.35 + topAdd);
@@ -21355,7 +21371,7 @@ ASC.Projects.GantChart = (function (window) {
 
                             for (i = 0; i < p[j].t.length; ++i) {
 
-                                // применен фильтр
+                                // filter applied
 
                                 if (p[j].t[i].filter) { continue; }
 
@@ -21417,7 +21433,7 @@ ASC.Projects.GantChart = (function (window) {
                             }
                         } else {
 
-                            // линия свободных задач
+                            // line of free tasks
 
                             offY += this.itemMargin;
                         }
@@ -21444,7 +21460,7 @@ ASC.Projects.GantChart = (function (window) {
                             ctx.fillRect(0, offY + margin + topAdd, rect.width - 15, 1);
                         }
 
-                        // пустой проект имеет только две линии - сам проект и свободные задачи
+                        // an empty project has only two lines - the project itself and free tasks
 
                         offY += this.itemMargin;
                     }

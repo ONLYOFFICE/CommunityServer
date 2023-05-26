@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,30 +37,40 @@ namespace ASC.ActiveDirectory.Base.Data
         private volatile string _hash;
         private volatile int[] _certificateErrors;
 
+        ///<example>true</example>
         [DataMember]
         public bool Approved { get { return _approved; } set { _approved = value; } }
 
+        ///<example>true</example>
         [DataMember]
         public bool Requested { get { return _requested; } set { _requested = value; } }
 
+        ///<example>SerialNumber</example>
         [DataMember]
         public string SerialNumber { get { return _serialNumber; } set { _serialNumber = value; } }
 
+        ///<example>IssuerName</example>
         [DataMember]
         public string IssuerName { get { return _issuerName; } set { _issuerName = value; } }
 
+        ///<example>SubjectName</example>
         [DataMember]
         public string SubjectName { get { return _subjectName; } set { _subjectName = value; } }
 
+        ///<example>2019-07-26T00:00:00</example>
         [DataMember]
         public DateTime ValidFrom { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         [DataMember]
         public DateTime ValidUntil { get; set; }
 
+        ///<example>Hash</example>
         [DataMember]
         public string Hash { get { return _hash; } set { _hash = value; } }
 
+        ///<example type="int">1</example>
+        ///<collection>list</collection>
         [DataMember]
         public int[] CertificateErrors { get { return _certificateErrors; } set { _certificateErrors = value; } }
 

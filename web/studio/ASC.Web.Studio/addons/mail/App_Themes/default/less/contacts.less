@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 */
 
 
-@import 'settings.less';
 @import 'mixins.less';
 
 .contacts_list {
@@ -38,6 +37,8 @@
             input {
                 margin-left: 9px;
                 float: none;
+                accent-color: @checkbox-accent-color;
+                color-scheme: @checkbox-color-sheme;
             }
         }
 
@@ -46,10 +47,10 @@
             padding: 4px;
 
             .contact_avatar_fake, .contact_avatar {
-                border: 1px solid #c7c7c7;
+                border: 1px solid @border-color;
                 height: 32px;
                 width: 32px;
-                background-color: #fff;
+                background-color: @body-color;
             }
 
             .contact_avatar_fake {
@@ -72,6 +73,7 @@
                 text-overflow: ellipsis;
                 font-weight: bold;
             }
+
             .title, .crm_company {
                 .box-sizing(border-box);
                 padding-right: @row-height * 0.25;
@@ -100,7 +102,7 @@
                     height: 18px;
 
                     .contactEmail {
-                        color: #333333;
+                        color: @text-color;
                         font-size: 12px;
                         text-decoration: none;
                         cursor: pointer;
@@ -133,7 +135,7 @@
                     height: 18px;
 
                     .contactPhone {
-                        color: #333333;
+                        color: @text-color;
                         font-size: 12px;
                         text-decoration: none;
                         text-overflow: ellipsis;
@@ -183,7 +185,7 @@
 
             .more_lnk {
                 .gray {
-                    border-bottom: 1px dotted #333;
+                    border-bottom: 1px dotted @text-color;
                 }
             }
         }
@@ -233,7 +235,7 @@
                 float: left;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                color: #333333;
+                color: @text-color;
                 max-width: 256px;
             }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -153,7 +153,7 @@ namespace ASC.Mail
                         .ToDictionary(s => s[0], s => s[1]);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // skip error
             }
@@ -183,6 +183,7 @@ namespace ASC.Mail
         public const string OAUTH2 = "oauth2";
         public const string PASSWORD_CLEARTEXT = "password-cleartext";
         public const string PASSWORD_ENCRYPTED = "password-encrypted";
+        public const string PASSWORD_NTLM = "password-ntlm";
         public const string NONE = "none";
         public const string GET_IMAP_POP_SETTINGS = "get_imap_pop_settings";
         public const string GET_IMAP_SERVER = "get_imap_server";
@@ -197,7 +198,7 @@ namespace ASC.Mail
         public const string ORDER_BY_DATE_CHAIN = "chaindate";
         public const string ORDER_BY_SENDER = "sender";
         public const string ORDER_BY_SUBJECT = "subject";
-        public const string CONNECTION_STRING_NAME = "mail";
+        public const string CONNECTION_STRING_NAME = "default";
         public const string DNS_DEFAULT_ORIGIN = "@";
         public const string ARCHIVE_NAME = "download.zip";
         public static readonly DateTime BaseJsDateTime = new DateTime(1970, 1, 1);

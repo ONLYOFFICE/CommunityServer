@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,29 +22,40 @@ namespace ASC.Api.Settings.Smtp
     [DataContract(Name = "quota", Namespace = "")]
     public class SmtpSettingsWrapper
     {
+        ///<example>mail.example.com</example>
         [DataMember]
         public string Host { get; set; }
 
+        ///<example type="int">25</example>
         [DataMember]
         public int? Port { get; set; }
 
+        ///<example>notify@example.com</example>
         [DataMember]
         public string SenderAddress { get; set; }
 
+        ///<example>Postman</example>
         [DataMember]
         public string SenderDisplayName { get; set; }
 
+        ///<example>notify@example.com</example>
         [DataMember]
         public string CredentialsUserName { get; set; }
 
+        ///<example>{password}</example>
         [DataMember]
         public string CredentialsUserPassword { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool EnableSSL { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool EnableAuth { get; set; }
+
+        [DataMember]
+        public bool UseNtlm { get; set; }
 
         public static SmtpSettingsWrapper GetSample()
         {
@@ -56,6 +67,7 @@ namespace ASC.Api.Settings.Smtp
                 CredentialsUserPassword = "{password}",
                 EnableAuth = true,
                 EnableSSL = false,
+                UseNtlm = false,
                 SenderAddress = "notify@example.com",
                 SenderDisplayName = "Postman"
             };

@@ -1,0 +1,213 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../App_Themes/default/params.less";
+
+#chunkUploadDialog .progress-dialog-header.menu-upload-icon {
+    background-image: url("../../../../skins/default/images/svg/crm/@{uploadsvg}");
+    background-position: 24px center;
+    background-repeat: no-repeat;
+    padding-left: 48px;
+}
+#chunkUploadDialog .settings-container {
+    line-height: 32px;
+    height: 32px;
+}
+#chunkUploadDialog .files-container {
+    max-height: 240px;
+    margin-bottom: 8px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.upload-info-container {
+    margin-top: 8px;
+    min-height: 8px;
+}
+#chunkUploadDialog .info-content {
+    margin-bottom: 8px;
+}
+.fu-width-icon {
+    width: 30px;
+}
+.fu-width-progress {
+    width: 110px;
+}
+.fu-width-action {
+    width: 90px;
+}
+body.wild-pink .upload-svg {
+    fill: @body-color;
+}
+body.bright-blue .upload-svg {
+    fill: @body-color;
+}
+.upload-svg {
+    fill: @upload-svg;
+    width: 16px;
+    height: 16px;
+    padding-top: 3px;
+}
+.fu-row .fu-action-cell {
+    text-align: right;
+    width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fu-row .fu-progress-cell {
+    text-align: center;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fu-row .fu-title-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 184px;
+}
+.fu-row .fu-title-cell span {
+    cursor: default;
+}
+.fu-row.done .ftFile_21,
+.fu-row.done .fu-title-cell span {
+    cursor: pointer;
+}
+
+.fu-row progress,
+.fu-row .asc-progress-wrapper,
+.fu-row .progress-color-anim {
+    float: left;
+    width: 100px;
+}
+.fu-row .progress-color-anim {
+    height: 14px;
+    background: url("images/uploader_progress.gif") no-repeat scroll 0 0 @border-color;
+}
+.fu-row .progress-label {
+    color: @body-color;
+    float: left;
+    font-size: 10px;
+    margin-left: -100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.fu-row.upload .share,
+.fu-row.upload .enter-password,
+.fu-row.upload .hide-enter-password,
+.fu-row.upload .upload-complete,
+.fu-row.upload .upload-error,
+.fu-row.upload .upload-canceled {
+    display: none;
+}
+.fu-row.done .abort-file-uploadig,
+.fu-row.done .enter-password,
+.fu-row.done .hide-enter-password,
+.fu-row.done progress,
+.fu-row.done .asc-progress-wrapper,
+.fu-row.done .progress-label,
+.fu-row.done .progress-color-anim,
+.fu-row.done .upload-error,
+.fu-row.done .upload-canceled {
+    display: none;
+}
+.fu-row.error .abort-file-uploadig,
+.fu-row.error .share,
+.fu-row.error .hide-enter-password,
+.fu-row.error progress,
+.fu-row.error .asc-progress-wrapper,
+.fu-row.error .progress-label,
+.fu-row.error .progress-color-anim,
+.fu-row.error .upload-complete,
+.fu-row.error .upload-canceled {
+    display: none;
+}
+.fu-row.canceled progress,
+.fu-row.canceled .asc-progress-wrapper,
+.fu-row.canceled .progress-label,
+.fu-row.canceled .progress-color-anim,
+.fu-row.canceled .upload-complete,
+.fu-row.canceled .fu-action-cell,
+.fu-row.canceled .upload-error {
+    display: none;
+}
+.fu-row.convert .fu-action-cell,
+.fu-row.convert .upload-complete,
+.fu-row.convert .upload-error,
+.fu-row.convert .upload-canceled {
+    display: none;
+}
+
+.fu-row.error .enter-password,
+.fu-row.error .hide-enter-password {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.fu-row:hover .linkMedium {
+    text-decoration: underline;
+}
+
+#abortUploadigBtn {
+    float: right;
+    margin-left: 5px;
+}
+
+#uploadSettingsPanel ul.dropdown-content label {
+    white-space: nowrap;
+}
+
+#uploadSettingsSwitcher {
+    cursor: pointer;
+}
+
+table.tableBase tbody tr.fu-password-row:hover {
+    background-color: @body-color;
+}
+
+table.tableBase tbody tr.fu-password-row span:hover {
+    text-decoration: none;
+}
+
+.convert-input-button {
+    display: flex;
+    margin-bottom: 4px;
+}
+
+.convert-password-text,
+.convert-password-error-invalid {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.convert-password-error-invalid {
+    display: none;
+}
+
+.convert-password-input {
+    width: 100%;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.convert-button {
+    float: right;
+}

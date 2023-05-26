@@ -42,3 +42,8 @@ Template: {{package_sysname}}-communityserver/imapsync-start-date
 Type: string
 Default: 
 Description: ImapSync service launch date:
+
+Template: {{package_sysname}}-communityserver/machinekey
+Type: string
+Default: 
+Description: Enter your own machinekey:

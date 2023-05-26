@@ -858,9 +858,6 @@ Ha a mentést a levelezéssel együtt készíti el, csak az utolsó 30 nap level
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>A {1}Megbízható Levéltartomány Beállításai{2} segítségével meghatározható az a levélszerver, ami segítségével a felhasználók az önregisztrációt végzik.{0}Választása szerint bejelölheti a {1}Saját Tartományok {2} opciót és megadhat egy megbízható levelezőszervert az alábbi mezőben - ezzel azok a felhasználók, akiknek van fiókjuk azon a szerveren regisztrálhatják magukat a {1}Rgisztráció{2} oldalon a Csatlakozás linkre kattintva. Ez az opció le is tilható.{0}A változások életbelépéséhez kattintson a{1}Mentés{2} gombra a szekció alján.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>A {1}Jelszó Erősségének Beállítása{2} lehetőség arra, hogy meghatározzuk mennyire legyen ellenálló a jelszó a találgatással, illetve a brute-force támadással szemben.{0}Használja a {1}Minimális Jelszóhossz{2} csúszkát, hogy meghatározza hány karakterből kell a jelszónak állnia. Pipálja ki a megfelelő checkboxokat aszerint, hogy milyen karakterkészlet használatát írja elő a jelszó számára.{0}A beállítások életbeléptetéséhez kattintson a {1}Mentés{2} gombra a szekció alján.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>A{1}Nyilvános Portál{2} lehetőség arra, hogy bárki megtekinthesse az Ön publikus tartalmait anélkül, hogy regisztrálnia kellene. Ilyenkor a magánprojektek, illetve a CRM modul nem elérhető.{0}A nyilvános portálra regisztráló felhasználók száma nincs korlátozva, új felhasználók a portáladminisztrátor kérésére lesznek tagok. Használja az  {1}Új Felhasználó Regisztrálása Azonnal{2} opciót, hogy eltávolítson minden regisztráció-megerősítési kötelességet.</value>
   </data>
@@ -1014,9 +1011,6 @@ Ha a mentést a levelezéssel együtt készíti el, csak az utolsó 30 nap level
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Engedélyez</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>Az {0}IP Biztonság{1} használatával korlátozható a belépés a megadott IP-címeken kívül minden egyéb IP-címről. Az engedélyezett IP-címeket megadhatja egzakt IPv4 formátumú címekkel (#.#.#.#, ahol a # egy 0 és 255 közötti értéket jelöl), vagy megadhat tartományt is (#.#.#.#-#.#.#.# formátumban). Az IP biztonság a portál tulajdonosaira nem vonatkozik, ők továbbra is bárhonnan beléphetnek.</value>
   </data>
   <data name="IpSecurityWarning" xml:space="preserve">
     <value>Először meg kell adnia jelenlegi IP-címét, vagy azt az IP-tartományt, amelybe a jelenlegi IP-címe tartozik, ellenkező esetben a beállítások mentése után azonnal megszűnik a portál-hozzáférése. A portáltulajdonos továbbra is bármilyen IP-címről hozzáfér a portálhoz. </value>

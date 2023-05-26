@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,6 @@ input[type="button"]::-moz-focus-inner {
         Text style
 *******************************************************************************/ 
 p {
-    color:@textColor;
     font-size: 12px;
 }
 
@@ -103,7 +102,7 @@ blockquote {
     New label Banner
 *******************************************************************************/
 .new-label-banner {
-    color: #fff;
+    color: @textColor;
     padding: 2px 8px;
     margin: 0 0 0 8px;
     .borderRadius();
@@ -155,7 +154,8 @@ blockquote {
     padding: 9px 12px 12px 40px;
 
     &.excl {
-        background: url('@{imagesBaseUrl}toast_icon01.png') no-repeat 9px 9px #F5E1A2;
+        background: url('@{imagesBaseUrl}toast_icon01.png') no-repeat 9px 9px @info-box-excl-bg;
+        border: @info-box-excl-bor;
     }
 
     .btn-close {
@@ -165,7 +165,7 @@ blockquote {
         cursor: pointer;
         width: 8px;
         height: 8px;
-        background: url('@{imagesBaseUrl}close.png') no-repeat;
+        background: @info-box-excl-close no-repeat;
     }
 }
 
@@ -175,7 +175,7 @@ blockquote {
 *******************************************************************************/
 
 .header-with-menu {
-    color: #333;
+    color: @textColor;
     font-size: 24px;
     max-width: 900px;
     overflow: hidden;
@@ -400,8 +400,8 @@ blockquote {
     &:active, 
     &:hover, 
     &:focus {
-        .bg-button-default();
-        color: @grayButtonTextColor;
+        .bg-button-grey-phone();
+        color: @greyPhoneButtonTextColor;
     }
 }
 body.media-width-0-1200 {
@@ -428,7 +428,7 @@ body.media-width-0-1200 {
     cursor: pointer;
     display: inline-block;
     font-size: 11px;
-    margin: 0 0 3px 13px;
+    margin: 0 0 3px 12px;
     vertical-align: middle;
 }
 
@@ -478,12 +478,12 @@ body.media-width-0-1200 {
     margin-top:16px;
 
     span {
-        background:url("../default/images/loader_16.gif") no-repeat left center transparent;   
+        background: url("images/@{loader-gif-16}") no-repeat left center transparent;
         padding-left: 20px;
     }
 }
 .loader16 {
-    background:url("../default/images/loader_16.gif") no-repeat left center transparent;   
+    background: url("images/@{loader-gif-16}") no-repeat left center transparent;
     position: absolute;
     height: 16px;
     width: 16px;

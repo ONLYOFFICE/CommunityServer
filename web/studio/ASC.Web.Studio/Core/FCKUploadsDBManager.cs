@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ namespace ASC.Web.Studio.Core
 
         public static void SetUploadRelations(string storeDomain, string folderID, string itemID)
         {
-            using (var _dbManager = DbManager.FromHttpContext(_databaseID))
+            using (var _dbManager = new DbManager(_databaseID))
             {
                 _dbManager.Connection.CreateCommand(
                     @"insert into webstudio_fckuploads (TenantID, StoreDomain, FolderID, ItemID)
@@ -42,7 +42,7 @@ namespace ASC.Web.Studio.Core
 
         public static string GetFolderID(string storeDomain, string itemID)
         {
-            using (var _dbManager = DbManager.FromHttpContext(_databaseID))
+            using (var _dbManager = new DbManager(_databaseID))
             {
                 return _dbManager.ExecuteScalar<string>(new SqlQuery("webstudio_fckuploads").Select("FolderID")
                     .Where(Exp.Eq("TenantID", TenantProvider.CurrentTenantID) &
@@ -53,7 +53,7 @@ namespace ASC.Web.Studio.Core
 
         public static void RemoveUploadRelation(string storeDomain, string folderID, string itemID)
         {
-            using (var _dbManager = DbManager.FromHttpContext(_databaseID))
+            using (var _dbManager = new DbManager(_databaseID))
             {
                 _dbManager.ExecuteNonQuery(new SqlDelete("webstudio_fckuploads")
                     .Where(Exp.Eq("TenantID", TenantProvider.CurrentTenantID) &

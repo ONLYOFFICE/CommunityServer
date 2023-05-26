@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -373,7 +373,7 @@ namespace ASC.CRM.Core.Dao
             var ids = items.Select(x => x.ID).ToArray();
 
             //using (var tx = db.BeginTransaction(true))
-            ///{
+            //{
             Db.ExecuteNonQuery(Delete("crm_invoice_item").Where(Exp.In("id", ids)));
             //    tx.Commit();
             //}

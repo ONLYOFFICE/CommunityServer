@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1638,7 +1638,6 @@ ASC.CRM.DealActionView = (function() {
 
         window["dealClientSelector"] = new ASC.CRM.ContactSelector.ContactSelector("dealClientSelector",
         {
-            SelectorType: ASC.CRM.Data.ContactSelectorTypeEnum.CompaniesAndPersonsWithoutCompany,
             EntityType: 0,
             EntityID: 0,
             ShowOnlySelectorContent: false,
@@ -2297,7 +2296,7 @@ ASC.CRM.DealDetailsView = (function() {
             params.taskResponsibleSelectorUserIDs = window.dealResponsibleIDs;
         }
 
-        jq("#menuCreateNewTask").on("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, window.entityData.type, window.entityData.id, null, params); });
+        jq("#menuCreateNewTask").on("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, window.entityData.type, window.entityData.id, window.contactForInitTaskActionPanel, params); });
 
         ASC.CRM.ListTaskView.bindEmptyScrBtnEvent(params);
     };

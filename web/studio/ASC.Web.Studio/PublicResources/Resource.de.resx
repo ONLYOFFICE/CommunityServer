@@ -1909,9 +1909,6 @@ Möchten Sie wirklich {0} {!group} löschen?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>Die {1}Einstellungen sicherer Mail-Domains{2} erlauben Ihnen, die Mail-Server anzugeben, die für die Selbstregistrierung der Benutzer auf Ihrem ONLYOFFICE™-Portal verwendet werden dürfen.{0}Sie können entweder die Option {1}Benutzerdefinierte Domains{2} markieren und sichere Mail-Server im Feld unten eingeben, so dass die Personen, die ein Konto auf dem angegebenen Mail-Server haben, sich mit einem Klick auf den Link 'Beitreten' auf der {1}Loginseite{2} registrieren können, oder diese Option deaktivieren.{0}Um die Änderungen zu übernehmen, klicken Sie auf den Button {1}Speichern{2} im unteren Bereich der Sektion.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>Die {1}Einstellungen der Kennwortstärke{2} lassen die Kennwortstärke bestimmen (die Effizienz eines Kennworts beim Widersetzen den Brute-Force-Angriffen und sonstigen Versuchen, das Kennwort zu erraten).{0}Nutzen Sie den Schieberegler {1}Minimale Kennwortlänge{2}, um anzugeben, wie lang das Kennwort sein muss, um als stark betrachtet zu werden. Aktivieren Sie die entsprechenden Kontrollkästchen, um die Zeichen festzulegen, die im Kennwort verwendet werden müssen.{0}Um die Änderungen zu übernehmen, klicken Sie auf den Button {1}Speichern{2} im unteren Bereich der Sektion.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Öffentliches Portal{2} ist eine kostenlose Option, die es Ihnen ermöglicht, Ihre öffentlichen Inhalte ohne Registrierung anzuzeigen. Für solche Portale sind private Projekte und CRM-Modul nicht verfügbar.{0}Die Registrierung für öffentliche Portale ist auf Anzahl der Benutzer nicht begrenzt. Neue Benutzer werden bei Anfrage an den Portaladministrator hinzugefügt. Nutzen Sie die Option {1}Neue Benutzer sofort registrieren{2}, um die notwendige Anmeldebestätigung zu vermeiden.</value>
   </data>
@@ -2155,9 +2152,6 @@ Möchten Sie wirklich {0} {!group} löschen?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Aktivieren</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP-Sicherheit{1} wird genutzt, um den Zugriff auf das Portal für alle IP-Adressen außer für bestimmte einzuschränken. Sie können die zugelassenen IP-Adressen mithilfe von exakten IP-Adressen im IPv4-Format (#.#.#.#, wo # ein nummerischer Wert von 0 bis 255 ist) oder IP-Adressbereich (im Format #.#.#.#-#.#.#.#) einstellen.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP-Sicherheit</value>
@@ -2896,9 +2890,6 @@ wenn Sie die Felder des gesperrten Profils ändern möchten.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Änderung des Kennworts</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimale Kennwortlänge</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Wiederherstellung des Kennworts</value>

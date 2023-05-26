@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,6 +54,8 @@ namespace ASC.Api.Calendar.Wrappers
             _isCalendar = false;
         }
 
+        ///<example name="id">2fdfe577-3c26-4736-9df9-b5a683bb8520</example>
+        ///<order>10</order>
         [DataMember(Name = "id", Order = 10)]
         public string ItemId
         {
@@ -64,6 +66,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="name">Everyone</example>
+        ///<order>20</order>
         [DataMember(Name = "name", Order = 20)]
         public string ItemName
         {
@@ -77,6 +81,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="isGroup">true</example>
+        ///<order>30</order>
         [DataMember(Name = "isGroup", Order = 30)]
         public new bool IsGroup
         {
@@ -87,6 +93,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="canEdit">true</example>
+        ///<order>40</order>
         [DataMember(Name = "canEdit", Order = 40)]
         public bool CanEdit
         {
@@ -97,6 +105,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<type name="selectedAction">ASC.Api.Calendar.Wrappers.AccessOption, ASC.Api.Calendar</type>
+        ///<order>50</order>
         [DataMember(Name = "selectedAction", Order = 50)]
         public AccessOption SharingOption
         {

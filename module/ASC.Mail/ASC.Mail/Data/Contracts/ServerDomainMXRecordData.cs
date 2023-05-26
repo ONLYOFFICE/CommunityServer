@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,15 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "DNSRecord")]
     public class ServerDomainMxRecordData
     {
+        ///<example>Host</example>
         [DataMember(IsRequired = true)]
         public string Host { get; set; }
 
+        ///<example type="int">1234</example>
         [DataMember(IsRequired = true)]
         public int Priority { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = true)]
         public bool IsVerified { get; set; }
     }

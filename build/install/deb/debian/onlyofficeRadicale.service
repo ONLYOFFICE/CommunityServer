@@ -4,10 +4,10 @@ After=network.target syslog.target mysql.service redis-server.service
 Wants=mysql.service redis-server.service
 
 [Service]
-Type=forking
+Type=simple
+WorkingDirectory=/var/www/onlyoffice/Services/TeamLabSvc
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeRadicale'
-ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeRadicale /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.Radicale.Launcher,ASC.Radicale\" --log Radicale
-Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+ExecStart=/usr/bin/python3 -m radicale --config /var/www/onlyoffice/Services/TeamLabSvc/radicale.config
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

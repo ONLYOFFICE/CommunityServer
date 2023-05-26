@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetEditHistory, completeGetEditHistory);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetDiffUrl, completeGetDiffUrl);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.RestoreVersion, completeGetEditHistory);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetReferenceData, completeGetReferenceData);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetMails, completeGetMails);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FileRename, completeRename);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetUsers, completeGetUsers);
@@ -113,6 +114,8 @@ window.ASC.Files.Editor = (function () {
                 if (!!documentConfig.permissions.changeHistory) {
                     eventsConfig.onRequestRestore = ASC.Files.Editor.restoreVersion;
                 }
+
+                eventsConfig.onRequestReferenceData = ASC.Files.Editor.requestReferenceData;
             }
 
             if (ASC.Files.Editor.docServiceParams.canGetUsers) {
@@ -258,6 +261,18 @@ window.ASC.Files.Editor = (function () {
                 shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam,
                 setLast: true,
                 url: versionData.data.url || "",
+            });
+    };
+
+    var requestReferenceData = function (event) {
+        var reference = event.data;
+
+        ASC.Files.ServiceManager.getReferenceData(ASC.Files.ServiceManager.events.GetReferenceData,
+            {
+                fileKey: reference.referenceData ? reference.referenceData.fileKey : "",
+                instanceId: reference.referenceData ? reference.referenceData.instanceId : "",
+                sourceFileId: ASC.Files.Editor.docServiceParams.fileId,
+                path: reference.path || "",
             });
     };
 
@@ -473,6 +488,25 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.Editor.docEditor.setHistoryData(jsonData);
     };
 
+    var completeGetReferenceData = function (jsonData, params, errorMessage) {
+        if (typeof ASC.Files.Editor.docEditor.setReferenceData != "function") {
+            if (typeof errorMessage != "undefined") {
+                ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
+            } else {
+                ASC.Files.Editor.docEditor.showMessage("Function is not available");
+            }
+            return;
+        }
+
+        if (typeof errorMessage != "undefined") {
+            jsonData = {
+                error: errorMessage || "Connection is lost"
+            };
+        }
+
+        ASC.Files.Editor.docEditor.setReferenceData(jsonData);
+    };
+
     var completeGetMails = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.setEmailAddresses != "function") {
             if (typeof errorMessage != "undefined") {
@@ -560,6 +594,7 @@ window.ASC.Files.Editor = (function () {
         historyClose: historyClose,
         getDiffUrl: getDiffUrl,
         restoreVersion: restoreVersion,
+        requestReferenceData: requestReferenceData,
         getMails: getMails,
         requestStartMailMerge: requestStartMailMerge,
         rename: rename,

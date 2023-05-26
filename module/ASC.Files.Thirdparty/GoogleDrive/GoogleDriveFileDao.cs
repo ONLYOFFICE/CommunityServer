@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -231,11 +231,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (driveFile == null) throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
             if (driveFile is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFile).Error);
 
-            var fileStream = GoogleDriveProviderInfo.Storage.DownloadStream(driveFile, (int)offset);
+            long length;
+            var fileStream = GoogleDriveProviderInfo.Storage.DownloadStream(driveFile, (int)offset, out length);
 
-            if (!driveFile.Size.HasValue && fileStream != null && fileStream.CanSeek)
+            if (offset == 0)
             {
-                file.ContentLength = fileStream.Length; // hack for google drive
+                file.ContentLength = length;
             }
 
             return fileStream;
@@ -278,7 +279,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             return SaveFile(file, fileStream);
         }
-
+        public void DeleteFile(object fileId, Guid ownerId)
+        {
+            DeleteFile(fileId);
+        }
         public void DeleteFile(object fileId)
         {
             var driveFile = GetDriveEntry(fileId);
@@ -413,7 +417,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public ChunkedUploadSession CreateUploadSession(File file, long contentLength)
         {
-            if (SetupInfo.ChunkUploadSize > contentLength)
+            if (SetupInfo.ChunkUploadSize > contentLength && contentLength != -1)
                 return new ChunkedUploadSession(RestoreIds(file), contentLength) { UseChunks = false };
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
@@ -458,7 +462,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (uploadSession.Items.ContainsKey("GoogleDriveSession"))
             {
                 var googleDriveSession = uploadSession.GetItemOrDefault<ResumableUploadSession>("GoogleDriveSession");
-                GoogleDriveProviderInfo.Storage.Transfer(googleDriveSession, stream, chunkLength);
+                GoogleDriveProviderInfo.Storage.Transfer(googleDriveSession, stream, chunkLength, uploadSession.LastChunk);
             }
             else
             {
@@ -471,7 +475,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             uploadSession.BytesUploaded += chunkLength;
 
-            if (uploadSession.BytesUploaded == uploadSession.BytesTotal)
+            if (uploadSession.BytesUploaded == uploadSession.BytesTotal || uploadSession.LastChunk)
             {
                 uploadSession.File = FinalizeUploadSession(uploadSession);
             }
@@ -514,7 +518,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
             else if (uploadSession.Items.ContainsKey("TempPath"))
             {
-                System.IO.File.Delete(uploadSession.GetItemOrDefault<string>("TempPath"));
+                var path = uploadSession.GetItemOrDefault<string>("TempPath");
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
             }
         }
 
@@ -589,6 +597,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public void SaveProperties(object fileId, EntryProperties entryProperties)
         {
+        }
+
+        public Task UploadChunkAsync(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

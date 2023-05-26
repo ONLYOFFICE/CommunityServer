@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ namespace ASC.Notify.Textile
     public class TextileStyler : IPatternStyler
     {
         private static readonly Regex VelocityArguments = new Regex(NVelocityPatternFormatter.NoStylePreffix + "(?<arg>.*?)" + NVelocityPatternFormatter.NoStyleSuffix, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
-
+        private static readonly Regex SupReplacement = new Regex(@"(\S+)\[(.*?)\]", RegexOptions.Compiled);
         static TextileStyler()
         {
             const string file = "ASC.Notify.Textile.Resources.style.css";
@@ -61,7 +61,7 @@ namespace ASC.Notify.Textile
             }
 
             if (string.IsNullOrEmpty(message.Body)) return;
-
+            message.Body = SupReplacement.Replace(message.Body, @"$1&#91;$2&#93;");
             formatter.Format(message.Body);
 
             var template = GetTemplate(message);
@@ -187,13 +187,13 @@ namespace ASC.Notify.Textile
                     InitSocialFooter(settings, out footerSocialContent);
                     break;
                 case "personal":
-                    footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV10;
+                    footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV121;
                     break;
                 case "personalCustomMode":
                     break;
                 case "opensource":
-                    footerContent = NotifyTemplateResource.FooterOpensourceV10;
-                    footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV10;
+                    footerContent = NotifyTemplateResource.FooterOpensourceV121;
+                    footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV121;
                     break;
             }
         }
@@ -206,21 +206,21 @@ namespace ASC.Notify.Textile
             if (settings == null)
             {
                 footerContent =
-                    NotifyTemplateResource.FooterCommonV10
+                    NotifyTemplateResource.FooterCommonV121
                                           .Replace("%SUPPORTURL%", MailWhiteLabelSettings.DefaultMailSupportUrl)
                                           .Replace("%SALESEMAIL%", MailWhiteLabelSettings.DefaultMailSalesEmail)
                                           .Replace("%DEMOURL%", MailWhiteLabelSettings.DefaultMailDemoUrl);
-                footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV10;
+                footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV121;
 
             }
             else if (settings.FooterEnabled)
             {
                 footerContent =
-                    NotifyTemplateResource.FooterCommonV10
+                    NotifyTemplateResource.FooterCommonV121
                     .Replace("%SUPPORTURL%", String.IsNullOrEmpty(settings.SupportUrl) ? "mailto:" + settings.SalesEmail : settings.SupportUrl)
                     .Replace("%SALESEMAIL%", settings.SalesEmail)
                     .Replace("%DEMOURL%", String.IsNullOrEmpty(settings.DemoUrl) ? "mailto:" + settings.SalesEmail : settings.DemoUrl);
-                footerSocialContent = settings.FooterSocialEnabled ? NotifyTemplateResource.SocialNetworksFooterV10 : string.Empty;
+                footerSocialContent = settings.FooterSocialEnabled ? NotifyTemplateResource.SocialNetworksFooterV121 : string.Empty;
             }
         }
 
@@ -229,7 +229,7 @@ namespace ASC.Notify.Textile
             footerSocialContent = string.Empty;
 
             if (settings == null || (settings.FooterEnabled && settings.FooterSocialEnabled))
-                footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV10;
+                footerSocialContent = NotifyTemplateResource.SocialNetworksFooterV121;
         }
 
         private static string GetUnsubscribeText(NoticeMessage message, MailWhiteLabelSettings settings)

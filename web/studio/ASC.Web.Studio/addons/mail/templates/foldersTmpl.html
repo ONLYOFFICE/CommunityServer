@@ -26,7 +26,7 @@
                         {{/if}}
                       {{/if}}
                       {{if id==3}}
-                           <span class="unread {{if total_count > 0}}new-label-menu nohover{{/if}}" style="background-color: transparent; color: black; font-size: 14px;">{{if total_count > 0}}${total_count}{{/if}}</span>
+                           <span class="unread {{if total_count > 0}}new-label-menu nohover{{/if}}" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 }} style="background-color: transparent; color: black; font-size: 14px;" {{else}}  style="background-color: transparent; color: #fff; font-size: 14px;" {{/if}}>{{if total_count > 0}}${total_count}{{/if}}</span>
                       {{/if}}
                     </div>
                 </td>

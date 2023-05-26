@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,18 +26,23 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "Server")]
     public class ServerData
     {
+        ///<example type="int">1234</example>
         [DataMember(IsRequired = true)]
         public int Id { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainDnsData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerDomainDnsData Dns { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerLimitData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerLimitData ServerLimits { get; set; }
 
+        ///<type>ASC.Mail.Core.Entities.MailboxServer, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public MailboxServer InServer { get; set; }
 
+        ///<type>ASC.Mail.Core.Entities.MailboxServer, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public MailboxServer OutServer { get; set; }
     }

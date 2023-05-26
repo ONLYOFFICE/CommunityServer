@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +40,13 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// 
+        /// Sets the user's public and private keys when the user enters the login and password on the Desktop Editors authorization page.
         /// </summary>
+        /// <short>Set public and private keys</short>
+        /// <param type="System.String, System" name="publicKey">The user's public key</param>
+        /// <param type="System.String, System" name="privateKeyEnc">The user's encrypted private key</param>
+        /// <param type="System.Boolean, System" name="update">Specifies whether to update the key pair or not</param>
+        /// <returns>Bool value: true if the operation is successful</returns>
         /// <visible>false</visible>
         [Update("keys")]
         public object SetKeys(string publicKey, string privateKeyEnc, bool update = false)
@@ -71,8 +76,11 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// 
+        /// Get the pairs of the encrypted document passwords and public keys of all users who have access to the specified file.
         /// </summary>
+        /// <short>Get public keys</short>
+        /// <param type="System.String, System" name="fileId">File ID</param>
+        /// <returns>The pairs of the encrypted document passwords and public keys</returns>
         /// <visible>false</visible>
         [Read("access/{fileId}")]
         public IEnumerable<EncryptionKeyPair> GetPublicKeysWithAccess(string fileId)
@@ -85,9 +93,10 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// 
+        /// Checks if the Private Room settings is enabled or not for the current portal.
         /// </summary>
-        /// <returns></returns>
+        /// <short>Check the Private Room settings</short>
+        /// <returns>Bool value: true if the Private Room settings is enabled</returns>
         /// <visible>false</visible>
         [Read("")]
         public bool PrivacyRoom()
@@ -98,10 +107,11 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// 
+        /// Sets the Private Room settings for the current portal.
         /// </summary>
-        /// <param name="enable"></param>
-        /// <returns></returns>
+        /// <short>Set the Private Room settings</short>
+        /// <param type="System.Boolean, System" name="enable">Enables or disables the Private Room settings for the current portal</param>
+        /// <returns>Bool value: true if the Private Room settings is enabled</returns>
         /// <visible>false</visible>
         [Update("")]
         public bool SetPrivacyRoom(bool enable)

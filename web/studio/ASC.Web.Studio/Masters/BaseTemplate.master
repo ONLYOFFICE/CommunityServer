@@ -38,6 +38,7 @@
 
         <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
 
+        <% if (!IsHealthcheck) { %>
         <% if (!String.IsNullOrEmpty(SetupInfo.FontOpenSansUrl))
            { %>
         <%= string.Format("<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />", SetupInfo.FontOpenSansUrl) %>
@@ -45,6 +46,7 @@
            else
            { %>
         <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/opensansoffline/opensansoffline.css") %>" />
+        <% } %>
         <% } %>
 
         <master:ThemeStyles ID="ThemeStyles" runat="server" />

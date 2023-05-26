@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,8 +62,8 @@ namespace ASC.Web.Community.Bookmarking
             Context = new ModuleContext
             {
                 DefaultSortOrder = 4,
-                SmallIconFileName = "bookmarking_mini_icon.png",
-                IconFileName = "bookmarking_icon.png",
+                SmallIconFileName = "bookmarking_mini_icon.svg",
+                IconFileName = "bookmarking_icon.svg",
                 SubscriptionManager = new BookmarkingSubscriptionManager(),
                 SearchHandler = new BookmarkingSearchHandler(),
                 GetCreateContentPageAbsoluteUrl = () => BookmarkingPermissionsCheck.PermissionCheckCreateBookmark() ? VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/" + BookmarkingServiceHelper.GetCreateBookmarkPageUrl()) : null,

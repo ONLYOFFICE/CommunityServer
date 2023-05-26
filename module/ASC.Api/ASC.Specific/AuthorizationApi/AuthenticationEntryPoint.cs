@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Globalization;
 using System.Security;
 using System.Security.Authentication;
 using System.Threading;
@@ -35,7 +34,6 @@ using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
@@ -57,8 +55,9 @@ using SecurityContext = ASC.Core.SecurityContext;
 namespace ASC.Specific.AuthorizationApi
 {
     /// <summary>
-    /// Authorization for api.
+    /// Authorization API.
     /// </summary>
+    /// <name>authentication</name>
     public class AuthenticationEntryPoint : IApiEntryPoint
     {
         private static readonly ICache Cache = AscCache.Memory;
@@ -79,25 +78,26 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Returns the authentication token for use in api authorization.
+        /// Authenticates the current user by SMS, authenticator app, or without two-factor authentication.
         /// </summary>
-        /// <short>
-        /// Get the authentication token
-        /// </short>
-        /// <param name="userName">User name or email</param>
-        /// <param name="password">Password</param>
-        /// <param name="provider">Social media provider type</param>
-        /// <param name="accessToken">Provider token</param>
-        /// <param name="codeOAuth">Code for take token</param>
-        /// <returns>Authentication token to use in the 'Authorization' header when calling API methods</returns>
-        /// <exception cref="AuthenticationException">Thrown when not authenticated.</exception>
-        [Create(@"", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
+        /// <short>Authenticate a user</short>
+        /// <param type="System.String, System" name="userName">User name or email</param>
+        /// <param type="System.String, System" name="password">Password</param>
+        /// <param type="System.String, System" name="provider">Social media provider type</param>
+        /// <param type="System.String, System" name="accessToken">Provider token</param>
+        /// <param type="System.String, System" name="codeOAuth">Code for getting a token</param>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/authentication</path>
+        /// <returns type="ASC.Specific.AuthorizationApi.AuthenticationTokenData, ASC.Specific">Authentication token to use in the 'Authorization' header when calling API methods</returns>
+        /// <exception cref="AuthenticationException">Thrown when not authenticated</exception>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        [Create(@"", false, false)] //NOTE: this method doesn't require auth!!!  //NOTE: this method doesn't check payment!!!
         public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string codeOAuth)
         {
             bool viaEmail;
             var user = GetUser(userName, password, provider, accessToken, out viaEmail, codeOAuth);
 
-            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
+            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.TfaEnabledForUser(user.ID))
             {
                 if (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated)
                     return new AuthenticationTokenData
@@ -115,7 +115,7 @@ namespace ASC.Specific.AuthorizationApi
                 };
             }
 
-            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.TfaEnabledForUser(user.ID))
             {
                 if (!TfaAppUserSettings.EnableForUser(user.ID))
                     return new AuthenticationTokenData
@@ -159,12 +159,15 @@ namespace ASC.Specific.AuthorizationApi
         /// Sets a mobile phone for the user with the name specified in the request.
         /// </summary>
         /// <short>Set a mobile phone</short>
-        /// <param name="userName">User name or email</param>
-        /// <param name="password">Password</param>
-        /// <param name="provider">Social media provider type</param>
-        /// <param name="accessToken">Provider token</param>
-        /// <param name="mobilePhone">New mobile phone</param>
-        /// <returns>Mobile phone</returns>
+        /// <param type="System.String, System" name="userName">User name or email</param>
+        /// <param type="System.String, System" name="password">Password</param>
+        /// <param type="System.String, System" name="provider">Social media provider type</param>
+        /// <param type="System.String, System" name="accessToken">Provider token</param>
+        /// <param type="System.String, System" name="mobilePhone">New mobile phone</param>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/authentication/setphone</path>
+        /// <returns type="ASC.Specific.AuthorizationApi.AuthenticationTokenData, ASC.Specific">Authentication data: authentication by SMS or not, phone number, SMS expiration time</returns>
+        /// <requiresAuthorization>false</requiresAuthorization>
         [Create(@"setphone", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public AuthenticationTokenData SaveMobilePhone(string userName, string password, string provider, string accessToken, string mobilePhone)
         {
@@ -182,14 +185,17 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Sends sms with the authentication code.
+        /// Sends SMS with an authentication code.
         /// </summary>
-        /// <short>Send sms code</short>
-        /// <param name="userName">User name or email</param>
-        /// <param name="password">Password</param>
-        /// <param name="provider">Social media provider type</param>
-        /// <param name="accessToken">Provider token</param>
-        /// <returns>Mobile phone</returns>
+        /// <short>Send SMS code</short>
+        /// <param type="System.String, System" name="userName">User name or email</param>
+        /// <param type="System.String, System" name="password">Password</param>
+        /// <param type="System.String, System" name="provider">Social media provider type</param>
+        /// <param type="System.String, System" name="accessToken">Provider token</param>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/authentication/sendsms</path>
+        /// <returns type="ASC.Specific.AuthorizationApi.AuthenticationTokenData, ASC.Specific">Authentication data: authentication by SMS or not, phone number, SMS expiration time</returns>
+        /// <requiresAuthorization>false</requiresAuthorization>
         [Create(@"sendsms", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public AuthenticationTokenData SendSmsCode(string userName, string password, string provider, string accessToken)
         {
@@ -206,18 +212,21 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Returns the two-factor authentication token for use in api authorization.
+        /// Authenticates the current user by SMS or two-factor authentication code.
         /// </summary>
         /// <short>
-        /// Get the two-factor authentication token
+        /// Authenticate a user by code
         /// </short>
-        /// <param name="userName">User name or email</param>
-        /// <param name="password">Password</param>
-        /// <param name="provider">Social media provider type</param>
-        /// <param name="accessToken">Provider token</param>
-        /// <param name="code">Two-factor authentication code</param>
-        /// <param name="codeOAuth">Code for take token</param>
-        /// <returns>Two-factor authentication token to use in 'Authorization' header when calling API methods</returns>
+        /// <param type="System.String, System" name="userName">User name or email</param>
+        /// <param type="System.String, System" name="password">Password</param>
+        /// <param type="System.String, System" name="provider">Social media provider type</param>
+        /// <param type="System.String, System" name="accessToken">Provider token</param>
+        /// <param type="System.String, System" name="code" method="url">Two-factor authentication code</param>
+        /// <param type="System.String, System" name="codeOAuth">Code for getting a token</param>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/authentication/{code}</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <returns type="ASC.Specific.AuthorizationApi.AuthenticationTokenData, ASC.Specific">Two-factor authentication token to use in the 'Authorization' header when calling API methods</returns>
         [Create(@"{code}", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string code, string codeOAuth)
         {
@@ -227,12 +236,12 @@ namespace ASC.Specific.AuthorizationApi
             var sms = false;
             try
             {
-                if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
+                if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.TfaEnabledForUser(user.ID))
                 {
                     sms = true;
                     SmsManager.ValidateSmsCode(user, code, true);
                 }
-                else if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+                else if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.TfaEnabledForUser(user.ID))
                 {
                     if (user.ValidateAuthCode(code, true, true))
                     {
@@ -281,13 +290,16 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Requests an invitation by email on personal.onlyoffice.com.
+        /// Requests an email invitation from personal.onlyoffice.com.
         /// </summary>
         /// <short>Register a user on the Personal portal</short>
-        /// <param name="email">Email address</param>
-        /// <param name="lang">Culture</param>
-        /// <param name="spam">User consent to subscribe to the ONLYOFFICE newsletter</param>
-        /// <param name="recaptchaResponse">ReCAPTCHA token</param>
+        /// <param type="System.String, System" name="email">Email address</param>
+        /// <param type="System.String, System" name="lang">Culture</param>
+        /// <param type="System.Boolean, System" name="spam">User consent to subscribe to the ONLYOFFICE newsletter</param>
+        /// <param type="System.String, System" name="recaptchaResponse">ReCAPTCHA token</param>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/authentication/register</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Create(@"register", false)] //NOTE: This method doesn't require auth!!!
         public string RegisterUserOnPersonal(string email, string lang, bool spam, string recaptchaResponse)
@@ -345,7 +357,7 @@ namespace ASC.Specific.AuthorizationApi
                     try
                     {
                         const string _databaseID = "com";
-                        using (var db = DbManager.FromHttpContext(_databaseID))
+                        using (var db = new DbManager(_databaseID))
                         {
                             db.ExecuteNonQuery(new SqlInsert("template_unsubscribe", false)
                                                    .InColumnValue("email", email.ToLowerInvariant())
@@ -369,13 +381,16 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Checks user name and password when logging.
+        /// Checks the username and password when logging in.
         /// </summary>
         /// <short>Log in</short>
-        /// <param name="userName">User name or email</param>
-        /// <param name="password">Password</param>
-        /// <param name="key">Email key</param>
+        /// <param type="System.String, System" name="userName">Username or email</param>
+        /// <param type="System.String, System" name="password">Password</param>
+        /// <param type="System.String, System" name="key">Email key</param>
         /// <exception cref="AuthenticationException">Thrown when not authenticated.</exception>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/authentication/login</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Create(@"login", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public bool AuthenticateMe(string userName, string password, string key)
@@ -394,6 +409,7 @@ namespace ASC.Specific.AuthorizationApi
             viaEmail = true;
             var action = MessageAction.LoginFailViaApi;
             UserInfo user = null;
+
             try
             {
                 if (string.IsNullOrEmpty(provider) || provider == "email")
@@ -401,13 +417,15 @@ namespace ASC.Specific.AuthorizationApi
                     userName.ThrowIfNull(new ArgumentException(@"userName empty", "userName"));
                     password.ThrowIfNull(new ArgumentException(@"password empty", "password"));
 
-                    int counter;
-                    int.TryParse(Cache.Get<String>("loginsec/" + userName), out counter);
-                    if (++counter > SetupInfo.LoginThreshold && !SetupInfo.IsSecretEmail(userName))
+                    var secretEmail = SetupInfo.IsSecretEmail(userName);
+                    var requestIp = MessageSettings.GetFullIPAddress(Request);
+                    var bruteForceLoginManager = new BruteForceLoginManager(Cache, userName, requestIp);
+                    var bruteForceSuccessAttempt = bruteForceLoginManager.Increment(out bool _);
+
+                    if (!secretEmail && !bruteForceSuccessAttempt)
                     {
                         throw new Authorize.BruteForceCredentialException();
                     }
-                    Cache.Insert("loginsec/" + userName, counter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
                     if (EnableLdap)
                     {
@@ -431,7 +449,10 @@ namespace ASC.Specific.AuthorizationApi
                         throw new Exception("user not found");
                     }
 
-                    Cache.Insert("loginsec/" + userName, (--counter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    if (!secretEmail)
+                    {
+                        bruteForceLoginManager.Decrement();
+                    }
                 }
                 else
                 {
@@ -462,7 +483,7 @@ namespace ASC.Specific.AuthorizationApi
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             var settings = IPRestrictionsSettings.Load();
-            if (settings.Enable && user.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant))
+            if (settings.Enable && user.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant, user.Email))
             {
                 throw new IPSecurityException();
             }

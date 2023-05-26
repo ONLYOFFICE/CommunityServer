@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Web.UI;
 
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
 
@@ -44,13 +45,8 @@ namespace ASC.Web.Files.Controls
             get
             {
                 var general = !TenantLogoManager.IsRetina(Request);
-
-                if (TenantLogoManager.WhiteLabelEnabled)
-                {
-                    return TenantLogoManager.GetLogoDark(general);
-                }
-
-                return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
+                var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
+                return theme == ModeTheme.light ? TenantLogoManager.GetLogoDark(general) : TenantLogoManager.GetLogoLight(general);
             }
         }
 

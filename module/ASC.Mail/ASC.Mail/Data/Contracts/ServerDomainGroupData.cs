@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,16 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "MailGroup")]
     public class ServerDomainGroupData
     {
+        ///<example type="int">1234</example>
         [DataMember(IsRequired = true)]
         public int Id { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainAddressData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerDomainAddressData Address { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainAddressData, ASC.Mail</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = true)]
         public List<ServerDomainAddressData> Addresses { get; set; }
     }

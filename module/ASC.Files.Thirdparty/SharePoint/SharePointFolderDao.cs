@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ using System.Threading;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Core.ChunkedUploader;
+using ASC.Data.Storage.ZipOperators;
 using ASC.Files.Core;
 
 namespace ASC.Files.Thirdparty.SharePoint
@@ -189,7 +191,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             var folder = ProviderInfo.GetFolderById(folderId);
 
-            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
             {
                 using (var tx = dbManager.BeginTransaction())
                 {
@@ -277,6 +279,14 @@ namespace ASC.Files.Thirdparty.SharePoint
         public long GetMaxUploadSize(object folderId, bool chunkedUpload = false)
         {
             return 2L * 1024L * 1024L * 1024L;
+        }
+
+        public IDataWriteOperator CreateDataWriteOperator(
+            string folderId,
+            CommonChunkedUploadSession chunkedUploadSession,
+            CommonChunkedUploadSessionHolder sessionHolder)
+        {
+            return null;
         }
 
         #region Only for TMFolderDao

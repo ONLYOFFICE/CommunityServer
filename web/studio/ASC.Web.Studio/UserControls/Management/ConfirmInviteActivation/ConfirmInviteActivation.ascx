@@ -70,8 +70,8 @@
                     </div>
                     <div class="value">
                         <input type="password" id="studio_confirm_pwd" value="" class="textEdit" autocomplete="off"
-                            data-maxlength="<%= PasswordSettings.MaxLength %>"
-                            data-regex="<%: PasswordSettings.GetPasswordRegex(PasswordSettings.Load()) %>"
+                            data-maxlength="<%= TenantPasswordSettings.MaxLength %>"
+                            data-regex="<%: PasswordSettings.GetPasswordRegex(TenantPasswordSettings) %>"
                             data-help="<%= UserManagerWrapper.GetPasswordHelpMessage() %>"/>
                         <input type="hidden" id="passwordHash" name="passwordHash" />
                         <label class="eye-label hide-label" id="passwordShowLabel"></label>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="value">
                         <input type="password" id="studio_confirm_pwd_match" value="" class="textEdit" autocomplete="off"
-                            data-maxlength="<%= PasswordSettings.MaxLength %>"/>
+                            data-maxlength="<%= TenantPasswordSettings.MaxLength %>"/>
                         <label class="eye-label hide-label" id="passwordShowLabelMatch"></label>
                     </div>
                 </div>

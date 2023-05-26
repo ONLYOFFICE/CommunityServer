@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
+using ASC.Security.Cryptography;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.DeepLink;
 
@@ -36,9 +38,11 @@ namespace ASC.Web.Studio.UserControls
 
         private const string withoutDeeplinkRedirect = "without_redirect";
 
-        public static string FileTitle { get; set; }
-        public static string FileName { get; set; }
-        public static string FileExtension { get; set; }
+        protected string FileTitle { get; set; }
+        protected string FileName { get; set; }
+        protected string FileExtension { get; set; }
+        protected string ErrorMsg {  get; set; }
+
         protected string DeepLinkUrl { get; set; }
 
         public static string WithoutDeeplinkRedirect
@@ -63,47 +67,61 @@ namespace ASC.Web.Studio.UserControls
 
             var originalUrl = "";
 
-            if (deepLink == null || fileDataBase64 == "") { Response.Redirect("/"); }
+            if (deepLink == null || fileDataBase64 == "")
+            {
+                Response.Redirect("/");
+            }
+
             try
             {
                 var fileDataString = Encoding.UTF8.GetString(Convert.FromBase64String(fileDataBase64));
-                var fileData = JsonConvert.DeserializeObject<DeepLinkData>(fileDataString);
-                FileTitle = fileData.File.Title;
-                FileName = Path.GetFileNameWithoutExtension(FileTitle);
-                FileExtension = fileData.File.Extension;
-                originalUrl = fileData.OriginalUrl + string.Format("&{0}=true", withoutDeeplinkRedirect);
+                var decryptedData = InstanceCrypto.Decrypt(fileDataString);
+                var base64DeeplinkData = Convert.ToBase64String(Encoding.UTF8.GetBytes(decryptedData));
+                var fileData = JsonConvert.DeserializeObject<DeepLinkData>(decryptedData);
+
+                if (string.IsNullOrEmpty(fileData.ErrorMsg))
+                {
+                    FileTitle = fileData.File.Title;
+                    FileName = Path.GetFileNameWithoutExtension(FileTitle);
+                    FileExtension = fileData.File.Extension;
+
+                    originalUrl = fileData.OriginalUrl + string.Format("&{0}=true", withoutDeeplinkRedirect);
+                }
+                else
+                {
+                    ErrorMsg = fileData.ErrorMsg;
+                }
+
+                if (userAgent.Contains("android"))
+                {
+                    if (userAgent.Contains("chrome"))
+                    {
+                        var uriDeepLink = new Uri(deepLink);
+                        var scheme = uriDeepLink.Scheme;
+                        var path = uriDeepLink.Host + "?data=" + base64DeeplinkData;
+                        DeepLinkUrl = "intent://" + path + "#Intent;scheme=" + scheme + ";package=" + ConfigurationManagerExtension.AppSettings["deeplink.documents.androidpackagename"] + ";end;";
+                        storeLink = "https://play.google.com/store/apps/details?id=" + ConfigurationManagerExtension.AppSettings["deeplink.documents.androidpackagename"];
+                    }
+                    else
+                    {
+                        DeepLinkUrl = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"] + "?data=" + base64DeeplinkData;
+                        storeLink = "https://play.google.com/store/apps/details?id=" + ConfigurationManagerExtension.AppSettings["deeplink.documents.androidpackagename"];
+                    }
+                }
+                else if (userAgent.Contains("iphone;") || userAgent.Contains("ipad;"))
+                {
+                    DeepLinkUrl = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"] + "?data=" + base64DeeplinkData;
+                    storeLink = "https://apps.apple.com/app/id" + ConfigurationManagerExtension.AppSettings["deeplink.documents.iospackageid"];
+                }
+                else
+                {
+                    Response.Redirect("/");
+                }
             }
             catch (Exception)
             {
                 Response.Redirect("/");
             }
-
-            if (userAgent.Contains("android"))
-            {
-                if (userAgent.Contains("chrome"))
-                {
-                    var uriDeepLink = new Uri(deepLink);
-                    var scheme = uriDeepLink.Scheme;
-                    var path = uriDeepLink.Host + "?data=" + fileDataBase64;
-                    DeepLinkUrl = "intent://" + path + "#Intent;scheme=" + scheme + ";package=" + ConfigurationManagerExtension.AppSettings["deeplink.documents.androidpackagename"] + ";end;";
-                    storeLink = "https://play.google.com/store/apps/details?id=" + ConfigurationManagerExtension.AppSettings["deeplink.documents.androidpackagename"];
-                }
-                else
-                {
-                    DeepLinkUrl = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"] + "?" + Request.QueryString;
-                    storeLink = "https://play.google.com/store/apps/details?id=" + ConfigurationManagerExtension.AppSettings["deeplink.documents.androidpackagename"];
-                }
-            }
-            else if (userAgent.Contains("iphone;") || userAgent.Contains("ipad;"))
-            {
-                DeepLinkUrl = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"] + "?" + Request.QueryString;
-                storeLink = "https://apps.apple.com/app/id" + ConfigurationManagerExtension.AppSettings["deeplink.documents.iospackageid"];
-            }
-            else
-            {
-                Response.Redirect("/");
-            }
-
 
             var cookie = "";
 
@@ -115,7 +133,7 @@ namespace ASC.Web.Studio.UserControls
                     cookie = HttpContext.Current.Request.Cookies[cookieName].Value ?? "";
             }
 
-            if (cookie == "app")
+            if (cookie == "app" && string.IsNullOrEmpty(ErrorMsg))
             {
                 Response.Redirect(DeepLinkUrl, true);
             }
@@ -134,9 +152,15 @@ namespace ASC.Web.Studio.UserControls
                     break;
                 }
             }
-
-            Page.RegisterStyle("~/UserControls/DeepLink/css/deeplinking.less")
-               .RegisterBodyScripts("~/UserControls/DeepLink/js/deeplinking.js")
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/DeepLink/css/dark-deeplinking.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/DeepLink/css/deeplinking.less");
+            }
+            Page.RegisterBodyScripts("~/UserControls/DeepLink/js/deeplinking.js")
                .RegisterInlineScript(@"ASC.DeepLinking.init( '" + FileTitle + "','" + storeLink + "','" + originalUrl + "');");
 
         }

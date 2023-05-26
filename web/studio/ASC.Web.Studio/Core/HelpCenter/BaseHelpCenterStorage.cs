@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,17 +21,16 @@ using System.Configuration;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Common.Threading;
+using ASC.Common.Web;
 using ASC.Web.Core.Client;
 
 namespace ASC.Web.Studio.Core.HelpCenter
@@ -171,7 +170,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
             catch (Exception e)
             {
-                Log.Error("Error GetVideoGuide", e);
+                Log.Error("Error GetHelpCenter", e);
             }
 
             if (data == null)
@@ -222,6 +221,13 @@ namespace ASC.Web.Studio.Core.HelpCenter
         {
             try
             {
+                var directoryName = Path.GetDirectoryName(FilePath);
+
+                if (!Directory.Exists(directoryName))
+                {
+                    Directory.CreateDirectory(directoryName);
+                }
+
                 using (var filesStream = File.Open(FilePath, FileMode.Create))
                 {
                     WriteToStream(filesStream, obj);
@@ -229,7 +235,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
             catch (Exception e)
             {
-                Log.Error("Error UpdateVideoGuide", e);
+                Log.Error("Error UpdateHelpCenter", e);
             }
         }
 
@@ -273,12 +279,21 @@ namespace ASC.Web.Studio.Core.HelpCenter
         public Action<HelpCenterRequest, string> Starter { get; set; }
         private static bool stopRequesting;
         private static readonly ILog Log;
+        private static HttpClient httpClient;
 
         protected DistributedTask TaskInfo { get; private set; }
 
         static HelpCenterRequest()
         {
             Log = LogManager.GetLogger("ASC.Web.HelpCenter");
+
+            var httpHandler = new HttpClientHandler
+            {
+                AllowAutoRedirect = true
+            };
+
+            httpClient = HttpClientFactory.CreateClient(nameof(HelpCenterRequest), httpHandler);
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
         }
 
         public HelpCenterRequest()
@@ -307,36 +322,12 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
-
-                httpWebRequest.AllowAutoRedirect = true;
-                httpWebRequest.Timeout = 15000;
-                httpWebRequest.Method = "GET";
-                httpWebRequest.Headers["Accept-Language"] = "en"; // get correct en lang
-
-                var countTry = 0;
-                const int maxTry = 3;
-                while (countTry < maxTry)
+                Func<Task<string>> requestFunc = async () =>
                 {
-                    try
-                    {
-                        countTry++;
-                        using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
-                        using (var stream = httpWebResponse.GetResponseStream())
-                        using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
-                        {
-                            result = reader.ReadToEnd();
-                            break;
-                        }
-                    }
-                    catch (WebException ex)
-                    {
-                        if (ex.Status != WebExceptionStatus.Timeout)
-                        {
-                            throw;
-                        }
-                    }
-                }
+                    return await httpClient.GetStringAsync(Url);
+                };
+
+                result = Task.Run(() => ResiliencePolicyManager.GetStringWithPoliciesAsync("SendRequest", requestFunc)).Result;
             }
             catch (Exception e)
             {

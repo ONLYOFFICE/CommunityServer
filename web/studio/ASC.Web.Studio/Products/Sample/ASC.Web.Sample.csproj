@@ -39,6 +39,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.Sample.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -55,13 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NLog">
-      <Version>4.7.11</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\images\product_logo.png" />
     <Content Include="App_Themes\default\images\product_logo_disabled.png" />
-    <Content Include="App_Themes\default\images\product_logo_large.png" />
     <Content Include="App_Themes\default\images\product_logo_nav.png" />
     <Content Include="Controls\ButtonsSidePanel.ascx" />
     <Content Include="Controls\NavigationSidePanel.ascx" />
@@ -73,10 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\css\style.less" />
-    <None Include="js\script.js" />
+    <Content Include="js\script.js" />
     <Content Include="Default.aspx" />
     <Content Include="Masters\BasicTemplate.Master" />
     <Content Include="web.config" />
+    <Content Include="App_Themes\default\css\params.less" />
+    <Content Include="App_Themes\dark\params.less" />
+    <Content Include="App_Themes\dark\dark-style.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -201,6 +205,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

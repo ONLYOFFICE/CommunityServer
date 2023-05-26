@@ -632,6 +632,9 @@
   <data name="NoSubject" xml:space="preserve">
     <value>no subject</value>
   </data>
+  <data name="NTLMPasswordAuthentication" xml:space="preserve">
+    <value>NTLM Password</value>
+  </data>
   <data name="OAuthLabel" xml:space="preserve">
     <value>or link with:</value>
   </data>

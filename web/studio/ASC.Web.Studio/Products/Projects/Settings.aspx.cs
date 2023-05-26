@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Web;
 
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
@@ -37,14 +38,25 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             Title = HeaderStringHelper.GetPageTitle(ProjectsCommonResource.CommonSettings);
-            Page.RegisterStyle(
-                PathProvider.GetFileStaticRelativePath("settings.less"),
-                "~/Products/Files/Controls/FileSelector/fileselector.css",
-                "~/Products/Files/Controls/ThirdParty/thirdparty.css",
-                "~/Products/Files/Controls/ContentList/contentlist.css",
-                "~/Products/Files/Controls/EmptyFolder/emptyfolder.css",
-                "~/Products/Files/Controls/Tree/tree.css")
-                .RegisterBodyScripts(
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/dark/dark-settings.less",
+                "~/Products/Files/Controls/FileSelector/fileselector.less",
+                "~/Products/Files/Controls/ThirdParty/dark-thirdparty.less",
+                "~/Products/Files/Controls/ContentList/dark-contentlist.less",
+                "~/Products/Files/Controls/EmptyFolder/emptyfolder.less",
+                "~/Products/Files/Controls/Tree/dark-tree.less");
+            }
+            else
+            {
+                Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("settings.less"))
+                    .RegisterStyle("~/Products/Files/Controls/FileSelector/fileselector.less",
+                "~/Products/Files/Controls/ThirdParty/thirdparty.less",
+                "~/Products/Files/Controls/ContentList/contentlist.less",
+                "~/Products/Files/Controls/EmptyFolder/emptyfolder.less",
+                "~/Products/Files/Controls/Tree/tree.less"); 
+            }
+            Page.RegisterBodyScripts(
                 PathProvider.GetFileStaticRelativePath("settings.js"),
                     "~/Products/Files/Controls/Tree/tree.js",
                     "~/Products/Files/Controls/EmptyFolder/emptyfolder.js",

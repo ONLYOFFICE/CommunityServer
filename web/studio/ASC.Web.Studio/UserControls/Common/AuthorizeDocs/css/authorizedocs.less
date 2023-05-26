@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,10 @@
  *
 */
 
+
 @orangeMain: #FF6F3D;
 @retina: ~"only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 120dpi)";
+@import "../../../../skins/default/params.less";
 
 .ai_center {
     -webkit-box-align: center;
@@ -196,7 +198,7 @@ body {
                     }
 
                     a {
-                        background-color: #FFFFFF;
+                        background-color: @body-color;
                         .border-radius(3px);
                         -webkit-box-shadow: 0px 0px 1px #e6e6e6, 0px 1px 1px #d4d4d4;
                         box-shadow: 0px 0px 1px #e6e6e6, 0px 1px 1px #d4d4d4;
@@ -229,7 +231,7 @@ body {
     }
 
     .auth-input-wrapper {
-        background: #FFFFFF;
+        background: @body-color;
         border: 1px solid #AAAAAA;
         border-radius: 3px;
         .box-sizing();
@@ -238,14 +240,14 @@ body {
         width: 100%;
 
         &:hover {
-            border-color: #666666;
+            border-color: @textColorBlackDark;
         }
 
         input {
             background: transparent;
             border: none;
             .box-sizing();
-            color: #333333;
+            color: @textColor;
             font-size: 16px;
             height: auto;
             line-height: 20px;
@@ -255,8 +257,8 @@ body {
             width: 100%;
 
             &:-webkit-autofill {
-                .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #FFFFFF);
-                color: #333333;
+                .box-shadow-for-autofill(inset, 0, 0, 0, 28px, @body-color);
+                color: @textColor;
                 font-size: 16px;
 
                 & + label {
@@ -294,7 +296,7 @@ body {
                     transform: translateY(0);
                 }*/
             &:focus + label {
-                color: #333333;
+                color: @textColor;
                 font-size: 12px;
                 transform: translateX(2px) translateY(-12px);
             }
@@ -316,18 +318,18 @@ body {
 
         &.focus, &.error, &.valid {
             label {
-                color: #333333;
+                color: @textColor;
                 font-size: 12px;
                 transform: translateX(2px) translateY(-12px);
             }
         }
 
         &.focus {
-            background: #FFFFFF;
-            border-color: #666666;
+            background: @body-color;
+            border-color: @textColorBlackDark;
 
             input:-webkit-autofill {
-                .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #FFFFFF);
+                .box-shadow-for-autofill(inset, 0, 0, 0, 28px, @body-color);
             }
         }
 
@@ -353,7 +355,7 @@ body {
             }
 
             label {
-                color: #666666;
+                color: @textColorBlackDark;
             }
         }
     }
@@ -365,7 +367,7 @@ body {
     .button.gray {
         background: #444444;
         border-color: transparent;
-        color: #FFFFFF;
+        color: @body-color;
         font-size: 13px;
         font-weight: 600;
         letter-spacing: 0.04em;
@@ -377,7 +379,7 @@ body {
         &:hover {
             background: #555555;
             border-color: transparent;
-            color: #FFFFFF;
+            color: @body-color;
         }
     }
 
@@ -403,7 +405,7 @@ body {
             }
 
             &:hover + span {
-                border-color: #666666;
+                border-color: @textColorBlackDark;
             }
 
             &:checked + span {
@@ -412,7 +414,7 @@ body {
 
                 &:before {
                     content: "";
-                    border: 0 solid #fff;
+                    border: 0 solid @body-color;
                     border-width: 0 2px 2px 0;
                     display: block;
                     height: 11px;
@@ -430,7 +432,7 @@ body {
             padding-bottom: 12px;
 
             label {
-                color: #666666;
+                color: @textColorBlackDark;
                 display: inline-block;
                 font-size: 14px;
                 line-height: 160%;
@@ -604,7 +606,7 @@ body {
         border: none;
         .border-radius(3px);
         .box-sizing();
-        color: #FFFFFF;
+        color: @body-color;
         cursor: pointer;
         font-size: 14px;
         font-weight: bold;
@@ -777,7 +779,7 @@ main {
 
     a {
         color: #444444;
-        border: 1px solid #333333;
+        border: 1px solid @textColor;
         .border-radius(3px);
         .box-sizing();
         display: block;
@@ -805,7 +807,7 @@ main {
     }
 
     .prebtn {
-        color: #333333;
+        color: @textColor;
         display: inline-block;
         font-size: 16px;
         line-height: 160%;
@@ -830,7 +832,7 @@ main {
             width: 543px;
 
             .auth-form-with_form {
-                background-color: #fff;
+                background-color: @body-color;
                 border: 1px solid #CCCCCC;
                 .border-radius(5px);
                 .box-shadow(0px, 20px, 50px, rgba(85, 85, 85, 0.15));
@@ -942,7 +944,7 @@ main {
                 }
 
                 &:hover {
-                    background: #FFFFFF;
+                    background: @body-color;
                     .box-shadow(0px, 20px, 50px, rgba(85, 85, 85, 0.15));
 
                     &:after {
@@ -996,7 +998,7 @@ main {
 
             &.spreadsheet {
                 background-image: url("images/screenshots/en/spreadsheet.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/en/spreadsheet@2x.png");
                 }
@@ -1004,7 +1006,7 @@ main {
 
             &.presentation {
                 background-image: url("images/screenshots/en/presentation.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/en/presentation@2x.png");
                 }
@@ -1012,7 +1014,7 @@ main {
 
             &.collaboration {
                 background-image: url("images/screenshots/en/collaboration.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/en/collaboration@2x.png");
                 }
@@ -1021,7 +1023,7 @@ main {
     }
 
     &.auth-form-extend {
-        background: #ffffff;
+        background: @body-color;
         padding: 112px 0;
 
         h3 {
@@ -1273,7 +1275,7 @@ main {
         width: 544px;
 
         p {
-            color: #333333;
+            color: @textColor;
             font-size: 13px;
             line-height: 160%;
 
@@ -1311,7 +1313,7 @@ main {
 }
 
 .auth-form-container {
-    color: #333333;
+    color: @textColor;
     margin: 0 auto;
     width: 100%;
 
@@ -1335,8 +1337,8 @@ main {
             min-height: 380px;
 
             &.d-apps {
-                background-image: -o-linear-gradient(349.21deg, #666666 23.25%, #444444 78.7%);
-                background-image: linear-gradient(100.79deg, #666666 23.25%, #444444 78.7%);
+                background-image: -o-linear-gradient(349.21deg, @textColorBlackDark 23.25%, #444444 78.7%);
+                background-image: linear-gradient(100.79deg, @textColorBlackDark 23.25%, #444444 78.7%);
                 margin-bottom: 0;
 
                 .auth-download-img {
@@ -1360,7 +1362,7 @@ main {
                             background-color: transparent;
                             background-position: center;
                             background-repeat: no-repeat;
-                            border: 1px solid #FFFFFF;
+                            border: 1px solid @body-color;
                             width: 170px;
 
                             &:hover {
@@ -1382,7 +1384,7 @@ main {
             }
 
             &.d-chrome-extension {
-                background-color: #FFFFFF;
+                background-color: @body-color;
 
                 .auth-download-img {
                     background-image: url("images/screenshots/en/online.png");
@@ -1393,7 +1395,7 @@ main {
                 }
 
                 .auth-download-txt {
-                    color: #333333;
+                    color: @textColor;
 
                     a {
                         background-color: transparent;
@@ -1431,8 +1433,8 @@ main {
                     order: 1;
 
                     a {
-                        border-color: #FFFFFF;
-                        color: #FFFFFF;
+                        border-color: @body-color;
+                        color: @body-color;
                         display: inline-block;
                         font-size: 13px;
                         line-height: 133%;
@@ -1457,7 +1459,7 @@ main {
             }
 
             .auth-download-txt {
-                color: #FFFFFF;
+                color: @body-color;
                 font-size: 22px;
                 letter-spacing: -0.02em;
                 line-height: 160%;
@@ -1545,7 +1547,7 @@ main {
                 position: relative;
 
                 .review_block {
-                    background: #FFFFFF;
+                    background: @body-color;
                     border: 1px solid #CCCCCC;
                     .border-radius(5px);
                     .box-sizing();
@@ -1564,7 +1566,7 @@ main {
                     }
 
                     .review_block_author_name {
-                        color: #333333;
+                        color: @textColor;
                         font-weight: bold;
                         font-size: 13px;
                         line-height: 120%;
@@ -1676,7 +1678,7 @@ main {
 
             &.spreadsheet {
                 background-image: url("images/screenshots/de/spreadsheet.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/de/spreadsheet@2x.png");
                 }
@@ -1684,7 +1686,7 @@ main {
 
             &.presentation {
                 background-image: url("images/screenshots/de/presentation.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/de/presentation@2x.png");
                 }
@@ -1692,7 +1694,7 @@ main {
 
             &.collaboration {
                 background-image: url("images/screenshots/de/collaboration.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/de/collaboration@2x.png");
                 }
@@ -1772,7 +1774,7 @@ main {
 
             &.spreadsheet {
                 background-image: url("images/screenshots/fr/spreadsheet.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/fr/spreadsheet@2x.png");
                 }
@@ -1780,7 +1782,7 @@ main {
 
             &.presentation {
                 background-image: url("images/screenshots/fr/presentation.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/fr/presentation@2x.png");
                 }
@@ -1788,7 +1790,7 @@ main {
 
             &.collaboration {
                 background-image: url("images/screenshots/fr/collaboration.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/fr/collaboration@2x.png");
                 }
@@ -1904,7 +1906,7 @@ main {
 
             &.spreadsheet {
                 background-image: url("images/screenshots/ru/spreadsheet.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/ru/spreadsheet@2x.png");
                 }
@@ -1912,7 +1914,7 @@ main {
 
             &.presentation {
                 background-image: url("images/screenshots/ru/presentation.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/ru/presentation@2x.png");
                 }
@@ -1920,7 +1922,7 @@ main {
 
             &.collaboration {
                 background-image: url("images/screenshots/ru/collaboration.png");
-                
+
                 @media @retina {
                     background-image: url("images/screenshots/ru/collaboration@2x.png");
                 }

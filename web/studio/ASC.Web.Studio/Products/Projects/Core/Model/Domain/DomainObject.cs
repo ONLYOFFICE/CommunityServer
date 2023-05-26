@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,19 @@ namespace ASC.Projects.Core.Domain
 {
     public abstract class DomainObject<TID> where TID : struct
     {
+        ///<example type="int">1</example>
         public abstract EntityType EntityType { get; }
 
+        ///<example>2fdfe577-3c26-4736-9df9-b5a683bb8520</example>
         public TID ID { get; set; }
 
+        ///<example>UniqID</example>
         public virtual string UniqID
         {
             get { return DoUniqId(GetType(), ID); }
         }
 
+        ///<example>ItemPath</example>
         public virtual string ItemPath
         {
             get { return ""; }

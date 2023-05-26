@@ -32,6 +32,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.Talk.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -43,10 +45,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
-    <Content Include="css\default\talk.style.css" />
-    <Content Include="css\default\talk.overview.css" />
-    <Content Include="css\default\talk.messagearea.css" />
-    <Content Include="css\default\talk.text-overflow.css" />
+    <Content Include="App_Themes\default\images\talk128.svg" />
+    <Content Include="App_Themes\default\images\talk16.svg" />
+    <Content Include="App_Themes\default\images\talk32.svg" />
+    <Content Include="App_Themes\default\images\talk48.svg" />
+    <Content Include="css\dark\params.less" />
+    <Content Include="css\dark\dark-talk.style.less" />
+    <Content Include="css\default\params.less" />
+    <Content Include="css\default\talk.style.less" />
+    <Content Include="css\default\talk.overview.less" />
+    <Content Include="css\default\talk.messagearea.less" />
+    <Content Include="css\default\talk.text-overflow.less" />
     <Content Include="css\default\talk.text-overflow.xml" />
     <Content Include="js\talk.default.js" />
     <Content Include="js\jlib\flxhr\checkplayer.js" />
@@ -137,16 +146,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
-    <Content Include="css\default\talk.style.de-de.css" />
-    <Content Include="css\default\talk.style.en-gb.css" />
-    <Content Include="css\default\talk.style.en-us.css" />
-    <Content Include="css\default\talk.style.es-es.css" />
-    <Content Include="css\default\talk.style.fr-fr.css" />
-    <Content Include="css\default\talk.style.it-it.css" />
-    <Content Include="css\default\talk.style.lv-lv.css" />
-    <Content Include="css\default\talk.style.pt-br.css" />
-    <Content Include="css\default\talk.style.ru-ru.css" />
+    <Content Include="css\default\talk.style.de-de.less" />
+    <Content Include="css\default\talk.style.en-gb.less" />
+    <Content Include="css\default\talk.style.en-us.less" />
+    <Content Include="css\default\talk.style.es-es.less" />
+    <Content Include="css\default\talk.style.fr-fr.less" />
+    <Content Include="css\default\talk.style.it-it.less" />
+    <Content Include="css\default\talk.style.lv-lv.less" />
+    <Content Include="css\default\talk.style.pt-br.less" />
+    <Content Include="css\default\talk.style.ru-ru.less" />
     <Content Include="Default.aspx" />
     <Content Include="JabberClient.aspx" />
     <Content Include="js\gears.init.js" />
@@ -439,6 +447,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="css\dark\dark-talk.messagearea.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

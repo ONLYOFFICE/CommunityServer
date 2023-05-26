@@ -73,7 +73,7 @@
         <div class="search_panel">
             <input id="link_search_panel" class="search_input" placeholder="${ASC.Mail.Resources.MailResource.LinkConversationSearchPlaceHolderLabel}"/>
             <label for="link_search_panel" class="search_image lupe"></label>
-            <img src="/skins/default/images/loader_16.gif" class="crm_search_loading_icon" style="display: none"/>
+            <img {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}}src="/skins/default/images/loader_16.gif"{{else}}src="/skins/default/images/loader-dark-16.svg"{{/if}} class="crm_search_loading_icon" style="display: none"/>
         </div>
     </div>
     <div class="linked_table_parent webkit-scrollbar" style="display: none;">

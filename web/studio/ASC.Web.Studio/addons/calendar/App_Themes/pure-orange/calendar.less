@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,5 @@
 */
 
 
-@color-calendar: #f08311;
-@bg-color-calendar: #fefde9;
-@bg-color-hover-calendar: #eaf4ff;
 @import "../../UserControls/fullcalendar/css/fullcalendar.less";
-
-@bg-hover-mini-cld: #ffe2c4;
-@bg-active-mini-cld: #7ea7d0;
-
-@border-active-mini-cld: @bg-active-mini-cld;
-
-.asc-datepicker .ui-state-hover, 
-.asc-datepicker .ui-widget-content .ui-state-hover, 
-.asc-datepicker .ui-widget-header .ui-state-hover, .asc-datepicker .ui-state-focus, 
-.asc-datepicker .ui-widget-content .ui-state-focus, .asc-datepicker .ui-widget-header .ui-state-focus {
-     border: 1px solid @color-calendar !important;
-     background: @bg-hover-mini-cld none 50% 50% repeat-x !important;
-}
-.asc-datepicker .ui-state-active, 
-.asc-datepicker .ui-widget-content .ui-state-active, 
-.asc-datepicker .ui-widget-header .ui-state-active {
-     border: 1px solid @border-active-mini-cld !important; 
-     background: @bg-active-mini-cld none 50% 50% repeat-x !important;
-}
+@import "params.less";

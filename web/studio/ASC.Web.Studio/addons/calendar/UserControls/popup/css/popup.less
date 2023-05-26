@@ -1,0 +1,157 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../../App_Themes/default/params.less";
+
+.asc-popup {
+	position: absolute;
+	border: 1px solid @popup-bor;
+	margin: 12px 0 0 0;
+	padding: .2em .2em 0;
+	background-color: @body-color;
+}
+
+.asc-popup .arrow {
+	position: absolute;
+	background-image: url(../img/popup-arrow-big.png);
+	background-position: 0px 0px;
+	width: 20px;
+	height: 11px;
+	left: 5px;
+	top: -10px;
+}
+
+.asc-ui-blocker {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	/*background-color: rgba(0, 0, 0, 0.2);*/
+	background-color: transparent;
+}
+
+
+
+.asc-popupmenu {
+	position: absolute;
+	border: 1px solid @fc_todo_editor_bor;
+	padding: 4px;
+	background-color: @body-color;
+	z-index: 1998;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.asc-popupmenu .arrow {
+	position: absolute;
+	background-image: url(../img/popup-arrow.png);
+	background-position: 0px 0px;
+	width: 8px;
+	height: 5px;
+	left: 5px;
+	top: -4px;
+}
+
+.asc-popupmenu .divider {
+	border-bottom: 1px solid @popup-bor;
+	margin-bottom: .4em;
+}
+
+.asc-popupmenu .item {
+	cursor: pointer;
+	padding: 0 12px;
+    line-height: 24px;
+    margin-bottom: 1px;
+}
+.asc-popupmenu .item.dropdown-item-seporator {
+    width: auto;
+}
+
+.asc-popupmenu .item:hover {
+	background-color: @popup-hover;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.asc-colorpicker {
+	position: absolute;
+	border: 1px solid @popup-bor;
+	margin: 6px 0 0 0;
+	padding: .4em .4em;
+	background-color: @body-color;
+	z-index: 2000;
+}
+
+.asc-colorpicker .arrow {
+	position: absolute;
+	background-image: url(../img/popup-arrow.png);
+	background-position: 0px 0px;
+	width: 8px;
+	height: 5px;
+	left: 5px;
+	top: -4px;
+}
+
+.asc-colorpicker td {
+	max-width: 17px;
+	height: 15px;
+	padding: 3px 3px;
+	border: 1px solid transparent;
+}
+
+.asc-colorpicker td.selected {
+	background-color: @asc-colorpicker-selected-bg;
+	border: 1px solid @asc-colorpicker-selected-bor;
+}
+
+.asc-colorpicker td.highlighted {
+	background-color: @asc-colorpicker-highlight-bg;
+	border: 1px solid @asc-colorpicker-highlight-bor;
+}
+
+.asc-colorpicker .icon {
+	width: 15px;
+	height: 15px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.asc-colorpicker .iwrapper {
+	text-align: left;
+	margin-top: .3em;
+	padding-right: 4px;
+}
+
+.asc-colorpicker .iwrapper > input {
+	width: 60px;
+	margin: 0;
+	padding: 1px;
+	outline: none;
+	border-collapse: collapse;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #c7c7c7;
+}
+.asc-colorpicker .iwrapper > input:focus {
+	border-color: #3186af;
+}

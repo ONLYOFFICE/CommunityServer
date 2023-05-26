@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,11 +109,11 @@ namespace ASC.Web.Core.WhiteLabel
             TenantLogoManager.RemoveMailLogoDataFromCache();
         }
 
-        public string GetAbsoluteCompanyLogoPath()
+        public string GetAbsoluteCompanyLogoPath(bool dark)
         {
             if (_isDefault)
             {
-                return WebImageSupplier.GetAbsoluteWebPath("logo/dark_general.png");
+                return WebImageSupplier.GetAbsoluteWebPath(dark ? "logo/dark_general.png" : "logo/light_general.png");
             }
 
             var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "logo");

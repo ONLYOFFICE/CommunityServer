@@ -47,6 +47,8 @@
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\studio\ASC.Web.Studio\bin\ASC.Web.Core.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -58,6 +60,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Compile Include="AddonContext.cs" />
     <Compile Include="BasePage.cs">
@@ -74,6 +78,7 @@
     <Compile Include="Calendars\IiCalFormatView.cs" />
     <Compile Include="Calendars\RecurrenceRule.cs" />
     <Compile Include="Calendars\SharingOptions.cs" />
+    <Compile Include="BruteForceLoginManager.cs" />
     <Compile Include="Client\Bundling\BundleConfig.cs" />
     <Compile Include="Client\Bundling\ClientScriptRouteHandler.cs" />
     <Compile Include="Client\Bundling\CopyrigthTransform.cs" />
@@ -107,7 +112,10 @@
     <Compile Include="Sms\SmsSender.cs" />
     <Compile Include="Users\UserPhotoThumbnailSettings.cs" />
     <Compile Include="Users\UserPhotoThumbnailManager.cs" />
+    <Compile Include="Utility\ModeThemeSettings.cs" />
+    <Compile Include="Utility\ImpersonationSettings.cs" />
     <Compile Include="Utility\PasswordSettings.cs" />
+    <Compile Include="Utility\LoginSettings.cs" />
     <Compile Include="Utility\UrlShortener.cs" />
     <Compile Include="WarmupPage.cs">
       <SubType>ASPXCodeBehind</SubType>

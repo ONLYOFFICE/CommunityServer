@@ -12,7 +12,7 @@
                 <label for="chk-<%= theme.Value %>"><%= theme.Title %></label>
             </div>
         <% } %>     
-        <div class="preview-theme-image <%= ChosenTheme%>">
+        <div class="preview-theme-image <%= ChosenMode%> <%= ChosenTheme%>">
         </div>
          <div class="middle-button-container">
             <a class="button blue" id="saveColorThemeBtn">

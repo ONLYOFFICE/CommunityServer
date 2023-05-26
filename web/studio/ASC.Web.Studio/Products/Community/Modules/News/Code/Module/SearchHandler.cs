@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ namespace ASC.Web.Community.News.Code.Module
 
         public override ImageOptions Logo
         {
-            get { return new ImageOptions { ImageFileName = "newslogo.png", PartID = NewsConst.ModuleId }; }
+            get { return new ImageOptions { ImageFileName = "newslogo.svg", PartID = NewsModule.ModuleId }; }
         }
 
         public override string SearchName
@@ -56,7 +56,7 @@ namespace ASC.Web.Community.News.Code.Module
 
         public override Guid ModuleID
         {
-            get { return NewsConst.ModuleId; }
+            get { return NewsModule.ModuleId; }
         }
 
         public override Guid ProductID

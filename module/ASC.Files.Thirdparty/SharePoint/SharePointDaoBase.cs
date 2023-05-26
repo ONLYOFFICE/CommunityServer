@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,7 +105,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         protected object MappingID(object id, bool saveIfNotExist)
         {
-            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
             {
                 if (id == null) return null;
                 int n;
@@ -136,7 +136,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             if (oldValue.Equals(newValue)) return;
 
-            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
             {
                 using (var tx = dbManager.BeginTransaction())
                 {

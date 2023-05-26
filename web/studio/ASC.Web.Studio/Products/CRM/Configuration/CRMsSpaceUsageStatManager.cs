@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ namespace ASC.Web.CRM.Configuration
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
-            using (var filedb = DbManager.FromHttpContext(FileConstant.DatabaseId))
+            using (var filedb = new DbManager(FileConstant.DatabaseId))
             {
                 var q = new SqlQuery("files_file f")
                     .Select("b.right_node")

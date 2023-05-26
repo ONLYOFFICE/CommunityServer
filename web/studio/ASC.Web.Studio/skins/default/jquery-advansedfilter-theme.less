@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item{backgr
 
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.btn-delete{display:block; height:16px; line-height:16px; width:16px; margin:-8px 0 0; position:absolute; right:2px; top:50%; z-index:1; text-align:center; cursor:pointer; font-size: 18px; font-weight: 700; color:@advfilter-combobox-btns;}
 
-div.advansed-filter-container div.advansed-filter-input label.advansed-filter-reset{display:none; width:15px; height:15px; line-height:14px; margin:-8px 0 0; position:absolute; right:-18px; top:50%; z-index:1; cursor:pointer;background-color:@advfilter-reset-btn; .borderRadius(15px); color: #fff; font-size:18px; font-weight:700; text-align: center;}
+div.advansed-filter-container div.advansed-filter-input label.advansed-filter-reset{display:none; width:15px; height:15px; line-height:14px; margin:-8px 0 0; position:absolute; right:-18px; top:50%; z-index:1; cursor:pointer;background-color:@advfilter-reset-btn; .borderRadius(15px); color: @back-ground-text; font-size:18px; font-weight:700; text-align: center;}
 
 div.advansed-filter-container div.advansed-filter-button{.borderRadius(2px);}
 div.advansed-filter-container div.advansed-filter-button div.inner-text{position: relative;}
@@ -41,3 +41,13 @@ div.advansed-filter-container div.advansed-filter-button div.inner-text:before{b
 div.advansed-filter-container div.advansed-filter-button div.inner-text span.text{background-color:@advfilter-add-btn-bkgd; color:@advfilter-add-btn-plus;border: 1px solid @border-button-default; border-right: 0 none;.borderRadius(2px);}
 
 div.advansed-filter-container span.custom-combobox span.combobox-title:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid @advfilter-combobox-btns; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -1px;}
+
+div.advansed-filter div.advansed-filter-container{border-color: @advansed-filter-container-bor !important;}
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.title {color: @filter-item-span-title !important;}
+
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.label {color: @filter-item-span-title !important;}
+div.advansed-filter-container div.advansed-filter-input input {color: @advfilter-color !important;}
+
+div.advansed-filter div.advansed-item-list ul.item-list {background: @advfilter-combobox-bkgd !important; border-color:  @advansed-filter-container-bor !important;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item.selected { color: @linkColor !important;}

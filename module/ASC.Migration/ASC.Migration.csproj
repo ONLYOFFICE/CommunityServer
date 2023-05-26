@@ -84,6 +84,7 @@
     <Compile Include="GoogleWorkspace\Models\Parse\GWSMail.cs" />
     <Compile Include="GoogleWorkspace\Models\Parse\GWSProfile.cs" />
     <Compile Include="GoogleWorkspace\Models\Parse\GWSTasks.cs" />
+    <Compile Include="MigrateProgressItem.cs" />
     <Compile Include="NextcloudWorkspace\Models\NCMigratingGroups.cs" />
     <Compile Include="NextcloudWorkspace\Models\NCMigratingMail.cs" />
     <Compile Include="NextcloudWorkspace\Models\Parse\NCAddressbooks.cs" />
@@ -112,7 +113,9 @@
     <Compile Include="OwnCloud\Models\Parse\OCStorages.cs" />
     <Compile Include="OwnCloud\Models\Parse\OCUser.cs" />
     <Compile Include="OwnCloud\OwnCloudMigration.cs" />
+    <Compile Include="ParseProgressItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueWorker.cs" />
     <Compile Include="Resources\MigrationResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,6 +133,10 @@
     <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{A51D0454-4AFA-46DE-89D4-B03D37E1816C}</Project>
       <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02C40A64-FE22-41D0-9037-69F0D6F787A9}</Project>
+      <Name>ASC.Web.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>

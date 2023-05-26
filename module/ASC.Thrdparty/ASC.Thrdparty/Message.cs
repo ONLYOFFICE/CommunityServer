@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,21 +27,25 @@ namespace ASC.Thrdparty
         /// <summary>
         /// User name
         /// </summary>
+        /// <example>Name user</example>
         public string UserName { get; set; }
 
         /// <summary>
         /// Message text
         /// </summary>
+        /// <example>text</example>
         public string Text { get; set; }
 
         /// <summary>
         /// The date of message post
         /// </summary>
+        /// <example>2008-04-10T06-30-00.000Z</example>
         public DateTime PostedOn { get; set; }
 
         /// <summary>
         /// Social network
         /// </summary>
+        /// <example type="int">0</example>
         public SocialNetworks Source { get; set; }
     }
 }

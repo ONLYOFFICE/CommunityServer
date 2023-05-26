@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,46 +34,57 @@ namespace ASC.Api.Documents
     {
         /// <summary>
         /// </summary>
+        /// <example name="id">d5490cba-a5e6-40db-acb2-94203dba12d6</example>
         [DataMember(Name = "id", IsRequired = false)]
         public string Id { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int" name="operation">1</example>
         [DataMember(Name = "operation", IsRequired = false)]
         public FileOperationType OperationType { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int" name="progress">100</example>
         [DataMember(Name = "progress", IsRequired = false)]
         public int Progress { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example name="error"></example>
         [DataMember(Name = "error", IsRequired = false)]
         public string Error { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example name="processed">1</example>
         [DataMember(Name = "processed", IsRequired = false)]
         public string Processed { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example name="finished">false</example>
         [DataMember(Name = "finished", IsRequired = false)]
         public bool Finished { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example name="url">null</example>
         [DataMember(Name = "url", IsRequired = false)]
         public string Url { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <type name="files">ASC.Api.Documents.FileWrapper, ASC.Api.Documents</type>
+        /// <collection>list</collection>
         [DataMember(Name = "files", IsRequired = true, EmitDefaultValue = true)]
         public List<FileWrapper> Files { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <type name="folders">ASC.Api.Documents.FolderWrapper, ASC.Api.Documents</type>
+        /// <collection>list</collection>
         [DataMember(Name = "folders", IsRequired = true, EmitDefaultValue = true)]
         public List<FolderWrapper> Folders { get; set; }
 

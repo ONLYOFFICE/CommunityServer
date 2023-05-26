@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,21 +25,27 @@ namespace ASC.Specific.CapabilitiesApi
     [DataContract(Name = "capabilities", Namespace = "")]
     public class CapabilitiesData
     {
+        /// <example>false</example>
+        /// <collection>list</collection>
         [DataMember]
         public bool LdapEnabled { get; set; }
 
+        /// <example>google,facebook,twitter,linkedin,mailru,vk,yandex,gosuslugi</example>
+        /// <collection split=",">list</collection>
         [DataMember]
         public bool OauthEnabled { get; set; }
 
         [DataMember]
         public List<string> Providers { get; set; }
 
+        /// <example></example>
         [DataMember]
         public string SsoLabel { get; set; }
 
         /// <summary>
         /// if empty sso is disabled
         /// </summary>
+        /// <example></example>
         [DataMember]
         public string SsoUrl { get; set; }
 
@@ -55,3 +61,4 @@ namespace ASC.Specific.CapabilitiesApi
         }
     }
 }
+

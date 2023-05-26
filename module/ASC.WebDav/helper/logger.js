@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- */
+*/
 
 
 const winston = require("winston");
@@ -20,10 +20,10 @@ const { format } = require("winston");
 require("winston-daily-rotate-file");
 
 const path = require("path");
-const config = require("../server/config.js");
+const config = require(`../server/config.${process.argv[2]}.js`);
 const fs = require("fs");
 const logLevel = process.env.logLevel || config.logLevel || "info";
-const fileName = process.env.logPath || path.join(__dirname, "..", "logs", "web.webdav.%DATE%.log");
+const fileName = config.logPath || path.join(__dirname, "..", "logs", "web.webdav.%DATE%.log");
 const dirName = path.dirname(fileName);
 
 if (!fs.existsSync(dirName)) {

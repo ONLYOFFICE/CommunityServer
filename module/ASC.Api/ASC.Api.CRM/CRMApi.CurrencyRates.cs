@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ using ASC.Web.CRM.Resources;
 
 namespace ASC.Api.CRM
 {
+    ///<name>crm</name>
     public partial class CRMApi
     {
         //TABLE `crm_currency_rate` column `rate` DECIMAL(10,2) NOT NULL
@@ -35,11 +36,14 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of all the currency rates.
         /// </summary>
-        /// <short>Get all currency rates</short> 
-        /// <category>Common</category>
-        /// <returns>
+        /// <short>Get currency rates</short> 
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">
         /// List of currency rates
         /// </returns>
+        /// <path>api/2.0/crm/currency/rates</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"currency/rates")]
         public IEnumerable<CurrencyRateWrapper> GetCurrencyRates()
         {
@@ -49,13 +53,15 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a currency rate by ID.
         /// </summary>
-        /// <param name="id">Currency rate ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Currency rate ID</param>
         /// <short>Get a currency rate by ID</short> 
-        /// <category>Common</category>
-        /// <returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">
         /// Currency rate
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
+        /// <path>api/2.0/crm/currency/rates/{id}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"currency/rates/{id:[0-9]+}")]
         public CurrencyRateWrapper GetCurrencyRate(int id)
         {
@@ -69,14 +75,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a currency rate by currencies.
         /// </summary>
-        /// <param name="fromCurrency">Original currency</param>
-        /// <param name="toCurrency">Converted currency</param>
+        /// <param type="System.String, System" method="url" name="fromCurrency">Currency to convert</param>
+        /// <param type="System.String, System" method="url" name="toCurrency">Currency into which the original currency will be converted</param>
         /// <short>Get a currency rate by currencies</short> 
-        /// <category>Common</category>
-        /// <returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">
         /// Currency rate
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
+        /// <path>api/2.0/crm/currency/rates/{fromCurrency}/{toCurrency}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"currency/rates/{fromCurrency}/{toCurrency}")]
         public CurrencyRateWrapper GetCurrencyRate(string fromCurrency, string toCurrency)
         {
@@ -91,12 +99,14 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Creates a new currency rate with the parameters specified in the request.
         /// </summary>
-        /// <param name="fromCurrency">Original currency</param>
-        /// <param name="toCurrency">Converted currency</param>
-        /// <param name="rate">Currency rate</param>
+        /// <param type="System.String, System" name="fromCurrency">Currency to convert</param>
+        /// <param type="System.String, System" name="toCurrency">Currency into which the original currency will be converted</param>
+        /// <param type="System.Decimal, System" name="rate">Exchange rate</param>
         /// <short>Create a currency rate</short>
-        /// <category>Common</category>
-        /// <returns>Currency rate</returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">Currency rate</returns>
+        /// <path>api/2.0/crm/currency/rates</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"currency/rates")]
         public CurrencyRateWrapper CreateCurrencyRate(string fromCurrency, string toCurrency, decimal rate)
         {
@@ -120,13 +130,15 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Updates a currency rate with the parameters specified in the request.
         /// </summary>
-        /// <param name="id">Currency ID</param>
-        /// <param name="fromCurrency">New original currency</param>
-        /// <param name="toCurrency">New converted currency</param>
-        /// <param name="rate">New currency rate</param>
+        /// <param type="System.Int32, System" method="url" name="id">Currency ID</param>
+        /// <param type="System.String, System" method="url" name="fromCurrency">New currency to convert</param>
+        /// <param type="System.String, System" method="url" name="toCurrency">New currency into which the original currency will be converted</param>
+        /// <param type="System.Decimal, System" name="rate">New currency rate</param>
         /// <short>Update a currency rate</short>
-        /// <category>Common</category>
-        /// <returns>Updated currency rate</returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">Updated currency rate</returns>
+        /// <path>api/2.0/crm/currency/rates/{id}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"currency/rates/{id:[0-9]+}")]
         public CurrencyRateWrapper UpdateCurrencyRate(int id, string fromCurrency, string toCurrency, decimal rate)
         {
@@ -153,13 +165,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// Sets rates to the currency specified in the request.
+        /// Sets currency rates to the currency specified in the request.
         /// </summary>
-        /// <param name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Currency (abbreviation)</param>
-        /// <param name="rates">List of currency rates</param>
+        /// <param type="System.String, System" name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by API">Currency (abbreviation)</param>
+        /// <param type="System.Collections.Generic.List{ASC.CRM.Core.CurrencyRate}, System.Collections.Generic" name="rates">List of currency rates</param>
         /// <short>Set currency rates</short>
-        /// <category>Common</category>
-        /// <returns>Currency information</returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">Currency information</returns>
+        /// <path>api/2.0/crm/currency/setrates</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
         [Create(@"currency/setrates")]
         public List<CurrencyRateWrapper> SetCurrencyRates(String currency, List<CurrencyRate> rates)
         {
@@ -198,10 +213,13 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Adds currency rates specified in the request.
         /// </summary>
-        /// <param name="rates">List of currency rates</param>
+        /// <param type="System.Collections.Generic.List{ASC.CRM.Core.CurrencyRate}, System.Collections.Generic" name="rates">List of currency rates</param>
         /// <short>Add currency rates</short>
-        /// <category>Common</category>
-        /// <returns>Currency information</returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">Currency information</returns>
+        /// <path>api/2.0/crm/currency/addrates</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
         [Create(@"currency/addrates")]
         public List<CurrencyRateWrapper> AddCurrencyRates(List<CurrencyRate> rates)
         {
@@ -237,14 +255,15 @@ namespace ASC.Api.CRM
 
             return existingRates.Select(ToCurrencyRateWrapper).ToList();
         }
-
         /// <summary>
         /// Deletes a currency rate with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Currency rate ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Currency rate ID</param>
         /// <short>Delete a currency rate</short>
-        /// <category>Common</category>
-        /// <returns>Currency rate</returns>
+        /// <category>Currencies</category>
+        /// <returns type="ASC.Api.CRM.CurrencyRateWrapper, ASC.Api.CRM">Currency rate</returns>
+        /// <path>api/2.0/crm/currency/rates/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"currency/rates/{id:[0-9]+}")]
         public CurrencyRateWrapper DeleteCurrencyRate(int id)
         {

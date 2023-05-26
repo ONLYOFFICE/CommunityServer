@@ -44,6 +44,8 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\ASC.Mail.Aggregator.CollectionService.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -138,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

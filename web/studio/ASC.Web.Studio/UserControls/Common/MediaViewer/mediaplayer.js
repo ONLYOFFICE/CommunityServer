@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -367,7 +367,7 @@ window.ASC.Files.MediaPlayer = (function () {
             options.onMediaChangedAction(fileId);
         }
 
-        if (options.deleteAction && options.canDelete && options.canDelete(currentFileId)) {
+        if (options.deleteAction && options.canDelete && options.canDelete(currentFileId) && ASC.Resources.Master.IsAuthenticated) {
             jq("#videoDelete").show();
         } else {
             jq("#videoDelete").hide();
@@ -652,7 +652,7 @@ window.ASC.Files.MediaPlayer = (function () {
     };
 
     var deleteFile = function () {
-        if (!options.canDelete || !options.canDelete(currentFileId) || !options.deleteAction) {
+        if (!options.canDelete || !options.canDelete(currentFileId) || !options.deleteAction || !ASC.Resources.Master.IsAuthenticated) {
             return;
         }
 

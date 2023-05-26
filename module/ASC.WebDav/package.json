@@ -16,6 +16,7 @@
     "form-data": "^3.0.0",
     "get-byte": "0.0.0",
     "help": "^3.0.2",
+    "node-fetch": "^2.6.9",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "request": "^2.88.0",

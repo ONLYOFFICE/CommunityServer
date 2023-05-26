@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,69 +15,75 @@
 */
 
 
-jq(function () {
-    jq('#savePasswordSettingsBtn').on("click", PasswordSettingsManager.SaveSettings);
-});
+window.ASC.Controls.PasswordSettingsManager = new function () {
 
-jq(document).ready(function () {
-    PasswordSettingsManager.LoadSettings();
-});
+    return {
 
-PasswordSettingsManager = new function () {
+        LoadSettings: function () {
 
-    this.LoadSettings = function () {
-        PasswordSettingsController.LoadPasswordSettings(function (result) {
+            Teamlab.getPasswordSettings({}, {
+                success: function (_, settings) {
 
-            var res = result.value;
+                    if (settings == null)
+                        return;
 
-            if (res == null)
-                return;
+                    var onSlide = function (event, ui) {
+                        setTimeout(function () {
+                            var value = jq("#slider").slider("values").join(" - ");
+                            jq("#count").text(value);
+                        }, 0);
+                    }
 
-            var jsonObj = JSON.parse(res);
+                    jq("#slider").slider({
+                        range: true,
+                        min: settings.limitMinLength,
+                        max: settings.limitMaxLength,
+                        values: [settings.minLength, settings.maxLength],
+                        change: onSlide,
+                        slide: onSlide
+                    });
 
-            var onSlide = function (event, ui) {
-                setTimeout(function () {
-                    var value = jq("#slider").slider("value");
-                    jq("#count").html(value);
-                }, 0);
-            };
+                    jq("#chkUpperCase").prop("checked", settings.upperCase);
+                    jq("#chkDigits").prop("checked", settings.digits);
+                    jq("#chkSpecSymbols").prop("checked", settings.specSymbols);
 
-            jq("#slider").slider({
-                range: "max",
-                max: (jq("#slider").attr("data-max") | 0) || 30,
-                min: (jq("#slider").attr("data-min") | 0) || 1,
-                value: jsonObj.MinLength,
-                change: onSlide,
-                slide: onSlide,
+                    onSlide();
+                },
+                error: function (_, errors) {
+                    LoadingBanner.showMesInfoBtn("#studio_passwordSettings", ASC.Resources.Master.ResourceJS.CommonJSErrorMsg, "error");
+                }
             });
+        },
 
-            jq("#chkUpperCase").prop("checked", jsonObj.UpperCase);
-            jq("#chkDigits").prop("checked", jsonObj.Digits);
-            jq("#chkSpecSymbols").prop("checked", jsonObj.SpecSymbols);
+        SaveSettings: function () {
 
-            onSlide();
-        });
-    };
+            var maxLength = jq("#slider").slider("values", 1),
+                minLength = jq("#slider").slider("values", 0),
+                upperCase = jq("input#chkUpperCase").is(":checked"),
+                digits = jq("input#chkDigits").is(":checked"),
+                specSymbols = jq("input#chkSpecSymbols").is(":checked");
 
-    this.SaveSettings = function () {
-
-        AjaxPro.onLoading = function (b) {
-            if (b)
-                LoadingBanner.showLoaderBtn("#studio_passwordSettings");
-            else
-                LoadingBanner.hideLoaderBtn("#studio_passwordSettings");
-        };
-
-        var jsonObj = {
-            "MinLength": jq("#slider").slider("value"),
-            "UpperCase": jq("input#chkUpperCase").is(":checked"),
-            "Digits": jq("input#chkDigits").is(":checked"),
-            "SpecSymbols": jq("input#chkSpecSymbols").is(":checked")
-        };
-
-        PasswordSettingsController.SavePasswordSettings(JSON.stringify(jsonObj), function (result) {
-            var res = result.value;
-            LoadingBanner.showMesInfoBtn("#studio_passwordSettings", res.Message, res.Status == 1 ? "success" : "error");
-        });
-    };
+            Teamlab.setPasswordSettings(maxLength, minLength, upperCase, digits, specSymbols, {
+                success: function () {
+                    LoadingBanner.showMesInfoBtn("#studio_passwordSettings", ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage, "success");
+                },
+                error: function (_, errors) {
+                    LoadingBanner.showMesInfoBtn("#studio_passwordSettings", errors[0], "error");
+                },
+                before: function () {
+                    LoadingBanner.showLoaderBtn("#studio_passwordSettings");
+                },
+                after: function () {
+                    LoadingBanner.hideLoaderBtn("#studio_passwordSettings");
+                }
+            });
+        }
+    }
 };
+
+jq(function () {
+
+    window.ASC.Controls.PasswordSettingsManager.LoadSettings();
+
+    jq('#savePasswordSettingsBtn').on("click", window.ASC.Controls.PasswordSettingsManager.SaveSettings);
+});

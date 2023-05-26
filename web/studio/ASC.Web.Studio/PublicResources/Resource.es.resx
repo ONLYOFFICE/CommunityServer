@@ -1900,9 +1900,6 @@ Si decide incluir el correo, sólo los mensajes de los últimos 30 días serán 
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Ajustes de dominio de correo confiado{2} es una forma de especificar los servidores de correo que pueden utilizarse para registrarse en ONLYOFFICE™.{0}Usted puede revisar la opción {1}Dominios personalizados{2} e introducir servidor de correo electrónico confiado en el campo abajo para que cada persona que tiene la cuenta podrá registrarse pulsando el enlace {1}Iniciar seción{2} en la página o desactivar esta opción.{0}Para activar los parámetros ingresados pulse el botón  {1}Guardar{2} en la parte inferior de la sección.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Ajustes de seguridad de contraseña{2} es un modo para determinar eficacia de la contraseña en resistir a los ataques de adivinanza y fuerza bruta.{0}Use barra de{1}longitud mínima de contraseña{2} para determinar longitud óptima. Marque las casillas apropiadas debajo de la barra para determinar el conjunto de caracteres que se debe utilizar en la contraseña.{0}Para aplicar los cambios realizados pulse el botón {1}Guardar{2} en la parte inferior de la sección. </value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Portal público{2} es una opción gratuita que le permite a cualquiera persona ver su contenido público sin registrarse en el portal. Los proyectos privados y el módulo CRM están desactivados en estos portales.{0}El registro en portales públicos no se limita en el número de usuarios, los usuarios nuevos se añaden bajo solicitud al administrador del portal. Use la opción {1}Registrar nuevos usuarios inmediatamente{2} para que las personas puedan registrase sin confirmación.</value>
   </data>
@@ -2146,9 +2143,6 @@ Si decide incluir el correo, sólo los mensajes de los últimos 30 días serán 
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Activar</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}Seguridad de IP{1} se usa para restringir acceso al portal de todas las direcciones IP excepto las direcciones especificadas. Usted puede especificar las direcciones IP permitidas usando las direcciones IP precisas en el formato IPv4 (#.#.#.#, donde # es un valor numérico de 0 a 255) o un rango de las direcciones IP (en el formato #.#.#.#-#.#.#.#). Seguridad de IP no funciona para propietarios de portal, ellos pueden entrar en el portal desde cualquiera dirección IP.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Seguridad IP</value>
@@ -2887,9 +2881,6 @@ si Usted desea cambiar los campos bloqueados en el perfil.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Cambio de contraseña</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Longitud mínima de la contraseña</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Recuperar la contraseña</value>

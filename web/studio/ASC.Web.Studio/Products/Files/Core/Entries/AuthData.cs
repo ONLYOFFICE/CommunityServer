@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,15 +24,19 @@ namespace ASC.Files.Core
     [DebuggerDisplay("{Login} {Password} {Token} {Url}")]
     public class AuthData
     {
+        ///<example name="login">login</example>
         [DataMember(Name = "login")]
         public string Login { get; set; }
 
+        ///<example name="password">password</example>
         [DataMember(Name = "password")]
         public string Password { get; set; }
 
+        ///<example name="token">token</example>
         [DataMember(Name = "token")]
         public string Token { get; set; }
 
+        ///<example name="url">url</example>
         [DataMember(Name = "url")]
         public string Url { get; set; }
 

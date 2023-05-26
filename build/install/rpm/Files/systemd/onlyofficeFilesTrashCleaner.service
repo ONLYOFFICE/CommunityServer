@@ -1,0 +1,20 @@
+[Unit]
+Description=ONLYOFFICE FilesTrashCleaner Service
+After=network.target syslog.target mysqld.service
+Wants=mysqld.service
+
+[Service]
+Type=forking
+ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeAutoCleanUp'
+ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeAutoCleanUp /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.Files.AutoCleanUp.Launcher,ASC.Files.AutoCleanUp\" --log FilesTrashCleaner
+Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+User=onlyoffice
+Group=onlyoffice
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+Restart=always
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

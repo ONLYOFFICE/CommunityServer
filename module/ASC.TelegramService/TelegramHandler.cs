@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,16 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Caching;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
 using ASC.Common.Logging;
 using ASC.Core.Common.Notify.Telegram;
-using ASC.Core.Tenants;
 using ASC.Notify.Messages;
 using ASC.TelegramService.Core;
 
 using Telegram.Bot;
-using Telegram.Bot.Args;
 using Telegram.Bot.Exceptions;
-using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -122,7 +118,7 @@ namespace ASC.TelegramService
                         client.CancellationTokenSource.Cancel();
                         client.CancellationTokenSource.Dispose();
                         client.CancellationTokenSource = null;
-                    }    
+                    }
 
                     BindClient(newClient, tenantId);
 
@@ -148,8 +144,6 @@ namespace ASC.TelegramService
                     }
                 }
 
-                BindClient(client, tenantId);
-
                 clients.Add(tenantId, new TenantTgClient()
                 {
                     Token = token,
@@ -158,6 +152,8 @@ namespace ASC.TelegramService
                     TenantId = tenantId,
                     TokenLifeSpan = tokenLifespan
                 });
+
+                BindClient(client, tenantId);
             }
 
             return true;
@@ -193,8 +189,11 @@ namespace ASC.TelegramService
         {
             var cts = new CancellationTokenSource();
 
-            client.StartReceiving(new DefaultUpdateHandler((botClient, exception, cancellationToken) => HandleUpdateAsync(botClient, exception, cancellationToken, tenantId), HandleErrorAsync),
-                                  cts.Token);
+            clients[tenantId].CancellationTokenSource = cts;
+                      
+            client.StartReceiving(updateHandler: (botClient, exception, cancellationToken) => HandleUpdateAsync(botClient, exception, cancellationToken, tenantId),
+                                  errorHandler: HandleErrorAsync,
+                                  cancellationToken: cts.Token);
         }
 
         async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken, int tenantId)

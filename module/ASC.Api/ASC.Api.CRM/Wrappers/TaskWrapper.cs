@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ namespace ASC.Api.CRM.Wrappers
     /// <summary>
     ///  Task
     /// </summary>
+    /// <inherited>ASC.Api.CRM.Wrappers.ObjectWrapperBase, ASC.Api.CRM</inherited>
     [DataContract(Name = "task", Namespace = "")]
     public class TaskWrapper : ObjectWrapperBase
     {
@@ -46,39 +47,51 @@ namespace ASC.Api.CRM.Wrappers
             AlertValue = task.AlertValue;
         }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public EmployeeWraper CreateBy { get; set; }
 
+        ///<example>2020-12-16T03:11:54.3573531Z</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ApiDateTime Created { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactBaseWithEmailWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ContactBaseWithEmailWrapper Contact { get; set; }
 
+        ///<example>Send a commercial offer</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String Title { get; set; }
 
+        ///<example>Description</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String Description { get; set; }
 
+        ///<example>2020-12-16T03:11:54.3573531Z</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ApiDateTime DeadLine { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public int AlertValue { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public EmployeeWraper Responsible { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public bool IsClosed { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.TaskCategoryBaseWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public TaskCategoryBaseWrapper Category { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.EntityWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public EntityWrapper Entity { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public bool CanEdit { get; set; }
 

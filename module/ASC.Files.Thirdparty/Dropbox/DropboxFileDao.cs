@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -287,7 +287,10 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             return SaveFile(file, fileStream);
         }
-
+        public void DeleteFile(object fileId, Guid ownerId)
+        {
+            DeleteFile(fileId);
+        }
         public void DeleteFile(object fileId)
         {
             var dropboxFile = GetDropboxFile(fileId);
@@ -419,7 +422,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public ChunkedUploadSession CreateUploadSession(File file, long contentLength)
         {
-            if (SetupInfo.ChunkUploadSize > contentLength)
+            if (SetupInfo.ChunkUploadSize > contentLength && contentLength != -1)
                 return new ChunkedUploadSession(RestoreIds(file), contentLength) { UseChunks = false };
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
@@ -466,7 +469,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
             uploadSession.BytesUploaded += chunkLength;
 
-            if (uploadSession.BytesUploaded == uploadSession.BytesTotal)
+            if (uploadSession.BytesUploaded == uploadSession.BytesTotal || uploadSession.LastChunk)
             {
                 uploadSession.File = FinalizeUploadSession(uploadSession);
             }
@@ -514,7 +517,11 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             if (uploadSession.Items.ContainsKey("TempPath"))
             {
-                System.IO.File.Delete(uploadSession.GetItemOrDefault<string>("TempPath"));
+                var path = uploadSession.GetItemOrDefault<string>("TempPath");
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
             }
         }
 
@@ -589,6 +596,11 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public void SaveProperties(object fileId, EntryProperties entryProperties)
         {
+        }
+
+        public Task UploadChunkAsync(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

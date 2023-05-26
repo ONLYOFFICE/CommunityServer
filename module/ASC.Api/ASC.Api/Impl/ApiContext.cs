@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -135,7 +135,7 @@ namespace ASC.Api.Impl
         /// Gets count to get item from collection. Request parameter "count"
         /// </summary>
         /// <remarks>
-        /// Don't forget to call _context.SetDataPaginated() to prevent SmartList from filtering response if you fetch data from DB with TOP & COUNT
+        /// Don't forget to call _context.SetDataPaginated() to prevent SmartList from filtering response if you fetch data from DB with TOP &amp; COUNT
         /// </remarks>
         public long Count { get; set; }
 
@@ -143,7 +143,7 @@ namespace ASC.Api.Impl
         /// Gets start index to get item from collection. Request parameter "startIndex"
         /// </summary>
         /// <remarks>
-        /// Don't forget to call _context.SetDataPaginated() to prevent SmartList from filtering response if you fetch data from DB with TOP & COUNT
+        /// Don't forget to call _context.SetDataPaginated() to prevent SmartList from filtering response if you fetch data from DB with TOP &amp; COUNT
         /// </remarks>
         public long StartIndex { get; set; }
 
@@ -172,7 +172,7 @@ namespace ASC.Api.Impl
 
         /// <summary>
         /// Sort direction. From request parameter "sortOrder" can be "descending" or "ascending"
-        /// Like ...&sortOrder=descending&...
+        /// Like ...&amp;sortOrder=descending&amp;...
         /// </summary>
         public bool SortDescending { get; set; }
 

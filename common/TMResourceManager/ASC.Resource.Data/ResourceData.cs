@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ namespace TMResourceData
 
         public static DateTime GetLastUpdate()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResFilesTable).SelectMax("LastUpdate");
 
@@ -53,7 +53,7 @@ namespace TMResourceData
 
         public static List<ResCulture> GetListLanguages(int fileId, string title)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResCultureTable)
                     .Select("res_cultures.title", "res_cultures.value", "res_cultures.available")
@@ -71,7 +71,7 @@ namespace TMResourceData
 
         public static Dictionary<ResCulture, List<string>> GetCulturesWithAuthors()
         {
-            using (var dbManager = DbManager.FromHttpContext("tmresource"))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery("res_authorslang ral")
                     .Select(new[] { "ral.authorLogin", "rc.title", "rc.value" })
@@ -87,7 +87,7 @@ namespace TMResourceData
 
         public static void AddCulture(string cultureTitle, string name)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sqlInsert = new SqlInsert(ResCultureTable);
                 sqlInsert.InColumnValue("title", cultureTitle).InColumnValue("value", name);
@@ -97,22 +97,22 @@ namespace TMResourceData
 
         public static void AddResource(string cultureTitle, string resType, DateTime date, ResWord word, bool isConsole, string authorLogin, bool updateIfExist = true)
         {
-            using (var db = DbManager.FromHttpContext(Dbid))
+            using (var db = new DbManager(Dbid))
             {
                 var resData = db.ExecuteScalar<string>(GetQuery(ResDataTable, cultureTitle, word));
                 var resReserve = db.ExecuteScalar<string>(GetQuery(ResReserveTable, cultureTitle, word));
 
-                //нет ключа
+                //no key
                 if (string.IsNullOrEmpty(resData))
                 {
-                    //добавляем в основную таблицу
+                    //add to main table
                     db.ExecuteNonQuery(Insert(ResDataTable, cultureTitle, word)
                                               .InColumnValue("resourceType", resType)
                                               .InColumnValue("timechanges", date)
                                               .InColumnValue("flag", 2)
                                               .InColumnValue("authorLogin", authorLogin));
 
-                    //добавляем в резервную таблицу
+                    //add to backup table
                     if (isConsole) db.ExecuteNonQuery(Insert(ResReserveTable, cultureTitle, word));
                 }
                 else
@@ -131,10 +131,10 @@ namespace TMResourceData
 
                     if (!updateIfExist) return;
 
-                    //при работе с консолью изменилось по сравнению с res_data и res_reserve, либо при работе с сайтом изменилось по сравнению с res_reserve
+                    //when working with the console has changed compared to res_data and res_reserve, or when working with the site has changed compared to res_reserve
                     if ((isConsole && isChangeResData && isChangeResReserve) || !isConsole)
                     {
-                        // изменилась нейтральная культура - выставлен флаг у всех ключей из выбранного файла с выбранным title
+                        // neutral culture changed - flag set for all keys from the selected file with the selected title
                         if (cultureTitle == "Neutral")
                         {
                             var update = new SqlUpdate(ResDataTable)
@@ -144,7 +144,7 @@ namespace TMResourceData
 
                             db.ExecuteNonQuery(update);
                         }
-                        // изменилась не нейтральная культура 
+                        // non-neutral culture changed
                         db.ExecuteNonQuery(Insert(ResDataTable, cultureTitle, word)
                                               .InColumnValue("resourceType", resType)
                                               .InColumnValue("timechanges", date)
@@ -163,7 +163,7 @@ namespace TMResourceData
 
         public static void EditEnglish(ResWord word)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var update = new SqlUpdate(ResDataTable);
                 update.Set("textvalue", word.ValueFrom).Where("fileID", word.ResFile.FileID).Where("title", word.Title).Where("cultureTitle", "Neutral");
@@ -174,7 +174,7 @@ namespace TMResourceData
 
         public static void AddComment(ResWord word)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sqlUpdate = new SqlUpdate(ResDataTable);
                 sqlUpdate.Set("description", word.TextComment).Where("title", word.Title).Where("fileID", word.ResFile.FileID).Where("cultureTitle", "Neutral");
@@ -191,7 +191,7 @@ namespace TMResourceData
                 fileName = fileNameWithoutExtension.Split('.')[0] + Path.GetExtension(fileName);
             }
 
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResFilesTable)
                     .SelectCount()
@@ -224,7 +224,7 @@ namespace TMResourceData
 
         public static IEnumerable<ResCulture> GetCultures()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResCultureTable);
                 sql.Select("title", "value", "available")
@@ -236,7 +236,7 @@ namespace TMResourceData
 
         public static void SetCultureAvailable(string title)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlUpdate(ResCultureTable);
                 sql.Set("available", true).Where("title", title);
@@ -251,7 +251,7 @@ namespace TMResourceData
 
         public static List<ResFile> GetAllFiles()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResFilesTable);
 
@@ -267,7 +267,7 @@ namespace TMResourceData
 
         public static IEnumerable<ResProject> GetResProjects()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResFilesTable);
                 sql.Select("projectName").Distinct();
@@ -290,7 +290,7 @@ namespace TMResourceData
 
         public static IEnumerable<ResWord> GetListResWords(ResCurrent current, string search)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var exist = new SqlQuery(ResDataTable + " rd3")
                     .Select("rd3.title")
@@ -335,7 +335,7 @@ namespace TMResourceData
 
         public static List<ResWord> GetListResWords(ResFile resFile, string to, string search)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable)
                     .Select("title", "fileid", "textValue", "description", "flag", "link")
@@ -359,7 +359,7 @@ namespace TMResourceData
 
         public static void GetListModules(ResCurrent currentData)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var notExist = new SqlQuery(ResDataTable + " rd1")
                     .Select("1")
@@ -398,7 +398,7 @@ namespace TMResourceData
 
         public static void LockModules(string projectName, string modules)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sqlUpdate = new SqlUpdate(ResFilesTable);
                 sqlUpdate.Set("isLock", 1).Where("projectName", projectName).Where(Exp.In("moduleName", modules.Split(',')));
@@ -408,7 +408,7 @@ namespace TMResourceData
 
         public static void UnLockModules()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sqlUpdate = new SqlUpdate(ResFilesTable);
                 sqlUpdate.Set("isLock", 0);
@@ -418,7 +418,7 @@ namespace TMResourceData
 
         public static void AddLink(string resource, string fileName, string page)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var query = new SqlQuery(ResDataTable);
                 query.Select(ResDataTable + ".id")
@@ -435,7 +435,7 @@ namespace TMResourceData
 
         public static void GetResWordByKey(ResWord word, string to)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable)
                     .Select("textvalue", "description", "link")
@@ -467,7 +467,7 @@ namespace TMResourceData
 
         public static void GetValueByKey(ResWord word, string to)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable);
                 sql.Select("textvalue")
@@ -492,7 +492,7 @@ namespace TMResourceData
 
         public static List<Author> GetListAuthors()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResAuthorsTable)
                     .Select("login", "password", "isAdmin");
@@ -503,7 +503,7 @@ namespace TMResourceData
 
         public static Author GetAuthor(string login)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResAuthorsTable)
                     .Select("login", "password", "isAdmin")
@@ -554,7 +554,7 @@ namespace TMResourceData
 
         public static void CreateAuthor(Author author, IEnumerable<string> languages, string modules)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sqlInsert = new SqlInsert(ResAuthorsTable, true)
                     .InColumnValue("login", author.Login)
@@ -597,7 +597,7 @@ namespace TMResourceData
 
         public static void DeleteAuthor(string login)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlDelete(ResAuthorsTable).Where("login", login);
 
@@ -607,7 +607,7 @@ namespace TMResourceData
 
         public static bool IsAuthor(string login, string password)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResAuthorsTable)
                     .SelectCount()
@@ -620,7 +620,7 @@ namespace TMResourceData
 
         public static void SetAuthorOnline(string login)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlUpdate(ResAuthorsTable)
                     .Set("lastVisit", DateTime.UtcNow)
@@ -632,7 +632,7 @@ namespace TMResourceData
 
         public static List<string> GetOnlineAuthors()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResAuthorsTable)
                     .Select("login")
@@ -644,7 +644,7 @@ namespace TMResourceData
 
         public static void AddAuthorLang(string login, string cultureTitle)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlInsert(ResAuthorsLangTable)
                     .InColumnValue("cultureTitle", cultureTitle)
@@ -656,7 +656,7 @@ namespace TMResourceData
 
         public static List<StatisticModule> GetStatistic()
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable + " r1")
                     .Select("sum(LENGTH(r1.textvalue) - LENGTH(REPLACE(r1.textvalue, ' ', '')) + 1)")
@@ -701,7 +701,7 @@ namespace TMResourceData
 
         public static List<StatisticUser> GetUserStatisticForLang(DateTime from, DateTime till)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable + " as r1");
 
@@ -725,7 +725,7 @@ namespace TMResourceData
 
         public static List<StatisticUser> GetUserStatisticForModules(string login, DateTime from, DateTime till)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable + " as r1");
 
@@ -755,7 +755,7 @@ namespace TMResourceData
 
         public static List<ResWord> SearchAll(string projectName, string moduleName, string languageTo, string searchText, string searchType)
         {
-            using (var dbManager = DbManager.FromHttpContext(Dbid))
+            using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable)
                     .Select("title", "fileid", "textValue", "resName", "moduleName", "projectName")
@@ -780,7 +780,7 @@ namespace TMResourceData
 
         public static void UpdateHashTable(ref Hashtable table, DateTime date)
         {
-            using (var dbManager = DbManager.FromHttpContext("tmresourceTrans"))
+            using (var dbManager = new DbManager("tmresourceTrans"))
             {
                 var sql = new SqlQuery(ResDataTable)
                     .Select(ResDataTable + ".textValue", ResDataTable + ".title", ResFilesTable + ".ResName", ResDataTable + ".cultureTitle")

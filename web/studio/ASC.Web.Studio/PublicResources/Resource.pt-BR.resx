@@ -1794,10 +1794,6 @@ Você tem certeza de que deseja excluir {0} {!group}?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Configurações de Domínio E-mail Confiáveis{2} é uma forma de especificar os servidores de e-mail usado para o registro de usuário automático.{0}Você pode tanto marcar a opção {1}Domínios Personalizados{2} quanto inserir o servidor de e-mail de confiança em um campo abaixo para aquela pessoa que tem uma conta em que será capaz de registrar sozinho clicando no link Junte-se na página {1}Entrar{2} ou desabilitar esta opção.{0}Para fazer com que os parâmetros definidos tenham efeito, clique no botão {1}Salvar{2} na parte inferior da seção.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Configurações de Força da Senha{2} é uma maneira de determinar a eficácia de uma senha em resistir aos ataques de adivinhação e força bruta. {0}Use a barra {1}Tamanho Mínimo de Senha{2} para determinar que tamanho a senha deve ter. Marque as caixas apropriadas abaixo para determinar o conjunto de caracteres que deve ser usado na senha. {0}Para fazer com que os parâmetros definidos tenham efeito, clique no botão {1}Salvar{2} na parte inferior da seção.
-</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Portal Público{2} é uma opção gr´tis, que permite a qualquer pessoa ver os seus conteúdos públicos sem registro. Nenhum projeto privado está disponível e o módulo CRM está desabilitada para tais portais. {0}Os registros para portais públicos não estão limitados no número de usuários, os novos usuários são adicionados após a solicitação ao administrador do portal. Use a opção {1}Registrar novos usuários imediatamente{2} para remover qualquer necessidade de confirmação de inscrição.</value>
   </data>
@@ -2041,9 +2037,6 @@ Você tem certeza de que deseja excluir {0} {!group}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Habilitar</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>A {0}Segurança IP{1} é usada para restringir o login ao portal de todos os endereços IP, exceto determinados endereços. Você pode definir os endereços IP permitidos usando tanto os endereços IP exatos no formato IPv4 (#.#.#.#, onde # é um valor numérico de 0 a 255) ou intervalo de IP (no formato #.#.#.#-#.#.#.#). A segurança de IP não funciona para proprietários de portal, eles podem acessar o portal a partir de qualquer endereço IP.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Segurança de IP</value>
@@ -2782,9 +2775,6 @@ se você quiser alterar os campos de perfil bloqueados.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Alteração de senha</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Tamanho mínimo da senha</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Recuperação de senha</value>

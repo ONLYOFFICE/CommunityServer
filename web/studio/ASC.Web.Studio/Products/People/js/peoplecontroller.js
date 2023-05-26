@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,9 +32,17 @@ ASC.People.PeopleController = (function() {
     var _selectedType = 1;
     var _selectedStatus = 1;
     var _tenantQuota = {};
+    var _mailModuleEnabled = false;
+    var _talkModuleEnabled = false;
 
     var pageNavigator;
     var isRetina;
+
+    var enableImpersonateType = {
+        disableForAdmins: 0,
+        enableForAll: 1,
+        enableWithLimits: 2
+    }
 
     function showLoader() {
         LoadingBanner.displayLoading();
@@ -294,7 +302,8 @@ ASC.People.PeopleController = (function() {
         {
             users: data,
             isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin,
-            isRetina: isRetina
+            isRetina: isRetina,
+            talkModuleEnabled: _talkModuleEnabled
         });
         jq("#peopleData tbody").empty().append($o);
         bindEvents(jq($o));
@@ -306,8 +315,19 @@ ASC.People.PeopleController = (function() {
 
     var onButtonClick = function(evt) {
         var $this = jq(this);
+        var module = $this.attr('data-module');
+        var moduleEnabled;
 
-        peopleActions.callMethodByClassname($this.attr('class'), this, [evt, $this]);
+        switch (module) {
+            case "mail":
+                moduleEnabled = _mailModuleEnabled;
+                break;
+            case "talk":
+                moduleEnabled = _talkModuleEnabled;
+                break;
+        }
+
+        peopleActions.callMethodByClassname($this.attr('class'), this, [evt, $this, moduleEnabled]);
         jq(document.body).trigger('click');
     };
 
@@ -462,7 +482,7 @@ ASC.People.PeopleController = (function() {
         });
     }
 
-    function showUserActionMenu(personId) {
+    function showUserActionMenu(personId, canImpersonate) {
         var $person = jq("#user_" + personId),
             email = $person.attr("data-email"),
             username = $person.attr("data-username"),
@@ -483,8 +503,10 @@ ASC.People.PeopleController = (function() {
             status: status,
             isOwner: isOwner,
             isLDAP: isLDAP,
-            isSSO: isSSO
+            isSSO: isSSO,
+            canImpersonateUser: canImpersonate
         };
+
         var $menu = jq.tmpl("userActionMenuTemplate",
             { user: profile, isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin, isMe: (profile.id === Teamlab.profile.id), canEdit: canEdit, canDel: canDel });
         $actionMenu.html($menu);
@@ -513,6 +535,9 @@ ASC.People.PeopleController = (function() {
             else if (jq(this).hasClass("block-profile")) {
                 changeUserStatusAction(personId, 2, isVisitor);
             }
+            else if (jq(this).hasClass("impersonate-user")) {
+                ImpersonateManager.LoginAsUser(personId, displayname);
+            }
             else if (jq(this).hasClass("enable-profile")) {
                 changeUserStatusAction(personId, 1, isVisitor);
             }
@@ -537,6 +562,13 @@ ASC.People.PeopleController = (function() {
         var $dropdownItem = jq("#peopleActionMenu");
         if ($dropdownItem.length == 1) {
             var leftForFix = -200;
+
+            var updateUserActionMenu = function (dropdownItem, personId, canImpersonate) {
+                showUserActionMenu(personId, canImpersonate);
+                var left = parseInt(dropdownItem.css("left")) - dropdownItem.innerWidth() + 29 - leftForFix;
+                dropdownItem.css("left", left);
+            }
+
             jq.dropdownToggle({
                 dropdownID: "peopleActionMenu",
                 switcherSelector: "#peopleData .entity-menu",
@@ -548,15 +580,34 @@ ASC.People.PeopleController = (function() {
                     if (!personId) {
                         return;
                     }
-                    showUserActionMenu(personId);
                     switcherObj.addClass("active");
-                    var left = parseInt(dropdownItem.css("left")) - dropdownItem.innerWidth() + 29 - leftForFix;
-                    dropdownItem.css("left", left);
                     if (jq("#peopleData .entity-menu.active").length > 1) {
                         jq("#peopleData .entity-menu.active").not(switcherObj).removeClass("active");
                         dropdownItem.hide();
                     } else if (!dropdownItem.is(":hidden")) {
                         switcherObj.removeClass("active");
+                    }
+
+                    if (window.canImpersonate) {
+                        Teamlab.canImpersonateUser(personId, {
+                            success: function (_, canImpersonate) {
+                                updateUserActionMenu(dropdownItem, personId, canImpersonate);
+                                dropdownItem.show();
+                            },
+                            before: function () {
+                                showLoader();
+                                dropdownItem.addClass("visibility-hidden");
+                            },
+                            after: function() {
+                                hideLoader();
+                                dropdownItem.removeClass("visibility-hidden");
+                            },
+                            error: function (_, errors) {
+                                toastr.error(errors[0]);
+                            }
+                        })
+                    } else {
+                        updateUserActionMenu(dropdownItem, personId, false);
                     }
                 },
                 hideFunction: function() {
@@ -695,8 +746,9 @@ ASC.People.PeopleController = (function() {
         showFirstLoader();
         renderEmptyScreen();
         initAdvansedFilter();
-        renderPopups();  
+        renderPopups();
         initTenantQuota();
+        initModules();
         initScrolledGroupMenu();
         initButtonsEvents();
         initPeopleActionMenu();
@@ -1664,7 +1716,8 @@ ASC.People.PeopleController = (function() {
             {
                 users: [profile],
                 isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin,
-                isRetina: isRetina
+                isRetina: isRetina,
+                talkModuleEnabled: _talkModuleEnabled
             });
             jq("#user_" + profile.id).replaceWith($row);
 
@@ -1901,6 +1954,22 @@ ASC.People.PeopleController = (function() {
         });
     };
 
+    var initModules = function () {
+        Teamlab.getEnabledModules({},
+            {
+                success: function (params, modules) {
+                    modules.forEach(function (module) {
+                        if (module.id == "mail") {
+                            _mailModuleEnabled = true;
+                        }
+                        if (module.id == "talk") {
+                            _talkModuleEnabled = true;
+                        }
+                    });
+                }
+            });
+    };
+
     var initScrolledGroupMenu = function() {
         ScrolledGroupMenu.init({
             menuSelector: "#peopleHeaderMenu",
@@ -1948,6 +2017,7 @@ ASC.People.PeopleController = (function() {
 
         jq("#peopleHeaderMenu").on("click", ".on-top-link", function() {
             window.scrollTo(0, 0);
+            document.querySelector('.mainPageContent').scrollTo(0, 0);
             return false;
         });
 
@@ -2049,19 +2119,39 @@ ASC.People.PeopleController = (function() {
             }
 
             var userField = target.closest("tr.with-entity-menu");
-            if (userField.length) {
-                var userId = userField.attr("id").split('_')[1];
-                showUserActionMenu(userId);
+
+            if (!userField.length) {
+                return true;
+            }
+
+            var userId = userField.attr("id").split('_')[1];
+
+            var updateUserActionMenu = function (canImpersonate) {
+                showUserActionMenu(userId, canImpersonate);
                 jq("#peopleData .entity-menu.active").removeClass("active");
 
                 $dropdownItem.show();
                 $dropdownItem.hide();
 
                 jq.showDropDownByContext(e, target, $dropdownItem);
-
-                return false;
             }
-            return true;
+
+            if (window.canImpersonate) {
+                Teamlab.canImpersonateUser(userId, {
+                    success: function (_, canImpersonate) {
+                        updateUserActionMenu(canImpersonate);
+                    },
+                    before: showLoader,
+                    after: hideLoader,
+                    error: function (_, errors) {
+                        toastr.error(errors[0]);
+                    }
+                })
+            } else {
+                updateUserActionMenu(false);
+            }
+
+            return false;
         });
 
          jq.dropdownToggle({

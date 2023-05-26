@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,30 +27,43 @@ namespace ASC.Projects.Core.Domain
     [DebuggerDisplay("{UserInfo.ToString()}")]
     public class Participant : IComparable
     {
+        ///<example>2fdfe577-3c26-4736-9df9-b5a683bb8520</example>
         public Guid ID { get; private set; }
 
+        ///<example type="int">1</example>
         public int ProjectID { get; set; }
 
+        ///<example>true</example>
         public bool CanReadFiles { get; private set; }
 
+        ///<example>true</example>
         public bool CanReadMilestones { get; private set; }
 
+        ///<example>true</example>
         public bool CanReadMessages { get; private set; }
 
+        ///<example>true</example>
         public bool CanReadTasks { get; private set; }
 
+        ///<example>true</example>
         public bool CanReadContacts { get; set; }
 
+        ///<example>true</example>
         public bool IsVisitor { get; private set; }
 
+        ///<example>true</example>
         public bool IsFullAdmin { get; private set; }
 
+        ///<type>ASC.Core.Users.UserInfo, ASC.Core.Common</type>
         public UserInfo UserInfo { get; private set; }
 
+        ///<example>true</example>
         public bool IsAdmin { get; set; }
 
+        ///<example>true</example>
         public bool IsManager { get; set; }
 
+        ///<example>true</example>
         public bool IsRemovedFromTeam { get; set; }
 
         public ProjectTeamSecurity ProjectTeamSecurity

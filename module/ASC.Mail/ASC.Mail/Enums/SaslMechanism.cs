@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,10 +45,14 @@ namespace ASC.Mail.Enums
         /// <summary>
         /// The OAuth 2.0 mechanism. [draft-ietf-oauth-v2-31]
         /// </summary>
-        OAuth2 = 5
+        OAuth2 = 5,
         /*/// <summary>
         /// The KERBEROS_V4 mechanism. [RFC2222]
         /// </summary>
         KerberosV4 = 6*/
+        /// <summary>
+        /// The NTLM mechanism. [RFC4559]
+        /// </summary>
+        Ntlm = 7
     }
 }

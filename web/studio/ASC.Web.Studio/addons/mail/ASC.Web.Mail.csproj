@@ -32,6 +32,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.Mail.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -43,29 +45,43 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
-    <Content Include="App_Themes\default\images\dashboard\collect-all-emails-in-one-place.png" />
-    <Content Include="App_Themes\default\images\dashboard\communicate-easily.png" />
-    <Content Include="App_Themes\default\images\dashboard\structure-correspondence.png" />
-    <Content Include="App_Themes\default\images\dashboard\use-mail-server.png" />
+    <Content Include="App_Themes\default\images\add-mailboxes_32.svg" />
+    <Content Include="App_Themes\default\images\block_mail.svg" />
+    <Content Include="App_Themes\default\images\dashboard\collect-all-emails-in-one-place.svg" />
+    <Content Include="App_Themes\default\images\dashboard\communicate-easily.svg" />
+    <Content Include="App_Themes\default\images\dashboard\structure-correspondence.svg" />
+    <Content Include="App_Themes\default\images\dashboard\use-mail-server.svg" />
     <Content Include="App_Themes\default\images\google.png" />
     <Content Include="App_Themes\default\images\background_sprite.png" />
     <Content Include="App_Themes\default\images\base_sprite.png" />
-    <Content Include="App_Themes\default\images\blank_sprite.png" />
     <Content Include="App_Themes\default\images\dns_sprite.png" />
     <Content Include="App_Themes\default\images\icon_group.png" />
+    <Content Include="App_Themes\default\images\incoming_mail.svg" />
     <Content Include="App_Themes\default\images\jstree_icons.png" />
     <Content Include="App_Themes\default\images\loader\loader32.gif" />
     <Content Include="App_Themes\default\images\loader\loader_12.gif" />
     <Content Include="App_Themes\default\images\loader\loader_16.gif" />
     <Content Include="App_Themes\default\images\loader\loader_16_dark.gif" />
     <Content Include="App_Themes\default\images\mail.png" />
+    <Content Include="App_Themes\default\images\mail_add.svg" />
+    <Content Include="App_Themes\default\images\mail_added_contact.svg" />
+    <Content Include="App_Themes\default\images\mail_company.svg" />
     <Content Include="App_Themes\default\images\mail_disabled.png" />
+    <Content Include="App_Themes\default\images\mail_domain.svg" />
+    <Content Include="App_Themes\default\images\mail_filter.svg" />
+    <Content Include="App_Themes\default\images\mail_folder.svg" />
+    <Content Include="App_Themes\default\images\mail_new_contact.svg" />
+    <Content Include="App_Themes\default\images\mail_person.svg" />
+    <Content Include="App_Themes\default\images\mail_send.svg" />
+    <Content Include="App_Themes\default\images\mail_tags.svg" />
+    <Content Include="App_Themes\default\images\mail_trash.svg" />
+    <Content Include="App_Themes\default\images\mail_warning.svg" />
     <Content Include="App_Themes\default\images\mark_sprite.png" />
     <Content Include="App_Themes\default\images\ms-exchange.png" />
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
+    <Content Include="App_Themes\default\images\write_letter.svg" />
     <Content Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx" />
+    <Content Include="Controls\DocumentsPopup\css\images\warning.svg" />
     <Content Include="Controls\FiltersPage\Filters.ascx" />
-    <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
     <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
     <Content Include="Controls\AdministrationPage\AdministrationPage.ascx" />
     <Content Include="Controls\BlankModal\BlankModal.ascx">
@@ -1025,22 +1041,25 @@
     <Content Include="App_Themes\default\less\accountspanel.less" />
     <Content Include="App_Themes\default\less\accountpopup.less" />
     <Content Include="App_Themes\default\less\administration.less" />
-    <None Include="App_Themes\default\less\attachments.less" />
-    <None Include="App_Themes\default\less\common.less" />
+    <Content Include="App_Themes\dark\dark-full.less" />
+    <Content Include="App_Themes\dark\dark-params.less" />
+    <Content Include="App_Themes\default\less\attachments.less" />
+    <Content Include="App_Themes\default\less\common.less" />
     <Content Include="App_Themes\default\less\contacts.less" />
     <Content Include="App_Themes\default\less\crm_integration.less" />
     <Content Include="App_Themes\default\less\print.less" />
     <Content Include="App_Themes\default\less\calendar.less" />
     <Content Include="App_Themes\default\less\folders.less" />
     <Content Include="App_Themes\default\less\filters.less" />
-    <None Include="App_Themes\default\less\icons.less" />
-    <None Include="App_Themes\default\less\mail.less" />
-    <None Include="App_Themes\default\less\message.less" />
-    <None Include="App_Themes\default\less\messages.less" />
+    <Content Include="App_Themes\default\less\icons.less" />
+    <Content Include="App_Themes\default\less\full.less" />
+    <Content Include="App_Themes\default\less\mail.less" />
+    <Content Include="App_Themes\default\less\message.less" />
+    <Content Include="App_Themes\default\less\messages.less" />
     <Content Include="App_Themes\default\less\mixins.less" />
-    <None Include="App_Themes\default\less\popup.less" />
-    <None Include="App_Themes\default\less\settings.less" />
-    <None Include="App_Themes\default\less\tags.less" />
+    <Content Include="App_Themes\default\less\popup.less" />
+    <Content Include="App_Themes\default\less\params.less" />
+    <Content Include="App_Themes\default\less\tags.less" />
     <Content Include="HttpHandlers\ViewDocument.ashx" />
     <Content Include="HttpHandlers\EditDocument.ashx" />
     <Content Include="HttpHandlers\Download.ashx" />

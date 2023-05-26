@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,6 +80,8 @@ window.DocumentsPopup = (function ($) {
                     fileUrl = ASC.Files.Utility.GetFileWebViewerUrl(file.id);
                 }
 
+                var shareable = !!folderShareable || file.folder_id == ASC.Files.Constants.FOLDER_ID_MY_FILES;
+
                 var fileTmpl = {
                     title: file.title,
                     access: file.access,
@@ -91,7 +93,7 @@ window.DocumentsPopup = (function ($) {
                     version: file.version,
                     fileUrl: fileUrl,
                     size: file.content_length,
-                    shareable: !!folderShareable
+                    shareable: shareable
                         && (!file.encrypted
                             && (file.access == ASC.Files.Constants.AceStatusEnum.None
                                 || file.access == ASC.Files.Constants.AceStatusEnum.ReadWrite))

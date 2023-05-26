@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,13 +37,13 @@ namespace ASC.Web.UserControls.Wiki
             NotifyClient = WorkContext.NotifyContext.NotifyService.RegisterClient(WikiNotifySource.Instance);
         }
 
-        public static void SendNoticeAsync(string AuthorID, INotifyAction action, string objectID, SendNoticeCallback sendCallback, params ITagValue[] args)
+        public static void SendNoticeAsync(string AuthorID, INotifyAction action, string objectID, params ITagValue[] args)
         {
             InitiatorInterceptor initatorInterceptor = new InitiatorInterceptor(new DirectRecipient(AuthorID, ""));
             try
             {
                 NotifyClient.AddInterceptor(initatorInterceptor);
-                NotifyClient.SendNoticeAsync(action, objectID, sendCallback, args);
+                NotifyClient.SendNoticeAsync(action, objectID, args);
             }
             finally
             {

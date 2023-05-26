@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ using System;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Web.Core.Utility;
+
 namespace ASC.Web.Studio.UserControls.Common
 {
     public partial class MediaPlayer : UserControl
@@ -34,8 +36,16 @@ namespace ASC.Web.Studio.UserControls.Common
                 "~/UserControls/Common/MediaViewer/imageviewer.js",
                 "~/UserControls/Common/MediaViewer/tiff.min.js",
                 "~/js/third-party/jquery/jquery.jplayer.js",
-                "~/js/third-party/jquery/jquery.mousewheel.js")
-                .RegisterStyle("~/UserControls/Common/MediaViewer/mediaplayer.css");
+                "~/js/third-party/jquery/jquery.mousewheel.js");
+                
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/MediaViewer/dark-mediaplayer.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/MediaViewer/mediaplayer.less");
+            }
         }
     }
 }

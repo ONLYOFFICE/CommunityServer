@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,14 @@ using ASC.Specific;
 
 namespace ASC.Api.Forums
 {
+    ///<inherited>ASC.Api.Forums.ForumThreadWrapper, ASC.Api.Community</inherited>
     [DataContract(Name = "thread", Namespace = "")]
     public class ForumThreadWrapperFull : ForumThreadWrapper
     {
 
+        ///<type>ASC.Api.Forums.ForumTopicWrapper, ASC.Api.Community</type>
+        ///<order>100</order>
+        ///<collection>list</collection>
         [DataMember(Order = 100)]
         public List<ForumTopicWrapper> Topics { get; set; }
 

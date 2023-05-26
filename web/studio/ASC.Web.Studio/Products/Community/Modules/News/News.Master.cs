@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web;
 using ASC.Core;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.News.Code.Module;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 
 namespace ASC.Web.Community.News
@@ -59,8 +60,15 @@ namespace ASC.Web.Community.News
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/Products/Community/Modules/News/App_Themes/default/newsstylesheet.css")
-                .RegisterBodyScripts("~/Products/Community/Modules/News/js/news.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Community/App_Themes/dark/dark-newsstylesheet.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Community/Modules/News/App_Themes/default/newsstylesheet.less");
+            }
+            Page.RegisterBodyScripts("~/Products/Community/Modules/News/js/news.js");
 
             SearchText = "";
             if (!string.IsNullOrEmpty(Request["search"]))

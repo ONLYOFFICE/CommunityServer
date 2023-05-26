@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ namespace ASC.Core.Data
                         ? Exp.Eq("t.status", (int)TenantStatus.Active)
                         : Exp.Empty,
                     from != default(DateTime)
-                        ? Exp.Ge("last_modified", from)
+                        ? Exp.Ge("t.last_modified", from)
                         : Exp.Empty
                     )
                 );
@@ -124,7 +124,7 @@ namespace ASC.Core.Data
 
         public Tenant GetTenant(int id)
         {
-            return GetTenants(Exp.Eq("id", id))
+            return GetTenants(Exp.Eq("t.id", id))
                 .SingleOrDefault();
         }
 
@@ -132,7 +132,7 @@ namespace ASC.Core.Data
         {
             if (string.IsNullOrEmpty(domain)) throw new ArgumentNullException("domain");
 
-            return GetTenants(Exp.Eq("alias", domain.ToLowerInvariant()) | Exp.Eq("mappeddomain", domain.ToLowerInvariant()))
+            return GetTenants(Exp.Eq("t.alias", domain.ToLowerInvariant()) | Exp.Eq("t.mappeddomain", domain.ToLowerInvariant()))
                 .OrderBy(a => a.Status == TenantStatus.Restoring ? TenantStatus.Active : a.Status)
                 .ThenByDescending(a => a.Status == TenantStatus.Restoring ? 0 : a.TenantId)
                 .FirstOrDefault();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,6 +66,8 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;
             }
+            Page.RegisterStyle(
+                "~/UserControls/Management/SingleSignOnSettings/css/singlesignonsettings.less");
 
             AjaxPro.Utility.RegisterTypeForAjax(typeof(SingleSignOnSettings), Page);
             Page.RegisterBodyScripts(

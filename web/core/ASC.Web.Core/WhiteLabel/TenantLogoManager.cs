@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,33 +60,22 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static string GetFavicon(bool general, bool timeParam)
         {
-            string faviconPath;
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                faviconPath = tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, general);
-                if (timeParam)
-                {
-                    var now = DateTime.Now;
-                    faviconPath = String.Format("{0}?t={1}", faviconPath, now.Ticks);
-                }
-            }
-            else
-            {
-                faviconPath = TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Favicon, general);
+                var faviconPath = TenantWhiteLabelSettings.Load().GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, general);
+                return timeParam ? string.Format("{0}?t={1}", faviconPath, DateTime.Now.Ticks) : faviconPath;
             }
 
-            return faviconPath;
+            return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Favicon, general);
         }
 
-        public static string GetTopLogo(bool general)//LogoLightSmall
+        public static string GetTopLogo(bool general)
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-
-                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
+                return TenantWhiteLabelSettings.Load().GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
             }
+
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
         }
 
@@ -94,8 +83,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
+                return TenantWhiteLabelSettings.Load().GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
             }
 
             if (IsVisibleWhiteLabelSettings)
@@ -104,18 +92,44 @@ namespace ASC.Web.Core.WhiteLabel
             }
 
             /*** simple scheme ***/
-            var tenantInfoSettings = TenantInfoSettings.Load();
-            return tenantInfoSettings.GetAbsoluteCompanyLogoPath();
+            return TenantInfoSettings.Load().GetAbsoluteCompanyLogoPath(true);
             /***/
+        }
+
+        public static string GetLogoLight(bool general)
+        {
+            if (WhiteLabelEnabled)
+            {
+                return TenantWhiteLabelSettings.Load().GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Light, general);
+            }
+
+            if (IsVisibleWhiteLabelSettings)
+            {
+                return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Light, general);
+            }
+
+            /*** simple scheme ***/
+            return TenantInfoSettings.Load().GetAbsoluteCompanyLogoPath(false);
+            /***/
+        }
+
+        public static string GetLogoAboutDark(bool general)
+        {
+            return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.AboutDark, general);
+        }
+
+        public static string GetLogoAboutLight(bool general)
+        {
+            return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.AboutLight, general);
         }
 
         public static string GetLogoDocsEditor(bool general)
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
+                return TenantWhiteLabelSettings.Load().GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
             }
+
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
         }
 
@@ -123,9 +137,9 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, general);
+                return TenantWhiteLabelSettings.Load().GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, general);
             }
+
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, general);
         }
 
@@ -133,9 +147,9 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                return tenantWhiteLabelSettings.LogoText ?? TenantWhiteLabelSettings.DefaultLogoText;
+                return TenantWhiteLabelSettings.Load().LogoText ?? TenantWhiteLabelSettings.DefaultLogoText;
             }
+
             return TenantWhiteLabelSettings.DefaultLogoText;
         }
 
@@ -144,10 +158,10 @@ namespace ASC.Web.Core.WhiteLabel
             if (request != null)
             {
                 var cookie = request.Cookies["is_retina"];
-                if (cookie != null && !String.IsNullOrEmpty(cookie.Value))
+                if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
                 {
                     bool result;
-                    if (Boolean.TryParse(cookie.Value, out result))
+                    if (bool.TryParse(cookie.Value, out result))
                     {
                         return result;
                     }
@@ -164,8 +178,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                return tenantWhiteLabelSettings.GetWhitelabelLogoData(WhiteLabelLogoTypeEnum.Dark, true);
+                return TenantWhiteLabelSettings.Load().GetWhitelabelLogoData(WhiteLabelLogoTypeEnum.Dark, true);
             }
 
             if (IsVisibleWhiteLabelSettings)
@@ -174,8 +187,7 @@ namespace ASC.Web.Core.WhiteLabel
             }
 
             /*** simple scheme ***/
-            var tenantInfoSettings = TenantInfoSettings.Load();
-            return tenantInfoSettings.GetStorageLogoData();
+            return TenantInfoSettings.Load().GetStorageLogoData();
             /***/
         }
 

@@ -115,11 +115,20 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logo for the Login page.
+        ///   Looks up a localized string similar to Logo for the Login page - dark theme.
         /// </summary>
-        public static string LogoDark2 {
+        public static string LoginPageLogoDark {
             get {
-                return ResourceManager.GetString("LogoDark2", resourceCulture);
+                return ResourceManager.GetString("LoginPageLogoDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logo for the Login page - light theme.
+        /// </summary>
+        public static string LoginPageLogoLight {
+            get {
+                return ResourceManager.GetString("LoginPageLogoLight", resourceCulture);
             }
         }
         

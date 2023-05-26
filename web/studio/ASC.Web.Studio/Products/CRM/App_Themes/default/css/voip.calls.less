@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 */
 
 
+@import "params.less";
 @import "base.less";
-
 #voip-calls-view {
     .call-type-icon {
         display: block;
@@ -42,6 +42,7 @@
             position: relative;
             background-position: 0 -32px;
             cursor: pointer;
+
             &:hover {
                 background-position: -16px -32px;
             }
@@ -58,7 +59,7 @@
         .call-info-row {
             height: 26px;
             line-height: 26px;
-            
+
             .call-info-title {
                 margin-right: 5px;
                 color: #83888D;
@@ -85,7 +86,7 @@
 
     #calls-list {
         display: none;
-        
+
         .call-row {
             .toggle-redirections-btn {
                 cursor: pointer;
@@ -107,7 +108,6 @@
             width: 60px;
             padding-left: 5px;
             text-align: left;
-
         }
 
         .call-date {
@@ -116,8 +116,9 @@
 
             a {
                 text-decoration: none;
-                color: #333;
+                color: @text-color;
                 font-size: 12px;
+
                 &:hover {
                     text-decoration: underline;
                 }
@@ -174,7 +175,7 @@
             width: 130px;
             height: 12px;
             margin: 4px 0;
-            background-color: #d1d1d1;
+            background-color: @border-color;
 
             #call-record-play-panel-progress-percentage {
                 display: inline-block;

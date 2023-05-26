@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 @import "../base.less";
+@import "params.less";
 
 .toast-close-button {
     padding: 0;
@@ -26,8 +27,8 @@
     right: -2px;
     top: -8px;
     float: right;
-    color: #fff;
-    text-shadow: 0 1px 0 #fff;
+    color: @body-color;
+    text-shadow: 0 1px 0 @body-color;
     opacity: .8;
 }
 
@@ -39,11 +40,11 @@
     word-wrap: break-word;
 
     label {
-        color: #000;
+        color: @bg-a-activate;
     }
 
     a {
-        color: #000;
+        color: @bg-a-activate;
 
         &:hover {
             text-decoration: underline;
@@ -79,19 +80,29 @@
 }
 
 .toast {
-    background-color: #030303;
+    background-color: @toast-bg;
+    border: @toast-bg-bor;
+    color: @toast-bg-color;
 }
 .toast-success {
-    background-color: #cae796;
+    background-color: @toast-success;
+    border: @toast-success-bor;
+    color: @toast-success-color;
 }
 .toast-error {
-    background-color: #ffbfaa;
+    background-color: @toast-error;
+    border: @toast-error-bor;
+    color: @toast-error-color;
 }
 .toast-info {
-    background-color: #f1da92;
+    background-color: @toast-info;
+    border: @toast-info-bor;
+    color: @toast-info-color;
 }
 .toast-warning {
-    background-color: #f1ca92;
+    background-color: @toast-warning;
+    border: @toast-warning-bor;
+    color: @toast-warning-color;
 }
 
 #toast-container {
@@ -99,23 +110,31 @@
     z-index: 999999;
 
     .toast-success:hover {
-        background-color: #bcdf7e;
+        background-color: @toast-container-success-bg;
+        color: @toast-success-color-hover;
+        border: @toast-success-hover;
     }
 
     .toast-error:hover {
-        background-color: #ffa98d;
+        background-color: @toast-container-error-bg;
+        color: @toast-error-color-hover;
+        border: @toast-error-hover;
     }
 
     .toast-info:hover {
-        background-color: #eed27b;
+        background-color: @toast-container-info-bg;
+        color: @toast-info-color-hover;
+        border: @toast-info-hover;
     }
 
     .toast-warning:hover {
-        background-color: #eeb97b;
+        background-color: @toast-container-warning-bg;
+        color: @toast-warning-color-hover;
+        border: @toast-warning-hover;
     }
 
     > :hover {
-        .shadowFullCustomizable(1px, 2px, 4px, #D1D1D1);
+        .shadowFullCustomizable(1px, 2px, 4px, @borderColor);
         cursor: pointer;
 
         .toast-close-button {
@@ -129,7 +148,6 @@
         background-position: 15px center;
         background-repeat: no-repeat;
         .borderRadius(3px);
-        color: #000;
         margin: 0 0 6px;
         padding: 15px 15px 15px 50px;
         width: 300px;
@@ -163,7 +181,7 @@
         margin-top: 6px;
 
         .toast-message {
-            color: #333;
+            color: @textColor;
         }
     }
 

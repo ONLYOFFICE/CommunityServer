@@ -720,9 +720,6 @@ Om du väljer att inkludera mejl kommer bara meddelanden från de 30 sista dagar
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Aktivera</value>
   </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP Säkerhet{1} används för att begränsa inloggning till portalen från alla IP adresser förutom vissa adresser. Du kan ange de adresserna som ska tillåtas med exakta IP adresser i IPv4 formatet (#.#.#.#, där # är ett numeriskt värde från 0 till 255) eller med ett intervall med IP adresser (i #.#.#.#-#.#.#.# formatet). IP säkerheten fungerar inte för portalägarna, de kan få tillgång till portalen från vilken IP adress som helst.</value>
-  </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Migrera ONLYOFFICE™ Mail också (rekommenderas inte)</value>
   </data>

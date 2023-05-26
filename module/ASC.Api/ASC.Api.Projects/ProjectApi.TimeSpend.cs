@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,26 +32,29 @@ namespace ASC.Api.Projects
 {
     public partial class ProjectApi
     {
-        ///<summary>
-        ///Returns a list with the detailed information about all the task time spent matching the filter parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get task time by filter
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="projectid" optional="true"> Project ID</param>
-        ///<param name="myProjects">Returns task time only for my projects</param>
-        ///<param name="milestone" optional="true">Milestone ID</param>
-        ///<param name="myMilestones">Returns task time only for my milestones</param>
-        ///<param name="tag" optional="true">Project tag</param>
-        ///<param name="departament" optional="true">Departament GUID</param>
-        ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="createdStart" optional="true">Starting task creation</param>
-        ///<param name="createdStop" optional="true">Finishing task creation</param>
-        ///<param name="lastId">Last spent time ID</param>
-        ///<param name="status" optional="true">Payment status</param>
-        ///<returns>List of spent time</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns a list with the detailed information about all the task time spent matching the filter parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get filtered task time
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32, System" method="url" name="projectid" optional="true"> Project ID</param>
+        /// <param type="System.Boolean, System" method="url" name="myProjects">Specifies whether to return task time only for my projects or not</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" name="milestone" optional="true">Milestone ID</param>
+        /// <param type="System.Boolean, System" method="url" name="myMilestones">Specifies whether to return task time only for my milestones or not</param>
+        /// <param type="System.Int32, System" method="url" name="tag" optional="true">Project tag</param>
+        /// <param type="System.Guid, System" method="url" name="departament" optional="true">Departament GUID</param>
+        /// <param type="System.Guid, System" method="url" name="participant" optional="true">Participant GUID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="createdStart" optional="true">The earliest date of task creation</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="createdStop" optional="true">The latest date of task creation</param>
+        /// <param type="System.Int32, System" method="url" name="lastId">Last spent time ID</param>
+        /// <param type="System.Nullable{ASC.Projects.Core.Domain.PaymentStatus}, System" method="url" name="status" optional="true">Payment status ("NotChargeable", "NotBilled", or "Billed")</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TimeWrapper, ASC.Api.Projects">List of spent time</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/time/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"time/filter")]
         public IEnumerable<TimeWrapper> GetTaskTimeByFilter(
             int projectid,
@@ -88,26 +91,28 @@ namespace ASC.Api.Projects
             return EngineFactory.TimeTrackingEngine.GetByFilter(filter).NotFoundIfNull().Select(TimeWrapperSelector);
         }
 
-        ///<summary>
-        ///Returns the total time spent matching the filter parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get total task time by filter
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="projectid" optional="true"> Project ID</param>
-        ///<param name="myProjects">Returns task time only for my projects</param>
-        ///<param name="milestone" optional="true">Milestone ID</param>
-        ///<param name="myMilestones">Returns task time only for my milestones</param>
-        ///<param name="tag" optional="true">Project tag</param>
-        ///<param name="departament" optional="true">Departament GUID</param>
-        ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="createdStart" optional="true">Starting task creation</param>
-        ///<param name="createdStop" optional="true">Finishing task creation</param>
-        ///<param name="lastId">Last spent time ID</param>
-        ///<param name="status" optional="true">Payment status</param>
-        ///<returns>Total spent time</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns the total time spent matching the filter parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get filtered total task time
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32, System" method="url" name="projectid" optional="true"> Project ID</param>
+        /// <param type="System.Boolean, System" method="url" name="myProjects">Specifies whether to return task time only for my projects or not</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" name="milestone" optional="true">Milestone ID</param>
+        /// <param type="System.Boolean, System" method="url" name="myMilestones">Specifies whether to return task time only for my milestones or not</param>
+        /// <param type="System.Int32, System" method="url" name="tag" optional="true">Project tag</param>
+        /// <param type="System.Guid, System" method="url" name="departament" optional="true">Departament GUID</param>
+        /// <param type="System.Guid, System" method="url" name="participant" optional="true">Participant GUID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="createdStart" optional="true">The earliest date of task creation</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="createdStop" optional="true">The latest date of task creation</param>
+        /// <param type="System.Int32, System" method="url" name="lastId">Last spent time ID</param>
+        /// <param type="System.Nullable{ASC.Projects.Core.Domain.PaymentStatus}, System" method="url" name="status" optional="true">Payment status ("NotChargeable", "NotBilled", or "Billed")</param>
+        /// <returns>Total spent time</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/time/filter/total</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"time/filter/total")]
         public float GetTotalTaskTimeByFilter(
             int projectid,
@@ -146,16 +151,19 @@ namespace ASC.Api.Projects
             return EngineFactory.TimeTrackingEngine.GetByFilterTotal(filter);
         }
 
-        ///<summary>
-        ///Returns the time spent on the task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get task time
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="taskid">Task ID</param>
-        ///<returns>Task time</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns the time spent on the task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get task time
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TimeWrapper, ASC.Api.Projects">Task time</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/time</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/{taskid:[0-9]+}/time")]
         public IEnumerable<TimeWrapper> GetTaskTime(int taskid)
         {
@@ -165,22 +173,24 @@ namespace ASC.Api.Projects
             return times.Select(TimeWrapperSelector);
         }
 
-        ///<summary>
-        ///Adds the time to the selected task with the time parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Add task time
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="note">Time note</param>
-        ///<param name="date">Date</param>
-        ///<param name="personId">Person ID</param>
-        ///<param name="hours">Spent hours</param>
-        ///<param name="projectId">Project ID</param>
-        ///<returns>Created time</returns>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Adds the time to the selected task with the time parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Add task time
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.String, System" name="note">Time note</param>
+        /// <param type="System.DateTime, System" name="date">Date</param>
+        /// <param type="System.Guid, System" name="personId">Person ID</param>
+        /// <param type="System.Single, System" name="hours">Spent hours</param>
+        /// <param type="System.Int32, System" name="projectId">Project ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TimeWrapper, ASC.Api.Projects">Created time</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/time</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task/{taskid:[0-9]+}/time")]
         public TimeWrapper AddTaskTime(int taskid, string note, DateTime date, Guid personId, float hours, int projectId)
         {
@@ -209,21 +219,23 @@ namespace ASC.Api.Projects
             return TimeWrapperSelector(ts);
         }
 
-        ///<summary>
-        ///Updates the time for the selected task with the time parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update task time
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="timeid">Time ID</param>
-        ///<param name="note">New time note</param>
-        ///<param name="date">New date</param>
-        ///<param name="personId">New person ID</param>
-        ///<param name="hours">New spent hours</param>
-        ///<returns>Updated time</returns>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates the time for the selected task with the time parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update task time
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32, System" method="url" name="timeid">Time ID</param>
+        /// <param type="System.String, System" name="note">New time note</param>
+        /// <param type="System.DateTime, System" name="date">New date</param>
+        /// <param type="System.Guid, System" name="personId">New person ID</param>
+        /// <param type="System.Single, System" name="hours">New spent hours</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TimeWrapper, ASC.Api.Projects">Updated time</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/time/{timeid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"time/{timeid:[0-9]+}")]
         public TimeWrapper UpdateTime(int timeid, string note, DateTime date, Guid personId, float hours)
         {
@@ -245,17 +257,20 @@ namespace ASC.Api.Projects
             return TimeWrapperSelector(time);
         }
 
-        ///<summary>
-        ///Updates a time status of payment with the parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a time status of payment
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="timeids">Spent time IDs</param>
-        ///<param name="status">New payment status</param>
-        ///<returns>Updated times</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates the time payment status with the parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update the time payment status
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32[], System" name="timeids">Spent time IDs</param>
+        /// <param type="ASC.Projects.Core.Domain.PaymentStatus, ASC.Projects.Core.Domain" name="status">New payment status ("NotChargeable", "NotBilled", or "Billed")</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TimeWrapper, ASC.Api.Projects">Updated time</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/time/times/status</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"time/times/status")]
         public List<TimeWrapper> UpdateTimes(int[] timeids, PaymentStatus status)
         {
@@ -274,16 +289,19 @@ namespace ASC.Api.Projects
             return times;
         }
 
-        ///<summary>
-        ///Deletes time from the tasks with the IDs specified in the request.
-        ///</summary>
-        ///<short>
-        ///Delete task time
-        ///</short>
-        ///<category>Time</category>
-        ///<param name="timeids">Spent time IDs</param>
-        ///<returns>Deleted time</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Deletes the time from the tasks with the IDs specified in the request.
+        /// </summary>
+        /// <short>
+        /// Delete task time
+        /// </short>
+        /// <category>Time</category>
+        /// <param type="System.Int32[], System" name="timeids">Spent time IDs</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TimeWrapper, ASC.Api.Projects">Deleted time</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/time/times/remove</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <collection>list</collection>
         [Delete(@"time/times/remove")]
         public List<TimeWrapper> DeleteTaskTimes(int[] timeids)
         {

@@ -4,7 +4,8 @@
         <table class="field_row" cellspacing="0" cellpadding="0">
             <tbody>
                 <tr>
-                    <td class="" style="width:6px; background: #FFFFFF">
+                    <td class="" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} style="width:6px; background: #FFFFFF"
+                             {{else}} style="width:6px; background: #333" {{/if}}>
                         <div class="sort_drag_handle borderBase">&nbsp;</div>
                     </td>
                     <td class="borderBase" style="width:200px;"></td>
@@ -30,7 +31,8 @@
          <table class="field_row" cellspacing="0" cellpadding="0" border="0" width="100%">
             <tbody>
                 <tr>
-                    <td class="" style="width:6px; background: #FFFFFF">
+                    <td class="" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} style="width:6px; background: #FFFFFF"
+                             {{else}} style="width:6px; background: #333" {{/if}}>
                         <div class="sort_drag_handle borderBase">&nbsp;</div>
                     </td>
                     <td class="borderBase" style="padding-left: 10px">
@@ -50,7 +52,8 @@
           <table class="field_row" cellspacing="0" cellpadding="0" border="0" width="100%">
             <tbody>
                 <tr>
-                    <td class="" style="width:6px; background: #FFFFFF">
+                    <td class="" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} style="width:6px; background: #FFFFFF"
+                             {{else}} style="width:6px; background: #333" {{/if}}>
                         <div class="sort_drag_handle borderBase">&nbsp;</div>
                     </td>
                     <td class="header-base-small borderBase customFieldTitle" style="width:200px; padding-left:10px;">
@@ -175,7 +178,8 @@
         <table class="deal_milestone_row" cellspacing="0" cellpadding="0">
             <tbody>
                 <tr>
-                    <td class="" style="width:6px; background: #FFFFFF">
+                    <td class="" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} style="width:6px; background: #FFFFFF"
+                             {{else}} style="width:6px; background: #333" {{/if}}>
                         <div class="sort_drag_handle borderBase">&nbsp;</div>
                     </td>
                     <td class="borderBase" style="width:25px;">
@@ -274,7 +278,8 @@
         <table cellspacing="0" cellpadding="0">
             <tbody>
                 <tr>
-                    <td class="" style="width:6px; background: #FFFFFF">
+                    <td class="" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} style="width:6px; background: #FFFFFF"
+                             {{else}} style="width:6px; background: #333" {{/if}}>
                         <div class="sort_drag_handle borderBase">&nbsp;</div>
                     </td>
 
@@ -461,7 +466,8 @@
                             title="${ASC.CRM.Resources.CRMSettingResource.DeleteTaskTemplateContainer}"
                             onclick="ASC.CRM.TaskTemplateView.deleteTemplateConatainer(${id})"></a>
                         <img class="loaderImg" align="absmiddle" style="display: none;"
-                            src="${StudioManager.GetImage('loader_16.gif')}"/>
+                            {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} src="${StudioManager.GetImage('loader_16.gif')}"
+                             {{else}} src="${StudioManager.GetImage('loader-dark-16.svg')}" {{/if}}/>
                     </td>
                 </tr>
             </tbody>
@@ -500,7 +506,8 @@
                          title="${ASC.CRM.Resources.CRMSettingResource.DeleteTaskTemplate}"
                          onclick="ASC.CRM.TaskTemplateView.deleteTemplate(${id})"></a>
                     <img class="loaderImg" align="absmiddle" style="display: none;"
-                         src="${StudioManager.GetImage('loader_16.gif')}"/>
+                         {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}} src="${StudioManager.GetImage('loader_16.gif')}"
+                             {{else}} src="${StudioManager.GetImage('loader-dark-16.svg')}" {{/if}}/>
                 </td>
             </tr>
         </tbody>

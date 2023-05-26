@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,33 +34,53 @@ namespace ASC.Core.Tenants
             ActiveUsers = int.MaxValue,
         };
 
+        ///<example type="int">234</example>
+        ///<order>10</order>
         [DataMember(Name = "Id", Order = 10)]
         public int Id { get; private set; }
 
+        ///<example>Name</example>
+        ///<order>20</order>
         [DataMember(Name = "Name", Order = 20)]
         public string Name { get; set; }
 
+        ///<example type="int">12345</example>
+        ///<order>30</order>
         [DataMember(Name = "MaxFileSize", Order = 30)]
         public long MaxFileSize { get; set; }
 
+        ///<example type="int">12345</example>
+        ///<order>40</order>
         [DataMember(Name = "MaxTotalSize", Order = 40)]
         public long MaxTotalSize { get; set; }
 
+        ///<example type="int">2</example>
+        ///<order>50</order>
         [DataMember(Name = "ActiveUsers", Order = 50)]
         public int ActiveUsers { get; set; }
 
+        ///<example>Features</example>
+        ///<order>60</order>
         [DataMember(Name = "Features", Order = 60)]
         public string Features { get; set; }
 
+        ///<example type="double">22.5</example>
+        ///<order>70</order>
         [DataMember(Name = "Price", Order = 70)]
         public decimal Price { get; set; }
 
+        ///<example>AvangateId</example>
+        ///<order>90</order>
         [DataMember(Name = "AvangateId", Order = 90)]
         public string AvangateId { get; set; }
 
+        ///<example>true</example>
+        ///<order>100</order>
         [DataMember(Name = "Visible", Order = 100)]
         public bool Visible { get; set; }
 
+        ///<example>true</example>
+        ///<order>110</order>
         [DataMember(Name = "Year", Order = 110)]
         public bool Year
         {
@@ -68,6 +88,8 @@ namespace ASC.Core.Tenants
             set { SetFeature("year", value); }
         }
 
+        ///<example>true</example>
+        ///<order>110</order>
         [DataMember(Name = "Year3", Order = 110)]
         public bool Year3
         {

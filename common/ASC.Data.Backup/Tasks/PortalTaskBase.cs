@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,10 @@ using System.Threading.Tasks;
 
 using ASC.Common.Data;
 using ASC.Common.Logging;
+using ASC.Data.Backup.Storage;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
+using ASC.Data.Storage.ZipOperators;
 
 namespace ASC.Data.Backup.Tasks
 {
@@ -56,6 +58,7 @@ namespace ASC.Data.Backup.Tasks
         public string ConfigPath { get; private set; }
 
         public bool ProcessStorage { get; set; }
+        public IDataWriteOperator WriteOperator { get; set; }
 
         protected PortalTaskBase(ILog logger, int tenantId, string configPath)
         {
@@ -238,7 +241,7 @@ namespace ASC.Data.Backup.Tasks
 
         protected async Task RunMysqlFile(Stream stream, string db, string delimiter = ";")
         {
-            using (var dbManager = DbManager.FromHttpContext(db, 100000))
+            using (var dbManager = new DbManager(db, 100000))
             using (var tr = dbManager.BeginTransaction())
             {
                 await dbManager.ExecuteNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;");
@@ -301,7 +304,7 @@ namespace ASC.Data.Backup.Tasks
         }
         protected async Task RunMysqlProcedure(Stream stream)
         {
-            using (var dbManager = DbManager.FromHttpContext("default", 100000))
+            using (var dbManager = new DbManager("default", 100000))
             {
                 if (stream == null) return;
 

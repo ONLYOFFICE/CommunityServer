@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,7 +109,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         new StudioTrustedDomainSettings { InviteUsersAsVisitors = false }.Save();
                         new StudioAdminMessageSettings { Enable = true }.Save();
 
-                        IPRestrictionsService.Save(new List<string>(), TenantProvider.CurrentTenantID);
+                        IPRestrictionsService.Save(new List<IPRestrictionBase>(), TenantProvider.CurrentTenantID);
 
                         tenant.TrustedDomainsType = registerUsers ? TenantTrustedDomainsType.All : TenantTrustedDomainsType.None;
                         CoreContext.TenantManager.SaveTenant(tenant);

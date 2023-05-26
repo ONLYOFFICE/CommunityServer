@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
 */
 
 
-@import "base.less";
-
+@import "params.less";
 #voip-numbers-view {
     display: none;
 
@@ -26,7 +25,7 @@
 
     .voip-divider {
         width: 830px;
-        border-top: 1px solid #d1d1d1;
+        border-top: 1px solid @border-color;
     }
 
     #number-selector-box {
@@ -90,7 +89,7 @@
             .button {
                 vertical-align: top;
             }
-            
+
             input {
                 height: 0;
                 left: -1000px;
@@ -115,7 +114,7 @@
         }
     }
 
-    
+
     #operators-box {
         margin-top: 50px;
 
@@ -130,7 +129,7 @@
         #operators-list {
             width: 830px;
             margin-bottom: 50px;
-        
+
             #operators-list-header {
                 line-height: 32px;
                 color: #808080;
@@ -151,10 +150,10 @@
 
             .operator {
                 height: 32px;
-                border-bottom: 1px solid #d1d1d1;
+                border-bottom: 1px solid @border-color;
 
                 &.selected {
-                    background-color: #f2f2f2;
+                    background-color: @hover-row-color;
 
                     .actions {
                         background-position: center bottom;
@@ -162,7 +161,7 @@
                 }
 
                 &:hover {
-                    background-color: #f2f2f2;
+                    background-color: @hover-row-color;
                 }
 
                 .title {

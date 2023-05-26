@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
 */
 
 
+@import "params.less";
+
 /*--------------------PAGE NAVIGATOR------------------------------*/
 .pagerNavBaseCSSClass() {
-    background-color: #FFF;
+    background-color: @body-color;
     display: inline-block;
     text-align: center;
     text-decoration: none;
-    color: #666666;
+    color: @textColorBlackDark;
     font-size: 12px;
 }
 
@@ -33,7 +35,7 @@
     margin: 3px 8px 4px 8px;
 }
 .pagerNavigationLinkCSSClass:hover {
-    color: #666666;
+    color: @textColorBlackDark;
     text-decoration: underline;
 }
 
@@ -54,8 +56,8 @@
 }
 .pagerPrevButtonCSSClass:hover,
 .pagerNextButtonCSSClass:hover {
-    color: #666666;
-    text-decoration:underline;
+    color: @textColorBlackDark;
+    text-decoration: underline;
 }
 .pagerPrevButtonCSSClass,
 .pagerPrevButtonCSSClass:visited,
@@ -96,9 +98,9 @@
     width: 0;
 }
 .pagerCurrentPosition {
-    background-color: #E9E9E9;
+    background-color: @menu-selected-bg;
     border: none;
-    color: #666666;
+    color: @textColorBlackDark;
     display: inline-block;
     font-weight: bolder;
     font-size: 12px;
@@ -136,9 +138,9 @@
     .tabsNavigationLink:hover,
     .tabsNavigationLink:active,
     .tabsNavigationLink:visited {
-        background-color: #FFFFFF;
+        background-color: @body-color;
         cursor: pointer;
-        color: #333333;
+        color: @textColor;
         display: inline-block;
         font-size: 12px;
         margin: 5px 8px;
@@ -147,7 +149,7 @@
         text-decoration: none;
 
         &:hover {
-            color: #333333;
+            color: @textColor;
             text-decoration: underline;
         }
     }
@@ -155,14 +157,14 @@
     .tabsNavigationLink.selectedTab,
     .tabsNavigationLink.selectedTab:active,
     .tabsNavigationLink.selectedTab:visited {
-        color: #333333;
+        color: @textColor;
         cursor: default;
         font-weight: bold;
         margin: 5px 8px;
         text-decoration: none;
 
         &:hover {
-            color: #333333;
+            color: @textColor;
             text-decoration: none;
         }
     }

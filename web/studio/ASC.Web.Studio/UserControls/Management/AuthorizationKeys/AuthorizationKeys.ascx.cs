@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Data.Storage;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Sms;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
@@ -61,7 +62,14 @@ namespace ASC.Web.Studio.UserControls.Management
             TariffPageLink = TenantExtra.GetTariffPageLink();
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
             Page.RegisterBodyScripts("~/UserControls/Management/AuthorizationKeys/js/authorizationkeys.js");
-            Page.ClientScript.RegisterClientScriptBlock(GetType(), "authorizationkeys_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("UserControls/Management/AuthorizationKeys/css/authorizationkeys.css") + "\">", false);
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(GetType(), "authorizationkeys_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("UserControls/Management/AuthorizationKeys/css/dark-authorizationkeys.less") + "\">", false);
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(GetType(), "authorizationkeys_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("UserControls/Management/AuthorizationKeys/css/authorizationkeys.less") + "\">", false);
+            }
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
@@ -112,6 +120,10 @@ namespace ASC.Web.Studio.UserControls.Management
             }
             else
             {
+                if(props.Any(r=> string.IsNullOrEmpty(r.Value) && !r.IsOptional))
+                {
+                    throw new Exception(Resource.ErrorEmptyFields);
+                }
                 foreach (var authKey in props.Where(authKey => consumer[authKey.Name] != authKey.Value))
                 {
                     consumer[authKey.Name] = authKey.Value;

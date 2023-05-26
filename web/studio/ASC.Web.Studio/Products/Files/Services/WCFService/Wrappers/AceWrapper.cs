@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,17 +66,53 @@ namespace ASC.Web.Files.Services.WCFService
 
         [DataMember(Name = "disable_remove", Order = 8)]
         public bool DisableRemove { get; set; }
+
+        [DataMember(Name = "linkSettings", Order = 9, EmitDefaultValue = false, IsRequired = false)]
+        public LinkSettingsWrapper LinkSettings { get; set; }
+
+        [DataMember(Name = "entryType", Order = 10)]
+        public FileEntryType EntryType { get; set; }
+        
+        [DataMember(Name = "inherited", Order = 11)]
+        public bool Inherited { get; set; }
+
+        public bool IsLink
+        {
+            get
+            {
+                return SubjectId == FileConstant.ShareLinkId || LinkSettings != null;
+            }
+        }
+    }
+
+    [DataContract(Name = "linkSettings", Namespace = "")]
+    public class LinkSettingsWrapper
+    {
+        [DataMember(Name = "autoDelete")]
+        public bool AutoDelete { get; set; }
+
+        [DataMember(Name = "expirationDate")]
+        public string ExpirationDate { get; set; }
+
+        [DataMember(Name = "expired")]
+        public bool Expired { get; set; }
+
+        [DataMember(Name = "password")]
+        public string Password { get; set; }
     }
 
     [DataContract(Name = "sharingSettings", Namespace = "")]
     public class AceShortWrapper
     {
+        ///<example name="user">user</example>
         [DataMember(Name = "user")]
         public string User { get; set; }
 
+        ///<example name="permissions">permissions</example>
         [DataMember(Name = "permissions")]
         public string Permissions { get; set; }
 
+        ///<example name="isLink">true</example>
         [DataMember(Name = "isLink", EmitDefaultValue = false, IsRequired = false)]
         public bool IsLink { get; set; }
 
@@ -110,7 +146,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
 
             User = aceWrapper.SubjectName;
-            if (aceWrapper.SubjectId.Equals(FileConstant.ShareLinkId))
+            if (aceWrapper.IsLink)
             {
                 IsLink = true;
                 User = FilesCommonResource.AceShareLink;

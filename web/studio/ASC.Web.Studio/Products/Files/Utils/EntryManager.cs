@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
+using ASC.Files.Core.Security;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
@@ -576,6 +577,11 @@ namespace ASC.Web.Files.Utils
             var firstVisible = breadCrumbs.ElementAtOrDefault(0);
 
             object rootId = null;
+            if (!SecurityContext.IsAuthenticated)
+            {
+                return breadCrumbs.Where(f => f.FolderType == FolderType.DEFAULT).ToList();
+            }
+
             if (firstVisible == null)
             {
                 rootId = Global.FolderShare;
@@ -922,7 +928,7 @@ namespace ASC.Web.Files.Utils
             File file;
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                var editLink = FileShareLink.Check(doc, false, fileDao, out file, out FileShare linkShare);
+                var editLink = FileShareLink.Check(doc, false, fileDao, out file, out FileShare linkShare, out Guid linkId);
                 if (file == null)
                 {
                     file = fileDao.GetFile(fileId);
@@ -1079,7 +1085,7 @@ namespace ASC.Web.Files.Utils
             bool editLink;
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                editLink = FileShareLink.Check(doc, false, fileDao, out file, out FileShare linkShare);
+                editLink = FileShareLink.Check(doc, false, fileDao, out file, out FileShare linkShare, out Guid linkId);
                 if (file == null)
                     file = fileDao.GetFile(fileId);
             }
@@ -1114,7 +1120,7 @@ namespace ASC.Web.Files.Utils
                 if (version < 1) throw new ArgumentNullException("version");
 
                 File fromFile;
-                var editLink = FileShareLink.Check(doc, false, fileDao, out fromFile, out FileShare linkShare);
+                var editLink = FileShareLink.Check(doc, false, fileDao, out fromFile, out FileShare linkShare, out Guid linkId);
 
                 if (fromFile == null)
                     fromFile = fileDao.GetFile(fileId);
@@ -1326,7 +1332,8 @@ namespace ASC.Web.Files.Utils
             foreach (var file in files)
             {
                 Global.Logger.InfoFormat("Delete file {0} in {1}", file.ID, parentId);
-                fileDao.DeleteFile(file.ID);
+
+                fileDao.DeleteFile(file.ID, file.GetFileQuotaOwner());
 
                 linkDao.DeleteAllLink(file.ID);
             }
@@ -1358,7 +1365,7 @@ namespace ASC.Web.Files.Utils
                                file.Shared
                                && fileSecurity.GetShares(file)
                                               .Any(record =>
-                                                   record.Subject != FileConstant.ShareLinkId
+                                                   record.SubjectType != SubjectType.ExternalLink
                                                    && record.Share != FileShare.Restrict)))
             {
                 Global.Logger.InfoFormat("Move shared file {0} from {1} to {2}", file.ID, parentId, toId);

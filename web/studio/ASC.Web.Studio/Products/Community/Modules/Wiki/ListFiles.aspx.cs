@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,7 +119,7 @@ namespace ASC.Web.Community.Wiki
             {
                 var emptyScreenControl = new EmptyScreenControl
                 {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.svg", WikiManager.ModuleId),
                     Header = WikiResource.EmptyScreenWikiFilesCaption,
                     Describe = WikiResource.EmptyScreenWikiFilesText,
                 };

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -138,7 +138,7 @@ namespace ASC.Web.Mail
 
             Master
                 .AddStaticBodyScripts(GetStaticJavaScript())
-                .AddStaticStyles(GetStaticStyleSheet())
+                .AddStaticStyles(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark ? GetStaticDarkStyleSheet() : GetStaticStyleSheet())
                 .AddClientScript(
                     new ClientLocalizationResources(),
                     new MasterSettingsResources())
@@ -615,7 +615,14 @@ namespace ASC.Web.Mail
             return (StyleBundleData)
                 new StyleBundleData("mail", "mail")
                     .AddSource(ResolveUrl,
-                        "~/addons/mail/App_Themes/default/less/mail.less");
+                        "~/addons/mail/App_Themes/default/less/full.less");
+        }
+        public StyleBundleData GetStaticDarkStyleSheet()
+        {
+            return (StyleBundleData)
+                new StyleBundleData("dark-mail", "mail")
+                    .AddSource(ResolveUrl,
+                        "~/addons/mail/App_Themes/dark/dark-full.less");
         }
     }
 }

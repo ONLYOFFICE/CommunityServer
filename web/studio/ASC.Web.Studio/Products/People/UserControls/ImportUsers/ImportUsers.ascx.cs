@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using AjaxPro;
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Core.Utility;
 using ASC.Web.People.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -89,8 +90,15 @@ namespace ASC.Web.People.UserControls
 
         private void RegisterScript()
         {
-            Page.RegisterStyle(PeopleProduct.ProductPath + "UserControls/ImportUsers/css/import.less")
-                .RegisterBodyScripts("~/js/uploader/ajaxupload.js", "~/js/third-party/xregexp.js",
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle(PeopleProduct.ProductPath + "UserControls/ImportUsers/css/dark-import.less");
+            }
+            else
+            {
+                Page.RegisterStyle(PeopleProduct.ProductPath + "UserControls/ImportUsers/css/import.less");
+            }
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js", "~/js/third-party/xregexp.js",
                 PeopleProduct.ProductPath + "UserControls/ImportUsers/js/importusers.js");
         }
     }

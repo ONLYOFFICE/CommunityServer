@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using AjaxPro;
 using ASC.Core;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.Wiki.Common;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 
 using WikiNotifySource = ASC.Web.UserControls.Wiki.WikiNotifySource;
@@ -61,7 +62,14 @@ namespace ASC.Web.Community.Wiki
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/Products/Community/Modules/Wiki/App_Themes/default/css/wikicss.css");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Community/App_Themes/dark/dark-wikicss.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Community/Modules/Wiki/App_Themes/default/css/wikicss.less");
+            }
             Utility.RegisterTypeForAjax(GetType(), Page);
         }
 

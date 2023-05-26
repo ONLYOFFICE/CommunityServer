@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,29 +28,34 @@ namespace ASC.Api.Projects
 {
     public partial class ProjectApi
     {
-        ///<summary>
-        ///Returns a list of all the available project tags.
-        ///</summary>
-        ///<short>
-        ///Get project tags
-        ///</short>
-        ///<category>Tags</category>
-        ///<returns>List of tags</returns>
+        /// <summary>
+        /// Returns a list of all the available project tags.
+        /// </summary>
+        /// <short>
+        /// Get project tags
+        /// </short>
+        /// <category>Tags</category>
+        /// <returns type="ASC.Api.Projects.Wrappers.ObjectWrapperBase, ASC.Api.Projects">List of tags</returns>
+        /// <path>api/2.0/project/tag</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"tag")]
         public IEnumerable<ObjectWrapperBase> GetAllTags()
         {
             return EngineFactory.TagEngine.GetTags().Select(x => new ObjectWrapperBase { Id = x.Key, Title = x.Value });
         }
 
-        ///<summary>
-        ///Creates a new tag with the data specified in the request.
-        ///</summary>
-        ///<short>
-        ///Create a tag
-        ///</short>
-        ///<category>Tags</category>
-        ///<param name="data">Tag data</param>
-        ///<returns>Created tag</returns>
+        /// <summary>
+        /// Creates a new tag with the data specified in the request.
+        /// </summary>
+        /// <short>
+        /// Create a tag
+        /// </short>
+        /// <category>Tags</category>
+        /// <returns type="ASC.Api.Projects.Wrappers.ObjectWrapperBase, ASC.Api.Projects">Created tag</returns>
+        /// <path>api/2.0/project/tag</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <param type="System.String, System" name="data">Tag data</param>
         [Create(@"tag")]
         public ObjectWrapperBase CreateNewTag(string data)
         {
@@ -62,15 +67,18 @@ namespace ASC.Api.Projects
             return new ObjectWrapperBase { Id = result.Key, Title = result.Value };
         }
 
-        ///<summary>
-        ///Returns the detailed list of all the projects with a tag specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get projects by a tag
-        ///</short>
-        ///<category>Tags</category>
-        ///<param name="tag">Tag name</param>
-        ///<returns>List of projects</returns>
+        /// <summary>
+        /// Returns the detailed list of all the projects with a tag specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get projects by a tag
+        /// </short>
+        /// <category>Tags</category>
+        /// <param type="System.String, System" method="url" name="tag">Tag name</param>
+        /// <returns>List of projects</returns>
+        /// <path type="ASC.Api.Projects.Wrappers.ProjectWrapper, ASC.Api.Projects">api/2.0/project/tag/{tag}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"tag/{tag}")]
         public IEnumerable<ProjectWrapper> GetProjectsByTags(string tag)
         {
@@ -79,15 +87,18 @@ namespace ASC.Api.Projects
         }
 
 
-        ///<summary>
-        ///Returns a list of all the tags by the tag name specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get tags by a tag name
-        ///</short>
-        ///<category>Tags</category>
-        ///<param name="tagName">Tag name</param>
-        ///<returns>List of tags</returns>
+        /// <summary>
+        /// Returns a list of all the tags by the tag name specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get tags by a tag name
+        /// </short>
+        /// <category>Tags</category>
+        /// <param type="System.String, System" name="tagName">Tag name</param>
+        /// <returns>List of tags</returns>
+        /// <path>api/2.0/project/tag/search</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"tag/search")]
         public IEnumerable<ObjectWrapperBase> GetTagsByName(string tagName)
         {

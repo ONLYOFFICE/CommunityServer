@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ namespace ASC.MessagingSystem
             {
                 return new EventMessage
                 {
-                    IP = MessageSettings.GetIP(request),
+                    IP = MessageSettings.GetFullIPAddress(request),
                     Initiator = initiator,
                     Date = dateTime.HasValue ? dateTime.Value : DateTime.UtcNow,
                     TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
@@ -53,12 +53,13 @@ namespace ASC.MessagingSystem
             }
         }
 
-        public static EventMessage Create(MessageUserData userData, Dictionary<string, string> headers, MessageAction action, MessageTarget target, params string[] description)
+        public static EventMessage Create(MessageUserData userData, Dictionary<string, string> headers, MessageAction action, MessageTarget target, string initiator, params string[] description)
         {
             try
             {
                 var message = new EventMessage
                 {
+                    Initiator = initiator,
                     Date = DateTime.UtcNow,
                     TenantId = userData == null ? CoreContext.TenantManager.GetCurrentTenant().TenantId : userData.TenantId,
                     UserId = userData == null ? SecurityContext.CurrentAccount.ID : userData.UserId,
@@ -69,7 +70,7 @@ namespace ASC.MessagingSystem
 
                 if (headers != null)
                 {
-                    var ip = MessageSettings.GetIP(headers);
+                    var ip = MessageSettings.GetFullIPAddress(headers);
                     var userAgent = MessageSettings.GetUAHeader(headers);
                     var referer = MessageSettings.GetReferer(headers);
 
@@ -123,7 +124,7 @@ namespace ASC.MessagingSystem
 
                 if (request != null)
                 {
-                    var ip = MessageSettings.GetIP(request);
+                    var ip = MessageSettings.GetFullIPAddress(request);
                     var userAgent = MessageSettings.GetUAHeader(request);
                     var referer = MessageSettings.GetReferer(request);
 

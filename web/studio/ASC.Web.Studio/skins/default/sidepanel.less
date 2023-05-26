@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@
    Common Navigation Side Panel
 *******************************************************************************/
 
-@menu-selected-bg:          #E9E9E9;
-@menu-addblock-color:       #83888D;
+
 .page-menu .studio-action-panel .dropdown-content {
     max-height: 500px;
     .dropdown-item {
@@ -184,7 +183,7 @@
                             white-space: nowrap;
 
                             a {
-                                color: #333333;
+                                color: @textColor;
                                 display: inline-block;
                                 max-width: 185px;
                                 overflow: hidden;
@@ -292,7 +291,7 @@
 .menu-item-svg {
     width: 16px;
     height: 16px;
-    fill: #83888d;
+    fill: @menu-item-svg;
 
     &-green {
         fill: #7ca52f;
@@ -399,7 +398,7 @@
         text-decoration: none;
 
         .menu-item-label.inner-text {
-            border-bottom-color: #333333;
+            border-bottom-color: @textColor;
         }
     }
 }
@@ -476,7 +475,7 @@
             &:after {
                 border-left: 4px solid transparent;
                 border-right: 4px solid transparent;
-                border-top: 4px solid #ffffff;
+                border-top: 4px solid @body-color;
                 content: "";
                 height: 0;
                 margin-top: -1px;
@@ -513,7 +512,7 @@
             font-weight: bold;
             padding: 1px 16px 1px 8px;
             position: relative;
-            text-shadow: 0 1px 0 #fff;
+            text-shadow: 0 1px 0 @body-color;
 
             &.btn_other-actions:after {
                 border-color: @grayButtonTextColor transparent transparent;
@@ -523,14 +522,14 @@
                 height: 0;
                 margin-top: -2px;
                 position: absolute;
-                right: 1px;
+                left: 30px;
                 top: 50%;
                 width: 0;
             }
 
             &.mail {
                 background: url('@{img-change-url}rotate.svg') center 3px no-repeat;
-                background-size:70%;
+                background-size: 70%;
             }
         }
     }
@@ -603,7 +602,7 @@
         &:after {
             border-left: 4px solid transparent;
             border-right: 4px solid transparent;
-            border-top: 4px solid #ffffff;
+            border-top: 4px solid @body-color;
             content: "";
             height: 0;
             margin-top: -1px;
@@ -640,7 +639,7 @@
         &:after {
             border-left: 4px solid transparent;
             border-right: 4px solid transparent;
-            border-top: 4px solid #ffffff;
+            border-top: 4px solid @body-color;
             content: "";
             height: 0;
             margin-top: -1px;
@@ -658,7 +657,7 @@
 *******************************************************************************/
 .banner-link {
     background: no-repeat 0 0 transparent;
-    border: 1px solid #d1d1d1;
+    border: 1px solid @borderColor;
     display: block;
     height: 54px;
     margin: 20px 0 0;
@@ -731,7 +730,7 @@ only screen and (                min-resolution: 2dppx) {
     height: 9px;
     width: 9px;
     border-radius: 5px;
-    background: #FFFFFF;
+    background: @body-color;
     top: 2px;
     left: 2px;
     position: absolute;

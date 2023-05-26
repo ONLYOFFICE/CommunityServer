@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ ASC.CRM.ListContactView = (function() {
             jq.cookies.set(ASC.CRM.ListContactView.cookieKey, cookie, { path: path });
         }
     };
-
+    
     var _lockMainActions = function() {
         jq("#contactsHeaderMenu .menuActionDelete").removeClass("unlockAction");
         jq("#contactsHeaderMenu .menuActionAddTag").removeClass("unlockAction");
@@ -1717,6 +1717,23 @@ ASC.CRM.ListContactView = (function() {
             ASC.CRM.ListContactView.cookieKey = "";
         },
 
+        getkey: function () {
+                var key = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + location.pathname + location.search;
+                return encodeURIComponent(key.charAt(key.length - 1) === '/' ? key + 'Default.aspx' : key);
+        },
+
+        clearCookieAnchor: function () {
+            var cookieKey = ASC.CRM.ListContactView.getkey();
+            var path = '/',
+                parts = location.pathname.split('/');
+            parts.splice(parts.length - 1, 1);
+            path = parts.join('/');
+            var cookieAnchor = jq.cookies.get(cookieKey);
+            if (cookieAnchor != "") {
+                jq.cookies.set(cookieKey, "", { path: path });
+            }
+        },
+
         init: function (parentSelector, filterSelector, pagingSelector) {
             if (jq(parentSelector).length == 0) return;
             ASC.CRM.Common.setDocumentTitle(ASC.CRM.Resources.CRMContactResource.AllContacts);
@@ -1738,9 +1755,8 @@ ASC.CRM.ListContactView = (function() {
                     page: 1,
                     countOnPage: jq("#tableForContactNavigation select:first>option:first").val()
                 },
-                key = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + location.pathname + location.search,
                 currentAnchor = location.hash,
-                cookieKey = encodeURIComponent(key.charAt(key.length - 1) === '/' ? key + 'Default.aspx' : key);
+                cookieKey = ASC.CRM.ListContactView.getkey();
 
             currentAnchor = currentAnchor && typeof currentAnchor === 'string' && currentAnchor.charAt(0) === '#'
                 ? currentAnchor.substring(1)
@@ -1841,6 +1857,10 @@ ASC.CRM.ListContactView = (function() {
             } else {
                 var dsc_created = true,
                     dsc = settings.sortOrder == "descending";
+
+                if (!settings.hasOwnProperty("contactListView")) {
+                    ASC.CRM.ListContactView.clearCookieAnchor();
+                }
 
                 if (settings.sortBy == "created") {
                     dsc_created = dsc;

@@ -56,6 +56,7 @@ CKEDITOR.editorConfig = function( config ) {
     CKEDITOR.config.allowedContent = true; // don't filter my data
 
     //--------main settings
+    //config.skin = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? 'teamlab' : 'dark-teamlab';
     config.skin = 'teamlab';
     config.width = '100%';
     config.height = '400px';
@@ -66,6 +67,8 @@ CKEDITOR.editorConfig = function( config ) {
     config.image_previewText = ' ';
     config.disableNativeSpellChecker = false;
     config.browserContextMenuOnCtrl = true;
+
+    //config.bodyClass = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '' : 'dark';
 
     //--------toolbar settings
     this.getBaseConfig = function() {

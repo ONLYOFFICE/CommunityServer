@@ -1372,9 +1372,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Thiết lập Tên miền Mail được tin cậy{2} là một cách để xác định các mail server được sử dụng để tự đăng ký người dùng.{0}Bạn có thể kiểm tra tùy chọn {1}Tên miền Tùy chỉnh{2} và nhập vào mail server được tin cậy trong trường bên dưới để người có tài khoản tại đó có thể tự mình đăng ký bằng cách bấm vào liên kết Tham gia trên trang {1}Đăng nhập{2} hoặc vô hiệu hóa tùy chọn này.{0}Để các thông số bạn đặt có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối phần này.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Thiết lập Độ dài Mật khẩu{2} cho phép xác định hiệu quả của mật khẩu trong việc chống lại các vụ tấn công 'brute-force attack'.{0}Sử dụng thanh {1}Độ dài Mật khẩu Tối thiểu{2} để xác định độ dài mật khẩu cần thiết. Kiểm tra các hộp thích hợp bên dưới để xác định tập hợp ký tự phải được sử dụng trong mật khẩu.{0}Để các thông số bạn thiết lập có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối phần này.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Cổng công cộng{2} là tùy chọn miễn phí cho phép mọi người xem nội dung công khai của bạn mà không cần đăng ký. Sẽ không có các dự án kín và mô-đun CRM của các cổng thông tin đó sẽ tắt.{0}Không giới hạn số lượng người dùng đăng ký vào cổng thông tin công cộng, người dùng mới được thêm vào theo yêu cầu của quản trị viên hệ thống. Sử dụng tùy chọn {1}Đăng ký người dùng mới ngay lập tức{2} để xóa yêu cầu xác nhận đăng ký nếu cần.</value>
   </data>
@@ -1566,9 +1563,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Bật</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}Bảo mật IP{1} được sử dụng để hạn chế đăng nhập vào cổng thông tin từ tất cả các địa chỉ IP trừ các địa chỉ nhất định. Bạn có thể thiết lập các địa chỉ IP được phép truy cập, sử dụng địa chỉ IP chính xác theo định dạng IPv4 (#.#.#.#, trong đó # là một giá trị số từ 0 đến 255) hoặc khoảng IP (theo định dạng #.#.#.#-#.#.#.#). Bảo mật IP không áp dụng với người sở hữu cổng thông tin, họ có thể truy cập vào hệ thống từ bất kỳ địa chỉ IP nào.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Bảo mật IP</value>
@@ -2136,9 +2130,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Đổi mật khẩu</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Độ dài mật khẩu tối thiểu</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Khôi phục mật khẩu</value>

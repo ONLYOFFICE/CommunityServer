@@ -1,5 +1,125 @@
 # Change log
 
+## Version 12.5.2
+
+### General portal changes
+
+* Fixed issue with Interface Theme and Contact Information arranging incorrectly upon reducing window width in People (Bug #62061).
+* Fixed issue with an uploaded folder appearing only after reloading the page (Bug #61506).
+* Fixed issue in CRM when address not appearing in the Invoice generated through the Invoice tab on the contact page (Bug #62050).
+* Fixed issue in Calendar when an event from an attached ics file not synchronized via the CalDAV protocol (Bug #62048).
+* Increased horizontal scroll in Desktop editors when connected to a portal (Bug #62153).
+* Fixed issue with Show backup codes button would not working in People (Bug #62159).
+* Fixed the inability to download a >5 MB file from an external access folder.
+* Added translation of comments in source code into English.
+* Fixed styles for Dark mode.
+* Fixed styles for SSO.
+* Refactoring of AutoCleanUp.
+* Improvements for building server versions.
+* Fixed dependency installation for python version 3.11 or later.
+* Fixed moving backup file after backup to s3.
+* Quota: fixed SetTenantQuotaRow function.
+* Refactoring of DbManager.
+
+### Documents module
+
+* Added conversion of dps, dpt, et, ett, htm, mhtml, stw, sxc, sxi, sxw, wps, wpt, and xlsb files to supported formats.
+
+## Version 12.5.1
+
+### General portal changes
+
+* Fixed issue with editors not opening (Error 500. Internal server error) when external sharing is disabled (Bug #61800).
+* Fixed issue with 'Warning! Connection is lost' appearing error upon restoring version from editor while file is being edited (Bug #61772).
+* Fixed issue when pressing Enter while creating an external link in the editor would also close the Sharing Setting window (Bug #61939).
+* Fixed issue in Mail when the file selection window wouldn't expand when many folders are opened (Bug #61158).
+* Fixed issue in Calendar when Invitations and cancellations are not sent for an event created in another calendar using a CalDAV link (Bug #48022).
+* Fixed issue in Calendar when the Create button woudl not close after changing the year or month (Bug #59590).
+* Fixed issue in CRM when a reset filter is reactivated on subsequent page transitions (Bug #54608).
+* Added the ability in CRM to create a company to which another company is linked via the personList field (Bug #61715).
+* Replaced the 'important' icon in a contact's history (Bug #61766).
+* Fixed issue with updating a database with a missing stamp column (Bug #61838).
+* Fixed issue with 'Error 500. Internal server error' when going to user's LDAP profile (Bug #61966).
+* Fixed issue with infinite loading of files when creating them in a private room (Bug #61517).
+* Fixed issue with incorrect width of text fields on the Settings > Integration > SSO (SaaS) page (Bug #61979).
+* Fixed issue with Restore default settings action working incorrectly for LDAP Settings (SaaS) (Bug #49668).
+* Fixed issue when synchronization with the LDAP server is enabled, the "+" sign is removed from the Primary Mobile Phone attribute in the user card (SaaS) (Bug #61986).
+* Fixed issue with Dropdown menu styles in LDAP Settings > Auto Sync not adapted to dark theme (SaaS) (Bug #61974).
+* Fixed issue with RabbitMQ not starting (Bug #1323).
+* Fixed numerous issues for API documentation (Bugs #61734, #61735, #61737, #61740, #61742).
+* Fixed issue with backup for s3: split large file uploads into pieces.
+* User contact data template for telegram has been changed, now it is a http://t.me/{0} link with username substitution.
+* Added redirect to the wrongportalname website page with the referer parameter (for correct operation when transferring the region from com to the co domain).
+* Blocked display of user statistics until Quota is recalculated.
+* Quota: added user recalculation by portal.
+* Improvements for building server versions.
+
+## Version 12.5.0
+
+### General portal changes
+
+* Logins and user actions can now be stored to syslog via nlog.
+* Removed the unused 'department' column from the 'core_user' Sql table.
+* Optimized backup.
+* Removed the unused 'SendNoticeCallback' parameter.
+* Updated nlog to v5.0.0.
+* Added the ability to log in via SaslMechanismNtlm to SMTP settings.
+* Added new icons for placeholder pages.
+* Added the ability to set the number of login attempts, blocking time, and check period.
+* Added the ability to set allowed IP addresses for users and admins separately in the IP Security setting. Added support for CIDR masking.
+* Added API methods for changing email/password without email activation.
+* Added the ability to set trusted IP addresses for which two-factor verification will not be performed, as well as to add users or groups for which two-factor verification will be performed. Added support for CIDR masking.
+* Added the ability to add self-signed certificate for SSO, WebDAV.
+* Optimized Feed operation.
+* Changed settings for connecting third-party storages. Added tooltips for fields. Added the 'Server Side Encryption Method' block for Amazon AWS S3.
+* Added Dark theme.
+* Added logos for dark theme in the White Labeling section. Logos for the About page are now moved to the Control Panel.  
+* Added the new 'Lead' field to the team template.
+* Added Impersonation Settings which allow the portal owner and full access administrators to log in to the portal on behalf of any user.
+* Added the ability to set the password maximum length.
+* Added the ability to set the memory quota for users.
+* Added the ability to recalculate the space used by users.
+* Added policies for working with third-party services, such as bar, helpcenter, moneyconverter. Policies unclude Retry policy, Timeout policy, Circuit policy.
+
+### Documents module
+
+* Added thumbnails adaptive layout.
+* Improved conversion of password protected files.
+* Add the ability to upload a structure of empty folders via drag-and-drop.
+* Hidden Private Room in dialog windows for files/folders selection.
+* Added empty file templates in Armenian, Basque, and Malay.
+* Removed Wordpress, EasyBib from the Third-Party services settings.
+* Fixed the issue when documents, spreadsheets, presentations created in Google Drive are not correctly recognized when opening on the portal.
+* Errors are now displayed on the DeepLink page.
+* Added the ability to create multiple external links to files and folders.
+* Added the ability to set password protection for external links.
+* Added the ability to set time limit for external links.
+* Added the ability to insert data from a third-party source to a spreadsheet (compartible with Docs v.7.3).
+* Common viewer is used instead of live viewer for anonymous users.
+* Added the mobile view for the Sharing settings dialog window in the flat mode.
+
+### Calendar module
+
+* Moved scripts from the client to the .cs file.
+
+### Mail module
+
+* Changed the request type of the mail/filters/check API method from GET to POST.
+* Added the ability to log in via SaslMechanismNtlm.
+* Added the Drafts folder synchronization for ImapSync.
+
+### CRM module
+
+* Added the Angolan Kwanza (AOA) non-convertible currency.
+* Added the Venezuelan Bolivar Soberano (VES) convertible currency.
+
+### Control Panel
+
+* Changed API methods for migration, implemented progressQueue.
+* Changed settings for connecting third-party storages. Added tooltips for fields. Added the 'Server Side Encryption Method' block for Amazon AWS S3.
+* Added logos for dark theme in the Branding section. Logos for the About page are now separate fields in the Advanced tab.
+* Added the ability to set the portal memory quota.
+
 ## Version 12.1.0
 
 ### General portal changes

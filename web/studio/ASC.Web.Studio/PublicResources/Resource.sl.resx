@@ -1024,9 +1024,6 @@ Ste prepričani, da želite izbrisati {0} {!group}?</value>
     <value>{1}Nastavitve zaupanja vredne poštne domene{2} je način, kako opredeliti poštne strežnike za uporabniško samo-registracijo.{0}Možnost lahko omogočite {1}Domene po-meri{2}in v spodnje polje vnesete zaupanja vreden poštni strežnik, da se bo oseba, ki ima račun, lahko registrirala s pritiskom na pridružitveno povezavo na
 {1}Prijava{2} strani, ali pa to možnost onemogočite{0}Da bodo izbrani parametri začeli delovati, prosim pritisnite gumb{1}Shrani{2} na dnu oddelka.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Nastavitve moči gesla{2}je način, kako določiti učinkovitost gesla, ki se je zmožen upirati sklepanju in napadom.{0}Uporabite palico za {1}Minimalno dolžino gesla{2} in z njo določite, kako dolgo mora geslo biti. Obkljukajte ustrezne prostote spodaj in določite znake, ki morajo v geslu biti uporabljeni. {0}Za začetek delovanja izbranih parametrov pritisnite gumb {1}Shrani{2} na dnu tega oddelka.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Javni portal{2} je brezplačna možnost, ki komur koli dovoljuje ogled javne vsebine, brez predhodne registracije. Na voljo niso zasebni projekti, CRM modul pa je na takih portalih onemogočen.{0}Registracija na javni portal ni omejena s številom uporabnikov; novi uporabniki so dodani po zahtevi administratorja portala. Uporabite možnost {1}Takoj registriraj nove uporabnike{2} in tako odstranite kakršno koli nujo potrditve registracije.</value>
   </data>
@@ -1212,9 +1209,6 @@ Ste prepričani, da želite izbrisati {0} {!group}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Omogoči</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP Varnost{1} je uporabljena za omejevanje vpisa na portal z vseh IP naslovov razen določenih. Dovoljene IP naslove lahko nastavite z uporabo točnega IP naslova v IPc4 formatu (#.#.#.#, kjer # je numerična vrednost od 0 do 255) ali IP območjem (v #.#.#.#-#.#.#.# formatu).</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP varnost</value>
@@ -1601,9 +1595,6 @@ Ste prepričani, da želite izbrisati {0} {!group}?</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Sprememba gesla</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimalna dolžina gesla</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Obnovitev gesla</value>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Web.UI;
 
 using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Masters.ClientScripts;
 
@@ -48,7 +49,7 @@ namespace ASC.Web.CRM
             SideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));
 
             Master
-                .AddStaticStyles(GetStaticStyleSheet())
+                .AddStaticStyles(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark ? GetStaticDarkStyleSheet() : GetStaticStyleSheet())
                 .AddStaticBodyScripts(GetStaticJavaScript())
                 .RegisterInlineScript("ASC.CRM.NavSidePanel.init();");
         }
@@ -96,20 +97,17 @@ namespace ASC.Web.CRM
             return (StyleBundleData)
                 new StyleBundleData("crm", "crm")
                     .AddSource(PathProvider.GetFileStaticRelativePath,
-                        "common.less",
-                        "tasks.less",
-                        "cases.less",
-                        "contacts.less",
-                        "deals.less",
-                        "invoices.less",
-                        "fg.css",
-                        "socialmedia.less",
-                        "settings.less",
-                        "voip.common.less",
-                        "voip.quick.less",
-                        "voip.numbers.less",
-                        "voip.calls.less",
-                        "reports.less");
+                        "crm.less",
+                        "fg.css");
+        }
+        public StyleBundleData GetStaticDarkStyleSheet()
+        {
+            return (StyleBundleData)
+                new StyleBundleData("dark-crm", "crm")
+                    .AddSource(ResolveUrl,
+                        "~/Products/CRM/App_Themes/dark/dark-crm.less")
+                    .AddSource(PathProvider.GetFileStaticRelativePath,
+                    "fg.css");
         }
     }
 }

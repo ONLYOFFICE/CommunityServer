@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -153,23 +153,34 @@ namespace ASC.Web.Files.Services.DocumentService
 
         #endregion
 
-        public static string GetCallbackUrl(string fileId)
+        public static string GetCallbackUrl(string fileId, string sharedLinkKey)
         {
+            var linkId = string.Empty;
+            if (!string.IsNullOrEmpty(sharedLinkKey))
+            {
+                FileShareLink.Parse(sharedLinkKey, out Guid shareLinkId, out _);
+                if (shareLinkId != FileConstant.ShareLinkId)
+                {
+                    linkId = shareLinkId.ToString();
+                }
+            }
+
             var callbackUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath
                                                                     + "?" + FilesLinkUtility.Action + "=track"
                                                                     + "&" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(fileId)
-                                                                    + "&" + FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId));
+                                                                    + "&" + FilesLinkUtility.LinkId + "=" + HttpUtility.UrlEncode(linkId)
+                                                                    + "&" + FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId + linkId));
             callbackUrl = DocumentServiceConnector.ReplaceCommunityAdress(callbackUrl);
             return callbackUrl;
         }
 
-        public static bool StartTrack(string fileId, string docKeyForTrack)
+        public static bool StartTrack(string fileId, string docKeyForTrack, string sharedLinkKey)
         {
-            var callbackUrl = GetCallbackUrl(fileId);
+            var callbackUrl = GetCallbackUrl(fileId, sharedLinkKey);
             return DocumentServiceConnector.Command(CommandMethod.Info, docKeyForTrack, fileId, callbackUrl);
         }
 
-        public static TrackResponse ProcessData(string fileId, TrackerData fileData)
+        public static TrackResponse ProcessData(string fileId, TrackerData fileData, string linkId)
         {
             switch (fileData.Status)
             {
@@ -180,7 +191,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     break;
 
                 case TrackerStatus.Editing:
-                    ProcessEdit(fileId, fileData);
+                    ProcessEdit(fileId, fileData, linkId);
                     break;
 
                 case TrackerStatus.MustSave:
@@ -195,7 +206,7 @@ namespace ASC.Web.Files.Services.DocumentService
             return null;
         }
 
-        private static void ProcessEdit(string fileId, TrackerData fileData)
+        private static void ProcessEdit(string fileId, TrackerData fileData, string linkId)
         {
             if (ThirdPartySelector.GetAppByFileId(fileId) != null)
             {
@@ -241,7 +252,8 @@ namespace ASC.Web.Files.Services.DocumentService
 
                     try
                     {
-                        var doc = FileShareLink.CreateKey(fileId);
+                        var linkIdGuid = string.IsNullOrEmpty(linkId) ? FileConstant.ShareLinkId : new Guid(linkId);
+                        var doc = FileShareLink.CreateKey(fileId, linkIdGuid);
                         EntryManager.TrackEditing(fileId, userId, userId, doc);
                     }
                     catch (Exception e)

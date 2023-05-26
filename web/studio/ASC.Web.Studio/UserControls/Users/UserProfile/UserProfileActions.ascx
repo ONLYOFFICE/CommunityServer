@@ -121,6 +121,12 @@
         <li class="subscribe-tips">
             <a class="dropdown-item" title="<%= SubscribeBtnText %>"><%= SubscribeBtnText %></a>
         </li>
+        <% }
+           if (CanImpersonateUser)
+           { %>
+        <li class="impersonate-user">
+            <a class="dropdown-item" title="<%= ResourceJS.ImpersonateUser %>"><%= ResourceJS.ImpersonateUser %></a>
+        </li>
         <% } %>
     </ul>
 </div>
@@ -128,5 +134,10 @@
 <% if (Actions.AllowAddOrDelete)
    { %>
 <asp:PlaceHolder ID="_phConfirmationDeleteUser" runat="server"></asp:PlaceHolder>
+    <% } %>
+
+<% if (CanImpersonateUser)
+   { %>
+<asp:PlaceHolder ID="_confirmationImpersonateUser" runat="server"></asp:PlaceHolder>
     <% } %>
 <% } %>

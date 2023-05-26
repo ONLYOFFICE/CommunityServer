@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,10 @@ using ASC.Web.Mail.Resources;
 
 namespace ASC.Api.Mail
 {
+    ///<summary>
+    /// Mail API.
+    ///</summary>
+    ///<name>mail</name>
     public partial class MailApi : IApiEntryPoint
     {
         private readonly ApiContext _context;
@@ -49,9 +53,6 @@ namespace ASC.Api.Mail
 
         public const int DEFAULT_PAGE_SIZE = 25;
 
-        ///<summary>
-        /// Api name entry
-        ///</summary>
         public string Name
         {
             get { return "mail"; }
@@ -138,13 +139,16 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Returns all the running complex mail operations.
+        /// Returns all the running mail operations.
         /// </summary>
+        /// <path>api/2.0/mail/operations</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         /// <short>
-        /// Get running complex mail operations
+        /// Get running mail operations
         /// </short>
         /// <category>Operations</category>
-        /// <returns>List of running mail operations</returns>
+        /// <returns type="ASC.Mail.Core.Engine.Operations.Base.MailOperationStatus, ASC.Mail">List of running mail operations</returns>
         [Read("operations")]
         public List<MailOperationStatus> GetMailOperations()
         {
@@ -153,14 +157,16 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Returns a status of complex mail operation with the ID specified in the request.
+        /// Returns a status of the mail operation with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Get a status of complex mail operation
+        /// Get a mail operation status
         /// </short>
         /// <category>Operations</category>
-        /// <param name="operationId">Operation ID</param>
-        /// <returns>Status of complex mail operation</returns>
+        /// <param type="System.String, System" method="url" name="operationId">Operation ID</param>
+        /// <returns type="ASC.Mail.Core.Engine.Operations.Base.MailOperationStatus, ASC.Mail">Mail operation status</returns>
+        /// <path>api/2.0/mail/operations/{operationId}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("operations/{operationId}")]
         public MailOperationStatus GetMailOperation(string operationId)
         {
@@ -172,7 +178,7 @@ namespace ASC.Api.Mail
         /// </summary>
         /// <short>Translate a mail operation status</short>
         /// <category>Operations</category>
-        /// <param name="op">Instance of distributed task</param>
+        /// <param type="ASC.Common.Threading.DistributedTask, ASC.Common.Threading" name="op">Distributed task instance</param>
         /// <returns>Translated status</returns>
         private static string TranslateMailOperationStatus(DistributedTask op)
         {

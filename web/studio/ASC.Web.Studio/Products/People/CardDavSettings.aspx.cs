@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using ASC.Common.Radicale;
 using ASC.Common.Radicale.Core;
 using ASC.Core;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio;
 
 namespace ASC.Web.People
@@ -55,9 +56,15 @@ namespace ASC.Web.People
 
         protected void RenderScripts()
         {
-            Page
-                .RegisterStyle("~/Products/People/App_Themes/default/css/carddav.css")
-                .RegisterBodyScripts("~/Products/People/js/carddav.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/People/App_Themes/dark/dark-carddav.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/People/App_Themes/default/css/carddav.less");
+            }
+            Page.RegisterBodyScripts("~/Products/People/js/carddav.js");
         }
     }
 }

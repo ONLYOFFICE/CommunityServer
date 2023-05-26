@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio;
 
 using Global = ASC.Web.Files.Classes.Global;
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Files
 {
@@ -75,11 +76,22 @@ namespace ASC.Web.Files
 
         public StyleBundleData GetStaticStyleSheet()
         {
-            return (StyleBundleData)
-                   new StyleBundleData("filesOpenPrivate", "files")
-                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/PrivateRoomOpenFile/privateroomopenfile.css"
-                       );
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                return (StyleBundleData)
+                  new StyleBundleData("dark-filesOpenPrivate", "files")
+                      .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                 "Controls/PrivateRoomOpenFile/dark-privateroomopenfile.less"
+                      );
+            }
+            else
+            {
+                return (StyleBundleData)
+                  new StyleBundleData("filesOpenPrivate", "files")
+                      .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                 "Controls/PrivateRoomOpenFile/privateroomopenfile.less"
+                      );
+            }
         }
 
     }

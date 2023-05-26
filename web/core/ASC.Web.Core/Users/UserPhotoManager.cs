@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
 using ASC.Core;
 using ASC.Data.Storage;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Utility;
 
@@ -184,7 +185,7 @@ namespace ASC.Web.Core.Users
 
         public static string GetDefaultPhotoAbsoluteWebPath()
         {
-            return WebImageSupplier.GetAbsoluteWebPath(_defaultAvatar);
+            return WebImageSupplier.GetAbsoluteWebPath(IsLightTheme() ?  _defaultAvatar : _defaultDarkAvatar);
         }
 
 
@@ -283,13 +284,22 @@ namespace ASC.Web.Core.Users
         private static readonly string _defaultMediumAvatar = "default_user_photo_size_48-48.png";
         private static readonly string _defaultBigAvatar = "default_user_photo_size_82-82.png";
         private static readonly string _tempDomainName = "temp";
+        private static readonly string _defaultDarkRetinaAvatar = "default_user_photo_dark_size_360-360.png";
+        private static readonly string _defaultDarkAvatar = "default_user_photo_dark_size_200-200.png";
+        private static readonly string _defaultDarkSmallAvatar = "default_user_photo_dark_size_32-32.png";
+        private static readonly string _defaultDarkMediumAvatar = "default_user_photo_dark_size_48-48.png";
+        private static readonly string _defaultDarkBigAvatar = "default_user_photo_dark_size_82-82.png";
 
 
         public static bool UserHasAvatar(Guid userID)
         {
             var path = GetPhotoAbsoluteWebPath(userID);
-            var fileName = Path.GetFileName(path);
-            return fileName != _defaultAvatar;
+            return !IsDeafaultPhoto(path);
+        }
+
+        public static bool IsDeafaultPhoto(string path)
+        {
+            return path.Contains("default_user_photo");
         }
 
         public static string GetPhotoAbsoluteWebPath(Guid userID)
@@ -367,12 +377,17 @@ namespace ASC.Web.Core.Users
 
         private static string GetDefaultPhotoAbsoluteWebPath(Size size)
         {
-            if (size == RetinaFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultRetinaAvatar);
-            if (size == MaxFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultAvatar);
-            if (size == BigFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultBigAvatar);
-            if (size == SmallFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultSmallAvatar);
-            if (size == MediumFotoSize) return WebImageSupplier.GetAbsoluteWebPath(_defaultMediumAvatar);
+            if (size == RetinaFotoSize) return  WebImageSupplier.GetAbsoluteWebPath(IsLightTheme() ? _defaultRetinaAvatar : _defaultDarkRetinaAvatar);
+            if (size == MaxFotoSize) return WebImageSupplier.GetAbsoluteWebPath(IsLightTheme() ? _defaultAvatar : _defaultDarkAvatar);
+            if (size == BigFotoSize) return WebImageSupplier.GetAbsoluteWebPath(IsLightTheme() ? _defaultBigAvatar : _defaultDarkBigAvatar);
+            if (size == SmallFotoSize) return WebImageSupplier.GetAbsoluteWebPath(IsLightTheme() ? _defaultSmallAvatar : _defaultDarkSmallAvatar);
+            if (size == MediumFotoSize) return WebImageSupplier.GetAbsoluteWebPath(IsLightTheme() ? _defaultMediumAvatar : _defaultDarkMediumAvatar);
             return GetDefaultPhotoAbsoluteWebPath();
+        }
+
+        private static bool IsLightTheme()
+        {
+            return ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.light;
         }
 
         //Regex for parsing filenames into groups with id's
@@ -844,9 +859,9 @@ namespace ASC.Web.Core.Users
                 if (string.IsNullOrEmpty(fileName)) return null;
 
                 using (var s = GetDataStore().GetReadStream("", fileName))
+                using (var data = new MemoryStream())
                 {
-                    var data = new MemoryStream();
-                    var buffer = new Byte[1024 * 10];
+                    var buffer = new byte[1024 * 10];
                     while (true)
                     {
                         var count = s.Read(buffer, 0, buffer.Length);
@@ -947,13 +962,15 @@ namespace ASC.Web.Core.Users
         public static RotateFlipType RotateImageByExifOrientationData(string sourceFilePath, string targetFilePath, ImageFormat targetFormat, bool updateExifData = true)
         {
             // Rotate the image according to EXIF data
-            var bmp = new Bitmap(sourceFilePath);
-            var fType = RotateImageByExifOrientationData(bmp, updateExifData);
-            if (fType != RotateFlipType.RotateNoneFlipNone)
+            using (var bmp = new Bitmap(sourceFilePath))
             {
-                bmp.Save(targetFilePath, targetFormat);
+                var fType = RotateImageByExifOrientationData(bmp, updateExifData);
+                if (fType != RotateFlipType.RotateNoneFlipNone)
+                {
+                    bmp.Save(targetFilePath, targetFormat);
+                }
+                return fType;
             }
-            return fType;
         }
 
         /// <summary>

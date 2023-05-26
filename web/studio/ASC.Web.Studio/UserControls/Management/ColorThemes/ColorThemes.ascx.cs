@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 
@@ -34,16 +35,17 @@ namespace ASC.Web.Studio.UserControls.Management
         protected List<PortalColorTheme> ColorThemesList { get; set; }
 
         protected string ChosenTheme { get; set; }
+        protected string ChosenMode { get; set; }
 
         protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts("~/UserControls/Management/ColorThemes/js/colorthemes.js")
-                .RegisterStyle("~/UserControls/Management/ColorThemes/css/colorthemes.css");
+                .RegisterStyle("~/UserControls/Management/ColorThemes/css/colorthemes.less");
 
             ChosenTheme = ColorThemesSettings.GetColorThemesSettings();
-
+            ChosenMode = ModeThemeSettings.GetModeThemesSettings().ModeThemeName.ToString();
             ColorThemesList = new List<PortalColorTheme>
                 {
                     new PortalColorTheme
@@ -77,6 +79,11 @@ namespace ASC.Web.Studio.UserControls.Management
                             Value = "bright-blue"
                         }
                 };
+            if(ChosenMode == "dark")
+            {
+                Regex darkReplace = new Regex(@"([a-z]+-)");
+                ChosenTheme = darkReplace.Replace(ChosenTheme, "", 1);
+            }
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

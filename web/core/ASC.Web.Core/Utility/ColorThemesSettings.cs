@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,9 +84,14 @@ namespace ASC.Web.Core.Utility
 
         public static string GetColorThemesSettings()
         {
+            var modetheme = ModeThemeSettings.GetModeThemesSettings();
             var colorTheme = Load();
             var colorThemeName = colorTheme.ColorThemeName;
-
+            if(modetheme.ModeThemeName == ModeTheme.dark)
+            {
+                colorThemeName = "dark-" + colorThemeName;
+            }
+            
             if (colorTheme.FirstRequest)
             {
                 colorTheme.FirstRequest = false;

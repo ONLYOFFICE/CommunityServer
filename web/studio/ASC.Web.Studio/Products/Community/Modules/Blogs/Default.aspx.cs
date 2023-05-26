@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -176,7 +176,7 @@ namespace ASC.Web.Community.Blogs
             {
                 var emptyScreenControl = new EmptyScreenControl
                 {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("blog_icon.png", ASC.Blogs.Core.Constants.ModuleId),
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("blog_icon.svg", ASC.Blogs.Core.Constants.ModuleId),
                     Header = BlogsResource.EmptyScreenBlogCaption,
                     Describe = currentUser.IsVisitor() ? BlogsResource.EmptyScreenBlogTextVisitor : BlogsResource.EmptyScreenBlogText
                 };

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,13 +47,25 @@ namespace ASC.Web.Files.Services.DocumentService
 
     public class ReportState
     {
+        ///<example>wd2</example>
         public string Id { get; set; }
+
+        ///<example>FileName</example>
         public string FileName { get; set; }
+
+        ///<example type="int">1</example>
         public int FileId { get; set; }
+
+        ///<example type="int">1</example>
         public int ReportType { get; set; }
 
+        ///<example>Exception</example>
         public string Exception { get; set; }
+
+        ///<example type="int">1</example>
         public ReportStatus Status { get; set; }
+
+        ///<example type="int">1</example>
         public ReportOrigin Origin { get; set; }
 
         internal string BuilderKey { get; set; }
@@ -65,6 +77,7 @@ namespace ASC.Web.Files.Services.DocumentService
         internal Guid UserId { get; set; }
         internal string ContextUrl { get; set; }
 
+        ///<example>null</example>
         public object Obj { get; set; }
 
         protected DistributedTask TaskInfo { get; private set; }

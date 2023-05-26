@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ namespace ASC.Web.Files.HttpHandlers
                         return;
 
                     case ChunkedRequestType.Initiate:
-                        var createdSession = FileUploader.InitiateUpload(request.FolderId, request.FileId, request.FileName, request.FileSize, request.Encrypted);
+                        var createdSession = FileUploader.InitiateUpload(request.FolderId, request.FileId, request.FileName, request.FileSize, request.Encrypted, request.LinkId);
                         WriteSuccess(context, ToResponseObject(createdSession, true));
                         return;
 
@@ -119,9 +119,13 @@ namespace ASC.Web.Files.HttpHandlers
             if (request.Type == ChunkedRequestType.Initiate)
             {
                 CoreContext.TenantManager.SetCurrentTenant(request.TenantId);
-                SecurityContext.CurrentUser = request.AuthKey;
+
+                if (string.IsNullOrEmpty(request.LinkId))
+                    SecurityContext.CurrentUser = request.AuthKey;
+
                 if (request.CultureInfo != null)
                     Thread.CurrentThread.CurrentUICulture = request.CultureInfo;
+
                 return true;
             }
 
@@ -131,10 +135,14 @@ namespace ASC.Web.Files.HttpHandlers
                 if (uploadSession != null)
                 {
                     CoreContext.TenantManager.SetCurrentTenant(uploadSession.TenantId);
-                    SecurityContext.CurrentUser = uploadSession.UserId;
+
+                    if (string.IsNullOrEmpty(uploadSession.LinkId))
+                        SecurityContext.CurrentUser = uploadSession.UserId;
+
                     var culture = SetupInfo.GetPersonalCulture(uploadSession.CultureName).Value;
                     if (culture != null)
                         Thread.CurrentThread.CurrentUICulture = culture;
+
                     return true;
                 }
             }
@@ -340,6 +348,15 @@ namespace ASC.Web.Files.HttpHandlers
                         return _file = new HttpPostedFileWrapper(_request.Files[0]);
 
                     throw new Exception("HttpRequest.Files is empty");
+                }
+            }
+
+            public string LinkId
+            {
+                get
+                {
+                    var linkId = _request[FilesLinkUtility.LinkId];
+                    return string.IsNullOrEmpty(linkId) ? null : InstanceCrypto.Decrypt(linkId);
                 }
             }
 

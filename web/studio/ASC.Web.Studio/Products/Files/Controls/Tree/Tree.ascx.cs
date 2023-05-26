@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web.UI;
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Files.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 
@@ -33,6 +34,7 @@ namespace ASC.Web.Files.Controls
             get { return PathProvider.GetFileControlPath("Tree/Tree.ascx"); }
         }
 
+        public Folder ExternalFolder { get; set; }
         public object FolderIDCurrentRoot { get; set; }
         public string AdditionalCssClass { get; set; }
         public bool WithoutTrash { get; set; }

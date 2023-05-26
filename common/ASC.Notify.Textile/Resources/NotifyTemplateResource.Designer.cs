@@ -66,9 +66,9 @@ namespace ASC.Notify.Textile.Resources {
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
         ///              &lt;img src=&quot;%IMAGEPATH%/tech-100.png&quot; style=&quot;width:  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string FooterCommonV10 {
+        public static string FooterCommonV121 {
             get {
-                return ResourceManager.GetString("FooterCommonV10", resourceCulture);
+                return ResourceManager.GetString("FooterCommonV121", resourceCulture);
             }
         }
         
@@ -78,9 +78,9 @@ namespace ASC.Notify.Textile.Resources {
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
         ///              &lt;img src=&quot;%IMAGEPATH%/tech-100.png&quot; style=&quot;width:  [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string FooterOpensourceV10 {
+        public static string FooterOpensourceV121 {
             get {
-                return ResourceManager.GetString("FooterOpensourceV10", resourceCulture);
+                return ResourceManager.GetString("FooterOpensourceV121", resourceCulture);
             }
         }
         
@@ -119,9 +119,9 @@ namespace ASC.Notify.Textile.Resources {
         ///          &lt;/td&gt;
         ///          &lt;td style=&quot;width: 40px; vertical-a [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string SocialNetworksFooterV10 {
+        public static string SocialNetworksFooterV121 {
             get {
-                return ResourceManager.GetString("SocialNetworksFooterV10", resourceCulture);
+                return ResourceManager.GetString("SocialNetworksFooterV121", resourceCulture);
             }
         }
         

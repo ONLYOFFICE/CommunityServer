@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -218,7 +218,7 @@ window.SmtpSettingsView = function ($) {
     }
 
     function bindChanges() {
-        $("#smtpSettingsView input")
+        $("#smtpSettingsView input[type=\"text\"]")
             .off('input')
             .on('input',
                 function() {
@@ -343,10 +343,12 @@ window.SmtpSettingsView = function ($) {
     function changeSettingsAuthenticationRequired() {
         var checked = $customSettingsBox.find("#customSettingsAuthenticationRequired").is(":checked"),
             $loginEl = $customSettingsBox.find(".host-login"),
-            $passwordEl = $customSettingsBox.find(".host-password");
+            $passwordEl = $customSettingsBox.find(".host-password"),
+            $useNtlm = $customSettingsBox.find("#customSettingsUseNtlm");
 
         $loginEl.find(".textEdit").prop("disabled", !checked);
         $passwordEl.find(".textEdit").prop("disabled", !checked);
+        $useNtlm.attr("disabled", !checked);
 
         $loginEl.toggleClass('requiredField', checked);
         $passwordEl.toggleClass('requiredField', checked);
@@ -387,7 +389,8 @@ window.SmtpSettingsView = function ($) {
                 $authCheckbox = $customSettingsBox.find("#customSettingsAuthenticationRequired"),
                 $loginEl = $customSettingsBox.find(".host-login .textEdit"),
                 $passwordEl = $customSettingsBox.find(".host-password .textEdit"),
-                $sslCheckbox = $customSettingsBox.find("#customSettingsEnableSsl");
+                $sslCheckbox = $customSettingsBox.find("#customSettingsEnableSsl"),
+                $useNtlm = $customSettingsBox.find("#customSettingsUseNtlm");
 
             $hostEl.prop("disabled", disable);
             $portEl.prop("disabled", disable);
@@ -400,6 +403,7 @@ window.SmtpSettingsView = function ($) {
             $senderAddressEl.prop("disabled", disable);
 
             $sslCheckbox.prop("disabled", disable);
+            $useNtlm.attr("disabled", disable);
 
             if (!disable)
                 changeSettingsAuthenticationRequired();
@@ -433,7 +437,8 @@ window.SmtpSettingsView = function ($) {
             settings1.senderDisplayName === settings2.senderDisplayName &&
             settings1.senderAddress === settings2.senderAddress &&
             settings1.enableSSL === settings2.enableSSL &&
-            settings1.enableAuth === settings2.enableAuth;
+            settings1.enableAuth === settings2.enableAuth &&
+            settings1.useNtlm === settings2.useNtlm;
     }
 
     function getSettingsForTest() {
@@ -450,7 +455,8 @@ window.SmtpSettingsView = function ($) {
             credentialsUserPassword = $customSettingsBox.find(".host-password .textEdit").val(),
             senderDisplayName = $customSettingsBox.find(".display-name .textEdit").val(),
             senderAddress = $customSettingsBox.find(".email-address .textEdit").val(),
-            enableSsl = $customSettingsBox.find("#customSettingsEnableSsl").is(":checked");
+            enableSsl = $customSettingsBox.find("#customSettingsEnableSsl").is(":checked"),
+            useNtlm = $customSettingsBox.find("#customSettingsUseNtlm").is(":checked");
 
         host = !host ? "" : host.trim();
         port = !port ? null : parseInt(port);
@@ -501,7 +507,8 @@ window.SmtpSettingsView = function ($) {
             senderDisplayName: senderDisplayName,
             senderAddress: senderAddress,
             enableSSL: enableSsl,
-            enableAuth: enableAuth
+            enableAuth: enableAuth,
+            useNtlm: useNtlm
         } : null;
     }
 
@@ -549,7 +556,8 @@ window.SmtpSettingsView = function ($) {
             senderDisplayName: $box.find("#currentSenderDisplayName").val(),
             senderAddress: $box.find("#currentSenderAddress").val(),
             enableSSL: $("#currentEnableSsl").val().toLowerCase() === "true",
-            enableAuth: $("#currentEnableAuth").val().toLowerCase() === "true"
+            enableAuth: $("#currentEnableAuth").val().toLowerCase() === "true",
+            useNtlm: $("#currentUseNtlm").val().toLowerCase() === "true"
         };
     }
 
@@ -566,7 +574,8 @@ window.SmtpSettingsView = function ($) {
             senderDisplayName: "",
             senderAddress: "",
             enableSSL: false,
-            enableAuth: false
+            enableAuth: false,
+            useNtlm: false
         };
     }
 
@@ -707,7 +716,8 @@ window.SmtpSettingsView = function ($) {
                     senderDisplayName: mailserverSettings.senderDisplayName,
                     senderAddress: res.email,
                     enableSSL: res.smtp_encryption_type === "STARTTLS" || res.smtp_encryption_type === "SSL",
-                    enableAuth: true
+                    enableAuth: true,
+                    useNtlm: false
                 };
 
                 Teamlab.savePortalSmtpSettings(null, settings, {

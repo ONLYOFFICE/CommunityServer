@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             foreach (var item in consumer.ManagedKeys)
             {
-                Props.Add(new AuthKey { Name = item, Value = Consumer[item], Title = consumer.GetResourceString(item) ?? item });
+                Props.Add(new AuthKey { Name = item, Value = Consumer[item], Title = consumer.GetResourceString(item) ?? item, IsPassword = consumer.IsPassword(item), IsOptional = consumer.IsOptional(item) });
             }
         }
     }
@@ -75,12 +75,20 @@ namespace ASC.Web.Studio.UserControls.Management
     [DebuggerDisplay("({Name},{Value})")]
     public class AuthKey
     {
+        ///<example>name</example>
         public string Name { get; set; }
 
+        ///<example>Value</example>
         public string Value { get; set; }
 
+        ///<example>Title</example>
         public string Title { get; set; }
 
+        ///<example>Description</example>
         public string Description { get; set; }
+
+        public bool IsPassword { get; set; }
+
+        public bool IsOptional { get; set; }
     }
 }

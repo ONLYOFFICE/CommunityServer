@@ -58,13 +58,13 @@
                 <input id="openTaskOnly" type="checkbox" name="openTaskOnly"/>
                 <label for="openTaskOnly"><%=ProjectResource.GanttOpenTaskOnly %></label>
             </div>
-            <div class="task-filter-container" style="display:none;"> <!-- скрыла пока не определиться в каком формате будет этот фильтр -->
+            <div class="task-filter-container" style="display:none;"> <!-- hid until you decide in what format this filter will be -->
                 <select id="teamMemberFilter">
                     <option value="-1"><%=ProjectResource.GanttAllTeamMembers %></option>
                 </select>
             </div>
             <%--<div class="task-filter-container">
-                <a class="link underline" href="Tasks.aspx?prjID=<%=Project.ID%>" target="_blank"><%=ProjectsJSResource.ToTaskList %></a>        если список будет формироваться из разных проектов, то эта ссылка не нужна
+                <a class="link underline" href="Tasks.aspx?prjID=<%=Project.ID%>" target="_blank"><%=ProjectsJSResource.ToTaskList %></a>        if the list will be formed from different projects, then this link is not needed
             </div>--%>
         </div>
         <div class="mode-button-container">

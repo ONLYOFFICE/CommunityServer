@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ namespace ASC.Web.UserControls.Wiki.Data
 
         public BaseDao(string dbid, int tenant)
         {
-            this.db = DbManager.FromHttpContext(dbid);
+            this.db = new DbManager(dbid);
             this.tenant = tenant;
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,20 @@
 
 
 @import "../base.less";
+@import "../default/params.less";
 
 .popup_helper {
     display: none;
-    background-color: #FFF8DC;
+    background-color: @popup-bg-color;
     width: 280px;
     padding: 15px;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
     z-index: 255;
     white-space: normal;
-    border: 1px solid #efede8;
+    border: 1px solid @popup-helper-bor;
     .borderRadius(8px);
-    color: Black;
+    color: @popup-helper-col;
     text-align: left;
     font-size: 12px;
     font-weight: normal;
@@ -108,7 +109,7 @@
         left: 36px;
 
         &:before {
-              border-color: transparent transparent transparent #EDEDED;
+              border-color: transparent transparent transparent @corner-help-block-before;
               border-style: solid;
               border-width: 16px 0 0 24px;
               content: "";
@@ -120,7 +121,7 @@
         }
 
         &:after {
-            border-color: transparent transparent transparent #FFF8DC;
+            border-color: transparent transparent transparent @corner-help-block;
             border-style: solid;
             border-width: 16px 0 0 24px;
             content: "";
@@ -137,7 +138,7 @@
         right: 55px;
 
         &:before {
-              border-color: transparent transparent #EDEDED transparent;
+              border-color: transparent transparent @corner-help-block-before transparent;
               border-style: solid;
               border-width: 0 0 16px 24px;
               content: "";
@@ -149,7 +150,7 @@
         }
 
         &:after {
-            border-color: transparent transparent #FFF8DC transparent;
+            border-color: transparent transparent @corner-help-block transparent;
             border-style: solid;
             border-width: 0 0 16px 24px;
             content: "";
@@ -166,7 +167,7 @@
         left: 36px;
 
          &:before {
-              border-color: transparent transparent transparent #b8b8b8;
+              border-color: transparent transparent transparent @corner-help-block-before-2;
               border-style: solid;
               border-width: 0 0 16px 24px;
               content: "";
@@ -178,7 +179,7 @@
         }
 
         &:after {
-            border-color: transparent transparent transparent #FFF8DC;
+            border-color: transparent transparent transparent @corner-help-block;
             border-style: solid;
             border-width: 0 0 16px 24px;
             content: "";
@@ -195,7 +196,7 @@
         right: 56px;
 
          &:before {
-              border-color: transparent #b8b8b8 transparent transparent;
+              border-color: transparent @corner-help-block-before-2 transparent transparent;
               border-style: solid;
               border-width: 0 24px 16px 0;
               content: "";
@@ -207,7 +208,7 @@
         }
 
         &:after {
-            border-color: transparent #FFF8DC transparent transparent;
+            border-color: transparent @corner-help-block transparent transparent;
             border-style: solid;
             border-width: 0 24px 16px 0;
             content: "";
@@ -232,19 +233,19 @@
     position: relative;
 
      &:after {
-        background-color: #83888d;
+        background-color: @menu-item-svg;
         .borderRadius(12px);
-        color: #ffffff;
+        color: @body-color;
         content: "?";
         font-family: "Open Sans",sans-serif;
         display: inline-block;
         font-size: 11px;
         font-weight: 900;
         height: 12px;
-        left: 3px;
+        left: 2px;
         position: absolute;
         text-align: center;
-        top: 3px;
+        top: 2px;
         width: 12px;
         line-height: 12px;
         padding: 0;

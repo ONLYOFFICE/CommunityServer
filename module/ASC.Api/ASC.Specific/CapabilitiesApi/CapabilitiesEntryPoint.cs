@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,9 @@ using ASC.Web.Studio.Utility;
 namespace ASC.Specific.CapabilitiesApi
 {
     /// <summary>
-    /// Portal capabilities for api.
+    /// Portal capabilities API.
     /// </summary>
+    /// <name>capabilities</name>
     public class CapabilitiesEntryPoint : IApiEntryPoint
     {
 
@@ -66,8 +67,11 @@ namespace ASC.Specific.CapabilitiesApi
         ///<short>
         ///Get portal capabilities
         ///</short>
-        ///<returns>Portal capabilities</returns>
-        [Read("", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
+        ///<returns type="ASC.Specific.CapabilitiesApi.CapabilitiesData, ASC.Specific">Portal capabilities</returns>
+        ///<path>api/2.0/capabilities</path>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        ///<httpMethod>GET</httpMethod>
+        [Read("", false, false)] //NOTE: this method doesn't require auth!!!  //NOTE: this method doesn't check payment!!!
         public CapabilitiesData GetPortalCapabilities()
         {
             var result = new CapabilitiesData

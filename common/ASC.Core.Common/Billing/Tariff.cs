@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,18 +26,25 @@ namespace ASC.Core.Billing
     [Serializable]
     public class Tariff
     {
+        ///<example type="int">1</example>
         public int QuotaId { get; set; }
 
+        ///<example type="int">1</example>
         public TariffState State { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime DueDate { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime DelayDueDate { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime LicenseDate { get; set; }
 
+        ///<example>true</example>
         public bool Autorenewal { get; set; }
 
+        ///<example>true</example>
         public bool Prolongable { get; set; }
 
         public int Quantity { get; set; }

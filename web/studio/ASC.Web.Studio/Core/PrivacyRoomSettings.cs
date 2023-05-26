@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,10 @@
 
 using System;
 using System.Runtime.Serialization;
+using System.Web;
 
-using ASC.Core;
 using ASC.Core.Common.Settings;
+using ASC.MessagingSystem;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core
@@ -64,7 +65,24 @@ namespace ASC.Web.Studio.Core
         {
             get
             {
-                return SetupInfo.IsVisibleSettings(ManagementType.PrivacyRoom.ToString());
+                return SetupInfo.IsVisibleSettings(ManagementType.PrivacyRoom.ToString()) && !IsWindowsXP;
+            }
+        }
+
+        private static bool IsWindowsXP
+        {
+            get
+            {
+                var uaHeader = MessageSettings.GetUAHeader(HttpContext.Current.Request);
+                if (!string.IsNullOrEmpty(uaHeader))
+                {
+                    var clientInfo = MessageSettings.GetClientInfo(uaHeader);
+                    if (clientInfo.OS.Family == "Windows")
+                    {
+                        return clientInfo.OS.Major == "XP";
+                    }
+                }
+                return false;
             }
         }
     }

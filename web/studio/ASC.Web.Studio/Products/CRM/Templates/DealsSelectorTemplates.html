@@ -5,7 +5,7 @@
                 <tr>
                     <td class="borderBase" style="border-right: 0 none; width: 16px">
                         <label class="searchButton"></label>
-                        <img class="loaderImg" src="${StudioManager.GetImage('loader_16.gif')}" style="display:none;"/>
+                        <img class="loaderImg" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}}src="${StudioManager.GetImage('loader_16.gif')}"{{else}}src="${StudioManager.GetImage('loader-dark-16.svg')}"{{/if}} style="display:none;"/>
                     </td>
                     <td class="borderBase" style="border-left: 0 none; border-right: 0 none;">
                         <input class="textEdit" type="text" value="" placeholder="${Description}" autocomplete="off"/>

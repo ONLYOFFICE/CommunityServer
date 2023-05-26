@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Security;
+using System.Security.Principal;
 using System.Threading;
 using System.Web;
 
@@ -31,6 +32,7 @@ using ASC.Common.Security.Authentication;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
+using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
@@ -142,7 +144,7 @@ namespace ASC.Web.Files.Utils
                 var fileSecurity = Global.GetFilesSecurity();
                 if (!fileSecurity.CanRead(file))
                 {
-                    var readLink = FileShareLink.Check(doc, true, fileDao, out file, out ASC.Files.Core.Security.FileShare linkShare);
+                    var readLink = FileShareLink.Check(doc, true, fileDao, out file, out ASC.Files.Core.Security.FileShare linkShare, out Guid linkId);
                     if (file == null)
                     {
                         throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
@@ -200,8 +202,12 @@ namespace ASC.Web.Files.Utils
                     Delete = deleteAfter,
                     StartDateTime = DateTime.Now,
                     Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null,
-                    Password = password
+                    Password = password,
+                    LinkId = FileShareLink.TryGetCurrentLinkId(out var linkId) ? linkId : default,
+                    SessionId = FileShareLink.TryGetSessionId(out var sessionId) ? sessionId : default,
+                    PasswordKey = FileShareLink.GetPasswordKey(linkId)
                 };
+
                 conversionQueue.Add(file, queueResult);
                 cache.Insert(GetKey(file), queueResult, TimeSpan.FromMinutes(10));
 
@@ -337,18 +343,28 @@ namespace ASC.Web.Files.Utils
                                         new HttpResponse(new StringWriter()));
                                 }
 
+                                FileShareLink.SetCurrentLinkData(operationResult.LinkId, operationResult.SessionId, operationResult.PasswordKey);
+
                                 cache.Insert(GetKey(file), operationResult, TimeSpan.FromMinutes(10));
                             }
 
                             CoreContext.TenantManager.SetCurrentTenant(tenantId);
-                            SecurityContext.CurrentAccount = account;
+
+                            if (account.Equals(ASC.Core.Configuration.Constants.Guest))
+                            {
+                                Thread.CurrentPrincipal = new GenericPrincipal(account, Array.Empty<string>());
+                            }
+                            else
+                            {
+                                SecurityContext.CurrentAccount = account;
+                            }
 
                             var user = CoreContext.UserManager.GetUsers(account.ID);
                             var culture = string.IsNullOrEmpty(user.CultureName) ? CoreContext.TenantManager.GetCurrentTenant().GetCulture() : CultureInfo.GetCultureInfo(user.CultureName);
                             Thread.CurrentThread.CurrentCulture = culture;
                             Thread.CurrentThread.CurrentUICulture = culture;
 
-                            if (!fileSecurity.CanRead(file) && file.RootFolderType != FolderType.BUNCH)
+                            if (file.RootFolderType != FolderType.BUNCH && !fileSecurity.CanRead(file))
                             {
                                 //No rights in CRM after upload before attach
                                 throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
@@ -652,6 +668,9 @@ namespace ASC.Web.Files.Utils
             public bool Delete { get; set; }
             public string Url { get; set; }
             public string Password { get; set; }
+            public Guid LinkId { get; set; }
+            public Guid SessionId { get; set; }
+            public string PasswordKey { get; set; }
         }
     }
 }

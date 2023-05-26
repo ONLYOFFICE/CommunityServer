@@ -6,7 +6,7 @@
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
-<% if (!Global.IsOutsider)
+<% if (!Global.IsOutsider && ((!ASC.Core.SecurityContext.IsAuthenticated && ExternalFolderFullAccess) || ASC.Core.SecurityContext.IsAuthenticated))
    { %>
 <ul id="mainMenuHolder" class="menu-actions">
     <li id="menuCreateNewButton" class="menu-main-button without-separator disable middle" title="<%= FilesUCResource.ButtonCreate %>">
@@ -15,9 +15,10 @@
     </li>
     <li id="menuUploadActionsButton" class="menu-upload-button menu-gray-button disable" title="<%= FilesUCResource.ButtonUpload %>">
         <span class="menu-upload-icon btn_other-actions">
-            <svg class="upload-svg">
-                <use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconsupload"></use>
-            </svg></span>
+            <svg class="upload-svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconsupload" xlink:href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconsupload"></use>
+            </svg>
+        </span>
     </li>
 </ul>
 

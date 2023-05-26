@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,12 @@ using System;
 using System.IO;
 
 using ASC.Core;
+using ASC.Core.ChunkedUploader;
 using ASC.Data.Storage;
+using ASC.Data.Storage.ZipOperators;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 
 using File = ASC.Files.Core.File;
@@ -29,15 +32,20 @@ using IoFile = System.IO.File;
 
 namespace ASC.Data.Backup.Storage
 {
-    internal class DocumentsBackupStorage : IBackupStorage
+    internal class DocumentsBackupStorage : IBackupStorage, IGetterWriteOperator
     {
         private readonly int tenantId;
-        private readonly string webConfigPath;
+        private readonly FilesChunkedUploadSessionHolder _sessionHolder;
 
         public DocumentsBackupStorage(int tenantId, string webConfigPath)
         {
             this.tenantId = tenantId;
-            this.webConfigPath = webConfigPath;
+
+            // hack: create storage using webConfigPath and put it into DataStoreCache
+            // FileDao will use this storage and will not try to create the new one from service config
+            var store = StorageFactory.GetStorage(webConfigPath, tenantId.ToString(), "files");
+
+            _sessionHolder = new FilesChunkedUploadSessionHolder(store, "", SetupInfo.ChunkUploadSize);
         }
 
         public string Upload(string folderId, string localPath, Guid userId)
@@ -142,6 +150,41 @@ namespace ASC.Data.Backup.Storage
             return string.Empty;
         }
 
+        public IDataWriteOperator GetWriteOperator(string storageBasePath, string title, Guid userId)
+        {
+            CoreContext.TenantManager.SetCurrentTenant(tenantId);
+            if (!userId.Equals(Guid.Empty))
+            {
+                SecurityContext.CurrentUser = userId;
+            }
+            else
+            {
+                var tenant = CoreContext.TenantManager.GetTenant(tenantId);
+                SecurityContext.CurrentUser = tenant.OwnerId;
+            }
+            using (var folderDao = GetFolderDao())
+            {
+                return folderDao.CreateDataWriteOperator(storageBasePath, InitUploadChunk(storageBasePath, title), _sessionHolder);
+            }
+        }
+
+        private CommonChunkedUploadSession InitUploadChunk(string folderId, string title)
+        {
+            using (var folderDao = GetFolderDao())
+            using (var fileDao = GetFileDao())
+            {
+                var folder = folderDao.GetFolder(folderId);
+                var newFile = new File
+                {
+                    Title = title,
+                    FolderID = folder.ID
+                };
+                var chunkedUploadSession = fileDao.CreateUploadSession(newFile, -1);
+                chunkedUploadSession.CheckQuota = false;
+                return chunkedUploadSession;
+            }
+        }
+
         private IFolderDao GetFolderDao()
         {
             return Global.DaoFactory.GetFolderDao();
@@ -149,9 +192,6 @@ namespace ASC.Data.Backup.Storage
 
         private IFileDao GetFileDao()
         {
-            // hack: create storage using webConfigPath and put it into DataStoreCache
-            // FileDao will use this storage and will not try to create the new one from service config
-            StorageFactory.GetStorage(webConfigPath, tenantId.ToString(), "files");
             return Global.DaoFactory.GetFileDao();
         }
     }

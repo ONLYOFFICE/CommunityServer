@@ -1,0 +1,84 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "params.less";
+
+.codestyle,
+.codestyle pre {
+    font-size: small;
+    color: black;
+    font-family: Consolas, "Courier New", Courier, Monospace;
+    background-color: @body-color;
+    margin: 8px 0;
+}
+.codestyle ul,
+.codestyle pre {
+    list-style-type: none;
+    margin: 0;
+}
+.codestyle table {
+    border: 1px none Black;
+    width: 100%;
+}
+.codestyle table td {
+    padding: 5px 3px;
+}
+.codestyle table td.lines {
+    border-right: 1px none black;
+    text-align: right;
+}
+.codestyle table td.tdcode pre {
+    width: 670px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.codestyle .rem {
+    color: #008000;
+}
+.codestyle .kwrd {
+    color: #0000ff;
+}
+.codestyle .str {
+    color: #006080;
+}
+.codestyle .op {
+    color: #0000c0;
+}
+.codestyle .preproc {
+    color: #cc6633;
+}
+.codestyle .asp {
+    background-color: #ffff00;
+}
+.codestyle .html {
+    color: #800000;
+}
+.codestyle .attr {
+    color: #ff0000;
+}
+.codestyle .alt {
+    background-color: #f4f4f4;
+    width: 100%;
+    margin: 0;
+}
+.codestyle .lnum {
+    color: #606060;
+}
+.codestyle ol li,
+.codestyle ul li {
+    white-space: pre-wrap;
+}

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ namespace ASC.Web.Studio
             var emptyScreen = new EmptyScreenControl
             {
                 ID = "emptyFeedScr",
-                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_screen_feed.png"),
+                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_screen_feed.svg"),
                 Header = UserControlsCommonResource.NewsNotFound,
                 Describe = UserControlsCommonResource.NewsNotFoundDescription
             };
@@ -81,7 +81,7 @@ namespace ASC.Web.Studio
             var emptyFilterScreen = new EmptyScreenControl
             {
                 ID = "emptyFeedFilterScr",
-                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_filter.png"),
+                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_filter.svg"),
                 Header = UserControlsCommonResource.FilterNoNews,
                 Describe = UserControlsCommonResource.FilterNoNewsDescription,
                 ButtonHTML =
@@ -99,7 +99,7 @@ namespace ASC.Web.Studio
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
             {
                 ID = "emptyListCommunity",
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.png"),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.svg"),
                 Header = UserControlsCommonResource.FeedEmptyCommunityHeader,
                 Describe = isVisitor ? string.Empty : UserControlsCommonResource.FeedEmptyCommunityDescription,
                 ButtonHTML = isVisitor
@@ -118,7 +118,7 @@ namespace ASC.Web.Studio
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
             {
                 ID = "emptyListPeople",
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.png"),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.svg"),
                 Header = UserControlsCommonResource.FeedEmptyPeopleHeader,
                 Describe = isVisitor ? string.Empty : UserControlsCommonResource.FeedEmptyPeopleDescription,
                 ButtonHTML = string.Empty
@@ -127,7 +127,7 @@ namespace ASC.Web.Studio
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
             {
                 ID = "emptyListCrm",
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.png", WebItemManager.CRMProductID),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.svg", WebItemManager.CRMProductID),
                 Header = UserControlsCommonResource.FeedEmptyContactListHeader,
                 Describe = UserControlsCommonResource.FeedEmptyContactListDescription,
                 ButtonHTML = string.Format("<a class='link underline plus' href='{0}?action=manage'>{1}</a><br/>" +
@@ -144,7 +144,7 @@ namespace ASC.Web.Studio
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
             {
                 Header = UserControlsCommonResource.FeedEmptyListProjHeader,
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.png", WebItemManager.ProjectsProductID),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.svg", WebItemManager.ProjectsProductID),
                 Describe = canCreateProjects ? UserControlsCommonResource.FeedEmptyListProjDescribe : string.Empty,
                 ID = "emptyListProjects",
                 ButtonHTML = canCreateProjects
@@ -157,7 +157,7 @@ namespace ASC.Web.Studio
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
             {
                 ID = "emptyListDocuments",
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("documents150.png"),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("documents150.svg"),
                 Header = UserControlsCommonResource.FeedCorporateFiles,
                 Describe = UserControlsCommonResource.FeedEmptyScreenDescrCorporate,
                 ButtonHTML = string.Format("<a href=\"{0}\" class=\"link underline up\">{1}</a>",

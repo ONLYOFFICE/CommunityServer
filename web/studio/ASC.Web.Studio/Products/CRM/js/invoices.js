@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -348,6 +348,9 @@ ASC.CRM.ListInvoiceView = (function () {
 
     var _getInvoices = function (startIndex) {
         var filters = _getFilterSettings(startIndex);
+        if (!filters.hasOwnProperty("status")) {
+            ASC.CRM.ListContactView.clearCookieAnchor();
+        }
         Teamlab.getCrmInvoices({ startIndex: startIndex || 0 },
         {
             filter: filters,
@@ -1283,9 +1286,8 @@ ASC.CRM.ListInvoiceView = (function () {
                 page: 1,
                 countOnPage: jq("#tableForInvoiceNavigation select:first>option:first").val()
             },
-                key = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + location.pathname + location.search,
                 currentAnchor = location.hash,
-                cookieKey = encodeURIComponent(key);
+                cookieKey = ASC.CRM.ListContactView.getkey();
 
             currentAnchor = currentAnchor && typeof currentAnchor === 'string' && currentAnchor.charAt(0) === '#'
                 ? currentAnchor.substring(1)
@@ -2276,7 +2278,16 @@ ASC.CRM.InvoiceActionView = (function () {
                 console.log(e);
                 window.invoiceJsonData = null;
             }
-        } else { window.invoiceJsonData = null; }
+        } else {
+            window.invoiceJsonData = null;
+
+            if (window.invoiceContactInfo) {
+                var billingAddress = getInvoiceContactInfo(7, 3);
+                if (billingAddress) {
+                    jq("#addressDialog").find("[name='billingAddressID']").val(billingAddress.id);
+                }
+            }
+        }
     };
 
     var showAddressDialog = function (swithcer) {

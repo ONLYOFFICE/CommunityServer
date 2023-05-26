@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 
 @import "../../../../skins/base.less";
+@import "../../../../skins/default/params.less";
+
 /*-----Attachments control---------*/
 
 /*----question window----*/
@@ -48,7 +50,7 @@
         padding: 0;
         position: relative;
         text-align: center;
-        color: #116d9d;
+        color: @EmptyDocumentPanel-a;
     }
 }
 
@@ -104,7 +106,7 @@ a#createFirstDocument:after {
     display: none;
 
     .baseLinkAction {
-        color: #333;
+        color: @textColor;
     }
 
     > span {
@@ -152,7 +154,7 @@ a#createFirstDocument:after {
 }
 
 span.version {
-    color: #FFFFFF;
+    color: @body-color;
     font-size: 10px;
     margin: 1px 0 0 5px;
     max-width: 40px;
@@ -182,14 +184,14 @@ span.version {
         display: none;
 
         td {
-            border-top: 1px solid #D1D1D1;
+            border-top: 1px solid @borderColor;
 
             &:first-child {
                 padding-top: 5px;
                 width: 69%;
 
                 a {
-                    color: #333333;
+                    color: @textColor;
                     display: inline-block;
                     margin-left: 5px;
                     max-width: 500px;
@@ -226,14 +228,14 @@ span.version {
         }
 
         &:hover {
-            background-color: #F2F2F2;
+            background-color: @activeTable;
         }
 
         &.noAttach td {
-            color: #333;
+            color: @textColor;
             text-align: left;
             background-image: none;
-            background-color: #fff;
+            background-color: @body-color;
             cursor: default;
         }
 
@@ -311,7 +313,7 @@ tr.newDoc {
 .information-upload-panel {
     clear: both;
     font-size: 11px;
-    color: #666;
+    color: @textColorBlackDark;
 
     div {
         float: left;

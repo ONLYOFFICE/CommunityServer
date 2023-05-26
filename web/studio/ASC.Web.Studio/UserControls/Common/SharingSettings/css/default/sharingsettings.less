@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
 */
 
 
+@body-color: #fff;
+@border-color: #d1d1d1;
+
 #studio_sharingSettingsDialog {
     display: none;
 }
@@ -22,7 +25,7 @@
 #sharingSettingsDialogBody {
 
     #sharingSettingsItems {
-        border-top: 1px solid #d1d1d1;
+        border-top: 1px solid @border-color;
         height: 318px;
         min-height: 318px;
         overflow: auto;
@@ -314,8 +317,8 @@ body.mobile #sharingSettingsItems {
     white-space: nowrap;
 }
 #studio_sharingSettingsDialog div.action ul.options {
-    background: #FFFFFF;
-    border: 1px solid #D1D1D1;
+    background: @body-color;
+    border: 1px solid @border-color;
     list-style: none;
     margin: -7px -5px;
     padding: 0;

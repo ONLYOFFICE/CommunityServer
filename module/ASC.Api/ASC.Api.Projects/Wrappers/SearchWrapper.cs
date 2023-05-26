@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,13 @@ namespace ASC.Api.Projects.Wrappers
     [DataContract(Name = "search", Namespace = "")]
     public class SearchWrapper
     {
+        ///<type>ASC.Api.Projects.Wrappers.SearchItemWrapper, ASC.Api.Projects</type>
+        ///<order>10</order>
         [DataMember(Order = 10)]
         public SearchItemWrapper Item { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.SearchItemWrapper, ASC.Api.Projects</type>
+        ///<order>14</order>
         [DataMember(Order = 14)]
         public SearchItemWrapper Owner { get; set; }
 

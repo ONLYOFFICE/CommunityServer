@@ -1,0 +1,179 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../App_Themes/default/params.less";
+
+#studio_sharingSettingsDialog.form-filling-only {
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+#formFillingPanel {
+    padding: 24px 0 0;
+}
+
+#formFillingLink {
+    padding-left: 24px;
+    background: url('images/fillformsgray.svg') left center no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    text-decoration: none;
+}
+
+#formFillingLink .baseLinkAction {
+    font-size: 13px;
+    color: #444444;
+}
+
+#formFillingDialogParent {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    position: fixed;
+}
+
+#formFillingDialogParent.form-filling-owner #formFillingOwnerDialog {
+    display: block;
+}
+
+#formFillingDialogParent.form-filling-owner #formFillingDialog {
+    display: none;
+}
+
+#formFillingOwnerDialog {
+    width: 370px;
+    min-height: 180px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    margin-left: -209px;
+    margin-top: -183px;
+    display: none;
+}
+
+#formFillingOwnerDialog .containerHeaderBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#formFillingOwnerDialog .popupCancel .cancelButton {
+    margin: 0;
+}
+
+#formFillingFolderContainer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 18px;
+}
+
+#formFillingFolderSelectorContainer {
+    max-height: 340px;
+    max-width: 400px;
+    overflow: auto;
+    position: absolute;
+    z-index: 700;
+    scrollbar-width: thin;
+}
+
+#formFillingDialog {
+    width: 370px;
+    min-height: 318px;
+    background-color: @body-color;
+    border-radius: 3px;
+    padding: 24px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    margin-left: -209px;
+    margin-top: -183px;
+}
+
+#formFillingDialog .textEdit {
+    width: 366px;
+}
+
+#formFillingDialog .bottom-indent-24 {
+    margin: 0 0 24px;
+}
+
+#formFillingDialog .bottom-indent-16 {
+    margin: 0 0 16px;
+}
+
+#formFillingDialog .bottom-indent-8 {
+    margin: 0 0 8px;
+}
+
+#formFillingDialog .bottom-indent-4 {
+    margin: 0 0 4px;
+}
+
+#formFillingDialog .bottom-indent-4 label {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#formFillingDialog .bottom-indent-4 input[type="checkbox"],
+#formFillingDialog .bottom-indent-4 input[type="radio"] {
+    vertical-align: middle;
+    margin: 3px 4px 3px 0;
+    cursor: pointer;
+}
+
+#formFillingDialogHeader.disabled,
+#formFillingDialogHeader.disabled input,
+#formFillingDialogHeader.disabled .header-base-small,
+#formFillingDialogBody.disabled,
+#formFillingDialogBody.disabled label,
+#formFillingDialogBody.disabled input,
+#formFillingDialogBody.disabled .header-base-small,
+#formFillingDialogBody.disabled .link,
+#formFillingDialogBody.disabled .link.plus:after,
+#formFillingDialogBody.disabled .gray-text {
+    color: @border-color;
+    cursor: default;
+    user-select: none;
+}
+
+
+@media (max-height: 800px) {
+    #formFillingOwnerDialog {
+        top: 45%;
+    }
+    #formFillingDialog {
+        top: 45%;
+    }
+}
+
+@media (max-height: 700px) {
+    #formFillingOwnerDialog {
+        top: 50%;
+    }
+    #formFillingDialog {
+        top: 50%;
+    }
+}

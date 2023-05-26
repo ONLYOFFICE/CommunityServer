@@ -178,7 +178,7 @@
             <tr border="0" cellspacing="0" cellpadding="0">
                 <td colspan="3" style="margin: 0; padding: 0; background-color: #fff; height: 65px; padding: 20px 0 0 30px;">
                     <div style="text-align: left; height: 65px; width: 570px; margin: 0; padding: 0;">
-                        <a href="http://www.onlyoffice.com/"
+                        <a href="${ASC.Resources.Master.UrlMainSite}"
                            style="text-decoration: none; display: inline-block; width: 216px; height: 35px; margin: 0; padding: 0;"
                            target="_blank">
                             <img style="border: 0px none; width: 216px; height: 35px; margin: 0; padding: 0;"
@@ -258,8 +258,11 @@
                                                 </tr>
                                                 {{if typeof(description) != 'undefined' && description != '' && description != null }}
                                                 <tr>
-                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarDescriptionLabel}:</td>
-                                                    <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);" colspan="2">${ASC.Resources.Master.TemplateResource.MailIcsCalendarDescriptionLabel}:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;" colspan="2">
+                                                        <p style="margin-top: 0;"></p>
                                                         {{html description}}
                                                     </td>
                                                 </tr>
@@ -321,20 +324,75 @@
 </script>
 
 <script id="consumerSettingsTmpl" type="text/x-jquery-tmpl">
-    <select class="textEdit">
+    <select class="textEdit comboBoxStorage">
         {{each storages}}
         <option value="${id}">${title}</option>
         {{/each}}
     </select>
     {{each storages}}
-    <div data-id="${id}" class="display-none">
+    {{if id == "S3"}}
+    {{tmpl(Object.assign($value, {settingName: $data.settingName, regions: $data.regions, encryptionTypes: $data.encryptionTypes, encryptionMethods: $data.encryptionMethods})) "consumerItemS3Tmpl"}}
+    {{else}}
+    {{tmpl($value) "consumerItemBaseTmpl"}}
+    {{/if}}
+    {{/each}}
+</script>
+
+<script id="consumerItemBaseTmpl" type="text/x-jquery-tmpl">
+    <div data-id="${id}" class="storage display-none">
         {{each properties}}
-        {{if !isSet}}
-        <input class='textBox disabled' placeholder='${title}' data-id='${name}' type='text' disabled>
+        <div class="header-base-small headerPanelSmall {{if !isOptional}}requiredTitle{{/if}}">${title}: {{if description}}<span class="HelpCenterSwitcher"></span><span class="popup_helper">${description}</span>{{/if}}</div>
+        <input class="textBox textEdit {{if !isOptional}}requiredField{{/if}}" data-id="${name}" type="text" {{if !isSet}}disabled="disabled"{{/if}}>
+        {{/each}}
+    </div>
+</script>
+
+<script id="consumerItemS3Tmpl" type="text/x-jquery-tmpl">
+    <div data-id="${id}" class="storage display-none">
+        {{each properties}}
+        {{if name == "region" && regions.length > 0}}
+        <div class="header-base-small headerPanelSmall {{if !isOptional}}requiredTitle{{/if}}">${title}: {{if description}}<span class="HelpCenterSwitcher"></span><span class="popup_helper">${description}</span>{{/if}}</div>
+        <select class="textEdit" data-id="${name}" {{if !isSet}} disabled="disabled" {{/if}}>
+            {{each(i, region) regions}}
+            <option value="${region.systemName}">${region.displayName} (${region.systemName})</option>
+            {{/each}}
+        </select>
+        {{else name == "forcepathstyle" || name == "usehttp"}}
+        <div class="clearFix">
+            <input type="checkbox" id="${settingName}${name}" data-id="${name}" {{if !isSet}} disabled="disabled" {{/if}} />
+            <label for="${settingName}${name}">${title} {{if description}}<span class="HelpCenterSwitcher"></span><span class="popup_helper">${description}</span>{{/if}}</label>
+        </div>
+        {{else name == "sse"}}
+        <div class="header-base-small headerPanelSmall">${title}: {{if description}}<span class="HelpCenterSwitcher"></span><span class="popup_helper">${description}</span>{{/if}}</div>
+        <select class="textEdit comboBoxEncryption" {{if !isSet}} disabled="disabled" {{/if}}>
+            {{each(i, encryptionType) encryptionTypes}}
+            <option value="${encryptionType.id}">${encryptionType.title}</option>
+            {{/each}}
+        </select>
+        <div class="encryption-method display-none">
+            {{each(i, method) encryptionMethods}}
+            <div class="clearFix">
+                <input value="${method.id}" type="radio" id="${settingName}${name}${method.id}" data-id="${name}" name="${settingName}${name}" {{if !isSet}} disabled="disabled" {{/if}} />
+                <label for="${settingName}${name}${method.id}">${method.title} {{if method.description}}<span class="HelpCenterSwitcher"></span><span class="popup_helper">${method.description}</span>{{/if}}</label>
+            </div>
+            {{/each}}
+        </div>
+        <div class="encryption-kms display-none">
+            <div class="header-base-small headerPanelSmall">${ASC.Resources.Master.TemplateResource.ConsumersS3EncryprionCMK}:</div>
+            <select class="textEdit" {{if !isSet}} disabled="disabled" {{/if}}>
+                <option value="0">${ASC.Resources.Master.TemplateResource.ConsumersS3EncryprionCMKDefault}</option>
+                <option value="1">${ASC.Resources.Master.TemplateResource.ConsumersS3EncryprionCMKCustom}</option>
+            </select>
+        </div>
+        <div class="encryption-key display-none">
+            <div class="header-base-small headerPanelSmall requiredTitle">${ASC.Resources.Master.TemplateResource.ConsumersS3EncryprionKey}:</div>
+            <input class="textBox textEdit requiredField" data-id="ssekey" type="text" {{if !isSet}} disabled="disabled" {{/if}} />
+        </div>
+        {{else name == "ssekey"}}
         {{else}}
-        <input class='textBox' placeholder='${title}' data-id='${name}' type='text'>
+        <div class="header-base-small headerPanelSmall {{if !isOptional}}requiredTitle{{/if}}">${title}: {{if description}}<span class="HelpCenterSwitcher"></span><span class="popup_helper">${description}</span>{{/if}}</div>
+        <input class="textBox textEdit {{if !isOptional}}requiredField{{/if}}" data-id="${name}" type="text" {{if !isSet}} disabled="disabled" {{/if}}>
         {{/if}}
         {{/each}}
     </div>
-    {{/each}}
 </script>

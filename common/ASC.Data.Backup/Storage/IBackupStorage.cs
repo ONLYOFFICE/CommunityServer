@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ using System;
 
 namespace ASC.Data.Backup.Storage
 {
-    internal interface IBackupStorage
+    public interface IBackupStorage
     {
         string Upload(string storageBasePath, string localPath, Guid userId);
 

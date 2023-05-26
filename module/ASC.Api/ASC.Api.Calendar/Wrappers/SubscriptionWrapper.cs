@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,8 @@ namespace ASC.Api.Calendar.Wrappers
         public SubscriptionWrapper(BaseCalendar calendar, UserViewSettings userViewSettings)
             : base(calendar, userViewSettings) { }
 
-
+        ///<example name="isSubscribed">false</example>
+        ///<order>100</order>
         [DataMember(Name = "isSubscribed", Order = 100)]
         public bool IsAccepted
         {
@@ -46,7 +47,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
-
+        ///<example name="isNew">true</example>
+        ///<order>140</order>
         [DataMember(Name = "isNew", Order = 140)]
         public bool IsNew
         {
@@ -57,6 +59,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="group">Personal Calendars</example>
+        ///<order>130</order>
         [DataMember(Name = "group", Order = 130)]
         public string Group
         {
@@ -71,7 +75,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
-        [DataMember(IsRequired = false)]
+        ///<type>ASC.Api.Calendar.Wrappers.CalendarPermissions, ASC.Api.Calendar</type>
+        [DataMember(IsRequired=false)]
         public override CalendarPermissions Permissions { get; set; }
 
         public new static object GetSample()

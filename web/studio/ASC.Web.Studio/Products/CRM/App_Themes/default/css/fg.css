@@ -1,8 +1,8 @@
-/*	Пиктограммы государственных флагов в спрайте */
-/*	@author Артём Поликарпов, artpolikarpov.ru (artpolikarpov@gmail.com) */
-/*  @author Никита Иванов (исходные пиктограммы флагов), nickivanov.ru (nickivanov@nickivanov.ru) */
-/* Набор распостраняется на условиях лицензии CC-BY-SA */
-/* Эти летом я был: в <i class="b-fg b-fg_HN"><img src="fg.png"/></i> Гондурасе, <i class="b-fg b-fg_LI"><img src="fg.png"/></i> Лихтенштейне, <i class="b-fg b-fg_SE"><img src="fg.png"/></i> и Швеции. */
+/*	Pictograms of national flags in a sprite */
+/*	@author Artyom Polikarpov, artpolikarpov.ru (artpolikarpov@gmail.com) */
+/*  @author Nikita Ivanov (original flag icons), nickivanov.ru (nickivanov@nickivanov.ru) */
+/* The set is distributed under the terms of the license CC-BY-SA */
+/* This summer I was in <i class="b-fg b-fg_HN"><img src="fg.png"/></i> Honduras, <i class="b-fg b-fg_LI"><img src="fg.png"/></i> Liechtenstein, <i class="b-fg b-fg_SE"><img src="fg.png"/></i> and Sweden. */
 .b-fg { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; *display: inline; *zoom: 1; vertical-align: baseline; position: relative; overflow: hidden; width: 16px; height: 9px; font-size: 0; line-height: 0; }
 .b-fg img { display: inline; border: none; margin: 0; padding: 0; position: relative; top: 9px; -moz-transition-property: top; -webkit-transition-property: top; -o-transition-property: top; transition-property: top; -moz-transition-duration: 0.25s; -webkit-transition-duration: 0.25s; -o-transition-duration: 0.25s; transition-duration: 0.25s; }
 

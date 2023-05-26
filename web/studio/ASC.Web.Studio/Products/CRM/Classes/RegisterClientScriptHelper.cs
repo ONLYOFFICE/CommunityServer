@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -368,6 +368,22 @@ namespace ASC.Web.CRM.Classes
             var tags = daoFactory.TagDao.GetEntityTags(EntityType.Opportunity, targetDeal.ID);
             var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Opportunity).Where(item => !tags.Contains(item));
 
+            var contactInfoJson = "null";
+
+            if (targetDeal.ContactID != 0)
+            {
+                var contactInfo = daoFactory.ContactDao.GetByID(targetDeal.ContactID);
+                if(contactInfo != null)
+                {
+                    contactInfoJson = JsonConvert.SerializeObject(new
+                    {
+                        id = contactInfo.ID,
+                        displayName = contactInfo.GetTitle().HtmlEncode().ReplaceSingleQuote(),
+                        smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(contactInfo.ID, contactInfo is Company)
+                    });
+                }  
+            }    
+
             var responsibleIDs = new List<Guid>();
             if (CRMSecurity.IsPrivate(targetDeal))
             {
@@ -377,11 +393,12 @@ namespace ASC.Web.CRM.Classes
             var script = String.Format(@"
                                             var dealTags = {0};
                                             var dealAvailableTags = {1};
-                                            var dealResponsibleIDs = {2}; ",
+                                            var dealResponsibleIDs = {2}; 
+                                            var contactForInitTaskActionPanel = {3}; ",
                                         JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
                                         JsonConvert.SerializeObject(availableTags.ToList().ConvertAll(t => t.HtmlEncode())),
-                                        JsonConvert.SerializeObject(responsibleIDs)
-                                        );
+                                        JsonConvert.SerializeObject(responsibleIDs),
+                                        contactInfoJson);
 
             page.RegisterInlineScript(script, onReady: false);
             page.JsonPublisher(customFieldList, "customFieldList");

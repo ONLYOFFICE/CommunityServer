@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@
     outline: none;
 }
 .button {
-    &.display-none{
+    &.display-none {
         display: none;
     }
 
@@ -143,13 +143,13 @@
     }
 
     &.white {
-        background-color: #fff;
-        color: #333333;
+        background-color: @body-color;
+        color: @textColor;
         .border-button-default ();
 
         &:hover {
-            background-color: #fff;
-            color: #333333;
+            background-color: @body-color;
+            color: @textColor;
         }
     }
 
@@ -282,7 +282,7 @@
             left: 0;
             position: absolute;
             width: 41px;
-            color: white;
+            color: @bodyColor2;
             font-size: 10px;
             border-radius: 3px;
             line-height: 14px;
@@ -290,7 +290,7 @@
             border-bottom-right-radius: 3px;
             top: 0px;
             content: "on";
-            background-color: #3b72a7;
+            background-color: @on-off-on-button-before-bg;
             box-sizing: border-box;
             padding: 0 7px;
             text-align: left;
@@ -301,8 +301,8 @@
         &:after {
             height: 16px;
             width: 16px;
-            background-color: #f0f0f0;
-            border: 1px solid #cecece;
+            background-color: @on-off-on-button-after-bg;
+            border: 1px solid @on-off-on-button-after-bor;
             border-radius: 3px;
             content: "";
             position: absolute;
@@ -320,10 +320,10 @@
             position: absolute;
             width: 41px;
             content: "off";
-            color: white;
+            color: @on-off-off-button-before-color;
             font-size: 10px;
             border-radius: 3px;
-            background-color: #aeaeae;
+            background-color: @on-off-off-button-before-bg;
             box-sizing: border-box;
             padding: 0 7px;
             text-align: right;
@@ -331,13 +331,14 @@
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
             top: 0px;
+            border: @on-off-off-button-before-bor;
         }
 
         &:after {
             height: 16px;
             width: 16px;
-            background-color: #f0f0f0;
-            border: 1px solid #cecece;
+            background-color: @on-off-on-button-after-bg;
+            border: 1px solid @on-off-on-button-after-bor;
             border-radius: 3px;
             content: "";
             position: absolute;
@@ -369,10 +370,10 @@
         position: absolute;
         width: 41px;
         content: "off";
-        color: white;
+        color: @buttons-chackbox-off-color;
         font-size: 10px;
         border-radius: 3px;
-        background-color: #aeaeae;
+        background-color: @buttons-checkbox-off-bg;
         box-sizing: border-box;
         padding: 0 7px;
         text-align: right;
@@ -380,13 +381,14 @@
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
         top:0px;
+        border:@buttons-checkbox-off-bor;
     }
 
     .on-off-checkbox + label:after {
         height: 16px;
         width: 16px;
-        background-color: #f0f0f0;
-        border: 1px solid #cecece;
+        background-color: @buttons-checkbox-on-off-bg;
+        border: 1px solid @buttons-checkbox-on-off-color;
         border-radius: 3px;
         content: "";
         position: absolute;
@@ -398,12 +400,14 @@
 
     .on-off-checkbox:checked + label:before {
         content: "on";
-        background-color: #3b72a7;
+        background-color: @buttons-checkbox-on-bg;
         box-sizing: border-box;
         padding: 0 6px;
         text-align: left;
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
+        color:@buttons-checkbox-on-color;
+        border: none;
     }
     .on-off-checkbox:checked + label:after {
         left: 25px;
@@ -497,6 +501,8 @@ body.custom-mode {
 
         &:hover {
             background-color: @bg-button-default-hover;
+            color: @itemRowButtonTextColor;
+            .borderButtons(@border-button-default-item-row);
         }
 
         &.__share:after {
@@ -532,11 +538,11 @@ body.custom-mode {
 /*******************************************************************************
    Toggle switch buttons
 *******************************************************************************/
-@border-color: #C4C4C4;
-@active-color: #999999;
-@text-active-color: #FFFFFF;
-@default-color: #EBEBEB;
-@text-default-color: #666666;
+@border-color: @border-button-default;
+@active-color: @active-color-bg-button-group;
+@text-active-color: @body-color;
+@default-color: @bg-button-default;
+@text-default-color: @button-span-default-color;
 
 .buttonGroup {
     position: relative;
@@ -564,7 +570,7 @@ body.custom-mode {
             margin: -1px;
             background: @active-color;
             color: @text-active-color;
-            border: 1px solid @active-color;
+            border: 1px solid @active-color-button-group;
 
             &:first-of-type {
                 border-radius: 3px 0 0 3px;

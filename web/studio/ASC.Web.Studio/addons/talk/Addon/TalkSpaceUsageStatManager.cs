@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Text;
 using System.Web;
 
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Web.Core;
@@ -60,6 +61,23 @@ namespace ASC.Web.Talk.Addon
         public long GetUserSpaceUsage(Guid userId)
         {
             return GetSpaceUsage(userId);
+        }
+        public void RecalculateUserQuota(int TenantId, Guid userId)
+        {
+            CoreContext.TenantManager.SetCurrentTenant(TenantId);
+
+            var size = GetUserSpaceUsage(userId);
+
+            CoreContext.TenantManager.SetTenantQuotaRow(
+                new TenantQuotaRow
+                {
+                    Tenant = TenantId,
+                    Path = $"/{WebItemManager.Instance[WebItemManager.TalkProductID].Name}/",
+                    Counter = size,
+                    Tag = WebItemManager.TalkProductID.ToString(),
+                    UserId = userId
+                },
+               false);
         }
 
         private static IDataStore GetStorage()

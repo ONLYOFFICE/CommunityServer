@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ namespace ASC.AuditTrail
 {
     public class AuditEventsRepository
     {
-        private const string dbid = "core";
+        private const string dbid = "default";
         private static readonly string[] auditColumns = new[]
                 {
                     "id",
@@ -168,7 +168,7 @@ namespace ASC.AuditTrail
                 }
             }
 
-            using (var db = DbManager.FromHttpContext(dbid))
+            using (var db = new DbManager(dbid))
             {
                 return db
                     .ExecuteList(q)
@@ -208,7 +208,7 @@ namespace ASC.AuditTrail
                 q.Where(Exp.Between("a.date", from.Value, to.Value));
             }
 
-            using (var db = DbManager.FromHttpContext(dbid))
+            using (var db = new DbManager(dbid))
             {
                 return db.ExecuteScalar<int>(q);
             }

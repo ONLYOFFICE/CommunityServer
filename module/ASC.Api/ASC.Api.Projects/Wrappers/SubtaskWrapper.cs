@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,15 @@ using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
 {
+    ///<inherited>ASC.Api.Projects.Wrappers.ObjectWrapperFullBase, ASC.Api.Projects</inherited>
     [DataContract(Name = "subtask", Namespace = "")]
     public class SubtaskWrapper : ObjectWrapperFullBase
     {
+        ///<example>false</example>
         [DataMember]
         public bool CanEdit { get; set; }
-
+        
+        ///<example type="int">1234</example>
         [DataMember]
         public int TaskId { get; set; }
 

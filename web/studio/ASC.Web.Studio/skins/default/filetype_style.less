@@ -1,0 +1,303 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.ftFile_21,
+.ftFile_32,
+.ftFolder_21,
+.ftFolder_32 {
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-color: transparent;
+}
+.ftFile_32,
+.ftFolder_32 {
+    background-position: 0 0;
+    height: 32px;
+    width: 32px;
+}
+.ftFile_21,
+.ftFolder_21,
+.compact .ftFile_32,
+.compact .ftFolder_32 {
+    background-position: 0 -39px;
+    height: 21px;
+    width: 21px;
+}
+.compact .ftFolder_32 {
+    background-position: 50% 50%;
+    background-size:100%;
+}
+/*folder default*/
+.ftFolder_21,
+.ftFolder_32 {
+    background: url('images/svg/documents/folder.svg') no-repeat;
+    background-position: 50% 50%;
+    left: 1px;
+    background-size: 32px;
+}
+/*file default*/
+.ftFile_21,
+.ftFile_32{
+    background-image: url('images/filetype/file.png');
+    background-size: 32px 60px;
+}
+
+/*".zip", ".rar", ".ace", ".arc", ".arj", ".bh", ".cab", ".enc", ".gz", ".ha", ".jar", ".lha", ".lzh", ".pak", ".pk3", ".tar", ".tgz", ".uu", ".uue", ".xxe", ".z", ".zoo"*/
+.ft_Archive{background-image:url('images/filetype/file_archive.png');}
+.ft_Avi{background-image:url('images/filetype/file_avi.png');}
+.ft_Cal{background-image:url('images/filetype/file_cal.png');}
+.ft_Csv{background-image:url('images/filetype/file_csv.png');}
+.ft_Djvu{background-image:url('images/filetype/file_djvu.png');}
+.ft_Doc{background-image:url('images/filetype/file_doc.png');}
+.ft_Docm{background-image:url('images/filetype/file_docm.png');}
+.ft_Doct{background-image:url('images/filetype/file_doct.png');}
+.ft_Docx{background-image:url('images/filetype/file_docx.png');}
+.ft_Docxf{background-image:url('images/filetype/file_docxf.png');}
+.ft_Dot{background-image:url('images/filetype/file_dot.png');}
+.ft_Dotm{background-image:url('images/filetype/file_dotm.png');}
+.ft_Dotx{background-image:url('images/filetype/file_dotx.png');}
+.ft_Dvd{background-image:url('images/filetype/file_dvd.png');}
+/*.ft_Ebook{background-image:url('images/filetype/file_ebook.png');}*/
+.ft_Epub{background-image:url('images/filetype/file_epub.png');}
+.ft_Fb2{background-image:url('images/filetype/file_fb2.png');}
+.ft_Flv{background-image:url('images/filetype/file_flv.png');}
+.ft_Fodp{background-image:url('images/filetype/file_fodp.png');}
+.ft_Fods{background-image:url('images/filetype/file_fods.png');}
+.ft_Fodt{background-image:url('images/filetype/file_fodt.png');}
+.ft_Gdoc{background-image:url('images/filetype/file_gdoc.png');}
+.ft_Gsheet{background-image:url('images/filetype/file_gsheet.png');}
+.ft_Gslides{background-image:url('images/filetype/file_gslides.png');}
+.ft_Htm{background-image:url('images/filetype/file_htm.png');}
+.ft_Html{background-image:url('images/filetype/file_html.png');}
+.ft_Iaf{background-image:url('images/filetype/file_iaf.png');}
+.ft_Ics{background-image:url('images/filetype/file_ics.png');}
+/*".bmp", ".cod", ".gif", ".ief", ".jpe", ".jpeg", ".jpg", ".jfif", ".tiff", ".tif", ".cmx", ".ico", ".png", ".pnm", ".pbm", ".ppm", ".rgb", ".xbm", ".xpm", ".xwd"*/
+.ft_Image{background-image:url('images/filetype/file_image.png');}
+.ft_M2ts{background-image:url('images/filetype/file_m2ts.png');}
+.ft_Mht{background-image:url('images/filetype/file_mht.png');}
+.ft_Mkv{background-image:url('images/filetype/file_mkv.png');}
+.ft_Mov{background-image:url('images/filetype/file_mov.png');}
+.ft_Mp4{background-image:url('images/filetype/file_mp4.png');}
+.ft_Mpg{background-image:url('images/filetype/file_mpg.png');}
+.ft_Odp{background-image:url('images/filetype/file_odp.png');}
+.ft_Ods{background-image:url('images/filetype/file_ods.png');}
+.ft_Odt{background-image:url('images/filetype/file_odt.png');}
+.ft_Oform{background-image:url('images/filetype/file_oform.png');}
+.ft_Otp{background-image:url('images/filetype/file_otp.png');}
+.ft_Ots{background-image:url('images/filetype/file_ots.png');}
+.ft_Ott{background-image:url('images/filetype/file_ott.png');}
+.ft_Pdf{background-image:url('images/filetype/file_pdf.png');}
+.ft_Pot{background-image:url('images/filetype/file_pot.png');}
+.ft_Potm{background-image:url('images/filetype/file_potm.png');}
+.ft_Potx{background-image:url('images/filetype/file_potx.png');}
+.ft_Pps{background-image:url('images/filetype/file_pps.png');}
+.ft_Ppsm{background-image:url('images/filetype/file_ppsm.png');}
+.ft_Ppsx{background-image:url('images/filetype/file_ppsx.png');}
+.ft_Ppt{background-image:url('images/filetype/file_ppt.png');}
+.ft_Pptm{background-image:url('images/filetype/file_pptm.png');}
+.ft_Pptt{background-image:url('images/filetype/file_pptt.png');}
+.ft_Pptx{background-image:url('images/filetype/file_pptx.png');}
+.ft_Rtf{background-image:url('images/filetype/file_rtf.png');}
+/*".mp3", ".wav", ".pcm", ".aiff", ".3gp", ".flac", ".fla", ".cda"*/
+.ft_Sound{background-image:url('images/filetype/file_sound.png');}
+.ft_SoundUnk{background-image:url('images/filetype/file_soundunk.png');}
+.ft_Svg{background-image:url('images/filetype/file_svg.png');}
+.ft_Txt{background-image:url('images/filetype/file_txt.png');}
+.ft_Video{background-image:url('images/filetype/file_video.png');}
+.ft_VideoUnk{background-image:url('images/filetype/file_videounk.png');}
+.ft_Xls{background-image:url('images/filetype/file_xls.png');}
+.ft_Xlsm{background-image:url('images/filetype/file_xlsm.png');}
+.ft_Xlst{background-image:url('images/filetype/file_xlst.png');}
+.ft_Xlsx{background-image:url('images/filetype/file_xlsx.png');}
+.ft_Xlt{background-image:url('images/filetype/file_xlt.png');}
+.ft_Xltm{background-image:url('images/filetype/file_xltm.png');}
+.ft_Xltx{background-image:url('images/filetype/file_xltx.png');}
+.ft_Xml{background-image:url('images/filetype/file_xml.png');}
+.ft_Xps{background-image:url('images/filetype/file_xps.png');}
+
+.thumbnails .thumb-img.ftFile_32,
+.thumbnails .thumb-img.ftFolder_32 {
+    background-position: 50% 50%;
+    background-size: 0;
+}
+.thumbnails .thumb-img.ftFile_32 {
+    background-image: url('images/filetype/thumb/file.png');
+}
+.thumbnails .thumb-img.ftFolder_32 {
+    background-image: url(images/filetype/thumb/folder.png);
+}
+.thumbnails .thumb-img:empty,
+.thumbnails .thumb-img.ftFolder_21,
+.thumbnails .thumb-img.ftFolder_32 {
+    background-size: 96px;
+}
+
+
+.thumbnails .thumb-img.ft_Archive{background-image:url('images/filetype/thumb/file_archive.png');}
+.thumbnails .thumb-img.ft_Avi{background-image:url('images/filetype/thumb/file_avi.png');}
+.thumbnails .thumb-img.ft_Cal{background-image:url('images/filetype/thumb/file_cal.png');}
+.thumbnails .thumb-img.ft_Csv{background-image:url('images/filetype/thumb/file_csv.png');}
+.thumbnails .thumb-img.ft_Djvu{background-image:url('images/filetype/thumb/file_djvu.png');}
+.thumbnails .thumb-img.ft_Doc{background-image:url('images/filetype/thumb/file_doc.png');}
+.thumbnails .thumb-img.ft_Docm{background-image:url('images/filetype/thumb/file_docm.png');}
+.thumbnails .thumb-img.ft_Doct{background-image:url('images/filetype/thumb/file_doct.png');}
+.thumbnails .thumb-img.ft_Docx{background-image:url('images/filetype/thumb/file_docx.png');}
+.thumbnails .thumb-img.ft_Docxf{background-image:url('images/filetype/thumb/file_docxf.png');}
+.thumbnails .thumb-img.ft_Dot{background-image:url('images/filetype/thumb/file_dot.png');}
+.thumbnails .thumb-img.ft_Dotm{background-image:url('images/filetype/thumb/file_dotm.png');}
+.thumbnails .thumb-img.ft_Dotx{background-image:url('images/filetype/thumb/file_dotx.png');}
+.thumbnails .thumb-img.ft_Dvd{background-image:url('images/filetype/thumb/file_dvd.png');}
+/*.thumbnails .thumb-img.ft_Ebook{background-image:url('images/filetype/thumb/file_ebook.png');}*/
+.thumbnails .thumb-img.ft_Epub{background-image:url('images/filetype/thumb/file_epub.png');}
+.thumbnails .thumb-img.ft_Fb2{background-image:url('images/filetype/thumb/file_fb2.png');}
+.thumbnails .thumb-img.ft_Flv{background-image:url('images/filetype/thumb/file_flv.png');}
+.thumbnails .thumb-img.ft_Fodp{background-image:url('images/filetype/thumb/file_fodp.png');}
+.thumbnails .thumb-img.ft_Fods{background-image:url('images/filetype/thumb/file_fods.png');}
+.thumbnails .thumb-img.ft_Fodt{background-image:url('images/filetype/thumb/file_fodt.png');}
+.thumbnails .thumb-img.ft_Gdoc{background-image:url('images/filetype/thumb/file_gdoc.png');}
+.thumbnails .thumb-img.ft_Gsheet{background-image:url('images/filetype/thumb/file_gsheet.png');}
+.thumbnails .thumb-img.ft_Gslides{background-image:url('images/filetype/thumb/file_gslides.png');}
+.thumbnails .thumb-img.ft_Htm{background-image:url('images/filetype/thumb/file_htm.png');}
+.thumbnails .thumb-img.ft_Html{background-image:url('images/filetype/thumb/file_html.png');}
+.thumbnails .thumb-img.ft_Iaf{background-image:url('images/filetype/thumb/file_iaf.png');}
+.thumbnails .thumb-img.ft_Ics{background-image:url('images/filetype/thumb/file_ics.png');}
+.thumbnails .thumb-img.ft_Image{background-image:url('images/filetype/thumb/file_image.png');}
+.thumbnails .thumb-img.ft_M2ts{background-image:url('images/filetype/thumb/file_m2ts.png');}
+.thumbnails .thumb-img.ft_Mht{background-image:url('images/filetype/thumb/file_mht.png');}
+.thumbnails .thumb-img.ft_Mkv{background-image:url('images/filetype/thumb/file_mkv.png');}
+.thumbnails .thumb-img.ft_Mov{background-image:url('images/filetype/thumb/file_mov.png');}
+.thumbnails .thumb-img.ft_Mp4{background-image:url('images/filetype/thumb/file_mp4.png');}
+.thumbnails .thumb-img.ft_Mpg{background-image:url('images/filetype/thumb/file_mpg.png');}
+.thumbnails .thumb-img.ft_Odp{background-image:url('images/filetype/thumb/file_odp.png');}
+.thumbnails .thumb-img.ft_Ods{background-image:url('images/filetype/thumb/file_ods.png');}
+.thumbnails .thumb-img.ft_Odt{background-image:url('images/filetype/thumb/file_odt.png');}
+.thumbnails .thumb-img.ft_Oform{background-image:url('images/filetype/thumb/file_oform.png');}
+.thumbnails .thumb-img.ft_Otp{background-image:url('images/filetype/thumb/file_otp.png');}
+.thumbnails .thumb-img.ft_Ots{background-image:url('images/filetype/thumb/file_ots.png');}
+.thumbnails .thumb-img.ft_Ott{background-image:url('images/filetype/thumb/file_ott.png');}
+.thumbnails .thumb-img.ft_Pdf{background-image:url('images/filetype/thumb/file_pdf.png');}
+.thumbnails .thumb-img.ft_Pot{background-image:url('images/filetype/thumb/file_pot.png');}
+.thumbnails .thumb-img.ft_Potm{background-image:url('images/filetype/thumb/file_potm.png');}
+.thumbnails .thumb-img.ft_Potx{background-image:url('images/filetype/thumb/file_potx.png');}
+.thumbnails .thumb-img.ft_Pps{background-image:url('images/filetype/thumb/file_pps.png');}
+.thumbnails .thumb-img.ft_Ppsm{background-image:url('images/filetype/thumb/file_ppsm.png');}
+.thumbnails .thumb-img.ft_Ppsx{background-image:url('images/filetype/thumb/file_ppsx.png');}
+.thumbnails .thumb-img.ft_Ppt{background-image:url('images/filetype/thumb/file_ppt.png');}
+.thumbnails .thumb-img.ft_Pptm{background-image:url('images/filetype/thumb/file_pptm.png');}
+.thumbnails .thumb-img.ft_Pptt{background-image:url('images/filetype/thumb/file_pptt.png');}
+.thumbnails .thumb-img.ft_Pptx{background-image:url('images/filetype/thumb/file_pptx.png');}
+.thumbnails .thumb-img.ft_Rtf{background-image:url('images/filetype/thumb/file_rtf.png');}
+.thumbnails .thumb-img.ft_Sound{background-image:url('images/filetype/thumb/file_sound.png');}
+.thumbnails .thumb-img.ft_SoundUnk{background-image:url('images/filetype/thumb/file_soundunk.png');}
+.thumbnails .thumb-img.ft_Svg{background-image:url('images/filetype/thumb/file_svg.png');}
+.thumbnails .thumb-img.ft_Txt{background-image:url('images/filetype/thumb/file_txt.png');}
+.thumbnails .thumb-img.ft_Video{background-image:url('images/filetype/thumb/file_video.png');}
+.thumbnails .thumb-img.ft_VideoUnk{background-image:url('images/filetype/thumb/file_videounk.png');}
+.thumbnails .thumb-img.ft_Xls{background-image:url('images/filetype/thumb/file_xls.png');}
+.thumbnails .thumb-img.ft_Xlsm{background-image:url('images/filetype/thumb/file_xlsm.png');}
+.thumbnails .thumb-img.ft_Xlst{background-image:url('images/filetype/thumb/file_xlst.png');}
+.thumbnails .thumb-img.ft_Xlsx{background-image:url('images/filetype/thumb/file_xlsx.png');}
+.thumbnails .thumb-img.ft_Xlt{background-image:url('images/filetype/thumb/file_xlt.png');}
+.thumbnails .thumb-img.ft_Xltm{background-image:url('images/filetype/thumb/file_xltm.png');}
+.thumbnails .thumb-img.ft_Xltx{background-image:url('images/filetype/thumb/file_xltx.png');}
+.thumbnails .thumb-img.ft_Xml{background-image:url('images/filetype/thumb/file_xml.png');}
+.thumbnails .thumb-img.ft_Xps{background-image:url('images/filetype/thumb/file_xps.png');}
+
+/*******************************************************************************
+   For Retina
+*******************************************************************************/
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx)
+{
+.ftFile_21,
+.ftFile_32 {
+    background-image:url('images/filetype/retina/file.png');
+}
+.ft_Archive{background-image:url('images/filetype/retina/file_archive.png');}
+.ft_Avi{background-image:url('images/filetype/retina/file_avi.png');}
+.ft_Cal{background-image:url('images/filetype/retina/file_cal.png');}
+.ft_Csv{background-image:url('images/filetype/retina/file_csv.png');}
+.ft_Djvu{background-image:url('images/filetype/retina/file_djvu.png');}
+.ft_Doc{background-image:url('images/filetype/retina/file_doc.png');}
+.ft_Docm{background-image:url('images/filetype/retina/file_docm.png');}
+.ft_Doct{background-image:url('images/filetype/retina/file_doct.png');}
+.ft_Docx{background-image:url('images/filetype/retina/file_docx.png');}
+.ft_Docxf{background-image:url('images/filetype/retina/file_docxf.png');}
+.ft_Dot{background-image:url('images/filetype/retina/file_dot.png');}
+.ft_Dotm{background-image:url('images/filetype/retina/file_dotm.png');}
+.ft_Dotx{background-image:url('images/filetype/retina/file_dotx.png');}
+.ft_Dvd{background-image:url('images/filetype/retina/file_dvd.png');}
+/*.ft_Ebook{background-image:url('images/filetype/retina/file_ebook.png');}*/
+.ft_Epub{background-image:url('images/filetype/retina/file_epub.png');}
+.ft_Fb2{background-image:url('images/filetype/retina/file_fb2.png');}
+.ft_Flv{background-image:url('images/filetype/retina/file_flv.png');}
+.ft_Fodp{background-image:url('images/filetype/retina/file_fodp.png');}
+.ft_Fods{background-image:url('images/filetype/retina/file_fods.png');}
+.ft_Fodt{background-image:url('images/filetype/retina/file_fodt.png');}
+.ft_Gdoc{background-image:url('images/filetype/retina/file_gdoc.png');}
+.ft_Gsheet{background-image:url('images/filetype/retina/file_gsheet.png');}
+.ft_Gslides{background-image:url('images/filetype/retina/file_gslides.png');}
+.ft_Htm{background-image:url('images/filetype/retina/file_htm.png');}
+.ft_Html{background-image:url('images/filetype/retina/file_html.png');}
+.ft_Iaf{background-image:url('images/filetype/retina/file_iaf.png');}
+.ft_Ics{background-image:url('images/filetype/retina/file_ics.png');}
+.ft_Image{background-image:url('images/filetype/retina/file_image.png');}
+.ft_M2ts{background-image:url('images/filetype/retina/file_m2ts.png');}
+.ft_Mht{background-image:url('images/filetype/retina/file_mht.png');}
+.ft_Mkv{background-image:url('images/filetype/retina/file_mkv.png');}
+.ft_Mov{background-image:url('images/filetype/retina/file_mov.png');}
+.ft_Mp4{background-image:url('images/filetype/retina/file_mp4.png');}
+.ft_Mpg{background-image:url('images/filetype/retina/file_mpg.png');}
+.ft_Odp{background-image:url('images/filetype/retina/file_odp.png');}
+.ft_Ods{background-image:url('images/filetype/retina/file_ods.png');}
+.ft_Odt{background-image:url('images/filetype/retina/file_odt.png');}
+.ft_Oform{background-image:url('images/filetype/retina/file_oform.png');}
+.ft_Otp{background-image:url('images/filetype/retina/file_otp.png');}
+.ft_Ots{background-image:url('images/filetype/retina/file_ots.png');}
+.ft_Ott{background-image:url('images/filetype/retina/file_ott.png');}
+.ft_Pdf{background-image:url('images/filetype/retina/file_pdf.png');}
+.ft_Pot{background-image:url('images/filetype/retina/file_pot.png');}
+.ft_Potm{background-image:url('images/filetype/retina/file_potm.png');}
+.ft_Potx{background-image:url('images/filetype/retina/file_potx.png');}
+.ft_Pps{background-image:url('images/filetype/retina/file_pps.png');}
+.ft_Ppsm{background-image:url('images/filetype/retina/file_ppsm.png');}
+.ft_Ppsx{background-image:url('images/filetype/retina/file_ppsx.png');}
+.ft_Ppt{background-image:url('images/filetype/retina/file_ppt.png');}
+.ft_Pptm{background-image:url('images/filetype/retina/file_pptm.png');}
+.ft_Pptt{background-image:url('images/filetype/retina/file_pptt.png');}
+.ft_Pptx{background-image:url('images/filetype/retina/file_pptx.png');}
+.ft_Rtf{background-image:url('images/filetype/retina/file_rtf.png');}
+.ft_Sound{background-image:url('images/filetype/retina/file_sound.png');}
+.ft_SoundUnk{background-image:url('images/filetype/retina/file_soundunk.png');}
+.ft_Svg{background-image:url('images/filetype/retina/file_svg.png');}
+.ft_Txt{background-image:url('images/filetype/retina/file_txt.png');}
+.ft_Video{background-image:url('images/filetype/retina/file_video.png');}
+.ft_VideoUnk{background-image:url('images/filetype/retina/file_videounk.png');}
+.ft_Xls{background-image:url('images/filetype/retina/file_xls.png');}
+.ft_Xlsm{background-image:url('images/filetype/retina/file_xlsm.png');}
+.ft_Xlst{background-image:url('images/filetype/retina/file_xlst.png');}
+.ft_Xlsx{background-image:url('images/filetype/retina/file_xlsx.png');}
+.ft_Xlt{background-image:url('images/filetype/retina/file_xlt.png');}
+.ft_Xltm{background-image:url('images/filetype/retina/file_xltm.png');}
+.ft_Xltx{background-image:url('images/filetype/retina/file_xltx.png');}
+.ft_Xml{background-image:url('images/filetype/retina/file_xml.png');}
+.ft_Xps{background-image:url('images/filetype/retina/file_xps.png');}
+}

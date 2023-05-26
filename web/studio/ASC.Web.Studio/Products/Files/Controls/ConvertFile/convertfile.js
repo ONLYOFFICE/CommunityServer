@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,7 +80,7 @@ window.ASC.Files.Converter = (function () {
                 } else {
                     jq("#confirmCopyConvertToMyText").show();
                 }
-            } else if (ASC.Files.UI.accessDelete(fileObj) && !ASC.Files.UI.lockedForMe(fileObj)) {
+            } else if (ASC.Files.UI.accessDelete(fileObj) && !ASC.Files.UI.lockedForMe(fileObj) && ASC.Resources.Master.IsAuthenticated) {
                 jq("#confirmCopyConvertLabelText").show();
                 jq("#confirmCopyConvertLabelText input").prop("disabled", false);
             }
@@ -146,10 +146,11 @@ window.ASC.Files.Converter = (function () {
         //todo: replace with ASC.Files.EventHandler.onGetFile
         var stringXmlFile = file.fileXml;
         var htmlXML = ASC.Files.TemplateManager.translateFromString(stringXmlFile);
-
+        var storeOriginal = ASC.Resources.Master.IsAuthenticated ? ASC.Files.Common.storeOriginal : true;
+        
         ASC.Files.EmptyScreen.hideEmptyScreen();
         var sourceFileObj = ASC.Files.UI.getEntryObject("file", sourceFileId);
-        if (sourceFileObj.length == 0 || ASC.Files.Common.storeOriginal) {
+        if (sourceFileObj.length == 0 || storeOriginal) {
             var replaceWith = ASC.Files.UI.getEntryObject("file", fileId);
             if (replaceWith.length) {
                 replaceWith.after(htmlXML);

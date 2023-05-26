@@ -654,4 +654,16 @@
   <data name="ExternalLinkDisabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
+  <data name="TitleNewSharedLink" xml:space="preserve">
+    <value>New link</value>
+  </data>
+  <data name="QuickExternalLink" xml:space="preserve">
+    <value>Quick external link</value>
+  </data>
+  <data name="shareFolderLinkMailBody" xml:space="preserve">
+    <value>You have been granted access to the {0} folder. Click the link below to open the folder right now: {1}</value>
+  </data>
+  <data name="shareFolderLinkMailSubject" xml:space="preserve">
+    <value>You have been granted access to the {0} folder</value>
+  </data>
 </root>

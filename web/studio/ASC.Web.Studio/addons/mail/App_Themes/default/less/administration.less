@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,6 @@
  *
 */
 
-
-@import "settings.less";
-
-@base-input-width: @base-distance * 20;
 
 .delete_entity {
     background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
@@ -100,7 +96,7 @@
                             margin-left: @base-distance * 2;
 
                             .text {
-                                padding-right:4px;
+                                padding-right: 4px;
                             }
 
                             .link {
@@ -119,7 +115,7 @@
                     vertical-align: top;
 
                     .icon {
-                        background-image: url("../images/add-mailboxes_32.png");
+                        background-image: url("../images/add-mailboxes_32.svg");
                         height: 32px;
                         width: 32px;
                         margin-top: -4px;
@@ -166,7 +162,7 @@
                                     width: 12px;
                                     height: 12px;
                                     margin: 0 0 -1px 0;
-                                    padding-right:4px;
+                                    padding-right: 4px;
                                 }
                             }
                         }
@@ -275,7 +271,7 @@
                                     .more_aliases {
                                         border-bottom: 1px dotted;
                                         text-decoration: none;
-                                        color: #333333;
+                                        color: @text-color;
                                         font-size: 12px;
                                         text-decoration: none;
                                     }
@@ -509,7 +505,7 @@
                 float: left;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                color: #333333;
+                color: @text-color;
             }
 
             .delete_entity {
@@ -566,7 +562,7 @@
                     padding: 8px 12px 10px;
                     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
                     position: relative;
-                    background: white;
+                    background: @light-text-color;
 
                     .infoItem {
                         color: #a9adb0;
@@ -574,13 +570,13 @@
                         white-space: nowrap;
                     }
 
-                        .infoItem.red {
-                            color: #b40404;
-                        }
+                    .infoItem.red {
+                        color: #b40404;
+                    }
 
-                        .infoItem.green {
-                            color: #44bb00;
-                        }
+                    .infoItem.green {
+                        color: #44bb00;
+                    }
                 }
 
                 .triangle {
@@ -609,15 +605,15 @@
                 background-color: #83888d;
             }
 
-                #passwordShowLabel.hidePwd {
-                    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
-                    mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
-                }
+            #passwordShowLabel.hidePwd {
+                -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
+                mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
+            }
 
-                #passwordShowLabel.showPwd {
-                    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
-                    mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
-                }
+            #passwordShowLabel.showPwd {
+                -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
+                mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
+            }
 
             .validationProgress {
                 position: absolute;

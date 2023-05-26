@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using ASC.Core.Tenants;
+using ASC.Core;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
+
+using ASC.Web.Core;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
@@ -194,6 +198,43 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     if (!_immediately && FileDao.UseTrashForRemove(file))
                     {
                         FileDao.MoveFile(file.ID, _trashId);
+                        if (file.RootFolderType == FolderType.COMMON)
+                        {
+                            CoreContext.TenantManager.SetTenantQuotaRow(
+                                new TenantQuotaRow
+                                {
+                                    Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                                    Path = string.Format("/{0}/{1}", FileConstant.ModuleId, ""),
+                                    Counter = file.ContentLength,
+                                    Tag = WebItemManager.DocumentsProductID.ToString(),
+                                    UserId = SecurityContext.CurrentAccount.ID
+                                },
+                                true);
+                        }
+                        if (file.RootFolderType == FolderType.USER && SecurityContext.CurrentAccount.ID != file.RootFolderCreator)
+                        {
+                            CoreContext.TenantManager.SetTenantQuotaRow(
+                                new TenantQuotaRow
+                                {
+                                    Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                                    Path = string.Format("/{0}/{1}", FileConstant.ModuleId, ""),
+                                    Counter = -1 * file.ContentLength,
+                                    Tag = WebItemManager.DocumentsProductID.ToString(),
+                                    UserId = file.RootFolderCreator
+                                },
+                                true);
+                            CoreContext.TenantManager.SetTenantQuotaRow(
+                                new TenantQuotaRow
+                                {
+                                    Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                                    Path = string.Format("/{0}/{1}", FileConstant.ModuleId, ""),
+                                    Counter = file.ContentLength,
+                                    Tag = WebItemManager.DocumentsProductID.ToString(),
+                                    UserId = SecurityContext.CurrentAccount.ID
+                                },
+                                true);
+                        }
+
                         if (isNeedSendActions)
                         {
                             FilesMessageService.Send(file, _headers, MessageAction.FileMovedToTrash, file.Title);
@@ -208,7 +249,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     {
                         try
                         {
-                            FileDao.DeleteFile(file.ID);
+                            FileDao.DeleteFile(file.ID, file.GetFileQuotaOwner());
+
                             if (_headers != null)
                             {
                                 if (isNeedSendActions)
@@ -258,5 +300,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             }
             return false;
         }
+
     }
 }

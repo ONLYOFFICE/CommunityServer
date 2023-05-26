@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Web;
 using ASC.Files.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
@@ -61,7 +62,7 @@ namespace ASC.Web.Files
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
             Master.Master
-                  .AddStaticStyles(GetStaticStyleSheet())
+                  .AddStaticStyles(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark ? GetStaticDarkStyleSheet() : GetStaticStyleSheet())
                   .AddStaticBodyScripts(GetStaticJavaScript());
 
             if (shareDialogV115) {
@@ -108,9 +109,9 @@ namespace ASC.Web.Files
             }
 
             var originForPost = "*";
-            if (!FilesLinkUtility.DocServiceApiUrl.StartsWith("/"))
+            if (!string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) && !FilesLinkUtility.DocServiceApiUrl.StartsWith("/"))
             {
-                var origin = new Uri(FilesLinkUtility.DocServiceApiUrl ?? "");
+                var origin = new Uri(FilesLinkUtility.DocServiceApiUrl);
                 originForPost = origin.Scheme + "://" + origin.Host + ":" + origin.Port;
             }
 
@@ -156,12 +157,23 @@ namespace ASC.Web.Files
         public StyleBundleData GetStaticStyleSheet()
         {
             var src = shareDialogV115
-                ? new List<string> { "Controls/AccessRights/accessrights.css", "Controls/AccessRights/formfilling.css" }
-                : new List<string> { "Controls/SharingDialog/sharingdialog.css" };
+                ? new List<string> { "Controls/AccessRights/accessrights.less", "Controls/AccessRights/formfilling.less" }
+                : new List<string> { "Controls/SharingDialog/sharingdialog.less" };
 
             return (StyleBundleData)
                    new StyleBundleData("filesshare", "files")
-                       .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "common.less")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r, src.ToArray());
+        }
+        public StyleBundleData GetStaticDarkStyleSheet()
+        {
+            var src = shareDialogV115
+                    ? new List<string> { "Controls/AccessRights/dark-accessrights.less", "Controls/AccessRights/dark-formfilling.less" }
+                    : new List<string> { "Controls/SharingDialog/dark-sharingdialog.less" };
+
+            return (StyleBundleData)
+                   new StyleBundleData("dark-filesshare", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "dark-common.less")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r, src.ToArray());
         }
     }

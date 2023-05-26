@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +55,7 @@ namespace ASC.Data.Storage.RackspaceCloud
 
             _tenant = tenant;
             _modulename = string.Empty;
+            _cache = false;
             _dataList = null;
 
             _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
@@ -67,6 +68,7 @@ namespace ASC.Data.Storage.RackspaceCloud
 
             _tenant = tenant;
             _modulename = moduleConfig.Name;
+            _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
 
             _domains.AddRange(
@@ -211,7 +213,7 @@ namespace ASC.Data.Storage.RackspaceCloud
             return GetReadStream(domain, path, 0);
         }
 
-        public override Stream GetReadStream(string domain, string path, int offset)
+        public override Stream GetReadStream(string domain, string path, long offset)
         {
             Stream outputStream = TempStream.Create();
 
@@ -226,22 +228,28 @@ namespace ASC.Data.Storage.RackspaceCloud
             return outputStream;
         }
 
-        public override Task<Stream> GetReadStreamAsync(string domain, string path, int offset)
+        public override Task<Stream> GetReadStreamAsync(string domain, string path, long offset)
         {
             return Task.FromResult(GetReadStream(domain, path, offset));
         }
-
+        public override Uri Save(string domain, string path, Stream stream, Guid ownerId)
+        {
+            return Save(domain, path, ownerId, stream, string.Empty, string.Empty);
+        }
         public override Uri Save(string domain, string path, Stream stream)
         {
-            return Save(domain, path, stream, string.Empty, string.Empty);
+            return Save(domain, path, Guid.Empty, stream, string.Empty, string.Empty);
         }
 
         public override Uri Save(string domain, string path, Stream stream, ACL acl)
         {
             return Save(domain, path, stream, null, null, acl);
         }
-
-        protected override Uri SaveWithAutoAttachment(string domain, string path, Stream stream, string attachmentFileName)
+        protected override Uri SaveWithAutoAttachment(string domain, string path, System.IO.Stream stream, string attachmentFileName)
+        {
+            return SaveWithAutoAttachment(domain, path, Guid.Empty, stream, attachmentFileName);
+        }
+        protected override Uri SaveWithAutoAttachment(string domain, string path, Guid ownerId, System.IO.Stream stream, string attachmentFileName)
         {
             var contentDisposition = string.Format("attachment; filename={0};",
                                                 HttpUtility.UrlPathEncode(attachmentFileName));
@@ -251,9 +259,12 @@ namespace ASC.Data.Storage.RackspaceCloud
                                                    HttpUtility.UrlPathEncode(attachmentFileName));
             }
 
-            return Save(domain, path, stream, null, contentDisposition);
+            return Save(domain, path, ownerId, stream, null, contentDisposition);
         }
-
+        public override Uri Save(string domain, string path, Guid ownerId, Stream stream, string contentType, string contentDisposition)
+        {
+            return Save(domain, path, ownerId, stream, contentType, contentDisposition, ACL.Auto);
+        }
         public override Uri Save(string domain, string path, Stream stream, string contentType, string contentDisposition)
         {
             return Save(domain, path, stream, contentType, contentDisposition, ACL.Auto);
@@ -263,8 +274,13 @@ namespace ASC.Data.Storage.RackspaceCloud
         {
             return Save(domain, path, stream, string.Empty, string.Empty, ACL.Auto, contentEncoding, cacheDays);
         }
-
         public Uri Save(string domain, string path, Stream stream, string contentType,
+                             string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5, 
+                             DateTime? deleteAt = null, long? deleteAfter = null)
+        {
+            return Save(domain, path, Guid.Empty, stream, contentType,contentDisposition, acl, contentEncoding, cacheDays = 5,deleteAt, deleteAfter);
+        }
+        public Uri Save(string domain, string path, Guid ownerId, Stream stream, string contentType,
                               string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5,
             DateTime? deleteAt = null, long? deleteAfter = null)
         {
@@ -272,7 +288,7 @@ namespace ASC.Data.Storage.RackspaceCloud
 
             if (QuotaController != null)
             {
-                QuotaController.QuotaUsedCheck(buffered.Length);
+                QuotaController.QuotaUsedCheck(buffered.Length, ownerId);
             }
 
             var client = GetClient();
@@ -290,7 +306,7 @@ namespace ASC.Data.Storage.RackspaceCloud
 
             if (cacheDays > 0)
             {
-                customHeaders.Add("Cache-Control", String.Format("public, maxage={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds));
+                customHeaders.Add("Cache-Control", String.Format("public, max-age={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds));
                 customHeaders.Add("Expires", DateTime.UtcNow.Add(TimeSpan.FromDays(cacheDays)).ToString());
             }
 
@@ -356,7 +372,7 @@ namespace ASC.Data.Storage.RackspaceCloud
                                 _region
                                );
 
-            QuotaUsedAdd(domain, buffered.Length);
+            QuotaUsedAdd(domain, buffered.Length, ownerId);
 
             return GetUri(domain, path);
 
@@ -390,6 +406,10 @@ namespace ASC.Data.Storage.RackspaceCloud
 
         public override void DeleteFiles(string domain, string folderPath, string pattern, bool recursive)
         {
+            DeleteFiles(domain, folderPath, pattern, recursive, Guid.Empty);
+        }
+        public override void DeleteFiles(string domain, string folderPath, string pattern, bool recursive, Guid ownerId)
+        {
             var client = GetClient();
 
             var files = client.ListObjects(_private_container, null, null, null, MakePath(domain, folderPath), _region)
@@ -401,7 +421,7 @@ namespace ASC.Data.Storage.RackspaceCloud
 
             if (QuotaController != null)
             {
-                QuotaUsedDelete(domain, files.Select(x => x.Bytes).Sum());
+                QuotaUsedDelete(domain, files.Select(x => x.Bytes).Sum(), ownerId);
             }
 
         }
@@ -540,8 +560,10 @@ namespace ASC.Data.Storage.RackspaceCloud
         {
             return IsFile(domain, path);
         }
-
-        public override void DeleteDirectory(string domain, string path)
+        public override void DeleteDirectory(string domain, string path) {
+            DeleteDirectory(domain, path, Guid.Empty);
+        }
+        public override void DeleteDirectory(string domain, string path, Guid ownerId)
         {
             var client = GetClient();
 
@@ -550,7 +572,7 @@ namespace ASC.Data.Storage.RackspaceCloud
             foreach (var obj in objToDel)
             {
                 client.DeleteObject(_private_container, obj.Name);
-                QuotaUsedDelete(domain, Convert.ToInt64(obj.Bytes));
+                QuotaUsedDelete(domain, Convert.ToInt64(obj.Bytes), ownerId);
             }
         }
 
@@ -744,5 +766,16 @@ namespace ASC.Data.Storage.RackspaceCloud
         public override bool IsSupportChunking { get { return true; } }
 
         #endregion
+
+        protected override DateTime GetLastModificationDate(string domain, string path)
+        {
+            var client = GetClient();
+
+            var obj = client.ListObjects(_private_container, null, null, null, MakePath(domain, path), _region).FirstOrDefault();
+
+            if (obj == null) throw new FileNotFoundException();
+
+            return obj.LastModified.UtcDateTime;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,15 +27,19 @@ namespace ASC.Web.Projects
     [DataContract]
     public class ProjectsCommonSettings : BaseSettings<ProjectsCommonSettings>
     {
+        ///<example>true</example>
         [DataMember(Name = "EverebodyCanCreate")]
         public bool EverebodyCanCreate { get; set; }
 
+        ///<example>true</example>
         [DataMember(Name = "HideEntitiesInPausedProjects")]
         public bool HideEntitiesInPausedProjects { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember]
         public StartModuleType StartModuleType { get; set; }
 
+        ///<example>null</example>
         [DataMember(Name = "FolderId")]
         private object folderId;
 

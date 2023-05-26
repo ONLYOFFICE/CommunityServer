@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 
 #if DEBUG
 using System.Data;
+using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -146,8 +148,8 @@ namespace ASC.Common.Tests.Data
                 .Union(new SqlQuery("t2").Select("c2").Where("c2", 7));
 
             Assert.AreEqual("select c1 from t1 where c1 = ? union select c2 from t2 where c2 = ?", union.ToString());
-            Assert.AreEqual(4, union.GetParameters()[0]);
-            Assert.AreEqual(7, union.GetParameters()[1]);
+            Assert.AreEqual(4, union.GetParameters().ToArray()[0]);
+            Assert.AreEqual(7, union.GetParameters().ToArray()[1]);
         }
 
         [TestMethod]

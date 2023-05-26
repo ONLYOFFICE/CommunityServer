@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 using System;
 using System.Web;
-
+using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
 
 namespace ASC.Web.Projects.Controls.Projects
@@ -27,8 +27,16 @@ namespace ASC.Web.Projects.Controls.Projects
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "projectaction.js")
-                .RegisterBodyScripts("~/Products/Projects/js/addmilestonecontainer.js")
-                .RegisterStyle("~/Products/Projects/App_Themes/default/css/addmilestonecontainer.css");
+                .RegisterBodyScripts("~/Products/Projects/js/addmilestonecontainer.js");
+
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/dark/dark-addmilestonecontainer.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/addmilestonecontainer.less");
+            }
 
             Page.Master.RegisterCRMResources();
 

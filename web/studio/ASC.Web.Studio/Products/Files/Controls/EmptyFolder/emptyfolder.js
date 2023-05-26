@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ window.ASC.Files.EmptyScreen = (function () {
 
             jq("#emptyContainer .empty-folder-create").toggle(ASC.Files.Folders.folderContainer == "privacy" ? !!ASC.Desktop : ASC.Files.UI.accessEdit());
 
-            if (!ASC.Files.Tree || ASC.Files.Tree.pathParts.length > 1) {
+            if (!ASC.Files.Tree || ASC.Files.Tree.pathParts.length > 1 || !ASC.Resources.Master.IsAuthenticated) {
                 jq("#emptyContainer_subfolder").show();
 
                 ASC.Files.UI.checkButtonBack(".empty-folder-toparent");

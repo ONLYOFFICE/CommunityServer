@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,9 @@ namespace ASC.Api.Settings
         /// Get the LDAP settings
         /// </short>
         /// <category>LDAP</category>
-        /// <returns>LDAP settings</returns>
+        /// <returns type="ASC.ActiveDirectory.Base.Settings.LdapSettings, ASC.ActiveDirectory">LDAP settings</returns>
+        /// <path>api/2.0/settings/ldap</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ldap")]
         public LdapSettings GetLdapSettings()
         {
@@ -79,13 +81,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns the LDAP autosynchronous cron expression of the current portal if it exists.
+        /// Returns the LDAP autosynchronous cron expression for the current portal if it exists.
         /// </summary>
         /// <short>
         /// Get the LDAP cron expression
         /// </short>
         /// <category>LDAP</category>
         /// <returns>Cron expression or null</returns>
+        /// <path>api/2.0/settings/ldap/cron</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ldap/cron")]
         public string GetLdapCronSettings()
         {
@@ -103,13 +107,16 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Sets the LDAP autosynchronous cron expression of the current portal.
+        /// Sets the LDAP autosynchronous cron expression to the current portal.
         /// </summary>
         /// <short>
         /// Set the LDAP cron expression
         /// </short>
         /// <category>LDAP</category>
-        /// <param name="cron">Cron expression</param>
+        /// <path>api/2.0/settings/ldap/cron</path>
+        /// <param type="System.String, System" name="cron">Cron expression</param>
+        /// <httpMethod>POST</httpMethod>
+        /// <returns></returns>
         [Create("ldap/cron")]
         public void SetLdapCronSettings(string cron)
         {
@@ -146,13 +153,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Starts synchronizing users and groups by LDAP.
+        /// Synchronizes the portal data with the new information from the LDAP server.
         /// </summary>
         /// <short>
-        /// Synchronize by LDAP
+        /// Synchronize with LDAP server
         /// </short>
         /// <category>LDAP</category>
-        /// <returns>Operation status</returns>
+        /// <path>api/2.0/settings/ldap/sync</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <returns type="ASC.ActiveDirectory.ComplexOperations.LdapOperationStatus, ASC.ActiveDirectory">Operation status</returns>
         [Read("ldap/sync")]
         public LdapOperationStatus SyncLdap()
         {
@@ -200,7 +209,9 @@ namespace ASC.Api.Settings
         /// Test the LDAP synchronization
         /// </short>
         /// <category>LDAP</category>
-        /// <returns>Operation status</returns>
+        /// <path>api/2.0/settings/ldap/sync/test</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <returns type="ASC.ActiveDirectory.ComplexOperations.LdapOperationStatus, ASC.ActiveDirectory">Operation status</returns>
         [Read("ldap/sync/test")]
         public LdapOperationStatus TestLdapSync()
         {
@@ -248,9 +259,11 @@ namespace ASC.Api.Settings
         /// Save the LDAP settings
         /// </short>
         /// <category>LDAP</category>
-        /// <param name="settings">LDAP settings in the serialized string format</param>
-        /// <param name="acceptCertificate">Specifies if the errors of checking certificates are allowed (true) or not (false)</param>
-        /// <returns>Operation status</returns>
+        /// <param type="System.String, System" name="settings">LDAP settings in the serialized string format</param>
+        /// <param type="System.Boolean, System" name="acceptCertificate">Specifies if a certificate will be accepted (true) or not (false)</param>
+        /// <returns type="ASC.ActiveDirectory.ComplexOperations.LdapOperationStatus, ASC.ActiveDirectory">Operation status</returns>
+        /// <path>api/2.0/settings/ldap</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("ldap")]
         public LdapOperationStatus SaveLdapSettings(string settings, bool acceptCertificate)
         {
@@ -293,15 +306,17 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Starts the process of collecting preliminary changes on the portal during the saving process according to the LDAP settings.
+        /// Starts the process of saving LDAP settings and collecting preliminary changes on the portal according to them.
         /// </summary>
         /// <short>
         /// Test the LDAP saving process
         /// </short>
         /// <category>LDAP</category>
-        /// <param name="settings">LDAP settings in the serialized string format</param>
-        /// <param name="acceptCertificate">Specifies if the errors of checking certificates are allowed (true) or not (false)</param>
-        /// <returns>Operation status</returns>
+        /// <param type="System.String, System" name="settings">LDAP settings in the serialized string format</param>
+        /// <param type="System.Boolean, System" name="acceptCertificate">Specifies if a certificate will be accepted (true) or not (false)</param>
+        /// <path>api/2.0/settings/ldap/save/test</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <returns type="ASC.ActiveDirectory.ComplexOperations.LdapOperationStatus, ASC.ActiveDirectory">Operation status</returns>
         [Create("ldap/save/test")]
         public LdapOperationStatus TestLdapSave(string settings, bool acceptCertificate)
         {
@@ -351,7 +366,9 @@ namespace ASC.Api.Settings
         /// Get the LDAP synchronization process status
         /// </short>
         /// <category>LDAP</category>
-        /// <returns>Operation status</returns>
+        /// <returns type="ASC.ActiveDirectory.ComplexOperations.LdapOperationStatus, ASC.ActiveDirectory">Operation status</returns>
+        /// <path>api/2.0/settings/ldap/status</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ldap/status")]
         public LdapOperationStatus GetLdapOperationStatus()
         {
@@ -367,7 +384,9 @@ namespace ASC.Api.Settings
         /// Get the LDAP default settings
         /// </short>
         /// <category>LDAP</category>
-        /// <returns>LDAP default settings</returns>
+        /// <returns type="ASC.ActiveDirectory.Base.Settings.LdapSettings, ASC.ActiveDirectory">LDAP default settings</returns>
+        /// <path>api/2.0/settings/ldap/default</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ldap/default")]
         public LdapSettings GetDefaultLdapSettings()
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,8 @@ using ASC.Data.Backup.Storage;
 using ASC.Data.Backup.Tasks;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Backup.Utils;
+using ASC.Data.Storage.ZipOperators;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Data.Backup.Service
 {
@@ -63,6 +65,8 @@ namespace ASC.Data.Backup.Service
             currentRegion = config.WebConfigs.CurrentRegion;
             configPaths = config.WebConfigs.Cast<WebConfigElement>().ToDictionary(el => el.Region, el => PathHelper.ToRootedConfigPath(el.Path));
             configPaths[currentRegion] = PathHelper.ToRootedConfigPath(config.WebConfigs.CurrentPath);
+
+            SetupInfo.ChunkUploadSize = config.ChunkSize;
 
             var invalidConfigPath = configPaths.Values.FirstOrDefault(path => !File.Exists(path));
             if (invalidConfigPath != null)
@@ -294,22 +298,34 @@ namespace ASC.Data.Backup.Service
                 var backupName = string.Format("{0}_{1:yyyy-MM-dd_HH-mm-ss}.{2}", CoreContext.TenantManager.GetTenant(TenantId).TenantAlias, dateTime, ArchiveFormat);
                 var tempFile = Path.Combine(TempFolder, backupName);
                 var storagePath = tempFile;
+                string hash;
                 try
                 {
+                    CoreContext.TenantManager.SetCurrentTenant(TenantId);
                     var backupTask = new BackupPortalTask(Log, TenantId, configPaths[currentRegion], tempFile, limit);
+                    var backupStorage = BackupStorageFactory.GetBackupStorage(StorageType, TenantId, StorageParams);
+                    var writer = ZipWriteOperatorFactory.GetWriteOperator(StorageBasePath, backupName, TempFolder, UserId, backupStorage as IGetterWriteOperator);
+                    backupTask.WriteOperator = writer;
+
                     if (!BackupMail)
                     {
                         backupTask.IgnoreModule(ModuleName.Mail);
                     }
+
                     backupTask.ProgressChanged += (sender, args) => Percentage = 0.9 * args.Progress;
                     backupTask.RunJob();
 
-                    var backupStorage = BackupStorageFactory.GetBackupStorage(StorageType, TenantId, StorageParams);
-                    if (backupStorage != null)
+                    if (writer.NeedUpload)
                     {
                         storagePath = backupStorage.Upload(StorageBasePath, tempFile, UserId);
-                        Link = backupStorage.GetPublicLink(storagePath);
+                        hash = GetBackupHash(tempFile);
                     }
+                    else
+                    {
+                        storagePath = writer.StoragePath;
+                        hash = writer.Hash;
+                    }
+                    Link = backupStorage.GetPublicLink(storagePath);
 
                     var repo = BackupStorageFactory.GetBackupRepository();
                     repo.SaveBackupRecord(
@@ -318,14 +334,15 @@ namespace ASC.Data.Backup.Service
                             Id = (Guid)Id,
                             TenantId = TenantId,
                             IsScheduled = IsScheduled,
-                            FileName = Path.GetFileName(tempFile),
+                            FileName = backupName,
                             StorageType = StorageType,
                             StorageBasePath = StorageBasePath,
                             StoragePath = storagePath,
                             CreatedOn = DateTime.UtcNow,
                             ExpiresOn = StorageType == BackupStorageType.DataStore ? DateTime.UtcNow.AddDays(1) : DateTime.MinValue,
                             StorageParams = StorageParams,
-                            Hash = GetBackupHash(tempFile)
+                            Hash = hash,
+                            Removed = false
                         });
 
                     Percentage = 100;
@@ -339,7 +356,7 @@ namespace ASC.Data.Backup.Service
                 }
                 catch (Exception error)
                 {
-                    Log.ErrorFormat("RunJob - Params: {0}, Error = {1}", new { Id = Id, Tenant = TenantId, File = tempFile, BasePath = StorageBasePath, }, error);
+                    Log.ErrorFormat("RunJob - Params: {0}, Error = {1}", new { Id = Id, Tenant = TenantId, File = backupName, BasePath = StorageBasePath, }, error);
                     Error = error;
                     IsCompleted = true;
                 }

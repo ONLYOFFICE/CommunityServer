@@ -142,6 +142,9 @@ sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${N
 sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_ROOT_DIR}/web.appsettings.config;
 sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_ROOT_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 
+CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)";
+find "$DIR/controlpanel/www/config" -type f -name "*.json" -exec sed -i "s_\(\"core.machinekey\":\).*,_\1 \"${CORE_MACHINEKEY}\",_" {} \;
+
 if systemctl is-active monoserve | grep -q "active"; then
 	systemctl restart monoserve
 fi
@@ -251,6 +254,23 @@ APP_DATA_DIR="${DIR}/Data"
 
 mkdir -p "$APP_DATA_DIR"
 
+binDirs=("$DIR/ApiSystem/" "$DIR/WebStudio" "$DIR/controlpanel/www/config" "$SERVICES_DIR" "/etc/%{package_sysname}/communityserver")
+
+if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
+	CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";
+else
+	CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)";
+fi
+
+sed "s^\(machine_key\)\s*=.*^\1 = ${CORE_MACHINEKEY}^g" -i ${SERVICES_DIR}/TeamLabSvc/radicale.config
+
+for i in "${!binDirs[@]}"; do
+	if [ -d "${binDirs[$i]}" ]; then
+		find "${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "/core.\machinekey/s_\(value\s*=\s*\"\)[^\"]*\"_\1${CORE_MACHINEKEY}\"_" {} \;
+		find "${binDirs[$i]}" -type f -name "*.json" -exec sed -i "s_\(\"core.machinekey\":\|\"machinekey\":\).*,_\1 \"${CORE_MACHINEKEY}\",_" {} \;
+	fi
+done
+
 #Mail configs changes
 if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
 	MAIL_IMAPSYNC_START_DATE="$(sed -n '/"mail.imap-sync-start-date"/s_.*value\s*=\s*"\([^"]*\)".*_\1_p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";	
@@ -294,36 +314,22 @@ if [ $1 -ge 2 ]; then
 	if [ -d "$DIR" ]; then
 		CONN_STR=$(grep -oP "Server=[^\"]*(?=\")" $DIR/WebStudio/web.connections.config | head -1)
 		
-		if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
-			CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";
-		fi		
-
-		binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc")
-
-		for i in "${!binDirs[@]}";
-		do
-			find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"$CONN_STR\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
-			sed -i "s/Server=.*/$CONN_STR\",/g" /etc/%{package_sysname}/communityserver/appsettings.production.json
-
-			if [ ! -z "$CORE_MACHINEKEY" ]; then
-				find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "/core.machinekey/s!value=\".*\"!value=\"${CORE_MACHINEKEY}\"!g" {} \;			
-				sed "s!\"machinekey\":.*!\"machinekey\":\"${CORE_MACHINEKEY}\",!" -i /etc/%{package_sysname}/communityserver/appsettings.production.json		
-			fi				
-		done				
+		binDirs=("$DIR/ApiSystem/" "$DIR/WebStudio" "$SERVICES_DIR/TeamLabSvc")
+		for i in "${!binDirs[@]}"; do
+			find "${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"${CONN_STR}\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+		done
+		sed -i "s!\(\"connectionString\":\).*,!\1 \"${CONN_STR//!/\\!}\",!" /etc/%{package_sysname}/communityserver/appsettings.production.json
 
 		MYSQL_SERVER_HOST=$(grep -oP "Server=[^\";]*" $DIR/WebStudio/web.connections.config | head -1 | cut -d'=' -f2);
 		MYSQL_SERVER_DB_NAME=$(grep -oP "Database=[^\";]*" $DIR/WebStudio/web.connections.config | head -1 | cut -d'=' -f2);
 		MYSQL_SERVER_USER=$(grep -oP "User ID=[^\";]*" $DIR/WebStudio/web.connections.config | head -1 | cut -d'=' -f2);
 		MYSQL_SERVER_PASS=$(grep -oP "Password=[^\";]*" $DIR/WebStudio/web.connections.config | head -1 | cut -d'=' -f2);
 		
-		sed "s!\"host\":.*,!\"host\":\"${MYSQL_SERVER_HOST}\",!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json
-		sed "s!\"user\":.*,!\"user\":\"${MYSQL_SERVER_USER}\",!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json
-		sed "s!\"password\":.*,!\"password\":\"${MYSQL_SERVER_PASS//!/\\!}\",!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json
-		sed "s!\"database\":.*!\"database\":\"${MYSQL_SERVER_DB_NAME}\"!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json		
-
-		if [ ! -z "$CORE_MACHINEKEY" ]; then
-			sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\",!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json		
-		fi						
+		find "${SERVICES_DIR}/ASC.UrlShortener/config" -type f -name "*.json" -exec sed -i \
+		-e "s!\(\"host\":\).*,!\1 \"${MYSQL_SERVER_HOST}\",!" \
+		-e "s!\(\"user\":\).*,!\1 \"${MYSQL_SERVER_USER}\",!" \
+		-e "s!\(\"password\":\).*,!\1 \"${MYSQL_SERVER_PASS//!/\\!}\",!" \
+		-e "s!\(\"database\":\).*!\1 \"${MYSQL_SERVER_DB_NAME}\"!" {} \;	
 
 		if ! mysqladmin ping -h ${MYSQL_SERVER_HOST} -u ${MYSQL_SERVER_USER} --password=${MYSQL_SERVER_PASS} --silent; then
 			echo "ERROR: mysql connection refused";
@@ -429,6 +435,12 @@ if systemctl is-active elasticsearch | grep -q "active"; then
 	if [[ $(find /usr/share/elasticsearch/lib/ -name "elasticsearch-[0-9]*.jar" | wc -l) -eq 1 ]]; then
 		systemctl restart elasticsearch.service
 	fi
+fi
+
+if ! grep -q "client_max_body_size" /etc/nginx/nginx.conf; then
+	sed -i '/http {/a\    client_max_body_size 100m;' /etc/nginx/nginx.conf
+else
+	sed -i "s/\(client_max_body_size\).*\?\;/\1 100m;/" /etc/nginx/nginx.conf
 fi
 
 if [ ! -f /proc/net/if_inet6 ]; then

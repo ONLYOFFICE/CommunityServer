@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,10 @@
 */
 
 
+@import "../../../../skins/default/params.less";
+
 .accessRights-ownerCard {
-    background-color: #fff;
+    background-color: @body-color;
     padding: 10px;
     width: 330px;
 
@@ -25,11 +27,21 @@
     }
 }
 
-.header-base.owner{
+.layout-bottom-spacer{
+    padding-bottom: 0px;
+}
+
+.header-base.owner {
     margin-bottom: 15px;
+}
+.products-section .tabs-section .header-base img {
+    margin-right: 8px;
 }
 .accessRights-content {
     padding: 0 20px;
+}
+.accessRights-content:last-child {
+    margin-bottom: 24px;
 }
 .accessRights-content input[type="radio"]
 {

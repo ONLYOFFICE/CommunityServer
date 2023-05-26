@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using System.Web.UI;
 
 using AjaxPro;
 
+using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -34,6 +35,7 @@ using ASC.Core.Users;
 using ASC.FederatedLogin;
 using ASC.Geolocation;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
@@ -81,7 +83,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private IDictionary<string, Dictionary<string, decimal>> priceInfo;
         private IEnumerable<TenantQuota> quotaList;
-        private ILog Log = LogManager.GetLogger("ASC.Web.Billing");
+        private readonly ILog Log = LogManager.GetLogger("ASC.Web.Billing");
 
         protected bool IsAdmin;
         protected bool IsPeopleModuleAvailable;
@@ -93,12 +95,21 @@ namespace ASC.Web.Studio.UserControls.Management
             Page
                 .RegisterBodyScripts(
                     "~/UserControls/Management/TariffSettings/js/tariffsaas.js"
-                )
-                .RegisterStyle(
+                );
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle(
+                    "~/UserControls/Management/TariffSettings/css/dark-tariff.less",
+                    "~/UserControls/Management/TariffSettings/css/dark-tariffsaas.less"
+                );
+            }
+            else
+            {
+                Page.RegisterStyle(
                     "~/UserControls/Management/TariffSettings/css/tariff.less",
                     "~/UserControls/Management/TariffSettings/css/tariffsaas.less"
                 );
-
+            }
             priceInfo = CoreContext.TenantManager.GetProductPriceInfo(false);
             quotaList = TenantExtra.GetTenantQuotas();
 
@@ -307,6 +318,18 @@ namespace ASC.Web.Studio.UserControls.Management
                 if (scheduleResponse != null)
                 {
                     errorMessage = UserControlsCommonResource.SaasTariffErrorAutoBackup;
+                    return false;
+                }
+            }
+
+            using (var db = new DbManager("default"))
+            {
+                var hasMailServerDomain = db.ExecuteScalar<bool>(@"select exists(select 1 from mail_server_domain where tenant = @tid)",
+                    new { tid = currentTenant.TenantId });
+
+                if (hasMailServerDomain)
+                {
+                    errorMessage = UserControlsCommonResource.SaasTariffErrorMailServerDomain;
                     return false;
                 }
             }

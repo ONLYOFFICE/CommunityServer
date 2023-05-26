@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -307,10 +307,14 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         public void DeleteFile(object fileId)
         {
+            DeleteFile(fileId, Guid.Empty);
+        }
+        public void DeleteFile(object fileId, Guid ownerId)
+        {
             var selector = GetSelector(fileId);
             using (var fileDao = selector.GetFileDao(fileId))
             {
-                fileDao.DeleteFile(selector.ConvertId(fileId));
+                fileDao.DeleteFile(selector.ConvertId(fileId), ownerId);
             }
         }
 
@@ -635,6 +639,23 @@ namespace ASC.Files.Thirdparty.ProviderDao
             using (var fileDao = selector.GetFileDao(fileId))
             {
                 fileDao.SaveProperties(selector.ConvertId(fileId), entryProperties);
+            }
+        }
+
+        public async Task UploadChunkAsync(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
+        {
+            using (var fileDao = GetFileDao(uploadSession.File))
+            {
+                uploadSession.File = ConvertId(uploadSession.File);
+                await fileDao.UploadChunkAsync(uploadSession, chunkStream, chunkLength);
+            }
+        }
+
+        public File FinalizeUploadSession(ChunkedUploadSession uploadSession)
+        {
+            using (var fileDao = GetFileDao(uploadSession.File))
+            {
+               return fileDao.FinalizeUploadSession(uploadSession);
             }
         }
 

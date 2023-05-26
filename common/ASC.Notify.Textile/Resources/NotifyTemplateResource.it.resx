@@ -58,66 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FooterCommonV10" xml:space="preserve">
-    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt; &lt;/td&gt;&lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
-              &lt;img src="%IMAGEPATH%/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
-              &lt;img src="%IMAGEPATH%/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
-              &lt;img src="%IMAGEPATH%/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Serve assistenza tecnica?&lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Domande su Vendite&lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Ordina Demo&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
-              &lt;a href="%SUPPORTURL%" target="_blank" style="color: #333;"&gt;Send your question&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
-              &lt;a href="mailto:%SALESEMAIL%" style="color: #333;"&gt;Email us&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
-              &lt;a href="%DEMOURL%" target="_blank" style="color: #333;"&gt;Invia una richiesta&lt;/a&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;</value>
-  </data>
-  <data name="FooterOpensourceV10" xml:space="preserve">
-    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt; &lt;/td&gt;&lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
-              &lt;img src="%IMAGEPATH%/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
-              &lt;img src="%IMAGEPATH%/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
-              &lt;img src="%IMAGEPATH%/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Serve assistenza?&lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Domande sulla vendita&lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Ordina una Demo&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
-              &lt;a href="http://dev.onlyoffice.org/" target="_blank" style="color: #333;"&gt;Chiedi alla Community&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
-              &lt;a href="mailto:sales@onlyoffice.com" style="color: #333;"&gt;Scrivici&lt;/a&gt;
-            &lt;/td&gt;
-            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
-              &lt;a href="http://www.onlyoffice.com/demo-order.aspx" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;</value>
-  </data>
   <data name="HtmlMaster" xml:space="preserve">
     <value>&lt;body style="margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;"&gt;
 &lt;div style="background-color: #fff; width: 600px; margin: 0 auto; text-align: left;"&gt;
@@ -157,40 +97,6 @@
     &lt;/table&gt;
 &lt;/div&gt;
 &lt;/body&gt;</value>
-  </data>
-  <data name="SocialNetworksFooterV10" xml:space="preserve">
-    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;"&gt;
-              &lt;a href="https://www.facebook.com/pages/OnlyOffice/833032526736775" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="%IMAGEPATH%/social-fb-40.png" alt="Facebook" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="https://twitter.com/ONLY_OFFICE" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="%IMAGEPATH%/social-tw-40.png" alt="Twitter" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="https://www.onlyoffice.com/blog" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="%IMAGEPATH%/social-blog-40.png" alt="ONLYOFFICE" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="https://www.youtube.com/user/onlyofficeTV" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="%IMAGEPATH%/social-youtube-40.png" alt="YouTube" style="width: 40px; height: 40x;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
-              &lt;a href="https://vk.com/onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="%IMAGEPATH%/social-vk-40.png" alt="VK" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 155px 0 5px;"&gt;
-              &lt;a href="https://www.instagram.com/the_onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
-                  &lt;img src="%IMAGEPATH%/social-inst-40.png" alt="Instagram" style="width: 40px; height: 40px;" /&gt;
-              &lt;/a&gt;
-          &lt;/td&gt;
-        &lt;/tr&gt;</value>
   </data>
   <data name="TextForFooterWithUnsubscribeLink" xml:space="preserve">
     <value>Questo messaggio è stato generato automaticamente e non necessità di risposta.

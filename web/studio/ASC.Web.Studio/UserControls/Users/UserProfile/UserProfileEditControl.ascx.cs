@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,6 +78,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         protected string Position;
         protected string Place;
         protected string Login;
+        protected UserInfo Lead;
         protected string Comment;
         protected string ProfileGender;
         protected string PhotoPath = UserPhotoManager.GetDefaultPhotoAbsoluteWebPath();
@@ -92,10 +93,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         protected string UserTypeSelectorGuestItemClass;
         protected string UserTypeSelectorUserItemClass;
 
-        protected int UserPasswordMinLength;
-        protected bool UserPasswordUpperCase;
-        protected bool UserPasswordDigits;
-        protected bool UserPasswordSpecSymbols;
+        protected PasswordSettings TenantPasswordSettings;
 
         protected string PageTitle = Resource.CreateNewProfile;
         protected string ButtonText = Resource.AddButton;
@@ -242,6 +240,14 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         {
             Page.RegisterBodyScripts("~/js/third-party/xregexp.js", "~/UserControls/Users/UserProfile/js/userprofileeditcontrol.js")
                 .RegisterStyle("~/UserControls/Users/UserProfile/css/profileeditcontrol_style.less");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Users/UserProfile/css/dark-profileeditcontrol_style.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Users/UserProfile/css/profileeditcontrol_style.less");
+            }
         }
 
         public bool CanAddVisitor()
@@ -299,12 +305,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         private void InitPasswordSettings()
         {
-            var passwordSettings = PasswordSettings.Load();
-
-            UserPasswordMinLength = passwordSettings.MinLength;
-            UserPasswordDigits = passwordSettings.Digits;
-            UserPasswordSpecSymbols = passwordSettings.SpecSymbols;
-            UserPasswordUpperCase = passwordSettings.UpperCase;
+            TenantPasswordSettings = PasswordSettings.Load();
         }
 
         private void InitProfileFields(ProfileHelper profileHelper)
@@ -314,6 +315,10 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             Email = Profile.Email.HtmlEncode();
             Phone = Profile.MobilePhone.HtmlEncode();
             Position = Profile.Title.HtmlEncode();
+            if (!IsPersonal && Profile.Lead.HasValue)
+            {
+                Lead = CoreContext.UserManager.GetUsers(Profile.Lead.Value);
+            }
             Place = Profile.Location.HtmlEncode();
             Login = Profile.UserName.HtmlEncode();
             Comment = Profile.Notes.HtmlEncode();

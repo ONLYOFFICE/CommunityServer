@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,25 +44,39 @@ namespace ASC.Api.Employee
         private GroupWrapperFull()
         {
         }
-
+        ///<example>Description</example>
+        ///<order>5</order>
         [DataMember(Order = 5)]
         public string Description { get; set; }
 
+        ///<example>Sample group</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Name { get; set; }
 
+        ///<example>852d4b63-997a-4bae-aa7b-89bb87d85dbf</example>
+        ///<order>4</order>
         [DataMember(Order = 4, EmitDefaultValue = true)]
         public Guid? Parent { get; set; }
 
+        ///<example>74f31a85-991b-4e9b-b9e8-ae8e80d468f5</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public Guid Category { get; set; }
 
+        ///<example>fadd9f49-2431-4610-a518-3ca9b3843c88</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public Guid Id { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>9</order>
         [DataMember(Order = 9, EmitDefaultValue = true)]
         public EmployeeWraper Manager { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>10</order>
+        ///<collection>list</collection>
         [DataMember(Order = 10, EmitDefaultValue = false)]
         public List<EmployeeWraper> Members { get; set; }
 

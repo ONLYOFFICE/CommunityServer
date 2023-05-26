@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,15 +25,18 @@ using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Api.Community
 {
+    ///<name>community</name>
     public partial class CommunityApi
     {
         /// <summary>
         /// Returns the preview information about the specified category from the community section.
         /// </summary>
         /// <short>Get preview</short>
-        /// <param name="title">Category title</param>
-        /// <param name="content">Category content</param>
+        /// <param type="System.String, System" name="title">Category title</param>
+        /// <param type="System.String, System" name="content">Category content</param>
         /// <returns>Preview information</returns>
+        /// <path>api/2.0/community/preview</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("preview")]
         public object GetPreview(string title, string content)
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ namespace ASC.Core.Common.Tests
         public void ClearData()
         {
             Service.RemoveTenantQuota(Tenant);
-            foreach (var row in Service.FindTenantQuotaRows(new TenantQuotaRowQuery(Tenant) { Path = "path" }))
+            foreach (var row in Service.FindTenantQuotaRows(Tenant))
             {
                 DeleteQuotaRow(row);
             }
@@ -61,12 +61,12 @@ namespace ASC.Core.Common.Tests
             var row = new TenantQuotaRow { Tenant = this.Tenant, Path = "path", Counter = 1000, Tag = "tag" };
             Service.SetTenantQuotaRow(row, false);
 
-            var rows = Service.FindTenantQuotaRows(new TenantQuotaRowQuery(Tenant).WithPath("path")).ToList();
+            var rows = Service.FindTenantQuotaRows(Tenant).ToList();
             CompareQuotaRows(row, rows.Find(r => r.Tenant == row.Tenant && r.Tag == row.Tag));
 
             Service.SetTenantQuotaRow(row, true);
             row.Counter += 1000;
-            rows = Service.FindTenantQuotaRows(new TenantQuotaRowQuery(Tenant).WithPath("path")).ToList();
+            rows = Service.FindTenantQuotaRows(Tenant).ToList();
             CompareQuotaRows(row, rows.Find(r => r.Tenant == row.Tenant && r.Tag == row.Tag));
 
             DeleteQuotaRow(row);
@@ -81,7 +81,6 @@ namespace ASC.Core.Common.Tests
                 Features = "trial,year",
                 Name = "quota1",
                 Price = 12.5m,
-                Price2 = 45.23m,
                 Visible = true,
                 MaxFileSize = 3,
                 MaxTotalSize = 4,
@@ -106,7 +105,6 @@ namespace ASC.Core.Common.Tests
             Assert.AreEqual(q1.ActiveUsers, q2.ActiveUsers);
             Assert.AreEqual(q1.Features, q2.Features);
             Assert.AreEqual(q1.Price, q2.Price);
-            Assert.AreEqual(q1.Price2, q2.Price2);
             Assert.AreEqual(q1.AvangateId, q2.AvangateId);
             Assert.AreEqual(q1.Visible, q2.Visible);
         }
@@ -122,7 +120,7 @@ namespace ASC.Core.Common.Tests
         private void DeleteQuotaRow(TenantQuotaRow row)
         {
             var d = new SqlDelete(DbQuotaService.tenants_quotarow).Where("tenant", row.Tenant).Where("path", row.Path);
-            new DbManager("core").ExecuteNonQuery(d);
+            DbManager.FromHttpContext("core").ExecuteNonQuery(d);
         }
     }
 }

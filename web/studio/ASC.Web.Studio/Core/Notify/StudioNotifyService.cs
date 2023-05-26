@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,12 +131,12 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendMsgToAdminAboutProfileUpdated()
         {
-            client.SendNoticeAsync(Actions.SelfProfileUpdated, null, null);
+            client.SendNoticeAsync(Actions.SelfProfileUpdated, null);
         }
 
         public void SendMsgToAdminFromNotAuthUser(string email, string message)
         {
-            client.SendNoticeAsync(Actions.UserMessageToAdmin, null, null,
+            client.SendNoticeAsync(Actions.UserMessageToAdmin, null,
                 new TagValue(Tags.Body, message), new TagValue(Tags.UserEmail, email));
         }
 
@@ -168,7 +168,6 @@ namespace ASC.Web.Studio.Core.Notify
                                      null,
                                      new[] { recipient },
                                      new[] { "email.sender" },
-                                     null,
                                      new TagValue(Tags.UserName, fname),
                                      new TagValue(Tags.UserLastName, lname),
                                      new TagValue(Tags.UserPosition, title),
@@ -184,13 +183,13 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendToAdminVoipWarning(double balance)
         {
-            client.SendNoticeAsync(Actions.VoipWarning, null, null,
+            client.SendNoticeAsync(Actions.VoipWarning, null,
                 new TagValue(Tags.Body, balance));
         }
 
         public void SendToAdminVoipBlocked()
         {
-            client.SendNoticeAsync(Actions.VoipBlocked, null, null);
+            client.SendNoticeAsync(Actions.VoipBlocked, null);
         }
 
 
@@ -217,7 +216,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         StudioNotifyHelper.RecipientFromEmail(userInfo.Email, false),
                         new[] { EMailSenderName },
-                        null,
                         TagValues.GreenButton(greenButtonText, confirmationUrl));
 
             var displayUserName = userInfo.DisplayUserName(false);
@@ -244,7 +242,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         StudioNotifyHelper.RecipientFromEmail(email, false),
                         new[] { EMailSenderName },
-                        null,
                         TagValues.GreenButton(greenButtonText, confirmationUrl),
                         new TagValue(CommonTags.Culture, user.GetCulture().Name));
         }
@@ -260,7 +257,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         StudioNotifyHelper.RecipientFromEmail(email, false),
                         new[] { EMailSenderName },
-                        null,
                         new TagValue(Tags.InviteLink, confirmationUrl),
                         TagValues.GreenButton(greenButtonText, confirmationUrl),
                         new TagValue(Tags.UserDisplayName, (user.DisplayUserName() ?? string.Empty).Trim()));
@@ -304,7 +300,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(toEmails, false),
                 new[] { EMailSenderName },
-                null,
                 tags.ToArray());
         }
 
@@ -315,7 +310,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(toEmails, false),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, username ?? string.Empty),
                 new TagValue(Tags.Address, address ?? string.Empty));
         }
@@ -333,7 +327,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(userInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 TagValues.GreenButton(greenButtonText, confirmationUrl));
         }
 
@@ -348,7 +341,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(userInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 TagValues.GreenButton(greenButtonText, confirmationUrl));
         }
 
@@ -357,7 +349,7 @@ namespace ASC.Web.Studio.Core.Notify
         {
             if (!CoreContext.Configuration.Personal)
             {
-                client.SendNoticeAsync(Actions.UserHasJoin, null, null);
+                client.SendNoticeAsync(Actions.UserHasJoin, null);
             }
         }
 
@@ -373,7 +365,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         StudioNotifyHelper.RecipientFromEmail(email, true),
                         new[] { EMailSenderName },
-                        null,
                         new TagValue(Tags.InviteLink, inviteUrl),
                         TagValues.GreenButton(greenButtonText, inviteUrl));
         }
@@ -427,7 +418,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(newUserInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, newUserInfo.FirstName.HtmlEncode()),
                 new TagValue(Tags.MyStaffLink, GetMyStaffLink()),
                 TagValues.GreenButton(greenButtonText, CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/')),
@@ -467,7 +457,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(newUserInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, newUserInfo.FirstName.HtmlEncode()),
                 new TagValue(Tags.MyStaffLink, GetMyStaffLink()),
                 TagValues.GreenButton(greenButtonText, CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/')),
@@ -507,7 +496,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(newUserInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.ActivateUrl, confirmationUrl),
                 TagValues.GreenButton(greenButtonText, confirmationUrl),
                 new TagValue(Tags.UserName, newUserInfo.FirstName.HtmlEncode()),
@@ -547,7 +535,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(newUserInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.ActivateUrl, confirmationUrl),
                 TagValues.GreenButton(greenButtonText, confirmationUrl),
                 new TagValue(Tags.UserName, newUserInfo.FirstName.HtmlEncode()),
@@ -569,7 +556,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(user.Email, false),
                 new[] { EMailSenderName },
-                null,
                 TagValues.GreenButton(greenButtonText, confirmationUrl),
                 new TagValue(CommonTags.Culture, user.GetCulture().Name));
         }
@@ -597,7 +583,6 @@ namespace ASC.Web.Studio.Core.Notify
                             null,
                             new IRecipient[] { admin },
                             new[] { EMailSenderName },
-                            null,
                             new TagValue(Tags.FromUserName, user.DisplayUserName()),
                             new TagValue(Tags.FromUserLink, GetUserProfileLink(user.ID)));
                     }
@@ -617,7 +602,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 new[] { StudioNotifyHelper.ToRecipient(recipientId) },
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, DisplayUserSettings.GetFullUserName(recipientId)),
                 new TagValue(Tags.FromUserName, fromUser.DisplayUserName()),
                 new TagValue(Tags.FromUserLink, GetUserProfileLink(fromUser.ID)),
@@ -632,7 +616,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 new[] { StudioNotifyHelper.ToRecipient(recipientId) },
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, DisplayUserSettings.GetFullUserName(recipientId)),
                 new TagValue(Tags.FromUserName, fromUser.DisplayUserName()),
                 new TagValue(Tags.FromUserLink, GetUserProfileLink(fromUser.ID)),
@@ -648,7 +631,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 new[] { StudioNotifyHelper.ToRecipient(recipientId) },
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, DisplayUserSettings.GetFullUserName(recipientId)),
                 new TagValue(Tags.FromUserName, fromUserName.HtmlEncode()),
                 new TagValue(Tags.FromUserLink, GetUserProfileLink(fromUserId)),
@@ -665,7 +647,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 new[] { StudioNotifyHelper.ToRecipient(recipientId) },
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.UserName, DisplayUserSettings.GetFullUserName(recipientId)),
                 new TagValue(Tags.FromUserName, fromUserName.HtmlEncode()),
                 new TagValue(Tags.FromUserLink, GetUserProfileLink(fromUserId)),
@@ -711,7 +692,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(newUserInfo.Email, false),
                 new[] { EMailSenderName },
-                null,
                 tagValues.ToArray());
         }
 
@@ -724,7 +704,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 new[] { StudioNotifyHelper.ToRecipient(userId) },
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.OwnerName, CoreContext.UserManager.GetUsers(userId).DisplayUserName()));
         }
 
@@ -740,8 +719,7 @@ namespace ASC.Web.Studio.Core.Notify
                 Actions.RestoreStarted,
                 null,
                 users,
-                new[] { EMailSenderName },
-                null);
+                new[] { EMailSenderName });
         }
 
         public void SendMsgRestoreCompleted(bool notifyAllUsers)
@@ -762,7 +740,6 @@ namespace ASC.Web.Studio.Core.Notify
                     null,
                     new IRecipient[] { user },
                     new[] { EMailSenderName },
-                    null,
                     TagValues.GreenButton(greenButtonText, confirmationUrl));
             }
         }
@@ -782,7 +759,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         new IRecipient[] { u },
                         new[] { EMailSenderName },
-                        null,
                         new TagValue(Tags.ActivateUrl, activateUrl),
                         TagValues.GreenButton(greenButtonText, deactivateUrl),
                         new TagValue(Tags.OwnerName, u.DisplayUserName()));
@@ -799,7 +775,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         new IRecipient[] { u },
                         new[] { EMailSenderName },
-                        null,
                         TagValues.GreenButton(greenButtonText, url),
                         new TagValue(Tags.AutoRenew, showAutoRenewText.ToString()),
                         new TagValue(Tags.OwnerName, u.DisplayUserName()));
@@ -814,7 +789,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         new IRecipient[] { owner },
                         new[] { EMailSenderName },
-                        null,
                         TagValues.GreenButton(greenButtonText, url),
                         new TagValue(Tags.OwnerName, owner.DisplayUserName()));
         }
@@ -832,7 +806,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         new IRecipient[] { u },
                         new[] { EMailSenderName },
-                        null,
                         new TagValue("ConfirmDnsUpdate", confirmDnsUpdateUrl),//TODO: Tag is deprecated and replaced by TagGreenButton
                         TagValues.GreenButton(greenButtonText, confirmDnsUpdateUrl),
                         new TagValue("PortalAddress", AddHttpToUrl(portalAddress)),
@@ -850,7 +823,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 new IRecipient[] { owner },
                 new[] { EMailSenderName },
-                null,
                 TagValues.GreenButton(greenButtonText, confirmOwnerUpdateUrl),
                 new TagValue(Tags.UserName, newOwner.DisplayUserName()),
                 new TagValue(Tags.OwnerName, owner.DisplayUserName()));
@@ -890,7 +862,6 @@ namespace ASC.Web.Studio.Core.Notify
                     null,
                     StudioNotifyHelper.RecipientFromEmail(u.Email, false),
                     new[] { EMailSenderName },
-                    null,
                     new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
                     new TagValue(Tags.MyStaffLink, GetMyStaffLink()),
                     new TagValue(Tags.ActivateUrl, confirmationUrl),
@@ -926,7 +897,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(email, false),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(Tags.InviteLink, confirmUrl),
                 new TagValue(CommonTags.Footer, CoreContext.Configuration.CustomMode ? "personalCustomMode" : "personal"),
                 new TagValue(CommonTags.Culture, Thread.CurrentThread.CurrentUICulture.Name));
@@ -939,7 +909,6 @@ namespace ASC.Web.Studio.Core.Notify
                 null,
                 StudioNotifyHelper.RecipientFromEmail(newUserInfo.Email, true),
                 new[] { EMailSenderName },
-                null,
                 new TagValue(CommonTags.Footer, CoreContext.Configuration.CustomMode ? "personalCustomMode" : "personal"),
                 new TagValue(CommonTags.MasterTemplate, "HtmlMasterPersonal"));
         }
@@ -989,7 +958,6 @@ namespace ASC.Web.Studio.Core.Notify
                             null,
                             new IRecipient[] { user },
                             new[] { EMailSenderName },
-                            null,
                             currentArgs.ToArray());
                     }
                 }
@@ -1000,7 +968,6 @@ namespace ASC.Web.Studio.Core.Notify
                         null,
                         users.Select(u => StudioNotifyHelper.ToRecipient(u.ID)).ToArray(),
                         new[] { EMailSenderName },
-                        null,
                         args.ToArray());
                 }
             }
@@ -1046,7 +1013,6 @@ namespace ASC.Web.Studio.Core.Notify
                             null,
                             new[] { StudioNotifyHelper.ToRecipient(u.ID) },
                             new[] { EMailSenderName },
-                            null,
                             new TagValue(Tags.PortalUrl, oldVirtualRootPath),
                             new TagValue(Tags.UserDisplayName, u.DisplayUserName()));
                     }
@@ -1146,7 +1112,6 @@ namespace ASC.Web.Studio.Core.Notify
                     null,
                     new IRecipient[] { recipient },
                     new[] { EMailSenderName },
-                    null,
                     new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
                     new TagValue(Tags.UserLastName, u.LastName.HtmlEncode()),
                     new TagValue(Tags.UserEmail, u.Email.HtmlEncode()),
@@ -1206,7 +1171,6 @@ namespace ASC.Web.Studio.Core.Notify
                     null,
                     new[] { StudioNotifyHelper.ToRecipient(u.ID) },
                     new[] { EMailSenderName },
-                    null,
                     new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
                     new TagValue(Tags.PortalUrl, serverRootPath),
                     new TagValue(Tags.ControlPanelUrl, GetControlPanelUrl(serverRootPath)));

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "params.less";
 
 #milestonesListContainer
 {
@@ -59,7 +61,7 @@
             text-align: right;
 
             a {
-                color: #333333;
+                color: @text-color;
             }
         }
 
@@ -117,7 +119,7 @@
 
         &.process {
             height: 37px;
-            background: url('../../../../../skins/default/images/loader_16.gif') no-repeat 18px 11px;
+            background: url("../../../../../skins/default/images/@{loader-gif-16}") no-repeat 18px 11px;
         }
     }
 
@@ -126,7 +128,7 @@
     }
 
     tr:hover td.responsible span, td.responsible span:hover {
-        border-bottom: 1px dotted #000000;
+        border-bottom: 1px dotted @dark-text-color;
         cursor: pointer;
     }
 
@@ -141,7 +143,7 @@
 
 #descriptionPanel {
     font-size: 12px;
-    color: #333333;
+    color: @text-color;
     min-width: 150px;
     max-width: 420px;
     line-height: 20px;
@@ -152,8 +154,8 @@
             height: 20px;
 
             a {
-                border-bottom: 1px dotted #333333;
-                color: #333;
+                border-bottom: 1px dotted @text-color;
+                color: @text-color;
                 cursor: pointer;
                 max-width: 170px;
                 overflow: hidden;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -917,7 +917,9 @@ var LdapSettings = new function () {
         {
             if (key || occupiedAttributeKeys.indexOf(k) === -1) {
                 var option = document.createElement("option");
-                if (key == k) option.setAttribute("selected", true);
+                var lowerKey = key.toLowerCase(); //TODO bring everything to the same case
+                var lowerK = k.toLowerCase();
+                if (lowerKey == lowerK) option.setAttribute("selected", true);
                 option.setAttribute("value", k);
                 option.append(options[k]);
                 s.append(option);
@@ -1743,8 +1745,8 @@ var LdapSettings = new function () {
 
             clearAllMappingRows($ldapMappingSettings);
             if (ldapMapping) {
-                for (var key in ldapMapping) {
-                    addMappingRow($ldapMappingSettings, key, ldapMapping[key], ldapMappingRes[key], ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions.indexOf(key) !== -1);
+                for (var key in ldapMapping) {     //TODO bring everything to the same case
+                    addMappingRow($ldapMappingSettings, key, ldapMapping[key], ldapMappingRes[key], ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions.indexOf(key[0].toUpperCase() + key.slice(1)) !== -1);
                 }
             }
 

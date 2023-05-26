@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Linq;
 
 using ASC.Common.Logging;
 
@@ -261,7 +262,25 @@ namespace TMResourceData
             return zipPath;
         }
 
-        private static string GetCultureFromFileName(string fileName)
+        public static string GetJsonFromResx(string path)
+        {
+            var culture = GetCultureFromFileName(Path.GetFileName(path));
+
+            var obj = XElement.Parse(File.ReadAllText(path))
+                .Elements("data")
+                .ToDictionary(el => el.Attribute("name").Value, el => el.Element("value").Value.Trim());
+
+            string json = JsonConvert.SerializeObject(obj, Formatting.Indented);
+
+            return json;
+        }
+
+        public static Dictionary<string, string> GetResxDataFromJson(string path)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(path));
+        }
+
+        public static string GetCultureFromFileName(string fileName)
         {
             var culture = "Neutral";
             var nameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
@@ -272,6 +291,20 @@ namespace TMResourceData
             }
 
             return culture;
+        }
+
+        public static string GetCultureAndFileName(string fileName)
+        {
+            var culture = "en";
+            var nameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            if (nameWithoutExtension != null && nameWithoutExtension.Split('.').Length > 1)
+            {
+                culture = nameWithoutExtension.Split('.')[1];
+                nameWithoutExtension = nameWithoutExtension.Split('.')[0];
+            }
+
+            return Path.Combine(culture, $"{nameWithoutExtension}.json");
         }
     }
 }

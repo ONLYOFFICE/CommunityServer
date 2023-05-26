@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +21,34 @@ namespace ASC.VoipService
 {
     public class Agent
     {
+        ///<example>92eb52c8-bb93-4caf-87fb-46ea11530899</example>
         public Guid Id { get; set; }
 
+        ///<example type="int">1</example>
         public AnswerType Answer { get; set; }
 
+        ///<example>ClientID</example>
         public string ClientID { get { return PhoneNumber + PostFix; } }
 
+        ///<example>true</example>
         public bool Record { get; set; }
 
+        ///<example type="int">1</example>
         public int TimeOut { get; set; }
 
+        ///<example type="int">1</example>
         public AgentStatus Status { get; set; }
 
+        ///<example>true</example>
         public bool AllowOutgoingCalls { get; set; }
 
+        ///<example>PostFix</example>
         public string PostFix { get; set; }
 
+        ///<example>PhoneNumber</example>
         public string PhoneNumber { get; set; }
 
+        ///<example>RedirectToNumber</example>
         public string RedirectToNumber { get; set; }
 
         public Agent()
@@ -63,10 +73,19 @@ namespace ASC.VoipService
 
     public class Queue
     {
+        ///<example>id</example>
         public string Id { get; set; }
+
+        ///<example>Name</example>
         public string Name { get; set; }
+
+        ///<example type="int">123</example>
         public int Size { get; set; }
+
+        ///<example>WaitUrl</example>
         public string WaitUrl { get; set; }
+
+        ///<example type="int">4</example>
         public int WaitTime { get; set; }
 
         public Queue() { }
@@ -83,8 +102,13 @@ namespace ASC.VoipService
 
     public class WorkingHours
     {
+        ///<example>true</example>
         public bool Enabled { get; set; }
+
+        ///<example>2020-12-22T04:11:57.0469085+00:00</example>
         public TimeSpan? From { get; set; }
+
+        ///<example>2020-12-22T04:11:57.0469085+00:00</example>
         public TimeSpan? To { get; set; }
 
         public WorkingHours() { }
@@ -123,9 +147,16 @@ namespace ASC.VoipService
 
     public class VoipUpload
     {
+        ///<example>Name</example>
         public string Name { get; set; }
+
+        ///<example>Path</example>
         public string Path { get; set; }
+
+        ///<example type="int">1</example>
         public AudioType AudioType { get; set; }
+
+        ///<example>true</example>
         public bool IsDefault { get; set; }
     }
 

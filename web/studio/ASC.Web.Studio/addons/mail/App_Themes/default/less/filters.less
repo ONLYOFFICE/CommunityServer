@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "params.less";
 
 #pageActionContainer {
     .editFilterContentMenu {
@@ -112,7 +114,7 @@
                 }
 
                     .checkbox.disable span {
-                        color: #999999;
+                        color: @light-gray-text-color;
                     }
             }
         }
@@ -151,13 +153,13 @@
 
         .ui-state-default {
             border: initial;
-            background: #fff;
+            background: @body-color;
             font-weight: initial;
             color: initial;
         }
 
             .ui-state-default:hover {
-                background-color: #e5e5e5;
+                background-color: @hovered-row_bg;
             }
 
         .row {

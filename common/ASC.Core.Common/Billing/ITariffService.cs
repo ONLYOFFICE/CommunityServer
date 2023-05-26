@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,9 @@ namespace ASC.Core.Billing
 
         Uri GetShoppingUri(int? tenant, int quotaId, string affiliateId, string currency = null, string language = null, string customerId = null, string quantity = null);
 
-        Uri GetShoppingUri(string[] productIds, string affiliateId = null, string currency = null, string language = null, string customerId = null, string quantity = null);
+        Uri GetShoppingUri(string[] productIds, string affiliateId = null, string currency = null, string language = null, string customerId = null, string customerEmail = null, string backUrl = null, string quantity = null, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate);
 
-        IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(params string[] productIds);
+        IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(string[] productIds, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate);
 
         string GetButton(int tariffId, string partnerId);
 

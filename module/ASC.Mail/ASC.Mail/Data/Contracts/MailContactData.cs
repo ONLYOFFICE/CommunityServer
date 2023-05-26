@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,27 +51,37 @@ namespace ASC.Mail.Data.Contracts
             }
         }
 
+        ///<example name="id" type="int">1234</example>
         [DataMember(IsRequired = false, Name = "id")]
         public int ContactId { get; set; }
 
+        ///<example name="name">name</example>
         [DataMember(IsRequired = true, Name = "name")]
         public string Name { get; set; }
 
+        ///<example name="description">description</example>
         [DataMember(IsRequired = true, Name = "description")]
         public string Description { get; set; }
 
+        ///<type name="emails">ASC.Mail.Data.Contracts.ContactInfo, ASC.Mail</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = true, Name = "emails")]
         public EmailsList<ContactInfo> Emails { get; set; }
 
+        ///<type name="phones">ASC.Mail.Data.Contracts.ContactInfo, ASC.Mail</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = true, Name = "phones")]
         public PhoneNumgersList<ContactInfo> PhoneNumbers { get; set; }
 
+        ///<example name="type" type="int">1234</example>
         [DataMember(IsRequired = false, Name = "type")]
         public int Type { get; set; }
 
+        ///<example name="smallFotoUrl">smallFotoUrl</example>
         [DataMember(IsRequired = true, Name = "smallFotoUrl")]
         public string SmallFotoUrl { get; set; }
 
+        ///<example name="mediumFotoUrl">mediumFotoUrl</example>
         [DataMember(IsRequired = true, Name = "mediumFotoUrl")]
         public string MediumFotoUrl { get; set; }
     }

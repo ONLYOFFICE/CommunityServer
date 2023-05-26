@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,6 +84,7 @@ namespace ASC.Web.Core.Files
         /// <param name="password">Password</param>
         /// <param name="region">Four letter language codes</param>
         /// <param name="thumbnail">Thumbnail settings</param>
+        /// <param name="spreadsheetLayout"></param>
         /// <param name="isAsync">Perform conversions asynchronously</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="convertedDocumentUri">Uri to the converted document</param>
@@ -234,7 +235,6 @@ namespace ASC.Web.Core.Files
         /// <param name="users">users id for drop</param>
         /// <param name="meta">file meta data for update</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
-        /// <param name="version">server version</param>
         /// <returns>Response</returns>
         public static CommandResponse CommandRequest(
             string documentTrackerUrl,

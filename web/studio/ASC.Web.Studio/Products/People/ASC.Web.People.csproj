@@ -31,6 +31,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.People.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -154,12 +156,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\default\css\carddav.css" />
-    <Content Include="App_Themes\default\images\birthdayEmpScr.png" />
+    <Content Include="App_Themes\dark\dark-birthdays.less" />
+    <Content Include="App_Themes\dark\dark-carddav.less" />
+    <Content Include="App_Themes\dark\params.less" />
+    <Content Include="App_Themes\dark\dark-people.master.less" />
+    <Content Include="App_Themes\default\css\carddav.less" />
+    <Content Include="App_Themes\default\images\birthdayEmpScr.svg" />
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
-    <Content Include="App_Themes\default\images\product_logomiddle.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logomiddle.svg" />
     <Content Include="App_Themes\default\images\product_search_icon.png" />
     <Content Include="App_Themes\default\images\svg\birthday-orange.svg" />
     <Content Include="App_Themes\default\images\svg\birthday.svg" />
@@ -171,7 +177,7 @@
     <Content Include="App_Themes\default\imgs\angle05.png" />
     <Content Include="App_Themes\default\imgs\angle07.png" />
     <Content Include="App_Themes\default\imgs\angle08.png" />
-    <Content Include="App_Themes\default\imgs\birthday.png" />
+    <Content Include="App_Themes\default\imgs\birthday.svg" />
     <Content Include="App_Themes\default\imgs\btn-subtr.png" />
     <Content Include="App_Themes\default\imgs\delete_small.png" />
     <Content Include="App_Themes\default\imgs\icon-user-blocked-small.png" />
@@ -190,7 +196,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="js\birthdays.js" />
-    <Content Include="App_Themes\default\css\birthdays.css" />
+    <Content Include="App_Themes\default\css\birthdays.less" />
     <Content Include="js\carddav.js" />
     <Content Include="Resources\patterns.xml" />
     <Content Include="Reassigns.aspx">
@@ -212,13 +218,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Templates\PeopleTemplates.html" />
+    <Content Include="UserControls\ImportUsers\images\from_file.svg" />
+    <Content Include="UserControls\ImportUsers\images\manually.svg" />
     <Content Include="UserControls\SideButtonsPanel.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="UserControls\ImportUsers\images\error_info.png" />
-    <Content Include="UserControls\ImportUsers\images\from_file.png" />
     <Content Include="UserControls\ImportUsers\images\icon_add_users.png" />
-    <Content Include="UserControls\ImportUsers\images\manually.png" />
     <Content Include="UserControls\ImportUsers\images\outlook.png" />
     <Content Include="UserControls\ImportUsers\images\refresh.png" />
     <Content Include="UserControls\ImportUsers\images\remove_red.png" />
@@ -229,6 +235,7 @@
     <Content Include="UserControls\SideNavigationPanel.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="UserControls\ImportUsers\css\dark-import.less" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\BirthdayPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
@@ -672,7 +679,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Themes\default\css\people.master.less" />
+    <Content Include="App_Themes\default\css\params.less" />
+    <Content Include="App_Themes\default\css\people.master.less" />
     <Content Include="Help.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

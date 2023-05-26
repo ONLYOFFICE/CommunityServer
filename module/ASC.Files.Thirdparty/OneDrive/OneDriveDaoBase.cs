@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ namespace ASC.Files.Thirdparty.OneDrive
 
         protected IDbManager GetDb()
         {
-            return DbManager.FromHttpContext(FileConstant.DatabaseId);
+            return new DbManager(FileConstant.DatabaseId);
         }
 
         protected object MappingID(object id, bool saveIfNotExist = false)
@@ -190,7 +190,7 @@ namespace ASC.Files.Thirdparty.OneDrive
             var folder = new Folder
             {
                 ID = MakeId(isRoot ? string.Empty : onedriveFolder.Id),
-                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(onedriveFolder)),
+                ParentFolderID = isRoot ? (OneDriveProviderInfo.RootFolderType == FolderType.COMMON ? Global.FolderCommon : Global.FolderMy) : MakeId(GetParentFolderId(onedriveFolder)),
                 CreateBy = OneDriveProviderInfo.Owner,
                 CreateOn = isRoot ? OneDriveProviderInfo.CreateOn : (onedriveFolder.CreatedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFolder.CreatedDateTime.Value.DateTime) : default(DateTime)),
                 FolderType = FolderType.DEFAULT,

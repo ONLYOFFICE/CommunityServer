@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -374,18 +374,34 @@ namespace ASC.Web.Studio.Core.Backup
 
         public class Schedule
         {
+            ///<example type="int">1</example>
             public BackupStorageType StorageType { get; set; }
+
+            ///<example>null</example>
             public Dictionary<string, string> StorageParams { get; set; }
+
+            ///<type>ASC.Web.Studio.Core.Backup.CronParams, ASC.Web.Studio</type>
             public CronParams CronParams { get; set; }
+
+            ///<example>true</example>
             public bool BackupMail { get; set; }
+
+            ///<example type="int">1</example>
             public int BackupsStored { get; set; }
+
+            ///<example>2019-07-26T00:00:00</example>
             public DateTime LastBackupTime { get; set; }
         }
 
         public class CronParams
         {
+            ///<example type="int">0</example>
             public BackupPeriod Period { get; set; }
+
+            ///<example type="Hour">5</example>
             public int Hour { get; set; }
+
+            ///<example type="Day">4</example>
             public int Day { get; set; }
 
             public CronParams()

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web.UI;
 
 using ASC.Core.Users;
 using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
@@ -57,9 +58,15 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 MainImgUrl = UserPhotoManager.GetPhotoAbsoluteWebPath(User.ID);
                 ThumbnailSettings = UserPhotoThumbnailSettings.LoadForUser(User.ID);
             }
-
-            Page.RegisterStyle("~/UserControls/Users/UserProfile/css/loadphoto_style.less",
-                               "~/UserControls/Users/UserProfile/css/jquery.jcrop.less")
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Users/UserProfile/css/dark-loadphoto_style.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Users/UserProfile/css/loadphoto_style.less");
+            }
+            Page.RegisterStyle("~/UserControls/Users/UserProfile/css/jquery.jcrop.less")
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
                                     "~/UserControls/Users/UserProfile/js/loadphoto.js",
                                      "~/UserControls/Users/UserProfile/js/jquery.jcrop.js");

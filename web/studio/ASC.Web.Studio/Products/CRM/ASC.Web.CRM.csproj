@@ -31,6 +31,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.CRM.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -574,42 +576,67 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\css\reports.less" />
-    <Content Include="App_Themes\default\images\contacts.png" />
-    <Content Include="App_Themes\default\images\empty_screen_phones.png" />
-    <Content Include="App_Themes\default\images\customize.png" />
+    <Content Include="App_Themes\default\images\activity_widget.svg" />
+    <Content Include="App_Themes\default\images\cases_widget.svg" />
+    <Content Include="App_Themes\default\images\companies_widget.svg" />
+    <Content Include="App_Themes\default\images\contacts.svg" />
+    <Content Include="App_Themes\default\images\customize.svg" />
+    <Content Include="App_Themes\default\images\deal_widget.svg" />
     <Content Include="App_Themes\default\images\drag.png" />
     <Content Include="App_Themes\default\images\drug-n-drop_items.png" />
     <Content Include="App_Themes\default\images\empty_company_logo_180_180.png" />
     <Content Include="App_Themes\default\images\empty_company_logo_200_200.png" />
     <Content Include="App_Themes\default\images\empty_people_logo_180_180.png" />
     <Content Include="App_Themes\default\images\empty_people_logo_200_200.png" />
-    <Content Include="App_Themes\default\images\empty_screen_invoices.png" />
-    <Content Include="App_Themes\default\images\empty_screen_products_services.png" />
-    <Content Include="App_Themes\default\images\empty_screen_taxes.png" />
-    <Content Include="App_Themes\default\images\empty_screen_voip_settings.png" />
+    <Content Include="App_Themes\default\images\empty_screen_cases.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_case_participants.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_companies.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_company_participants.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_deals.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_invoices.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_opportunity_participants.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_persons.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_phones.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_projects.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_social.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_tags.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_tasks.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_taxes.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_twitter.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_userfields.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_voip_settings.svg" />
     <Content Include="App_Themes\default\images\event_categories.png" />
+    <Content Include="App_Themes\default\images\export_data.svg" />
     <Content Include="App_Themes\default\images\flags_all.png" />
     <Content Include="App_Themes\default\images\icons.png" />
     <Content Include="App_Themes\default\images\edit_small.png" />
+    <Content Include="App_Themes\default\images\import-cases.svg" />
+    <Content Include="App_Themes\default\images\import-opportunities.svg" />
+    <Content Include="App_Themes\default\images\import-tasks.svg" />
     <Content Include="App_Themes\default\images\import.png" />
-    <Content Include="App_Themes\default\images\integration.png" />
-    <Content Include="App_Themes\default\images\invoice.png" />
+    <Content Include="App_Themes\default\images\import_contacts.svg" />
+    <Content Include="App_Themes\default\images\integration.svg" />
+    <Content Include="App_Themes\default\images\invoice.svg" />
+    <Content Include="App_Themes\default\images\loader-dark-24.svg" />
     <Content Include="App_Themes\default\images\loader_16_static.png" />
     <Content Include="App_Themes\default\images\loader_24.gif" />
     <Content Include="App_Themes\default\images\loader_24_static.png" />
+    <Content Include="App_Themes\default\images\mail_send.svg" />
+    <Content Include="App_Themes\default\images\people_widget.svg" />
+    <Content Include="App_Themes\default\images\sales.svg" />
+    <Content Include="App_Themes\default\images\tasks_widget.svg" />
     <Content Include="App_Themes\default\images\twitter.png" />
     <Content Include="App_Themes\default\images\voip_call_icons_sprite.png" />
     <Content Include="App_Themes\default\images\mail_icons.png" />
     <Content Include="App_Themes\default\images\org_logo_default.png" />
     <Content Include="App_Themes\default\images\people_icon.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
     <Content Include="App_Themes\default\images\remove.png" />
     <Content Include="App_Themes\default\images\remove_12.png" />
-    <Content Include="App_Themes\default\images\sales.png" />
     <Content Include="App_Themes\default\images\search_in_module.png" />
     <Content Include="App_Themes\default\images\task_categories.png" />
     <Content Include="App_Themes\default\images\voip_logo.png" />
+    <Content Include="App_Themes\default\images\web_to_leads.svg" />
     <Content Include="Calls.aspx" />
     <Content Include="Cases.aspx" />
     <Content Include="Controls\Cases\CasesActionView.ascx" />
@@ -1896,12 +1923,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\css\fg.css" />
-    <Content Include="App_Themes\default\images\activity_widget.png" />
-    <Content Include="App_Themes\default\images\cases_widget.png" />
-    <Content Include="App_Themes\default\images\deal_widget.png" />
     <Content Include="App_Themes\default\images\fg.png" />
-    <Content Include="App_Themes\default\images\people_widget.png" />
-    <Content Include="App_Themes\default\images\tasks_widget.png" />
     <Content Include="Default.aspx" />
     <Content Include="Controls\Common\FileUploader.ascx" />
     <Content Include="Controls\Common\PrivatePanel.ascx" />
@@ -2158,7 +2180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\images\32-attach.png" />
-    <Content Include="App_Themes\default\images\empty_screen_projects.png" />
     <Content Include="App_Themes\default\images\event_category_attach_file.png" />
     <Content Include="App_Themes\default\images\event_category_call.png" />
     <Content Include="App_Themes\default\images\event_category_close.png" />
@@ -2184,20 +2205,8 @@
     <Content Include="App_Themes\default\images\hover_task_category_ship.png" />
     <Content Include="App_Themes\default\images\hover_task_category_social_networks.png" />
     <Content Include="App_Themes\default\images\hover_task_category_thank_you.png" />
-    <Content Include="App_Themes\default\images\import-cases.png" />
-    <Content Include="App_Themes\default\images\import-opportunities.png" />
-    <Content Include="App_Themes\default\images\import-tasks.png" />
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
-    <Content Include="App_Themes\default\images\empty_screen_case_participants.png" />
-    <Content Include="App_Themes\default\images\empty_screen_company_participants.png" />
-    <Content Include="App_Themes\default\images\empty_screen_opportunity_participants.png" />
-    <Content Include="App_Themes\default\images\empty_screen_persons.png" />
-    <Content Include="App_Themes\default\images\empty_screen_social.png" />
-    <Content Include="App_Themes\default\images\empty_screen_tags.png" />
-    <Content Include="App_Themes\default\images\empty_screen_twitter.png" />
-    <Content Include="App_Themes\default\images\empty_screen_userfields.png" />
     <Content Include="App_Themes\default\images\back-progress-light-big.png" />
-    <Content Include="App_Themes\default\images\companies_widget.png" />
     <Content Include="App_Themes\default\images\csv_16.png" />
     <Content Include="App_Themes\default\images\empty_company_logo_145_145.png" />
     <Content Include="App_Themes\default\images\empty_company_logo_40_40.png" />
@@ -2205,13 +2214,6 @@
     <Content Include="App_Themes\default\images\empty_people_logo_145_145.png" />
     <Content Include="App_Themes\default\images\empty_people_logo_40_40.png" />
     <Content Include="App_Themes\default\images\empty_people_logo_82_82.png" />
-    <Content Include="App_Themes\default\images\export_data.png" />
-    <Content Include="App_Themes\default\images\import_contacts.png" />
-    <Content Include="App_Themes\default\images\mail_send.png" />
-    <Content Include="App_Themes\default\images\empty_screen_cases.png" />
-    <Content Include="App_Themes\default\images\empty_screen_companies.png" />
-    <Content Include="App_Themes\default\images\empty_screen_deals.png" />
-    <Content Include="App_Themes\default\images\empty_screen_tasks.png" />
     <Content Include="App_Themes\default\images\task_category_call.png" />
     <Content Include="App_Themes\default\images\task_category_deal.png" />
     <Content Include="App_Themes\default\images\task_category_demo.png" />
@@ -2224,7 +2226,6 @@
     <Content Include="App_Themes\default\images\task_category_ship.png" />
     <Content Include="App_Themes\default\images\task_category_social_networks.png" />
     <Content Include="App_Themes\default\images\task_category_thank_you.png" />
-    <Content Include="App_Themes\default\images\web_to_leads.png" />
     <Content Include="Controls\Cases\CasesFullCardView.ascx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
     <Content Include="Controls\Contacts\ContactFullCardView.ascx" />
@@ -2378,6 +2379,12 @@
   <ItemGroup>
     <Content Include="Warmup.aspx" />
     <Content Include="web.config" />
+    <Content Include="App_Themes\dark\dark-common.less" />
+    <Content Include="App_Themes\dark\dark-contacts.less" />
+    <Content Include="App_Themes\dark\dark-crm.less" />
+    <Content Include="App_Themes\dark\dark-params.less" />
+    <Content Include="App_Themes\default\css\params.less" />
+    <Content Include="App_Themes\default\css\crm.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -2416,7 +2423,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

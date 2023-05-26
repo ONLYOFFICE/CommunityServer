@@ -49,6 +49,7 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +72,7 @@
     <Compile Include="Utils\DnsLookupTest.cs" />
     <Compile Include="Utils\HtmlUtil_Test.cs" />
     <Compile Include="Utils\MimeHeaderUtilsTest.cs" />
+    <Compile Include="Web\ResiliencePoliciesTest.cs" />
     <Compile Include="Web\MimeMappingTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +92,7 @@
       <Version>2.1.1</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.19</Version>
+      <Version>8.0.32.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

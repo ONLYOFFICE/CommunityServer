@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -164,13 +164,13 @@ namespace ASC.Web.Studio
                                 return false;
                             }
 
-                            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable && smsConfirm.ToLower() != "true")
+                            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.TfaEnabledForUser(user.ID) && smsConfirm.ToLower() != "true")
                             {
                                 //todo: think about 'first' & 'module'
                                 Response.Redirect(SmsConfirmUrl(user), true);
                             }
 
-                            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+                            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.TfaEnabledForUser(user.ID))
                             {
                                 //todo: think about 'first' & 'module'
                                 Response.Redirect(TfaConfirmUrl(user), true);
@@ -241,6 +241,10 @@ namespace ASC.Web.Studio
 
                     checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + hash, key, validInterval);
 
+                    break;
+
+                case ConfirmType.ShareLinkPassword:
+                    checkKeyResult = EmailValidationKeyProvider.ValidationResult.Ok;
                     break;
 
                 default:
@@ -328,6 +332,11 @@ namespace ASC.Web.Studio
                     confirmTfaActivation.Activation = _type == ConfirmType.TfaActivation;
                     confirmTfaActivation.User = CoreContext.UserManager.GetUserByEmail(_email);
                     _confirmHolder.Controls.Add(confirmTfaActivation);
+                    break;
+
+                case ConfirmType.ShareLinkPassword:
+                    var shareLinkPassword = (ShareLinkPassword)LoadControl(ShareLinkPassword.Location);
+                    _confirmHolder.Controls.Add(shareLinkPassword);
                     break;
             }
         }

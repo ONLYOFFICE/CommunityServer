@@ -34,7 +34,7 @@
             </a>
         </li>
         <li class="menu-action-on-top">
-            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
+            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0) || document.querySelector('.mainPageContent').scrollTo(0, 0);">
                 <%= CRMCommonResource.OnTop%>
             </a>
         </li>

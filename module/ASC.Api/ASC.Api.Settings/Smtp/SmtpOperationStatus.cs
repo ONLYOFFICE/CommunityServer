@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,21 +22,27 @@ namespace ASC.Api.Settings.Smtp
     [DataContract]
     public class SmtpOperationStatus
     {
+        ///<example>true</example>
         [DataMember]
         public bool Completed { get; set; }
 
+        ///<example>{some-random-guid}</example>
         [DataMember]
         public string Id { get; set; }
 
+        ///<example></example>
         [DataMember]
         public string Status { get; set; }
 
+        ///<example></example>
         [DataMember]
         public string Error { get; set; }
 
+        ///<example type="int">0</example>
         [DataMember]
         public int Percents { get; set; }
 
+        ///<example></example>
         [DataMember]
         public string Source { get; set; }
 

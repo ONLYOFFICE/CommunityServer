@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common;
 
@@ -86,7 +87,7 @@ namespace ASC.Web.Studio.Core.TFA
         public static bool ValidateAuthCode(this UserInfo user, string code, bool checkBackup = true, bool isEntryPoint = false)
         {
             if (!TfaAppAuthSettings.IsVisibleSettings
-                || !TfaAppAuthSettings.Enable)
+                || !TfaAppAuthSettings.TfaEnabledForUser(user.ID))
             {
                 return false;
             }
@@ -97,9 +98,11 @@ namespace ASC.Web.Studio.Core.TFA
 
             if (string.IsNullOrEmpty(code)) throw new Exception(Resource.ActivateTfaAppEmptyCode);
 
+            var attemptsCount = LoginSettings.Load().AttemptCount;
+
             int counter;
             int.TryParse(Cache.Get<string>("tfa/" + user.ID), out counter);
-            if (++counter > SetupInfo.LoginThreshold)
+            if (++counter > attemptsCount)
             {
                 throw new Authorize.BruteForceCredentialException(Resource.TfaTooMuchError);
             }

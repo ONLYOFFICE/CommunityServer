@@ -28,7 +28,7 @@
 
 <script id="mail-template-selector-items-list" type="text/x-jquery-tmpl">
     {{each(i, item) Items}}
-        <li title="${item.title}" data-id="${item.id}" {{if (item.data==true)}} data-cnt="${item.data}" {{/if}} style="color: #333333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <li title="${item.title}" data-id="${item.id}" {{if (item.data==true)}} data-cnt="${item.data}" {{/if}} {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 }} style="color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" {{else}}  style="color: rgba(255, 255, 255, 0.92); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" {{/if}}>
             ${item.title}
        </li>
     {{/each}}

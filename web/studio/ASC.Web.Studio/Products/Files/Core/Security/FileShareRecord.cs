@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,13 @@ namespace ASC.Files.Core.Security
 
         public Guid Subject { get; set; }
 
+        public SubjectType SubjectType { get; set; }
+
         public Guid Owner { get; set; }
 
         public FileShare Share { get; set; }
+
+        public FileShareOptions Options { get; set; }
 
         public int Level { get; set; }
 
@@ -66,5 +70,12 @@ namespace ASC.Files.Core.Security
         public Guid ShareBy { get; set; }
         public DateTime ShareOn { get; set; }
         public FileShare Share { get; set; }
+    }
+
+    public enum SubjectType
+    {
+        UserOrGroup = 0,
+        ExternalLink = 1,
+        Restriction = 2
     }
 }

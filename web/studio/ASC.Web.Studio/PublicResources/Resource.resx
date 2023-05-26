@@ -842,6 +842,33 @@
   <data name="ConsumersS3sse" xml:space="preserve">
     <value>Server Side Encryption Method</value>
   </data>
+  <data name="ConsumersS3EncryprionCSE" xml:space="preserve">
+    <value>Client-Side Encryption</value>
+  </data>
+  <data name="ConsumersS3EncryprionKey" xml:space="preserve">
+    <value>KMS Key Id</value>
+  </data>
+  <data name="ConsumersS3EncryprionNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ConsumersS3EncryprionSSE" xml:space="preserve">
+    <value>Server-Side Encryption</value>
+  </data>
+  <data name="ConsumersS3EncryprionSSEKMS" xml:space="preserve">
+    <value>SSE-KMS</value>
+  </data>
+  <data name="ConsumersS3EncryprionCMK" xml:space="preserve">
+    <value>Managed CMK</value>
+  </data>
+  <data name="ConsumersS3EncryprionCMKDefault" xml:space="preserve">
+    <value>Default AWS managed CMK</value>
+  </data>
+  <data name="ConsumersS3EncryprionCMKCustom" xml:space="preserve">
+    <value>Customer manager CMK</value>
+  </data>
+  <data name="ConsumersS3EncryprionSSES3" xml:space="preserve">
+    <value>SSE-S3</value>
+  </data>
   <data name="ConsumersS3sseDescription" xml:space="preserve">
     <value>The Server-side encryption algorithm used when storing this object in S3.</value>
   </data>
@@ -1784,8 +1811,8 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Trusted Mail Domain Settings{2} is a way to specify the mail servers used for user self-registration.{0}You can either check the {1}Custom domains{2} option and enter the trusted mail server in the field below so that a person who has an account at it will be able to register him(her)self by clicking the Join link on the {1}Sign In{2} page or disable this option.{0}To make the parameters you set take effect, click the {1}Save{2} button at the bottom of the section.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Password Strength Settings{2} is a way to determine the effectiveness of a password in resisting guessing and brute-force attacks.{0}Use the {1}Minimum Password Length{2} bar to determine how long the password should be. Check the appropriate boxes below to determine the character set that must be used in the password.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section.</value>
+  <data name="HelpAnswerPasswordStrengthSettings" xml:space="preserve">
+    <value>{1}Password Strength Settings{2} is a way to determine the effectiveness of a password in resisting guessing and brute-force attacks.{0}Use the {1}Password Length Range{2} bar to determine how long the password should be. Check the appropriate boxes below to determine the character set that must be used in the password.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section.</value>
   </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Public Portal{2} is a free option that allows anyone to view your public contents without registration. No private projects are available and the CRM module is disabled for such portals.{0}Registration to public portals is not limited in number of users, new users are added upon the request to the portal administrator. Use the {1}Register new users Immediately{2} option to remove any registration confirmation necessity.</value>
@@ -2033,9 +2060,6 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Enable</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP Security{1} is used to restrict login to the portal from all IP addresses except certain addresses. You can set the allowed IP addresses using either exact IP addresses in the IPv4 format (#.#.#.#, where # is a numeric value from 0 to 255) or IP range (in the #.#.#.#-#.#.#.# format). The IP security does not work for portal owners, they can access the portal from any IP address.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP Security</value>
@@ -2780,9 +2804,6 @@ if you want to change the locked profile fields.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Password change</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimal password length</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Password recovery</value>
@@ -4087,7 +4108,202 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="GeolocationNotAvailable" xml:space="preserve">
     <value>Location detection is not currently available.</value>
   </data>
+  <data name="AuthViaNTLM" xml:space="preserve">
+    <value>Auth via NTLM</value>
+  </data>
   <data name="ErrorPasswordOnlyASCII" xml:space="preserve">
     <value>ASCII symbols (a-z, 0-9, special characters, no spaces)</value>
+  </data>
+  <data name="LoginAttemptsCount" xml:space="preserve">
+    <value>Number of attempts</value>
+  </data>
+  <data name="LoginBlockTime" xml:space="preserve">
+    <value>Blocking time (sec)</value>
+  </data>
+  <data name="LoginSettingsTitle" xml:space="preserve">
+    <value>Login Settings</value>
+  </data>
+  <data name="LoginCheckPeriod" xml:space="preserve">
+    <value>Check period (sec)</value>
+  </data>
+  <data name="HelpAnswerLoginSettings" xml:space="preserve">
+    <value>To protect the portal against brute-force attacks, you can set up the limits of unsuccessful login attempts by the user. When the specified limit is reached, attempts coming from the associated IP address will be banned for the chosen period of time.</value>
+  </data>
+  <data name="IpSecurityDescription" xml:space="preserve">
+    <value>{0}IP Security{1} is used to restrict login to the portal from all IP addresses except certain addresses. You can set the allowed IP addresses using either exact IP addresses in the IPv4 format (#.#.#.#, where # is a numeric value from 0 to 255), IP range (in the #.#.#.#-#.#.#.# format), or CIDR masking (in the #.#.#.#/# format). The IP security does not work for portal owners, they can access the portal from any IP address.
+Rules set in the For all users section apply to full access administrators as well. At the same time, you can set additional rules for full access administrators in the corresponding section.</value>
+  </data>
+  <data name="IpSecurityHeaderForAdmins" xml:space="preserve">
+    <value>For full access administrators only</value>
+  </data>
+  <data name="IpSecurityHeaderForAllUsers" xml:space="preserve">
+    <value>For all users</value>
+  </data>
+  <data name="QuotaGreaterPortalError" xml:space="preserve">
+    <value>Failed to set the memory quota - the memory quota you set is greater than portals quota.</value>
+  </data>
+  <data name="QuotaGroupError" xml:space="preserve">
+    <value>Failed to set the memory quota - some users cannot use this quota.</value>
+  </data>
+  <data name="QuotaLessUsedMemoryError" xml:space="preserve">
+    <value>Failed to set the memory quota - the memory quota you set is less than used memory.</value>
+  </data>
+  <data name="SmsValidationAddTrustedIP" xml:space="preserve">
+    <value>Add trusted IP</value>
+  </data>
+  <data name="SmsValidationEmptyUserList" xml:space="preserve">
+    <value>The user list is empty</value>
+  </data>
+  <data name="SmsValidationHideAdvancedSettings" xml:space="preserve">
+    <value>Hide Advanced Settings</value>
+  </data>
+  <data name="SmsValidationMandatoryBlockHeader" xml:space="preserve">
+    <value>Mandatory Two-factor authentication</value>
+  </data>
+  <data name="SmsValidationShowAdvancedSettings" xml:space="preserve">
+    <value>Show Advanced Settings</value>
+  </data>
+  <data name="SmsValidationTrustedBlockDescription" xml:space="preserve">
+    <value>Using IPv4, IP range or CIDR masking</value>
+  </data>
+  <data name="SmsValidationTrustedBlockHeader" xml:space="preserve">
+    <value>Trusted Networks</value>
+  </data>
+  <data name="ConsumersS3EncryprionSSEKMSHelp" xml:space="preserve">
+    <value>Server-Side Encryption with AWS KMS keys (SSE-KMS) protects your assets with a versatile encryption mechanism. Like SSE-S3, It relies on strong AES-256 encryption method, but provides more complex and flexible model, offering separate permissions for a KMS key, audit trail feature, and ability to create unique custom keys.</value>
+  </data>
+  <data name="ConsumersS3EncryprionSSES3Help" xml:space="preserve">
+    <value>With Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3), your assets will be encrypted with strong AES-256 GCM keys, one separate key for each object. The keys themselves are encrypted with a rotating root key for additional protection.</value>
+  </data>
+  <data name="DeepLinkGoToPortalBtn" xml:space="preserve">
+    <value>Go to Portal</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
+  <data name="InterfaceTheme" xml:space="preserve">
+    <value>Interface Theme</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
+  <data name="SystemTheme" xml:space="preserve">
+    <value>Use system theme</value>
+  </data>
+  <data name="UserLeadCaption" xml:space="preserve">
+    <value>Lead</value>
+  </data>
+  <data name="UserLead" xml:space="preserve">
+    <value>{!Userlead}</value>
+  </data>
+  <data name="AddLeadButton" xml:space="preserve">
+    <value>Add {!Userlead}</value>
+  </data>
+  <data name="ImpersonationAccessForAdmins" xml:space="preserve">
+    <value>Access for admins:</value>
+  </data>
+  <data name="EnableImpersonation" xml:space="preserve">
+    <value>Enable Impersonation</value>
+  </data>
+  <data name="ImpersonationSettings" xml:space="preserve">
+    <value>Impersonation Settings</value>
+  </data>
+  <data name="ImpersonateSettingsEnableHelp" xml:space="preserve">
+    <value>Feature is available only to the owner of the portal by default. Grant admin access using settings below.</value>
+  </data>
+  <data name="DisableImpersonateSettings" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="EnableImpersonateSettingsForAllAdmins" xml:space="preserve">
+    <value>Enable for all full admins</value>
+  </data>
+  <data name="EnableImpersonateSettingsWithLimits" xml:space="preserve">
+    <value>Limit to a list of admins</value>
+  </data>
+  <data name="ImpersonationDescription" xml:space="preserve">
+    <value>{0}Impersonation{1} allows the owner and the administrators to execute login to the portal on behalf of any user.
+Note: It is not possible
+to access the private room section while logging in as a user. The owner can impersonate any user or admin, but admins cannot impersonate other admins.</value>
+  </data>
+  <data name="ImpersonationOnlyForOwnGroupsChb" xml:space="preserve">
+    <value>Allow Impersonation only within full admin’s own group</value>
+  </data>
+  <data name="ImpersonationRestrictAccess" xml:space="preserve">
+    <value>Restrict access:</value>
+  </data>
+  <data name="ImpersonationRestrictUsersChb" xml:space="preserve">
+    <value>Restrict access to user and groups</value>
+  </data>
+  <data name="ConfirmImpersonateHelper" xml:space="preserve">
+    <value>This option allows you to log in to the portal on behalf of another user. In order to return, you need to log out.</value>
+  </data>
+  <data name="ConfirmImpersonateUserTitle" xml:space="preserve">
+    <value>Login under a different name</value>
+  </data>
+  <data name="ImpersonateCancelButton" xml:space="preserve">
+    <value>No, cancel</value>
+  </data>
+  <data name="ImpersonateYesButton" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="PasswordLengthRange" xml:space="preserve">
+    <value>Password length range</value>
+  </data>
+  <data name="ErrorArgumentException" xml:space="preserve">
+    <value>Value does not fall within the expected range</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInfo" xml:space="preserve">
+    <value>Password recovery via email is impossible for users with LDAP/SSO login. Contact your administrator in case of password loss.</value>
+  </data>
+  <data name="QuotaSettingsDescription" xml:space="preserve">
+    <value>The base quota is the quota that will be set by default for all new users</value>
+  </data>
+  <data name="QuotaSettingsDeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="QuotaSettingsEditQuota" xml:space="preserve">
+    <value>Edit quota</value>
+  </data>
+  <data name="QuotaSettingsHeader" xml:space="preserve">
+    <value>Base quota</value>
+  </data>
+  <data name="QuotaSettingsNoQuota" xml:space="preserve">
+    <value>No quota</value>
+  </data>
+  <data name="QuotaSettingsShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
+  <data name="QuotaSettingsTotalCount" xml:space="preserve">
+    <value>Total count</value>
+  </data>
+  <data name="QuotaSettingsWithQuota" xml:space="preserve">
+    <value>With a quota</value>
+  </data>
+  <data name="QuotaUsed" xml:space="preserve">
+    <value>Used</value>
+  </data>
+  <data name="QuotaUsedOutOf" xml:space="preserve">
+    <value>out of</value>
+  </data>
+  <data name="QuotaSettingsTooManyOperations" xml:space="preserve">
+    <value>Too many quota recalculate operations.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="RecalculateButton" xml:space="preserve">
+    <value>Recalculate</value>
+  </data>
+  <data name="LastUpdate" xml:space="preserve">
+    <value>Last update:</value>
+  </data>
+  <data name="UpdatingStatistics" xml:space="preserve">
+    <value>Updating statistics can take a long time</value>
+  </data>
+  <data name="RecalculateQuotaDescription" xml:space="preserve">
+    <value>For the quota settings to work correctly, it is necessary to recalculate. When the calculation is done, you will be able to set up a quota for users.</value>
+  </data>
+  <data name="RecalculateQuotaTitle" xml:space="preserve">
+    <value>Setting up a quota</value>
   </data>
 </root>

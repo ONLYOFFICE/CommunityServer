@@ -1,0 +1,77 @@
+﻿<script id="userQuotaMenuTemplate" type="text/x-jquery-tmpl">
+    <ul class="dropdown-content">
+        <li>
+            <a class="dropdown-item edit-quota">${ASC.Resources.Master.QuotaSettingsEditQuota}</a>
+        </li>
+        <li>
+            <a class="dropdown-item no-quota">${ASC.Resources.Master.QuotaSettingsNoQuota}</a>
+        </li>
+    </ul>
+</script>
+<script id="userListTemplate" type="text/x-jquery-tmpl">
+    {{each(i, user) users}}
+    <tr id="user_${user.id}" class="item profile {{if ($data.isAdmin === true || user.isMe === true) && (user.isMe === true || user.isPortalOwner !== true)}} with-entity-menu {{/if}} {{if user.isTerminated}} blocked{{else user.isPending === true}} waited{{/if}} {{if user.isChecked == true}} selected{{/if}}"
+        data-id="${user.id}"
+        data-username="${user.userName}"
+        data-email="${user.email}"
+        data-displayname="${user.displayName}"
+        data-status="{{if user.isTerminated}}blocked{{else user.isActivated === false}}waited{{/if}}"
+        data-isAdmin="${user.isAdmin}"
+        data-isOwner="${user.isPortalOwner}"
+        data-isVisitor="${user.isVisitor}"
+        data-isLDAP="${user.isLDAP}"
+        data-isSSO="${user.isSSO}">
+
+        {{if ($data.isAdmin === true)}}
+        <td class="check-list" id="checkRow_${user.id}">
+            <input type="checkbox" id="checkUser_${user.id}" class="checkbox-user"
+                   {{if user.isChecked== true}} checked="checked" {{/if}} />
+        </td>
+        {{/if}}
+        
+        <td class="name">
+            <a class="link bold" href="/Products/People/${user.link}">${user.displayName}</a>
+        </td>
+        <td class="mail-space-info">
+            <span class="item-icon">
+                <svg class="item-svg"><use base="/" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenumail"></use></svg>
+            </span>
+            <span class="inner-text">${window.FileSizeManager.filesSizeToString(user.mailSpace)}</span>
+        </td>
+        <td class="docs-space-info">
+            <span class="item-icon">
+                <svg class="item-svg"><use base="/" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenudocuments"></use></svg>
+            </span>
+            <span class="inner-text">${window.FileSizeManager.filesSizeToString(user.docsSpace)}</span>
+        </td>
+        <td class="talk-space-info">
+            <span class="item-icon">
+                <svg class="item-svg"><use base="/" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenutalk"></use></svg>
+            </span>
+            <span class="inner-text">${window.FileSizeManager.filesSizeToString(user.talkSpace)}</span>
+        </td>
+        <td class="used-space-info">
+            <div class="user-quota-info">
+                <span class="inner-text">${window.FileSizeManager.filesSizeToString(user.usedSpace)} </span>
+                {{if ($data.quotaEnabled === true)}}
+                    /<span id="userQuotaMenu_${id}" class="quota-action link dotted" title=""> ${user.quotaLimit != -1 ? window.FileSizeManager.filesSizeToString(user.quotaLimit) : ASC.Resources.Master.QuotaSettingsNoQuota}</span>
+                {{/if}}
+            </div>
+            <div class="set-user-quota-form set-quota display-none">
+                <input class="textEdit" value="${user.quotaLimit != -1 ? window.FileSizeManager.filesSizeToString(user.quotaLimit).split(\" \")[0] :  0}"/>
+                <div class="sizes">
+                    <div class="edit-quota-val val" 
+                         data="${window.FileSizeManager.filesSizeToString(user.quotaLimit).split(\" \")[1]}">${window.FileSizeManager.filesSizeToString(user.quotaLimit).split(\" \")[1]}</div>
+                </div>
+                <div class="save-btn">
+                    <span class="mark"></span>
+                </div>
+                <div class="close-btn">
+                    <span class="mark"></span>
+                </div>
+            </div>
+        </td>
+    </tr>
+{{/each}}
+</script>
+

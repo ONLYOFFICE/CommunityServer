@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "../../../../skins/default/params.less";
 
 body.custom-mode {
 	background-color: transparent; 
@@ -54,7 +56,7 @@ body.custom-mode {
 		
 		&.auth-form-access{
 			
-			background: #fff;
+			background: @body-color;
 	
 			.auth-form-access-container{
 				padding-bottom: 143px;
@@ -80,7 +82,7 @@ body.custom-mode {
 body.custom-mode.desktop{
 	#loginPopup{
 		display: block;
-		background-color: #fff;
+		background-color: @body-color;
 
 		.default-personal-popup_closer{
 			display: none;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -160,9 +160,9 @@ namespace ASC.MessagingSystem
             SendRequestMessage(request, loginName, null, action, target);
         }
 
-        public static void Send(HttpRequest request, string loginName, MessageAction action, MessageTarget target, string d1)
+        public static void Send(HttpRequest request, string loginName, MessageAction action, MessageTarget target, params string[] description)
         {
-            SendRequestMessage(request, loginName, null, action, target, d1);
+            SendRequestMessage(request, loginName, null, action, target, description);
         }
 
         #endregion
@@ -187,27 +187,27 @@ namespace ASC.MessagingSystem
 
         public static void Send(MessageUserData userData, Dictionary<string, string> httpHeaders, MessageAction action)
         {
-            SendHeadersMessage(userData, httpHeaders, action, null);
+            SendHeadersMessage(userData, httpHeaders, action, null, null);
         }
 
         public static void Send(Dictionary<string, string> httpHeaders, MessageAction action)
         {
-            SendHeadersMessage(null, httpHeaders, action, null);
+            SendHeadersMessage(null, httpHeaders, action, null, null);
         }
 
         public static void Send(Dictionary<string, string> httpHeaders, MessageAction action, string d1)
         {
-            SendHeadersMessage(null, httpHeaders, action, null, d1);
+            SendHeadersMessage(null, httpHeaders, action, null, null, d1);
         }
 
         public static void Send(Dictionary<string, string> httpHeaders, MessageAction action, IEnumerable<string> d1)
         {
-            SendHeadersMessage(null, httpHeaders, action, null, d1 != null ? d1.ToArray() : null);
+            SendHeadersMessage(null, httpHeaders, action, null, null, d1 != null ? d1.ToArray() : null);
         }
 
-        public static void Send(MessageUserData userData, Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target)
+        public static void Send(MessageUserData userData, Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target, string initiator, params string[] description)
         {
-            SendHeadersMessage(userData, httpHeaders, action, target);
+            SendHeadersMessage(userData, httpHeaders, action, target, initiator, description);
         }
 
         #endregion
@@ -216,26 +216,26 @@ namespace ASC.MessagingSystem
 
         public static void Send(Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target)
         {
-            SendHeadersMessage(null, httpHeaders, action, target);
+            SendHeadersMessage(null, httpHeaders, action, target, null);
         }
 
         public static void Send(Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target, string d1)
         {
-            SendHeadersMessage(null, httpHeaders, action, target, d1);
+            SendHeadersMessage(null, httpHeaders, action, target, null, d1);
         }
 
         public static void Send(Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target, IEnumerable<string> d1)
         {
-            SendHeadersMessage(null, httpHeaders, action, target, d1 != null ? d1.ToArray() : null);
+            SendHeadersMessage(null, httpHeaders, action, target, null, d1 != null ? d1.ToArray() : null);
         }
 
         #endregion
 
-        private static void SendHeadersMessage(MessageUserData userData, Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target, params string[] description)
+        private static void SendHeadersMessage(MessageUserData userData, Dictionary<string, string> httpHeaders, MessageAction action, MessageTarget target, string initiator, params string[] description)
         {
             if (sender == null) return;
 
-            var message = MessageFactory.Create(userData, httpHeaders, action, target, description);
+            var message = MessageFactory.Create(userData, httpHeaders, action, target, initiator, description);
             if (!MessagePolicy.Check(message)) return;
 
             sender.Send(message);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@
 */
 
 
-@import "base.less";
-
+@import "params.less";
 #voip-common-view {
     display: none;
-    
+
     .common-setting-item {
         margin-bottom: 29px;
 
@@ -57,14 +56,14 @@
             }
 
             &:hover .ringtone-group-box, &:hover .ringtone:hover {
-                background-color: #f2f2f2;
+                background-color: @hover-row-color;
             }
 
             .ringtone-group-box {
-                border-bottom: 1px solid #d1d1d1;
-                
+                border-bottom: 1px solid @border-color;
+
                 &.selected, &.ringtone-selected {
-                    background-color: #f2f2f2;
+                    background-color: @hover-row-color;
                 }
 
                 &.selected .actions {
@@ -100,10 +99,10 @@
                 padding-left: 30px;
 
                 .ringtone {
-                    border-bottom: 1px solid #d1d1d1;
+                    border-bottom: 1px solid @border-color;
 
                     &.selected {
-                        background-color: #f2f2f2;
+                        background-color: @hover-row-color;
 
                         .actions {
                             background-position: center bottom;

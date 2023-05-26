@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,18 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             Resource.TfaAppShowBackupCodesDescription,
                             Resource.PrintButton,
                             Resource.RequestNewButton,
-                            Resource.Choose
+                            Resource.Choose,
+                            Resource.ConsumersS3EncryprionNone,
+                            Resource.ConsumersS3EncryprionSSE,
+                            Resource.ConsumersS3EncryprionCSE,
+                            Resource.ConsumersS3EncryprionSSES3,
+                            Resource.ConsumersS3EncryprionSSES3Help,
+                            Resource.ConsumersS3EncryprionSSEKMS,
+                            Resource.ConsumersS3EncryprionSSEKMSHelp,
+                            Resource.ConsumersS3EncryprionCMK,
+                            Resource.ConsumersS3EncryprionCMKDefault,
+                            Resource.ConsumersS3EncryprionCMKCustom,
+                            Resource.ConsumersS3EncryprionKey
                         },
 
                         DatePattern = dateTimeFormat.ShortDatePattern.Replace("'", ""),
@@ -140,7 +151,9 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         Resource.EmailOnDomainIsNotCreated,
                         Resource.NoMailServerDomainsMsg,
                         Resource.EmailAndPasswordCopiedToClipboard,
-                        Resource.CopyToClipboard
+                        Resource.CopyToClipboard,
+                        Resource.QuotaSettingsEditQuota,
+                        Resource.QuotaSettingsNoQuota
                     })
             };
         }

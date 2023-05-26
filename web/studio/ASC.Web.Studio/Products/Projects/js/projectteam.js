@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,8 @@ ASC.Projects.ProjectTeam = (function() {
         clickEventName = "click",
         project,
         handler,
-        mailModuleEnabled;
+        mailModuleEnabled = false,
+        talkModuleEnabled = false;
 
     var init = function () {
         teamlab = Teamlab;
@@ -142,10 +143,17 @@ ASC.Projects.ProjectTeam = (function() {
             }
         });
 
-        teamlab.getWebItemSecurityInfo({}, "2A923037-8B2D-487b-9A22-5AC0918ACF3F",
+        teamlab.getEnabledModules({},
         {
-            success: function(params, data) {
-                mailModuleEnabled = data[0].enabled;
+            success: function (params, modules) {
+                modules.forEach(function (module) {
+                    if (module.id == "mail") {
+                        mailModuleEnabled = true;
+                    }
+                    if (module.id == "talk") {
+                        talkModuleEnabled = true;
+                    }
+                });
             }
         });
     };
@@ -178,7 +186,9 @@ ASC.Projects.ProjectTeam = (function() {
                 menuItems.push(new ActionMenuItem("team_email", resources.ProjectResource.ClosedProjectTeamWriteMail, teamSendEmailHandler.bind(null, user.email), "email"));
             }
 
-            menuItems.push(new ActionMenuItem("team_jabber", resources.ProjectResource.ClosedProjectTeamWriteInMessenger, teamWriteJabberHandler.bind(null, user.userName), "chat"));
+            if (talkModuleEnabled) {
+                menuItems.push(new ActionMenuItem("team_jabber", resources.ProjectResource.ClosedProjectTeamWriteInMessenger, teamWriteJabberHandler.bind(null, user.userName), "chat"));
+            }
 
             if (project.security.canEditTeam && userId !== project.responsibleId) {
                 if (menuItems.length >= 3) {

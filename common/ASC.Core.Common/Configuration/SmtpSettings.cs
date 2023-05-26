@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,8 @@ namespace ASC.Core.Configuration
         public bool EnableSSL { get; set; }
 
         public bool EnableAuth { get; set; }
+
+        public bool UseNtlm { get; set; }
 
         public bool IsDefaultSettings { get; internal set; }
 
@@ -142,10 +144,12 @@ namespace ASC.Core.Configuration
             {
                 settings.SetCredentials(credentialsUserName, credentialsUserPassword, credentialsDomain);
                 settings.EnableAuth = true;
+                settings.UseNtlm = 8 < props.Length && !string.IsNullOrEmpty(props[8]) && Convert.ToBoolean(props[8]);
             }
             else
             {
                 settings.EnableAuth = false;
+                settings.UseNtlm = false;
             }
 
             return settings;
@@ -161,7 +165,8 @@ namespace ASC.Core.Configuration
                                Port.ToString(),
                                HttpUtility.UrlEncode(SenderAddress),
                                HttpUtility.UrlEncode(SenderDisplayName),
-                               EnableSSL.ToString());
+                               EnableSSL.ToString(),
+                               UseNtlm.ToString());
         }
     }
 }

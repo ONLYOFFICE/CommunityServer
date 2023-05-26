@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ using System;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Web.Core.Utility;
+
 namespace ASC.Web.Studio.UserControls.FirstTime
 {
     public partial class StepContainer : UserControl
@@ -33,9 +35,15 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/UserControls/FirstTime/js/view.js")
-                .RegisterStyle("~/UserControls/FirstTime/css/stepcontainer.less");
-
+            Page.RegisterBodyScripts("~/UserControls/FirstTime/js/view.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/FirstTime/css/dark-stepcontainer.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/FirstTime/css/stepcontainer.less");
+            }
             SaveButtonEvent = "ASC.Controls.FirstTimeView.SaveRequiredStep();";
             content1.Controls.Add(LoadControl(EmailAndPassword.Location));
         }

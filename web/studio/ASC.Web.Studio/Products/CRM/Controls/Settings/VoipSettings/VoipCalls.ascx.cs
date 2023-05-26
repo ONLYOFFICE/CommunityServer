@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ namespace ASC.Web.CRM.Controls.Settings
             var emptyScreenControl = new EmptyScreenControl
             {
                 ID = "voip-calls-empty-list-box",
-                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_screen_feed.png"),
+                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_screen_feed.svg"),
                 Header = UserControlsCommonResource.VoipCallsNotFound,
                 Describe = UserControlsCommonResource.VoipCallsNotFoundDescription
             };
@@ -53,7 +53,7 @@ namespace ASC.Web.CRM.Controls.Settings
             var emptyScreenFilterControl = new EmptyScreenControl
             {
                 ID = "voip-calls-empty-filter-box",
-                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_filter.png"),
+                ImgSrc = WebPath.GetPath("UserControls/Feed/images/empty_filter.svg"),
                 Header = UserControlsCommonResource.FilterNoVoipCalls,
                 Describe = UserControlsCommonResource.FilterNoVoipCallsDescription,
                 ButtonHTML = string.Format("<a href='javascript:void(0)' class='baseLinkAction clearFilterButton'>{0}</a>",

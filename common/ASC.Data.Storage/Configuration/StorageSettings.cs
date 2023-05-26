@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,12 @@ namespace ASC.Data.Storage.Configuration
     [DataContract]
     public abstract class BaseStorageSettings<T> : BaseSettings<T> where T : class, ISettings, new()
     {
+        ///<example>Module</example>
         [DataMember(Name = "Module")]
         public string Module { get; set; }
 
+        ///<example>Props</example>
+        ///<collection>list</collection>
         [DataMember(Name = "Props")]
         public Dictionary<string, string> Props { get; set; }
 
@@ -119,6 +122,7 @@ namespace ASC.Data.Storage.Configuration
         public virtual Func<DataStoreConsumer, DataStoreConsumer> Switch { get { return d => d; } }
     }
 
+    ///<inherited>ASC.Data.Storage.Configuration.BaseStorageSettings`1, ASC.Data.Storage</inherited>
     [Serializable]
     [DataContract]
     public class StorageSettings : BaseStorageSettings<StorageSettings>
@@ -129,6 +133,7 @@ namespace ASC.Data.Storage.Configuration
         }
     }
 
+    ///<inherited>ASC.Data.Storage.Configuration.BaseStorageSettings`1, ASC.Data.Storage</inherited>
     [Serializable]
     [DataContract]
     public class CdnStorageSettings : BaseStorageSettings<CdnStorageSettings>

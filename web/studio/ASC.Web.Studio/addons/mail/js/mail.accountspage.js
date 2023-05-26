@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -263,11 +263,12 @@ window.accountsPage = (function($) {
         $('#filesFolderUnlinkButton').off('click').on('click', { account: account }, unselectAttachmentsFolder);
 
         ASC.Files.FileSelector.fileSelectorTree.resetFolder();
+
         if (account.emailInFolder == null) {
-            ASC.Files.FileSelector.openDialog(null, true);
+            ASC.Files.FileSelector.openDialog({ folderId: null, onlyFolder: true, displayPrivacy: false, scrolled: true });
             $('#filesFolderUnlinkButton').show().toggleClass('disable', true);
         } else {
-            ASC.Files.FileSelector.openDialog(account.emailInFolder, true);
+            ASC.Files.FileSelector.openDialog({ folderId: account.emailInFolder, onlyFolder: true, displayPrivacy: false, scrolled: true });
             $('#filesFolderUnlinkButton').show().toggleClass('disable', false);
         }
     }

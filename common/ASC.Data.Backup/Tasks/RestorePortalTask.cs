@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,10 @@ using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Data.Backup.Extensions;
+using ASC.Data.Backup.Storage;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
+using ASC.Data.Storage.ZipOperators;
 
 using Newtonsoft.Json;
 
@@ -100,6 +102,8 @@ namespace ASC.Data.Backup.Tasks
                         }
                         restoreTask.RunJob();
                     }
+                    var backupRepository = BackupStorageFactory.GetBackupRepository();
+                    backupRepository.MigrationBackupRecords(TenantId, _columnMapper.GetTenantMapping(), ConfigPath);
                 }
 
                 Logger.Debug("end restore data");
@@ -191,7 +195,7 @@ namespace ASC.Data.Backup.Tasks
                 Task.WaitAll(tasks.ToArray());
             }
 
-            using (var dbManager = DbManager.FromHttpContext("default", 100000))
+            using (var dbManager = new DbManager("default", 100000))
             {
                 dbManager.ExecuteList("select id, connection_string from mail_server_server").ForEach(r =>
                 {

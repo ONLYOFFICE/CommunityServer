@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -205,6 +205,7 @@ window.ASC.Files.Folders = (function () {
                     ASC.Files.UI.updateMainContentHeader();
                     ASC.Files.UI.checkEmptyContent();
                 }
+                ASC.Files.ServiceManager.removeFromCache(ASC.Files.ServiceManager.events.GetFolderItems);
             },
             {
                 error: function (params, error) {
@@ -674,6 +675,9 @@ window.ASC.Files.Folders = (function () {
                 },
                 error: function (_, error) {
                     ASC.Files.UI.displayInfoPanel(error[0], true);
+                },
+                processUrl: function (url) {
+                    return ASC.Files.Utility.AddExternalShareKey(url);
                 }
             });
     };

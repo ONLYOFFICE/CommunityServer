@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,9 @@ namespace ASC.Api.Settings
         /// Get the SSO settings
         /// </short>
         /// <category>SSO</category>
-        /// <returns>SSO settings</returns>
+        /// <returns type="ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2, ASC.Web.Studio">SSO settings</returns>
+        /// <path>api/2.0/settings/ssov2</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ssov2")]
         public SsoSettingsV2 GetSsoSettingsV2()
         {
@@ -63,7 +65,9 @@ namespace ASC.Api.Settings
         /// Get the default SSO settings
         /// </short>
         /// <category>SSO</category>
-        /// <returns>Default SSO settings</returns>
+        /// <returns type="ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2, ASC.Web.Studio">Default SSO settings</returns>
+        /// <path>api/2.0/settings/ssov2/default</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ssov2/default")]
         public SsoSettingsV2 GetDefaultSsoSettingsV2()
         {
@@ -73,13 +77,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns the constants of the SSO settings.
+        /// Returns the SSO settings constants.
         /// </summary>
         /// <short>
-        /// Get the constants of the SSO settings
+        /// Get the SSO settings constants
         /// </short>
         /// <category>SSO</category>
-        /// <returns>Constants of the SSO settings</returns>
+        /// <returns>The SSO settings constants</returns>
+        /// <path>api/2.0/settings/ssov2/constants</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("ssov2/constants")]
         public object GetSsoSettingsV2Constants()
         {
@@ -101,8 +107,10 @@ namespace ASC.Api.Settings
         /// Save the SSO settings
         /// </short>
         /// <category>SSO</category>
-        /// <param name="serializeSettings">Serialized SSO settings</param>
+        /// <param type="System.String, System" name="serializeSettings">Serialized SSO settings</param>
         /// <returns>SSO settings</returns>
+        /// <path>api/2.0/settings/ssov2</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("ssov2")]
         public SsoSettingsV2 SaveSsoSettingsV2(string serializeSettings)
         {
@@ -161,7 +169,9 @@ namespace ASC.Api.Settings
         /// Reset the SSO settings
         /// </short>
         /// <category>SSO</category>
-        /// <returns>Default SSO settings</returns>
+        /// <returns type="ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2, ASC.Web.Studio">Default SSO settings</returns>
+        /// <path>api/2.0/settings/ssov2</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("ssov2")]
         public SsoSettingsV2 ResetSsoSettingsV2()
         {

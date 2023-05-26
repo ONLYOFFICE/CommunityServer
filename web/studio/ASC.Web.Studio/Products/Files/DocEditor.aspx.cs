@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ using System.Web;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
+using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Files;
@@ -45,7 +46,6 @@ using ASC.Web.Files.Utils;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
-using ASC.Web.Studio.UserControls;
 using ASC.Web.Studio.UserControls.DeepLink;
 using ASC.Web.Studio.Utility;
 
@@ -64,7 +64,7 @@ namespace ASC.Web.Files
 
         protected override bool MayNotAuth
         {
-            get { return !string.IsNullOrEmpty(Request[FilesLinkUtility.DocShareKey]); }
+            get { return !string.IsNullOrEmpty(Request[FilesLinkUtility.DocShareKey]) || !string.IsNullOrEmpty(Request[FilesLinkUtility.FolderShareKey]); }
             set { }
         }
 
@@ -99,8 +99,11 @@ namespace ASC.Web.Files
 
         private string RequestShareLinkKey
         {
-            get { return Request[FilesLinkUtility.DocShareKey] ?? string.Empty; }
+            get;
+            set;
         }
+        
+        private string RequestFolderShareLinkKey { get; set; }
 
         private bool _valideShareLink;
 
@@ -144,16 +147,49 @@ namespace ASC.Web.Files
         {
             base.OnPreInit(e);
 
-            _valideShareLink = !string.IsNullOrEmpty(FileShareLink.Parse(RequestShareLinkKey));
             CheckAuth();
         }
 
         private void CheckAuth()
         {
-            if (SecurityContext.IsAuthenticated)
-                return;
+            RequestShareLinkKey = Request[FilesLinkUtility.DocShareKey] ?? string.Empty;
+
+            var fileId = FileShareLink.Parse(RequestShareLinkKey, out Guid linkId, out string _);
+
+            _valideShareLink = !string.IsNullOrEmpty(fileId);
+
             if (_valideShareLink)
-                return;
+            {
+                if (FileShareLink.CheckCookieKey(linkId, out string cookieValue))
+                {
+                    if (!string.IsNullOrEmpty(cookieValue))
+                    {
+                        RequestShareLinkKey = FileShareLink.CreateKey(fileId, linkId, cookieValue);
+                    }
+                    return;
+                }
+                else
+                {
+                    Response.Redirect(FileShareLink.GetPasswordProtectedFileLink(RequestShareLinkKey));
+                }
+            }
+
+            if (FileShareLink.TryGetCurrentLinkId(out var folderLinkId))
+            {
+                RequestShareLinkKey = FileShareLink.CreateKey(RequestFileId, folderLinkId);
+                
+                if (FileShareLink.CheckCookieKey(folderLinkId, out var cookieKey))
+                {
+                    RequestFolderShareLinkKey = Request[FilesLinkUtility.FolderShareKey];
+                    RequestShareLinkKey = FileShareLink.CreateKey(RequestFileId, folderLinkId, cookieKey);
+                    _valideShareLink = true;
+                    return;
+                }
+
+                Response.Redirect(FileShareLink.GetPasswordProtectedFileLink(RequestShareLinkKey));
+            }
+
+            if (SecurityContext.IsAuthenticated) return;
 
             Response.Redirect(Request.AppendRefererURL("~/Auth.aspx"));
         }
@@ -253,48 +289,11 @@ namespace ASC.Web.Files
             {
                 Global.Logger.Warn("DocEditor", ex);
                 ErrorMessage = ex.Message;
+                CheckDeepLinkRedirect(null);
                 return;
             }
 
-            var userAgent = Request.UserAgent.ToString().ToLower();
-            HttpCookie deeplinkCookie = Request.Cookies.Get("deeplink");
-            var deepLink = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"];
-
-            if (!_valideShareLink
-                && deepLink != null && MobileDetector.IsMobile
-                && ((!userAgent.Contains("version/") && userAgent.Contains("android")) || !userAgent.Contains("android")) &&    //check webkit
-                ((Request[DeepLinking.WithoutDeeplinkRedirect] == null && deeplinkCookie == null) ||
-                        Request[DeepLinking.WithoutDeeplinkRedirect] == null && deeplinkCookie != null && deeplinkCookie.Value == "app"))
-            {
-
-                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                DeepLinkData deepLinkData = new DeepLinkData
-                {
-                    Email = currentUser.Email,
-                    Portal = CoreContext.TenantManager.GetCurrentTenant().TenantDomain,
-                    File = new DeepLinkDataFile
-                    {
-                        Id = file.ID.ToString(),
-                        Title = file.Title,
-                        Extension = file.ConvertedExtension
-
-                    },
-                    Folder = new DeepLinkDataFolder
-                    {
-                        Id = file.FolderID.ToString(),
-                        ParentId = file.RootFolderId.ToString(),
-                        RootFolderType = (int)file.RootFolderType
-                    },
-                    OriginalUrl = Request.GetUrlRewriter().ToString()
-                };
-
-                var jsonDeeplinkData = JsonConvert.SerializeObject(deepLinkData);
-                string base64DeeplinkData = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonDeeplinkData));
-
-                Response.Redirect("~/DeepLink.aspx?data=" + HttpUtility.UrlEncode(base64DeeplinkData));
-
-            }
-
+            CheckDeepLinkRedirect(file);
 
             if (_configuration.EditorConfig.ModeWrite && FileConverter.MustConvert(file))
             {
@@ -312,7 +311,14 @@ namespace ASC.Web.Files
 
                 var comment = "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.ConvertForEdit, file.Title));
 
-                Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(file.ID) + comment);
+                var url = FilesLinkUtility.GetFileWebEditorUrl(file.ID);
+
+                if (!string.IsNullOrEmpty(RequestFolderShareLinkKey))
+                {
+                    url += "&" + FilesLinkUtility.FolderShareKey + "=" + RequestFolderShareLinkKey;
+                }
+                
+                Response.Redirect(url + comment);
                 return;
             }
 
@@ -382,7 +388,8 @@ namespace ASC.Web.Files
                     _configuration.EditorConfig.SharingSettingsUrl = CommonLinkUtility.GetFullAbsolutePath(
                         Share.Location
                         + "?" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString())
-                        + (Request.DesktopApp() ? "&desktop=true" : string.Empty));
+                        + (Request.DesktopApp() ? "&desktop=true" : string.Empty)
+                        + (!string.IsNullOrEmpty(RequestFolderShareLinkKey) ? "&" + FilesLinkUtility.FolderShareKey + "=" + RequestFolderShareLinkKey : string.Empty));
                 }
 
                 if (file.RootFolderType == FolderType.Privacy)
@@ -476,9 +483,11 @@ namespace ASC.Web.Files
             var inlineScript = new StringBuilder();
 
             inlineScript.AppendFormat("\nASC.Files.Constants.URL_WCFSERVICE = \"{0}\";" +
-                                      "ASC.Files.Constants.DocsAPIundefined = \"{1}\";",
+                                      "ASC.Files.Constants.DocsAPIundefined = \"{1}\";" +
+                                      "ASC.Files.Constants.FolderShareKey = \"{2}\"",
                                       PathProvider.GetFileServicePath,
-                                      FilesCommonResource.DocsAPIundefined);
+                                      FilesCommonResource.DocsAPIundefined,
+                                      FilesLinkUtility.FolderShareKey);
 
             if (!CoreContext.Configuration.Personal)
             {
@@ -493,14 +502,23 @@ namespace ASC.Web.Files
                 LinkToEdit = _linkToEdit,
                 OpenHistory = RequestVersion != -1 && RequestView && !RequestHistoryClose && _configuration.Document.Info.File.Forcesave == ForcesaveType.None && !_configuration.Document.Info.File.Encrypted,
                 OpeninigDate = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
-                ShareLinkParam = string.IsNullOrEmpty(RequestShareLinkKey) ? string.Empty : "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey,
                 ServerErrorMessage = ErrorMessage,
+                ShareLinkParam = string.Empty,
                 DefaultType = (IsMobile ? Services.DocumentService.Configuration.EditorType.Mobile : Services.DocumentService.Configuration.EditorType.Desktop).ToString().ToLower(),
                 TabId = _tabId.ToString(),
                 ThirdPartyApp = _thirdPartyApp,
                 CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal && WebItemSecurity.IsAvailableForMe(WebItemManager.PeopleProductID),
                 PageTitlePostfix = GetPageTitlePostfix()
             };
+
+            if (!string.IsNullOrEmpty(RequestFolderShareLinkKey))
+            {
+                docServiceParams.ShareLinkParam = "&" + FilesLinkUtility.FolderShareKey + "=" + RequestFolderShareLinkKey;
+            }
+            else if (!string.IsNullOrEmpty(RequestShareLinkKey))
+            {
+                docServiceParams.ShareLinkParam = "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey;
+            }
 
             if (_configuration != null)
             {
@@ -531,6 +549,52 @@ namespace ASC.Web.Files
         private string GetPageTitlePostfix()
         {
             return Request.DesktopApp() ? string.Empty : string.Format(" - {0}", Resource.WebStudioName);
+        }
+
+        private void CheckDeepLinkRedirect(File file)
+        {
+            if (_valideShareLink || !DeepLink.MustRedirect(Request))
+            {
+                return;
+            }
+
+            DeepLinkData deepLinkData;
+
+            if (string.IsNullOrEmpty(ErrorMessage))
+            {
+                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                deepLinkData = new DeepLinkData
+                {
+                    Email = currentUser.Email,
+                    Portal = CoreContext.TenantManager.GetCurrentTenant().TenantDomain,
+                    File = new DeepLinkDataFile
+                    {
+                        Id = file.ID.ToString(),
+                        Title = file.Title,
+                        Extension = file.ConvertedExtension
+                    },
+                    Folder = new DeepLinkDataFolder
+                    {
+                        Id = file.FolderID.ToString(),
+                        ParentId = file.RootFolderId.ToString(),
+                        RootFolderType = (int)file.RootFolderType
+                    },
+                    OriginalUrl = Request.GetUrlRewriter().ToString()
+                };
+            }
+            else
+            {
+                deepLinkData = new DeepLinkData
+                { 
+                    ErrorMsg = ErrorMessage
+                };
+            }
+
+            var jsonDeeplinkData = JsonConvert.SerializeObject(deepLinkData);
+            var encryptedData = InstanceCrypto.Encrypt(jsonDeeplinkData);
+            var base64DeeplinkData = Convert.ToBase64String(Encoding.UTF8.GetBytes(encryptedData));
+
+            Response.Redirect("~/DeepLink.aspx?data=" + HttpUtility.UrlEncode(base64DeeplinkData));
         }
 
         #endregion

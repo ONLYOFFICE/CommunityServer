@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -67,9 +68,16 @@ namespace ASC.Web.Studio.UserControls.Management
             Page
                 .RegisterBodyScripts(
                     "~/js/uploader/jquery.fileupload.js",
-                    "~/UserControls/Management/TariffSettings/js/tariffstandalone.js")
-                .RegisterStyle("~/UserControls/Management/TariffSettings/css/tariff.less",
-                    "~/UserControls/Management/TariffSettings/css/tariffstandalone.less");
+                    "~/UserControls/Management/TariffSettings/js/tariffstandalone.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/dark-tariff.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariff.less");
+            }
+            Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariffstandalone.less");
 
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             CurrentTariff = TenantExtra.GetCurrentTariff();

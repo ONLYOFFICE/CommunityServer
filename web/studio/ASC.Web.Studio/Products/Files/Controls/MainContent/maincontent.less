@@ -1,0 +1,265 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../App_Themes/default/params.less";
+
+#settingCommon,
+#settingAdmin,
+#settingThirdPartyPanel {
+    display: none;
+}
+/*******************************************************************************
+    header
+*******************************************************************************/
+.stick-panel .menu-action-on-top {
+    display: list-item;
+}
+.stick-panel #switchViewFolder {
+    margin-left: 12px;
+}
+
+/*******************************************************************************
+    Content Menu
+*******************************************************************************/
+ul.contentMenu {
+    padding-top: 8px;
+}
+.advansed-filter {
+    margin-bottom: 24px;
+}
+/*******************************************************************************
+     Dialog window
+*******************************************************************************/
+
+div.files-remove-list {
+    border: 1px solid @border-color;
+    line-height: 20px;
+    margin: 15px 0 0;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 10px 10px;
+}
+.files-remove-list > dl {
+    margin: 0;
+}
+dd.confirm-remove-folders,
+dd.confirm-remove-files {
+    padding: 0;
+    margin-left: 0;
+}
+dd.confirm-remove-folders label,
+dd.confirm-remove-files label {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+dt.confirm-remove-folders,
+dt.confirm-remove-files {
+    font-weight: bold;
+    margin-top: 10px;
+}
+#confirmRemoveTextDescription,
+#confirmRemoveSharpBoxTextDescription {
+    padding: 10px 0 0;
+}
+#overwriteMessage {
+    overflow: hidden;
+    padding-bottom: 6px;
+}
+.overwrite-capt,
+#overwriteListShow,
+#overwriteListHide {
+    line-height: 30px;
+}
+.overwrite-resolve {
+    display: inline-block;
+    margin-bottom: 1px;
+    padding: 8px 10px;
+    width: 400px;
+}
+.overwrite-resolve.selected {
+    background-color: @body-color-selected;
+}
+.overwrite-resolve:hover {
+    background-color: @body-color-hover-another;
+}
+.overwrite-resolve input {
+    float: left;
+    margin: 4px 8px 0 0;
+}
+.overwrite-resolve-descr {
+    float: left;
+    width: 370px;
+}
+.overwrite-resolve-head {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 22px;
+}
+#overwriteList {
+    border: 1px solid @border-color;
+    line-height: 20px;
+    list-style-type: none;
+    margin: 0 0 15px;
+    max-height: 120px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px 15px;
+}
+#overwriteList li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 365px;
+}
+
+.change-owner-header {
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.change-owner-selector {
+    border-bottom: 1px dotted;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*******************************************************************************
+    Panel with new items
+*******************************************************************************/
+.files-news-panel .file-row:hover {
+    background-color: @body-color-hover-another;
+}
+.files-news-panel .thumb-file,
+.files-news-panel .thumb-folder {
+    margin-top: 0;
+}
+.files-news-panel .entry-info,
+.files-news-panel .file-row .entry-title .name,
+.files-news-panel .file-row.folder-row .folder-row .entry-title .name {
+    max-width: 195px;
+}
+.files-news-panel .file-row {
+    height: 21px;
+}
+.files-news-panel .file-row .entry-title .name {
+    padding-top: 4px;
+}
+.files-news-panel .file-row .entry-title .name a {
+    font-size: 12px;
+}
+.files-news-panel .file-row .entry-title .name a .file-extension {
+    font-size: 11px;
+}
+.files-news-panel .entry-title {
+    width: auto;
+}
+#filesNewsList {
+    max-height: 300px;
+    padding: 0 12px;
+    width: 285px;
+}
+
+#filesNewsList .file-row {
+    margin-bottom: 0;
+}
+#filesNewsList .thumb-file,
+#filesNewsList .thumb-folder {
+    margin: 0 12px 0 0;
+}
+#filesNewsList .thumb-encrypted {
+    bottom: -5px;
+    right: -5px;
+}
+#filesNewsMarkRead {
+    display: inline-block;
+    margin: 8px 0 8px 12px;
+}
+
+/*******************************************************************************
+    Panel with templates items
+*******************************************************************************/
+.files-templates-panel .file-row:hover {
+    background-color: @body-color-hover-another;
+}
+
+.files-templates-panel .thumb-file,
+.files-templates-panel .thumb-folder {
+    margin-top: 0;
+}
+
+.files-templates-panel .entry-info,
+.files-templates-panel .file-row .entry-title .name,
+.files-templates-panel .file-row.folder-row .folder-row .entry-title .name {
+    max-width: 195px;
+}
+
+.files-templates-panel .file-row {
+    height: 21px;
+}
+
+.files-templates-panel .file-row .entry-title .name {
+    padding-top: 4px;
+}
+
+.files-templates-panel .file-row .entry-title .name a {
+    font-size: 12px;
+}
+
+.files-templates-panel .file-row .entry-title .name a .file-extension {
+    font-size: 11px;
+}
+
+.files-templates-panel .entry-title {
+    width: auto;
+}
+
+#filesTemplateList {
+    max-height: 300px;
+    padding: 0 12px;
+    width: 285px;
+}
+
+#filesTemplateList .file-row {
+    margin-bottom: 0;
+}
+
+#filesTemplateList .thumb-file,
+#filesTemplateList .thumb-folder {
+    margin: 0 12px 0 0;
+}
+
+#filesTemplateEmpty {
+    display: inline-block;
+    margin: 8px 8px 8px 12px;
+}
+
+#filesTemplateLoader {
+    display: inline-block;
+    margin: 8px 8px 8px 12px;
+}
+/*******************************************************************************
+    Mobile
+*******************************************************************************/
+body.mobile #contentVersions .version-preview,
+body.mobile #contentVersions .version-comment-edit {
+    display: block;
+}

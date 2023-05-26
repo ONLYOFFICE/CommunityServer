@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,21 +41,27 @@ namespace ASC.Mail.Data.Contracts
 
         //DO NOT RENAME field's lower case, for AjaxPro.JavaScriptSerializer (Upload handler) and Api.Serializer (Mail.Api) equal result;
         // ReSharper disable InconsistentNaming
+        ///<example type="int" name="fileId">1234</example>
         [DataMember(Name = "fileId", EmitDefaultValue = false)]
         public int fileId { get; set; }
 
+        ///<example name="fileName">fileName</example>
         [DataMember(Name = "fileName", EmitDefaultValue = false)]
         public string fileName { get; set; }
 
+        ///<example type="int" name="size">1234</example>
         [DataMember(Name = "size", EmitDefaultValue = false)]
         public long size { get; set; }
 
+        ///<example name="contentType">contentType</example>
         [DataMember(Name = "contentType", EmitDefaultValue = false)]
         public string contentType { get; set; }
 
+        ///<example name="needSaveToTemp">true</example>
         [DataMember(Name = "needSaveToTemp", EmitDefaultValue = false)]
         public bool needSaveToTemp { get; set; }
 
+        ///<example name="contentId">contentId</example>
         [DataMember(Name = "contentId", EmitDefaultValue = false)]
         public string contentId
         {
@@ -63,18 +69,23 @@ namespace ASC.Mail.Data.Contracts
             set { _contentId = value; }
         }
 
+        ///<example type="int" name="fileNumber">333</example>
         [DataMember(Name = "fileNumber", EmitDefaultValue = false)]
         public int fileNumber { get; set; }
 
+        ///<example name="storedName">storedName</example>
         [DataMember(Name = "storedName", EmitDefaultValue = false)]
         public string storedName { get; set; }
 
+        ///<example name="streamId">streamId</example>
         [DataMember(Name = "streamId", EmitDefaultValue = false)]
         public string streamId { get; set; }
 
+        ///<example name="savedToMyDocuments">true</example>
         [DataMember(Name = "savedToMyDocuments", EmitDefaultValue = false)]
         public bool attachedAsLink { get; set; }
 
+        ///<example name="tempStoredUrl">tempStoredUrl</example>
         [DataMember(Name = "tempStoredUrl", EmitDefaultValue = false)]
         public string tempStoredUrl { get; set; }
 

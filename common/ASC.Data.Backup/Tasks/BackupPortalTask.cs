@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ using ASC.Data.Backup.Extensions;
 using ASC.Data.Backup.Tasks.Data;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
+using ASC.Data.Storage.ZipOperators;
 
 using Newtonsoft.Json;
 
@@ -64,14 +65,11 @@ namespace ASC.Data.Backup.Tasks
         public override void RunJob()
         {
             Logger.DebugFormat("begin backup {0}", TenantId);
-            CoreContext.TenantManager.SetCurrentTenant(TenantId);
-
-
-            using (var writer = new ZipWriteOperator(BackupFilePath))
+            using (WriteOperator)
             {
                 if (Dump)
                 {
-                    DoDump(writer);
+                    DoDump(WriteOperator);
                 }
                 else
                 {
@@ -84,11 +82,11 @@ namespace ASC.Data.Backup.Tasks
 
                     foreach (var module in modulesToProcess)
                     {
-                        DoBackupModule(writer, dbFactory, module);
+                        DoBackupModule(WriteOperator, dbFactory, module);
                     }
                     if (ProcessStorage)
                     {
-                        DoBackupStorage(writer, fileGroups);
+                        DoBackupStorage(WriteOperator, fileGroups);
                     }
                 }
             }
@@ -98,20 +96,28 @@ namespace ASC.Data.Backup.Tasks
         private void DoDump(IDataWriteOperator writer)
         {
             Dictionary<string, List<string>> databases = new Dictionary<string, List<string>>();
-            using (var dbManager = DbManager.FromHttpContext("default", 100000))
+            using (var dbManager = new DbManager("default", 100000))
             {
-                dbManager.ExecuteList("select id, connection_string from mail_server_server").ForEach((r =>
+                dbManager.ExecuteList("select id, connection_string from mail_server_server").ForEach(r =>
                 {
                     var dbName = GetDbName((int)r[0], JsonConvert.DeserializeObject<Dictionary<string, object>>(Convert.ToString(r[1]))["DbConnection"].ToString());
-                    using (var dbManager1 = DbManager.FromHttpContext(dbName, 100000))
+                    using (var dbManager1 = new DbManager(dbName, 100000))
                     {
-                        var tables = dbManager1.ExecuteList("show tables;").Select(res => Convert.ToString(res[0])).ToList();
-                        databases.Add(dbName, tables);
+                        try
+                        {
+                            var tables = dbManager1.ExecuteList("show tables;").Select(res => Convert.ToString(res[0])).ToList();
+                            databases.Add(dbName, tables);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Error(e);
+                            DbRegistry.UnRegisterDatabase(dbName);
+                        }
                     }
-                }));
+                });
             }
 
-            using (var dbManager = DbManager.FromHttpContext("default", 100000))
+            using (var dbManager = new DbManager("default", 100000))
             {
                 var tables = dbManager.ExecuteList("show tables;").Select(res => Convert.ToString(res[0])).ToList();
                 databases.Add("default", tables);
@@ -124,8 +130,8 @@ namespace ASC.Data.Backup.Tasks
 
             var files = new List<BackupFileInfo>();
 
-            var stepscount = 0; 
-            foreach(var db in databases)
+            var stepscount = 0;
+            foreach (var db in databases)
             {
                 stepscount += db.Value.Count * 4;// (schema + data) * (dump + zip)
             }
@@ -142,7 +148,7 @@ namespace ASC.Data.Backup.Tasks
 
             SetStepsCount(stepscount);
 
-            foreach(var db in databases)
+            foreach (var db in databases)
             {
                 DoDump(writer, db.Key, db.Value);
             }
@@ -223,7 +229,7 @@ namespace ASC.Data.Backup.Tasks
             var files = GetFilesToProcess(tenantId).ToList();
             var exclude = new List<string>();
 
-            using (var db = DbManager.FromHttpContext("default"))
+            using (var db = new DbManager("default"))
             {
                 var query = new SqlQuery("backup_backup")
                     .Select("storage_path")
@@ -243,7 +249,7 @@ namespace ASC.Data.Backup.Tasks
             try
             {
                 Logger.DebugFormat("dump table scheme start {0}", t);
-                using (var dbManager = DbManager.FromHttpContext(dbName, 100000))
+                using (var dbManager = new DbManager(dbName, 100000))
                 {
                     var createScheme = dbManager.ExecuteList(string.Format("SHOW CREATE TABLE `{0}`", t));
                     var creates = new StringBuilder();
@@ -277,7 +283,7 @@ namespace ASC.Data.Backup.Tasks
         {
             try
             {
-                using (var dbManager = DbManager.FromHttpContext(dbName, 100000))
+                using (var dbManager = new DbManager(dbName, 100000))
                 {
                     dbManager.ExecuteNonQuery("analyze table " + t);
                     return dbManager.ExecuteScalar<int>(new SqlQuery("information_schema.`TABLES`").Select("table_rows").Where("TABLE_NAME", t).Where("TABLE_SCHEMA", dbManager.Connection.Database));
@@ -309,7 +315,7 @@ namespace ASC.Data.Backup.Tasks
                 int primaryIndexStart = 0;
 
                 List<string> columns;
-                using (var dbManager = DbManager.FromHttpContext(dbName, 100000))
+                using (var dbManager = new DbManager(dbName, 100000))
                 {
                     var columnsData = dbManager.ExecuteList(string.Format("SHOW COLUMNS FROM `{0}`;", t));
                     columns = columnsData
@@ -387,7 +393,7 @@ namespace ASC.Data.Backup.Tasks
 
         private List<object[]> GetData(string t, List<string> columns, int offset, string dbName)
         {
-            using (var dbManager = DbManager.FromHttpContext(dbName, 100000))
+            using (var dbManager = new DbManager(dbName, 100000))
             {
                 var query = new SqlQuery(t)
                     .Select(columns.ToArray())
@@ -398,7 +404,7 @@ namespace ASC.Data.Backup.Tasks
         }
         private List<object[]> GetDataWithPrimary(string t, List<string> columns, string primary, int start, int step, string dbName)
         {
-            using (var dbManager = DbManager.FromHttpContext(dbName, 100000))
+            using (var dbManager = new DbManager(dbName, 100000))
             {
                 var query = new SqlQuery(t)
                     .Select(columns.ToArray())
@@ -417,7 +423,7 @@ namespace ASC.Data.Backup.Tasks
             {
                 DbRegistry.UnRegisterDatabase(connectionSettings.Name);
             }
-            
+
             DbRegistry.RegisterDatabase(connectionSettings.Name, connectionSettings);
             return connectionSettings.Name;
         }
@@ -585,14 +591,28 @@ namespace ASC.Data.Backup.Tasks
             var exclude = new List<string>();
 
             using (var db = dbFactory.OpenConnection())
-            using (var command = db.CreateCommand())
             {
-                command.CommandText = "select storage_path from backup_backup where tenant_id = " + TenantId + " and storage_type = 0 and storage_path is not null";
-                using (var reader = command.ExecuteReader())
+                using (var command = db.CreateCommand())
                 {
-                    while (reader.Read())
+                    command.CommandText = "select storage_path from backup_backup where tenant_id = " + TenantId + " and storage_type = 0 and storage_path is not null and removed = 0";
+                    using (var reader = command.ExecuteReader())
                     {
-                        exclude.Add(reader.GetString(0));
+                        while (reader.Read())
+                        {
+                            exclude.Add(reader.GetString(0));
+                        }
+                    }
+                }
+
+                using (var command = db.CreateCommand())
+                {
+                    command.CommandText = "select id from files_file where tenant_id = " + TenantId + " and title like '%tar.gz' and content_length > 1073741824";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            exclude.Add(reader.GetString(0));
+                        }
                     }
                 }
             }
@@ -677,15 +697,17 @@ namespace ASC.Data.Backup.Tasks
                 {
                     var storage = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), group.Key);
                     var file1 = file;
+                    Stream fileStream = null;
                     ActionInvoker.Try(state =>
                     {
                         var f = (BackupFileInfo)state;
-                        using (var fileStream = storage.GetReadStream(f.Domain, f.Path))
-                        {
-                            writer.WriteEntry(file1.GetZipKey(), fileStream);
-                        }
+                        fileStream = storage.GetReadStream(f.Domain, f.Path);
                     }, file, 5, error => Logger.WarnFormat("can't backup file ({0}:{1}): {2}", file1.Module, file1.Path, error));
-
+                    if (fileStream != null) 
+                    {
+                        writer.WriteEntry(file1.GetZipKey(), fileStream);
+                        fileStream.Dispose();
+                    }
                     SetCurrentStepProgress((int)(++filesProcessed * 100 / (double)filesCount));
                 }
             }

@@ -1,0 +1,443 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "params.less";
+
+span.phoneControlContainer {
+    display: inline-block;
+    position: relative;
+}
+span.phoneControlContainer .phoneControlSwitherWrapper {
+    border: 1px solid @textColorBlackLight;
+    border-right: none;
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    padding: 0;
+}
+span.phoneControlContainer .phoneControlSwitherWrapper {
+    border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 4px;
+    -webkit-border-top-right-radius: 3px 0 0 3px;
+}
+span.phoneControlContainer .phoneControlInputContainer {
+    border: 1px solid @textColorBlackLight;
+    border-left: none;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 5px 0 0;
+}
+span.phoneControlContainer .phoneControlInputContainer {
+    border-radius:  0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-top-right-radius: 0 3px 3px 0;
+}
+span.phoneControlContainer.error .phoneControlSwitherWrapper,
+span.phoneControlContainer.error .phoneControlInput,
+span.phoneControlContainer.error .phoneControlInputContainer {
+    border-color: #BF3703;
+}
+span.phoneControlContainer .phoneControlSwither {
+    cursor: pointer;
+    border: none;
+    position: relative;
+}
+.dataItem.dataItemPhone .phoneControlSwither:hover {
+    background-color: #EEE;
+}
+
+span.phoneControlContainer .phoneControlSwither:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid @textColor;
+    content: "";
+    height: 0;
+    margin-top: -2px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    width: 0;
+}
+
+span.phoneControlContainer .phoneControlInput {
+    border: none;
+    padding: 7px 10px 7px 5px;
+    margin-left: 0;
+    max-height: 20px;
+    width: 250px;
+}
+span.phoneControlContainer .phoneControlInput {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+}
+
+#phoneControlDropDown {
+    padding-left: 10px;
+}
+#phoneControlDropDown ul.dropdown-content {
+    max-height: 260px;
+    max-width: 280px;
+}
+
+#phoneControlDropDown ul.dropdown-content li{
+    min-height: 23px;
+    padding: 0;
+}
+#phoneControlDropDown ul.dropdown-content a.dropdown-item {
+    color: @textColor;
+    display: block;
+    line-height: 15px;
+    margin: 2px 0 2px 8px;
+    padding: 1px 1px 1px 2px;
+    white-space: normal;
+}
+#phoneControlDropDown ul.dropdown-content li.selected {
+    background-color: #EEE;
+}
+#phoneControlDropDown ul.dropdown-content li div.fg-item,
+.phoneControlSwitherWrapper .phoneControlSwither .selectedPhoneCountry {
+    background-image: url("imagescss/flags.gif");
+    background-color: transparent;
+    background-repeat: no-repeat;
+    height: 11px;
+    vertical-align: middle;
+    width: 16px;
+}
+#phoneControlDropDown ul.dropdown-content li div.fg-item {
+    background-position: 0 15px;
+    display: inline-block;
+    float: left;
+    line-height: 15px;
+    margin: 5px 0 3px 10px;
+}
+.phoneControlSwitherWrapper .phoneControlSwither .selectedPhoneCountry {
+    display: inline-block;
+    line-height: 15px;
+    margin: 10px 0 0 10px;
+}
+
+.fg_AL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AL { background-position: 0 -1034px; }
+.fg_AU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AU { background-position: 0 -1716px; }
+.fg_AT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AT { background-position: 0 -1331px; }
+.fg_AZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AZ { background-position: 0 -1243px; }
+.fg_DZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_DZ { background-position: 0 -528px; }
+.fg_AS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AS { background-position: 0 -1562px; }
+.fg_AI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AI { background-position: 0 -1980px; }
+.fg_AO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AO { background-position: 0 -1947px; }
+.fg_AD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AD { background-position: 0 -594px; }
+.fg_AG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AG { background-position: 0 -869px; }
+.fg_AR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AR { background-position: 0 -2377px; }
+.fg_AM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AM { background-position: 0 -176px; }
+.fg_AW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AW { background-position: 0 -792px; }
+.fg_AF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AF { background-position: 0 -2311px; }
+.fg_BS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BS { background-position: 0 -363px; }
+.fg_BD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BD { background-position: 0 -1771px; }
+.fg_BB, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BB { background-position: 0 -1573px; }
+.fg_BH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BH { background-position: 0 -1496px; }
+.fg_BY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BY { background-position: 0 -1100px; }
+.fg_BZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BZ { background-position: 0 -484px; }
+.fg_BE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BE { background-position: 0 0; }
+.fg_BJ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BJ { background-position: 0 -1298px; }
+.fg_BM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BM { background-position: 0 -1914px; }
+.fg_BG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BG { background-position: 0 -2586px; }
+.fg_BO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BO { background-position: 0 -1650px; }
+.fg_BQ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BQ { background-position: 0 -2719px; }
+.fg_BA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BA { background-position: 0 -1584px; }
+.fg_BW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BW { background-position: 0 -2707px; }
+.fg_BR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BR { background-position: 0 -770px; }
+.fg_IO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IO { background-position: 0 -55px; }
+.fg_VG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VG { background-position: 0 -1408px; }
+.fg_BN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BN { background-position: 0 -1683px; }
+.fg_BF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BF { background-position: 0 -726px; }
+.fg_BI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BI { background-position: 0 -1892px; }
+.fg_BT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BT { background-position: 0 -1848px; }
+.fg_VU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VU { background-position: 0 -1265px; }
+.fg_VA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VA { background-position: 0 -2322px; }
+.fg_GB, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GB { background-position: 0 -55px; }
+.fg_HU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_HU { background-position: 0 -682px; }
+.fg_VE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VE { background-position: 0 -1056px; }
+.fg_VI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VI { background-position: 0 -1782px; }
+.fg_VN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VN { background-position: 0 -968px; }
+.fg_GA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GA { background-position: 0 -880px; }
+.fg_HT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_HT { background-position: 0 -319px; }
+.fg_GY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GY { background-position: 0 -803px; }
+.fg_GM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GM { background-position: 0 -627px; }
+.fg_GH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GH { background-position: 0 -2112px; }
+.fg_GP, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GP { background-position: 0 -407px; }
+.fg_GT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GT { background-position: 0 -935px; }
+.fg_GN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GN { background-position: 0 -2575px; }
+.fg_GW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GW { background-position: 0 -1925px; }
+.fg_DE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_DE { background-position: 0 -2509px; }
+.fg_GI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GI { background-position: 0 -275px; }
+.fg_HN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_HN { background-position: 0 -2156px; }
+.fg_HK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_HK { background-position: 0 -2696px; }
+.fg_GD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GD { background-position: 0 -2399px; }
+.fg_GL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GL { background-position: 0 -1760px; }
+.fg_GR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GR { background-position: 0 -165px; }
+.fg_GE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GE { background-position: 0 -858px; }
+.fg_GU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GU { background-position: 0 -2366px; }
+.fg_DK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_DK { background-position: 0 -1386px; }
+.fg_CD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CD { background-position: 0 -1518px; }
+.fg_DJ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_DJ { background-position: 0 -2101px; }
+.fg_DM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_DM { background-position: 0 -2432px; }
+.fg_DO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_DO { background-position: 0 -1529px; }
+.fg_EG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_EG { background-position: 0 -2201px; }
+.fg_ZM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ZM { background-position: 0 -1595px; }
+.fg_ZW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ZW { background-position: 0 -2046px; }
+.fg_IL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IL { background-position: 0 -341px; }
+.fg_IN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IN { background-position: 0 -1694px; }
+.fg_ID, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ID { background-position: 0 -1958px; }
+.fg_JO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_JO { background-position: 0 -1463px; }
+.fg_IQ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IQ { background-position: 0 -649px; }
+.fg_IR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IR { background-position: 0 -2013px; }
+.fg_IE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IE { background-position: 0 -1969px; }
+.fg_IS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IS { background-position: 0 -1991px; }
+.fg_ES, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ES { background-position: 0 -1155px; }
+.fg_IT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_IT { background-position: 0 -143px; }
+.fg_YE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_YE { background-position: 0 -1672px; }
+.fg_KZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KZ { background-position: 0 -1210px; }
+.fg_KY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KY { background-position: 0 -308px; }
+.fg_KH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KH { background-position: 0 -242px; }
+.fg_CM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CM { background-position: 0 -2057px; }
+.fg_CA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CA { background-position: 0 -1375px; }
+.fg_QA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_QA { background-position: 0 -462px; }
+.fg_KE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KE { background-position: 0 -2630px; }
+.fg_CY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CY { background-position: 0 -561px; }
+.fg_KG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KG { background-position: 0 -1617px; }
+.fg_KI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KI { background-position: 0 -374px; }
+.fg_CN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CN { background-position: 0 -825px; }
+.fg_CO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CO { background-position: 0 -330px; }
+.fg_KM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KM { background-position: 0 -1430px; }
+.fg_CG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CG { background-position: 0 -1793px; }
+.fg_CR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CR { background-position: 0 -2090px; }
+.fg_CI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CI { background-position: 0 -1661px; }
+.fg_CU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CU { background-position: 0 -748px; }
+.fg_KW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KW { background-position: 0 -2487px; }
+.fg_CW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CW { background-position: 0 -2729px; }
+.fg_LA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LA { background-position: 0 -451px; }
+.fg_LV, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LV { background-position: 0 -1936px; }
+.fg_LS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LS { background-position: 0 -2190px; }
+.fg_LR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LR { background-position: 0 -2068px; }
+.fg_LB, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LB { background-position: 0 -1254px; }
+.fg_LY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LY { background-position: 0 -132px; }
+.fg_LT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LT { background-position: 0 -1122px; }
+.fg_LI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LI { background-position: 0 -979px; }
+.fg_LU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LU { background-position: 0 -1474px; }
+.fg_MU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MU { background-position: 0 -2179px; }
+.fg_MR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MR { background-position: 0 -253px; }
+.fg_MG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MG { background-position: 0 -1287px; }
+.fg_MO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MO { background-position: 0 -2597px; }
+.fg_MK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MK { background-position: 0 -1353px; }
+.fg_MW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MW { background-position: 0 -2145px; }
+.fg_MY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MY { background-position: 0 -1870px; }
+.fg_ML, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ML { background-position: 0 -2520px; }
+.fg_MV, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MV { background-position: 0 -616px; }
+.fg_MT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MT { background-position: 0 -1551px; }
+.fg_MA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MA { background-position: 0 -2333px; }
+.fg_MQ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MQ { background-position: 0 -198px; }
+.fg_MH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MH { background-position: 0 -1144px; }
+.fg_MX, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MX { background-position: 0 -2024px; }
+.fg_MZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MZ { background-position: 0 -638px; }
+.fg_MD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MD { background-position: 0 -2685px; }
+.fg_MC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MC { background-position: 0 -913px; }
+.fg_MN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MN { background-position: 0 -2553px; }
+.fg_MS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MS { background-position: 0 -583px; }
+.fg_MM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MM { background-position: 0 -11px; }
+.fg_NA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NA { background-position: 0 -1881px; }
+.fg_NR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NR { background-position: 0 -1749px; }
+.fg_NP, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NP { background-position: 0 -110px; }
+.fg_NE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NE { background-position: 0 -550px; }
+.fg_NG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NG { background-position: 0 -2476px; }
+.fg_NL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NL { background-position: 0 -1441px; }
+.fg_NI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NI { background-position: 0 -154px; }
+.fg_NU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NU { background-position: 0 -2079px; }
+.fg_NZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NZ { background-position: 0 -1540px; }
+.fg_NC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NC { background-position: 0 -1276px; }
+.fg_NO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NO { background-position: 0 -836px; }
+.fg_AE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AE { background-position: 0 -2223px; }
+.fg_TC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TC { background-position: 0 -1309px; }
+.fg_BL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_BL { background-position: 0 -1012px; }
+.fg_SH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SH { background-position: 0 -495px; }
+.fg_OM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_OM { background-position: 0 -2454px; }
+.fg_CV, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CV { background-position: 0 -2652px; }
+.fg_CK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CK { background-position: 0 -2267px; }
+.fg_AC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_AC { background-position: 0 -55px; }
+.fg_NF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_NF { background-position: 0 -209px; }
+.fg_MF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MF { background-position: 0 -55px; }
+.fg_PK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PK { background-position: 0 -2035px; }
+.fg_PW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PW { background-position: 0 -231px; }
+.fg_PS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PS { background-position: 0 -1199px; }
+.fg_PA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PA { background-position: 0 -847px; }
+.fg_PG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PG { background-position: 0 -1485px; }
+.fg_PY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PY { background-position: 0 -2344px; }
+.fg_PE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PE { background-position: 0 -946px; }
+.fg_PL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PL { background-position: 0 -1177px; }
+.fg_PT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PT { background-position: 0 -517px; }
+.fg_PR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PR { background-position: 0 -473px; }
+.fg_KR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KR { background-position: 0 -2245px; }
+.fg_RE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_RE { background-position: 0 -264px; }
+.fg_RU, #phoneControlDropDown ul.dropdown-content .fg-item.fg_RU { background-position: 0 -660px; }
+.fg_RW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_RW { background-position: 0 -2674px; }
+.fg_RO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_RO { background-position: 0 -671px; }
+.fg_SV, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SV { background-position: 0 -1639px; }
+.fg_WS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_WS { background-position: 0 -2300px; }
+.fg_SM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SM { background-position: 0 -2123px; }
+.fg_ST, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ST { background-position: 0 -2388px; }
+.fg_SA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SA { background-position: 0 -33px; }
+.fg_SZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SZ { background-position: 0 -2278px; }
+.fg_KP, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KP { background-position: 0 -1804px; }
+.fg_MP, #phoneControlDropDown ul.dropdown-content .fg-item.fg_MP { background-position: 0 -704px; }
+.fg_SC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SC { background-position: 0 -1045px; }
+.fg_SN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SN { background-position: 0 -2134px; }
+.fg_PM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PM { background-position: 0 -1078px; }
+.fg_VC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_VC { background-position: 0 -2619px; }
+.fg_KN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_KN { background-position: 0 -99px; }
+.fg_LC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LC { background-position: 0 -1397px; }
+.fg_RS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_RS { background-position: 0 -2465px; }
+.fg_SG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SG { background-position: 0 -22px; }
+.fg_SX, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SX { background-position: 0 -2773px; }
+.fg_SY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SY { background-position: 0 -1826px; }
+.fg_SK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SK { background-position: 0 -2212px; }
+.fg_SI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SI { background-position: 0 -1221px; }
+.fg_SB, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SB { background-position: 0 -1067px; }
+.fg_SO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SO { background-position: 0 -1364px; }
+.fg_SD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SD { background-position: 0 -352px; }
+.fg_SR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SR { background-position: 0 -2663px; }
+.fg_US, #phoneControlDropDown ul.dropdown-content .fg-item.fg_US { background-position: 0 -44px; }
+.fg_SL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SL { background-position: 0 -737px; }
+.fg_TJ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TJ { background-position: 0 -187px; }
+.fg_TH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TH { background-position: 0 -957px; }
+.fg_TW, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TW { background-position: 0 -506px; }
+.fg_TZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TZ { background-position: 0 -2289px; }
+.fg_TL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TL { background-position: 0 -2784px; }
+.fg_TG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TG { background-position: 0 -605px; }
+.fg_TK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TK { background-position: 0 -2751px; }
+.fg_TO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TO { background-position: 0 -1089px; }
+.fg_TT, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TT { background-position: 0 -440px; }
+.fg_TV, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TV { background-position: 0 -286px; }
+.fg_TN, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TN { background-position: 0 -539px; }
+.fg_TM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TM { background-position: 0 -2542px; }
+.fg_TR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TR { background-position: 0 -1606px; }
+.fg_UG, #phoneControlDropDown ul.dropdown-content .fg-item.fg_UG { background-position: 0 -1166px; }
+.fg_UZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_UZ { background-position: 0 -1001px; }
+.fg_UA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_UA { background-position: 0 -2002px; }
+.fg_WF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_WF { background-position: 0 -1012px; }
+.fg_UY, #phoneControlDropDown ul.dropdown-content .fg-item.fg_UY { background-position: 0 -2608px; }
+.fg_FO, #phoneControlDropDown ul.dropdown-content .fg-item.fg_FO { background-position: 0 -1111px; }
+.fg_FM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_FM { background-position: 0 -1738px; }
+.fg_FJ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_FJ { background-position: 0 -1859px; }
+.fg_PH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PH { background-position: 0 -1815px; }
+.fg_FI, #phoneControlDropDown ul.dropdown-content .fg-item.fg_FI { background-position: 0 -1903px; }
+.fg_FK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_FK { background-position: 0 -2762px; }
+.fg_FR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_FR { background-position: 0 -1012px; }
+.fg_GF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GF { background-position: 0 -2234px; }
+.fg_PF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_PF { background-position: 0 -1705px; }
+.fg_HR, #phoneControlDropDown ul.dropdown-content .fg-item.fg_HR { background-position: 0 -902px; }
+.fg_CF, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CF { background-position: 0 -1837px; }
+.fg_TD, #phoneControlDropDown ul.dropdown-content .fg-item.fg_TD { background-position: 0 -814px; }
+.fg_ME, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ME { background-position: 0 -2167px; }
+.fg_CZ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CZ { background-position: 0 -2256px; }
+.fg_CL, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CL { background-position: 0 -1342px; }
+.fg_CH, #phoneControlDropDown ul.dropdown-content .fg-item.fg_CH { background-position: 0 -1320px; }
+.fg_SE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SE { background-position: 0 -385px; }
+.fg_LK, #phoneControlDropDown ul.dropdown-content .fg-item.fg_LK { background-position: 0 -2641px; }
+.fg_EC, #phoneControlDropDown ul.dropdown-content .fg-item.fg_EC { background-position: 0 -1188px; }
+.fg_GQ, #phoneControlDropDown ul.dropdown-content .fg-item.fg_GQ { background-position: 0 -1507px; }
+.fg_ER, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ER { background-position: 0 -715px; }
+.fg_EE, #phoneControlDropDown ul.dropdown-content .fg-item.fg_EE { background-position: 0 -2410px; }
+.fg_ET, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ET { background-position: 0 -2443px; }
+.fg_ZA, #phoneControlDropDown ul.dropdown-content .fg-item.fg_ZA { background-position: 0 -2355px; }
+.fg_SS, #phoneControlDropDown ul.dropdown-content .fg-item.fg_SS { background-position: 0 -2741px; }
+.fg_JM, #phoneControlDropDown ul.dropdown-content .fg-item.fg_JM { background-position: 0 -1727px; }
+.fg_JP, #phoneControlDropDown ul.dropdown-content .fg-item.fg_JP { background-position: 0 -429px; }
+
+/* styled selector
+---------------------------------- */
+.styled-select-container .tl-combobox {
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid @textColorBlackLight;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.styled-select-container .tl-combobox,
+.styled-select-container .tl-combobox .combobox-container,
+.styled-select-container .tl-combobox .combobox-container .combobox-options {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+.styled-select-container .tl-combobox .combobox-container {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.styled-select-container .tl-combobox .combobox-container {
+    border-color: @textColorBlackLight;
+    left: -1px;
+    margin: 0;
+    max-width: none;
+    padding: 0;
+    right: auto;
+}
+
+.styled-select-container .tl-combobox .combobox-container .container-corner {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.styled-select-container .tl-combobox .combobox-title .inner-text {
+    margin-left: 10px;
+}
+
+.styled-select-container .tl-combobox .combobox-title {
+    color: @textColor;
+}
+
+.styled-select-container .tl-combobox .combobox-container .combobox-options .option-item {
+    padding: 7px 10px;
+    background-color: @body-color;
+}
+
+.styled-select-container .tl-combobox .combobox-container .combobox-options .option-item.in-focus {
+    text-decoration: none;
+    background-color: #E6E6E6;
+}
+
+.styled-select-container .tl-combobox .combobox-wrapper {
+    bottom: -2px;
+    display: block;
+    height: 1px;
+    line-height: 1px;
+    position: absolute;
+    left: 0;
+    width: 1px;
+    z-index: 2;
+}
+
+.dataItem .styled-select-container {
+    margin-left: -10px;
+}

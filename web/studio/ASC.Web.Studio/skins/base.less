@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@
 }
 
 
-.borderButtons (@colorValue: #000) {
+.borderButtons (@colorValue: @bg-a-activate) {
     border-width: 1px;
     border-style: solid;
     border-color: @colorValue;
@@ -79,8 +79,8 @@
 }
 
 .boxShadow (@blurRadius: 4px) {
-    background: #FFF;
-    border: 1px solid #D1D1D1;
+    background: @body-color;
+    border: 1px solid @borderColor;
     .shadow(@blurRadius);
 }
 
@@ -95,14 +95,14 @@
    .textOverflowEllipsis();
 }
 
-.linkStyle (@colorLink: #333){
+.linkStyle (@colorLink: @textColor){
     color:@colorLink;
     cursor: pointer;
     padding: 0;
     text-decoration: none;
 }
 
-.textStyle (@colorText: #333, @sizeText: 12px){
+.textStyle (@colorText: @textColor, @sizeText: 12px) {
     color: @colorText;
     font-size: @sizeText;
 }
@@ -159,35 +159,33 @@
 // -------------------------
 
 #gradient {
- 
-  // Horizontal gradient, from left to right
-  //
-  // Creates two color stops, start and end, by specifying a color and position for each color stop.
-  // Color stops are not available in IE9 and below.
-  .horizontal(@start-color: #555, @start-percent: 0%, @end-color: #333, @end-percent: 100%) {
-    background-color: @end-color;
-    background-image: -webkit-gradient(linear, @start-percent top, @end-percent top, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
-    background-image: -webkit-linear-gradient(left, color-stop(@start-color @start-percent), color-stop(@end-color @end-percent)); // Safari 5.1+, Chrome 10+
-    background-image: -moz-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
-    background-image:  linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
-    background-repeat: repeat-x;
-    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
-  }
- 
-  // Vertical gradient, from top to bottom
-  //
-  // Creates two color stops, start and end, by specifying a color and position for each color stop.
-  // Color stops are not available in IE9 and below.
-  .vertical(@start-color: #555, @start-percent: 0%, @end-color: #333, @end-percent: 100%) {
-    background-color: @end-color;
-    background-image: -webkit-gradient(linear, left @start-percent, left @end-percent, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
-    background-image: -webkit-linear-gradient(top, @start-color, @start-percent, @end-color, @end-percent); // Safari 5.1+, Chrome 10+
-    background-image:  -moz-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
-    background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
-    background-repeat: repeat-x;
-    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
-  }
- }
+    // Horizontal gradient, from left to right
+    //
+    // Creates two color stops, start and end, by specifying a color and position for each color stop.
+    // Color stops are not available in IE9 and below.
+    .horizontal(@start-color: #555, @start-percent: 0%, @end-color: @textColor, @end-percent: 100%) {
+        background-color: @end-color;
+        background-image: -webkit-gradient(linear, @start-percent top, @end-percent top, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
+        background-image: -webkit-linear-gradient(left, color-stop(@start-color @start-percent), color-stop(@end-color @end-percent)); // Safari 5.1+, Chrome 10+
+        background-image: -moz-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
+        background-image: linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
+        background-repeat: repeat-x;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
+    }
+    // Vertical gradient, from top to bottom
+    //
+    // Creates two color stops, start and end, by specifying a color and position for each color stop.
+    // Color stops are not available in IE9 and below.
+    .vertical(@start-color: #555, @start-percent: 0%, @end-color: @textColor, @end-percent: 100%) {
+        background-color: @end-color;
+        background-image: -webkit-gradient(linear, left @start-percent, left @end-percent, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
+        background-image: -webkit-linear-gradient(top, @start-color, @start-percent, @end-color, @end-percent); // Safari 5.1+, Chrome 10+
+        background-image: -moz-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
+        background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
+        background-repeat: repeat-x;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
+    }
+}
 
 .bg-vertical-gradient(@start-color, @end-color) {
     #gradient > .vertical(@start-color, 0%, @end-color, 100%);

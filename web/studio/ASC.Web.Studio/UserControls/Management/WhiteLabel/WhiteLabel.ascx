@@ -55,7 +55,7 @@
 
             <div class="clearFix logo-setting-block ">
                 <div class="header-base-small logo-header">
-                    <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LogoDark2, TenantWhiteLabelSettings.logoDarkSize.Width, TenantWhiteLabelSettings.logoDarkSize.Height) %>
+                    <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LoginPageLogoLight, TenantWhiteLabelSettings.logoDarkSize.Width, TenantWhiteLabelSettings.logoDarkSize.Height) %>
                 </div>
                 <div>
                     <div class="logo-img-container">
@@ -75,6 +75,31 @@
                             </a>
                         </div>
                      <% } %>
+                </div>
+            </div>
+
+            <div class="clearFix logo-setting-block ">
+                <div class="header-base-small logo-header">
+                    <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LoginPageLogoDark, TenantWhiteLabelSettings.logoLightSize.Width, TenantWhiteLabelSettings.logoLightSize.Height) %>
+                </div>
+                <div>
+                    <div class="logo-img-container">
+                        <img class="borderBase logo_<%= (int)WhiteLabelLogoTypeEnum.Light %>"
+                            src="<%= String.Format("/TenantLogo.ashx?logotype={0}&general={1}", (int)WhiteLabelLogoTypeEnum.Light, (!IsRetina).ToString().ToLower()) %>" />
+                        <canvas id="canvas_logo_<%= (int)WhiteLabelLogoTypeEnum.Light %>" class="borderBase" width="432" height="70"
+                            data-fontsize="54"
+                            data-fontcolor="#fff">
+                            <%= WhiteLabelResource.BrowserNoCanvasSupport %>
+                        </canvas>
+                    </div> 
+                    <% if (WhiteLabelEnabledForPaid) { %>
+                    <input type="hidden" id="logoPath_<%= (int)WhiteLabelLogoTypeEnum.Light %>" value="" />
+                    <div class="logo-change-container">
+                        <a id="logoUploader_<%= (int)WhiteLabelLogoTypeEnum.Light %>" class="link dotline small"> 
+                            <%= Resource.ChangeLogoButton %>
+                        </a>
+                    </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -103,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="clearFix logo-setting-block">
+            <div class="clearFix logo-setting-block" style="width: 450px">
                 <div class="header-base-small logo-header">
                     <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LogoDocsEditor, TenantWhiteLabelSettings.logoDocsEditorSize.Width, TenantWhiteLabelSettings.logoDocsEditorSize.Height) %>
                 </div>
@@ -114,6 +139,8 @@
                         <img class="borderBase docs-style2-background logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditor %>"
                             src="<%= String.Format("/TenantLogo.ashx?logotype={0}&general={1}", (int)WhiteLabelLogoTypeEnum.DocsEditor, (!IsRetina).ToString().ToLower())%>" />
                         <img class="borderBase docs-style3-background logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditor %>"
+                            src="<%= String.Format("/TenantLogo.ashx?logotype={0}&general={1}", (int)WhiteLabelLogoTypeEnum.DocsEditor, (!IsRetina).ToString().ToLower())%>" />
+                        <img class="borderBase docs-style4-background logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditor %>"
                             src="<%= String.Format("/TenantLogo.ashx?logotype={0}&general={1}", (int)WhiteLabelLogoTypeEnum.DocsEditor, (!IsRetina).ToString().ToLower())%>" />
                     
                     
@@ -128,6 +155,11 @@
                             <%= WhiteLabelResource.BrowserNoCanvasSupport %>
                         </canvas>
                         <canvas id="canvas_logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditor %>_3" class="borderBase" width="172" height="40"
+                            data-fontsize="22"
+                            data-fontcolor="#fff">
+                            <%= WhiteLabelResource.BrowserNoCanvasSupport %>
+                        </canvas>
+                        <canvas id="canvas_logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditor %>_4" class="borderBase" width="172" height="40"
                             data-fontsize="22"
                             data-fontcolor="#fff">
                             <%= WhiteLabelResource.BrowserNoCanvasSupport %>

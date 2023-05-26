@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,48 +25,74 @@ using ASC.Web.Projects.Classes;
 
 namespace ASC.Api.Projects.Wrappers
 {
+    ///<inherited>ASC.Api.Projects.Wrappers.ObjectWrapperFullBase, ASC.Api.Projects</inherited>
     [DataContract(Name = "project", Namespace = "")]
     public class ProjectWrapperFull : ObjectWrapperFullBase
     {
+        ///<example>false</example>
         [DataMember]
         public bool CanEdit { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanDelete { get; set; }
 
+        ///<type>ASC.Web.Projects.Classes.ProjectSecurityInfo, ASC.Web.Projects</type>
         [DataMember]
         public ProjectSecurityInfo Security { get; set; }
 
+        ///<example type="int">13234</example>
         [DataMember(EmitDefaultValue = false)]
         public object ProjectFolder { get; set; }
 
+        ///<example>false</example>
+        ///<order>32</order>
         [DataMember(Order = 32)]
         public bool IsPrivate { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>33</order>
         [DataMember(Order = 33)]
         public int TaskCount { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>33</order>
         [DataMember(Order = 33)]
         public int TaskCountTotal { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>34</order>
         [DataMember(Order = 34)]
         public int MilestoneCount { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>34</order>
         [DataMember(Order = 34)]
         public int DiscussionCount { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>35</order>
         [DataMember(Order = 35)]
         public int ParticipantCount { get; set; }
 
+        ///<example>TimeTrackingTotal</example>
+        ///<order>35</order>
         [DataMember(Order = 35)]
         public string TimeTrackingTotal { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>35</order>
         [DataMember(Order = 35)]
         public int DocumentsCount { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>36</order>
         [DataMember(Order = 36)]
         public bool IsFollow { get; set; }
 
+        ///<example>Tags1,Tags2</example>
+        ///<order>37</order>
+        ///<collection split=",">list</collection>
         [DataMember(Order = 37, EmitDefaultValue = false)]
         public IEnumerable<string> Tags { get; set; }
 

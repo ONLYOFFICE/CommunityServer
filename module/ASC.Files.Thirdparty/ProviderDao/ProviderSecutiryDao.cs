@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,11 +155,13 @@ namespace ASC.Files.Thirdparty.ProviderDao
         private void GetFoldersForShare(object folderId, ICollection<FileEntry> folders)
         {
             var selector = GetSelector(folderId);
-            var folderDao = selector.GetFolderDao(folderId);
-            if (folderDao == null) return;
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                if (folderDao == null) return;
 
-            var folder = folderDao.GetFolder(selector.ConvertId(folderId));
-            if (folder != null) folders.Add(folder);
+                var folder = folderDao.GetFolder(selector.ConvertId(folderId));
+                if (folder != null) folders.Add(folder);
+            }
         }
 
         private List<FileShareRecord> GetShareForFolders(IReadOnlyCollection<FileEntry> folders)
@@ -170,11 +172,16 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             foreach (var folder in folders)
             {
-                var selector = GetSelector(folder.ID);
-                var folderDao = selector.GetFolderDao(folder.ID);
-                if (folderDao == null) continue;
+                List<Folder> parentFolders;
 
-                var parentFolders = folderDao.GetParentFolders(selector.ConvertId(folder.ID));
+                var selector = GetSelector(folder.ID);
+                using (var folderDao = selector.GetFolderDao(folder.ID))
+                {
+                    if (folderDao == null) continue;
+
+                    parentFolders = folderDao.GetParentFolders(selector.ConvertId(folder.ID));
+                }
+
                 if (parentFolders == null || !parentFolders.Any()) continue;
 
                 parentFolders.Reverse();
@@ -193,11 +200,11 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result;
         }
 
-        public void RemoveSubject(Guid subject)
+        public void RemoveSubjects(IEnumerable<Guid> subjects)
         {
             using (var securityDao = TryGetSecurityDao())
             {
-                securityDao.RemoveSubject(subject);
+                securityDao.RemoveSubjects(subjects);
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ using ASC.Specific;
 
 namespace ASC.Api.CRM.Wrappers
 {
+    ///<inherited>ASC.Api.CRM.Wrappers.ObjectWrapperBase, ASC.Api.CRM</inherited>
     [DataContract(Name = "case", Namespace = "")]
     public class CasesWrapper : ObjectWrapperBase
     {
@@ -54,30 +55,42 @@ namespace ASC.Api.CRM.Wrappers
             CanEdit = CRMSecurity.CanEdit(cases);
         }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactBaseWrapper, ASC.Api.CRM</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<ContactBaseWrapper> Members { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public EmployeeWraper CreateBy { get; set; }
 
+        ///<example>2020-12-08T17:37:04.5736385Z</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ApiDateTime Created { get; set; }
 
+        ///<example>Exhibition organization</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String Title { get; set; }
 
+        ///<example>false</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool IsClosed { get; set; }
 
+        ///<example>false</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool IsPrivate { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<EmployeeWraper> AccessList { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool CanEdit { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.CustomFieldBaseWrapper, ASC.Api.CRM</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<CustomFieldBaseWrapper> CustomFields { get; set; }
 

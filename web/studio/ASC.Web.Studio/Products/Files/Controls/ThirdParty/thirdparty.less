@@ -1,0 +1,922 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../App_Themes/default/params.less";
+
+body .Box,
+body .BoxNet,
+body .DropBox,
+body .DropboxV2,
+body .DocuSign,
+body .Google,
+body .GoogleDrive,
+body .OneDrive,
+body .SkyDrive,
+body .SharePoint,
+body .WebDav,
+body .kDrive,
+body .Yandex,
+body .Nextcloud,
+body .OwnCloud {
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+body .Box,
+body .BoxNet {
+    -webkit-mask-image: url("images/svg/icon_box_small_monochrome.svg");
+    mask-image: url("images/svg/icon_box_small_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @BoxNet-icon-bg-body;
+}
+body .DropBox,
+body .DropboxV2 {
+    -webkit-mask-image: url("images/svg/icon_dropbox_monochrome.svg");
+    mask-image: url("images/svg/icon_dropbox_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @DropboxV2-icon-bg-body;
+}
+body .DocuSign {
+    background-image: url("images/svg/icon_docusign.svg");
+}
+body .Google,
+body .GoogleDrive {
+    background-image: url("images/svg/icon_google_drive.svg");
+}
+body .SharePoint {
+    -webkit-mask-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    mask-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @SharePoint-icon-bg-body;
+}
+body .OneDrive,
+body .SkyDrive {
+    -webkit-mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @Skydrive-icon-bg-body;
+}
+body .SharePoint.SkyDrive {
+    -webkit-mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @Skydrive-icon-bg-body;
+}
+body .WebDav {
+    -webkit-mask-image: url("images/svg/icon_webdav.svg");
+    mask-image: url("images/svg/icon_webdav.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #96D1DE;
+}
+body .kDrive {
+    background-image: url("images/svg/icon_kdrive.svg");
+}
+body .Yandex {
+    background-image: url("images/svg/icon_yandex_disk.svg");
+}
+body .Yandex.ru {
+    background-image: url("images/svg/icon_yandex_disk.svg");
+}
+body .Nextcloud {
+    -webkit-mask-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    mask-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @Nextcloud-icon-bg-body;
+}
+body .OwnCloud {
+    -webkit-mask-image: url("images/svg/icon_owncloud_monochrome.svg");
+    mask-image: url("images/svg/icon_owncloud_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @OwnCloud-icon-bg-body;
+}
+
+body .thumbnails .thumb-img .Box,
+body .thumbnails .thumb-img .BoxNet {
+    background-image: url("images/svg/thumb/box.svg");
+}
+body .thumbnails .thumb-img .DropBox,
+body .thumbnails .thumb-img .DropboxV2 {
+    background-image: url("images/svg/thumb/dropbox.svg");
+}
+body .thumbnails .thumb-img .Google,
+body .thumbnails .thumb-img .GoogleDrive {
+    background-image: url("images/svg/thumb/google.svg");
+}
+body .thumbnails .thumb-img .SharePoint {
+    background-image: url("images/svg/thumb/sharepoint.svg");
+}
+body .thumbnails .thumb-img .OneDrive,
+body .thumbnails .thumb-img .SkyDrive {
+    background-image: url("images/svg/thumb/onedrive.svg");
+}
+body .thumbnails .thumb-img .WebDav {
+    background-image: url("images/svg/thumb/webdav.svg");
+}
+body .thumbnails .thumb-img .kDrive {
+    background-image: url("images/svg/thumb/kdrive.svg");
+}
+body .thumbnails .thumb-img .Yandex {
+    background-image: url("images/svg/thumb/yandex.svg");
+}
+body .thumbnails .thumb-img .Yandex.ru {
+    background-image: url("images/svg/thumb/yandex.svg");
+}
+body .thumbnails .thumb-img .Nextcloud {
+    background-image: url("images/svg/thumb/nextcloud.svg");
+}
+body .thumbnails .thumb-img .OwnCloud {
+    background-image: url("images/svg/thumb/owncloud.svg");
+}
+
+/*******************************************************************************
+   For Retina
+*******************************************************************************/
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx)
+{
+    body .BoxNet {
+        background-image: url("images/retina/thirdparty_boxnet.png");
+    }
+}
+
+/*******************************************************************************
+    Content
+*******************************************************************************/
+.file-row .thumb-folder .provider-key {
+    /*background-position: 0 -52px;*/
+    background-position: 0 2px;
+    bottom: 0;
+    height: 18px;
+    position: absolute;
+    right: 0;
+    width: 18px;
+    background-size:100%;
+}
+.thumbnails .file-row .thumb-folder .provider-key {
+    height: 14px;
+    width: 14px;
+}
+.thumbnails .file-row .thumb-img .provider-key {
+    height: 96px;
+    width: 96px;
+    right: 13px;
+}
+#filesMainContent.compact .thumb-folder .provider-key,
+.files-news-panel .thumb-folder .provider-key {
+    /*background-position: 0 -80px;*/
+    height: 14px;
+    width: 14px;
+}
+.jstree .third-party-entry .jstree-icon {
+    background-position: 0 0;
+    background-size: 16px;
+    filter: grayscale(1);
+}
+.jstree .third-party-entry .jstree-icon.Box,
+.jstree .third-party-entry .jstree-icon.BoxNet {
+    background-image: url("images/svg/icon_box_small_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.DropBox,
+.jstree .third-party-entry .jstree-icon.DropboxV2  {
+    background-image: url("images/svg/icon_dropbox_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.DocuSign {
+    background-image: url("images/svg/icon_docusign_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Google,
+.jstree .third-party-entry .jstree-icon.GoogleDrive  {
+    background-image: url("images/svg/icon_google-drive_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.SharePoint   {
+    background-image: url("images/svg/icon_sharepoint_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.OneDrive,
+.jstree .third-party-entry .jstree-icon.SkyDrive  {
+    background-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.SkyDrive  {
+    background-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.WebDav  {
+    background-image: url("images/svg/icon_webdav_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.kDrive {
+    background-image: url("images/svg/icon_kdrive_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Yandex {
+    background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Yandex.ru {
+    background-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.Nextcloud  {
+    background-image: url("images/svg/icon_nextcloud_monochrome.svg");
+}
+.jstree .third-party-entry .jstree-icon.OwnCloud {
+    background-image: url("images/svg/icon_owncloud_monochrome.svg");
+}
+
+.without-third-party .jstree .third-party-entry {
+    display: none;
+}
+
+/*******************************************************************************
+    Setting thirdParty container
+*******************************************************************************/
+#thirdPartyAccountContainer,
+#emptyThirdPartyContainer {
+    display: none;
+    min-width: 600px;
+    overflow: hidden;
+}
+.emptyScrCtrl .emptyScrTd .emptyScrBttnPnl label {
+    font-size: 13px;
+}
+#thirdPartyAccountList {
+    margin: 20px 0;
+}
+.account-row {
+    border-left: medium none;
+    border-right: medium none;
+    margin-bottom: -1px;
+}
+.account-row:hover .account-header-container {
+    background-color: @body-color-hover;
+}
+.account-row:hover .account-settings-container {
+    background-color: @body-color-selected;
+}
+.account-header-container {
+    padding: 5px 10px;
+    height: 40px;
+}
+.account-header-container > div {
+    float: left;
+}
+.account-icon {
+    /*background-position: 0 -104px;*/
+    height: 40px;
+    width: 40px;
+    background-size: 40px;
+}
+.account-popup-icon {
+    height: 100px;
+    margin: 16px 0;
+    width: 100px;
+}
+.account-provider-title {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 40px;
+    overflow: hidden;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+    width: 120px;
+    white-space: nowrap;
+}
+.account-customer-title,
+.account-provider-error {
+    padding-left: 10px;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.account-customer-title a,
+.account-customer-title a:hover {
+    font-size: 14px;
+    line-height: 40px;
+}
+.account-provider-error {
+    color: #aa2c2c;
+    line-height: 40px;
+}
+
+.account-settings-container {
+    border-top: 1px dotted @border-color;
+    display: none;
+    padding: 15px 0;
+}
+.account-log-pass-container {
+    display: none;
+    width: 600px;
+    margin: 0 auto;
+}
+.account-folder-settings-container {
+    width: 600px;
+    margin: 0 auto;
+}
+.account-field-row {
+    margin-bottom: 10px;
+    height: 20px;
+}
+.account-field-row-large {
+    height: 41px;
+}
+.account-field-url {
+    display: none;
+}
+.account-field-title {
+    float: left;
+    line-height: 20px;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+}
+.account-field-body {
+    float: left;
+    margin-left: 10px;
+    width: 300px;
+    position: relative;
+}
+.account-field-body .textEdit {
+    width: 300px;
+    padding: 1px 2px;
+}
+.account-field-body .textEdit.account-input-pass {
+    padding-right: 32px;
+    width: 270px;
+}
+.account-field-body label {
+    font-size: 11px;
+    display: block;
+    margin-top: 7px;
+    white-space: nowrap;
+}
+.account-field-body label.pass-visibility {
+    background: url("../../../../UserControls/Users/UserProfile/css/images/read-only.svg");
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    display: block;
+    margin: 0;
+    top: 2px;
+    right: 0;
+    cursor: pointer;
+    user-select: none;
+}
+.account-field-body label.pass-visibility.visible {
+    background: url("../../../../UserControls/Users/UserProfile/css/images/access-deny.svg");
+}
+.edit-account-button span {
+    /*background-position: 0 -80px;*/
+    display: inline-block;
+    height: 14px;
+    margin: -2px 3px -2px -7px;
+    width: 14px;
+    background-size: 16px;
+    background-position: 100% 50%;
+}
+.account-action-container {
+    margin-left: 160px;
+}
+.account-action-container .faq-link {
+    margin-top: 12px;
+    display: block;
+}
+.account-row .menu-small {
+    float: right;
+}
+/*******************************************************************************
+    Third Party editor dialog
+*******************************************************************************/
+#thirdPartyPanel {
+    margin-top: -10px;
+}
+.thirdparty-editor-row {
+    margin-top: 10px;
+}
+.thirdparty-editor-row input {
+    height: 22px;
+    margin-top: 4px;
+    width: 344px;
+}
+.thirdparty-editor-row .edit-account-button {
+    margin-top: 4px;
+}
+#thirdPartyTitle {
+    background-position: 4px 50%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding-left: 30px;
+    width: 315px;
+    background-size: 21px;
+}
+#thirdPartyLabelCorporate {
+    display: block;
+    line-height: 23px;
+    margin-top: 12px;
+}
+#thirdPartyCorporate {
+    float: left;
+    margin-right: 7px;
+    margin-top: 5px;
+}
+/*******************************************************************************
+    Third Party add dialog
+*******************************************************************************/
+.add-account-big {
+    background-position: center -218px;
+    border: 1px solid @border-color;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 14px;
+    height: 30px;
+    margin: 20px 20px 0 35px;
+    padding-top: 10px;
+    text-align: center;
+    width: 158px;
+    background-position: 50%;
+    background-color: #fff !important;
+}
+.add-account-big.kDrive {
+    background-image: url("images/svg/logo_kdrive.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+
+}
+.add-account-big.Yandex.ru {
+    background-image: url("images/svg/logo_yandex_ru.svg");     
+
+}
+.add-account-big.Yandex {
+    background-image: url("images/svg/logo_yandex_en.svg");     
+}
+.add-account-big.GoogleDrive {
+    background-image: url("images/svg/logo_google-drive.svg");     
+}
+.add-account-big.Box {
+    background-image: url("images/svg/logo_box.svg");
+    background-size: 30%;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.DropboxV2 {
+    background-image: url("images/svg/logo_dropbox.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.SharePoint {
+    background-image: url("images/svg/logo_sharepoint.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.OneDrive {
+    background-image: url("images/svg/logo_onedrive.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.SharePoint.SkyDrive {
+    background-image: url("images/svg/logo_onedrive-for-business.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.Nextcloud {
+    background-image: url("images/svg/logo_nextcloud.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.OwnCloud {
+    background-image: url("images/svg/logo_owncloud.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.DocuSign {
+    background-image: url("images/svg/logo_docusign.svg");
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+.add-account-big.WebDav {
+    -webkit-mask-image: none;
+    mask-image: none;
+    color: #333;
+}
+/*******************************************************************************
+    Tree panel
+*******************************************************************************/
+.tree-thirdparty {
+    margin-top: 20px;
+}
+.tree-thirdparty-list {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+}
+
+
+.tree-thirdparty-list .add-account-button.Box,
+.tree-thirdparty-list .add-account-button.BoxNet {
+    -webkit-mask-image: url("images/svg/icon_box_small_monochrome.svg");
+    mask-image: url("images/svg/icon_box_small_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.DropBox,
+.tree-thirdparty-list .add-account-button.DropboxV2 {
+    -webkit-mask-image: url("images/svg/icon_dropbox_monochrome.svg");
+    mask-image: url("images/svg/icon_dropbox_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.DocuSign {
+    -webkit-mask-image: url("images/svg/icon_docusign_monochrome.svg");
+    mask-image: url("images/svg/icon_docusign_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.Google,
+.tree-thirdparty-list .add-account-button.GoogleDrive {
+    background-image: url("images/svg/@{icon-GoogleDrive}");
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.SharePoint {
+    -webkit-mask-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    mask-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.OneDrive,
+.tree-thirdparty-list .add-account-button.SkyDrive {
+    -webkit-mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.SharePoint.SkyDrive {
+    -webkit-mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.WebDav {
+    -webkit-mask-image: url("images/svg/icon_webdav_monochrome.svg");
+    mask-image: url("images/svg/icon_webdav_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.kDrive {
+    -webkit-mask-image: url("images/svg/icon_kdrive_monochrome.svg");
+    mask-image: url("images/svg/icon_kdrive_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.Yandex {
+    -webkit-mask-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+    mask-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.Yandex.ru {
+    -webkit-mask-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+    mask-image: url("images/svg/icon_yandex-disk_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.Nextcloud {
+    -webkit-mask-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    mask-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+.tree-thirdparty-list .add-account-button.OwnCloud {
+    -webkit-mask-image: url("images/svg/icon_owncloud_monochrome.svg");
+    mask-image: url("images/svg/icon_owncloud_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: #83888D;
+    opacity: @opacity-icon;
+}
+
+
+
+
+.tree-thirdparty-list .add-account-button.Box:hover,
+.tree-thirdparty-list .add-account-button.BoxNet:hover {
+    -webkit-mask-image: url("images/svg/icon_box_small_monochrome.svg");
+    mask-image: url("images/svg/icon_box_small_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @BoxNet-icon-bg;
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.DropBox:hover,
+.tree-thirdparty-list .add-account-button.DropboxV2:hover {
+    -webkit-mask-image: url("images/svg/icon_dropbox_monochrome.svg");
+    mask-image: url("images/svg/icon_dropbox_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @DropboxV2-icon-bg;
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.DocuSign:hover  {
+    background-image: url("images/svg/icon_docusign.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Google:hover,
+.tree-thirdparty-list .add-account-button.GoogleDrive:hover {
+    background-image: url("images/svg/@{icon-GoogleDrive-hover}");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.SharePoint:hover {
+    -webkit-mask-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    mask-image: url("images/svg/icon_sharepoint_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @SharePoint-icon-bg;
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.OneDrive:hover,
+.tree-thirdparty-list .add-account-button.SkyDrive:hover {
+    -webkit-mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @Skydrive-icon-bg;
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.SharePoint.SkyDrive:hover {
+    -webkit-mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    mask-image: url("images/svg/icon_onedrive_1_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @Skydrive-icon-bg;
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.WebDav:hover   {
+    opacity: 1;
+    color: #0082C9;
+}
+.tree-thirdparty-list .add-account-button.kDrive:hover  {
+    background-image: url("images/svg/icon_kdrive.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Yandex:hover  {
+    background-image: url("images/svg/icon_yandex-disk.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Yandex.ru:hover  {
+    background-image: url("images/svg/icon_yandex-disk.svg");
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.Nextcloud:hover {
+    -webkit-mask-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    mask-image: url("images/svg/icon_nextcloud_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @Nextcloud-icon-bg;
+    opacity: 1;
+}
+.tree-thirdparty-list .add-account-button.OwnCloud:hover {
+    -webkit-mask-image: url("images/svg/icon_owncloud_monochrome.svg");
+    mask-image: url("images/svg/icon_owncloud_monochrome.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    mask-size: 100%;
+    background-color: @OwnCloud-icon-bg;
+    opacity: 1;
+}
+
+
+.tree-thirdparty-list .add-account-button {
+    background-position: 50%;
+    cursor: pointer;
+    float: left;
+    height: 32px;
+    margin-right: 4px;
+    width: 32px;
+    background-size: 100%;
+}
+.tree-thirdparty-list .add-account-button.WebDav {
+    font-size:22px;
+    text-align: center;
+    -webkit-mask-image:none;
+    mask-image:none;
+    background-color:transparent;
+}
+.tree-thirdparty-list .add-account-button.WebDav:hover {
+    color: @WebDavicon-bg;
+}
+
+/*******************************************************************************
+    Third Party docusign dialog
+*******************************************************************************/
+.thirdparty-todocusign-header {
+    max-width: 335px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.thirdparty-todocusign-title {
+    margin-top: 8px;
+    width: 100%;
+}
+.thirdparty-todocusign-folder,
+.thirdparty-todocusign-recipients,
+#thirdpartyToDocuSignMessagePanel {
+    margin-top: 16px;
+}
+#thirdpartyToDocuSignFolderSelector {
+    max-height: 280px;
+    max-width: 600px;
+    overflow: auto;
+}
+#thirdpartyToDocuSignFolder {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+}
+#thirdpartyToDocuSignFolder:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #212121;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    width: 0;
+}
+#thirdpartyToDocuSignFolder a {
+    display: inline-block;
+    margin: 3px 24px 0 0;
+    max-width: 315px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#thirdpartyToDocuSignRecipientsList {
+    border: 1px solid @text-area-border-color;
+    height: 121px;
+    margin-top: 8px;
+    overflow-x: hidden;
+    padding: 3px 0 8px;
+}
+.with-message #thirdpartyToDocuSignRecipientsList {
+    height: 60px;
+}
+.ds-user-link {
+    display: inline-block;
+    margin: 5px 0 0 12px;
+    white-space: nowrap;
+}
+.ds-user-link .userLink {
+    max-width: 315px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ds-user-link-delete {
+    background: url("images/user_12.png") no-repeat center center transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 12px;
+    margin: -10px 6px 0 0;
+    vertical-align: middle;
+    width: 12px;
+}
+.ds-user-link-delete:hover {
+    background-image: url("images/trash_12.png");
+}
+#thirdpartyToDocuSignMessage {
+    display: none;
+    height: 50px;
+    margin-top: 8px;
+    min-height: 50px;
+    resize: none;
+    width: 100%; 
+}
+.with-message #thirdpartyToDocuSignMessage {
+    display: inline;
+}
+
+/***************************************\
+    Width
+\***************************************/
+
+media-width-0-1160
+
+body.media-width-0-1260:not(.media-width-0-1200) .account-customer-title,
+body.media-width-0-1260:not(.media-width-0-1200) .account-provider-error {
+    width: 280px;
+}
+
+body.media-width-0-1300:not(.media-width-0-1260) .account-customer-title,
+body.media-width-0-1300:not(.media-width-0-1260) .account-provider-error {
+    width: 300px;
+}
+
+body.media-width-0-1420:not(.media-width-0-1300) .account-customer-title,
+body.media-width-0-1420:not(.media-width-0-1300) .account-provider-error {
+    width: 320px;
+}
+body.media-width-0-1620:not(.media-width-0-1420) .account-customer-title,
+body.media-width-0-1620:not(.media-width-0-1420) .account-provider-error {
+    width: 400px;
+}
+body.media-width-1620-0 .account-customer-title,
+body.media-width-1620-0  .account-provider-error {
+    width: 500px;
+}

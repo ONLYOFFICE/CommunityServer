@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using ASC.Core.Data;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
+using ASC.Web.Core.Client;
 using ASC.Web.Studio.Utility;
 
 using SecurityContext = ASC.Core.SecurityContext;
@@ -33,13 +34,22 @@ namespace ASC.Web.Core
     public enum CookiesType
     {
         AuthKey,
-        SocketIO
+        SocketIO,
+        ShareLink,
+        ComebackAuthKey,
+        CurrentShareLink,
+        AnonymousSessionKey,
+        ModeThemeKey
     }
 
     public class CookiesManager
     {
         private const string AuthCookiesName = "asc_auth_key";
         private const string SocketIOCookiesName = "socketio.sid";
+        private const string ShareLinkCookiesName = "sharelink";
+        private const string ComebackAuthKeyCookiesName = "comeback_auth_key";
+        private const string AnonymousSessionKeyCookiesName = "anonymous_session_key";
+        private const string ModeThemeKeyCookiesName = "mode_theme_key";
 
         private static string GetCookiesName(CookiesType type)
         {
@@ -47,65 +57,73 @@ namespace ASC.Web.Core
             {
                 case CookiesType.AuthKey: return AuthCookiesName;
                 case CookiesType.SocketIO: return SocketIOCookiesName;
+                case CookiesType.ShareLink: return ShareLinkCookiesName;
+                case CookiesType.ComebackAuthKey: return ComebackAuthKeyCookiesName;
+                case CookiesType.AnonymousSessionKey:return AnonymousSessionKeyCookiesName;
+                case CookiesType.ModeThemeKey: return ModeThemeKeyCookiesName;
             }
 
             return string.Empty;
+        }
+
+        public static string GetCookiesName(CookiesType type, string itemId)
+        {
+            var cookieName = GetCookiesName(type);
+
+            if (!string.IsNullOrEmpty(itemId))
+            {
+                cookieName += itemId;
+            }
+
+            return cookieName;
         }
 
         public static string GetRequestVar(CookiesType type)
         {
             if (HttpContext.Current == null) return "";
 
-            var cookie = HttpContext.Current.Request.QueryString[GetCookiesName(type)] ?? HttpContext.Current.Request.Form[GetCookiesName(type)];
+            var cookieName = GetCookiesName(type);
+
+            var cookie = HttpContext.Current.Request.QueryString[cookieName] ?? HttpContext.Current.Request.Form[cookieName];
 
             return string.IsNullOrEmpty(cookie) ? GetCookies(type) : cookie;
         }
 
         public static void SetCookies(CookiesType type, string value, bool session = false)
         {
-            if (HttpContext.Current == null) return;
-
-            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Value = value;
-            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = GetExpiresDate(session);
-
-            if (type == CookiesType.AuthKey)
-            {
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
-
-                if (HttpContext.Current.Request.GetUrlRewriter().Scheme == "https")
-                {
-                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].Secure = true;
-                    if (CoreContext.Configuration.Personal)
-                    {
-                        var cookies = HttpContext.Current.Response.Cookies[GetCookiesName(type)];
-
-                        cookies.GetType()
-                               .GetProperty("SameSite")
-                               .SetValue(cookies, 0);
-                    }
-                }
-
-            }
+            SetCookies(type, null, value, null, session, type != CookiesType.SocketIO);
         }
 
         public static void SetCookies(CookiesType type, string value, string domain, bool session = false)
         {
+            SetCookies(type, null, value, domain, session, type != CookiesType.SocketIO);
+        }
+
+        public static void SetCookies(CookiesType type, string itemId, string value, string domain, bool session = false, bool httpOnly = false)
+        {
             if (HttpContext.Current == null) return;
 
-            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Value = value;
-            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Domain = domain;
-            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = GetExpiresDate(session);
+            var cookieName = GetCookiesName(type, itemId);
 
-            if (type == CookiesType.AuthKey)
+            HttpContext.Current.Response.Cookies[cookieName].Value = value;
+            HttpContext.Current.Response.Cookies[cookieName].Expires = GetExpiresDate(session);
+
+            if (!string.IsNullOrEmpty(domain))
             {
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
+                HttpContext.Current.Response.Cookies[cookieName].Domain = domain;
+            }
+
+            if (httpOnly)
+            {
+                HttpContext.Current.Response.Cookies[cookieName].HttpOnly = true;
 
                 if (HttpContext.Current.Request.GetUrlRewriter().Scheme == "https")
                 {
-                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].Secure = true;
-                    if (CoreContext.Configuration.Personal)
+                    HttpContext.Current.Response.Cookies[cookieName].Secure = true;
+
+                    if (ClientSettings.SameSiteCookieEnabled)
                     {
-                        var cookies = HttpContext.Current.Response.Cookies[GetCookiesName(type)];
+                        var cookies = HttpContext.Current.Response.Cookies[cookieName];
 
                         cookies.GetType()
                                .GetProperty("SameSite")
@@ -115,24 +133,56 @@ namespace ASC.Web.Core
             }
         }
 
+        public static HttpCookie GetCookie(CookiesType type, string itemId)
+        {
+            if (HttpContext.Current == null)
+            {
+                return null;
+            }
+
+            var cookieName = GetCookiesName(type, itemId);
+
+            return HttpContext.Current.Request.Cookies[cookieName];
+        }
+
         public static string GetCookies(CookiesType type)
+        {
+            return GetCookies(type, null);
+        }
+
+        public static string GetCookies(CookiesType type, string itemId, bool allowHeader = false)
         {
             if (HttpContext.Current != null)
             {
-                var cookieName = GetCookiesName(type);
+                var cookieName = GetCookiesName(type, itemId);
 
-                if (HttpContext.Current.Request.Cookies[cookieName] != null)
-                    return HttpContext.Current.Request.Cookies[cookieName].Value ?? "";
+                var cookie = HttpContext.Current.Request.Cookies[cookieName];
+                if (cookie != null)
+                {
+                    return cookie.Value ?? "";
+                }
+
+                if (allowHeader)
+                {
+                    return HttpContext.Current.Request.Headers[cookieName] ?? "";
+                }
             }
             return "";
         }
 
         public static void ClearCookies(CookiesType type)
         {
+            ClearCookies(type, null);
+        }
+
+        public static void ClearCookies(CookiesType type, string itemId)
+        {
             if (HttpContext.Current == null) return;
 
-            if (HttpContext.Current.Request.Cookies[GetCookiesName(type)] != null)
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = DateTime.Now.AddDays(-3);
+            var cookieName = GetCookiesName(type, itemId);
+
+            if (HttpContext.Current.Request.Cookies[cookieName] != null)
+                HttpContext.Current.Response.Cookies[cookieName].Expires = DateTime.Now.AddDays(-3);
         }
 
         private static DateTime GetExpiresDate(bool session)

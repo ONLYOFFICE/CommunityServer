@@ -1,0 +1,353 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../../../../skins/default/params.less";
+
+.ldap-settings-crt-details-val {
+    font-weight: normal;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+input[~'type="text" i'] {
+    width: 100%;
+}
+input[~'type="password" i'] {
+    width: 100%;
+}
+.ldap-settings-main-container .link.dotted {
+    border-bottom: 1px dotted;
+}
+.requiredField .ldap-settings-text-title::after {
+    color: #CC0000;
+    content: " *";
+    font-size: 12px;
+    vertical-align: text-top;
+}
+.settings-checkbox-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.ldap-mapping-row {
+    margin-bottom: 20px;
+    line-height: 21px;
+    position: relative;
+}
+.clear-fix {
+    zoom: 1;
+    display: block;
+}
+.ldap-settings-crt-serial-number {
+    margin-top: 0;
+}
+.ldap-settings-crt-details {
+    font-weight: bold;
+    margin: 15px 0;
+}
+.ldap-mapping-row .selectBox {
+    width: 164px;
+    float: left;
+    height: 21px;
+    box-sizing: border-box;
+    color: @textColor;
+}
+.selectBox {
+    display: block;
+    margin: 0;
+    padding: 0 14px;
+    height: 26px;
+    line-height: 20px;
+    font-size: 12px;
+    border: 1px solid #c1c1c1;
+    cursor: pointer;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.selectBox.disabled {
+    background-color: #f4f4f4;
+    cursor: default;
+}
+.selectBox .selectBoxValue {
+    float: left;
+    width: ~"calc(100% - 8px)";
+    height:100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.selectBox .selectBoxSwitch {
+    float: right;
+    width: 0;
+    height: 0;
+    margin-top: 8px;
+    border-style: solid;
+    border-width: 4px 4px 0 4px;
+    border-color: #4c4c4c transparent transparent transparent;
+}
+.selectBox .selectOptionsBox {
+    display: none;
+    position: absolute;
+    padding: 5px;
+    background-color: @body-color;
+    border: 1px solid #c1c1c1;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+.ldap-mapping-row .selectBox .selectOptionsBox {
+    width: 164px;
+    box-sizing: border-box;
+}
+.selectBox .selectOptionsBox .selectOptionsInnerBox {
+    max-height: 200px;
+    padding-right: 20px;
+    overflow-y: auto;
+}
+
+.selectBox .selectOptionsBox .selectOptionsInnerBox .option.selected {
+    color: #2e94c9;
+}
+
+.selectBox .selectOptionsBox .selectOptionsInnerBox .option {
+    display: block;
+    text-decoration: none;
+    padding: 2px 14px 2px 4px;
+    min-width: 50px;
+}
+
+.ldap-mapping-row .ldap-mapping-remove-row {
+    position: absolute;
+    right: -32px;
+}
+
+#ldapMappingAddBtn{
+    margin-bottom: 20px;
+}
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.remove-btn-icon {
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+}
+.remove-btn-icon.disabled{
+    cursor:default;
+}
+
+.remove-btn-icon svg {
+    fill: #CECECE;
+}
+.remove-btn-icon svg path:not(:first-child) {
+    stroke: #CECECE;
+}
+
+
+#ldapMappingSettings .comboBox {
+    width: 164px;
+    float: left;
+    height: 21px;
+}
+#ldapMappingSettings input {
+    width: 164px;
+    margin-left: 10px;
+}
+#ldapSettingsUserFilter, #ldapSettingsGroupFilter {
+    width: 100%;
+    height: 80px;
+    resize: none;
+}
+
+.ldap-settings-main-container{
+    margin-top: 22px;
+}
+
+.ldap-settings-main-container .HelpCenterSwitcher{
+    margin: 0px 0px -3px;
+}
+
+.ldap-settings-user-container, .ldap-settings-group-container, .ldap-settings-auth-container {
+    clear: both;
+}
+
+.ldap-settings-user-container, .ldap-settings-group-container {
+    margin: 0 0 42px 0;
+}
+.ldap-settings-user-container.ldap-settings-authentication {
+    margin-bottom: 28px;
+}
+
+.ldap-settings-column {
+    float: left;
+    margin: 0 40px 0 0;
+}
+
+.ldap-settings-second-column {
+    float: left;
+}
+
+.ldap-settings-title {
+    display: inline-block;
+    margin: 0 0 20px 0;
+}
+.ldap-settings-spoiler-link {
+    margin-left: 16px;
+}
+
+.ldap-settings-empty-field, .ldap-settings-incorrect-number {
+    float: right;
+}
+
+.ldap-settings-disabled, .ldap-settings-disabled-all {
+    color: @borderColor;
+    cursor: default;
+    -moz-user-select:-moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ldap-settings-label-checkbox {
+    margin: 0 2px 22px 0;
+    float: left;
+    clear: both;
+}
+
+.ldap-settings-label-checkbox input {
+    margin: 0 8px 2px 0;
+    vertical-align: middle;
+}
+
+.ldap-settings-block {
+    margin: 14px 0 0 0;
+}
+
+.ldap-settings-text {
+    padding: 0 0 4px 0;
+    font-weight: bold;
+}
+
+
+.ldap-settings-helper-help-class {
+    float: left;
+}
+
+.ldap-settings-sync-progressbar-container,
+.ldap-settings-progressbar-container {
+    width: 355px;
+    margin: 20px 0 0 0;
+}
+
+.ldap-settings-descr {
+    margin-bottom: 28px;
+}
+.ldap-settings_warnings {
+    margin-bottom: 14px;
+}
+
+.ldap-settings_warnings .header-base-medium {
+    font-size: 12px;
+}
+
+#ldapSettingsSpoiler .middle-button-container .button {
+    margin-bottom: 5px;
+}
+
+.ldap-settings-security-container .ldap-settings-label-checkbox,
+.ldap-attributes-container .ldap-settings-text,
+.ldap-settings-advanced-container .ldap-settings-text{
+    margin-bottom: 10px;
+}
+
+.ldap-settings-user-container .ldap-settings-block:first-child{
+    margin-top: 0px;
+}
+#ldapMappingAddBtn.disabled:hover {
+    background-color: #ebebeb;
+    border-color: #c4c4c4;
+    cursor: default;
+}
+.ldap-settings-user-container.ldap-attributes-container{
+    margin-bottom: 22px;
+}
+
+.ldap-settings-group-membership .ldap-settings-label-checkbox,
+.ldap-settings-authentication .ldap-settings-label-checkbox,
+.ldap-settings-authentication .ldap-settings-auth-container .ldap-settings-block {
+    margin-bottom: 14px;
+}
+
+.ldap-settings-main-container .middle-button-container{
+    margin-top: 10px;
+}
+
+#ldapSettingsAutoSyncCron{
+    margin-top: 15px;
+}
+.cronHumanReadableContainer {
+    margin-bottom: 40px;
+}
+#ldapSettingsAutoSyncCron .jqCron-selector-title {
+    padding: 2px 2px;
+    font-size: 12px;
+    background-color: @back-ground-text;
+    border-color: @jqCron-selector-title-bor;
+}
+
+#ldapSettingsAutoSyncCron .jqCron-selector-list {
+    font-size: 12px;
+    padding: 3px;
+    top: 10px;
+    background-color: @body-color;
+    border-color: @jqCron-selector-title-bor;
+}
+#ldapSettingsAutoSyncCron .ldap-settings-label-checkbox {
+    margin: 0 2px 14px 0;
+}
+#ldapSettingsSyncBtn {
+    margin-top: 10px;
+}
+#ldapCronHumanText {
+    display: block;
+    margin-bottom: 21px;
+}
+
+#ldapSettingsAutoSyncCron .jqCron-selector-list li:hover {
+    background-color: @tl-combobox-container-hover;
+}

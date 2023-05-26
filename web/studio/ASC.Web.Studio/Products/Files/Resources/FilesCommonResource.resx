@@ -331,7 +331,7 @@
     <value>Voided</value>
   </data>
   <data name="EditorMentions" xml:space="preserve">
-    <value>Notify when mentioned in document</value>
+    <value>Mentions in comments</value>
   </data>
   <data name="EnterComment" xml:space="preserve">
     <value>Enter a comment</value>
@@ -575,7 +575,7 @@
     <value>Share</value>
   </data>
   <data name="ShareFolder" xml:space="preserve">
-    <value>Notify when a folder is shared</value>
+    <value>Shared folders</value>
   </data>
   <data name="ShowVersions" xml:space="preserve">
     <value>Show Versions</value>
@@ -584,16 +584,16 @@
     <value>Size</value>
   </data>
   <data name="SubscriptDocuSignComplete" xml:space="preserve">
-    <value>Notify when document signed via DocuSign</value>
+    <value>DocuSign signature completion</value>
   </data>
   <data name="SubscriptDocuSignStatus" xml:space="preserve">
-    <value>Notify when document in DocuSign changed status</value>
+    <value>DocuSign status change</value>
   </data>
   <data name="SubscriptForAccess" xml:space="preserve">
-    <value>Notify when a document is shared</value>
+    <value>Shared documents</value>
   </data>
   <data name="SubscriptForMailMerge" xml:space="preserve">
-    <value>Notify when mailing is complete</value>
+    <value>Mail merge completion</value>
   </data>
   <data name="ThirdPartyCorrect" xml:space="preserve">
     <value>Fill in to change</value>
@@ -675,5 +675,23 @@
   </data>
   <data name="AceStatusEnum_None" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="ErrorMassage_ShareLinkExpired" xml:space="preserve">
+    <value>Shared link is expired</value>
+  </data>
+  <data name="ErrorMassage_ShareLinkInvalid" xml:space="preserve">
+    <value>Invalid shared link</value>
+  </data>
+  <data name="ErrorMassage_ShareLinkNotFound" xml:space="preserve">
+    <value>Shared link not found</value>
+  </data>
+  <data name="ErrorMassage_ShareLinkPassword" xml:space="preserve">
+    <value>Incorrect password</value>
+  </data>
+  <data name="ErrorMassage_ShareLinkPasswordBruteForce" xml:space="preserve">
+    <value>Failed password entry. Too many attempts</value>
+  </data>
+  <data name="ErrorMassage_FolderNotAvailable" xml:space="preserve">
+    <value>This folder has been deleted or is no longer available</value>
   </data>
 </root>

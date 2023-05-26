@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,6 +127,14 @@ namespace ASC.ActiveDirectory
                 _log.DebugFormat("CoreContext.UserManager.SaveUserInfo({0})", ldapUserInfo.GetUserInfoString());
 
                 portalUserInfo = CoreContext.UserManager.SaveUserInfo(ldapUserInfo, syncCardDav: true);
+                
+                var quotaSettings = TenantUserQuotaSettings.Load();
+
+                if (quotaSettings.EnableUserQuota)
+                {
+                    var userSettings = new UserQuotaSettings { UserQuota = ldapUserInfo.LdapQouta };
+                    userSettings.SaveForUser(ldapUserInfo.ID);
+                }
 
                 var passwordHash = LdapUtils.GeneratePassword();
 
@@ -249,7 +257,6 @@ namespace ASC.ActiveDirectory
                             null,
                             new[] { new DirectRecipient(ldapUserInfo.Email, null, new[] { ldapUserInfo.Email }, false) },
                             new[] { ASC.Core.Configuration.Constants.NotifyEMailSenderSysName },
-                            null,
                             new TagValue(NotifyConstants.TagUserName, ldapUserInfo.DisplayUserName()),
                             new TagValue(NotifyConstants.TagUserEmail, ldapUserInfo.Email),
                             new TagValue(NotifyConstants.TagMyStaffLink, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetMyStaff())),

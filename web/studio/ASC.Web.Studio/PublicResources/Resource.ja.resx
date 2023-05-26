@@ -1821,9 +1821,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}トラステッドメールドメインの設定{2}は、ユーザーの自己registerationに使用するメールサーバを指定する方法です。{0}することができますどちらか{1}カスタムドメイン{2}オプションをチェックしての信頼されたメールサーバーを入力する下のフィールドには、そのために口座を持っているその人は、{2}、[サインイン]ページまたはこのオプションを無効にして{1}の参加リンクをクリックして、彼（彼女）自身を登録することができます。{0}はパラメータを作成するにはあなたは、セクションの下部に{1}{2}を保存]ボタンをクリックしますを有効に設定します。</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}のパスワード強度の設定{2}は、推測やブルートフォース攻撃に抵抗するパスワードの有効性を決定するための方法です。{0}はどのくらいパスワードがかを判断するためには、{1}の最小パスワード長は、{2}バーを使用して、である。パスワードで使用する必要がある文字セットを決定するために、下記の該当するチェックボックスをオンにしますので、設定したパラメータを作るために{0}が有効になるセクションの下部に{1}{2}[保存]ボタンをクリックします。</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}公開ポータル{2}が登録なし誰かに公開コンテンツを見られることを可能にする無料な機能です。民間プロジェクト、ＣＲＭモジュールは不可能です。{0}新しいユーザーがポータル管理者への要求に応じて登録され、ユーザー数は無期限です。登録確認の必要を削除するように{1}新規ユーザーをすぐに登録{2}オプションを使用してください。</value>
   </data>
@@ -2048,9 +2045,6 @@
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>有効にする</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IPセキュリティー (IP Security){1}は特定のアドレスを除くすべてのIPアドレスからポータルへのログインを限定するように使われている機能です。IPv4形式のIPアドレス（#.#.#.#、［#］は０から２５５までの数値）またはIP レンジ （#.#.#.#-#.#.#.# 形式）を使用して、許可のあるIPアドレスを設定できます。所有者はどんなでもＩＰアドレスからポータルにログインできます。</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IPセキュリティ</value>
@@ -2626,9 +2620,6 @@
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>パスワードの変更</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>最小のパスワードの長さ</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>パスワードの復元</value>

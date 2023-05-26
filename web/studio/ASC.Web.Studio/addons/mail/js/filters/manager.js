@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,6 +174,7 @@ window.filtersManager = (function($) {
 
                             filters.splice(index, 1);
                             eventsHandler.trigger(supportedCustomEvents.OnDelete, filter.id);
+                            window.editFilterPage.close();
                         },
                         error: function(params, errors) {
                             window.toastr.error(errors[0]);
@@ -217,6 +218,7 @@ window.filtersManager = (function($) {
 
                                                     window.serviceManager.updateFolders();
                                                     window.LoadingBanner.hideLoading();
+                                                    window.editFilterPage.close();
                                                 }
                                             },
                                             error: function(params, errors) {

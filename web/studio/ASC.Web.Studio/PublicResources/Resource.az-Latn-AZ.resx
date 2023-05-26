@@ -1787,10 +1787,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Trusted Mail Domain Settings{2} is a way to specify the mail servers that may be used for user self-registering in ONLYOFFICE™.{0}You can either check the {1}Custom domains{2} option and enter the trusted mail server in the field below or select the {1}Any domains{2} option.{0}In these cases any member of your company who has an account at specified mail server will be able to register him(her)self by clicking the {1}Join{2} link on the {1}Sign In{2} page and entering an email address with the trusted domain name you add.{0}To disable this option check the corresponding radio button.{0}To apply the changes you made use the {1}Save{2} button at the bottom of the section.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Parolun güvənlik ayarları{2} parolun güvənliyini təyin etməyə imkan verir (parolun tapılmaya və birbaşa yığıma müqavimət effektivliyi).{0}{1}Parolun minimal{2} {1}Uzunluğu{2} sürüngəcindən istifadə edin ki, parolun etibarlı olması üçün nə qədər uzun olmasını təyin edə biləsiniz. Uyğun gələn seçənəkləri aşağıda qeyd edin ki, parolda hansı simvol yığınının istifadə olunmasını təyin edə biləsiniz.{0}
-Edilmiş dəyişiklikləri tətbiq etmək üçün bölmənin aşağısında {1}Qeyd et{2} düyməsindən istifadə edin.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}İctimai Portal{2} hər kəsə qeydiyyat olmadan ictimai məzmunlarınıza baxmaq imkanı verən ödənişsiz seçimdir. Heç bir şəxsi layihə mövcud deyil və bu cür portallar üçün CRM modulu deaktiv edilib.{0}İctimai portallarda qeydiyyat istifadəçilərin sayı ilə məhdudlaşmır, yeni istifadəçilər portal administratorunun sorğusu əsasında əlavə edilir. İstənilən qeydiyyat təsdiqi zərurətini aradan qaldırmaq üçün {1}Yeni istifadəçiləri Dərhal qeydiyyatdan keçirin{2} seçimindən istifadə edin.</value>
   </data>
@@ -2043,9 +2039,6 @@ Edilmiş dəyişiklikləri tətbiq etmək üçün bölmənin aşağısında {1}Q
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Aktivləşdirin</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP Təhlükəsizliyi{1}, müəyyən ünvanlardan başqa IP ünvanlarından portala girişin qarşısını almaq üçün istifadə olunur. İcazə verilən IP ünvanlarını IPv4 formatından (#.#.#.#, burada # 0-255 aralığında rəqəmdir) və ya IP aralığından (#.#.#.#-#.#.#.# formatında) istifadə edərək təyin edə bilərsiniz. İP təhlükəsizliyi, portal sahiblərinə şamil edilmir, onlar istənilən IP ünvanından portala daxil ola bilərlər.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>İP Təhlükəsizliyi</value>
@@ -2795,9 +2788,6 @@ Kilidli profil sahələrini dəyişdirmək istəyirsinizsə, LDAP administratoru
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Parolun dəyişdirilməsi</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Parolun minimal uzunluğu</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Parolun bərpa edilməsi</value>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ using ASC.FederatedLogin.Profile;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
@@ -188,8 +189,15 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/UserControls/Common/Authorize/css/authorize.less")
-                .RegisterBodyScripts("~/UserControls/Common/Authorize/js/authorize.js");
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/Authorize/css/dark-authorize.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/Authorize/css/authorize.less");
+            }
+            Page.RegisterBodyScripts("~/UserControls/Common/Authorize/js/authorize.js");
 
             if (RecaptchaEnable)
             {
@@ -267,8 +275,10 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             var authMethod = AuthMethod.Login;
             var tfaLoginUrl = string.Empty;
-            var loginCounter = 0;
-            ShowRecaptcha = false;
+            var requestIp = MessageSettings.GetFullIPAddress(Request);
+            var bruteForceLoginManager = new BruteForceLoginManager(cache, Login, requestIp);
+            var bruteForceSuccessAttempt = false;
+
             try
             {
                 if (thirdPartyProfile != null)
@@ -317,37 +327,24 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 if (string.IsNullOrEmpty(HashId) && !SetupInfo.IsSecretEmail(Login))
                 {
-                    int.TryParse(cache.Get<String>("loginsec/" + Login), out loginCounter);
+                    bruteForceSuccessAttempt = bruteForceLoginManager.Increment(out ShowRecaptcha);
 
-                    loginCounter++;
-
-                    if (!RecaptchaEnable)
+                    if (!bruteForceSuccessAttempt)
                     {
-                        if (loginCounter > SetupInfo.LoginThreshold)
+                        if (!RecaptchaEnable)
                         {
                             throw new BruteForceCredentialException();
                         }
-                    }
-                    else
-                    {
-                        if (loginCounter > SetupInfo.LoginThreshold - 1)
+                        else
                         {
-                            ShowRecaptcha = true;
-                        }
-                        if (loginCounter > SetupInfo.LoginThreshold)
-                        {
-                            var ip = Request.Headers["X-Forwarded-For"] ?? Request.UserHostAddress;
-
                             var recaptchaResponse = Request["g-recaptcha-response"];
                             if (String.IsNullOrEmpty(recaptchaResponse)
-                                || !ValidateRecaptcha(recaptchaResponse, ip))
+                                || !ValidateRecaptcha(recaptchaResponse, requestIp))
                             {
                                 throw new RecaptchaException();
                             }
                         }
                     }
-
-                    cache.Insert("loginsec/" + Login, loginCounter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
 
                 var userInfo = GetUser(out authMethod);
@@ -360,18 +357,18 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
                 var settings = IPRestrictionsSettings.Load();
-                if (settings.Enable && userInfo.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant))
+                if (settings.Enable && userInfo.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant, userInfo.Email))
                 {
                     throw new IPSecurityException();
                 }
 
                 if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings
-                    && StudioSmsNotificationSettings.Enable)
+                    && StudioSmsNotificationSettings.TfaEnabledForUser(userInfo.ID))
                 {
                     tfaLoginUrl = Studio.Confirm.SmsConfirmUrl(userInfo);
                 }
                 else if (TfaAppAuthSettings.IsVisibleSettings
-                         && TfaAppAuthSettings.Enable)
+                         && TfaAppAuthSettings.TfaEnabledForUser(userInfo.ID))
                 {
                     tfaLoginUrl = Studio.Confirm.TfaConfirmUrl(userInfo);
                 }
@@ -452,9 +449,9 @@ namespace ASC.Web.Studio.UserControls.Common
                 return false;
             }
 
-            if (loginCounter > 0)
+            if (bruteForceSuccessAttempt)
             {
-                cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                bruteForceLoginManager.Decrement();
             }
 
             if (!string.IsNullOrEmpty(tfaLoginUrl))

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,12 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Returns a list of all the alerts for the authenticated user.
         /// </summary>
-        /// <returns>List of alerts</returns>
+        /// <returns type="ASC.Mail.Data.Contracts.MailAlertData, ASC.Mail">List of alerts</returns>
         /// <short>Get alerts</short> 
         /// <category>Alerts</category>
+        /// <path>api/2.0/mail/alert</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"alert")]
         public IList<MailAlertData> GetAlerts()
         {
@@ -40,10 +43,12 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Deletes an alert with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Alert ID</param>
+        /// <param type="System.Int64, System" method="url" name="id">Alert ID</param>
         /// <returns>Deleted alert ID. Same as the request parameter</returns>
-        /// <short>Delete an alert by ID</short> 
+        /// <short>Delete an alert</short> 
         /// <category>Alerts</category>
+        /// <path>api/2.0/mail/alert/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"alert/{id}")]
         public long DeleteAlert(long id)
         {

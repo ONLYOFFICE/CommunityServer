@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 @import "base.less";
+@import "params.less";
 /*******************************************************************************
 ListInvoiceView.ascx
 *******************************************************************************/
@@ -315,7 +316,7 @@ ListActionView.ascx
         }
 
         &.ui-sortable-helper {
-            background-color: #F2F2F2;
+            background-color: @hover-row-color;
         }
     }
 
@@ -323,7 +324,7 @@ ListActionView.ascx
         padding: 0 6px 10px 16px;
         line-height: 20px;
         height: 20px;
-        border-bottom: 1px solid #C7C7C7;
+        border-bottom: 1px solid @text-area-border-color;
     }
 
     .tbl-subtotal-row {
@@ -336,8 +337,8 @@ ListActionView.ascx
         font-weight: bold;
 
         .tbl-cell {
-            border-bottom: 1px solid #C7C7C7;
-            border-top: 1px solid #C7C7C7;
+            border-bottom: 1px solid @text-area-border-color;
+            border-top: 1px solid @text-area-border-color;
         }
     }
 
@@ -354,6 +355,7 @@ ListActionView.ascx
                 }
             }
         }
+
         &.tax1, &.tax2 {
             .custom-input {
                 input, input:focus {
@@ -444,12 +446,12 @@ ListActionView.ascx
         width: 180px;
         margin-left: 410px;
 
-        >span.taxLineName {
+        > span.taxLineName {
             .text-overflow-nowrap(120px);
             float: left;
         }
 
-        >span.taxLineRate {
+        > span.taxLineRate {
             .text-overflow-nowrap(60px);
         }
     }
@@ -512,7 +514,7 @@ ListActionView.ascx
     }
 
     .left-side {
-        border-right: 1px solid #C7C7C7;
+        border-right: 1px solid @text-area-border-color;
         display: none;
 
         .textEdit {
@@ -583,7 +585,7 @@ ListActionView.ascx
 
 /*custom input for comboboxes or serch input*/
 .custom-input {
-    border: 1px solid #C7C7C7;
+    border: 1px solid @text-area-border-color;
     height: 18px;
 
     input, input:focus {
@@ -606,7 +608,7 @@ ListActionView.ascx
         &.drop-down:after {
             border-left: 4px solid transparent;
             border-right: 4px solid transparent;
-            border-top: 4px solid #83888D;
+            border-top: 4px solid @generalListEdit-after;
             content: "";
             height: 0;
             width: 0;
@@ -618,7 +620,7 @@ ListActionView.ascx
         }
 
         &.serch {
-            background: url("../images/icons.png") no-repeat scroll -1px -390px #FFFFFF;
+            background: url("../images/icons.png") no-repeat scroll -1px -390px @invoice-icon-search-bg;
         }
     }
 }
@@ -630,24 +632,24 @@ ListActionView.ascx
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0;
-    border-top: 1px solid #C7C7C7;
+    border-top: 1px solid @text-area-border-color;
     width: 100%;
 
     li {
         line-height: 20px;
         list-style-type: none;
-        border-bottom: 1px solid #C7C7C7;
+        border-bottom: 1px solid @text-area-border-color;
         margin: 0;
         padding: 0;
 
 
         &:hover {
-            background-color: #E6E6E6;
+            background-color: @body-color-hover;
         }
 
         a {
             .text-overflow-nowrap();
-            color: #333333;
+            color: @text-color;
             display: block;
             padding: 2% 4%;
             text-decoration: none;
@@ -742,6 +744,7 @@ body.media-width-min {
     position: absolute;
     top: 15px;
     left: 0;
+    color: #333;
 
     &.draft, &.rejected
     {
@@ -763,7 +766,7 @@ body.media-width-min {
 
 .invoice-data
 {
-    background-color: #FFFFFF;
+    background-color: #fff;
     font-size: 10pt;
     color: #333;
 

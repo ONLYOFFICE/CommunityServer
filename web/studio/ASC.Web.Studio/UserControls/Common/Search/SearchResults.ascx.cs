@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.Search;
 
 namespace ASC.Web.Studio.UserControls.Common.Search
@@ -38,8 +39,15 @@ namespace ASC.Web.Studio.UserControls.Common.Search
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/UserControls/Common/Search/css/searchresults.less")
-                .RegisterBodyScripts("~/UserControls/Common/Search/js/searchresults.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/Search/css/dark-searchresults.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/Search/css/searchresults.less");
+            }
+            Page.RegisterBodyScripts("~/UserControls/Common/Search/js/searchresults.js");
 
             results.ItemDataBound += ResultsItemDataBound;
             results.DataSource = SearchResultsData;

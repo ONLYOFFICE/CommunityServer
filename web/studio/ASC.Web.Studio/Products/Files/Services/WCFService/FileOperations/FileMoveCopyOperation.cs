@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
+using ASC.Core.Tenants;
+using ASC.Core;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
+using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
@@ -44,8 +48,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             get { return _copy ? FileOperationType.Copy : FileOperationType.Move; }
         }
 
-        public FileMoveCopyOperation(List<object> folders, List<object> files, string toFolderId, bool copy, FileConflictResolveType resolveType, bool holdResult = true, Dictionary<string, string> headers = null)
-            : base(folders, files, holdResult)
+        public FileMoveCopyOperation(List<object> folders, List<object> files, string toFolderId, bool copy, FileConflictResolveType resolveType, bool holdResult = true, Dictionary<string, string> headers = null, IEnumerable<HttpCookie> cookies = null)
+            : base(folders, files, holdResult, cookies: cookies)
         {
             _toFolderId = toFolderId;
             _copy = copy;
@@ -345,6 +349,32 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     {
                                         newFile.ThumbnailStatus = Thumbnail.Waiting;
                                         FileDao.SaveThumbnail(newFile, null);
+                                    }
+                                    if (file.RootFolderType == FolderType.TRASH && (toFolder.FolderType == FolderType.COMMON || ((toFolder.FolderType == FolderType.USER || toFolder.FolderType == FolderType.DEFAULT) && SecurityContext.CurrentAccount.ID != toFolder.CreateBy)))
+                                    {
+                                        CoreContext.TenantManager.SetTenantQuotaRow(
+                                                new TenantQuotaRow
+                                                {
+                                                    Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                                                    Path = string.Format("/{0}/{1}", FileConstant.ModuleId, ""),
+                                                    Counter = -1 * file.ContentLength,
+                                                    Tag = WebItemManager.DocumentsProductID.ToString(),
+                                                    UserId = SecurityContext.CurrentAccount.ID
+                                                },
+                                                true);
+                                        if ((toFolder.FolderType == FolderType.USER || toFolder.FolderType == FolderType.DEFAULT) && SecurityContext.CurrentAccount.ID != toFolder.CreateBy)
+                                        {
+                                            CoreContext.TenantManager.SetTenantQuotaRow(
+                                                new TenantQuotaRow
+                                                {
+                                                    Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                                                    Path = string.Format("/{0}/{1}", FileConstant.ModuleId, ""),
+                                                    Counter = file.ContentLength,
+                                                    Tag = WebItemManager.DocumentsProductID.ToString(),
+                                                    UserId = toFolder.CreateBy
+                                                },
+                                                true);
+                                        }
                                     }
 
                                     if (newFile.ProviderEntry)

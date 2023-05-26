@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Threading;
 using System.Web;
 
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
@@ -126,7 +127,7 @@ namespace ASC.Web.Files.Utils
                    && !file.Encrypted;
         }
 
-        private static string GetFolderId(object folderId, IList<string> relativePath)
+        public static string GetFolderId(object folderId, IList<string> relativePath)
         {
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
@@ -171,6 +172,9 @@ namespace ASC.Web.Files.Utils
         {
             var maxUploadSize = GetMaxFileSize(folderId, true);
 
+
+            CheckFolderOwnerQuota(folderId, fileSize);
+
             if (fileSize > maxUploadSize)
                 throw FileSizeComment.GetFileSizeException(maxUploadSize);
 
@@ -214,7 +218,7 @@ namespace ASC.Web.Files.Utils
             }
         }
 
-        public static ChunkedUploadSession InitiateUpload(string folderId, string fileId, string fileName, long contentLength, bool encrypted, bool keepVersion = false)
+        public static ChunkedUploadSession InitiateUpload(string folderId, string fileId, string fileName, long contentLength, bool encrypted, string linkId, bool keepVersion = false)
         {
             if (string.IsNullOrEmpty(folderId))
                 folderId = null;
@@ -242,6 +246,7 @@ namespace ASC.Web.Files.Utils
                 uploadSession.CultureName = Thread.CurrentThread.CurrentUICulture.Name;
                 uploadSession.Encrypted = encrypted;
                 uploadSession.KeepVersion = keepVersion;
+                uploadSession.LinkId = linkId;
 
                 ChunkedUploadSessionHolder.StoreSession(uploadSession);
 
@@ -316,6 +321,32 @@ namespace ASC.Web.Files.Utils
             {
                 return folderDao.GetMaxUploadSize(folderId, chunkedUpload);
             }
+        }
+
+        private static void CheckFolderOwnerQuota(object folderId, long fileSize)
+        {
+            var quotaSettings = TenantUserQuotaSettings.Load();
+
+            if (quotaSettings.EnableUserQuota)
+            {
+                using (var folderDao = Global.DaoFactory.GetFolderDao())
+                {
+                    var ownerId = folderDao.GetRootFolder(folderId).CreateBy;
+
+                    var userQuotaSettings = UserQuotaSettings.LoadForUser(ownerId);
+                    var quotaLimit = userQuotaSettings.UserQuota;
+
+                    if (quotaLimit > 0)
+                    {
+                        var userQuotaRows = CoreContext.TenantManager.FindUserQuotaRows(CoreContext.TenantManager.GetCurrentTenant().TenantId, ownerId).Where(r => !string.IsNullOrEmpty(r.Tag)).Where(r => r.Tag != Guid.Empty.ToString());
+                        var folderOwnerFreeSpace = quotaLimit - Math.Max(0, userQuotaRows.Sum(r => r.Counter));
+
+                        if (folderOwnerFreeSpace < 0 || fileSize > folderOwnerFreeSpace)
+                            throw FileSizeComment.GetPersonalFreeSpaceException(quotaLimit);
+                    }
+                }
+            }
+
         }
 
         #endregion

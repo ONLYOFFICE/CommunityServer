@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,68 +33,81 @@ namespace ASC.Api.Documents
 {
     /// <summary>
     /// </summary>
+    /// <inherited>ASC.Api.Documents.FileEntryWrapper, ASC.Api.Documents</inherited>
     [DataContract(Name = "file", Namespace = "")]
     public class FileWrapper : FileEntryWrapper
     {
         /// <summary>
         /// </summary>
+        /// <example type="int">12334</example>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public object FolderId { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">3</example>
         [DataMember(EmitDefaultValue = true, IsRequired = false)]
         public int Version { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">1</example>
         [DataMember(EmitDefaultValue = true, IsRequired = false)]
         public int VersionGroup { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example>12.06 KB</example>
         [DataMember(EmitDefaultValue = false, IsRequired = true)]
         public String ContentLength { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">12345</example>
         [DataMember(EmitDefaultValue = false, IsRequired = true)]
         public long PureContentLength { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">2</example>
         [DataMember(EmitDefaultValue = true, IsRequired = false)]
         public FileStatus FileStatus { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example>http:\/\/www.onlyoffice.com\/viewfile?fileid=2221</example>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public String ViewUrl { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example>http:\/\/www.onlyoffice.com\/viewfile?fileid=2221</example>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public String WebUrl { get; set; }
 
         /// <summary>
         ///     
         /// </summary>
+        /// <example type="int">7</example>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public FileType FileType { get; set; }
 
         /// <summary>
         ///     
         /// </summary>
+        /// <example>.txt</example>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public String FileExst { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example>null</example>
         [DataMember(EmitDefaultValue = true, IsRequired = false)]
         public String Comment { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example>true</example>
         [DataMember(EmitDefaultValue = false)]
         public bool Encrypted { get; set; }
 

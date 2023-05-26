@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,11 @@ namespace ASC.Common.Web
 
         public DisposableHttpContext(HttpContext ctx)
         {
-            if (ctx == null) throw new ArgumentNullException();
+            if (ctx == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.ctx = ctx;
         }
 
@@ -40,19 +44,31 @@ namespace ASC.Common.Web
         {
             get
             {
-                if (HttpContext.Current == null) throw new NotSupportedException("Avaliable in web request only.");
+                if (HttpContext.Current == null)
+                {
+                    throw new NotSupportedException("Avaliable in web request only.");
+                }
+
                 return new DisposableHttpContext(HttpContext.Current);
             }
         }
 
         public object this[string key]
         {
-            get { return Items.ContainsKey(key) ? Items[key] : null; }
+            get { return Items.ContainsKey(key.ToLowerInvariant()) ? Items[key.ToLowerInvariant()] : null; }
             set
             {
-                if (value == null) throw new ArgumentNullException();
-                if (!(value is IDisposable)) throw new ArgumentException("Only IDisposable may be added!");
-                Items[key] = (IDisposable)value;
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+                if (!(value is IDisposable))
+                {
+                    throw new ArgumentException("Only IDisposable may be added!");
+                }
+
+                Items[key.ToLowerInvariant()] = (IDisposable)value;
             }
         }
 
@@ -78,15 +94,9 @@ namespace ASC.Common.Web
         {
             if (!_isDisposed)
             {
-                foreach (IDisposable item in Items.Values)
+                foreach (var item in Items.Values)
                 {
-                    try
-                    {
-                        item.Dispose();
-                    }
-                    catch
-                    {
-                    }
+                    item.Dispose();
                 }
                 _isDisposed = true;
             }

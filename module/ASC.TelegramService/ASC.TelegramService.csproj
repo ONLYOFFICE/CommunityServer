@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ASC.TelegramService.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -62,14 +64,15 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="Telegram.Bot">
-      <Version>16.0.2</Version>
+      <Version>17.0.0</Version>
     </PackageReference>
     <PackageReference Include="Telegram.Bot.Extensions.Polling">
-      <Version>0.2.0</Version>
+      <Version>1.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

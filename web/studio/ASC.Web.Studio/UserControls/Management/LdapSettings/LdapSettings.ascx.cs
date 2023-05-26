@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Web.UI;
 using AjaxPro;
 
 using ASC.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 
@@ -55,9 +56,17 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             AjaxPro.Utility.RegisterTypeForAjax(typeof(LdapSettings), Page);
-            Page.RegisterStyle(
-                "~/UserControls/Management/LdapSettings/css/Default/ldapsettings.css",
-                "~/UserControls/Management/LdapSettings/css/Default/jqCron.css");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle(
+                "~/UserControls/Management/LdapSettings/css/Default/dark-ldapsettings.less");
+            }
+            else
+            {
+                Page.RegisterStyle(
+                "~/UserControls/Management/LdapSettings/css/Default/ldapsettings.less");
+            }
+            Page.RegisterStyle("~/UserControls/Management/LdapSettings/css/Default/jqCron.css");
 
             Page.RegisterBodyScripts(
                 "~/js/third-party/moment.min.js", "~/js/third-party/moment-timezone.min.js",

@@ -8,7 +8,8 @@
             <div class="confirm-block-cnt">
                 <div class="confirm-block-header">
                     <a href="Auth.aspx">
-                        <img class="logo" src="/TenantLogo.ashx?logotype=2" border="0" alt="" /></a>
+                        <img class="logo" src="/TenantLogo.ashx?logotype=2&dependsontheme=true" border="0" alt="" />
+                    </a>
                     <div class="header-base big blue-text"><%=HttpUtility.HtmlEncode(CoreContext.TenantManager.GetCurrentTenant().Name)%></div>
                 </div>
 

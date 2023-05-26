@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ namespace ASC.FederatedLogin
 
         public IEnumerable<string> GetLinkedObjectsByHashId(string hashid)
         {
-            using (var db = DbManager.FromHttpContext(dbid))
+            using (var db = new DbManager(dbid))
             {
                 var query = new SqlQuery("account_links")
                     .Select("id").Where("uid", hashid).Where(!Exp.Eq("provider", string.Empty));
@@ -83,7 +83,7 @@ namespace ASC.FederatedLogin
         private List<LoginProfile> GetLinkedProfilesFromDB(string obj)
         {
             //Retrieve by uinque id
-            using (var db = DbManager.FromHttpContext(dbid))
+            using (var db = new DbManager(dbid))
             {
                 var query = new SqlQuery("account_links")
                     .Select("profile").Where("id", obj);
@@ -93,7 +93,7 @@ namespace ASC.FederatedLogin
 
         public void AddLink(string obj, LoginProfile profile)
         {
-            using (var db = DbManager.FromHttpContext(dbid))
+            using (var db = new DbManager(dbid))
             {
                 db.ExecuteScalar<int>(
                     new SqlInsert("account_links", true)
@@ -129,7 +129,7 @@ namespace ASC.FederatedLogin
             if (!string.IsNullOrEmpty(provider)) sql.Where("provider", provider);
             if (!string.IsNullOrEmpty(hashId)) sql.Where("uid", hashId);
 
-            using (var db = DbManager.FromHttpContext(dbid))
+            using (var db = new DbManager(dbid))
             {
                 db.ExecuteScalar<int>(sql);
             }

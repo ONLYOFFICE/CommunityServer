@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,11 @@ namespace ASC.Core.Billing
         private readonly static string _billingSecret;
         private readonly bool _test;
 
-        private const int AvangatePaymentSystemId = 1;
+        public enum PaymentSystem
+        {
+            Avangate = 1,
+            Stripe = 9
+        };
 
         static BillingClient()
         {
@@ -83,11 +87,11 @@ namespace ASC.Core.Billing
             return payments;
         }
 
-        public IDictionary<string, Uri> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string quantity = null)
+        public IDictionary<string, Uri> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string quantity = null, PaymentSystem paymentSystem = PaymentSystem.Avangate)
         {
             var urls = new Dictionary<string, Uri>();
 
-            var additionalParameters = new List<Tuple<string, string>>() { Tuple.Create("PaymentSystemId", AvangatePaymentSystemId.ToString()) };
+            var additionalParameters = new List<Tuple<string, string>>() { Tuple.Create("PaymentSystemId", ((int)paymentSystem).ToString()) };
             if (!string.IsNullOrEmpty(affiliateId))
             {
                 additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
@@ -136,9 +140,9 @@ namespace ASC.Core.Billing
             return urls;
         }
 
-        public string GetPaymentUrl(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string quantity = null)
+        public string GetPaymentUrl(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string customerEmail = null, string backUrl = null, string quantity = null, PaymentSystem paymentSystem = PaymentSystem.Avangate)
         {
-            var additionalParameters = new List<Tuple<string, string>>() { Tuple.Create("PaymentSystemId", AvangatePaymentSystemId.ToString()) };
+            var additionalParameters = new List<Tuple<string, string>>() { Tuple.Create("PaymentSystemId", ((int)paymentSystem).ToString()) };
             if (!string.IsNullOrEmpty(affiliateId))
             {
                 additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
@@ -159,6 +163,14 @@ namespace ASC.Core.Billing
             {
                 additionalParameters.Add(Tuple.Create("CustomerID", customerId));
             }
+            if (!string.IsNullOrEmpty(customerEmail))
+            {
+                additionalParameters.Add(Tuple.Create("CustomerEmail", customerEmail));
+            }
+            if (!string.IsNullOrEmpty(backUrl))
+            {
+                additionalParameters.Add(Tuple.Create("BackRef", backUrl));
+            }
             if (!string.IsNullOrEmpty(quantity))
             {
                 additionalParameters.Add(Tuple.Create("Quantity", quantity));
@@ -176,7 +188,7 @@ namespace ASC.Core.Billing
             return paymentUrl;
         }
 
-        public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(params string[] productIds)
+        public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(string[] productIds, PaymentSystem paymentSystem = PaymentSystem.Avangate)
         {
             if (productIds == null)
             {
@@ -184,14 +196,14 @@ namespace ASC.Core.Billing
             }
 
             var parameters = productIds.Select(pid => Tuple.Create("ProductId", pid)).ToList();
-            parameters.Add(Tuple.Create("PaymentSystemId", AvangatePaymentSystemId.ToString()));
+            parameters.Add(Tuple.Create("PaymentSystemId", ((int)paymentSystem).ToString()));
 
             var result = Request("GetProductsPrices", null, parameters.ToArray());
-            var prices = JsonConvert.DeserializeObject<Dictionary<int, Dictionary<string, Dictionary<string, decimal>>>>(result);
+            var prices = JsonConvert.DeserializeObject<Dictionary<PaymentSystem, Dictionary<string, Dictionary<string, decimal>>>>(result);
 
-            if (prices.ContainsKey(AvangatePaymentSystemId))
+            if (prices.ContainsKey(paymentSystem))
             {
-                var pricesPaymentSystem = prices[AvangatePaymentSystemId];
+                var pricesPaymentSystem = prices[paymentSystem];
 
                 return productIds.Select(productId =>
                     {

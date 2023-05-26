@@ -1,10 +1,26 @@
-﻿using System;
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 using ASC.Core;
 using ASC.Migration.Core;
@@ -15,7 +31,7 @@ using ASC.Migration.Resources;
 
 namespace ASC.Migration.GoogleWorkspace
 {
-    [ApiMigrator("GoogleWorkspace")]
+    [ApiMigrator("GoogleWorkspace", 5, true)]
     public class GoogleWorkspaceMigration : AbstractMigration<GwsMigrationInfo, GwsMigratingUser, GwsMigratingContacts, GwsMigratingCalendar, GwsMigratingFiles, GwsMigratingMail>
     {
         private string[] takeouts;
@@ -23,26 +39,18 @@ namespace ASC.Migration.GoogleWorkspace
         public override void Init(string path, CancellationToken cancellationToken)
         {
             this.cancellationToken = cancellationToken;
-            List<string> tempTakeouts = new List<string>();
-            var files = Directory.GetFiles(path);
-            if (!files.Any() || !files.Any(f => f.EndsWith(".zip")))
+
+            takeouts = Directory.GetFiles(path).Where(f => f.EndsWith(".zip")).ToArray();
+            if (!takeouts.Any())
             {
                 throw new Exception("Folder must not be empty and should contain .zip files.");
             }
-            foreach(var item in files)
-            {
-                if(item.EndsWith(".zip"))
-                {
-                    tempTakeouts.Add(item);
-                }
-            }
-            takeouts = tempTakeouts.ToArray();
 
             migrationInfo = new GwsMigrationInfo();
             migrationInfo.MigratorName = this.GetType().CustomAttributes.First().ConstructorArguments.First().Value.ToString();
         }
 
-        public override Task<MigrationApiInfo> Parse()
+        public override MigrationApiInfo Parse()
         {
             ReportProgress(0, MigrationResource.StartOfDataProcessing);
 
@@ -68,7 +76,7 @@ namespace ASC.Migration.GoogleWorkspace
                     {
                         var group = new GWSMigratingGroups(rootFolder, Log);
                         group.Parse();
-                        if(group.Module.MigrationModule != null)
+                        if (group.Module.MigrationModule != null)
                         {
                             migrationInfo.Groups.Add(group);
                             if (!migrationInfo.Modules.Exists(x => x.MigrationModule == group.Module.MigrationModule))
@@ -105,10 +113,10 @@ namespace ASC.Migration.GoogleWorkspace
                 }
             }
             ReportProgress(100, MigrationResource.DataProcessingCompleted);
-            return Task.FromResult(migrationInfo.ToApiInfo());
+            return migrationInfo.ToApiInfo();
         }
 
-        public override Task Migrate(MigrationApiInfo migrationApiInfo)
+        public override void Migrate(MigrationApiInfo migrationApiInfo)
         {
             ReportProgress(0, MigrationResource.PreparingForMigration);
             migrationInfo.Merge(migrationApiInfo);
@@ -121,11 +129,10 @@ namespace ASC.Migration.GoogleWorkspace
             var failedUsers = new List<GwsMigratingUser>();
             var usersCount = usersForImport.Count();
             var progressStep = 25 / usersCount;
-            // Add all users first
             var i = 1;
             foreach (var user in usersForImport)
             {
-                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
+                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return; }
                 ReportProgress(GetProgress() + progressStep, String.Format(MigrationResource.UserMigration, user.DisplayName, i++, usersCount));
                 try
                 {
@@ -146,11 +153,10 @@ namespace ASC.Migration.GoogleWorkspace
             if (groupsCount != 0)
             {
                 progressStep = 25 / groupsForImport.Count();
-                //Create all groups
                 i = 1;
                 foreach (var group in groupsForImport)
                 {
-                    if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
+                    if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return; }
                     ReportProgress(GetProgress() + progressStep, String.Format(MigrationResource.GroupMigration, group.GroupName, i++, groupsCount));
                     try
                     {
@@ -163,18 +169,18 @@ namespace ASC.Migration.GoogleWorkspace
                 }
             }
 
-            // Add files, contacts and other stuff
             i = 1;
+            progressStep = 50 / usersForImport.Count();
             foreach (var user in usersForImport)
             {
-                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return null; }
+                if (cancellationToken.IsCancellationRequested) { ReportProgress(100, MigrationResource.MigrationCanceled); return; }
                 if (failedUsers.Contains(user))
                 {
                     ReportProgress(GetProgress() + progressStep, String.Format(MigrationResource.UserSkipped, user.DisplayName, i, usersCount));
                     continue;
                 }
 
-                var smallStep = progressStep / 4;
+                var smallStep = progressStep / 2;
 
                 try
                 {
@@ -188,19 +194,6 @@ namespace ASC.Migration.GoogleWorkspace
                 {
                     ReportProgress(GetProgress() + smallStep, String.Format(MigrationResource.MigratingUserContacts, user.DisplayName, i, usersCount));
                 }
-
-                /*try
-                {
-                    user.MigratingCalendar.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    Log($"Couldn't migrate user {user.DisplayName} ({user.Email}) calendar", ex);
-                }
-                finally
-                {
-                    ReportProgress(GetProgress() + smallStep, String.Format(MigrationResource.UserCalendarMigration, user.DisplayName, i, usersCount));
-                }*/
 
                 try
                 {
@@ -228,7 +221,6 @@ namespace ASC.Migration.GoogleWorkspace
             }
 
             ReportProgress(100, MigrationResource.MigrationCompleted);
-            return Task.CompletedTask;
         }
     }
 }

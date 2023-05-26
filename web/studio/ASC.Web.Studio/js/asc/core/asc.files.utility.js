@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,6 +98,8 @@ ASC.Files.Utility.FileExtensionLibrary = {
     XmlExts: [".xml"],
     XpsExts: [".xps", ".oxps"]
 };
+
+ASC.Files.Utility.ExternalFolderShareKey = 'share';
 
 ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
     var utility = ASC.Files.Utility,
@@ -365,12 +367,16 @@ ASC.Files.Utility.FileIsMasterForm = function (fileTitle) {
 
 ASC.Files.Utility.GetFileDownloadUrl = function (fileId, fileVersion, convertToExtension) {
     var url = ASC.Files.Utility.Resource.FileDownloadUrlString.format(encodeURIComponent(fileId));
+
+    url = ASC.Files.Utility.AddExternalShareKey(url);
+    
     if (fileVersion) {
         return url + "&" + ASC.Files.Utility.Resource.ParamVersion + "=" + fileVersion;
     }
     if (convertToExtension) {
         return url + "&" + ASC.Files.Utility.Resource.ParamOutType + "=" + convertToExtension;
     }
+    
     return url;
 };
 
@@ -382,6 +388,9 @@ ASC.Files.Utility.GetFileViewUrl = function (fileId, fileVersion, convertToExten
     if (convertToExtension) {
         return url + "&" + ASC.Files.Utility.Resource.ParamOutType + "=" + convertToExtension;
     }
+
+    url = ASC.Files.Utility.AddExternalShareKey(url);
+    
     return url;
 };
 
@@ -391,9 +400,13 @@ ASC.Files.Utility.GetFileRedirectPreviewUrl = function (fileId, orFolderId) {
 
 ASC.Files.Utility.GetFileWebViewerUrl = function (fileId, fileVersion) {
     var url = ASC.Files.Utility.Resource.FileWebViewerUrlString.format(encodeURIComponent(fileId));
+
+    url = ASC.Files.Utility.AddExternalShareKey(url);
+    
     if (fileVersion) {
         return url + "&" + ASC.Files.Utility.Resource.ParamVersion + "=" + fileVersion;
     }
+    
     return url;
 };
 
@@ -402,7 +415,11 @@ ASC.Files.Utility.GetFileWebViewerExternalUrl = function (fileUri, fileTitle, re
 };
 
 ASC.Files.Utility.GetFileWebEditorUrl = function (fileId) {
-    return ASC.Files.Utility.Resource.FileWebEditorUrlString.format(encodeURIComponent(fileId));
+    var url = ASC.Files.Utility.Resource.FileWebEditorUrlString.format(encodeURIComponent(fileId));
+
+    url = ASC.Files.Utility.AddExternalShareKey(url);
+    
+    return url;
 };
 
 ASC.Files.Utility.GetFileCustomProtocolEditorUrl = function (fileId) {
@@ -420,8 +437,25 @@ ASC.Files.Utility.GetFileWebEditorExternalUrl = function (fileUri, fileTitle, fo
 
 ASC.Files.Utility.GetFileThumbnailUrl = function (fileId, fileVersion) {
     var url = ASC.Files.Utility.Resource.FileThumbnailUrlString.format(encodeURIComponent(fileId));
+
+    url = ASC.Files.Utility.AddExternalShareKey(url);
+    
     if (fileVersion) {
         return url + "&" + ASC.Files.Utility.Resource.ParamVersion + "=" + fileVersion;
     }
     return url;
 };
+
+ASC.Files.Utility.AddExternalShareKey = function (url) {
+    if (new URLSearchParams(url).get(ASC.Files.Utility.ExternalFolderShareKey)) {
+        return url;
+    }
+    
+    var key = new URLSearchParams(window.location.search).get(ASC.Files.Utility.ExternalFolderShareKey);
+
+    if (key !== null) {
+        url += (url.indexOf('?') === -1 ? '?' : '&') + ASC.Files.Utility.ExternalFolderShareKey + '=' + key;
+    }
+    
+    return url;
+}

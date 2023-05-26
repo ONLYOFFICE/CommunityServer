@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,11 @@ namespace ASC.Api.CRM
         /// <summary>Returns a list of all the user report files.</summary>
         /// <short>Get report files</short>
         /// <category>Reports</category>
-        /// <returns>Report files</returns>
-        /// <exception cref="SecurityException">if user can't create reports</exception>
+        /// <returns type="ASC.Api.Documents.FileWrapper, ASC.Api.Documents">Report files</returns>
+        /// <exception cref="SecurityException">If the user can't create reports</exception>
+        /// <path>api/2.0/crm/report/files</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"report/files")]
         public IEnumerable<FileWrapper> GetFiles()
         {
@@ -62,12 +65,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>Deletes a report file with the ID specified in the request.</summary>
-        /// <param name="fileid">File ID</param>
+        /// <param type="System.Int32, System" method="url" name="fileid">File ID</param>
         /// <short>Delete a report file</short>
         /// <category>Reports</category>
-        /// <exception cref="SecurityException">if user can't create reports</exception>
-        /// <exception cref="ArgumentException">if file ID is less than 0</exception>
-        /// <exception cref="ItemNotFoundException">if file is not found</exception>
+        /// <returns></returns>
+        /// <exception cref="SecurityException">If the user can't create reports</exception>
+        /// <exception cref="ArgumentException">If file ID is less than 0</exception>
+        /// <exception cref="ItemNotFoundException">If file is not found</exception>
+        /// <path>api/2.0/crm/report/file/{fileid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"report/file/{fileid:[0-9]+}")]
         public void DeleteFile(int fileid)
         {
@@ -83,11 +89,13 @@ namespace ASC.Api.CRM
             DaoFactory.ReportDao.DeleteFile(fileid);
         }
 
-        /// <summary>Returns a state of the report generation task.</summary>
-        /// <short>Get report generation state</short>
+        /// <summary>Returns a status of the report generation task.</summary>
+        /// <short>Get the report generation status</short>
         /// <category>Reports</category>
-        /// <returns>Report state</returns>
-        /// <exception cref="SecurityException">if user can't create reports</exception>
+        /// <returns type="ASC.Web.Files.Services.DocumentService.ReportState, ASC.Web.Files">Report status</returns>
+        /// <exception cref="SecurityException">If the user can't create reports</exception>
+        /// <path>api/2.0/crm/report/status</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"report/status")]
         public ReportState GetStatus()
         {
@@ -100,7 +108,10 @@ namespace ASC.Api.CRM
         /// <summary>Terminates the report generation task.</summary>
         /// <short>Terminate the report generation</short>
         /// <category>Reports</category>
-        /// <exception cref="SecurityException">if user can't create reports</exception>
+        /// <returns></returns>
+        /// <exception cref="SecurityException">If the user can't create reports</exception>
+        /// <path>api/2.0/crm/report/terminate</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"report/terminate")]
         public void Terminate()
         {
@@ -110,14 +121,16 @@ namespace ASC.Api.CRM
             DocbuilderReportsUtility.Terminate(ReportOrigin.CRM);
         }
 
-        /// <summary>Checks report data for the parameters specified in the request.</summary>
-        /// <param name="type">Report type</param>
-        /// <param name="timePeriod">Time period</param>
-        /// <param name="managers">Managers</param>
+        /// <summary>Checks the report data for the parameters specified in the request.</summary>
+        /// <param type="ASC.CRM.Core.ReportType, ASC.CRM.Core" name="type">Report type</param>
+        /// <param type="ASC.CRM.Core.ReportTimePeriod, ASC.CRM.Core" name="timePeriod">Report time period</param>
+        /// <param type="System.Guid[], System" name="managers">Managers</param>
         /// <short>Check report data</short>
         /// <category>Reports</category>
         /// <returns>Report information</returns>
-        /// <exception cref="SecurityException">if user can't create reports</exception>
+        /// <path>api/2.0/crm/report/check</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <exception cref="SecurityException">If the user can't create reports</exception>
         [Create(@"report/check")]
         public object CheckReportData(ReportType type, ReportTimePeriod timePeriod, Guid[] managers)
         {
@@ -132,13 +145,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>Runs the report generation task with the parameters specified in the request.</summary>
-        /// <param name="type">Report type</param>
-        /// <param name="timePeriod">Time period</param>
-        /// <param name="managers">Managers</param>
+        /// <param type="ASC.CRM.Core.ReportType, ASC.CRM.Core" name="type">Report type</param>
+        /// <param type="ASC.CRM.Core.ReportTimePeriod, ASC.CRM.Core" name="timePeriod">Report time period</param>
+        /// <param type="System.Guid[], System" name="managers">Managers</param>
         /// <short>Generate a report</short>
         /// <category>Reports</category>
-        /// <returns>Report state</returns>
-        /// <exception cref="SecurityException">if user can't create reports</exception>
+        /// <returns type="ASC.Web.Files.Services.DocumentService.ReportState, ASC.Web.Files">Report status</returns>
+        /// <exception cref="SecurityException">If the user can't create reports</exception>
+        /// <path>api/2.0/crm/report/generate</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"report/generate")]
         public ReportState GenerateReport(ReportType type, ReportTimePeriod timePeriod, Guid[] managers)
         {

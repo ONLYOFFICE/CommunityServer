@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,14 +34,16 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///  Returns the detailed information about a task with the ID specified in the request.
+        /// Returns the detailed information about a task with the ID specified in the request.
         /// </summary>
-        /// <param name="taskid">Task ID</param>
-        /// <returns>Task</returns>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">Task</returns>
         /// <short>Get task by ID</short> 
         /// <category>Tasks</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
+        ///<path>api/2.0/crm/task/{taskid}</path>
+        ///<httpMethod>GET</httpMethod>
         [Read(@"task/{taskid:[0-9]+}")]
         public TaskWrapper GetTaskByID(int taskid)
         {
@@ -59,21 +61,24 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Returns a list of tasks matching the parameters specified in the request.
+        /// Returns a list of tasks matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="responsibleid">Task responsible ID</param>
-        /// <param optional="true" name="categoryid">Task category ID</param>
-        /// <param optional="true" name="isClosed">Task status</param>
-        /// <param optional="true" name="fromDate">Earliest task due date</param>
-        /// <param optional="true" name="toDate">Latest task due date</param>
-        /// <param name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
-        /// <param name="entityid">Related entity ID</param>
+        /// <param type="System.Guid, System" method="url" optional="true" name="responsibleid">Task responsible ID</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="categoryid">Task category ID</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="isClosed">Task status</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="fromDate">Earliest task due date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="toDate">Latest task due date</param>
+        /// <param type="System.String, System" method="url" name="entityType" remark="Allowed values: opportunity, contact, or case">Related entity type</param>
+        /// <param type="System.Int32, System" method="url" name="entityid">Related entity ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <short>Get tasks</short> 
         /// <category>Tasks</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">
         /// List of all tasks
         /// </returns>
+        /// <path>api/2.0/crm/task/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/filter")]
         public IEnumerable<TaskWrapper> GetAllTasks(
             Guid responsibleid,
@@ -186,11 +191,13 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <short>Reopen a task</short> 
         /// <category>Tasks</category>
-        /// <param name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
         /// <exception cref="ArgumentException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">
         /// Task
         /// </returns>
+        /// <path>api/2.0/crm/task/{taskid}/reopen</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/reopen")]
         public TaskWrapper ReOpenTask(int taskid)
         {
@@ -209,11 +216,13 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <short>Close a task</short> 
         /// <category>Tasks</category>
-        /// <param name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
         /// <exception cref="ArgumentException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">
         /// Task
         /// </returns>
+        /// <path>api/2.0/crm/task/{taskid}/close</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/close")]
         public TaskWrapper CloseTask(int taskid)
         {
@@ -232,12 +241,14 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <short>Delete a task</short> 
         /// <category>Tasks</category>
-        /// <param name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">
         ///  Deleted task
         /// </returns>
+        /// <path>api/2.0/crm/task/{taskid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"task/{taskid:[0-9]+}")]
         public TaskWrapper DeleteTask(int taskid)
         {
@@ -255,20 +266,22 @@ namespace ASC.Api.CRM
         /// <summary>
         ///  Creates a task with the parameters (title, description, due date, etc.) specified in the request.
         /// </summary>
-        /// <param name="title">Task title</param>
-        /// <param optional="true"  name="description">Task description</param>
-        /// <param name="deadline">Task due date</param>
-        /// <param name="responsibleId">Task responsible ID</param>
-        /// <param name="categoryId">Task category ID</param>
-        /// <param optional="true"  name="contactId">Contact ID</param>
-        /// <param optional="true"  name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
-        /// <param optional="true"  name="entityId">Related entity ID</param>
-        /// <param optional="true"  name="isNotify">Notifies the responsible about the task</param>
-        /// <param optional="true"  name="alertValue">Time period in minutes to remind the responsible of the task</param>
+        /// <param type="System.String, System" name="title">Task title</param>
+        /// <param type="System.String, System" optional="true"  name="description">Task description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadline">Task due date</param>
+        /// <param type="System.Guid System" name="responsibleId">Task responsible ID</param>
+        /// <param type="System.Int32, System" name="categoryId">Task category ID</param>
+        /// <param type="System.Int32, System" optional="true"  name="contactId">Contact ID</param>
+        /// <param type="System.String, System" optional="true"  name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
+        /// <param type="System.Int32, System" optional="true"  name="entityId">Related entity ID</param>
+        /// <param type="System.Boolean, System" optional="true"  name="isNotify">Notifies the responsible about the task or not</param>
+        /// <param type="System.Int32, System" optional="true"  name="alertValue">Time period in minutes to remind the responsible of the task</param>
         /// <exception cref="ArgumentException"></exception>
         /// <short>Create a task</short> 
         /// <category>Tasks</category>
-        /// <returns>Task</returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">Task</returns>
+        /// <path>api/2.0/crm/task</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task")]
         public TaskWrapper CreateTask(
             string title,
@@ -345,20 +358,23 @@ namespace ASC.Api.CRM
         /// <summary>
         ///  Creates a group of the same task with the parameters (title, description, due date, etc.) specified in the request for several contacts.
         /// </summary>
-        /// <param name="title">Task title</param>
-        /// <param optional="true"  name="description">Task description</param>
-        /// <param name="deadline">Task due date</param>
-        /// <param name="responsibleId">Task responsible ID</param>
-        /// <param name="categoryId">Task category ID</param>
-        /// <param name="contactId">List of contact IDs</param>
-        /// <param optional="true"  name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
-        /// <param optional="true"  name="entityId">Related entity ID</param>
-        /// <param optional="true"  name="isNotify">Notifies the responsible about the task</param>
-        /// <param optional="true"  name="alertValue">Time period in minutes to remind the responsible of the task</param>
+        /// <param type="System.String, System" name="title">Task title</param>
+        /// <param type="System.String, System" optional="true"  name="description">Task description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadline">Task due date</param>
+        /// <param type="System.Guid, System" name="responsibleId">Task responsible ID</param>
+        /// <param type="System.Int32, System" name="categoryId">Task category ID</param>
+        /// <param type="System.Int32[], System" name="contactId">List of contact IDs</param>
+        /// <param type="System.String, System" optional="true"  name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
+        /// <param type="System.Int32, System" optional="true"  name="entityId">Related entity ID</param>
+        /// <param type="System.Boolean, System" optional="true" name="isNotify">Notifies the responsible about the task or not</param>
+        /// <param type="System.Int32, System" optional="true" name="alertValue">Time period in minutes to remind the responsible of the task</param>
         /// <exception cref="ArgumentException"></exception>
         /// <short>Create a task group</short> 
         /// <category>Tasks</category>
         /// <returns>Tasks</returns>
+        /// <path>api/2.0/crm/contact/task/group</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Create(@"contact/task/group")]
         public IEnumerable<TaskWrapper> CreateTaskGroup(
@@ -456,20 +472,22 @@ namespace ASC.Api.CRM
         /// <summary>
         ///  Updates the selected task with the parameters (title, description, due date, etc.) specified in the request.
         /// </summary>
-        /// <param name="taskid">Task ID</param>
-        /// <param name="title">New task title</param>
-        /// <param name="description">New task description</param>
-        /// <param name="deadline">New task due date</param>
-        /// <param name="responsibleid">New task responsible ID</param>
-        /// <param name="categoryid">New task category ID</param>
-        /// <param name="contactid">New contact ID</param>
-        /// <param name="entityType" remark="Allowed values: opportunity or case">New related entity type</param>
-        /// <param name="entityid">New related entity ID</param>
-        /// <param name="isNotify">Notifies the responsible about the task</param>
-        /// <param optional="true"  name="alertValue">New time period in minutes to remind the responsible of the task</param>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.String, System" name="title">New task title</param>
+        /// <param type="System.String, System" name="description">New task description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadline">New task due date</param>
+        /// <param type="System.Guid, System" name="responsibleid">New task responsible ID</param>
+        /// <param type="System.Int32, System" name="categoryid">New task category ID</param>
+        /// <param type="System.Int32, System" name="contactid">New contact ID</param>
+        /// <param type="System.String, System" name="entityType" remark="Allowed values: opportunity or case">New related entity type</param>
+        /// <param type="System.Int32, System" name="entityid">New related entity ID</param>
+        /// <param type="System.Boolean, System" name="isNotify">Notifies the responsible about the task or not</param>
+        /// <param type="System.Int32, System" optional="true"  name="alertValue">New time period in minutes to remind the responsible of the task</param>
         /// <short>Update a task</short> 
         /// <category>Tasks</category>
-        /// <returns>Task</returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.TaskWrapper, ASC.Api.CRM">Task</returns>
+        /// <path>api/2.0/crm/task/{taskid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}")]
         public TaskWrapper UpdateTask(
             int taskid,
@@ -545,10 +563,12 @@ namespace ASC.Api.CRM
         /// <summary>
         ///  Sets the creation date to the task with the ID specified in the request.
         /// </summary>
-        /// <param name="taskId">Task ID</param>
-        /// <param name="creationDate">Task creation date</param>
+        /// <param type="System.Int32, System" name="taskId">Task ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="creationDate">Task creation date</param>
         /// <short>Set the task creation date</short> 
         /// <category>Tasks</category>
+        /// <path>api/2.0/crm/task/{taskid}/creationdate</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update(@"task/{taskid:[0-9]+}/creationdate")]
         public void SetTaskCreationDate(int taskId, ApiDateTime creationDate)
@@ -565,10 +585,12 @@ namespace ASC.Api.CRM
         /// <summary>
         ///  Sets the last modified date to the task with the ID specified in the request.
         /// </summary>
-        /// <param name="taskId">Task ID</param>
-        /// <param name="lastModifedDate">Task last modified date</param>
+        /// <param type="System.Int32, System" name="taskId">Task ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="lastModifedDate">Task last modified date</param>
         /// <short>Set the task last modified date</short> 
         /// <category>Tasks</category>
+        /// <path>api/2.0/crm/task/{taskid}/lastmodifeddate</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update(@"task/{taskid:[0-9]+}/lastmodifeddate")]
         public void SetTaskLastModifedDate(int taskId, ApiDateTime lastModifedDate)

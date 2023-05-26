@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,11 @@
 */
 
 
-@import "settings.less";
-
 .tag {
   display: inline-block;
   cursor: pointer;
   margin: 5px 5px 0 0;
   max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
 
   .name {
     display: inline-block;
@@ -39,7 +34,7 @@
   &.color {
     .outer {
       padding: 2px;
-      border: 1px solid #C7C7C7;
+      border: 1px solid @border-color;
       margin-bottom: 10px;
       display: inline-block;
     }
@@ -73,7 +68,7 @@
   &.disabled {
     cursor: default;
     .square {
-      background-color: #e9e9e9 !important;
+      background-color: @hover-panel !important;
       cursor: default;
     }
     .name {
@@ -92,15 +87,24 @@
 .tagArrow {
     height: 20px;
     line-height: 20px;
-    background: url("@{background-sprite-url}") right -20px no-repeat;
-    color: white;
+    //background: url("@{background-sprite-url}") right -20px no-repeat;
+    color: @light-text-color;
     padding: 0 10px 0 7px;
     position: relative;
     font-weight: normal;
 
     .name {
-        color: white;
+        color: @light-text-color;
     }
+}
+
+.tagArrowNoImage(@border-color-arrow) {
+    content: " ";
+    position: absolute;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    left: 100%;
+    border-left: 7px solid @border-color-arrow;
 }
 
 .tagDelete {
@@ -131,6 +135,32 @@
 .tag14 { background-color: #E795C1; }
 .tag15 { background-color: #F2A9BE; }
 .tag16 { background-color: #DF7895; }
+
+.tagArrow.tag1:after { .tagArrowNoImage(#F48454); } 
+.tagArrow.tag2:after { .tagArrowNoImage(#FFB45E); }
+.tagArrow.tag3:after { .tagArrowNoImage(#D4CD67); }
+.tagArrow.tag4:after { .tagArrowNoImage(#B7D269); }
+.tagArrow.tag5:after { .tagArrowNoImage(#6BBD72); }
+.tagArrow.tag6:after { .tagArrowNoImage(#77CF9A); }
+.tagArrow.tag7:after { .tagArrowNoImage(#6AC6DD); }
+.tagArrow.tag8:after { .tagArrowNoImage(#4682B6); }
+.tagArrow.tag9:after { .tagArrowNoImage(#6A9AD2); }
+.tagArrow.tag10:after { .tagArrowNoImage(#8A98D8); }
+.tagArrow.tag11:after { .tagArrowNoImage(#7E6EB2); }
+.tagArrow.tag12:after { .tagArrowNoImage(#B58FD6); }
+.tagArrow.tag13:after { .tagArrowNoImage(#D28CC8); }
+.tagArrow.tag14:after { .tagArrowNoImage(#E795C1); }
+.tagArrow.tag15:after { .tagArrowNoImage(#F2A9BE); }
+.tagArrow.tag16:after { .tagArrowNoImage(#DF7895); }
+
+.messages-tags {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 100%;
+    margin:auto;
+}
 
 .tag_list {
     @border-style: @messages-border-style;
@@ -199,7 +229,7 @@
 
             .more_lnk {
                 .gray {
-                    border-bottom: 1px dotted #333;
+                    border-bottom: 1px dotted @text-color;
                 }
             }
         }
@@ -285,7 +315,7 @@
             float: left;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: #333333;
+            color: @text-color;
             max-width: 256px;
         }
 

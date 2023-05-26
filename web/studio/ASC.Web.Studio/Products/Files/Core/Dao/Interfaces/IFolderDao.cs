@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+
+using ASC.Core.ChunkedUploader;
+using ASC.Data.Storage.ZipOperators;
 
 namespace ASC.Files.Core
 {
@@ -183,6 +186,11 @@ namespace ASC.Files.Core
         /// <returns>Maximum size of file which can be uploaded to folder</returns>
         long GetMaxUploadSize(object folderId, bool chunkedUpload = false);
 
+        IDataWriteOperator CreateDataWriteOperator(
+            string folderId,
+            CommonChunkedUploadSession chunkedUploadSession,
+            CommonChunkedUploadSessionHolder sessionHolder);
+
         #region Only for TMFolderDao
 
         /// <summary>
@@ -246,8 +254,6 @@ namespace ASC.Files.Core
         object GetFolderIDRecent(bool createIfNotExists);
 
         /// <summary>
-
-        /// <summary>
         /// Returns id folder "Favorites"
         /// Only in TMFolderDao
         /// </summary>
@@ -268,6 +274,7 @@ namespace ASC.Files.Core
         /// Only in TMFolderDao
         /// </summary>
         /// <param name="createIfNotExists"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         object GetFolderIDPrivacy(bool createIfNotExists, Guid? userId = null);
 

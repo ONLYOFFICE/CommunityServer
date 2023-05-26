@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +40,8 @@ namespace ASC.Web.Projects.Test
         {
             Projects = new List<Project>
             {
-                CreateProject("Project for testing search фёдор", "Description"),
-                CreateProject("Another Project for testing search фёдор", "Another Description")
+                CreateProject("Project for testing search fedor", "Description"),
+                CreateProject("Another Project for testing search fedor", "Another Description")
             };
         }
 
@@ -504,8 +504,8 @@ namespace ASC.Web.Projects.Test
             yield return new TestCaseData("search").SetName(action + " search");
             yield return new TestCaseData("Description").SetName(action + " Description");
             yield return new TestCaseData("pRoJeCt").SetName(action + " pRoJeCt");
-            yield return new TestCaseData("фёдор").SetName(action + " фёдор");
-            yield return new TestCaseData("федор").SetName(action + " федор");
+            yield return new TestCaseData("fedor").SetName(action + " fedor");
+            yield return new TestCaseData("fedor").SetName(action + " fedor");
         }
 
         public static IEnumerable WildCardTestCases(string action)

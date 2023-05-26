@@ -46,6 +46,8 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -565,7 +567,7 @@
       <Version>4.0.20505</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.29</Version>
+      <Version>8.0.32.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

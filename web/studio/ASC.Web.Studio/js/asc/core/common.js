@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,8 +134,8 @@ jQuery.extend(
 );
 
 jQuery.fn.yellowFade = function () {
-    return (this.css({backgroundColor: "#ffffcc"}).animate(
-        {backgroundColor: "#ffffff"},
+    return (this.css({ backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffcc" : "rgba(204, 184, 102, 0.2)" }).animate(
+        { backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333"},
         1500,
         function () {
             jq(this).css({backgroundColor: ""});
@@ -895,7 +895,7 @@ var StudioManager = new function () {
                 for (var i = 0; i < pendingRequests.length; i++) {
                     pendingRequests[i].apply();
                 }
-            }, 3600);
+            }, 1000);
         }
     };
 };
@@ -1602,6 +1602,15 @@ window.UserManager = new function() {
         var master = ASC.Resources.Master;
         usersCache = {};
 
+        if (!master.IsAuthenticated){
+            var anonymous = {
+                id: ASC.Files.Constants.GUEST_USER_ID,
+            }
+
+            usersCache[anonymous.id] = anonymous;
+            return;
+        }
+
         var activeUsers = master.ApiResponses_ActiveProfiles.response;
         var activeUsersLength = activeUsers.length;
         for (var i = 0; i < activeUsersLength; i++) {
@@ -1717,8 +1726,13 @@ window.GroupManager = new function () {
         if (groupsCache != null)
             return;
 
-        groups = ASC.Resources.Master.ApiResponses_Groups.response.sort(comparer);
         groupsCache = {};
+
+        if (!ASC.Resources.Master.IsAuthenticated){
+            return;
+        }
+
+        groups = ASC.Resources.Master.ApiResponses_Groups.response.sort(comparer);
 
         for (var i = 0, k = groups.length; i < k; i++) {
             var group = groups[i];
@@ -1907,5 +1921,7 @@ function AddPaddingWithoutScrollTo($formBlock, $baseForm) {
 
     outputsize();
 
-    new ResizeObserver(outputsize).observe(paging);
+    if (window.ResizeObserver) {
+        new ResizeObserver(outputsize).observe(paging);
+    }
 })();

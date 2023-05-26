@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ namespace ASC.ActiveDirectory.Base.Data
         /// Get property object
         /// </summary>
         /// <param name="propertyName">property name</param>
+        /// <param name="getBytes"></param>
         /// <returns>value object</returns>
         public abstract object GetValue(string propertyName, bool getBytes = false);
 

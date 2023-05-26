@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ namespace ASC.Notify
                 try
                 {
                     var date = DateTime.UtcNow.AddDays(-NotifyServiceCfg.StoreMessagesDays);
-                    using (var db = DbManager.FromHttpContext(NotifyServiceCfg.ConnectionStringName))
+                    using (var db = new DbManager(NotifyServiceCfg.ConnectionStringName))
                     using (var d1 = db.Connection.CreateCommand("delete from notify_info where modify_date < ? and state = 4", date))
                     using (var d2 = db.Connection.CreateCommand("delete from notify_queue where creation_date < ?", date))
                     {

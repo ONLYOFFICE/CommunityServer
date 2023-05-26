@@ -82,6 +82,15 @@
             <%=Resource.GroupHeadCaption%>
         </td>
     </tr>
+    <%--user lead--%>
+    <tr>
+        <td>
+            <input class="textEdit" id="usrleadcaption" type="text" maxlength="30" />
+        </td>
+        <td class="caption">
+            <%=Resource.UserLeadCaption%>
+        </td>
+    </tr>
     <%--guest caption--%>
     <tr>
         <td>

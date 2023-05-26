@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,7 +118,7 @@ namespace ASC.Web.Studio.Core.Users
 
                 xml.Append("<contact id=\"telegram\" title=\"" + Resource.TitleTelegram + "\">");
                 xml.Append("<pattern>" + Resource.HintTelegram + "</pattern>");
-                xml.Append("<template><span class=\"label telegram\"><span class=\"inner-text\">{0}</span></span></template>");
+                xml.Append("<template><a class=\"label telegram\" href=\"http://t.me/{0}\" target=\"_blank\"><span class=\"inner-text\">{0}</span></a></template>");
                 xml.Append("</contact>");
 
                 xml.Append("<contact id=\"icq\" title=\"" + Resource.TitleIcq + "\">");

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -363,7 +363,6 @@ window.editFilterPage = (function($) {
             .on("click",
                 function() {
                     window.filtersManager.remove(filterId);
-                    closeEdit();
                 });
 
         container.find("#filterApplyToMailiboxes")
@@ -892,8 +891,9 @@ window.editFilterPage = (function($) {
             window.filtersManager.applyFilter(filter.id);
             needApply = false;
         }
-
-        closeEdit();
+        else {
+            closeEdit();
+        }
     }
 
     function closeEdit() {

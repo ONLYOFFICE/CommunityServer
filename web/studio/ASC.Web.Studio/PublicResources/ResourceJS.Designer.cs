@@ -1015,6 +1015,33 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logged in as {0}.
+        /// </summary>
+        public static string ImpersonateLoginMessage {
+            get {
+                return ResourceManager.GetString("ImpersonateLoginMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login as User.
+        /// </summary>
+        public static string ImpersonateUser {
+            get {
+                return ResourceManager.GetString("ImpersonateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are going to log in to the portal on behalf of {0}.
+        /// </summary>
+        public static string ImpersonateUserConfirmationInfo {
+            get {
+                return ResourceManager.GetString("ImpersonateUserConfirmationInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to of.
         /// </summary>
         public static string ImportOf {
@@ -1083,6 +1110,33 @@ namespace ASC.Web.Studio.PublicResources {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string LblActive {
+            get {
+                return ResourceManager.GetString("LblActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string LblOther {
+            get {
+                return ResourceManager.GetString("LblOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string LblPending {
+            get {
+                return ResourceManager.GetString("LblPending", resourceCulture);
             }
         }
         
@@ -1209,6 +1263,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string LicenseKeyError {
             get {
                 return ResourceManager.GetString("LicenseKeyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lifetime.
+        /// </summary>
+        public static string Lifetime {
+            get {
+                return ResourceManager.GetString("Lifetime", resourceCulture);
             }
         }
         
@@ -1960,11 +2023,29 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation has been successfully started..
+        /// </summary>
+        public static string OperationStartedMsg {
+            get {
+                return ResourceManager.GetString("OperationStartedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation has been successfully completed..
         /// </summary>
         public static string OperationSuccededMsg {
             get {
                 return ResourceManager.GetString("OperationSuccededMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password protection.
+        /// </summary>
+        public static string PasswordProtection {
+            get {
+                return ResourceManager.GetString("PasswordProtection", resourceCulture);
             }
         }
         
@@ -2050,6 +2131,24 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Memory quota has been successfully disabled..
+        /// </summary>
+        public static string QuotaDisabled {
+            get {
+                return ResourceManager.GetString("QuotaDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory quota has been successfully enabled..
+        /// </summary>
+        public static string QuotaEnabled {
+            get {
+                return ResourceManager.GetString("QuotaEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reading confirmed.
         /// </summary>
         public static string ReadingConfirmedLabel {
@@ -2073,6 +2172,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ReceiptUserLabel {
             get {
                 return ResourceManager.GetString("ReceiptUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string RemoveButton {
+            get {
+                return ResourceManager.GetString("RemoveButton", resourceCulture);
             }
         }
         

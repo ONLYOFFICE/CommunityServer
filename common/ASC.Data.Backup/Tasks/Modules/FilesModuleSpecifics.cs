@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -151,7 +151,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             if (table.Name == "files_file")
             {
                 // do not backup previus backup files
-                return "where not exists(select 1 from backup_backup b where b.tenant_id = t.tenant_id and b.storage_path = t.id) and t.tenant_id = " + tenantId;
+                return "where not exists(select 1 from backup_backup b where b.tenant_id = t.tenant_id and b.storage_path = t.id and b.removed = 0) and not (t.title LIKE '%tar.gz' and t.content_length > 1073741824) and t.tenant_id = " + tenantId;
             }
             return base.GetSelectCommandConditionText(tenantId, table);
         }

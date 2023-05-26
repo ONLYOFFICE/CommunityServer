@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "../../../../skins/default/params.less";
 
 .monitoring-describe {
     margin-bottom:30px;
@@ -37,9 +39,9 @@
 
             &:after {
                 content: "";
-                background: url(img/loader_16.gif) 0 0 no-repeat transparent;
+                background: url("img/@{loader-managament-16}") 0 0 no-repeat transparent;
                 position: absolute;
-                top: 0px;
+                top: 0px; 
                 right: 10px;
                 height: 16px;
                 width: 16px;
@@ -65,7 +67,7 @@
 }
 
 .separate-date {
-    background-color: #333;
+    background-color: @textColor;
     display:inline-block;    
     height: 1px;
     margin: 0 8px 4px;

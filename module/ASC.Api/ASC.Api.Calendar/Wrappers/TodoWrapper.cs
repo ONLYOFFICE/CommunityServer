@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,24 +59,36 @@ namespace ASC.Api.Calendar.Wrappers
 
             return list;
         }
-
+        ///<example name="objectId">1</example>
+        ///<order>0</order>
         [DataMember(Name = "objectId", Order = 0)]
         public string Id { get { return _baseTodo.Id; } }
 
+        ///<example name="uniqueId">123wda</example>
+        ///<order>140</order>
         [DataMember(Name = "uniqueId", Order = 140)]
         public string Uid { get { return _baseTodo.Uid; } }
 
+        ///<example type="int">1</example>
         public int TenantId { get; set; }
 
+        ///<example name="sourceId">calendarID</example>
+        ///<order>10</order>
         [DataMember(Name = "sourceId", Order = 10)]
         public string CalendarId { get { return _baseTodo.CalendarId; } }
 
+        ///<example name="title">Todo Name</example>
+        ///<order>20</order>
         [DataMember(Name = "title", Order = 20)]
         public string Name { get { return _baseTodo.Name; } }
 
+        ///<example name="description">Todo Description</example>
+        ///<order>30</order>
         [DataMember(Name = "description", Order = 30)]
         public string Description { get { return _baseTodo.Description; } }
 
+        ///<example name="start">2020-12-01T06:36:10.8645482Z</example>
+        ///<order>40</order>
         [DataMember(Name = "start", Order = 40)]
         public ApiDateTime Start
         {
@@ -89,6 +101,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="completed">2020-12-01T06:36:10.8645482Z</example>
+        ///<order>110</order>
         [DataMember(Name = "completed", Order = 110)]
         public ApiDateTime Completed
         {
@@ -100,6 +114,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<type name="owner">ASC.Api.Calendar.Wrappers.UserParams, ASC.Api.Calendar</type>
+        ///<order>120</order>
         [DataMember(Name = "owner", Order = 120)]
         public UserParams Owner
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,27 +26,43 @@ namespace ASC.Api.Forums
     [DataContract(Name = "thread", Namespace = "")]
     public class ForumThreadWrapper : IApiSortableDate
     {
+        ///<example type="int">10</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public int Id { get; set; }
 
+        ///<example>The Thread</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Title { get; set; }
 
+        ///<example>Sample thread</example>
+        ///<order>10</order>
         [DataMember(Order = 10)]
         public string Description { get; set; }
 
+        ///<example>2020-12-07T13:56:02.3249197Z</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public ApiDateTime Created { get; set; }
 
+        ///<example>2020-12-07T13:56:02.3249197Z</example>
+        ///<order>21</order>
         [DataMember(Order = 21)]
         public ApiDateTime Updated { get; set; }
 
+        ///<example type="int">1234</example>
+        ///<order></order>
         [DataMember(Order = 30)]
         public int RecentTopicId { get; set; }
 
+        ///<example>Sample topic</example>
+        ///<order>30</order>
         [DataMember(Order = 30)]
         public string RecentTopicTitle { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>9</order>
         [DataMember(Order = 9)]
         public EmployeeWraper UpdatedBy { get; set; }
 

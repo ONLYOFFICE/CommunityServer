@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ using ASC.Data.Storage;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
@@ -84,9 +85,11 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(),
                         UrlShareTwitter = SetupInfo.ShareTwitterUrl,
                         UrlShareFacebook = SetupInfo.ShareFacebookUrl,
+                        UrlMainSite = SetupInfo.TeamlabSiteRedirect,
                         LogoDarkUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true)),
                         HelpLink = helpLink ?? "",
-                        MailMaximumMessageBodySize = ConfigurationManagerExtension.AppSettings["mail.maximum-message-body-size"] ?? "524288",
+                        MailMaximumMessageBodySize = ConfigurationManagerExtension.AppSettings["mail.maximum-message-body-size"] ?? "524288", 
+                        userDisplayFormat = (int) UserFormatter.GetUserDisplayDefaultOrder(),
                         PasswordHasher.PasswordHashSize,
                         PasswordHasher.PasswordHashIterations,
                         PasswordHasher.PasswordHashSalt,
@@ -112,6 +115,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
             {
                 result.Add(RegisterObject(new { FilterHelpCenterLink = helpLink.TrimEnd('/') + "/tipstricks/using-search.aspx" }));
             }
+
 
             return result;
         }

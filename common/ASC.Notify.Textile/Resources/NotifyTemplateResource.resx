@@ -58,7 +58,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FooterCommonV10" xml:space="preserve">
+  <data name="FooterCommonV121" xml:space="preserve">
     <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
@@ -88,7 +88,7 @@
             &lt;/td&gt;
         &lt;/tr&gt;</value>
   </data>
-  <data name="FooterOpensourceV10" xml:space="preserve">
+  <data name="FooterOpensourceV121" xml:space="preserve">
     <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
@@ -199,7 +199,7 @@
 &lt;/div&gt;
 &lt;/body&gt;</value>
   </data>
-  <data name="SocialNetworksFooterV10" xml:space="preserve">
+  <data name="SocialNetworksFooterV121" xml:space="preserve">
     <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
           &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;"&gt;
               &lt;a href="https://www.facebook.com/pages/OnlyOffice/833032526736775" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;

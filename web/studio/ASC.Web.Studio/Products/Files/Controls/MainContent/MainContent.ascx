@@ -8,12 +8,11 @@
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Web.Files.Services.WCFService.FileOperations" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 
-<div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>" data-deleteConfirm="<%= FilesSettings.ConfirmDelete ? "true" : null %>">
+<div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>" data-externalrootid="<%= ExternalFolderIDCurrentRoot %>" data-deleteConfirm="<%= FilesSettings.ConfirmDelete ? "true" : null %>">
     <asp:PlaceHolder runat="server" ID="ListHolder"></asp:PlaceHolder>
 </div>
 
@@ -82,7 +81,10 @@
         <li id="buttonRestore"><a class="dropdown-item with-icon restore second-section">
             <%= FilesUCResource.ButtonRestore %>
             (<span></span>)</a></li>
-        <li class="dropdown-item-seporator second-section"></li>
+            <% if (SecurityContext.IsAuthenticated)
+               {  %>
+                    <li class="dropdown-item-seporator second-section"></li>
+            <% } %>
         <li id="buttonRemoveFavorite"><a class="dropdown-item with-icon favorites third-section">
             <%= FilesUCResource.ButtonRemoveFavorite %>
             (<span></span>)</a></li>
@@ -125,14 +127,22 @@
             <%= FilesUCResource.ButtonShareAccess %></a></li>
         <li id="filesFormFillingSettings"><a class="dropdown-item with-icon form-filling second-section">
             <%= FilesUCResource.FormFillingSettings %></a></li>
-        <li id="filesGetExternalLink" data-trial="<%= !CoreContext.Configuration.Standalone && TenantExtra.GetTenantQuota().Trial ? "true" : "" %>">
+        <li id="filesGetExternalLink" data-trial="<%= Trial.ToString().ToLowerInvariant() %>">
             <a class="dropdown-item with-icon with-toggle extrn-link-v2 second-section">
-                <%= FilesUCResource.ButtonCopyExternalLink %>
+                <%= FilesUCResource.ButtonCopyQuickExternalLink %>
                 <span class="toggle off">
                     <span class="switcher"></span>
                 </span>
             </a>
         </li>
+        <% if (!SecurityContext.IsAuthenticated)
+           { %>
+            <li id="filesGetExternalInheritedLink" data-trial="<%= Trial.ToString().ToLowerInvariant() %>">
+                <a class="dropdown-item with-icon link second-section">
+                    <%= FilesUCResource.ButtonCopyExternalLink %>
+                </a>
+            </li>
+        <% } %>
         <% if (!CoreContext.Configuration.Personal)
            { %>
         <li id="filesChangeOwner"><a class="dropdown-item with-icon user second-section">

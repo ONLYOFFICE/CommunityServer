@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@
 window.IpSecurity = new function() {
     var $ = jq;
 
-    var ipRegex = /^\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s*(\-\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s*)?$/;
+    var commonIpRegex = /^(\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s*(\-\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s*)?)$/;
+    var CIDRIpRegex = /^(\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s*(\/(3[012]|[12]?[0-9]))\s*)$/;
 
     var $view = $('#iprestrictions-view');
 
@@ -27,17 +28,27 @@ window.IpSecurity = new function() {
     var $settingsBlock = $view.find('.settings-block');
     var $restrictionsList = $view.find('#restrictions-list');
     var $addRestrictionBtn = $restrictionsList.find('#add-restriction-btn');
+    var $addRestrictionBtnForAdmin = $restrictionsList.find('#add-restriction-btn-admin');
 
     var $ipsecurityOff = $view.find('#ipsecurityOff');
     var $ipsecurityOn = $view.find('#ipsecurityOn');
     var $saveRestrictionBtn = $view.find('#save-restriction-btn');
 
-    var restrictions = [];
+    var userRestrictions = [];
+    var adminRestrictions = [];
 
     function init() {
         bind$Events();
-        getRestrictions(function(params, data) {
-            restrictions = data;
+        getRestrictions(function (params, data) {
+            data.forEach((item) => {
+                if (item.forAdmin == true) {
+                    adminRestrictions.push(item);
+                }
+                else {
+                    userRestrictions.push(item);
+                }
+            })
+
             renderView();
         });
     }
@@ -66,8 +77,11 @@ window.IpSecurity = new function() {
     }
 
     function renderView() {
-        var $restrictions = restrictionTmpl.tmpl(restrictions);
+        var $restrictions = restrictionTmpl.tmpl(userRestrictions);
         $addRestrictionBtn.before($restrictions);
+
+        var $restrictionsAdmin = restrictionTmpl.tmpl(adminRestrictions);
+        $addRestrictionBtnForAdmin.before($restrictionsAdmin);
     }
 
     function bind$Events() {
@@ -76,6 +90,8 @@ window.IpSecurity = new function() {
 
         $addRestrictionBtn.on('click', addRestriction);
         $saveRestrictionBtn.on('click', saveRestriction);
+
+        $addRestrictionBtnForAdmin.on('click', addAdminRestriction);
 
         $restrictionsList.on('click', '.restriction .delete-btn', deleteRestriction);
     }
@@ -89,8 +105,13 @@ window.IpSecurity = new function() {
     }
 
     function addRestriction() {
-        var $newRestriction = restrictionTmpl.tmpl();
+        var $newRestriction = restrictionTmpl.tmpl({forAdmin: false});
         $addRestrictionBtn.before($newRestriction);
+    }
+
+    function addAdminRestriction() {
+        var $newRestriction = restrictionTmpl.tmpl({forAdmin: true});
+        $addRestrictionBtnForAdmin.before($newRestriction);
     }
 
     function saveRestriction() {
@@ -115,28 +136,30 @@ window.IpSecurity = new function() {
             return;
         }
 
+        var $el;
         var formRestrictions = [];
-        $restrictionsList.find('.restriction .ip').each(function(idx, el) {
-            formRestrictions.push($(el).val());
+        $restrictionsList.find('.restriction .ip').each(function (idx, el) {
+            $el = $(el);
+            formRestrictions.push({ ip: $el.val(), forAdmin: $el.data('admin')  });
         });
 
         var restrictionsToSave = [];
         for (var i = 0; i < formRestrictions.length; i++) {
-            var r = formRestrictions[i].replace(/\s/g, '');
+            var r = formRestrictions[i].ip.replace(/\s/g, '');
             if (r == '') {
                 continue;
             }
 
-            if (!ipRegex.test(r)) {
+            if (!commonIpRegex.test(r) && !CIDRIpRegex.test(r)) {
                 LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.IncorrectIPAddressFormatError, 'error');
                 return;
             }
-            
-            if (~restrictionsToSave.indexOf(r)) {
+
+            if (~restrictionsToSave.findIndex(item => item.ip == formRestrictions[i].ip)) {
                 LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.SameIPRestrictionError, 'error');
                 return;
             } else {
-                restrictionsToSave.push(r);
+                restrictionsToSave.push(formRestrictions[i]);
             }
         }
 

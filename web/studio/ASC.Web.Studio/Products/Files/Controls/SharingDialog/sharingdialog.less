@@ -1,0 +1,677 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../App_Themes/default/params.less";
+
+/*******************************************************************************
+    shareaccess
+*******************************************************************************/
+
+#sharingDialog {
+    width: 480px;
+}
+
+#sharingDialog .us-popup-dialog.auto-width {
+    width: auto;
+}
+
+#sharingDialog .containerHeaderBlock td:first-of-type {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+
+#sharingDialog .dialog-content-container .dialog-top-content-container.hidden .us-hot-search {
+    display: none;
+}
+
+#sharingDialog .dialog-content-container .top-button-container .user-button {
+    padding: 4px 10px 5px 32px;
+    background-image: url(./images/user.svg);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+#sharingDialog .dialog-content-container .top-button-container .user-button.disable {
+    background-blend-mode: hard-light;
+}
+
+
+#sharingDialog .dialog-content-container .top-button-container .link-button {
+    padding: 4px 10px 5px 32px;
+    background-image: url(./images/link.svg);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+#sharingDialog .dialog-content-container .top-button-container .link-button.disable {
+    background-blend-mode: hard-light;
+}
+
+
+#sharingDialog .dialog-content-container .us-hot-search {
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+#sharingDialog .dialog-content-container .us-hot-search .us-popup-dialog {
+    padding: 10px;
+}
+
+#sharingDialog .dialog-content-container .group-actions {
+    display: none;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+#sharingDialog .dialog-content-container .group-actions .contentMenu {
+    padding: 1px 0 2px 0;
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#sharingDialog .dialog-content-container .group-actions .menuActionClose {
+    font-size: 18px;
+    cursor: pointer;
+    float: right;
+    user-select: none;
+}
+
+#sharingDialog .dialog-content-container .content-list {
+    height: 310px;
+    overflow-y: scroll;
+    overflow-x: auto;
+    margin-right: -16px;
+    padding-right: 0;
+}
+
+@-moz-document url-prefix() {
+    #sharingDialog .dialog-content-container .content-list {
+        margin-right: -16px;
+        padding-right: 8px;
+    }
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name .us-name-text {
+    flex: unset;
+    line-height: 16px;
+    max-width: 320px;
+    display: flex;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-groupname .us-name-text span,
+#sharingDialog .dialog-content-container .content-list .us-name.changeable .us-name-text span {
+    border-bottom: 1px dotted transparent;
+}
+
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-groupname:not(.disabled):not(.unopenable):hover .us-name-text span,
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-linkname:not(.disabled) .us-name-text span,
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-name.changeable:not(.disabled):hover .us-name-text span {
+    border-bottom: 1px dotted;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name .us-name-text span {
+    width: auto;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name .us-name-text i {
+    font-size: 11px;
+    font-style: normal;
+    margin-left: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
+    display: none;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name.info .us-name-text i {
+    display: inline;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname {
+    border-bottom: 1px solid @sharing-dialog-bor;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-folder-linkname {
+    border-bottom: 1px solid @sharing-dialog-bor;
+}
+
+
+#sharingDialog .dialog-content-container .content-list .us-linkname .us-avatar {
+    background-image: url(./images/link.svg);
+    background-size: 18px 18px;
+    background-position: 3px center;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-folder-linkname .us-avatar {
+    background-image: url(./images/folder_link.svg);
+    background-size: 24px 24px;
+    background-position: center -1px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname .us-name-text {
+    max-width: 270px;
+    padding-right: 10px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-folder-linkname .us-name-text {
+    max-width: 270px;
+    padding-right: 10px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name.rename .us-name-text {
+    display: none;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname .us-rename {
+    display: flex;
+    min-width: 240px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-folder-linkname .us-rename {
+    display: flex;
+    min-width: 240px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname .us-rename .textEdit {
+    box-sizing: border-box;
+    height: 24px;
+    width: 165px;
+    padding: 4px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-folder-linkname .us-rename .textEdit {
+    box-sizing: border-box;
+    height: 24px;
+    width: 165px;
+    padding: 4px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname .us-rename .btn-action.__apply {
+    margin: 0 8px;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-folder-linkname .us-rename .btn-action.__apply {
+    margin: 0 8px;
+}
+
+#sharingDialog .dialog-content-container .content-list.rootonly .us-linkname .us-settings {
+    visibility: hidden;
+}
+
+#sharingDialog .dialog-content-container .content-list.rootonly .us-folder-linkname .us-settings {
+    visibility: hidden;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name {
+    cursor: default;
+}
+
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-linkname:not(.disabled),
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-folder-linkname:not(.disabled),
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-groupname:not(.disabled):not(.unopenable),
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-name.changeable:not(.disabled) .us-name-text span {
+    cursor: pointer;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name:not(.disabled) .us-avatar,
+#sharingDialog .dialog-content-container .content-list .us-name:not(.disabled):not(.uneditable) .us-access {
+    cursor: pointer;
+}
+
+#sharingDialog .dialog-content-container .content-list .item-access-rights-dialog {
+    right: 8px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-action-dialog {
+    left: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog {
+    left: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-around input {
+    border: none;
+    font-size: 14px;
+    height: 26px;
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-left: 4px;
+    background-color: @sharing-settings-icon-bg;
+    background-image: url("images/link_via.png");
+    border-radius: 2px;
+    cursor: pointer;
+    border: @sharing-settings-icon-bor;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a:hover {
+    background-color: @sharing-settings-icon-hover;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a.mail {
+    background-position-x: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a.facebook {
+    background-position-x: -44px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a.twitter {
+    background-position-x: -66px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-actions .link {
+    margin-left: 6px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item {
+    cursor: pointer;
+    margin-right: 2px;
+    padding: 2px 6px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item:hover {
+    background-color: @body-color-hover-another;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item.selected {
+    background-color: @body-color-selected;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item.selected span {
+    border-bottom: none;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-custom {
+    padding: 3px;
+    width: 45px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 8px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around:last-child {
+    margin-bottom: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around input.border-none {
+    border: none;
+    font-size: 14px;
+    height: 26px;
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around .link {
+    margin-right: 8px;
+}
+
+#sharingDialog .dialog-content-container .content-list .item-tooltip-dialog {
+    width: 330px;
+    left: 36px;
+}
+
+#sharingDialog .dialog-content-container .content-list .item-tooltip-dialog .UserInfoBlock {
+    margin: 0px;
+    padding: 0px;
+}
+
+#sharingDialog .dialog-content-container .empty-list {
+    margin-top: -150px;
+    text-align: center;
+}
+
+#sharingDialog .bottom-button-container .button.blue:first-child,
+#sharingDialog .bottom-button-container .button.gray {
+    padding-left: 18px;
+    padding-right: 18px;
+    height: 24px;
+    box-sizing: border-box;
+}
+
+#sharingDialog .bottom-button-container .button.arrow-part {
+    margin-right: 8px;
+}
+
+#sharingDialog .button.main-part {
+    border-radius: 3px 0 0 3px;
+}
+
+#sharingDialog .button.single-btn {
+    margin-right: 8px;
+}
+
+#sharingDialog .button.arrow-part {
+    position: relative;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 0 3px 3px 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
+}
+
+#sharingDialog .button.arrow-part::after {
+    border-bottom: none;
+    border-top: 4px solid;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    position: absolute;
+    right: 8px;
+    top: 10px;
+}
+
+#sharingDialog .button.arrow-part.arrow-up::after {
+    border-top: none;
+    border-bottom: 4px solid;
+}
+
+#sharingDialog .bottom-button-container .settings-link:not(.button) {
+    float: right;
+    padding: 3px 0 4px 20px;
+    background-image: url(./images/settings.svg);
+    background-position: 4px center;
+    background-repeat: no-repeat;
+    text-decoration: none;
+    user-select: none;
+}
+
+#sharingDialog .bottom-button-container .settings-link:not(.button).disable {
+    opacity: 0.5;
+}
+
+#sharingDialog .bottom-button-container .settings-link:not(.button).disable .link {
+    cursor: default;
+}
+
+#sharingDialog .bottom-button-container .settings-link.button {
+    float: right;
+    padding: 4px 24px 5px 12px;
+    background-image: url(./images/settings.svg);
+    background-position: 12px center;
+    background-repeat: no-repeat;
+    font-size: 0;
+    display: none;
+}
+
+#sharingDialog .bottom-button-container .settings-link.button.disable {
+    background-blend-mode: hard-light;
+}
+
+#sharingDialog .save-action-dialog {
+    bottom: 28px;
+}
+
+#sharingDialog .message-dialog {
+    bottom: -12px;
+}
+
+#sharingDialog .message-dialog textarea {
+    height: 70px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    resize: none;
+}
+
+#sharingDialog .advanced-settings-dialog {
+    bottom: 40px;
+}
+
+#sharingDialog .advanced-settings-dialog .advanced-settings-dialog-hdr {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+#sharingDialog .advanced-settings-dialog label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#sharingDialog .advanced-settings-dialog label input[type=checkbox] {
+    margin: 0 8px 0 0;
+    vertical-align: middle;
+}
+
+
+#sharingDialog .link-lifetime-dialog .link.disabled,
+#sharingDialog .link-password-dialog .link.disabled {
+    cursor: default;
+    color: #83888d;
+}
+#sharingDialog .link-password-dialog .password-container {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    position: relative;
+    display: flex;
+}
+#sharingDialog .link-password-dialog .password-container .textEdit {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px 30px 4px 4px;
+    height: 24px;
+}
+#sharingDialog .link-password-dialog .password-container .img-btn {
+    width: 30px;
+    min-width: 30px;
+    height: 24px;
+    background-color: #83888d;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    cursor: pointer;
+}
+#sharingDialog .link-password-dialog .password-container .img-btn.disabled {
+    background-color: #c7c7c7;
+    cursor: default;
+}
+#sharingDialog .link-password-dialog .password-container .img-btn.random {
+    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/rotate.svg);
+    mask-image: url(/UserControls/Users/UserProfile/css/images/rotate.svg);
+}
+#sharingDialog .link-password-dialog .password-container .img-btn.show {
+    position: absolute;
+    right: 30px;
+    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
+    mask-image: url(/UserControls/Users/UserProfile/css/images/read-only.svg);
+}
+#sharingDialog .link-password-dialog .password-container .img-btn.show.hide {
+    -webkit-mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
+    mask-image: url(/UserControls/Users/UserProfile/css/images/access-deny.svg);
+}
+#sharingDialog .link-lifetime-dialog .datetime-container {
+    display: flex;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+#sharingDialog .link-lifetime-dialog .datetime-container label {
+    display: block;
+    margin-bottom: 4px;
+}
+#sharingDialog .link-lifetime-dialog .datetime-container .date-container {
+    margin-right: 16px;
+}
+#sharingDialog .link-lifetime-dialog .datetime-container .textEditCalendar {
+    width: 100px;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding: 4px 30px 4px 4px;
+    height: 24px;
+}
+#sharingDialog .link-lifetime-dialog .datetime-container .textEdit.time {
+    width: 50px;
+    box-sizing: border-box;
+    padding: 4px;
+    height: 24px;
+}
+#sharingDialog .link-lifetime-dialog .autodelete-label {
+    display: block;
+    margin-top: 12px;
+}
+#sharingDialog .link-lifetime-dialog .autodelete-label .autodelete {
+    margin: 0 8px 0 0;
+}
+#sharingDialog .link-lifetime-dialog input.error {
+    border-color: #CC0000;
+}
+
+
+#sharingDialog.flat {
+    width: auto;
+}
+
+#sharingDialog.flat .us-popup-dialog:not(.auto-width) {
+    width: ~"calc(100vw - 48px)";
+}
+
+#sharingDialog.flat .us-list-parent {
+    height: 40vh;
+}
+
+#sharingDialog.flat .dialog-content-container .content-list {
+    height: ~"calc(100vh - 172px)";
+    height: ~"calc(var(--vh, 1vh) * 100 - 172px)";
+}
+
+#sharingDialog.flat .dialog-content-container .content-list .us-name:not(.us-linkname) .us-name-text {
+    max-width: ~"calc(100vw - 172px)";
+}
+
+#sharingDialog.flat .dialog-content-container .content-list .us-name.us-linkname .us-name-text {
+    max-width: ~"calc(100vw - 208px)";
+}
+
+#sharingDialog.flat .us-popup-dialog.us-dialog {
+    top: 52px;
+}
+
+
+@media (max-width: 480px) {
+
+    #sharingDialog.flat .dialog-content-container .content-list {
+        height: ~"calc(100vh - 134px)";
+        height: ~"calc(var(--vh, 1vh) * 100 - 134px)";
+    }
+
+    #sharingDialog.flat .dialog-content-container .dialog-top-content-container {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        position: relative;
+    }
+
+    #sharingDialog.flat .dialog-content-container .dialog-top-content-container.hidden {
+        display: none;
+    }
+
+    #sharingDialog.flat .dialog-content-container .top-button-container .user-button {
+        padding-right: 4px;
+        font-size: 0;
+    }
+
+    #sharingDialog.flat .dialog-content-container .top-button-container .link-button {
+        padding-right: 4px;
+        font-size: 0;
+    }
+
+    #sharingDialog.flat .dialog-content-container .us-hot-search {
+        flex-grow: 1;
+        margin: 0 8px 0 0;
+    }
+
+    #sharingDialog.flat .dialog-content-container .group-actions {
+        margin: 0 0 14px 0;
+    }
+
+    #sharingDialog.flat .us-popup-dialog.us-dialog {
+        top: -24px;
+        left: -24px;
+        border: none;
+        box-shadow: none;
+        padding: 24px;
+        width: 100vw;
+    }
+
+    #sharingDialog.flat .us-dialog .us-list-parent {
+        height: ~"calc(100vh - 159px)";
+        height: ~"calc(var(--vh, 1vh) * 100 - 159px)";
+    }
+
+    #sharingDialog.flat .dialog-content-container .content-list .us-name.rename .us-settings,
+    #sharingDialog.flat .dialog-content-container .content-list .us-name.rename .us-access {
+        display: none;
+    }
+
+    #sharingDialog.flat .dialog-content-container .content-list .us-name.rename .us-rename {
+        flex-grow: 1;
+    }
+
+    #sharingDialog.flat .dialog-content-container .content-list .us-name.rename .us-rename .textEdit {
+        width: 100%;
+    }
+
+    #sharingDialog.flat .dialog-content-container .content-list .us-name.rename .us-rename .btn-action {
+        background: transparent;
+        border: none;
+    }
+    
+    
+    #sharingDialog.flat .bottom-button-container .settings-link:not(.button) {
+        display: none;
+    }
+
+    #sharingDialog.flat .bottom-button-container .settings-link.button {
+        display: block;
+    }
+
+    #sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social .textinfo {
+        display: none;
+    }
+}

@@ -13,7 +13,7 @@
     <table cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <img src="<%= WebImageSupplier.GetAbsoluteWebPath("web_to_leads.png", ProductEntryPoint.ID)%>" />
+                <img src="<%= WebImageSupplier.GetAbsoluteWebPath("web_to_leads.svg", ProductEntryPoint.ID)%>" />
             </td>
             <td style="padding-left:8px;">
                 <%= CRMSettingResource.WebToLeadsFormHeader%>

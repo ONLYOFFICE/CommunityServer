@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,18 @@
 */
 
 
-@import "settings.less";
+@import "params.less";
 
 .calendarView {
     border-collapse: collapse;
-    color: rgb(34, 34, 34);
+    color: @dark-color-text;
     margin: 0 8px 4px 8px;
     cursor: default;
     padding-bottom: 8px;
-     
+
     > table {
-        background-color: white;
-        border: 1px solid rgb(229, 229, 229);
+        background-color: @light-text-color;
+        border: 1px solid @border-color-hover;
         width: 100%;
         border-collapse: separate;
     }
@@ -47,7 +47,7 @@
     .agenda_label {
         overflow: hidden;
         text-overflow: ellipsis;
-        border: 0px none rgb(34, 34, 34);
+        border: 0px none @dark-color-text;
         border-spacing: 2px 2px;
         margin-bottom: 8px;
 
@@ -60,7 +60,7 @@
     .agenda_date {
         color: @messages-muted-font-color;
         height: 18px;
-        border: 0px none rgb(153, 153, 153);
+        border: 0px none @light-gray-text-color;
         border-spacing: 2px 2px;
         margin-bottom: 16px;
     }
@@ -71,7 +71,7 @@
 
     .cal_info {
         width: 52%;
-        border: 0px none rgb(34, 34, 34);
+        border: 0px none @dark-color-text;
 
         .cal_buttons_row {
 
@@ -81,7 +81,7 @@
 
             .cal_buttons {
                 white-space: nowrap;
-                border: 0px none rgb(34, 34, 34);
+                border: 0px none @dark-color-text;
                 border-spacing: 2px 2px;
                 padding: 8px 0 8px 0;
             }
@@ -90,10 +90,10 @@
 
     .cal_agenda {
         width: 48%;
-        border-top: 0px none rgb(34, 34, 34);
-        border-right: 0px none rgb(34, 34, 34);
-        border-bottom: 0px none rgb(34, 34, 34);
-        border-left: 1px solid rgb(229, 229, 229);
+        border-top: 0px none @dark-color-text;
+        border-right: 0px none @dark-color-text;
+        border-bottom: 0px none @dark-color-text;
+        border-left: 1px solid @border-color-hover;
     }
 
     .cal_card,
@@ -101,6 +101,7 @@
         max-height: 120px;
         overflow-x: hidden;
         overflow-y: auto;
+
         tbody {
             border: 0px none rgb(128, 128, 128);
             border-spacing: 2px 2px;
@@ -117,11 +118,11 @@
 
     .card_row {
         .card_label {
-            color: rgb(153, 153, 153);
+            color: @light-gray-text-color;
             height: 18px;
             width: 48px;
             white-space: nowrap;
-            border: 0px none rgb(153, 153, 153);
+            border: 0px none @light-gray-text-color;
             border-spacing: 2px 2px;
             padding-right: 8px;
             vertical-align: top;
@@ -133,7 +134,7 @@
 
         .card_value {
             height: 18px;
-            border: 0px none rgb(34, 34, 34);
+            border: 0px none @dark-color-text;
             border-spacing: 2px 2px;
             vertical-align: top;
 
@@ -147,20 +148,20 @@
 
     .agenda_row {
         .time {
-            color: rgb(153, 153, 153);
+            color: @light-gray-text-color;
             padding-right: 16px;
             white-space: nowrap;
-            border: 0px none rgb(153, 153, 153);
+            border: 0px none @light-gray-text-color;
             border-spacing: 2px 2px;
         }
 
         .title {
-            color: rgb(153, 153, 153);
-            border: 0px none rgb(153, 153, 153);
+            color: @light-gray-text-color;
+            border: 0px none @light-gray-text-color;
             border-spacing: 2px 2px;
 
             .link {
-                color: rgb(153, 153, 153);
+                color: @light-gray-text-color;
             }
         }
     }
@@ -171,17 +172,17 @@
 
     .agenda_row.active {
         .time {
-            color: rgb(34, 34, 34);
+            color: @dark-color-text;
             vertical-align: top;
-            border: 0px none rgb(34, 34, 34);
+            border: 0px none @dark-color-text;
         }
 
         .title {
-            color: rgb(34, 34, 34);
-            border: 0px none rgb(34, 34, 34);
+            color: @dark-color-text;
+            border: 0px none @dark-color-text;
 
             .link {
-                color: rgb(34, 34, 34);
+                color: @dark-color-text;
             }
         }
     }
@@ -222,7 +223,7 @@
                 vertical-align: middle;
 
                 .card_label {
-                    color: rgb(153, 153, 153);
+                    color: @light-gray-text-color;
                     height: 18px;
                     width: 48px;
                     vertical-align: top;

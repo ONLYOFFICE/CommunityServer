@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ namespace ASC.Files.Core
         [EnumMember] Privacy = 13,
     }
 
+    ///<inherited>ASC.Files.Core.FileEntry, ASC.Web.Files</inherited>
     [DataContract(Name = "folder", Namespace = "")]
     [DebuggerDisplay("{Title} ({ID})")]
     public class Folder : FileEntry
@@ -55,18 +56,23 @@ namespace ASC.Files.Core
 
         public object ParentFolderID { get; set; }
 
+        ///<example name="total_files" type="int">5</example>
         [DataMember(Name = "total_files")]
         public int TotalFiles { get; set; }
 
+        ///<example name="total_sub_folder" type="int">5</example>
         [DataMember(Name = "total_sub_folder")]
         public int TotalSubFolders { get; set; }
 
+        ///<example name="shareable">true</example>
         [DataMember(Name = "shareable", EmitDefaultValue = false)]
         public bool Shareable { get; set; }
 
+        ///<example name="isnew" type="int">3</example>
         [DataMember(Name = "isnew")]
         public int NewForMe { get; set; }
 
+        ///<example name="folder_url">folder url</example>
         [DataMember(Name = "folder_url", EmitDefaultValue = false)]
         public string FolderUrl { get; set; }
 

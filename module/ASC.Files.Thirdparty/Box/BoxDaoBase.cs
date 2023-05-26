@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ namespace ASC.Files.Thirdparty.Box
 
         protected IDbManager GetDb()
         {
-            return DbManager.FromHttpContext(FileConstant.DatabaseId);
+            return new DbManager(FileConstant.DatabaseId);
         }
 
         protected object MappingID(object id, bool saveIfNotExist = false)
@@ -184,7 +184,7 @@ namespace ASC.Files.Thirdparty.Box
             var folder = new Folder
             {
                 ID = MakeId(boxFolder.Id),
-                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(boxFolder)),
+                ParentFolderID = isRoot ? (BoxProviderInfo.RootFolderType == FolderType.COMMON ? Global.FolderCommon : Global.FolderMy) : MakeId(GetParentFolderId(boxFolder)),
                 CreateBy = BoxProviderInfo.Owner,
                 CreateOn = isRoot ? BoxProviderInfo.CreateOn : (boxFolder.CreatedAt.HasValue ? boxFolder.CreatedAt.Value : default(DateTime)),
                 FolderType = FolderType.DEFAULT,

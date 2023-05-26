@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,30 +28,45 @@ namespace ASC.Api.Bookmarks
     [DataContract(Name = "bookmark", Namespace = "")]
     public class BookmarkWrapper : IApiSortableDate
     {
+        ///<example>11</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public long Id { get; set; }
 
+        ///<example>Google inc.</example>
+        ///<order></order>
         [DataMember(Order = 2)]
         public string Title { get; set; }
 
+        ///<example>http:\/\/www.google.com</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Url { get; set; }
 
+        ///<example>Url to thumbnail</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public string Thumbnail { get; set; }
 
+        ///<example>2020-12-06T07:36:14.8181893Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Created { get; set; }
 
+        ///<example>2020-12-06T07:36:14.8181893Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Updated { get; set; }
 
+        ///<example>Google</example>
+        ///<order>4</order>
         [DataMember(Order = 4)]
         public string Description { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>9</order>
         [DataMember(Order = 9)]
         public EmployeeWraper CreatedBy { get; set; }
-
 
         public BookmarkWrapper(Bookmark bookmark)
         {

@@ -131,7 +131,7 @@
         <tbody>
             <tr>
                 <td>
-                    <img src="<%=WebImageSupplier.GetAbsoluteWebPath("mail_send.png", ProductEntryPoint.ID)%>" alt=""/>
+                    <img src="<%=WebImageSupplier.GetAbsoluteWebPath("mail_send.svg", ProductEntryPoint.ID)%>" alt=""/>
                 </td>
                 <td style="color: #787878;font-size: 17px;" colspan="2">
                     <%= String.Format(CRMContactResource.MassSendInfo.HtmlEncode(), "<br/>")%>

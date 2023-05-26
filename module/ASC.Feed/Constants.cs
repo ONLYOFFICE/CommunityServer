@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,23 @@ namespace ASC.Feed
     {
         #region DbId
 
-        public const string FeedDbId = "core";
-        public const string ProjectsDbId = "projects";
-        public const string FilesDbId = "files";
-        public const string CommunityDbId = "community";
-        public const string CrmDbId = "crm";
-        public const string PeopleDbId = "people";
+        public const string DefaultDbId = "default";
+        public const string FeedDbId = DefaultDbId;
+        public const string ProjectsDbId = DefaultDbId;
+        public const string FilesDbId = DefaultDbId;
+        public const string CommunityDbId = DefaultDbId;
+        public const string CrmDbId = DefaultDbId;
+        public const string PeopleDbId = DefaultDbId;
+
+        //public const string FeedDbId = "core";
+        //public const string ProjectsDbId = "projects";
+        //public const string FilesDbId = "files";
+        //public const string CommunityDbId = "community";
+        //public const string CrmDbId = "crm";
+        //public const string PeopleDbId = "people";
 
         #endregion
+
 
         #region Modules
 

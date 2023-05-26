@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,19 @@
 */
 
 
+@import "params.less";
+
 .us-popup-dialog {
     position: absolute;
-    border: 1px solid #D1D1D1;
-    background: #FFFFFF;
+    border: 1px solid @borderColor;
+    background: @body-color;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.35);
     padding: 16px;
     display: none;
     width: 430px;
-    z-index: 2;
+    z-index: 677;
 }
 
 .us-dialog {
@@ -99,7 +101,7 @@
         align-items: center;
 
         .us-avatar {
-            background-image: url(./images/svg/share/user_avatar.svg);
+            background-image: url("./images/svg/share/@{user-avatar-svg}");
             background-position: left center;
             background-repeat: no-repeat;
             background-size: 24px;
@@ -133,10 +135,14 @@
             width: 36px;
             height: 24px;
 
+            &.static {
+                margin-left: 20px;
+            }
+
             &:not(.uneditable):after {
                 border-left: 4px solid transparent;
                 border-right: 4px solid transparent;
-                border-top: 5px solid #696969;
+                border-top: 4px solid;
                 border-bottom: none;
                 content: "";
                 position: absolute;
@@ -165,8 +171,8 @@
             }
 
             .us-avatar:after {
-                border-right: 2px solid #fff;
-                border-bottom: 2px solid #fff;
+                border-right: 2px solid @body-color;
+                border-bottom: 2px solid @body-color;
                 opacity: 0.7;
                 width: 4px;
                 height: 8px;
@@ -201,8 +207,8 @@
             }
 
             .us-avatar:after {
-                border-right: 2px solid #fff;
-                border-bottom: 2px solid #fff;
+                border-right: 2px solid @body-color;
+                border-bottom: 2px solid @body-color;
                 width: 4px;
                 height: 8px;
                 transform: rotate(45deg);
@@ -232,7 +238,7 @@
             .us-groupname:not(.unopenable) .us-name-text:after {
                 border-left: 4px solid transparent;
                 border-right: 4px solid transparent;
-                border-top: 5px solid #696969;
+                border-top: 4px solid;
                 border-bottom: none;
                 content: "";
                 position: absolute;
@@ -247,7 +253,7 @@
 
                 .us-groupname .us-name-text:after {
                     border-top: none;
-                    border-bottom: 5px solid #696969;
+                    border-bottom: 4px solid;
                 }
             }
         }
@@ -260,7 +266,7 @@
         cursor: pointer;
 
         &:hover {
-            background: #E9E9E9;
+            background: @tl-combobox-container-hover;
         }
 
         div {
@@ -313,6 +319,10 @@
     &.access-8 {
         background-image: url(./images/svg/share/access_filter.svg);
     }
+
+    &.access-remove {
+        background-image: url(./images/svg/share/trash.svg);
+    }
 }
 
 .us-search {
@@ -344,5 +354,50 @@
         .clear-search {
             display: block;
         }
+    }
+}
+
+.us-settings {
+    margin-left: auto;
+    width: 56px;
+    height: 24px;
+
+    .us-settings-item {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center center;
+        mask-position: center center;
+        background-color: #CECECE;
+
+        &:not(:first-child) {
+            margin-left: 8px;
+        }
+    }
+
+    .us-settings-lifetime {
+        -webkit-mask-image: url(./images/svg/share/lifetime.svg);
+        mask-image: url(./images/svg/share/lifetime.svg);
+    }
+
+    .us-settings-password {
+        -webkit-mask-image: url(./images/svg/share/password.svg);
+        mask-image: url(./images/svg/share/password.svg);
+    }
+}
+
+.us-name:not(.disabled) .us-settings .us-settings-item {
+    &.enabled {
+        background-color: #3B72A7;
+    }
+
+    &.warning {
+        background-color: #DA5353;
+    }
+
+    &:hover {
+        background-color: #3B72A7;
     }
 }

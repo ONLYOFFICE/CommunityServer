@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Web.UI;
 
+using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Files.Controls
@@ -30,6 +31,7 @@ namespace ASC.Web.Files.Controls
         }
 
         public object FolderIDCurrentRoot { get; set; }
+        public Folder ExternalFolder;
 
         protected string AdditionalCssClass
         {
@@ -44,6 +46,7 @@ namespace ASC.Web.Files.Controls
                 treeViewContainer.ID = "treeViewContainer";
                 treeViewContainer.AdditionalCssClass = AdditionalCssClass;
                 treeViewContainer.WithNew = true;
+                treeViewContainer.ExternalFolder = ExternalFolder;
                 TreeViewHolder.Controls.Add(treeViewContainer);
             }
 
@@ -52,6 +55,7 @@ namespace ASC.Web.Files.Controls
             treeSelectorContainer.FolderIDCurrentRoot = FolderIDCurrentRoot;
             treeSelectorContainer.WithoutTrash = true;
             treeSelectorContainer.WithoutAdditionalFolder = true;
+            treeSelectorContainer.ExternalFolder = ExternalFolder;
             TreeSelectorHolder.Controls.Add(treeSelectorContainer);
         }
     }

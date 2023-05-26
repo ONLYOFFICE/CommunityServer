@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,11 @@
 */
 
 
+@import "params.less";
+
 .backdrop
 {
-    background-color: #000;
+    background-color: @backdrop-bg;
     bottom: 0;
     filter: alpha(opacity=80);
     left: 0;
@@ -30,7 +32,7 @@
 
 .dashboard-center-box {
     padding: 40px;
-    background-color: #FFF;
+    background-color: @bg-dashboard;
     left: 50%;
     position: absolute;
     top: 10%;
@@ -40,7 +42,7 @@
 }
 
 .dashboard-center-box .close {
-    color: #C4C4C4;
+    color: @border-button-default;
     cursor: pointer;
     display: inline-block;
     float: right;
@@ -86,6 +88,7 @@
         font-size: 27px;
         font-weight: 600;
         margin: 18px 0;
+        color: @bg-dashboard-title;
     }
 
     a.link {
@@ -107,13 +110,13 @@
 .dashboard-center-box.community {
     .content .module-block {
         .img.share-news-and-knowledge {
-            background-image: url("images/dashboard/share-news-and-knowledge.png");
+            background-image: url("images/dashboard/share-news-and-knowledge.svg");
         }
         .img.discuss-with-team {
-            background-image: url("images/dashboard/discuss-with-team.png");
+            background-image: url("images/dashboard/discuss-with-team.svg");
         }
         .img.keep-your-team-posted {
-            background-image: url("images/dashboard/keep-your-team-posted.png");
+            background-image: url("images/dashboard/keep-your-team-posted.svg");
         }
     }
 }
@@ -121,16 +124,16 @@
 .dashboard-center-box.crm {
     .content .module-block {
         .img.create-clients-database {
-            background-image: url("images/dashboard/create-clients-database.png");
+            background-image: url("images/dashboard/create-clients-database.svg");
         }
         .img.track-sales {
-            background-image: url("images/dashboard/track-sales.png");
+            background-image: url("images/dashboard/track-sales.svg");
         }
         .img.communicate-with-clients {
-            background-image: url("images/dashboard/communicate-with-clients.png");
+            background-image: url("images/dashboard/communicate-with-clients.svg");
         }
         .img.customize-your-crm {
-            background-image: url("images/dashboard/customize-your-crm.png");
+            background-image: url("images/dashboard/customize-your-crm.svg");
         }
     }
 }
@@ -138,16 +141,16 @@
 .dashboard-center-box.files {
     .content .module-block {
         .img.work-with-office-docs {
-            background-image: url("images/dashboard/work-with-office-docs.png");
+            background-image: url("images/dashboard/work-with-office-docs.svg");
         }
         .img.share-files {
-            background-image: url("images/dashboard/share-files.png");
+            background-image: url("images/dashboard/share-files.svg");
         }
         .img.make-co-editing-comfy {
-            background-image: url("images/dashboard/make-co-editing-comfy.png");
+            background-image: url("images/dashboard/make-co-editing-comfy.svg");
         }
         .img.use-more-collaboration-tools {
-            background-image: url("images/dashboard/use-more-collaboration-tools.png");
+            background-image: url("images/dashboard/use-more-collaboration-tools.svg");
         }
     }
 }

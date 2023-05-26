@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -241,7 +241,7 @@ namespace ASC.Mail.Core.Engine
                 mailboxId = message.MailboxId
             };
 
-            engine.QuotaEngine.QuotaUsedAdd(contentLength);
+            engine.QuotaEngine.QuotaUsedAdd(contentLength, user);
 
             try
             {
@@ -459,7 +459,7 @@ namespace ASC.Mail.Core.Engine
                 }
 
                 var engine = new EngineFactory(mailBoxData.TenantId);
-                engine.QuotaEngine.QuotaUsedAdd(quotaAddSize);
+                engine.QuotaEngine.QuotaUsedAdd(quotaAddSize, mailBoxData.UserId);
             }
             catch
             {

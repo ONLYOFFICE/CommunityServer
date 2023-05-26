@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
         
-        <link type="text/css" rel="stylesheet" href="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Common/PreparationPortal/css/preparationportal.css") %>"/>
+        <link type="text/css" rel="stylesheet" href="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Common/PreparationPortal/css/preparationportal.less") %>"/>
     </head>
     <body>
     <asp:PlaceHolder runat="server" ID="PreparationPortalContent" />

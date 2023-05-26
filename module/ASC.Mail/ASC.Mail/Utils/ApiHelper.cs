@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +61,7 @@ namespace ASC.Mail.Utils
         /// Constructor of class ApiHelper
         /// </summary>
         /// <param name="scheme">Uri.UriSchemeHttps or Uri.UriSchemeHttp</param>
+        /// <param name="log"></param>
         /// <exception cref="ApiHelperException">Exception happens when scheme is invalid.</exception>>
         public ApiHelper(string scheme, ILog log = null)
         {

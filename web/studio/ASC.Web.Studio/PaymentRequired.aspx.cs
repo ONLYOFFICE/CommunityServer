@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
@@ -70,8 +71,14 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableGift = true;
 
             Title = HeaderStringHelper.GetPageTitle(Resource.PaymentRequired);
-
-            Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariff.less");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/dark-tariff.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariff.less");
+            }
             Page.RegisterStyle("~/UserControls/Management/TariffSettings/css/tariffstandalone.less");
 
             Settings = AdditionalWhiteLabelSettings.Instance;

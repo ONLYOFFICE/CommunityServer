@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,30 +24,39 @@ namespace ASC.ActiveDirectory.ComplexOperations
     [DataContract]
     public class LdapOperationStatus
     {
+        ///<example>true</example>
         [DataMember]
         public bool Completed { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string Id { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string Status { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string Error { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string Warning { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public int Percents { get; set; }
 
+        ///<type>ASC.ActiveDirectory.Base.Data.LdapCertificateConfirmRequest, ASC.ActiveDirectory</type>
         [DataMember]
         public LdapCertificateConfirmRequest CertificateConfirmRequest { get; set; }
 
+        ///<example>Source</example>
         [DataMember]
         public string Source { get; set; }
 
+        ///<example>OperationType</example>
         [DataMember]
         public string OperationType { get; set; }
     }

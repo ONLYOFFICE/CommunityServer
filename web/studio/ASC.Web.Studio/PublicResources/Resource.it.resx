@@ -1811,9 +1811,6 @@ Sei sicuro di voler eliminare {!group} {0}?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Impostazioni di dominio affidabile{2} ti permettono di specificare i server di posta elettronica che si usano per la registrazione degli utenti in ONLYOFFICE™.{0}Puoi sia spuntare l'opzione {1}Domini personalizzati{2} ed inserisci il server di posta elettronica nel campo di sotto perchè ogni persona che ha un account sul server specificato avrà la possibilità di registrarsi cliccando sul collegamento {1}Accedi{2} nella pagina di accesso o disattivare questa opzione.{0}Per applicare i parametri impostati clicca su {1}Salva{2} nella parte inferiore della sezione.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Impostazioni di livello di sicurezza della password{2} ti permettono di determinare l'efficacia di una password nella difesa contro intrusi e impostori.{0}Utilizza la barra {1}Lunghezza della password minima{2} per impostare la lunghezza della password perché essa sia considerata sicura. Spunta le caselle adatte sotto la barra per determinare l'insieme dei caratteri da utilizzare nella password.{0}Per applicare i parametri impostati clicca su {1}Salva{2} nella parte inferiore della sezione.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Portale pubblico{2} è un'opzione gratuita che permette a ciascuno di visualizzare il contenuto pubblico senza registrazione. Per tali portali i progetti privati non sono disponibili e il modulo CRM è disattivato.{0}La registrazione sui portali pubblici non è limitata al numero di utenti, nuovi utenti vengono aggiunti alla richiesta all'amministratore del portale. Usa l'opzione {1}Registra nuovi utenti subito{2} per annullare la necessità di conferma.</value>
   </data>
@@ -2048,9 +2045,6 @@ Sei sicuro di voler eliminare {!group} {0}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Attiva</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}Protezione IP{1} si usa per limitare l'accesso al portale da tutti gli indirizzi IP eccetto determinati indirizzi. Puoi impostare gli indirizzi IP consentiti usando gli indirizzi IP esatti nel formato IPv4 (#.#.#.#, dove # indica un valore numerico compreso fra 0 e 255) o un intervallo di indirizzi IP (nel formato #.#.#.#-#.#.#.#).</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Sicurezza IP</value>
@@ -2714,9 +2708,6 @@ Contattare l'amministratore LDAP nel caso so vogliano modificare i campi bloccat
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Modifica della password</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Lunghezza della password minima</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Recupero della password</value>

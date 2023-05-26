@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.PublicResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UserControlsCommonResource {
@@ -633,6 +633,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string FilterNoVoipCallsDescription {
             get {
                 return ResourceManager.GetString("FilterNoVoipCallsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the password to access the folder.
+        /// </summary>
+        public static string FolderShareLinkPasswordLabel {
+            get {
+                return ResourceManager.GetString("FolderShareLinkPasswordLabel", resourceCulture);
             }
         }
         
@@ -1528,6 +1537,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please, disconnect all mail domains..
+        /// </summary>
+        public static string SaasTariffErrorMailServerDomain {
+            get {
+                return ResourceManager.GetString("SaasTariffErrorMailServerDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select the number of active users from {0} to {1}..
         /// </summary>
         public static string SaasTariffErrorMinMax {
@@ -1992,6 +2010,24 @@ namespace ASC.Web.Studio.PublicResources {
         public static string SendShareNotify {
             get {
                 return ResourceManager.GetString("SendShareNotify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This share is password-protected.
+        /// </summary>
+        public static string ShareLinkPasswordHeader {
+            get {
+                return ResourceManager.GetString("ShareLinkPasswordHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the password to access the file.
+        /// </summary>
+        public static string ShareLinkPasswordLabel {
+            get {
+                return ResourceManager.GetString("ShareLinkPasswordLabel", resourceCulture);
             }
         }
         

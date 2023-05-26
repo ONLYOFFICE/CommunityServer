@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ ASC.Projects.SubtasksManager = (function () {
             return true;
         });
 
-        jq(document).on(clickEventName, ".subtask-add-button .button", function () {
+        jq(document).on(clickEventName, ".subtask-add-button .button:not(.disable)", function () {
             beforeSubtaskAction();
             return false;
         });
@@ -88,7 +88,6 @@ ASC.Projects.SubtasksManager = (function () {
                     hideSubtaskFields();
                     break;
                 case enterKey:
-                    jq(this).prop("disabled", true);
                     beforeSubtaskAction();
                     break;
                 default:
@@ -104,7 +103,7 @@ ASC.Projects.SubtasksManager = (function () {
             if (jq(this).is(':checked')) {
                 closeSubTask(self, taskId);
             } else {
-                showSubtaskLoader(self.closest(".check"));
+                showSubtaskLoader(self.find(".check"));
                 updateSubtaskStatus({}, taskId, subtaskId, { status: 'open' });
             }
         });
@@ -195,6 +194,8 @@ ASC.Projects.SubtasksManager = (function () {
             $subtaskContainer.show();
         }
         jq(".subtask-loader").remove();
+
+        jq(".subtask-add-button .button").removeClass("disable");
 
         $subtaskNameInput = jq('.subtask-name-input');
         $subtaskNameInput.prop("disabled", false);
@@ -326,6 +327,8 @@ ASC.Projects.SubtasksManager = (function () {
         };
 
         showSubtaskLoader($subtaskNameInput.closest(".subtask-name"));
+        $subtaskNameInput.prop("disabled", true);
+        jq(".subtask-add-button .button").addClass("disable");
 
         if (editFlag) {
             subtask.id = $subtaskNameInput.data("subtaskid");

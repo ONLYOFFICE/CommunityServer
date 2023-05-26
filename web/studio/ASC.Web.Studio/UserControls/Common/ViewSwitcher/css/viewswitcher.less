@@ -1,0 +1,77 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../../../skins/default/params.less";
+
+.viewSwitcher ul,
+.viewSwitcher li {
+    padding: 0;
+    margin: 0;
+}
+
+.viewSwitcher {
+    margin-bottom: 20px;
+}
+
+.viewSwitcherItem,
+.viewSwithcerSelectedItem {
+    height: 15px;
+    padding: 13px 9px 1px 9px;
+}
+
+.viewSwithcerSelectedItem {
+    font-weight: bold;
+}
+
+.viewSwitcher .viewSwitcherTab,
+.viewSwitcher .viewSwitcherTabSelected {
+    text-decoration: none;
+    list-style: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    border: solid 1px @borderColor;
+    padding: 7px 16px;
+    height: 20px;
+    position: relative;
+    bottom: -1px;
+    margin-left: 3px;
+    font-size: 16px;
+}
+
+.viewSwitcher .viewSwitcherTab {
+    background-color: @switcher;
+}
+
+.viewSwitcher .viewSwitcherTabSelected {
+    background-color: @body-color;
+    font-weight: bold;
+    border-bottom: 1px solid @bodyColor2;
+}
+
+.viewSwitcher .viewSwitcherTabWithLeftBorder {
+    border-left: solid 1px @borderColor;
+    height: 30px;
+    width: 0;
+    float: left;
+}
+
+.viewSwitcher .viewSwitcherAreaWithBottomBorder {
+    border-bottom: solid 1px @borderColor;
+    margin-bottom: -1px;
+    padding-left: 10px;
+}

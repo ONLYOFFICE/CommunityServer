@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,7 +100,7 @@ namespace ASC.Web.UserControls.Bookmarking
 
                 var emptyScreenControl = new EmptyScreenControl
                 {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("bookmarks_icon.png", BookmarkingSettings.ModuleId),
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("bookmarks_icon.svg", BookmarkingSettings.ModuleId),
                     Describe = currentUser.IsVisitor() ? BookmarkingUCResource.EmptyScreenTextVisitor : BookmarkingUCResource.EmptyScreenText
                 };
 

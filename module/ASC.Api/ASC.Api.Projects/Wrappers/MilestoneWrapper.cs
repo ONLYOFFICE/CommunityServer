@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,27 +27,41 @@ namespace ASC.Api.Projects.Wrappers
     [DataContract(Name = "milestone", Namespace = "")]
     public class MilestoneWrapper : ObjectWrapperFullBase
     {
+        ///<type>ASC.Api.Projects.Wrappers.SimpleProjectWrapper, ASC.Api.Projects</type>
+        ///<order>14</order>
         [DataMember(Order = 14)]
         public SimpleProjectWrapper ProjectOwner { get; set; }
 
+        ///<example>2020-12-22T04:11:56.4458522Z</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public ApiDateTime Deadline { get; set; }
 
+        ///<example>false</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public bool IsKey { get; set; }
 
+        ///<example>false</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public bool IsNotify { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanEdit { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanDelete { get; set; }
 
+        ///<example type="int">15</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public int ActiveTaskCount { get; set; }
 
+        ///<example type="int">5</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public int ClosedTaskCount { get; set; }
 

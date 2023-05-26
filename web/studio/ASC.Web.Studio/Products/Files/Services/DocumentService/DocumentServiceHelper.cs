@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                linkRight = FileShareLink.Check(doc, fileDao, out file);
+                linkRight = FileShareLink.Check(doc, fileDao, out file, out Guid linkId);
 
                 if (file == null)
                 {
@@ -67,6 +67,13 @@ namespace ASC.Web.Files.Services.DocumentService
                     {
                         file = curFile;
                     }
+                }
+
+                if (!SecurityContext.IsAuthenticated && FileConverter.MustConvert(file) && 
+                    linkRight != FileShare.Read && linkRight != FileShare.Restrict && 
+                    !FileShareLink.TryGetCurrentLinkId(out _))
+                {
+                    linkRight = FileShare.Read;
                 }
             }
             return GetParams(file, lastVersion, linkRight, true, true, editPossible, tryEdit, tryCoauth, out configuration);
@@ -339,7 +346,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 || fileSecurity.CanReview(file, FileConstant.ShareLinkId)
                 || fileSecurity.CanFillForms(file, FileConstant.ShareLinkId)
                 || fileSecurity.CanComment(file, FileConstant.ShareLinkId);
-
+            //TODO: IsLink?
             var usersDrop = FileTracker.GetEditingBy(file.ID)
                                        .Where(uid =>
                                            {

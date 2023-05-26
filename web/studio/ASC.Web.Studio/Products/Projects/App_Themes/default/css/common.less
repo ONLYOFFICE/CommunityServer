@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 */
 
 
+@import "params.less";
 .loader-page{
     display:none
 }
@@ -24,7 +25,7 @@
 }
 
 .headerPanelSmall { /*---remove this style carefully---*/
-    color: #3C4046;
+    color: @headerPanelSmallColor;
     font-weight: bold;
 }
 
@@ -143,7 +144,7 @@
             background: url("../images/timer-icons.png") no-repeat;
             text-align: center;
             font-size: 48px;
-            color: #fff;
+            color: @body-color;
             line-height: 72px;
         }
 
@@ -210,11 +211,11 @@
         margin-top: 130px;
         height: 150px;
         width: 100%;
-        background: url("../images/empty_screen_time_tracking.png") no-repeat center;
+        background: url("../images/empty_screen_time_tracking.svg") no-repeat center;
     }
 
     .message-for-empty-timer {
-        color: #333;
+        color: @text-color;
         font-size: 18px;
         margin-top: 24px;
         padding: 0 16px;
@@ -226,8 +227,8 @@ table.listContainer {
     width: 100%;
 
     tr {
-        background: none repeat scroll 0 0 white;
-        border-bottom: 1px solid #D1D1D1;
+        background: none repeat scroll 0 0 @body-color-bg;
+        border-bottom: 1px solid @border-color;
     }
 
     td {
@@ -295,7 +296,7 @@ table.listContainer {
             padding-left: 8px;
 
             a {
-                color: #333;
+                color: @text-color;
                 text-decoration: none;
                 overflow: hidden;
                 display: inline-block;
@@ -341,8 +342,8 @@ table.listContainer {
         }
 
         .combobox-title .inner-text {
-            border-bottom: 1px dotted #666666;
-            color: #666666;
+            border-bottom: 1px dotted @grey-text;
+            color: @grey-text;
         }
     }
 }
@@ -367,7 +368,7 @@ table.listContainer {
 
     .project-total-info {
         .additional-info {
-            color: #666;
+            color: @grey-text;
             font-size: 12px;
         }
 
@@ -436,7 +437,7 @@ body.media-width-0-1150 .project-info-container .project-title {
     overflow: auto;
 
     .pageTitle {
-        color: #333;
+        color: @text-color;
         float: left;
         font-size: 25px;
     }
@@ -481,8 +482,8 @@ body.media-width-0-1150 .project-info-container .project-title {
     }
 
     .tl-combobox .combobox-title .inner-text {
-        color: #333;
-        border-bottom: 1px dotted #333;
+        color: @text-color;
+        border-bottom: 1px dotted @text-color;
     }
 
     .full-width {
@@ -537,7 +538,7 @@ body.media-width-0-1150 .project-info-container .project-title {
     .successMessage {
         display: none;
         margin: -14px 0 8px 0;
-        color: #666;
+        color: @grey-text;
     }
 }
 
@@ -568,13 +569,14 @@ body.media-width-0-1150 .project-info-container .project-title {
     .taskProcess {
         height: 25px;
         padding-left: 25px;
-        background: url('../../../../../skins/default/images/loader_16.gif') no-repeat 2px 7px;
+        background: url("../../../../../skins/default/images/@{loader-gif-16}") no-repeat 2px 7px;
     }
 
-    div.copy{
-        display:inline-block;
-        &.files{
-            margin-left:10px;
+    div.copy {
+        display: inline-block;
+
+        &.files {
+            margin-left: 10px;
         }
     }
 
@@ -664,14 +666,14 @@ body.media-width-0-1150 .project-info-container .project-title {
         }
 
         .tl-combobox .combobox-title .inner-text {
-            color: #333;
-            border-bottom: 1px dotted #333;
+            color: @text-color;
+            border-bottom: 1px dotted @text-color;
         }
     }
 
     #taskLink {
         float: right;
-        color: #666666;
+        color: @grey-text;
     }
 
     select {
@@ -691,7 +693,7 @@ body.media-width-0-1150 .project-info-container .project-title {
 .pm-action-block .successMessage {
     display: none;
     margin: -14px 0 8px 0;
-    color: #666;
+    color: @grey-text;
 }
 
 /*---Banner for mobile app---*/
@@ -761,7 +763,7 @@ table.table-list {
                 text-align: center;
 
                 &.canEdit {
-                    border: 1px solid #d1d1d1;
+                    border: 1px solid @border-color;
                     border-radius: 3px;
                     -moz-border-radius: 3px;
                     -webkit-border-radius: 3px;
@@ -798,7 +800,7 @@ table.table-list {
                     background-image: none;
                     background-color: transparent;
                     border: 1px solid transparent;
-                    margin-left:0px;
+                    margin-left: 0px;
                 }
 
                 span {
@@ -832,7 +834,7 @@ table.table-list {
 
         tr:hover .changeStatusCombobox.canEdit,
         td.status .changeStatusCombobox.canEdit.selected {
-            background-color: #eaeaea;
+            background-color: @changeStatusCombobox;
             border-color: #a8a8a8;
 
             span.arrow:after {
@@ -844,34 +846,34 @@ table.table-list {
 #emptyScrCtrlPrj {
     .emptyScrImage{
         &.tasks{
-            background-image: url('../images/empty_screen_tasks.png');
+            background-image: url('../images/empty_screen_tasks.svg');
         }
         &.discussions{
-            background-image: url('../images/empty_screen_discussions.png');
+            background-image: url('../images/empty_screen_discussions.svg');
         }
         &.milestones{
-            background-image: url('../images/empty_screen_milestones.png');
+            background-image: url('../images/empty_screen_milestones.svg');
         }
         &.projects{
-            background-image: url('../images/projects_logo.png');
+            background-image: url('../images/projects_logo.svg');
         }
         &.time_tracking{
-            background-image: url('../images/empty_screen_time_tracking.png');
+            background-image: url('../images/empty_screen_time_tracking.svg');
         }
         &.templates{
-            background-image: url('../images/project-templates_logo.png');
+            background-image: url('../images/project-templates_logo.svg');
         }
         &.comments{
-            background-image: url('../images/empty_screen_comments.png');
+            background-image: url('../images/empty_screen_comments.svg');
         }
         &.relatedtasks{
-            background-image: url('../images/empty_screen_relatedtasks.png');
+            background-image: url('../images/empty_screen_relatedtasks.svg');
         }
         &.subtasks{
-            background-image: url('../images/empty_screen_subtasks.png');
+            background-image: url('../images/empty_screen_subtasks.svg');
         }
         &.filter{
-            background-image: url('../../../../../skins/default/images/empty_screen_filter.png');
+            background-image: url('../../../../../skins/default/images/empty_screen_filter.svg');
         }
     }
 }
@@ -889,7 +891,7 @@ table.table-list {
         &.value{
             max-width: 250px;
             a {
-                color: #000;
+                color: @dark-text-color;
                 &:hover {
                     text-decoration: none
                 }
@@ -913,7 +915,7 @@ table.table-list {
 
     textarea{
         min-height: 60px;
-        max-height: 400px;
+        max-height: 60px;
         width: 99%; 
         resize: none;
     }

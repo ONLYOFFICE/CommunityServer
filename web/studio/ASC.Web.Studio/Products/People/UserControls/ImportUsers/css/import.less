@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,8 @@
 */
 
 
-@color-active: #2da7db;
-@color-passive: #94D0E9;
-@color-default: #ddd;
-@color-condition: #333;
+@import "../../../App_Themes/default/css/params.less";
+@color-condition: @text-color;
 
 .frame {
     float: left;
@@ -215,7 +213,7 @@
     width: 760px;
     height: 298px;
     padding: 2px 0 0 2px;
-    background-color: #ffffff;
+    background-color: @body-color;
     display: none;
 
     .restr {
@@ -231,7 +229,7 @@
     .incorrectBox {
         position: relative;
         border-width: 1px 0;
-        z-index:1;
+        z-index: 1;
 
         &.first,
         &.last {
@@ -256,7 +254,7 @@
     }
 
     .textEditMain {
-        color: #333333;
+        color: @text-color;
     }
 
     .textEditDefault {
@@ -269,7 +267,7 @@
     }
 
     input:hover {
-        background-color: #ffffff;
+        background-color: @bg-text-box;
     }
 
     .mob {
@@ -397,7 +395,7 @@
             &.userItem {
                 &#hoverItem {
                     &:hover {
-                        background-color: #EDEDED;
+                        background-color: @user-Item-hover;
                     }
                 }
 
@@ -438,7 +436,7 @@
         text-align: left;
         margin: 15px 4px 0 0;
         padding: 0;
-        border: 1px solid #d7d7d7;
+        border: 1px solid @import-from-file-bor;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
@@ -471,7 +469,7 @@
                 margin-top: 16px;
 
                 #saveSettingsBtn {
-                    background: #ffffff url('../images/up.png') no-repeat center;
+                    background: @body-color url('../images/up.png') no-repeat center;
                     width: 23px;
                     height: 35px;
                     transform: rotate(-90deg);
@@ -519,17 +517,17 @@
 }
 
 .importUsers div.file {
-    background: #ffffff url('../images/manually.png') no-repeat 20px 16px;
+    background: @body-color url('../images/manually.svg') no-repeat 20px 16px;
     width: 108px;
     height: 58px;
     vertical-align: middle;
     padding: 0 0 0 60px;
     font-size: 18px;
-    color: black;
+    color: @dark-text;
     text-decoration: none;
     position: relative;
     float: left;
-    border: 1px solid #d7d7d7;
+    border: 1px solid @import-from-file-bor;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -542,12 +540,12 @@
         padding-right: 10px;
         vertical-align: middle;
         font-size: 18px;
-        color: black;
+        color: @dark-text;
         text-decoration: none;
     }
 
     &.outlookCsv {
-        background: #ffffff url("../images/outlook.png") no-repeat center center;
+        background: @body-color url("../images/outlook.png") no-repeat center center;
     }
 
     .innerBox {
@@ -558,7 +556,7 @@
         width: 0;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-top: 6px solid #333;
+        border-top: 6px solid @text-color;
     }
 
     .fileSelector {
@@ -593,7 +591,7 @@
         position: absolute;
         height: 100%;
         width: 100%;
-        background-color: #D7D7D7;
+        background-color: @import-from-file-bor;
         opacity: 0.5;
         top: 0;
         left: 0;
@@ -617,7 +615,7 @@
     height: 150px;
     border: solid 1px #575757;
     border-top: 0;
-    background-color: white;
+    background-color: @body-color-bg;
 }
 
 .fistable {
@@ -634,7 +632,7 @@
 
 #importUserLimitPanel {
     position: absolute;
-    background-color: #FFFFFF;
+    background-color: @body-color;
     top: 140px;
     height: auto;
     left: 160px;
@@ -709,12 +707,12 @@
 }
 
 .filetemp {
-    background: white url('../images/from_file.png') no-repeat 20px center;
+    background: @body-color-bg url('../images/from_file.svg') no-repeat 20px center;
     height: 100%;
     vertical-align: middle;
     padding: 7px 0 0 60px;
     font-size: 18px;
-    color: black;
+    color: @dark-text;
     text-decoration: none;
     position: relative;
     float: left;
@@ -725,7 +723,7 @@
     text-decoration: none;
     position: relative;
     float: left;
-    border: 1px solid #d7d7d7;
+    border: 1px solid @import-from-file-bor;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -780,7 +778,7 @@
 }
 
     .dArrow::after {
-        border-color: #666666 transparent transparent;
+        border-color: @grey-text transparent transparent;
         border-style: solid solid outset;
         border-width: 4px 4px 0;
         content: "";
@@ -823,10 +821,10 @@ select {
         overflow: hidden;
         padding-left: 4px;
         width: 25px;
-        background-color: #ebebeb;
+        background-color: @deleteUserBlock-addAsUser-bg-active;
         border-width: 1px;
         border-style: solid;
-        border-color: #c4c4c4;
+        border-color: @deleteUserBlock-addAsUser-bor-active;
         border-radius: 3px;
         -webkit-border-radius: 3px;
         margin-right: 4px;
@@ -836,23 +834,23 @@ select {
         }
     }
 
-    #addAsUser, #addAsGuest, #notAdd  {
+    #addAsUser, #addAsGuest, #notAdd {
         vertical-align: middle;
-        color: #999999;
+        color: @deleteUserBlock-addAsUser-col;
         cursor: default;
         overflow: hidden;
-        background-color: #f7f7f7;
+        background-color: @deleteUserBlock-addAsUser-bg;
         border-style: solid;
-        border-color: #ebebeb;
+        border-color: @deleteUserBlock-addAsUser-bor;
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
 
         &.activeGroupInput {
-            background-color: #ebebeb;
-            border-color: #c4c4c4;
+            background-color: @deleteUserBlock-addAsUser-bg-active;
+            border-color: @deleteUserBlock-addAsUser-bor-active;
             cursor: pointer;
-            color: #666666;
+            color: @deleteUserBlock-addAsUser-col-active;
         }
     }
 }
@@ -886,14 +884,14 @@ select {
         padding: 8px 12px 10px;
         box-shadow: 0 0 5px rgba(0,0,0,0.5);
         position: relative;
-        background: white;
+        background: @body-color-bg;
     }
 
         .errorBubble:after,
         .errorBubble:before {
             content: '';
             position: absolute;
-            background: white;
+            background: @body-color-bg;
             left: 12px;
             top: -5px;
             width: 10px;

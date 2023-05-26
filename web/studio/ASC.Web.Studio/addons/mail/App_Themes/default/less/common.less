@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 */
 
 
-@import "settings.less";
+@import "params.less";
 
 table {
   max-width: 100%;
@@ -42,7 +42,7 @@ table {
 .content-header {
   line-height: 30px;
   padding-bottom: @base-distance;
-  border-bottom: 1px solid #D7D8DC;
+  border-bottom: 1px solid @content-header-bor-bot;
 }
 
 .pointer {

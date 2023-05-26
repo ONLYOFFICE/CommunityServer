@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,15 +26,23 @@ namespace ASC.Api.Wiki.Wrappers
     [DataContract(Name = "page", Namespace = "")]
     public class PageWrapper
     {
+        ///<example>Page name</example>
+        ///<order>0</order>
         [DataMember(Order = 0)]
         public string Name { get; set; }
 
+        ///<example>Page content</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public string Content { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public EmployeeWraper UpdatedBy { get; set; }
 
+        ///<example>2020-12-08T17:37:03.3164965Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Updated { get; set; }
 

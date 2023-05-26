@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,17 +29,19 @@ namespace ASC.Api.Mail
         /// Creates a sample message with the parameters specified in the request. [Tests]
         /// </summary>
         /// <short>Create a sample message</short>
-        /// <param name="folderId">Folder ID</param>
-        /// <param name="mailboxId">Mailbox ID</param>
-        /// <param name="to">List of mail addresses to which the letter came. <![CDATA[Format: Name<name@domain>]]></param>
-        /// <param name="cc">List of "cc" mail addresses. <![CDATA[Format: Name<name@domain>]]></param>
-        /// <param name="bcc">List of "bcc" mail addresses. <![CDATA[Format: Name<name@domain>]]></param>
-        /// <param name="importance">Important message or not: true - important, false - not important</param>
-        /// <param name="unread">Message status: unread (true), read (false) or all (null) messages</param>
-        /// <param name="subject">Message subject</param>
-        /// <param name="body">Message body as HTML string</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="folderId">Folder ID</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="mailboxId">Mailbox ID</param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="to">List of mail addresses to which a letter will be sent. <![CDATA[Format: Name<name@domain>]]></param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="cc">List of Cc (carbon copy) mail addresses. <![CDATA[Format: Name<name@domain>]]></param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="bcc">List of Bcc (blind carbon copy) mail addresses. <![CDATA[Format: Name<name@domain>]]></param>
+        /// <param type="System.Boolean, System" name="importance">Specifies if this message is important or not: true - important, false - not important</param>
+        /// <param type="System.Boolean, System" name="unread">Message status: unread (true), read (false), or all (null) messages</param>
+        /// <param type="System.String, System" name="subject">Message subject</param>
+        /// <param type="System.String, System" name="body">Message body as the HTML string</param>
         /// <returns>Message ID</returns>
         /// <category>Tests</category>
+        /// <path>api/2.0/mail/messages/sample/create</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create(@"messages/sample/create")]
         public int CreateSampleMessage(
@@ -62,13 +64,15 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Appends an attachment to the sample message with the ID specified in the request. [Tests]
         /// </summary>
-        /// <short>Append attachments to a sample message</short>
-        /// <param name="messageId">Message ID</param>
-        /// <param name="filename">File name</param>
-        /// <param name="stream">File stream</param>
-        /// <param name="contentType">File content type</param>
-        /// <returns>Message ID</returns>
+        /// <short>Append an attachment to a sample message</short>
+        /// <param type="System.Nullable{System.Int32}, System" name="messageId">Message ID</param>
+        /// <param type="System.String, System" name="filename">File name</param>
+        /// <param type="System.IO.Stream, System.IO" name="stream">File stream</param>
+        /// <param type="System.String, System" name="contentType">File content type</param>
+        /// <returns>Message attachment</returns>
         /// <category>Tests</category>
+        /// <path>api/2.0/mail/messages/sample/attachments/append</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create(@"messages/sample/attachments/append")]
         public MailAttachmentData AppendAttachmentsToSampleMessage(
@@ -81,16 +85,18 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Loads a sample message with the parameters specified in the request from EML. [Tests]
+        /// Loads a sample message with the parameters specified in the request as EML. [Tests]
         /// </summary>
         /// <short>Load a sample message</short>
-        /// <param name="folderId">Folder ID</param>
-        /// <param name="userFolderId">User folder ID</param>
-        /// <param name="mailboxId">Mailbox ID</param>
-        /// <param name="unread">Message status: unread (true), read (false) or all (null) messages</param>
-        /// <param name="emlStream">EML stream</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="folderId">Folder ID</param>
+        /// <param type="System.Nullable{System.UInt32}, System" name="userFolderId">User folder ID</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="mailboxId">Mailbox ID</param>
+        /// <param type="System.Boolean, System" name="unread">Message status: unread (true), read (false), or all (null) messages</param>
+        /// <param type="System.IO.Stream, System.IO" name="emlStream">EML stream</param>
         /// <returns>Message ID</returns>
         /// <category>Tests</category>
+        /// <path>api/2.0/mail/messages/sample/eml/load</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create(@"messages/sample/eml/load")]
         public int LoadSampleMessage(

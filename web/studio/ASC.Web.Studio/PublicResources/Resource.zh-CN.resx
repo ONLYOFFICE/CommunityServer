@@ -1550,9 +1550,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}可信任邮件域设置{2}可指定用户自行注册的邮件服务器。{0}您可以查看{1}自定义域{2}选项，并在下方的字段输入受信任的邮件服务器，以便有账户的人员可以通过点击{1}登录{2}页面上的加入链接进行注册，或者禁用此选项。{0}若想使您设置的参数生效，请点击该部分底部的{1}保存{2}按钮。</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}密码强度设置{2}可让您确定密码抵抗猜测和暴力攻击的有效性。{0}使用{1}最小密码长度{2}栏，以确定密码的长度。请检查以下各项，以确定密码中必须使用的字符。{0}若想使您设置的参数生效，请单击本节底部的{1}保存{2}按钮。</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}公共门户{2}是一个免费选项，可让任何人在无注册的情况下查看您的公开内容。无私人项目可用，CRM模块已禁用此类门户。{0}公共门户注册不受用户数量的限制，新用户将根据请求添加到门户网站管理员。 使用{1}立即注册新用户{2}选项，以删除任何注册确认的必要性。</value>
   </data>
@@ -1772,9 +1769,6 @@
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>启用</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>设置{0} IP的安全{1}用于限制与所有的IP地址时进入入口，除所指示的可能性。您可以指定允许的IP地址格式的IPv4（＃##＃，其中＃。 - 是一个数字，从0到255）指定特定值的IP地址，或一定范围内的IP地址（格式为###。 ＃ - ＃。###）。</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP安全</value>
@@ -2377,9 +2371,6 @@
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>密码更改</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>密码最短长度</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>密码重置</value>

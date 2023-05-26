@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Web;
 using System.Web.UI;
 
 using ASC.Web.Calendar.Controls;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.UserControls.Common;
 
 namespace ASC.Web.Calendar.UserControls
@@ -44,15 +45,34 @@ namespace ASC.Web.Calendar.UserControls
 
         private void InitScripts()
         {
-            Page
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page
                 .RegisterStyle("~/addons/calendar/App_Themes/<theme_folder>/calendar.less")
-                .RegisterStyle("~/addons/calendar/UserControls/popup/css/popup.css",
+                .RegisterStyle("~/addons/calendar/UserControls/popup/css/dark-popup.less",
                     "~/addons/calendar/UserControls/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
                     "~/addons/calendar/UserControls/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
                     "~/addons/calendar/UserControls/css/jquery.jscrollpane.css",
-                    "~/addons/calendar/UserControls/fullcalendar/css/attachments.less")
+                    "~/addons/calendar/UserControls/fullcalendar/css/dark-attachments.less");
+            }
+            else
+            {
+                Page
+                .RegisterStyle("~/addons/calendar/App_Themes/<theme_folder>/calendar.less")
+                .RegisterStyle("~/addons/calendar/UserControls/popup/css/popup.less",
+                    "~/addons/calendar/UserControls/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
+                    "~/addons/calendar/UserControls/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
+                    "~/addons/calendar/UserControls/css/jquery.jscrollpane.css",
+                    "~/addons/calendar/UserControls/fullcalendar/css/attachments.less");
+            }
+            Page
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
                     "~/js/uploader/jquery.fileupload.js",
+                    "~/js/third-party/ical.js",
+                    "~/js/third-party/moment.min.js",
+                    "~/js/third-party/moment-timezone.min.js",
+                    "~/js/third-party/rrule.js",
+                    "~/js/third-party/nlp.js",
                     "~/js/uploader/jquery.fileuploadmanager.js",
                     "~/addons/calendar/UserControls/js/bluebird.min.js",
                     "~/addons/calendar/UserControls/popup/popup.js",
@@ -66,7 +86,8 @@ namespace ASC.Web.Calendar.UserControls
                     "~/addons/calendar/UserControls/js/jquery.cookie.js",
                     "~/addons/calendar/UserControls/fullcalendar/fullcalendar.js",
                     "~/Products/Files/js/common.js",
-                    "~/Products/Files/js/ui.js")
+                    "~/Products/Files/js/ui.js",
+                    "~/UserControls/Common/ckeditor/ckeditor-connector.js")
                 .RegisterClientScript(new Files.Masters.ClientScripts.FilesConstantsResources());
 
 
@@ -77,6 +98,8 @@ namespace ASC.Web.Calendar.UserControls
                     </style>", false);
 
             var script = new StringBuilder();
+
+            script.Append("ckeditorConnector.load(function(){console.log('ckeditor loaded')});");
             script.AppendFormat("ASC.CalendarController.init([{0}], '{1}');", RenderTimeZones(), VirtualPathUtility.ToAbsolute("~/addons/calendar/UserControls/fullcalendar/tmpl/notifications.editor.tmpl"));
 
             Page.RegisterInlineScript(script.ToString());

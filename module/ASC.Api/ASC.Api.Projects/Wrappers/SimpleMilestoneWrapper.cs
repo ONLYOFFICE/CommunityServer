@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,18 @@ namespace ASC.Api.Projects.Wrappers
     [DataContract(Name = "milestone", Namespace = "")]
     public class SimpleMilestoneWrapper
     {
+        ///<example type="int">123</example>
+        ///<order>60</order>
         [DataMember(Order = 60)]
         public int Id { get; set; }
 
+        ///<example>Title</example>
+        ///<order>61</order>
         [DataMember(Order = 61)]
         public string Title { get; set; }
 
+        ///<example>2020-12-22T04:11:56.5768573Z</example>
+        ///<order>62</order>
         [DataMember(Order = 62)]
         public ApiDateTime Deadline { get; set; }
 

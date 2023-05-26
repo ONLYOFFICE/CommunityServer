@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,9 +58,9 @@
     .form-control {
         display: inline-block;
         height: 24px;
-        background-color: #fff;
+        background-color: @body-color;
         background-image: none;
-        border: solid 1px #c7c7c7;
+        border: solid 1px @border-color;
         &:focus {
             outline: none;
             border: solid 1px #3186af;
@@ -168,14 +168,14 @@
     }
 
     td:first-child {
-        max-width: 424px; 
+        max-width: 424px;
         padding-right: 24px;
 
-        input[type="text"], 
-        input[type="email"], 
+        input[type="text"],
+        input[type="email"],
         input[type="password"] {
             margin-bottom: 10px;
-            width:417px;
+            width: 417px;
         }
 
         input:-webkit-autofill,
@@ -187,12 +187,12 @@
     }
 
     td:nth-child(2) {
-        width: 1px; 
-        border-left: solid 1px #D1D1D1;
+        width: 1px;
+        border-left: solid 1px @border-color-panel;
     }
 
     td:nth-child(3) {
-        max-width: 105px; 
+        max-width: 105px;
         padding-left: 16px;
 
         #oauth_frame_blocker {
@@ -200,7 +200,7 @@
             display: none;
             width: 90px;
             height: 90px;
-            opacity: 0.1; 
+            opacity: 0.1;
             background-color: aliceblue;
         }
 

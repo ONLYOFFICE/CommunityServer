@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,6 +108,17 @@ var _takeScreenshot = function(status) {
         style.appendChild(text);
         document.head.insertBefore(style, document.head.firstChild);
       }, options.customCSS);
+    }
+
+    // Handle customJS option
+    if (options.customJS) {
+      page.evaluate(function(customJS) {
+        var script = document.createElement('script');
+        var text  = document.createTextNode(customJS);
+        script.setAttribute('type', 'text/javascript');
+        script.appendChild(text);
+        document.body.insertBefore(script, document.body.firstChild);
+      }, options.customJS);
     }
 
     if (options.captureSelector) {

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,9 @@ namespace ASC.Specific.WarmupApi
     public class WarmUpEntryPoint : IApiEntryPoint
     {
         /// <summary>
-        /// Entry point name
+        /// Warmup API.
         /// </summary>
+        /// <name>warmup</name>
         public string Name
         {
             get { return "warmup"; }
@@ -43,8 +44,15 @@ namespace ASC.Specific.WarmupApi
         }
 
         /// <summary>
-        /// Request of warmup progress
+        /// Returns the warmup progress.
         /// </summary>
+        /// <short>
+        /// Get warmup progress
+        /// </short>
+        /// <returns>Warmup progress</returns>
+        /// <path>api/2.0/warmup/progress</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Read(@"progress", false, false)] //NOTE: this method doesn't requires auth!!!
         public string GetWarmupProgress()
@@ -59,6 +67,16 @@ namespace ASC.Specific.WarmupApi
             }
         }
 
+        /// <summary>
+        /// Restarts the warmup process.
+        /// </summary>
+        /// <short>
+        /// Restart warmup
+        /// </short>
+        /// <returns>The "Ok" message if the operation is successful</returns>
+        /// <path>api/2.0/warmup/restart</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Read(@"restart", false, false)] //NOTE: this method doesn't requires auth!!!
         public string Restart()

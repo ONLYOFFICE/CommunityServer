@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ namespace ASC.Web.Community.Forum
             {
                 var emptyScreenControl = new EmptyScreenControl
                 {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.svg", ForumManager.Settings.ModuleID),
                     Header = ForumResource.EmptyScreenTopicCaption,
                     Describe = ForumResource.EmptyScreenTopicText,
                     ButtonHTML = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.TopicCreate, thread) ? String.Format("<a class='link underline blue plus' href='newpost.aspx?f=" + thread.ID + "&m=0'>{0}</a>", ForumResource.EmptyScreenTopicLink) : String.Empty

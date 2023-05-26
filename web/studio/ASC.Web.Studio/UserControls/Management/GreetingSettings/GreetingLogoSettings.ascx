@@ -15,7 +15,7 @@
                 <div >
                     <div class="clearFix">
                         <div class="greetingContentLogoImg">
-                            <img id="studio_greetingLogo" class="borderBase" alt="" src="<%= _tenantInfoSettings.GetAbsoluteCompanyLogoPath() %>" />
+                            <img id="studio_greetingLogo" class="borderBase" alt="" src="<%= _logoPath %>" />
                         </div>
                         <div class="greetingContentChangeLogo">
                             <input type="hidden" id="studio_greetingLogoPath" value="" />

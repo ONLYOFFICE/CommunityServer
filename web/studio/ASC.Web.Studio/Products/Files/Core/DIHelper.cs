@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 */
 
 
-using ASC.Common.Data;
 using ASC.Common.DependencyInjection;
 
 using Autofac;
@@ -37,12 +36,6 @@ namespace ASC.Web.Files.Core
                 if (isRegistered) return;
 
                 var container = AutofacConfigLoader.Load("files");
-
-                container.Register(c => DbManager.FromHttpContext("default"))
-                         .AsSelf()
-                         .As<IDbManager>()
-                         .InstancePerRequest();
-
                 Builder = container.Build();
                 isRegistered = true;
             }
@@ -53,7 +46,7 @@ namespace ASC.Web.Files.Core
             Register();
 
             var scope = Builder.BeginLifetimeScope(Autofac.Core.Lifetime.MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
-            scope.Resolve<IDbManager>();
+            //scope.Resolve<IDbManager>();
 
             return scope;
         }

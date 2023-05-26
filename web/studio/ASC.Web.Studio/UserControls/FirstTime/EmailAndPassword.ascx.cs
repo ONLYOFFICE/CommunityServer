@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Security;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
@@ -90,7 +91,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         protected bool ShowPortalRename { get; set; }
 
-        protected Web.Core.Utility.PasswordSettings PasswordSetting;
+        protected Web.Core.Utility.PasswordSettings TenantPasswordSettings;
 
         protected string OpensourceLicenseAgreementsUrl { get; set; }
 
@@ -110,7 +111,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
             ShowPortalRename = SetupInfo.IsVisibleSettings("PortalRename");
 
-            PasswordSetting = Web.Core.Utility.PasswordSettings.Load();
+            TenantPasswordSettings = Web.Core.Utility.PasswordSettings.Load();
 
             OpensourceLicenseAgreementsUrl = string.IsNullOrEmpty(Web.Core.Files.FilesLinkUtility.DocServiceApiUrl)
                 ? "http://www.apache.org/licenses/LICENSE-2.0"
@@ -121,9 +122,15 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         {
             Page.RegisterBodyScripts(
                 "~/js/uploader/jquery.fileupload.js",
-                "~/UserControls/FirstTime/js/manager.js")
-                .RegisterStyle("~/UserControls/FirstTime/css/emailandpassword.less");
-
+                "~/UserControls/FirstTime/js/manager.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/FirstTime/css/dark-emailandpassword.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/FirstTime/css/emailandpassword.less");
+            }
             var script = new StringBuilder();
 
             script.AppendFormat(@"ASC.Controls.EmailAndPasswordManager.init('{0}','{1}','{2}','{3}','{4}');",

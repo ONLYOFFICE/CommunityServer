@@ -1205,9 +1205,6 @@ Anda yakin ingin menghapus {!group} {0}?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Pengaturan Trusted Domain Email{2} adalah sebuah cara untuk menentukan server email yang digunakan untuk pendaftaran pengguna.{0}Anda dapat mencentang pilihan {1}Domain khusus{2} maupun menuliskan server email lain pada kolom di bawah ini, sehingga orang yang memiliki akun pada server terebut dapat mendaftarkan diri dengan mengklik tautan Bergabung pada halaman {1}Sign in{2} atau menonaktifkan pilihan ini.{0}Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Pengaturan Kekuatan Kata Sandi{2} adalah sebuah cara untuk menentukan efektivitas kata sandi dalam mencegah tebakan dan serangan brutal untuk meretasnya.{0}Gunakan bilah {1}Panjang Minimal Kata Sandi{2} untuk menentukan seberapa panjang kata sandi harus dibuat. Centang kotak yang sesuai di bawah ini untuk menentukan karakter yang dapat digunakan pada kata sandi.{0} Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{0}Portal Publik{2} merupakan sebuah pilihan agar semua orang dapat melihat konten publik tanpa harus mendaftar. Tidak ada proyek privat dan modul CRM akan dinonaktifkan pada portal semacam ini.{0}Pendaftaran ke portal publik tidak dibatasi oleh jumlah pengguna, pengguna baru akan ditambahkan sesuai permintaan kepada administrator portal. Gunakan pilihan {1}Daftarkan pengguna baru Sekarang{2} untuk menghapus semua persyaratan konfirmasi pendaftaran.</value>
   </data>
@@ -1442,9 +1439,6 @@ Anda yakin ingin menghapus {!group} {0}?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Aktifkan</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP Security{1} digunakan untuk membatasi login ke portal dari semua alamat IP kecuali beberapa alamat tertentu. Anda dapat menentukan alamat IP yang diijinkan login, baik menggunakan alamat IP dengan format IPv4 (#.#.#.#, di mana # adalah nilai numerik dari 0 sampai 255) maupun rentang IP (dalam format #.#.#.#-#.#.#.#)</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Keamanan IP</value>
@@ -2026,9 +2020,6 @@ jika Anda ingin mengubah profile yang terkunci.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Perubahan kata sandi</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Panjang minimal kata sandi</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Pemulihan kata sandi</value>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,17 +35,21 @@ using Newtonsoft.Json.Serialization;
 
 namespace ASC.Api.CRM
 {
+    ///<name>crm</name>
     public partial class CRMApi
     {
         /// <summary>
         /// Returns a list of all the available contact categories of the specified information type.
         /// </summary>
-        /// <param name="infoType">Contact information type</param>
+        /// <param type="ASC.CRM.Core.ContactInfoType, ASC.CRM.Core" method="url" name="infoType">Contact information type</param>
         /// <short>Get contact categories by information type</short> 
         /// <category>Contacts</category>
         /// <returns>
         /// List of contact categories
         /// </returns>
+        /// <path>api/2.0/crm/contact/data/{infoType}/category</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"contact/data/{infoType}/category")]
         public IEnumerable<string> GetContactInfoCategory(ContactInfoType infoType)
         {
@@ -58,6 +62,9 @@ namespace ASC.Api.CRM
         /// <short>Get contact information types</short> 
         /// <category>Contacts</category>
         /// <returns>List of all the contact information types</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/crm/contact/data/infoType</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"contact/data/infoType")]
         public IEnumerable<string> GetContactInfoType()
         {
@@ -67,12 +74,15 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns the detailed information on the contact with the ID specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact ID</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
         /// <short>Get contact information</short> 
         /// <category>Contacts</category>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM">
         /// Contact information
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/data</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"contact/{contactid:[0-9]+}/data")]
         public IEnumerable<ContactInfoWrapper> GetContactInfo(int contactid)
         {
@@ -90,12 +100,14 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns the detailed contact information with the ID specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="id">Contact information ID</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Contact information ID</param>
         /// <short>Get contact information by ID</short> 
         /// <category>Contacts</category>
-        /// <returns>Contact information</returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM">Contact information</returns>
         ///<exception cref="ArgumentException"></exception>
+        ///<path>api/2.0/crm/contact/{contactid}/data/{id}</path>
+        ///<httpMethod>GET</httpMethod>
         [Read(@"contact/{contactid:[0-9]+}/data/{id:[0-9]+}")]
         public ContactInfoWrapper GetContactInfoByID(int contactid, int id)
         {
@@ -114,19 +126,21 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Adds the information with the parameters specified in the request to the contact with the selected ID.
         /// </summary>
-        ///<param name="contactid">Contact ID</param>
-        ///<param name="infoType">Contact information type</param>
-        ///<param name="data">New data</param>
-        ///<param name="isPrimary">Contact information importance: primary or not</param>
-        ///<param name="category">Contact information category</param>
+        ///<param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        ///<param type="ASC.CRM.Core.ContactInfoType, ASC.CRM.Core" name="infoType">Contact information type</param>
+        ///<param type="System.String, System" name="data">New data</param>
+        ///<param type="System.Boolean, System" name="isPrimary">Contact information importance: primary or not</param>
+        ///<param type="System.String, System" name="category">Contact information category</param>
         ///<short>Add contact information</short> 
         ///<category>Contacts</category>
         /// <seealso cref="GetContactInfoType"/>
         /// <seealso cref="GetContactInfoCategory"/>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper,  ASC.Api.CRM">
         /// Contact information
         /// </returns> 
         ///<exception cref="ArgumentException"></exception>
+        ///<path>api/2.0/crm/contact/{contactid}/data</path>
+        ///<httpMethod>POST</httpMethod>
         [Create(@"contact/{contactid:[0-9]+}/data")]
         public ContactInfoWrapper CreateContactInfo(int contactid, ContactInfoType infoType, string data, bool isPrimary, string category)
         {
@@ -176,17 +190,19 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Adds the address information to the contact with the ID specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="address">Address data</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        /// <param type="ASC.Api.CRM.Wrappers.Address, ASC.Api.CRM.Wrappers" name="address">Address data</param>
         /// <short>Add contact address information</short> 
         /// <category>Contacts</category>
         /// <seealso cref="GetContactInfoType"/>
         /// <seealso cref="GetContactInfoCategory"/>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM">
         /// Contact information
         /// </returns> 
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/contact/{contactid}/addressdata</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"contact/{contactid:[0-9]+}/addressdata")]
         public ContactInfoWrapper CreateContactInfoAddress(int contactid, Address address)
         {
@@ -234,11 +250,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Creates contact information (add new information to the existing list) with the parameters specified in the request for the contact with the selected ID.
+        /// Adds a list of contact information items with the parameters specified in the request for the contact with the selected ID.
         /// </summary>
-        ///<short>Add new contact information</short> 
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="items">Contact information</param>
+        ///<short>Add contact information items</short> 
+        /// <param type="System.Int32, System" name="contactid">Contact ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.CRM.Wrappers.ContactInfoWrapper}, System.Collections.Generic" name="items">Contact information</param>
         /// <remarks>
         /// <![CDATA[
         ///  Items have the following format:
@@ -250,6 +266,9 @@ namespace ASC.Api.CRM
         /// <returns>
         /// Contact information
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/batch</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Create(@"contact/{contactid:[0-9]+}/batch")]
         public IEnumerable<ContactInfoWrapper> CreateBatchContactInfo(int contactid, IEnumerable<ContactInfoWrapper> items)
@@ -286,18 +305,20 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Updates the contact information with the parameters specified in the request.
         /// </summary>
-        ///<param name="id">Contact information record ID</param>
-        ///<param name="contactid">Contact ID</param>
-        ///<param optional="true" name="infoType">New contact information type</param>
-        ///<param name="data">New data</param>
-        ///<param optional="true" name="isPrimary">New contact information importance: primary or not</param>
-        ///<param optional="true" name="category">New contact information category</param>
+        ///<param type="System.Int32, System" method="url" name="id">Contact information record ID</param>
+        ///<param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        ///<param type="System.Nullable{ASC.CRM.Core.ContactInfoType}, System" optional="true" name="infoType">New contact information type</param>
+        ///<param type="System.String, System" name="data">New data</param>
+        ///<param type="System.Nullable{System.Boolean}, System" optional="true" name="isPrimary">New contact information importance: primary or not</param>
+        ///<param type="System.String, System" optional="true" name="category">New contact information category</param>
         ///<short>Update contact information</short> 
         ///<category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM">
         /// Updated contact information
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/data/{id}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"contact/{contactid:[0-9]+}/data/{id:[0-9]+}")]
         public ContactInfoWrapper UpdateContactInfo(int id, int contactid, ContactInfoType? infoType, string data, bool? isPrimary, string category)
         {
@@ -348,16 +369,18 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Updates the contact address information with the parameter specified in the request.
         /// </summary>
-        /// <param name="id">Contact information record ID</param>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="address">New address data</param>
+        /// <param type="System.Int32, System" method="url" name="id">Contact information record ID</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        /// <param type="ASC.Api.CRM.Wrappers.Address, ASC.Api.CRM.Wrappers" name="address">New address data</param>
         /// <short>Update contact address information</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM">
         /// Contact information with the updated address
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/addressdata/{id}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"contact/{contactid:[0-9]+}/addressdata/{id:[0-9]+}")]
         public ContactInfoWrapper UpdateContactInfoAddress(int id, int contactid, Address address)
         {
@@ -401,11 +424,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Updates contact information (delete the existing information and add a new list) with the parameters specified in the request for the contact with the selected ID.
+        /// Updates the contact information items with the parameters specified in the request for the contact with the selected ID.
         /// </summary>
-        ///<short>Update contact information</short> 
-        ///<param name="contactid">Contact ID</param>
-        ///<param name="items">New contact information</param>
+        ///<short>Update contact information items</short> 
+        ///<param type="System.Int32, System" name="contactid">Contact ID</param>
+        ///<param type="System.Collections.Generic.IEnumerable{ASC.Api.CRM.Wrappers.ContactInfoWrapper}, System.Collections.Generic" name="items">New contact information</param>
         /// <![CDATA[
         ///  Items have the following format:
         ///  [{infoType : 1, category : 1, categoryName : 'work', data : "myemail@email.com", isPrimary : true}, {infoType : 0, category : 0, categoryName : 'home', data : "+8999111999111", isPrimary : true}]
@@ -415,6 +438,9 @@ namespace ASC.Api.CRM
         /// <returns>
         /// Updated contact information
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/batch</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Update(@"contact/{contactid:[0-9]+}/batch")]
         public IEnumerable<ContactInfoWrapper> UpdateBatchContactInfo(int contactid, IEnumerable<ContactInfoWrapper> items)
@@ -452,13 +478,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns the detailed contact information by the information type specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="infoType">Contact information type</param>
-        /// <short>Get contact information by type</short> 
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        /// <param type="ASC.CRM.Core.ContactInfoType, ASC.CRM.Core" method="url" name="infoType">Contact information type</param>
+        /// <short>Get contact information by its type</short> 
         /// <category>Contacts</category>
         /// <returns>
         /// Contact information
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/data/{infoType}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"contact/{contactid:[0-9]+}/data/{infoType}")]
         public IEnumerable<string> GetContactInfo(int contactid, ContactInfoType infoType)
         {
@@ -472,17 +501,19 @@ namespace ASC.Api.CRM
 
 
         /// <summary>
-        /// Deletes the selected information for the contact with the ID specified in the request.
+        /// Deletes the selected information from the contact with the ID specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="id">Contact information record ID</param>
+        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Contact information record ID</param>
         /// <short>Delete contact information</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM">
         /// Contact information
         /// </returns>
+        /// <path>api/2.0/crm/contact/{contactid}/data/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"contact/{contactid:[0-9]+}/data/{id:[0-9]+}")]
         public ContactInfoWrapper DeleteContactInfo(int contactid, int id)
         {

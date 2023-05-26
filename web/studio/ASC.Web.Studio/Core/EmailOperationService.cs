@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,6 +191,7 @@ namespace ASC.Web.Studio.Core
                 if (!viewer.IsAdmin())
                 {
                     StudioNotifyService.Instance.SendEmailChangeInstructions(user, email);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentEmailChangeInstructions, user.DisplayUserName(false));
                 }
                 else
                 {
@@ -209,9 +210,8 @@ namespace ASC.Web.Studio.Core
 
                     CoreContext.UserManager.SaveUserInfo(user, syncCardDav: true);
                     StudioNotifyService.Instance.SendEmailActivationInstructions(user, email);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, user.DisplayUserName(false));
                 }
-
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentEmailChangeInstructions, user.DisplayUserName(false));
 
                 return String.Format(Resource.MessageEmailChangeInstuctionsSentOnEmail, "<b>" + email + "</b>");
             }

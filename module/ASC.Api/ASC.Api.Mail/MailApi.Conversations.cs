@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,29 +36,32 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        /// Returns the conversations with the parameters specified in the request if there were changes since last check date.
+        /// Returns the conversations with the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="folder">Folder type: 1 - inbox, 2 - sent, 3 - drafts, 4 - trash, 5 - spam</param>
-        /// <param optional="true" name="unread">Conversation status: unread (true), read (false) or all (null) messages</param>
-        /// <param optional="true" name="attachments">Defines if a conversation has attachments or not: with attachments (true), without attachments (false) or all (null) messages</param>
-        /// <param optional="true" name="period_from">Start search period date</param>
-        /// <param optional="true" name="period_to">End search period date</param>
-        /// <param optional="true" name="important">Important conversation or not</param>
-        /// <param optional="true" name="from_address">Mail address from which a letter came</param>
-        /// <param optional="true" name="to_address">Mail address to which a letter came</param>
-        /// <param optional="true" name="mailbox_id">Recipient mailbox ID</param>
-        /// <param optional="true" name="tags">IDs of tags linked to the target conversation</param>
-        /// <param optional="true" name="search">Text to search in conversation body and subject</param>
-        /// <param optional="true" name="page_size">Count of conversations on page</param>
-        /// <param name="sortorder">Sort order by date: "ascending" - ascended, "descending" - descended</param> 
-        /// <param optional="true" name="from_date">Date from which conversation search performed</param>
-        /// <param optional="true" name="from_message">Message from which conversation search performed</param>
-        /// <param optional="true" name="with_calendar">Conversation has a calendar or not</param>
-        /// <param optional="true" name="user_folder_id">User folder ID</param>
-        /// <param name="prev_flag">Sorting direction of conversation list (previous or next)</param>
-        /// <returns>List of filtered conversations</returns>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="folder">Folder type: 1 - inbox, 2 - sent, 3 - drafts, 4 - trash, 5 - spam</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="unread">Conversation status: unread (true), read (false), or all (null) messages</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="attachments">Defines if a conversation has attachments or not: with attachments (true), without attachments (false), or all (null) messages</param>
+        /// <param type="System.Nullable{System.Int64}, System" method="url" optional="true" name="period_from">Start search period date</param>
+        /// <param type="System.Nullable{System.Int64}, System" method="url" optional="true" name="period_to">End search period date</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="important">Specifies if only important conversations will be displayed or not</param>
+        /// <param type="System.String, System" method="url" optional="true" name="from_address">Mail address from which the conversation messages were received</param>
+        /// <param type="System.String, System" method="url" optional="true" name="to_address">Mail address to which the conversation messages were sent</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="mailbox_id">Recipient mailbox ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" method="url" optional="true" name="tags">IDs of tags linked to the target conversation</param>
+        /// <param type="System.String, System" method="url" optional="true" name="search">Text to search in the conversation bodies and subjects</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="page_size">Number of conversations on the page</param>
+        /// <param type="System.String, System" method="url" name="sortorder">Sort order by date: "ascending" or "descending"</param> 
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="from_date">Start date of conversation search</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="from_message">Message from which the conversations are searched</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="with_calendar">Specifies if the conversations have a calendar or not</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="user_folder_id">User folder ID</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" name="prev_flag">Direction sort of the conversation list: true for previous, false for next</param>
+        /// <returns type="ASC.Mail.Data.Contracts.MailMessageData, ASC.Mail">List of filtered conversations</returns>
         /// <short>Get filtered conversations</short>
         /// <category>Conversations</category>
+        /// <path>api/2.0/mail/conversations</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"conversations")]
         public IEnumerable<MailMessageData> GetFilteredConversations(int? folder,
             bool? unread,
@@ -128,13 +131,16 @@ namespace ASC.Api.Mail
         /// Returns a list of messages linked in one chain (conversation).
         /// </summary>
         /// <short>Get a conversation</short>
-        /// <param name="id">ID of any message from the chain</param>
-        /// <param name="loadAll">Loads content of all messages</param>
-        /// <param optional="true" name="markRead">Marks a conversation as read</param>
-        /// <param optional="true" name="needSanitize">Specifies that HTML for the FCK editor needs to be prepared</param>
-        /// <returns>List of messages linked in one chain</returns>
+        /// <param type="System.Int32, System" method="url" name="id">ID of any message from the conversation</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" name="loadAll">Loads the content of all messages</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="markRead">Specifies if a conversation will be marked as read or not</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="needSanitize">Specifies if HTML needs to be prepared for the FCK editor or not</param>
+        /// <returns type="ASC.Mail.Data.Contracts.MailMessageData, ASC.Mail">List of messages linked in one chain</returns>
         /// <category>Conversations</category>
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
+        /// <path>api/2.0/mail/conversation/{id}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"conversation/{id:[0-9]+}")]
         public IEnumerable<MailMessageData> GetConversation(int id, bool? loadAll, bool? markRead, bool? needSanitize)
         {
@@ -178,25 +184,27 @@ namespace ASC.Api.Mail
         /// Returns the previous or next conversation ID filtered with the parameters specified in the request.
         /// </summary>
         /// <short>Get the previous or next conversation ID</short>
-        /// <param name="id">Head message ID of the current conversation</param>
-        /// <param name="direction">Defines if the previous or next conversation is needed: "prev" for previous, "next" for next</param>
-        /// <param optional="true" name="folder">Folder type: 1 - inbox, 2 - sent, 5 - spam</param>
-        /// <param optional="true" name="unread">Message status: unread (true), read (false) or all (null) messages</param>
-        /// <param optional="true" name="attachments">Defines if a message has attachments or not: with attachments (true), without attachments (false) or all (null) messages</param>
-        /// <param optional="true" name="period_from">Start search period date</param>
-        /// <param optional="true" name="period_to">End search period date</param>
-        /// <param optional="true" name="important">Important message or not</param>
-        /// <param optional="true" name="from_address">Mail address from which a letter came</param>
-        /// <param optional="true" name="to_address">Mail address to which a letter came</param>
-        /// <param optional="true" name="mailbox_id">Recipient mailbox ID</param>
-        /// <param optional="true" name="tags">IDs of tags linked to the target message</param>
-        /// <param optional="true" name="search">Text to search in message body and subject</param>
-        /// <param optional="true" name="page_size">Count of messages on page</param>
-        /// <param name="sortorder">Sort order by date: "ascending" - ascended, "descending" - descended</param>
-        /// <param optional="true" name="with_calendar">Message has a calendar or not</param> 
-        /// <param optional="true" name="user_folder_id">User folder ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Head message ID of the current conversation</param>
+        /// <param type="System.String, System" method="url" name="direction">Defines if the previous or next conversation is needed: "prev" for previous, "next" for next</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="folder">Folder type: 1 - inbox, 2 - sent, 5 - spam</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="unread">Conversation status: unread (true), read (false), or all (null) conversations</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="attachments">Defines if a conversation has attachments or not: with attachments (true), without attachments (false) or all (null) messages</param>
+        /// <param type="System.Nullable{System.Int64}, System" method="url" optional="true" name="period_from">Start search period date</param>
+        /// <param type="System.Nullable{System.Int64}, System" method="url" optional="true" name="period_to">End search period date</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="important">Specifies if only important conversations will be displayed or not</param>
+        /// <param type="System.String, System" method="url" optional="true" name="from_address">Mail address from which the conversation messages were received</param>
+        /// <param type="System.String, System" method="url" optional="true" name="to_address">Mail address to which the conversation messages were sent</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="mailbox_id">Recipient mailbox ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" method="url" optional="true" name="tags">IDs of tags linked to the target conversation</param>
+        /// <param type="System.String, System" method="url" optional="true" name="search">Text to search in the conversation bodies and subjects</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="page_size">Number of conversations on the page</param>
+        /// <param type="System.String, System" method="url" name="sortorder">Sort order by date: "ascending" or "descending"</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="with_calendar">Specifies if the conversations have a calendar or not</param> 
+        /// <param type="System.Nullable{System.Int32}, System" method="url" optional="true" name="user_folder_id">User folder ID</param>
         /// <returns>Head message ID of the previous or next conversation</returns>
         /// <category>Conversations</category>
+        /// <path>api/2.0/mail/conversation/{id}/{direction}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"conversation/{id:[0-9]+}/{direction:(next|prev)}")]
         public long GetPrevNextConversationId(int id,
             string direction,
@@ -248,12 +256,15 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Moves conversations with the IDs specified in the request to the selected folder.
         /// </summary>
-        /// <param name="ids">List of message IDs from conversations</param>
-        /// <param name="folder">Folder type: 1 - inbox, 2 - sent, 3 - drafts, 4 - trash, 5 - spam</param>
-        /// <param optional="true" name="userFolderId">User folder ID</param>
-        /// <returns>List of message IDs from conversations</returns>
-        /// <short>Move conversations to the folder</short>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="ids">List of message IDs from the conversations</param>
+        /// <param type="System.Int32, System" name="folder">Folder type: 1 - inbox, 2 - sent, 3 - drafts, 4 - trash, 5 - spam</param>
+        /// <param type="System.Nullable{System.UInt32}, System" optional="true" name="userFolderId">User folder ID</param>
+        /// <returns>List of message IDs from the conversations</returns>
+        /// <short>Move conversations</short>
         /// <category>Conversations</category>
+        /// <path>api/2.0/mail/conversations/move</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"conversations/move")]
         public IEnumerable<int> MoveConversations(List<int> ids, int folder, uint? userFolderId = null)
         {
@@ -282,13 +293,16 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Restores all the conversations previously moved to the specific folders to their original folders.
+        /// Restores the conversations with the IDs specified in the request to their original folders.
         /// </summary>
-        /// <param name="ids">List of conversation IDs</param>
-        /// <param optional="true" name="learnSpamTrainer">Sends messages to the spam training or not</param>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="ids">List of conversation IDs</param>
+        /// <param type="System.Boolean, System" optional="true" name="learnSpamTrainer">Specifies whether to send messages to the spam training or not</param>
         /// <returns>List of restored conversation IDs</returns>
         /// <short>Restore conversations</short>
         /// <category>Conversations</category>
+        /// <path>api/2.0/mail/conversations/restore</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"conversations/restore")]
         public IEnumerable<int> RestoreConversations(List<int> ids, bool learnSpamTrainer = false)
         {
@@ -311,10 +325,13 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Removes conversations with the IDs specified in the request from the folders.
         /// </summary>
-        /// <param name="ids">List of conversation IDs</param>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="ids">List of conversation IDs</param>
         /// <returns>List of removed conversation IDs</returns>
         /// <short>Remove conversations</short>
         /// <category>Conversations</category>
+        /// <path>api/2.0/mail/conversations/remove</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"conversations/remove")]
         public IEnumerable<int> RemoveConversations(List<int> ids)
         {
@@ -331,11 +348,14 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Sets a status to the conversations with the IDs specified in the request.
         /// </summary>
-        /// <param name="ids">List of conversation IDs</param>
-        /// <param name="status">New status ("read", "unread", "important" or "normal")</param>
-        /// <returns>List of conversations with changed status</returns>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="ids">List of conversation IDs</param>
+        /// <param type="System.String, System" name="status">New status ("read", "unread", "important", or "normal")</param>
+        /// <returns>List of conversations with the changed status</returns>
         /// <short>Set a conversation status</short>
         /// <category>Conversations</category>
+        /// <path>api/2.0/mail/conversations/mark</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"conversations/mark")]
         public IEnumerable<int> MarkConversations(List<int> ids, string status)
         {
@@ -374,14 +394,16 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Adds a tag specified in the request to the conversations.
+        /// Adds a tag specified in the request to the selected conversations.
         /// </summary>
-        /// <param name="tag_id">Tag ID</param>
-        /// <param name="messages">List of conversation IDs</param>
+        /// <param type="System.Int32, System" method="url" name="tag_id">Tag ID</param>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="messages">List of conversation IDs</param>
         /// <returns>Tag ID</returns>
         /// <short>Add a tag to the conversations</short> 
         /// <category>Conversations</category>
-        ///<exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        ///<exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
+        ///<path>api/2.0/mail/conversations/tag/{tag_id}/set</path>
+        ///<httpMethod>PUT</httpMethod>
         [Update(@"conversations/tag/{tag_id}/set")]
         public int SetConversationsTag(int tag_id, List<int> messages)
         {
@@ -396,12 +418,14 @@ namespace ASC.Api.Mail
         /// <summary>
         /// Removes a tag specified in the request from the conversations.
         /// </summary>
-        /// <param name="tag_id">Tag ID</param>
-        /// <param name="messages">List of conversation IDs</param>
+        /// <param type="System.Int32, System"  method="url" name="tag_id">Tag ID</param>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="messages">List of conversation IDs</param>
         /// <returns>Tag ID</returns>
         /// <short>Remove a tag from the conversations</short> 
         /// <category>Conversations</category>
-        ///<exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <path>api/2.0/mail/conversations/tag/{tag_id}/unset</path>
+        /// <httpMethod>PUT</httpMethod>
+        ///<exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         [Update(@"conversations/tag/{tag_id}/unset")]
         public int UnsetConversationsTag(int tag_id, List<int> messages)
         {
@@ -414,15 +438,18 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Links a conversation to CRM. All the new mails will be added to the CRM history.
+        /// Links a conversation to the CRM entities. All the new mails will be added to the CRM history.
         /// </summary>
         /// <short>Link a conversation to CRM</short>
-        /// <param name="id_message">ID of any message from the chain</param>
-        /// <param name="crm_contact_ids">List of CRM contact entities in the following format: {entity_id: 0, entity_type: 0}.
+        /// <param type="System.Int32, System" name="id_message">ID of any message from the conversation</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Mail.Data.Contracts.CrmContactData}, System.Collections.Generic" name="crm_contact_ids">List of CRM entities in the following format: {entity_id: 0, entity_type: 0}.
         /// Entity types: 1 - Contact, 2 - Case, 3 - Opportunity
         /// </param>
+        /// <returns></returns>
         /// <category>Conversations</category>
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <path>api/2.0/mail/conversations/crm/link</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         [Update(@"conversations/crm/link")]
         public void LinkConversationToCrm(int id_message, IEnumerable<CrmContactData> crm_contact_ids)
         {
@@ -442,12 +469,15 @@ namespace ASC.Api.Mail
         /// Marks a conversation as CRM linked. All the new mails will be added to the CRM history.
         /// </summary>
         /// <short>Mark a conversation as CRM linked</short>
-        /// <param name="id_message">ID of any messages from the chain</param>
-        /// <param name="crm_contact_ids">List of CRM contact entities in the following format: {entity_id: 0, entity_type: 0}.
+        /// <param type="System.Int32, System" name="id_message">ID of any messages from the conversation</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Mail.Data.Contracts.CrmContactData}, System.Collections.Generic" name="crm_contact_ids">List of CRM entities in the following format: {entity_id: 0, entity_type: 0}.
         /// Entity types: 1 - Contact, 2 - Case, 3 - Opportunity
         /// </param>
+        /// <returns></returns>
         /// <category>Conversations</category>
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <path>api/2.0/mail/conversations/crm/mark</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         [Update(@"conversations/crm/mark")]
         public void MarkConversationAsCrmLinked(int id_message, IEnumerable<CrmContactData> crm_contact_ids)
         {
@@ -463,12 +493,15 @@ namespace ASC.Api.Mail
         /// Unmarks a conversation as CRM linked.
         /// </summary>
         /// <short>Unmark a conversation as CRM linked</short>
-        /// <param name="id_message">ID of any message from the chain</param>
-        /// <param name="crm_contact_ids">List of CRM contact entities in the following format: {entity_id: 0, entity_type: 0}.
+        /// <param type="System.Int32, System" name="id_message">ID of any messages from the conversation</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Mail.Data.Contracts.CrmContactData}, System.Collections.Generic" name="crm_contact_ids">List of CRM entities in the following format: {entity_id: 0, entity_type: 0}.
         /// Entity types: 1 - Contact, 2 - Case, 3 - Opportunity
         /// </param>
+        /// <returns></returns>
         /// <category>Conversations</category>
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <path>api/2.0/mail/conversations/crm/unmark</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         [Update(@"conversations/crm/unmark")]
         public void UnmarkConversationAsCrmLinked(int id_message, IEnumerable<CrmContactData> crm_contact_ids)
         {
@@ -484,10 +517,12 @@ namespace ASC.Api.Mail
         /// Checks if a conversation is CRM linked or not by message ID.
         /// </summary>
         /// <short>Check a conversation CRM status</short>
-        /// <param name="message_id">ID of any message from the chain</param>
-        /// <returns>Conversation CRM status</returns>
+        /// <param type="System.Int32, System" name="message_id">ID of any messages from the conversation</param>
+        /// <returns type="ASC.Mail.Data.Contracts.MailCrmStatus, ASC.Mail">Conversation CRM status</returns>
         /// <category>Conversations</category>
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <path>api/2.0/mail/conversations/link/crm/status</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         [Read(@"conversations/link/crm/status")]
         public MailCrmStatus IsConversationLinkedWithCrm(int message_id)
         {

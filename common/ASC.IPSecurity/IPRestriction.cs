@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,25 @@
 
 using System;
 
-
 namespace ASC.IPSecurity
 {
     [Serializable]
-    public class IPRestriction
+    public class IPRestriction : IPRestrictionBase
     {
+        ///<example type="int">123</example>
         public int Id { get; set; }
 
+        ///<example type="int">1</example>
         public int TenantId { get; set; }
+    }
 
+    [Serializable]
+    public class IPRestrictionBase
+    {
+        ///<example>Ip</example>
         public string Ip { get; set; }
+
+        ///<example>false</example>
+        public bool ForAdmin { get; set; }
     }
 }

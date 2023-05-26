@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ namespace ASC.Bookmarking.Dao
     {
         private static IDbManager DbManager
         {
-            get { return ASC.Common.Data.DbManager.FromHttpContext(BookmarkingBusinessConstants.BookmarkingDbID); }
+            get { return new DbManager(BookmarkingBusinessConstants.BookmarkingDbID); }
         }
 
         private static int Tenant
@@ -261,140 +261,144 @@ namespace ASC.Bookmarking.Dao
 
         internal void UpdateBookmark(UserBookmark userBookmark, IList<Tag> tags)
         {
-            var tx = DbManager.BeginTransaction();
-            try
+            using (var tx = DbManager.BeginTransaction())
             {
-                var date = DateTime.UtcNow;
-                userBookmark.UserBookmarkID =
-                    DbManager.ExecuteScalar<long>(
-                        new SqlInsert("bookmarking_userbookmark", true)
-                            .InColumns("UserBookmarkID", "UserID", "DateAdded", "Name", "Description", "BookmarkID", "Raiting", "Tenant")
-                            .Values(userBookmark.UserBookmarkID, GetCurrentUserId(), date, userBookmark.Name, userBookmark.Description, userBookmark.BookmarkID, 1, Tenant)
-                            .Identity(0, 0L, true));
-
-                DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_userbookmarktag")
-                            .Where(Exp.Eq("UserBookmarkID", userBookmark.UserBookmarkID)
-                                    & Exp.Eq("Tenant", Tenant)));
-
-                foreach (var tag in tags)
+                try
                 {
-                    tag.TagID = DbManager.ExecuteScalar<long>(
-                            new SqlInsert("bookmarking_tag", true)
-                            .InColumns("TagID", "Name", "Tenant")
-                            .Values(tag.TagID, tag.Name, Tenant)
-                            .Identity(0, 0L, true));
+                    var date = DateTime.UtcNow;
+                    userBookmark.UserBookmarkID =
+                        DbManager.ExecuteScalar<long>(
+                            new SqlInsert("bookmarking_userbookmark", true)
+                                .InColumns("UserBookmarkID", "UserID", "DateAdded", "Name", "Description", "BookmarkID", "Raiting", "Tenant")
+                                .Values(userBookmark.UserBookmarkID, GetCurrentUserId(), date, userBookmark.Name, userBookmark.Description, userBookmark.BookmarkID, 1, Tenant)
+                                .Identity(0, 0L, true));
 
-                    var ubt = new UserBookmarkTag { UserBookmarkID = userBookmark.UserBookmarkID, TagID = tag.TagID };
+                    DbManager.ExecuteNonQuery(
+                                new SqlDelete("bookmarking_userbookmarktag")
+                                .Where(Exp.Eq("UserBookmarkID", userBookmark.UserBookmarkID)
+                                        & Exp.Eq("Tenant", Tenant)));
 
-                    ubt.UserBookmarkTagID = DbManager.ExecuteScalar<long>(
-                            new SqlInsert("bookmarking_userbookmarktag", true)
-                            .InColumns("UserBookmarkID", "TagID", "Tenant")
-                            .Values(ubt.UserBookmarkID, tag.TagID, Tenant)
-                            .Identity(0, 0L, true));
+                    foreach (var tag in tags)
+                    {
+                        tag.TagID = DbManager.ExecuteScalar<long>(
+                                new SqlInsert("bookmarking_tag", true)
+                                .InColumns("TagID", "Name", "Tenant")
+                                .Values(tag.TagID, tag.Name, Tenant)
+                                .Identity(0, 0L, true));
+
+                        var ubt = new UserBookmarkTag { UserBookmarkID = userBookmark.UserBookmarkID, TagID = tag.TagID };
+
+                        ubt.UserBookmarkTagID = DbManager.ExecuteScalar<long>(
+                                new SqlInsert("bookmarking_userbookmarktag", true)
+                                .InColumns("UserBookmarkID", "TagID", "Tenant")
+                                .Values(ubt.UserBookmarkID, tag.TagID, Tenant)
+                                .Identity(0, 0L, true));
+                    }
+                    tx.Commit();
                 }
-                tx.Commit();
-            }
-            catch (Exception)
-            {
-                tx.Rollback();
+                catch (Exception)
+                {
+                    tx.Rollback();
+                }
             }
         }
 
         internal void UpdateBookmark(Bookmark bookmark, IList<Tag> tags)
         {
             UserBookmark userBookmark = null;
-            var tx = DbManager.BeginTransaction();
-            try
+            using (var tx = DbManager.BeginTransaction())
             {
-                var date = Core.Tenants.TenantUtil.DateTimeToUtc(bookmark.Date);
-
-                bookmark.ID = DbManager.ExecuteScalar<long>(
-                            new SqlInsert("bookmarking_bookmark", true)
-                            .InColumns("ID", "URL", "Date", "Name", "Description", "UserCreatorID", "Tenant")
-                            .Values(bookmark.ID, bookmark.URL, date, bookmark.Name, bookmark.Description, bookmark.UserCreatorID, Tenant)
-                            .Identity(0, 0L, true));
-
-                DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_bookmarktag")
-                            .Where(Exp.Eq("BookmarkID", bookmark.ID)
-                                    & Exp.Eq("Tenant", Tenant)));
-
-                userBookmark = GetCurrentUserBookmark(bookmark);
-                long userBookmarkId = 0;
-                if (userBookmark != null)
+                try
                 {
-                    userBookmarkId = userBookmark.UserBookmarkID;
-                }
+                    var date = Core.Tenants.TenantUtil.DateTimeToUtc(bookmark.Date);
 
-                var nowDate = DateTime.UtcNow;
+                    bookmark.ID = DbManager.ExecuteScalar<long>(
+                                new SqlInsert("bookmarking_bookmark", true)
+                                .InColumns("ID", "URL", "Date", "Name", "Description", "UserCreatorID", "Tenant")
+                                .Values(bookmark.ID, bookmark.URL, date, bookmark.Name, bookmark.Description, bookmark.UserCreatorID, Tenant)
+                                .Identity(0, 0L, true));
 
-                userBookmarkId = DbManager.ExecuteScalar<long>(
-                            new SqlInsert("bookmarking_userbookmark", true)
-                            .InColumns("UserBookmarkID", "UserID", "DateAdded", "Name", "Description", "BookmarkID", "Raiting", "Tenant")
-                            .Values(userBookmarkId, GetCurrentUserId(), nowDate, bookmark.Name, bookmark.Description, bookmark.ID, 1, Tenant)
-                            .Identity(0, 0L, true));
+                    DbManager.ExecuteNonQuery(
+                                new SqlDelete("bookmarking_bookmarktag")
+                                .Where(Exp.Eq("BookmarkID", bookmark.ID)
+                                        & Exp.Eq("Tenant", Tenant)));
 
-                userBookmark = new UserBookmark
-                {
-                    UserBookmarkID = userBookmarkId,
-                    BookmarkID = bookmark.ID,
-                    UserID = GetCurrentUserId(),
-                    DateAdded = nowDate,
-                    Name = bookmark.Name,
-                    Description = bookmark.Description,
-                    Raiting = 1
-                };
-
-                DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_userbookmarktag")
-                            .Where(Exp.Eq("UserBookmarkID", userBookmarkId)
-                                    & Exp.Eq("Tenant", Tenant)));
-
-                if (bookmark.Tags == null)
-                {
-                    bookmark.Tags = new List<Tag>();
-                }
-                foreach (var tag in tags)
-                {
-                    tag.TagID = DbManager.ExecuteScalar<long>(
-                            new SqlInsert("bookmarking_tag", true)
-                            .InColumns("TagID", "Name", "Tenant")
-                            .Values(tag.TagID, tag.Name, Tenant)
-                            .Identity(0, 0L, true));
-
-                    new BookmarkTag
+                    userBookmark = GetCurrentUserBookmark(bookmark);
+                    long userBookmarkId = 0;
+                    if (userBookmark != null)
                     {
+                        userBookmarkId = userBookmark.UserBookmarkID;
+                    }
+
+                    var nowDate = DateTime.UtcNow;
+
+                    userBookmarkId = DbManager.ExecuteScalar<long>(
+                                new SqlInsert("bookmarking_userbookmark", true)
+                                .InColumns("UserBookmarkID", "UserID", "DateAdded", "Name", "Description", "BookmarkID", "Raiting", "Tenant")
+                                .Values(userBookmarkId, GetCurrentUserId(), nowDate, bookmark.Name, bookmark.Description, bookmark.ID, 1, Tenant)
+                                .Identity(0, 0L, true));
+
+                    userBookmark = new UserBookmark
+                    {
+                        UserBookmarkID = userBookmarkId,
                         BookmarkID = bookmark.ID,
-                        TagID = tag.TagID,
-                        BookmarkTagID = DbManager.ExecuteScalar<long>(
-                                new SqlInsert("bookmarking_bookmarktag", true)
-                                    .InColumns("BookmarkID", "TagID", "Tenant")
-                                    .Values(bookmark.ID, tag.TagID, Tenant)
-                                    .Identity(0, 0L, true))
+                        UserID = GetCurrentUserId(),
+                        DateAdded = nowDate,
+                        Name = bookmark.Name,
+                        Description = bookmark.Description,
+                        Raiting = 1
                     };
 
+                    DbManager.ExecuteNonQuery(
+                                new SqlDelete("bookmarking_userbookmarktag")
+                                .Where(Exp.Eq("UserBookmarkID", userBookmarkId)
+                                        & Exp.Eq("Tenant", Tenant)));
 
-
-                    var ubt = new UserBookmarkTag { UserBookmarkID = userBookmarkId, TagID = tag.TagID };
-
-                    ubt.UserBookmarkTagID = DbManager.ExecuteScalar<long>(
-                            new SqlInsert("bookmarking_userbookmarktag", true)
-                            .InColumns("UserBookmarkID", "TagID", "Tenant")
-                            .Values(ubt.UserBookmarkID, tag.TagID, Tenant)
-                            .Identity(0, 0L, true));
-
-                    if (bookmark.Tags.All(r => r.TagID == tag.TagID))
+                    if (bookmark.Tags == null)
                     {
-                        bookmark.Tags.Add(tag);
+                        bookmark.Tags = new List<Tag>();
                     }
-                }
+                    foreach (var tag in tags)
+                    {
+                        tag.TagID = DbManager.ExecuteScalar<long>(
+                                new SqlInsert("bookmarking_tag", true)
+                                .InColumns("TagID", "Name", "Tenant")
+                                .Values(tag.TagID, tag.Name, Tenant)
+                                .Identity(0, 0L, true));
 
-                tx.Commit();
-            }
-            catch (Exception)
-            {
-                tx.Rollback();
+                        new BookmarkTag
+                        {
+                            BookmarkID = bookmark.ID,
+                            TagID = tag.TagID,
+                            BookmarkTagID = DbManager.ExecuteScalar<long>(
+                                    new SqlInsert("bookmarking_bookmarktag", true)
+                                        .InColumns("BookmarkID", "TagID", "Tenant")
+                                        .Values(bookmark.ID, tag.TagID, Tenant)
+                                        .Identity(0, 0L, true))
+                        };
+
+
+
+                        var ubt = new UserBookmarkTag { UserBookmarkID = userBookmarkId, TagID = tag.TagID };
+
+                        ubt.UserBookmarkTagID = DbManager.ExecuteScalar<long>(
+                                new SqlInsert("bookmarking_userbookmarktag", true)
+                                .InColumns("UserBookmarkID", "TagID", "Tenant")
+                                .Values(ubt.UserBookmarkID, tag.TagID, Tenant)
+                                .Identity(0, 0L, true));
+
+                        if (bookmark.Tags.All(r => r.TagID == tag.TagID))
+                        {
+                            bookmark.Tags.Add(tag);
+                        }
+                    }
+
+                    tx.Commit();
+                }
+                catch (Exception)
+                {
+                    tx.Rollback();
+                }
             }
 
             if (userBookmark != null)
@@ -407,65 +411,67 @@ namespace ASC.Bookmarking.Dao
 
         internal Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null)
         {
-            var tx = DbManager.BeginTransaction();
-            try
+            using (var tx = DbManager.BeginTransaction())
             {
-                var userBookmarkID = DbManager.ExecuteScalar<long>(
-                                        new SqlQuery()
-                                        .Select("UserBookmarkID")
-                                        .From("bookmarking_userbookmark")
-                                        .Where("BookmarkID", bookmarkID)
-                                        .Where("Tenant", Tenant)
-                                        .Where("UserID", userID ?? GetCurrentUserId()));
-
-                var raiting = GetUserBookmarksCount(bookmarkID);
-
-                DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_userbookmark")
-                            .Where("UserBookmarkID", userBookmarkID)
-                            .Where("Tenant", Tenant));
-
-                DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_userbookmarktag")
-                            .Where("UserBookmarkID", userBookmarkID)
-                            .Where("Tenant", Tenant));
-
-                if (raiting <= 1)
+                try
                 {
-                    DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_bookmarktag")
-                            .Where("BookmarkID", bookmarkID)
-                            .Where("Tenant", Tenant));
+                    var userBookmarkID = DbManager.ExecuteScalar<long>(
+                                            new SqlQuery()
+                                            .Select("UserBookmarkID")
+                                            .From("bookmarking_userbookmark")
+                                            .Where("BookmarkID", bookmarkID)
+                                            .Where("Tenant", Tenant)
+                                            .Where("UserID", userID ?? GetCurrentUserId()));
+
+                    var raiting = GetUserBookmarksCount(bookmarkID);
 
                     DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_comment")
-                            .Where("BookmarkID", bookmarkID)
-                            .Where("Tenant", Tenant));
+                                new SqlDelete("bookmarking_userbookmark")
+                                .Where("UserBookmarkID", userBookmarkID)
+                                .Where("Tenant", Tenant));
 
                     DbManager.ExecuteNonQuery(
-                            new SqlDelete("bookmarking_bookmark")
-                            .Where("ID", bookmarkID)
-                            .Where("Tenant", Tenant));
+                                new SqlDelete("bookmarking_userbookmarktag")
+                                .Where("UserBookmarkID", userBookmarkID)
+                                .Where("Tenant", Tenant));
 
-                    DbManager.ExecuteNonQuery(
-                        new SqlDelete("bookmarking_tag")
-                        .Where("tenant", Tenant)
-                        .Where(!Exp.Exists(new SqlQuery("bookmarking_bookmarktag b").Select("b.tagid").Where("b.Tenant", Tenant).Where(Exp.EqColumns("b.TagID", "bookmarking_tag.TagID"))))
-                        );
+                    if (raiting <= 1)
+                    {
+                        DbManager.ExecuteNonQuery(
+                                new SqlDelete("bookmarking_bookmarktag")
+                                .Where("BookmarkID", bookmarkID)
+                                .Where("Tenant", Tenant));
 
+                        DbManager.ExecuteNonQuery(
+                                new SqlDelete("bookmarking_comment")
+                                .Where("BookmarkID", bookmarkID)
+                                .Where("Tenant", Tenant));
+
+                        DbManager.ExecuteNonQuery(
+                                new SqlDelete("bookmarking_bookmark")
+                                .Where("ID", bookmarkID)
+                                .Where("Tenant", Tenant));
+
+                        DbManager.ExecuteNonQuery(
+                            new SqlDelete("bookmarking_tag")
+                            .Where("tenant", Tenant)
+                            .Where(!Exp.Exists(new SqlQuery("bookmarking_bookmarktag b").Select("b.tagid").Where("b.Tenant", Tenant).Where(Exp.EqColumns("b.TagID", "bookmarking_tag.TagID"))))
+                            );
+
+                        tx.Commit();
+                        return null;
+                    }
+
+                    var bookmark = GetBookmarkByID(bookmarkID);
                     tx.Commit();
+                    return bookmark;
+                }
+                catch
+                {
+                    tx.Rollback();
                     return null;
                 }
-
-                var bookmark = GetBookmarkByID(bookmarkID);
-                tx.Commit();
-                return bookmark;
             }
-            catch
-            {
-                tx.Rollback();
-            }
-            return null;
         }
 
         #region Sorting (currently in use)
@@ -791,46 +797,50 @@ group by TagID order by t.Name asc limit @l")
 
         internal Comment UpdateComment(Guid commentID, string text)
         {
-            var tx = DbManager.BeginTransaction();
-            try
+            using (var tx = DbManager.BeginTransaction())
             {
-                var c = GetCommentById(commentID);
-                c.Content = text;
+                try
+                {
+                    var c = GetCommentById(commentID);
+                    c.Content = text;
 
-                DbManager.ExecuteNonQuery(
-                    new SqlUpdate("bookmarking_comment")
-                        .Set("Content", c.Content)
-                        .Where(Exp.Eq("ID", commentID) & Exp.Eq("Tenant", Tenant)));
-                tx.Commit();
-                return c;
-            }
-            catch
-            {
-                tx.Rollback();
-                return null;
+                    DbManager.ExecuteNonQuery(
+                        new SqlUpdate("bookmarking_comment")
+                            .Set("Content", c.Content)
+                            .Where(Exp.Eq("ID", commentID) & Exp.Eq("Tenant", Tenant)));
+                    tx.Commit();
+                    return c;
+                }
+                catch
+                {
+                    tx.Rollback();
+                    return null;
+                }
             }
         }
 
         internal Comment RemoveComment(Guid commentID)
         {
-            var tx = DbManager.BeginTransaction();
-            try
+            using (var tx = DbManager.BeginTransaction())
             {
-                var c = GetCommentById(commentID);
-                c.Inactive = true;
+                try
+                {
+                    var c = GetCommentById(commentID);
+                    c.Inactive = true;
 
-                DbManager.ExecuteNonQuery(
-                            new SqlUpdate("bookmarking_comment")
-                            .Set("Inactive", 1)
-                            .Where(Exp.Eq("ID", commentID) & Exp.Eq("Tenant", Tenant)));
+                    DbManager.ExecuteNonQuery(
+                                new SqlUpdate("bookmarking_comment")
+                                .Set("Inactive", 1)
+                                .Where(Exp.Eq("ID", commentID) & Exp.Eq("Tenant", Tenant)));
 
-                tx.Commit();
-                return c;
-            }
-            catch
-            {
-                tx.Rollback();
-                return null;
+                    tx.Commit();
+                    return c;
+                }
+                catch
+                {
+                    tx.Rollback();
+                    return null;
+                }
             }
         }
 

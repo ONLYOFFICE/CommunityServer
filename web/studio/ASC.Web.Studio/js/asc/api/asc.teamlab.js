@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -279,7 +279,37 @@ window.Teamlab = (function () {
             options
         );
     };
-
+    var recalculateUserQuota = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/recalculateuserquota.json',
+            null,
+            options
+        );
+    };
+    var checkUserRecalculateQuota = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/checkrecalculateuserquota.json',
+            null,
+            options
+        );
+    };
+    var updateDefaultUsersQuota = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'settings/userquotasettings',
+            data,
+            options
+        );
+    };
+    
     var recalculateQuota = function (params, options) {
         return addRequest(
             null,
@@ -510,6 +540,17 @@ window.Teamlab = (function () {
             params,
             UPDATE,
             'people/' + id + '.json',
+            data,
+            options
+        );
+    };
+    
+    var updateUserQuota = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/userquota',
             data,
             options
         );
@@ -2886,6 +2927,28 @@ window.Teamlab = (function () {
         );
     };
 
+    var applySharedLinkPassword = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'files/sharedlink/password.json',
+            data,
+            options
+        );
+    };
+
+    var getSharedLinkTemplate = function (entryId, data, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'files/' + entryId + '/sharedlink/template.json',
+            data,
+            options
+        );
+    };
+
     var copyBatchItems = function (data, options) {
         return addRequest(
             null,
@@ -3057,6 +3120,21 @@ window.Teamlab = (function () {
             {
                 title: data.fileTitle,
                 templateId: data.templateId
+            },
+            options
+        );
+        return true;
+    };
+
+    var createFolders = function (params, folderId, relativePaths, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/folders/' + folderId + '.json',
+            {
+                folderId: folderId,
+                relativePaths: relativePaths
             },
             options
         );
@@ -7205,7 +7283,7 @@ window.Teamlab = (function () {
         return addRequest(
             customEvents.checkMailFilter,
             params,
-            GET,
+            ADD,
             'mail/filters/check.json',
             { filter: filter, page: page, pageSize: pageSize },
             options
@@ -7242,17 +7320,6 @@ window.Teamlab = (function () {
             params,
             GET,
             'settings/security/modules.json',
-            null,
-            options
-        );
-    };
-
-    var getPortalPasswordSettings = function (params, options) {
-        return addRequest(
-            null,
-            params,
-            GET,
-            'settings/security/password.json',
             null,
             options
         );
@@ -7378,13 +7445,18 @@ window.Teamlab = (function () {
         );
     };
 
-    var tfaAppAuthSettings = function (type, options) {
+    var tfaAppAuthSettings = function (type, trustedIps, mandatoryUsers, mandatoryGroups, options) {
         return addRequest(
             null,
             null,
             UPDATE,
             'settings/tfaapp.json',
-            { type: type },
+            {
+                type: type,
+                trustedIps: trustedIps,
+                mandatoryUsers: mandatoryUsers,
+                mandatoryGroups: mandatoryGroups
+            },
             options
         );
     };
@@ -7418,6 +7490,17 @@ window.Teamlab = (function () {
             UPDATE,
             'settings/tfaappnewapp.json',
             {id: id},
+            options
+        );
+    };
+
+    var getTfaSettings = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'settings/tfaapp.json',
+            null,
             options
         );
     };
@@ -7484,6 +7567,17 @@ window.Teamlab = (function () {
             UPDATE,
             'settings/colortheme.json',
             { theme: theme },
+            options
+        );
+    };
+
+    var setModeTheme = function (params, theme, auto_mode, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/modetheme.json',
+            { theme: theme, auto_mode: auto_mode },
             options
         );
     };
@@ -8364,6 +8458,18 @@ window.Teamlab = (function () {
         return true;
     }
 
+    var getAmazonS3Regions = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "settings/storage/s3/regions.json",
+            null,
+            options
+        );
+        return true;
+    }
+
     //#endregion
 
     //#region Reassign user data
@@ -8458,6 +8564,107 @@ window.Teamlab = (function () {
         return true;
     };
 
+    var updateLoginSettings = function ( params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'security/loginsettings',
+            data,
+            options
+        );
+    };
+
+    var updateImpersonateSettings = function (enable, enableType, onlyForOwnGroups, allowedAdmins, restrictionUsers, restrictionGroups, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'security/impersonate/settings',
+            {
+                enable: enable,
+                enableType: enableType,
+                onlyForOwnGroups: onlyForOwnGroups,
+                allowedAdmins: allowedAdmins,
+                restrictionUsers: restrictionUsers,
+                restrictionGroups: restrictionGroups
+            },
+            options
+        );
+    };
+
+    var getImpersonateSettings = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'security/impersonate/settings',
+            null,
+            options
+        );
+    };
+
+    var canImpersonateUser = function (userId, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'security/impersonate/' + userId + '.json',
+            null,
+            options
+        );
+    };
+
+    var impersonateUser = function (params, userId, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'security/impersonate/' + userId + '.json',
+            null,
+            options
+        );
+    };
+
+    var impersonateLogout = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'security/impersonate/logout.json',
+            null,
+            options
+        );
+    };
+
+    var setPasswordSettings = function (maxLength, minLength, upperCase, digits, specSymbols, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/security/password.json',
+            {
+                maxLength: maxLength,
+                minLength: minLength,
+                upperCase: upperCase,
+                digits: digits,
+                specSymbols: specSymbols
+            },
+            options
+        );
+    };
+
+    var getPasswordSettings = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/security/password.json',
+            null,
+            options
+        );
+    };
+
     return {
         events: customEvents,
 
@@ -8507,6 +8714,8 @@ window.Teamlab = (function () {
         deleteGroup: deleteGroup,
         updateProfile: updateProfile,
         updateUserType: updateUserType,
+        updateUserQuota: updateUserQuota,
+        updateDefaultUsersQuota: updateDefaultUsersQuota,
         updateUserStatus: updateUserStatus,
         getUserPhoto: getUserPhoto,
         updateUserPhoto: updateUserPhoto,
@@ -8706,6 +8915,8 @@ window.Teamlab = (function () {
         getFolderPath: getFolderPath,
         getFileSecurityInfo: getFileSecurityInfo,
         generateSharedLink: generateSharedLink,
+        applySharedLinkPassword: applySharedLinkPassword,
+        getSharedLinkTemplate: getSharedLinkTemplate,
         copyBatchItems: copyBatchItems,
         getOperationStatuses: getOperationStatuses,
         saveDocServiceUrl: saveDocServiceUrl,
@@ -8720,6 +8931,7 @@ window.Teamlab = (function () {
         removeFilesTemplates: removeFilesTemplates,
         createThumbnails: createThumbnails,
         createFile: createFile,
+        createFolders: createFolders,
         filesDownloadTarGz: filesDownloadTarGz,
         changeAutomaticallyCleanUp: changeAutomaticallyCleanUp,
         filesChangeDafaultAccessRightsSetting: filesChangeDafaultAccessRightsSetting,
@@ -9079,7 +9291,6 @@ window.Teamlab = (function () {
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         getEnabledModules: getEnabledModules,
-        getPortalPasswordSettings: getPortalPasswordSettings,
         setWebItemSecurity: setWebItemSecurity,
         setAccessToWebItems: setAccessToWebItems,
         setProductAdministrator: setProductAdministrator,
@@ -9119,6 +9330,7 @@ window.Teamlab = (function () {
         tfaappcodes: tfaappcodes,
         tfaAppRequestNewCodes: tfaAppRequestNewCodes,
         tfaAppNewApp: tfaAppNewApp,
+        getTfaSettings: getTfaSettings,
 
         telegramLink: telegramLink,
         telegramIsConnected: telegramIsConnected,
@@ -9127,6 +9339,7 @@ window.Teamlab = (function () {
         closeWelcomePopup: closeWelcomePopup,
         closeAdminHelper: closeAdminHelper,
         setColorTheme: setColorTheme,
+        setModeTheme: setModeTheme,
         setTimaAndLanguage: setTimaAndLanguage,
         setDefaultpage: setDefaultpage,
 
@@ -9191,6 +9404,7 @@ window.Teamlab = (function () {
         getBackupHistory: getBackupHistory,
         deleteBackup: deleteBackup,
         startRestore: startRestore,
+        getAmazonS3Regions: getAmazonS3Regions,
 
         getReassignProgress: getReassignProgress,
         terminateReassign: terminateReassign,
@@ -9203,8 +9417,20 @@ window.Teamlab = (function () {
         addImportUser: addImportUser,
         getImportStatus: getImportStatus,
 
-        markGiftAsReaded: markGiftAsReaded
-        
+        markGiftAsReaded: markGiftAsReaded,
 
+        updateLoginSettings: updateLoginSettings,
+
+        getImpersonateSettings: getImpersonateSettings,
+        updateImpersonateSettings: updateImpersonateSettings,
+        canImpersonateUser: canImpersonateUser,
+        impersonateUser: impersonateUser,
+        impersonateLogout: impersonateLogout,
+
+        setPasswordSettings: setPasswordSettings,
+        getPasswordSettings: getPasswordSettings,
+
+        recalculateUserQuota: recalculateUserQuota,
+        checkUserRecalculateQuota: checkUserRecalculateQuota
 };
 })();

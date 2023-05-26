@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,6 +74,12 @@ namespace ASC.Core
             return tariffService.GetProductPriceInfo(productIds);
         }
 
+        // used in www
+        public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(string[] productIds, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate)
+        {
+            return tariffService.GetProductPriceInfo(productIds, paymentSystem);
+        }
+
 
         public Uri GetShoppingUri(int quotaId, bool forCurrentTenant = true, string affiliateId = null, string currency = null, string language = null, string customerId = null, string quantity = null)
         {
@@ -87,15 +93,15 @@ namespace ASC.Core
         }
 
         // used in www
-        public Uri GetShoppingUri(string productId, string currency = null, string language = null, string customerId = null, string quantity = null, string affiliateId = null)
+        public Uri GetShoppingUri(string productId, string currency = null, string language = null, string customerId = null, string customerEmail = null, string backUrl = null, string quantity = null, string affiliateId = null, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate)
         {
-            return tariffService.GetShoppingUri(new[] { productId }, affiliateId, currency, language, customerId, quantity);
+            return tariffService.GetShoppingUri(new[] { productId }, affiliateId, currency, language, customerId, customerEmail, backUrl, quantity, paymentSystem);
         }
 
         // used in www
-        public Uri GetShoppingUri(string[] productIds, string currency = null, string language = null, string customerId = null, string quantity = null, string affiliateId = null)
+        public Uri GetShoppingUri(string[] productIds, string currency = null, string language = null, string customerId = null, string customerEmail = null, string backUrl = null, string quantity = null, string affiliateId = null, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate)
         {
-            return tariffService.GetShoppingUri(productIds, affiliateId, currency, language, customerId, quantity);
+            return tariffService.GetShoppingUri(productIds, affiliateId, currency, language, customerId, customerEmail, backUrl, quantity, paymentSystem);
         }
 
 

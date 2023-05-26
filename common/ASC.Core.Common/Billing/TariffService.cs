@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -319,9 +319,9 @@ namespace ASC.Core.Billing
             return null;
         }
 
-        public Uri GetShoppingUri(string[] productIds, string affiliateId = null, string currency = null, string language = null, string customerId = null, string quantity = null)
+        public Uri GetShoppingUri(string[] productIds, string affiliateId = null, string currency = null, string language = null, string customerId = null, string customerEmail = null, string backUrl = null, string quantity = null, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate)
         {
-            var key = "shopingurl" + string.Join("_", productIds) + (!string.IsNullOrEmpty(affiliateId) ? "_" + affiliateId : "");
+            var key = "shopingurl" + string.Join("_", productIds) + (!string.IsNullOrEmpty(affiliateId) ? "_" + affiliateId : "") + "_" + paymentSystem;
             var url = cache.Get<string>(key);
             if (url == null)
             {
@@ -340,7 +340,10 @@ namespace ASC.Core.Billing
                                 !string.IsNullOrEmpty(currency) ? "__Currency__" : null,
                                 !string.IsNullOrEmpty(language) ? "__Language__" : null,
                                 !string.IsNullOrEmpty(customerId) ? "__CustomerID__" : null,
-                                !string.IsNullOrEmpty(quantity) ? "__Quantity__" : null
+                                !string.IsNullOrEmpty(customerEmail) ? "__CustomerEmail__" : null,
+                                !string.IsNullOrEmpty(backUrl) ? "__BackUrl__" : null,
+                                !string.IsNullOrEmpty(quantity) ? "__Quantity__" : null,
+                                paymentSystem
                                 );
                     }
                     catch (Exception error)
@@ -360,11 +363,13 @@ namespace ASC.Core.Billing
                                    .Replace("__Currency__", HttpUtility.UrlEncode(currency ?? ""))
                                    .Replace("__Language__", HttpUtility.UrlEncode((language ?? "").ToLower()))
                                    .Replace("__CustomerID__", HttpUtility.UrlEncode(customerId ?? ""))
+                                   .Replace("__CustomerEmail__", HttpUtility.UrlEncode(customerEmail ?? ""))
+                                   .Replace("__BackUrl__", HttpUtility.UrlEncode(backUrl ?? ""))
                                    .Replace("__Quantity__", HttpUtility.UrlEncode(quantity ?? "")));
             return result;
         }
 
-        public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(params string[] productIds)
+        public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(string[] productIds, BillingClient.PaymentSystem paymentSystem = BillingClient.PaymentSystem.Avangate)
         {
             if (productIds == null)
             {
@@ -372,12 +377,12 @@ namespace ASC.Core.Billing
             }
             try
             {
-                var key = "biling-prices" + string.Join(",", productIds);
+                var key = "biling-prices" + string.Join(",", productIds) + "_" + paymentSystem;
                 var result = cache.Get<IDictionary<string, Dictionary<string, decimal>>>(key);
                 if (result == null)
                 {
                     var client = GetBillingClient();
-                    result = client.GetProductPriceInfo(productIds);
+                    result = client.GetProductPriceInfo(productIds, paymentSystem);
                     cache.Insert(key, result, DateTime.Now.AddHours(1));
                 }
                 return result;

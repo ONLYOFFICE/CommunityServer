@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -226,7 +226,7 @@ namespace ASC.Web.Core.Client.Bundling
 
                                 var cache = TimeSpan.FromDays(365);
 
-                                uploaded.CacheControl = String.Format("public, maxage={0}", (int)cache.TotalSeconds);
+                                uploaded.CacheControl = String.Format("public, max-age={0}", (int)cache.TotalSeconds);
                                 uploaded.Metadata["Expires"] = DateTime.UtcNow.Add(TimeSpan.FromDays(365)).ToString("R");
 
                                 storage.UpdateObject(uploaded);

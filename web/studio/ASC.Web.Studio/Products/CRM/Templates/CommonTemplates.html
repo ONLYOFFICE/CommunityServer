@@ -26,7 +26,7 @@
 
         <img class="adding_tag_loading" alt="${ASC.CRM.Resources.CRMSettingResource.AddTagInProgressing}"
                 title="${ASC.CRM.Resources.CRMSettingResource.AddTagInProgressing}"
-                src="${StudioManager.GetImage('loader_16.gif')}" />
+                {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}}src="${StudioManager.GetImage('loader_16.gif')}"{{else}}src="${StudioManager.GetImage('loader-dark-16.svg')}"{{/if}} />
     </div>
 </script>
 

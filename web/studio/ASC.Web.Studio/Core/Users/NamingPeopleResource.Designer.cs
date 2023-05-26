@@ -142,6 +142,15 @@ namespace ASC.Web.Studio.Core.Users {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lead.
+        /// </summary>
+        public static string CommonUserLead {
+            get {
+                return ResourceManager.GetString("CommonUserLead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
         public static string CommonUsers {
@@ -237,6 +246,15 @@ namespace ASC.Web.Studio.Core.Users {
         public static string DefaultUser {
             get {
                 return ResourceManager.GetString("DefaultUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lead.
+        /// </summary>
+        public static string DefaultUserLead {
+            get {
+                return ResourceManager.GetString("DefaultUserLead", resourceCulture);
             }
         }
         
@@ -340,6 +358,15 @@ namespace ASC.Web.Studio.Core.Users {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Curator.
+        /// </summary>
+        public static string EducationUserLead {
+            get {
+                return ResourceManager.GetString("EducationUserLead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teachers/Students.
         /// </summary>
         public static string EducationUsers {
@@ -372,8 +399,8 @@ namespace ASC.Web.Studio.Core.Users {
         ///      &lt;grouphead&gt;CommonGroupHead&lt;/grouphead&gt;
         ///      &lt;regdate&gt;CommonRegDate&lt;/regdate&gt;
         ///      &lt;addusers&gt;CommonAddUsers&lt;/addusers&gt;
-        ///      &lt;guest&gt;CommonGuest&lt;/guest&gt;
-        ///      &lt;guests&gt;CommonGuests&lt; [rest of string was truncated]&quot;;.
+        ///      &lt;userlead&gt;CommonUserLead&lt;/userlead&gt;
+        ///      &lt;guest&gt;CommonGu [rest of string was truncated]&quot;;.
         /// </summary>
         public static string PeopleNames {
             get {

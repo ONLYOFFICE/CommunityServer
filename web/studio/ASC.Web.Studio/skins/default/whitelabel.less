@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
     }
 
     canvas:not(.theme-background) {
-        background-color: #fff;
+        background-color: @body-color;
     }
 
     canvas {
@@ -74,6 +74,9 @@
 .logo-img-container img.docs-style3-background, #canvas_logo_4_3 {
     background-color: #aa5252;
 }
+.logo-img-container img.docs-style4-background, #canvas_logo_4_4 {
+    background-color: #404040;
+}
 
 #studio_whiteLabelSettings {
     .logo_0, #canvas_logo_0 {
@@ -92,21 +95,31 @@
         max-width: 216px;
         max-height: 35px;
         padding: 10px;
+        background-color: #fff;
     }
 
     #canvas_logo_2 {
         width: 216px;
         height: 35px;
         padding: 10px;
+        background-color: #fff;
+    }
+
+    .logo_6, #canvas_logo_6 {
+        max-width: 216px;
+        max-height: 35px;
+        padding: 10px;
+        background-color: #333;
     }
 
     .logo_3, #canvas_logo_3 {
         width: 16px;
         height: 16px;
+        background-color: #fff;
     }
 
     .logo_4,
-    #canvas_logo_4_1, #canvas_logo_4_2, #canvas_logo_4_3 {
+    #canvas_logo_4_1, #canvas_logo_4_2, #canvas_logo_4_3, #canvas_logo_4_4 {
         width: 86px;
         height: 20px;
         padding: 10px;
@@ -127,9 +140,15 @@
         top: 0;
     }
 
+    #canvas_logo_4_4 {
+        left: 333px;
+        top: 0;
+    }
+
     .logo_5, #canvas_logo_5 {
         width: 86px;
         height: 20px;
         padding: 10px;
+        background-color: #fff;
     }
 }

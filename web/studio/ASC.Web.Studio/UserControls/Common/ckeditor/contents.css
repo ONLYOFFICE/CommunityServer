@@ -95,6 +95,11 @@ body
 	margin: 8px;
 }
 
+body.dark {
+	background-color: #292929;
+	color: #fff;
+}
+
 p {
 	margin: 0;
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,17 +36,17 @@
             float: left;
         }
     }
-	/*******************************************************************************
+    /*******************************************************************************
     button hidden tabs
 *******************************************************************************/
-	.studio-top-button-hidden-tabs{
-		 background: @bg-button-hidden-tabs;
-	}
+    .studio-top-button-hidden-tabs {
+        background: @bg-button-hidden-tabs;
+    }
     /*******************************************************************************
     top logo
 *******************************************************************************/
     .studio-top-logo {
-         margin: 8px 24px 0 0;
+        margin: 8px 24px 0 0;
 
         .top-logo {
             display: block;
@@ -99,7 +99,7 @@
         }
 
         .usr-prof {
-            text-decoration:none;
+            text-decoration: none;
             .text-overflow();
             display: inline-block;
             max-width: 220px;
@@ -137,31 +137,31 @@
             svg {
                 width: 16px;
                 height: 16px;
-                fill: #CFD9E3;
+                fill: @studio-top-panel-svg;
                 position: absolute;
                 top: 8px;
                 left: 8px;
-        }
+            }
 
             &:hover svg {
-                fill: #FFFFFF;
+                fill: @top-item-box-hover;
             }
         }
 
-            &.has-led .inner-label,
-            .inner-text.has-led .inner-label {
-                .borderRadius();
-                .bg-header-icon-lable();
-                display: block;
-            }
+        &.has-led .inner-label,
+        .inner-text.has-led .inner-label {
+            .borderRadius();
+            .bg-header-icon-lable();
+            display: block;
+        }
 
         &.tariffs .inner-text .inner-label {
-                font-size: 9px;
-                max-width: 40px;
-                min-width: 30px;
-                right: -2px;
-                text-align: center;
-            }
+            font-size: 9px;
+            max-width: 40px;
+            min-width: 30px;
+            right: -2px;
+            text-align: center;
+        }
 
         &.signin {
             margin: 8px 0 0 20px;
@@ -189,7 +189,7 @@ body.desktop .studio-top-panel {
     margin: 6px 24px 0 0;
 
     .active-icon-svg{
-        fill: #cfd9e3;
+        fill: @product-menu-active-icon;
         width: 16px;
         height: 16px;
     }
@@ -284,6 +284,7 @@ body.desktop .studio-top-panel {
 #studio_searchPopupPanel {
     width: 290px;
     padding: 8px 12px;
+    right: 24px;
 
     .header-base.small {
         margin-bottom: 10px;
@@ -298,19 +299,19 @@ body.desktop .studio-top-panel {
 
             .search-input {
                 float: left;
-                height: 20px;
+                height: 24px;
                 margin-right: 4px;
                 padding: 1px;
                 width: 238px;
             }
 
-            .search-btn {                    
+            .search-btn {
                 height: 24px;
                 position: relative;
                 width: 40px;
 
-                &:before{content: " "; position: absolute; width: 6px; height: 6px; border: 2px solid #fff; .borderRadius(6px); top: 5px; left: 13px; }
-                &:after{content: " "; position: absolute; width: 0; height: 7px; border-right: 2px solid #fff; top: 12px; left: 22px; .rotateTransform(135deg); }
+                &:before{content: " "; position: absolute; width: 6px; height: 6px; border: 2px solid @body-color; .borderRadius(6px); top: 5px; left: 13px; }
+                &:after{content: " "; position: absolute; width: 0; height: 7px; border-right: 2px solid @body-color; top: 12px; left: 22px; .rotateTransform(135deg); }
             }
         }
     }
@@ -425,13 +426,13 @@ body.desktop .studio-top-panel {
 
             .header {
                 .action {
-                    color: #333;
+                    color: @textColor;
                     font-weight: bold;
                 }
 
                 .title {
                     .limitedSingleText(330px);
-                    color: #333;
+                    color: @textColor;
                     cursor: pointer;
                     font-size: 12px;
                     text-decoration: none;
@@ -657,7 +658,7 @@ only screen and (                min-resolution: 2dppx)
             overflow-y: auto;
 
             span {
-                border: 1px solid #d1d1d1;
+                border: 1px solid @borderColor;
                 display: inline-block;
                 float: left;
                 height: 40px;
@@ -715,7 +716,7 @@ only screen and (                min-resolution: 2dppx)
         }
 
         .btn-box {
-            border-top: 0.5px solid #D1D1D1;
+            border-top: 0.5px solid @borderColor;
             height: 48px;
             display: flex;
             align-items: center;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Web;
 using ASC.Files.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
@@ -114,7 +115,7 @@ namespace ASC.Web.Files
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
             Master.Master
-                  .AddStaticStyles(GetStaticStyleSheet())
+                  .AddStaticStyles(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark ? GetStaticDarkStyleSheet() : GetStaticStyleSheet())
                   .AddStaticBodyScripts(GetStaticJavaScript());
 
             var fileSelector = (FileSelector)LoadControl(FileSelector.Location);
@@ -165,9 +166,9 @@ namespace ASC.Web.Files
             }
 
             var originForPost = "*";
-            if (FromEditor && !FilesLinkUtility.DocServiceApiUrl.StartsWith("/"))
+            if (FromEditor && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) && !FilesLinkUtility.DocServiceApiUrl.StartsWith("/"))
             {
-                var origin = new Uri(FilesLinkUtility.DocServiceApiUrl ?? "");
+                var origin = new Uri(FilesLinkUtility.DocServiceApiUrl);
                 originForPost = origin.Scheme + "://" + origin.Host + ":" + origin.Port;
             }
 
@@ -207,16 +208,28 @@ namespace ASC.Web.Files
         {
             return (StyleBundleData)
                    new StyleBundleData("fileschoice", "files")
-                       .AddSource(PathProvider.GetFileStaticRelativePath, "filechoice.css")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "filechoice.less")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/FileSelector/fileselector.css",
-                                  "Controls/ThirdParty/thirdparty.css",
-                                  "Controls/ContentList/contentlist.css",
-                                  "Controls/EmptyFolder/emptyfolder.css",
-                                  "Controls/Tree/tree.css"
+                                  "Controls/FileSelector/fileselector.less",
+                                  "Controls/ThirdParty/thirdparty.less",
+                                  "Controls/ContentList/contentlist.less",
+                                  "Controls/EmptyFolder/emptyfolder.less",
+                                  "Controls/Tree/tree.less"
                        );
         }
-
+        public StyleBundleData GetStaticDarkStyleSheet()
+        {
+            return (StyleBundleData)
+                   new StyleBundleData("dark-fileschoice", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "filechoice.less")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "Controls/FileSelector/fileselector.less",
+                                  "Controls/ThirdParty/dark-thirdparty.less",
+                                  "Controls/ContentList/dark-contentlist.less",
+                                  "Controls/EmptyFolder/emptyfolder.less",
+                                  "Controls/Tree/dark-tree.less"
+                       );
+        }
         public string GetTypeString(FilterType filterType)
         {
             switch (filterType)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -315,10 +315,10 @@ namespace ASC.CRM.Core.Dao
                         url = String.Format("Default.aspx?id={0}", id);
 
                         if (contact is Company)
-                            imageRef = WebImageSupplier.GetAbsoluteWebPath("companies_widget.png",
+                            imageRef = WebImageSupplier.GetAbsoluteWebPath("companies_widget.svg",
                                                                      ProductEntryPoint.ID);
                         else
-                            imageRef = WebImageSupplier.GetAbsoluteWebPath("people_widget.png",
+                            imageRef = WebImageSupplier.GetAbsoluteWebPath("people_widget.svg",
                                               ProductEntryPoint.ID);
 
                         break;
@@ -332,7 +332,7 @@ namespace ASC.CRM.Core.Dao
 
                         url = String.Format("Deals.aspx?id={0}", id);
 
-                        imageRef = WebImageSupplier.GetAbsoluteWebPath("deal_widget.png",
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("deal_widget.svg",
                                                                        ProductEntryPoint.ID);
                         break;
                     }
@@ -344,7 +344,7 @@ namespace ASC.CRM.Core.Dao
 
                         url = String.Format("Cases.aspx?id={0}", id);
 
-                        imageRef = WebImageSupplier.GetAbsoluteWebPath("cases_widget.png",
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("cases_widget.svg",
                                                                        ProductEntryPoint.ID);
 
                         break;
@@ -357,7 +357,7 @@ namespace ASC.CRM.Core.Dao
 
                         url = "";
 
-                        imageRef = WebImageSupplier.GetAbsoluteWebPath("tasks_widget.png",
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("tasks_widget.svg",
                                                                      ProductEntryPoint.ID);
                         break;
                     }

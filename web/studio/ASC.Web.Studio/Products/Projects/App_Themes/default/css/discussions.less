@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,13 @@
 */
 
 
+@import "params.less";
+
 #emptyListDiscussion {
     display: none;
 }
 
-#discussionsList {
+#discussionsList, #discussionPreviewContainer {
     display: none;
 
     .discussionContainer {
@@ -77,7 +79,7 @@
     }
 
     .status {
-        background-color: #e6e6e6;
+        background-color: @body-color-hover;
         color: #83888d;
         cursor: pointer;
         display: inline-block;
@@ -133,10 +135,13 @@
 }
 
 
-#discussionPreviewContainer
-{
-	display: none;
-	padding-left: 15px;
+#discussionPreviewContainer {
+    display: none;
+    margin-top: 20px;
+
+    .discussionContainer {
+        border-top: none;
+    }
 }
 
 /*----discussion details-----*/

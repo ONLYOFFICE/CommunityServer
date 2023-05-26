@@ -1545,4 +1545,10 @@
   <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
     <value>Website Contact Form Key Updated</value>
   </data>
+  <data name="ImpersonateUserLogin" xml:space="preserve">
+    <value>User Impersonation, Login:  {0}</value>
+  </data>
+  <data name="ImpersonateUserLogout" xml:space="preserve">
+    <value>User Impersonation, Logout: {0}</value>
+  </data>
 </root>

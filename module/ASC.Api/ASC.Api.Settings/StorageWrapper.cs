@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,14 +27,20 @@ namespace ASC.Api.Settings
 {
     public class StorageWrapper
     {
+        ///<example>Id</example>
         public string Id { get; set; }
 
+        ///<example>Title</example>
         public string Title { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.AuthKey, ASC.Web.Studio</type>
+        ///<collection>list</collection>
         public List<AuthKey> Properties { get; set; }
 
+        ///<example>true</example>
         public bool Current { get; set; }
 
+        ///<example>true</example>
         public bool IsSet { get; set; }
 
         public StorageWrapper(DataStoreConsumer consumer, StorageSettings current)
@@ -65,6 +71,7 @@ namespace ASC.Api.Settings
                     Value = r.Value,
                     Title = consumer.GetResourceString(consumer.Name + r.Key) ?? r.Key,
                     Description = consumer.GetResourceString(consumer.Name + r.Key + "Description"),
+                    IsOptional = consumer.IsOptional(r.Key)
                 }).ToList();
         }
     }

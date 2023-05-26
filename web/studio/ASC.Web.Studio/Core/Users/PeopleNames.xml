@@ -12,6 +12,7 @@
       <grouphead>CommonGroupHead</grouphead>
       <regdate>CommonRegDate</regdate>
       <addusers>CommonAddUsers</addusers>
+      <userlead>CommonUserLead</userlead>
       <guest>CommonGuest</guest>
       <guests>CommonGuests</guests>
     </names>
@@ -28,6 +29,7 @@
       <grouphead>DefaultGroupHead</grouphead>
       <regdate>DefaultRegDate</regdate>
       <addusers>DefaultAddUsers</addusers>
+      <userlead>DefaultUserLead</userlead>
       <guest>DefaultGuest</guest>
       <guests>DefaultGuests</guests>
     </names>
@@ -44,6 +46,7 @@
       <grouphead>EducationGroupHead</grouphead>
       <regdate>EducationRegDate</regdate>
       <addusers>EducationAddUsers</addusers>
+      <userlead>EducationUserLead</userlead>
       <guest>EducationGuest</guest>
       <guests>EducationGuests</guests>
     </names>

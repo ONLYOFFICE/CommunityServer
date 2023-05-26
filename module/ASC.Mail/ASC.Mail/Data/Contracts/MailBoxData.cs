@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ namespace ASC.Mail.Data.Contracts
 
         public int TenantId { get; set; }
 
+        ///<example name="id">1</example>
         [DataMember(Name = "id")]
         public int MailBoxId { get; set; }
 
@@ -60,6 +61,7 @@ namespace ASC.Mail.Data.Contracts
         [IgnoreDataMember]
         public MailAddress EMail { get; set; }
 
+        ///<example name="email">email.only.com</example>
         [DataMember(Name = "email")]
         public string EMailView
         {
@@ -73,18 +75,23 @@ namespace ASC.Mail.Data.Contracts
             }
         }
 
+        ///<example name="name">name</example>
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        ///<example name="account">account</example>
         [DataMember(Name = "account")]
         public string Account { get; set; }
 
+        ///<example name="password">password</example>
         [DataMember(Name = "password")]
         public string Password { get; set; }
 
+        ///<example name="server">server</example>
         [DataMember(Name = "server")]
         public string Server { get; set; }
 
+        ///<example name="smtp_server">smtp_server</example>
         [DataMember(Name = "smtp_server")]
         public string SmtpServer { get; set; }
 
@@ -102,15 +109,19 @@ namespace ASC.Mail.Data.Contracts
             set { SmtpPortStr = value.ToString(CultureInfo.InvariantCulture); }
         }
 
+        ///<example name="smtp_port">smtp_port</example>
         [DataMember(Name = "smtp_port")]
         public string SmtpPortStr { get; set; }
 
+        ///<example name="smtp_account">smtp_account</example>
         [DataMember(Name = "smtp_account")]
         public string SmtpAccount { get; set; }
 
+        ///<example name="smtp_password">smtp_password</example>
         [DataMember(Name = "smtp_password")]
         public string SmtpPassword { get; set; }
 
+        ///<example name="smtp_auth">smtp_auth</example>
         [DataMember(Name = "smtp_auth")]
         public bool SmtpAuth
         {
@@ -131,18 +142,23 @@ namespace ASC.Mail.Data.Contracts
             set { PortStr = value.ToString(CultureInfo.InvariantCulture); }
         }
 
+        ///<example name="port">port</example>
         [DataMember(Name = "port")]
         public string PortStr { get; set; }
 
+        ///<example type="int" name="incoming_encryption_type">1</example>
         [DataMember(Name = "incoming_encryption_type")]
         public EncryptionType Encryption { get; set; }
 
+        ///<example type="int" name="outcoming_encryption_type">2</example>
         [DataMember(Name = "outcoming_encryption_type")]
         public EncryptionType SmtpEncryption { get; set; }
 
+        ///<example type="int" name="auth_type_in">2</example>
         [DataMember(Name = "auth_type_in")]
         public SaslMechanism Authentication { get; set; }
 
+        ///<example type="int" name="auth_type_smtp">2</example>
         [DataMember(Name = "auth_type_smtp")]
         public SaslMechanism SmtpAuthentication { get; set; }
 
@@ -206,12 +222,15 @@ namespace ASC.Mail.Data.Contracts
 
         private OAuth20Token _token;
 
+        ///<example name="imap">true</example>
         [DataMember(Name = "imap")]
         public bool Imap { get; set; }
 
+        ///<example name="begin_date">2020-10-01T17:04:32.0000000</example>
         [DataMember(Name = "begin_date")]
         public DateTime BeginDate { get; set; }
 
+        ///<example name="is_oauth">true</example>
         [DataMember(Name = "is_oauth")]
         public bool IsOAuth
         {
@@ -289,6 +308,7 @@ namespace ASC.Mail.Data.Contracts
         [IgnoreDataMember]
         public bool AccessTokenRefreshed { get; set; }
 
+        ///<example name="restrict">true</example>
         [DataMember(Name = "restrict")]
         public bool Restrict
         {
@@ -328,9 +348,11 @@ namespace ASC.Mail.Data.Contracts
             }
         }
 
+        ///<example name="email_in_folder">email_in_folder</example>
         [DataMember(Name = "email_in_folder")]
         public string EMailInFolder { get; set; }
 
+        ///<example name="is_teamlab">is_teamlab</example>
         [DataMember(Name = "is_teamlab")]
         public bool IsTeamlab { get; set; }
 

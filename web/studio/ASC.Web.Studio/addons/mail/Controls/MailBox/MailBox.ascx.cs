@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Web.Core.Utility;
 using ASC.Web.Files.Controls;
 using ASC.Web.Mail.Resources;
 using ASC.Web.Studio.Core;
@@ -43,14 +44,24 @@ namespace ASC.Web.Mail.Controls
                                      "~/Products/Files/Controls/Tree/tree.js",
                                      "~/Products/Files/Controls/ConvertFile/confirmconvert.js"
                 )
-                .RegisterStyle("~/Products/Files/Controls/FileSelector/fileselector.css",
-                               "~/Products/Files/Controls/ThirdParty/thirdparty.css",
-                               "~/Products/Files/Controls/ContentList/contentlist.css",
-                               "~/Products/Files/Controls/EmptyFolder/emptyfolder.css",
-                               "~/Products/Files/Controls/Tree/tree.css",
-                               "~/Products/Files/Controls/ConvertFile/confirmconvert.css"
-                );
-
+                .RegisterStyle("~/Products/Files/Controls/FileSelector/fileselector.less");
+                
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Files/Controls/ThirdParty/dark-thirdparty.less",
+                    "~/Products/Files/Controls/ContentList/dark-contentlist.less",
+                    "~/Products/Files/Controls/EmptyFolder/emptyfolder.less",
+                    "~/Products/Files/Controls/Tree/dark-tree.less",
+                    "~/Products/Files/Controls/ConvertFile/confirmconvert.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Files/Controls/ThirdParty/thirdparty.less",
+                    "~/Products/Files/Controls/ContentList/contentlist.less",
+                    "~/Products/Files/Controls/EmptyFolder/emptyfolder.less",
+                    "~/Products/Files/Controls/Tree/tree.less",
+                    "~/Products/Files/Controls/ConvertFile/confirmconvert.less");
+            }
             ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));
 
             TagsPageHolder.Controls.Add(LoadControl(TagsPage.Location) as TagsPage);

@@ -979,4 +979,40 @@
   <data name="ErrorDuplicateMailbox" xml:space="preserve">
     <value>You want to create a mailbox with an already existing address.</value>
   </data>
+  <data name="QuotaDisabled" xml:space="preserve">
+    <value>Memory quota has been successfully disabled.</value>
+  </data>
+  <data name="QuotaEnabled" xml:space="preserve">
+    <value>Memory quota has been successfully enabled.</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="LblOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="LblPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Lifetime" xml:space="preserve">
+    <value>Lifetime</value>
+  </data>
+  <data name="PasswordProtection" xml:space="preserve">
+    <value>Password protection</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ImpersonateLoginMessage" xml:space="preserve">
+    <value>Logged in as {0}</value>
+  </data>
+  <data name="ImpersonateUserConfirmationInfo" xml:space="preserve">
+    <value>You are going to log in to the portal on behalf of {0}</value>
+  </data>
+  <data name="ImpersonateUser" xml:space="preserve">
+    <value>Login as User</value>
+  </data>
+  <data name="OperationStartedMsg" xml:space="preserve">
+    <value>Operation has been successfully started.</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,34 +15,5 @@
 */
 
 
-@color-calendar: #2faadd;
-@bg-color-calendar: #f6fcff;
-@bg-color-hover-calendar: #ebf8ff;
 @import "../../UserControls/fullcalendar/css/fullcalendar.less";
-
-@bg-hover-mini-cld: #d9f2ff;
-@bg-active-mini-cld: #4ca4d4;
-@bg-default-mini-cld: #fff0e2;
-
-@border-active-mini-cld: @bg-active-mini-cld;
-@border-default-mini-cld: @bg-default-mini-cld;
-
-.asc-datepicker .ui-state-hover, 
-.asc-datepicker .ui-widget-content .ui-state-hover, 
-.asc-datepicker .ui-widget-header .ui-state-hover, .asc-datepicker .ui-state-focus, 
-.asc-datepicker .ui-widget-content .ui-state-focus, .asc-datepicker .ui-widget-header .ui-state-focus {
-     border: 1px solid @color-calendar !important;
-     background: @bg-hover-mini-cld none 50% 50% repeat-x !important;
-}
-.asc-datepicker .ui-state-active, 
-.asc-datepicker .ui-widget-content .ui-state-active, 
-.asc-datepicker .ui-widget-header .ui-state-active {
-     border: 1px solid @border-active-mini-cld !important; 
-     background: @bg-active-mini-cld none 50% 50% repeat-x !important;
-}
-.asc-datepicker .ui-state-highlight, 
-.asc-datepicker .ui-widget-content .ui-state-highlight, 
-.asc-datepicker .ui-widget-header .ui-state-highlight  {
-	border: 1px solid @border-default-mini-cld !important; 
-	background: @bg-default-mini-cld none 50% 50% repeat-x !important;
-}
+@import "params.less";

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,14 +32,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Creates a new task template container with the type and title specified in the request.
         /// </summary>
-        /// <param name="entityType">Entity type</param>
-        /// <param name="title">Template container title</param>
+        /// <param type="System.String, System" name="entityType">Entity type</param>
+        /// <param type="System.String, System" name="title">Template container title</param>
         /// <short>Create a task template container</short> 
         /// <category>Task templates</category>
         /// <returns>
         /// Task template container
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
+        /// <path>api/2.0/crm/{entityType}/tasktemplatecontainer</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create(@"{entityType:(contact|person|company|opportunity|case)}/tasktemplatecontainer")]
         public TaskTemplateContainerWrapper CreateTaskTemplateContainer(string entityType, string title)
@@ -59,12 +61,15 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a complete list of all the task template containers available on the portal.
         /// </summary>
-        /// <param name="entityType">Entity type</param>
+        /// <param type="System.String, System" name="entityType">Entity type</param>
         /// <short>Get task template containers</short> 
         /// <category>Task templates</category>
         /// <returns>
         /// List of task template containers
         /// </returns>
+        /// <path>api/2.0/crm/{entityType}/tasktemplatecontainer</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/tasktemplatecontainer")]
         public IEnumerable<TaskTemplateContainerWrapper> GetTaskTemplateContainers(string entityType)
@@ -75,7 +80,7 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Deletes a task template container with the ID specified in the request.
         /// </summary>
-        /// <param name="containerid">Task template container ID</param>
+        /// <param type="System.Int32, System" name="containerid">Task template container ID</param>
         /// <short>Delete a task template container</short> 
         /// <category>Task templates</category>
         /// <returns>
@@ -83,6 +88,8 @@ namespace ASC.Api.CRM
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/{containerid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         /// <visible>false</visible>
         [Delete(@"tasktemplatecontainer/{containerid:[0-9]+}")]
         public TaskTemplateContainerWrapper DeleteTaskTemplateContainer(int containerid)
@@ -100,8 +107,8 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Updates a task template container with the ID specified in the request.
         /// </summary>
-        /// <param name="containerid">Task template container ID</param>
-        /// <param name="title">New template container title</param>
+        /// <param type="System.Int32, System" name="containerid">Task template container ID</param>
+        /// <param type="System.String, System" name="title">New template container title</param>
         /// <short>Update a task template container</short> 
         /// <category>Task templates</category>
         /// <returns>
@@ -109,6 +116,8 @@ namespace ASC.Api.CRM
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/{containerid}</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update(@"tasktemplatecontainer/{containerid:[0-9]+}")]
         public TaskTemplateContainerWrapper UpdateTaskTemplateContainer(int containerid, string title)
@@ -128,7 +137,7 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns the detailed information on the task template container with the ID specified in the request.
         /// </summary>
-        /// <param name="containerid">Task template container ID</param>
+        /// <param type="System.Int32, System" name="containerid">Task template container ID</param>
         /// <short>Get a task template container by ID</short> 
         /// <category>Task templates</category>
         /// <returns>
@@ -136,6 +145,8 @@ namespace ASC.Api.CRM
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/{containerid}</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read(@"tasktemplatecontainer/{containerid:[0-9]+}")]
         public TaskTemplateContainerWrapper GetTaskTemplateContainerByID(int containerid)
@@ -151,7 +162,7 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of all the tasks in the container with the ID specified in the request.
         /// </summary>
-        /// <param name="containerid">Task template container ID</param>
+        /// <param type="System.Int32, System" name="containerid">Task template container ID</param>
         /// <short>Get container tasks</short> 
         /// <category>Task templates</category>
         /// <returns>
@@ -159,6 +170,9 @@ namespace ASC.Api.CRM
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/{containerid}/tasktemplate</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Read(@"tasktemplatecontainer/{containerid:[0-9]+}/tasktemplate")]
         public IEnumerable<TaskTemplateWrapper> GetTaskTemplates(int containerid)
@@ -174,19 +188,21 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Creates a new task template with the parameters specified in the request in the container with the selected ID.
         /// </summary>
-        /// <param name="containerid">Task template container ID</param>
-        /// <param name="title">Task template title</param>
-        /// <param name="description">Task template description</param>
-        /// <param name="responsibleid">Task template responsible ID</param>
-        /// <param name="categoryid">Task template category ID</param>
-        /// <param name="isNotify">Responsible notification: notifies or not</param>
-        /// <param name="offsetTicks">Tick offset</param>
-        /// <param name="deadLineIsFixed">Defines if the deadline is fixed or not</param>
+        /// <param type="System.Int32, System" name="containerid">Task template container ID</param>
+        /// <param type="System.String, System" name="title">Task template title</param>
+        /// <param type="System.String, System" name="description">Task template description</param>
+        /// <param type="System.Guid, System" name="responsibleid">Task template responsible ID</param>
+        /// <param type="System.Int32, System" name="categoryid">Task template category ID</param>
+        /// <param type="System.Boolean, System" name="isNotify">Responsible notification: notifies or not</param>
+        /// <param type="System.Int64, System" name="offsetTicks">Tick offset</param>
+        /// <param type="System.Boolean, System" name="deadLineIsFixed">Defines if the deadline is fixed or not</param>
         /// <short>Create a task template</short> 
         /// <category>Task templates</category>
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/{containerid}/tasktemplate</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create(@"tasktemplatecontainer/{containerid:[0-9]+}/tasktemplate")]
         public TaskTemplateWrapper CreateTaskTemplate(
@@ -225,20 +241,22 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Updates the selected task template with the parameters specified in the request.
         /// </summary>
-        /// <param name="id">Task template ID</param>
-        /// <param name="containerid">New task template container ID</param>
-        /// <param name="title">New task template title</param>
-        /// <param name="description">New task template description</param>
-        /// <param name="responsibleid">New task template responsible ID</param>
-        /// <param name="categoryid">New task template category ID</param>
-        /// <param name="isNotify">Responsible notification: notifies or not</param>
-        /// <param name="offsetTicks">New tick offset</param>
-        /// <param name="deadLineIsFixed">Defines if the deadline is fixed or not</param>
+        /// <param type="System.Int32, System" name="id">Task template ID</param>
+        /// <param type="System.Int32, System" name="containerid">New task template container ID</param>
+        /// <param type="System.String, System" name="title">New task template title</param>
+        /// <param type="System.String, System" name="description">New task template description</param>
+        /// <param type="System.Guid, System" name="responsibleid">New task template responsible ID</param>
+        /// <param type="System.Int32, System" name="categoryid">New task template category ID</param>
+        /// <param type="System.Boolean, System" name="isNotify">Responsible notification: notifies or not</param>
+        /// <param type="System.Int64, System" name="offsetTicks">New tick offset</param>
+        /// <param type="System.Boolean, System" name="deadLineIsFixed">Defines if the deadline is fixed or not</param>
         /// <short>Update a task template</short> 
         /// <category>Task templates</category>
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/{containerid}/tasktemplate</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update(@"tasktemplatecontainer/{containerid:[0-9]+}/tasktemplate")]
         public TaskTemplateWrapper UpdateTaskTemplate(
@@ -282,12 +300,14 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Deletes a task template with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Task template ID</param>
+        /// <param type="System.Int32, System" name="id">Task template ID</param>
         /// <short>Delete a task template</short> 
         /// <category>Task templates</category>
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/tasktemplate/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         /// <visible>false</visible>
         [Delete(@"tasktemplatecontainer/tasktemplate/{id:[0-9]+}")]
         public TaskTemplateWrapper DeleteTaskTemplate(int id)
@@ -307,12 +327,14 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a task template with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Task template ID</param>
+        /// <param type="System.Int32, System" name="id">Task template ID</param>
         /// <short>Get a task template by ID</short> 
         /// <category>Task templates</category>
         /// <returns>Task template</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/crm/tasktemplatecontainer/tasktemplate/{id}</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read(@"tasktemplatecontainer/tasktemplate/{id:[0-9]+}")]
         public TaskTemplateWrapper GetTaskTemplateByID(int id)

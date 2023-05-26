@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -369,6 +369,15 @@ window.ASC.Files.EventHandler = (function () {
             jq("#mainShare").show();
         }
 
+        if (!ASC.Resources.Master.IsAuthenticated) {
+            jq("#mainShare, #mainMarkRead, #mainDelete, #mainMove, #mainCopy").hide()
+            jq("#mainDownload, #mainConvert").show();
+
+            if (ASC.Files.Folders.currentFolder.access === ASC.Files.Constants.AceStatusEnum.ReadWrite) {
+                jq("#mainMove, #mainCopy").show();
+            }
+        }
+
         if (ASC.Files.Filter) {
             ASC.Files.Filter.disableFilter();
         }
@@ -671,13 +680,6 @@ window.ASC.Files.EventHandler = (function () {
                 obj = next;
             }
             obj.after(htmlXML);
-
-            var versions = jq("#contentVersions");
-            var itemWidth = obj.outerWidth();
-            var itemMargin = parseInt(obj.css("margin-right"));
-            var contentWidth = jq("#filesMainContent").outerWidth();
-            var versionsPadding = parseInt(versions.css("padding-left")) + parseInt(versions.css("padding-right"));
-            versions.css("width", (parseInt(contentWidth / (itemWidth + itemMargin)) * (itemWidth + itemMargin) - itemMargin - versionsPadding) + "px");
         } else {
             fileObj.append(htmlXML).addClass("file-row-fix");
         }
@@ -740,7 +742,9 @@ window.ASC.Files.EventHandler = (function () {
             }
         });
 
-        ASC.Files.UI.registerUserProfilePopup(jq("#contentVersions"));
+        if (ASC.Resources.Master.IsAuthenticated) {
+            ASC.Files.UI.registerUserProfilePopup(jq("#contentVersions"));
+        }
     };
 
     var onUpdateComment = function (jsonData, params, errorMessage) {
@@ -1343,7 +1347,9 @@ window.ASC.Files.EventHandler = (function () {
         onChangeExternalShareSettings: onChangeExternalShareSettings,
         onChangeExternalShareSocialMediaSettings: onChangeExternalShareSocialMediaSettings,
 
-        onThumbnailError: onThumbnailError
+        onThumbnailError: onThumbnailError,
+
+        insertFolderItems: insertFolderItems
     };
 })();
 

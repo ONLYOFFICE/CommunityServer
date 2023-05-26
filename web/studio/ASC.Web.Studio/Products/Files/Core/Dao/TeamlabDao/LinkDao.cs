@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,12 @@
 */
 
 
+using System.Collections.Generic;
+using System.Linq;
+
+using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
-using System.Linq;
 
 namespace ASC.Files.Core.Data
 {
@@ -27,14 +30,18 @@ namespace ASC.Files.Core.Data
             : base(tenant, dbid)
         {
         }
-        
+
         public void AddLink(object sourceId, object linkedId)
         {
             var sql = Insert("files_link")
                         .InColumnValue("source_id", sourceId)
                         .InColumnValue("linked_id", linkedId)
                         .InColumnValue("linked_for", SecurityContext.CurrentAccount.ID.ToString());
-            dbManager.ExecuteNonQuery(sql);
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                dbManager.ExecuteNonQuery(sql);
+            }
         }
 
         public object GetSource(object linkedId)
@@ -45,9 +52,16 @@ namespace ASC.Files.Core.Data
                     .Where("linked_id", linkedId)
                     .Where("linked_for", SecurityContext.CurrentAccount.ID.ToString());
 
-            return dbManager.ExecuteList(query)
-                            .ConvertAll(r => r[0])
-                            .SingleOrDefault();
+            List<object[]> fromDb;
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                fromDb = dbManager.ExecuteList(query);
+            }
+
+            return fromDb
+                        .ConvertAll(r => r[0])
+                        .SingleOrDefault();
         }
 
         public object GetLinked(object sourceId)
@@ -58,9 +72,16 @@ namespace ASC.Files.Core.Data
                     .Where("source_id", sourceId)
                     .Where("linked_for", SecurityContext.CurrentAccount.ID.ToString());
 
-            return dbManager.ExecuteList(query)
-                            .ConvertAll(r => r[0])
-                            .SingleOrDefault();
+            List<object[]> fromDb;
+
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                fromDb = dbManager.ExecuteList(query);
+            }
+
+            return fromDb
+                .ConvertAll(r => r[0])
+                .SingleOrDefault();
         }
 
         public void DeleteLink(object sourceId)
@@ -70,7 +91,10 @@ namespace ASC.Files.Core.Data
                     .Where("source_id", sourceId)
                     .Where("linked_for", SecurityContext.CurrentAccount.ID.ToString());
 
-            dbManager.ExecuteNonQuery(query);
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                dbManager.ExecuteNonQuery(query);
+            }
         }
 
         public void DeleteAllLink(object fileId)
@@ -79,7 +103,10 @@ namespace ASC.Files.Core.Data
                 Delete("files_link")
                     .Where(Exp.Eq("source_id", fileId) | Exp.Eq("linked_id", fileId));
 
-            dbManager.ExecuteNonQuery(query);
+            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            {
+                dbManager.ExecuteNonQuery(query);
+            }
         }
     }
 }

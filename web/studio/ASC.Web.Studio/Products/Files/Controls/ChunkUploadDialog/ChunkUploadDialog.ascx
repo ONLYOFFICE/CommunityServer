@@ -22,10 +22,13 @@
 
     <div class="progress-dialog-body">
         <div class="settings-container">
+            <% if (SecurityContext.IsAuthenticated) %>
+            <% { %>
             <span id="uploadSettingsSwitcher">
                 <a class="baseLinkAction gray-text"><%= FilesUCResource.SideCaptionSettings %></a>
                 <span class="sort-down-gray"></span>
             </span>
+            <% } %>
             <a id="abortUploadigBtn" class="linkMedium gray-text">
                 <%= FilesUCResource.ButtonCancelAll %>
             </a>
@@ -55,13 +58,18 @@
             <% if (TenantExtra.EnableTariffSettings && !isVisitor)
                { %>
             <span class="splitter"></span>
-            <a class="link underline gray" target="_blank" href="<%= TenantExtra.GetTariffPageLink() %>">
-                <%= FilesUCResource.UpgradeYourPlan %>
-            </a>
+            <% if (SecurityContext.IsAuthenticated)
+                { %>
+                    <a class="link underline gray" target="_blank" href="<%= TenantExtra.GetTariffPageLink() %>">
+                        <%= FilesUCResource.UpgradeYourPlan %>
+                    </a>
+            <%  } %>
             <% } %>
             <% } %>
             <% } %>
         </div>
+        <% if (SecurityContext.IsAuthenticated) %>
+        <% { %>
         <div id="uploadSettingsPanel" class="studio-action-panel">
             <ul class="dropdown-content">
                 <% if (!isVisitor) %>
@@ -90,6 +98,7 @@
                 </li>
             </ul>
         </div>
+        <% } %>
     </div>
 
 </div>
@@ -127,8 +136,28 @@
             <div class="fu-action-cell">
                 <a class="linkMedium gray-text abort-file-uploadig"><%= FilesUCResource.ButtonCancel %></a>
                 {{if canShare === true}}
-                    <a class="linkMedium gray-text share"><%= FilesUCResource.Share %></a>
+                    <% if (SecurityContext.IsAuthenticated)
+                       { %>
+                            <a class="linkMedium gray-text share"><%= FilesUCResource.Share %></a>
+                    <% } %>
                 {{/if}}
+                <a class="linkMedium gray-text enter-password"><%= FilesUCResource.EnterPassword %></a>
+                <a class="linkMedium gray-text hide-enter-password"><%= FilesUCResource.Hide %></a>
+            </div>
+        </td>
+    </tr>
+</script>
+
+<script id="filePasswordRowTmpl" type="text/x-jquery-tmpl">
+    <tr id="passwordContent_${id}" class="fu-password-row">
+        <td class="borderBase" colspan="4">
+            <div>
+                <div class="convert-password-text"><%= FilesUCResource.CaptionConvertPasswordWhenUploading %>:</div>
+                <div class="convert-password-error-invalid red-text"><%= FilesUCResource.ConvertErrorInvalidPassword %></div>
+                <div class="convert-input-button">
+                    <input type="password" class="textEdit convert-password-input" name="convert-field" autocomplete="new-password">
+                    <span class="button blue middle"><%= FilesUCResource.ButtonOk %></span>
+                </div>
             </div>
         </td>
     </tr>

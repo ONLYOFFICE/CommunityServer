@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management.AdminHelperSettings
 {
@@ -30,8 +31,15 @@ namespace ASC.Web.Studio.UserControls.Management.AdminHelperSettings
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/UserControls/Management/AdminHelperSettings/css/adminhelpersettings.less")
-                .RegisterBodyScripts("~/UserControls/Management/AdminHelperSettings/js/adminhelpersettings.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/AdminHelperSettings/css/dark-adminhelpersettings.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/AdminHelperSettings/css/adminhelpersettings.less");
+            }
+            Page.RegisterBodyScripts("~/UserControls/Management/AdminHelperSettings/js/adminhelpersettings.js");
  
         }
     }

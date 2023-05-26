@@ -977,4 +977,10 @@
   <data name="Currency_EthiopianBirr" xml:space="preserve">
     <value>Ethiopian Birr</value>
   </data>
+  <data name="Currency_AngolanKwanza" xml:space="preserve">
+    <value>Angolan Kwanza</value>
+  </data>
+  <data name="Currency_VenezuelanBolivarSoberano" xml:space="preserve">
+    <value>Venezuelan Bolivar Soberano</value>
+  </data>
 </root>

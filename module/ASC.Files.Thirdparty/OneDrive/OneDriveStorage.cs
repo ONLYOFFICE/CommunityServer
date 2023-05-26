@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -280,9 +280,9 @@ namespace ASC.Files.Thirdparty.OneDrive
             request.ContentLength = chunkLength;
             request.Headers.Add("Authorization", "Bearer " + AccessToken);
             request.Headers.Add("Content-Range", string.Format("bytes {0}-{1}/{2}",
-                                                               oneDriveSession.BytesTransfered,
-                                                               oneDriveSession.BytesTransfered + chunkLength - 1,
-                                                               oneDriveSession.BytesToTransfer));
+                                                                   oneDriveSession.BytesTransfered,
+                                                                   oneDriveSession.BytesTransfered + chunkLength - 1,
+                                                                   oneDriveSession.BytesToTransfer));
 
             using (var requestStream = request.GetRequestStream())
             {

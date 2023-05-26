@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,6 @@ using System.Configuration;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text.RegularExpressions;
-
-using StackExchange.Redis.Extensions.Core.Extensions;
 
 namespace ASC.Common.Caching
 {
@@ -100,38 +98,44 @@ namespace ASC.Common.Caching
         public IDictionary<string, T> HashGetAll<T>(string key)
         {
             var cache = GetCache();
-            var dic = (IDictionary<string, T>)cache.Get(key);
-            return dic != null ? new Dictionary<string, T>(dic) : new Dictionary<string, T>();
+            var dic = (ConcurrentDictionary<string, T>)cache.Get(key);
+
+            return dic != null ? new ConcurrentDictionary<string, T>(dic) : new ConcurrentDictionary<string, T>();
         }
 
         public T HashGet<T>(string key, string field)
         {
             var cache = GetCache();
             T value;
-            var dic = (IDictionary<string, T>)cache.Get(key);
+            var dic = (ConcurrentDictionary<string, T>)cache.Get(key);
+
             if (dic != null && dic.TryGetValue(field, out value))
             {
                 return value;
             }
+
             return default(T);
         }
 
         public void HashSet<T>(string key, string field, T value)
         {
             var cache = GetCache();
-            var dic = (IDictionary<string, T>)cache.Get(key);
+            var dic = (ConcurrentDictionary<string, T>)cache.Get(key);
             if (value != null)
             {
                 if (dic == null)
                 {
-                    dic = new Dictionary<string, T>();
+                    dic = new ConcurrentDictionary<string, T>();
                 }
-                dic[field] = value;
+
+                dic.AddOrUpdate(field, value, (k, v) => value);
+
                 cache.Set(key, dic, null);
             }
             else if (dic != null)
             {
-                dic.Remove(field);
+                dic.TryRemove(field, out _);
+
                 if (dic.Count == 0)
                 {
                     cache.Remove(key);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  *
 */
 
-
-@import "settings.less";
 
 #itemContainer, .message-print-box, #pageActionContainer {
 
@@ -39,7 +37,7 @@
             padding-right: @message-spliter-width;
 
             .header-label {
-                color: #83888D;
+                color: @header-label;
                 min-width: 40px;
                 padding-left: @message-spliter-width;
                 padding-right: @message-spliter-width;
@@ -69,7 +67,7 @@
 
                     a {
                         text-decoration: none;
-                        color: #000;
+                        color: @dark-text-color;
                         outline: none;
                         cursor: pointer;
                     }
@@ -104,7 +102,7 @@
             line-height: @message-head-row-height;
 
             label {
-                color: #83888D;
+                color: @header-label;
                 width: 55px;
                 float: left;
             }
@@ -124,11 +122,12 @@
                 input.subject {
                     display: inline-block;
                     width: 100%;
-                    border: 1px solid #C7C7C7;
+                    border: 1px solid @border-color;
                     font-size: 12px;
                     height: 22px;
                     line-height: 22px;
                     padding: 0 0 0 2px;
+                    background-color: @text-input-bg;
                 }
             }
         }
@@ -194,7 +193,7 @@
 
         @border-style: @messages-border-style;
         @spliter-width: @row-height / 4;
-        @darken-text-color: #83888D;
+        @darken-text-color: @header-label;
 
         table {
             width: 100%;
@@ -281,7 +280,7 @@
     span.button {
         display: inline-block;
         text-decoration: underline;
-        color: #333333;
+        color: @text-color;
         cursor: pointer;
         white-space: nowrap;
     }
@@ -296,6 +295,10 @@
         width: auto;
         padding-bottom: 8px;
         padding-top: 8px;
+		background-color: #fff;
+        color: #333;
+        min-height: @body-message-height;
+        margin-top: 8px;
 
         pre {
             white-space: pre-wrap;
@@ -337,7 +340,7 @@
             cursor: pointer !important;
             padding: 0 5px 6px 5px;
             margin: 8px 0;
-            color: #666;
+            color: @grey-text;
             font-weight: bold;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -350,7 +353,7 @@
 
         .tl-controll-blockquote:hover {
             background-color: #D7D8DC;
-            border: 1px solid #666;
+            border: 1px solid @grey-text;
         }
     }
 
@@ -401,7 +404,7 @@
 
         span.label {
             width: 15px;
-            border: 1px solid #FFF;
+            border: 1px solid @body-color;
             cursor: default;
         }
 
@@ -457,7 +460,7 @@
             span {
                 display: block;
                 padding-left: 18px;
-                color: #83888d;
+                color: @header-label;
                 font-size: 11px;
             }
         }
@@ -465,7 +468,7 @@
         a.attachmentlink {
             margin-bottom: 6px;
             display: block;
-            color: #fff;
+            color: @body-color;
             padding: 1px 5px 1px 5px;
             white-space: nowrap;
             background: #777c82;
@@ -552,7 +555,7 @@
 
 .attachments_list {
     @border-style: @messages-border-style;
-    @darken-text-color: #83888D;
+    @darken-text-color: @header-label;
     width: 100%;
     table-layout: fixed;
 
@@ -586,7 +589,7 @@
             width: 100%;
 
             a {
-                color: #000;
+                color: @dark-text-color;
                 text-decoration: none;
                 cursor: pointer;
 
@@ -643,7 +646,7 @@
 
             a.unloded {
                 .file-name {
-                    color: #000;
+                    color: @dark-text-color;
                     text-decoration: none;
                     cursor: default;
                 }
@@ -661,11 +664,11 @@
         padding-right: 10px;
 
         .importance-svg {
-            fill: #cecece;
+            fill: @request-svg-color;
         }
 
         .importance-svg:hover {
-            fill: #83888d;
+            fill: @request-svg-color-hover;
         }
     }
 
@@ -680,11 +683,11 @@
         padding-top: 3px;
 
         .requestReceipt-svg {
-            fill: #cecece;
+            fill: @request-svg-color;
         }
 
         .requestReceipt-svg:hover {
-            fill: #83888d;
+            fill: @request-svg-color-hover;
         }
     }
 
@@ -699,11 +702,11 @@
         padding-top: 4.0px;
 
         .requestRead-svg {
-            fill: #cecece;
+            fill: @request-svg-color;
         }
 
         .requestRead-svg:hover {
-            fill: #83888d;
+            fill: @request-svg-color-hover;
         }
     }
 

@@ -2023,6 +2023,24 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User Impersonation, Login:  {0}.
+        /// </summary>
+        public static string ImpersonateUserLogin {
+            get {
+                return ResourceManager.GetString("ImpersonateUserLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Impersonation, Logout: {0}.
+        /// </summary>
+        public static string ImpersonateUserLogout {
+            get {
+                return ResourceManager.GetString("ImpersonateUserLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import.
         /// </summary>
         public static string ImportActionType {

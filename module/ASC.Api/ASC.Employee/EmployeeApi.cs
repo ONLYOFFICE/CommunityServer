@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 using ASC.Api.Attributes;
@@ -32,7 +29,7 @@ using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Common.Caching;
 using ASC.Common.Logging;
-using ASC.Common.Radicale;
+using ASC.Common.Threading;
 using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -47,7 +44,9 @@ using ASC.Web.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.People;
 using ASC.Web.People.Core.Import;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Core.Quota;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -60,9 +59,11 @@ namespace ASC.Api.Employee
     ///<summary>
     ///Access to user profiles
     ///</summary>
+    ///<name>people</name>
     public class EmployeeApi : Interfaces.IApiEntryPoint
     {
         private static readonly ProgressQueue progressQueue = new ProgressQueue(1, TimeSpan.FromMinutes(5), true);
+
         private ILog Log = LogManager.GetLogger("ASC.Api");
 
         public static readonly ICache Cache = AscCache.Default;
@@ -92,44 +93,51 @@ namespace ASC.Api.Employee
             get { return HttpContext.Current.Request; }
         }
 
-        ///<summary>
-        ///Returns the detailed information about the current user profile.
-        ///</summary>
-        ///<short>
-        ///Get my profile
-        ///</short>
-        ///<category>Profiles</category>
-        ///<returns>Detailed information about my profile</returns>
+        /// <summary>
+        /// Returns the detailed information about the current user profile.
+        /// </summary>
+        /// <short>
+        /// Get my profile
+        /// </short>
+        /// <category>Profiles</category>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Detailed information about my profile</returns>
+        /// <path>api/2.0/people/@self</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("@self")]
         public EmployeeWraperFull GetMe()
         {
             return new EmployeeWraperFull(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID));
         }
 
-        ///<summary>
-        ///Returns a list of profiles for all the portal users.
-        ///</summary>
-        ///<short>
-        ///Get all profiles
-        ///</short>
-        ///<category>Profiles</category>
-        ///<returns>List of profiles</returns>
-        /// <remarks>This method returns the partial profiles. Use more specific method to get full profiles.</remarks>
+        /// <summary>
+        /// Returns a list of profiles for all the portal users.
+        /// </summary>
+        /// <short>
+        /// Get profiles
+        /// </short>
+        /// <category>Profiles</category>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of profiles</returns>
+        /// <path>api/2.0/people</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("")]
         public IEnumerable<EmployeeWraperFull> GetAll()
         {
             return GetByStatus(EmployeeStatus.Active);
         }
 
-        ///<summary>
-        ///Returns a list of profiles filtered by user status.
-        ///</summary>
-        ///<short>
-        ///Get profiles by status
-        ///</short>
-        ///<category>User status</category>
-        ///<param name="status">User status</param>
-        ///<returns>List of profiles</returns>
+        /// <summary>
+        /// Returns a list of profiles filtered by user status.
+        /// </summary>
+        /// <short>
+        /// Get profiles by status
+        /// </short>
+        /// <param type="ASC.Core.Users.EmployeeStatus, ASC.Core.Users" name="status">User status ("Active", "Terminated", "LeaveOfAbsence", "All", or "Default")</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of profiles</returns>
+        /// <category>User status</category>
+        /// <path>api/2.0/people/status/{status}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("status/{status}")]
         public IEnumerable<EmployeeWraperFull> GetByStatus(EmployeeStatus status)
         {
@@ -145,15 +153,17 @@ namespace ASC.Api.Employee
             return query.Select(x => new EmployeeWraperFull(x));
         }
 
-        ///<summary>
-        ///Returns the detailed information about a profile of the user with the name specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get a profile by user name
-        ///</short>
-        ///<category>Profiles</category>
-        ///<param name="username">User name</param>
-        ///<returns>User profile</returns>
+        /// <summary>
+        /// Returns the detailed information about a profile of the user with the name specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get a profile by user name
+        /// </short>
+        /// <category>Profiles</category>
+        /// <param type="System.String, System" method="url" name="username">User name</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">User profile</returns>
+        /// <path>api/2.0/people/{username}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("{username}")]
         public EmployeeWraperFull GetById(string username)
         {
@@ -189,8 +199,10 @@ namespace ASC.Api.Employee
         ///Get a profile by user email
         ///</short>
         ///<category>Profiles</category>
-        ///<param name="email">User email</param>
-        ///<returns>User profile</returns>
+        ///<param type="System.String, System" method="url" name="email">User email</param>
+        ///<returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">User profile</returns>
+        ///<path>api/2.0/people/email</path>
+        ///<httpMethod>GET</httpMethod>
         [Read("email")]
         public EmployeeWraperFull GetByEmail(string email)
         {
@@ -211,8 +223,11 @@ namespace ASC.Api.Employee
         ///Search user profiles
         ///</short>
         ///<category>Search</category>
-        ///<param name="query">Search query</param>
-        ///<returns>List of user profiles</returns>
+        ///<param type="System.String, System" method="url" name="query">Query</param>
+        ///<returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of user profiles</returns>
+        ///<path>api/2.0/people/@search/{query}</path>
+        ///<httpMethod>GET</httpMethod>
+        ///<collection>list</collection>
         [Read("@search/{query}")]
         public IEnumerable<EmployeeWraperFull> GetSearch(string query)
         {
@@ -242,8 +257,11 @@ namespace ASC.Api.Employee
         ///Search users
         ///</short>
         ///<category>Search</category>
-        ///<param name="query">Search query</param>
-        ///<returns>List of users</returns>
+        ///<param type="System.String, System" method="url" name="query">Search text</param>
+        ///<returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of users</returns>
+        ///<path>api/2.0/people/search</path>
+        ///<httpMethod>GET</httpMethod>
+        ///<collection>list</collection>
         [Read("search")]
         public IEnumerable<EmployeeWraperFull> GetPeopleSearch(string query)
         {
@@ -257,9 +275,12 @@ namespace ASC.Api.Employee
         ///Search users by status filter
         ///</short>
         ///<category>Search</category>
-        ///<param name="status">User status</param>
-        ///<param name="query">Search query</param>
-        ///<returns>List of users</returns>
+        ///<param type="ASC.Core.Users.EmployeeStatus, ASC.Core.Users" method="url" name="status">User status ("Active", "Terminated", "LeaveOfAbsence", "All", or "Default")</param>
+        ///<param type="System.String, System" method="url" name="query">Search query</param>
+        ///<returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of users</returns>
+        ///<path>api/2.0/people/status/{status}/search</path>
+        ///<httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("status/{status}/search")]
         public IEnumerable<EmployeeWraperFull> GetAdvanced(EmployeeStatus status, string query)
         {
@@ -289,15 +310,17 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Imports the new portal users with the first name, last name and email address.
+        /// Imports the new portal users with the first name, last name, and email address.
         /// </summary>
         /// <short>
         /// Import users
         /// </short>
         /// <category>Profiles</category>
-        /// <param name="userList">List of users</param>
-        /// <param name="importUsersAsCollaborators" optional="true">Imports users as guests (true) or not (false)</param>
+        /// <param type="System.String, System" name="userList">List of users</param>
+        /// <param type="System.Boolean, System" name="importUsersAsCollaborators" optional="true">Specifies whether to import users as guests (true) or not (false)</param>
         /// <returns>Newly added users</returns>
+        /// <path>api/2.0/people/import/save</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("import/save")]
         public void SaveUsers(string userList, bool importUsersAsCollaborators)
         {
@@ -330,8 +353,10 @@ namespace ASC.Api.Employee
         /// <short>
         /// Get a user status
         /// </short>
-        /// <category>User status</category>
         /// <returns>Current user information</returns>
+        /// <category>User status</category>
+        /// <path>api/2.0/people/import/status</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("import/status")]
         public object GetStatus()
         {
@@ -360,14 +385,17 @@ namespace ASC.Api.Employee
         /// Search users and their information by extended filter
         /// </short>
         /// <category>Search</category>
-        /// <param optional="true" name="employeeStatus">User status</param>
-        /// <param optional="true" name="groupId">Group ID</param>
-        /// <param optional="true" name="activationStatus">Activation status</param>
-        /// <param optional="true" name="employeeType">User type</param>
-        ///  <param optional="true" name="isAdministrator">Specifies if the user is administrator or not</param>
-        /// <returns>
-        /// List of users with their information
+        /// <param type="System.Nullable{ASC.Core.Users.EmployeeStatus}, System" method="url" optional="true" name="employeeStatus">User status ("Active", "Terminated", "LeaveOfAbsence", "All", or "Default")</param>
+        /// <param type="System.Nullable{System.Guid}, System" method="url" optional="true" name="groupId">Group ID</param>
+        /// <param type="System.Nullable{ASC.Core.Users.EmployeeActivationStatus}, System" method="url" optional="true" name="activationStatus">Activation status ("NotActivated", "Activated", "Pending", or "AutoGenerated")</param>
+        /// <param type="System.Nullable{ASC.Core.Users.EmployeeType}, System" method="url" optional="true" name="employeeType">User type ("All", "User", or "Visitor")</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="isAdministrator">Specifies if the user is an administrator or not</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee">
+        ///  List of users with their information
         /// </returns>
+        /// <path>api/2.0/people/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("filter")]
         public IEnumerable<EmployeeWraperFull> GetFullByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
         {
@@ -383,14 +411,17 @@ namespace ASC.Api.Employee
         /// Search users by extended filter
         /// </short>
         /// <category>Search</category>
-        /// <param optional="true" name="employeeStatus">User status</param>
-        /// <param optional="true" name="groupId">Group ID</param>
-        /// <param optional="true" name="activationStatus">Activation status</param>
-        /// <param optional="true" name="employeeType">User type</param>
-        ///  <param optional="true" name="isAdministrator">Specifies if the user is administrator or not</param>
-        /// <returns>
-        /// List of users
+        /// <param type="System.Nullable{ASC.Core.Users.EmployeeStatus}, System" method="url" optional="true" name="employeeStatus">User status ("Active", "Terminated", "LeaveOfAbsence", "All", or "Default")</param>
+        /// <param type="System.Nullable{System.Guid}, System" method="url" optional="true" name="groupId">Group ID</param>
+        /// <param type="System.Nullable{ASC.Core.Users.EmployeeActivationStatus}, System" method="url" optional="true" name="activationStatus">Activation status ("NotActivated", "Activated", "Pending", or "AutoGenerated")</param>
+        /// <param type="System.Nullable{ASC.Core.Users.EmployeeType}, System" method="url" optional="true" name="employeeType">User type ("All", "User", or "Visitor")</param>
+        /// <param type="System.Nullable{System.Boolean}, System" method="url" optional="true" name="isAdministrator">Specifies if the user is an administrator or not</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee">
+        ///  List of users
         /// </returns>
+        /// <path>api/2.0/people/simple/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("simple/filter")]
         public IEnumerable<EmployeeWraper> GetSimpleByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
         {
@@ -478,30 +509,33 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Adds a new portal user with the first name, last name, email address and several optional parameters specified in the request.
+        /// Adds a new portal user with the first name, last name, email address, and several optional parameters specified in the request.
         /// </summary>
         /// <short>
         /// Add a user
         /// </short>
         /// <category>Profiles</category>
-        /// <param name="isVisitor">Specifies if this is a guest (true) or user (false)</param>
-        /// <param name="email">User email</param>
-        /// <param name="firstname">User first name</param>
-        /// <param name="lastname">User last name</param>
-        /// <param name="department" optional="true">User department</param>
-        /// <param name="title" optional="true">User title</param>
-        /// <param name="location" optional="true">User location</param>
-        /// <param name="sex" optional="true">User sex (male or female)</param>
-        /// <param name="birthday" optional="true">User birthday</param>
-        /// <param name="worksfrom" optional="true">User registration date. If it is not specified, then the current date will be set</param>
-        /// <param name="comment" optional="true">User comments</param>
-        /// <param name="contacts">Contact list</param>
-        /// <param name="files">Avatar photo URL</param>
-        /// <param name="password" optional="true">User password</param>
-        /// <param name="passwordHash" visible="false">Password hash</param>
-        /// <returns>Newly added user</returns>
+        /// <param type="System.Boolean, System" name="isVisitor">Specifies if this is a guest (true) or user (false)</param>
+        /// <param type="System.String, System" name="email">User email</param>
+        /// <param type="System.String, System" name="firstname">User first name</param>
+        /// <param type="System.String, System" name="lastname">User last name</param>
+        /// <param type="System.Guid[], System" name="department" optional="true">User department</param>
+        /// <param type="System.String, System" name="title" optional="true">User title</param>
+        /// <param type="System.String, System" name="location" optional="true">User location</param>
+        /// <param type="System.String, System" name="sex" optional="true">User sex (male or female)</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="birthday" optional="true">User birthday</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="worksfrom" optional="true">User registration date. If it is not specified, then the current date will be set</param>
+        /// <param type="System.String, System" name="comment" optional="true">User comment</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Employee.Contact}, System.Collections.Generic" name="contacts">Contact list</param>
+        /// <param type="System.String, System" name="files">Avatar photo URL</param>
+        /// <param type="System.String, System" name="password" optional="true">User password</param>
+        /// <param type="System.String, System" name="passwordHash" visible="false">Password hash</param>
+        /// <param type="System.Nullable{System.Guid}, System" name="lead">User lead</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Newly added user</returns>
+        /// <path>api/2.0/people</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("")]
-        public EmployeeWraperFull AddMember(bool isVisitor, string email, string firstname, string lastname, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, string comment, IEnumerable<Contact> contacts, string files, string password, string passwordHash)
+        public EmployeeWraperFull AddMember(bool isVisitor, string email, string firstname, string lastname, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, string comment, IEnumerable<Contact> contacts, string files, string password, string passwordHash, Guid? lead)
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
 
@@ -539,6 +573,7 @@ namespace ASC.Api.Employee
 
             user.BirthDate = birthday != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(birthday)) : (DateTime?)null;
             user.WorkFromDate = worksfrom != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(worksfrom)) : DateTime.UtcNow.Date;
+            user.Lead = lead;
 
 
             UpdateContacts(contacts, user);
@@ -555,98 +590,16 @@ namespace ASC.Api.Employee
                 UpdatePhotoUrl(files, user);
             }
 
+            var quotaSettings = TenantUserQuotaSettings.Load();
+
+            if (quotaSettings.EnableUserQuota)
+            {
+                var newserQuotaSettings = new UserQuotaSettings { UserQuota = quotaSettings.DefaultUserQuota };
+
+                newserQuotaSettings.SaveForUser(user.ID);
+            }
+
             //this eject
-
-            return new EmployeeWraperFull(user);
-        }
-
-
-
-        /// <summary>
-        /// Adds a new activated portal user with the first name, last name, email address and several optional parameters specified in the request.
-        /// </summary>
-        /// <short>
-        /// Add an activated user
-        /// </short>
-        /// <category>Profiles</category>
-        /// <param name="isVisitor">Specifies if this is a guest (true) or user (false)</param>
-        /// <param name="email">User email</param>
-        /// <param name="firstname">User first name</param>
-        /// <param name="lastname">User last name</param>
-        /// <param name="department" optional="true">User department</param>
-        /// <param name="title" optional="true">User title</param>
-        /// <param name="location" optional="true">User location</param>
-        /// <param name="sex" optional="true">User sex (male or female)</param>
-        /// <param name="birthday" optional="true">User birthday</param>
-        /// <param name="worksfrom" optional="true">User registration date. If it is not specified, then the current date will be set</param>
-        /// <param name="comment" optional="true">User comments</param>
-        /// <param name="contacts">Contact list</param>
-        /// <param name="files">Avatar photo URL</param>
-        /// <param name="password">User password</param>
-        /// <returns>Newly added user</returns>
-        /// <visible>false</visible>
-        [Create("active")]
-        public EmployeeWraperFull AddMemberAsActivated(
-            bool isVisitor,
-            String email,
-            String firstname,
-            String lastname,
-            Guid[] department,
-            String title,
-            String location,
-            String sex,
-            ApiDateTime birthday,
-            ApiDateTime worksfrom,
-            String comment,
-            IEnumerable<Contact> contacts,
-            String files,
-            String password)
-        {
-            SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
-
-            var user = new UserInfo();
-
-            password = (password ?? "").Trim();
-
-            if (String.IsNullOrEmpty(password))
-            {
-                password = UserManagerWrapper.GeneratePassword();
-            }
-            else
-            {
-                UserManagerWrapper.CheckPasswordPolicy(password);
-            }
-
-            var passwordHash = PasswordHasher.GetClientPassword(password);
-
-            //Validate email
-            var address = new MailAddress(email);
-            user.Email = address.Address;
-            //Set common fields
-            user.FirstName = firstname;
-            user.LastName = lastname;
-            user.Title = title;
-            user.Location = location;
-            user.Notes = comment;
-            user.Sex = "male".Equals(sex, StringComparison.OrdinalIgnoreCase)
-                           ? true
-                           : ("female".Equals(sex, StringComparison.OrdinalIgnoreCase) ? (bool?)false : null);
-
-            user.BirthDate = birthday != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(birthday)) : (DateTime?)null;
-            user.WorkFromDate = worksfrom != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(worksfrom)) : DateTime.UtcNow.Date;
-
-            UpdateContacts(contacts, user);
-            Cache.Insert("REWRITE_URL" + CoreContext.TenantManager.GetCurrentTenant().TenantId, HttpContext.Current.Request.GetUrlRewriter().ToString(), TimeSpan.FromMinutes(5));
-            user = UserManagerWrapper.AddUser(user, passwordHash, false, false, isVisitor, false, true, true);
-
-            user.ActivationStatus = EmployeeActivationStatus.Activated;
-
-            UpdateDepartments(department, user);
-
-            if (files != UserPhotoManager.GetDefaultPhotoAbsoluteWebPath())
-            {
-                UpdatePhotoUrl(files, user);
-            }
 
             return new EmployeeWraperFull(user);
         }
@@ -744,29 +697,32 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Updates the data for the selected portal user with the first name, last name, email address and/or optional parameters specified in the request.
+        /// Updates the data for the selected portal user with the first name, last name, email address, and/or optional parameters specified in the request.
         /// </summary>
         /// <short>
         /// Update a user
         /// </short>
         /// <category>Profiles</category>
-        /// <param name="isVisitor">Specifies if this is a guest (true) or user (false)</param>
-        /// <param name="userid">User ID</param>
-        /// <param name="firstname">New user first name</param>
-        /// <param name="lastname">New user last name</param>
-        /// <param name="comment" optional="true">New user comments</param>
-        /// <param name="department" optional="true">New user department</param>
-        /// <param name="title" optional="true">New user title</param>
-        /// <param name="location" optional="true">New user location</param>
-        /// <param name="sex" optional="true">New user sex (male or female)</param>
-        /// <param name="birthday" optional="true">New user birthday</param>
-        /// <param name="worksfrom" optional="true">New user registration date. If it is not specified, then the current date will be set</param>
-        /// <param name="contacts">New contact list</param>
-        /// <param name="files">New avatar photo URL</param>
-        /// <param name="disable">Disable user</param>
-        /// <returns>Updated user</returns>
+        /// <param type="System.Boolean, System" name="isVisitor">Specifies if this is a guest (true) or user (false)</param>
+        /// <param type="System.String, System" name="userid">User ID</param>
+        /// <param type="System.String, System" name="firstname">New user first name</param>
+        /// <param type="System.String, System" name="lastname">New user last name</param>
+        /// <param type="System.String, System" name="comment" optional="true">New user comment</param>
+        /// <param type="System.Guid[], System" name="department" optional="true">New user department</param>
+        /// <param type="System.String, System" name="title" optional="true">New user title</param>
+        /// <param type="System.String, System" name="location" optional="true">New user location</param>
+        /// <param type="System.String, System" name="sex" optional="true">New user sex (male or female)</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="birthday" optional="true">New user birthday</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="worksfrom" optional="true">New user registration date. If it is not specified, then the current date will be set</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Employee.Contact}, System.Collections.Generic" name="contacts">New contact list</param>
+        /// <param type="System.String, System" name="files">New avatar photo URL</param>
+        /// <param type="System.Nullable{System.Boolean}, System" name="disable">Specifies whether to disable a user on the portal or not</param>
+        /// <param type="System.Nullable{System.Guid}, System" name="lead">User lead</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Updated user</returns>
+        /// <path>api/2.0/people/{userid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{userid}")]
-        public EmployeeWraperFull UpdateMember(bool isVisitor, string userid, string firstname, string lastname, string comment, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, IEnumerable<Contact> contacts, string files, bool? disable)
+        public EmployeeWraperFull UpdateMember(bool isVisitor, string userid, string firstname, string lastname, string comment, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, IEnumerable<Contact> contacts, string files, bool? disable, Guid? lead)
         {
             SecurityContext.DemandPermissions(new UserSecurityProvider(new Guid(userid)), Core.Users.Constants.Action_EditUser);
 
@@ -820,6 +776,10 @@ namespace ASC.Api.Employee
                 user.WorkFromDate = null;
             }
 
+            if (isAdmin)
+            {
+                user.Lead = lead;
+            }
             //Update contacts
             UpdateContacts(contacts, user);
             UpdateDepartments(department, user);
@@ -881,8 +841,10 @@ namespace ASC.Api.Employee
         /// Delete a user
         /// </short>
         /// <category>Profiles</category>
-        /// <param name="userid">User ID</param>
-        /// <returns>Deleted user</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Deleted user</returns>
+        /// <path>api/2.0/people/{userid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("{userid}")]
         public EmployeeWraperFull DeleteMember(string userid)
         {
@@ -910,15 +872,17 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Updates the contact information of the user with the ID specified in the request merging new data with the present portal data.
+        /// Updates the contact information of the user with the ID specified in the request merging the new data into the current portal data.
         /// </summary>
         /// <short>
         /// Update user contacts
         /// </short>
         /// <category>Contacts</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="contacts">List of new contacts</param>
-        /// <returns>Updated user profile</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Employee.Contact}, System.Collections.Generic" name="contacts">List of new contacts</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Updated user profile</returns>
+        /// <path>api/2.0/people/{userid}/contacts</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{userid}/contacts")]
         public EmployeeWraperFull UpdateMemberContacts(string userid, IEnumerable<Contact> contacts)
         {
@@ -933,15 +897,17 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Sets the contacts of the user with the ID specified in the request replacing the present portal data with the new data.
+        /// Sets the contacts of the user with the ID specified in the request replacing the current portal data with the new data.
         /// </summary>
         /// <short>
         /// Set user contacts
         /// </short>
         /// <category>Contacts</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="contacts">List of new contacts</param>
-        /// <returns>Updated user profile</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Employee.Contact}, System.Collections.Generic" name="contacts">List of new contacts</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Updated user profile</returns>
+        /// <path>api/2.0/people/{userid}/contacts</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("{userid}/contacts")]
         public EmployeeWraperFull SetMemberContacts(string userid, IEnumerable<Contact> contacts)
         {
@@ -963,9 +929,11 @@ namespace ASC.Api.Employee
         /// Delete user contacts
         /// </short>
         /// <category>Contacts</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="contacts">List of contacts</param>
-        /// <returns>Updated user profile</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Employee.Contact}, System.Collections.Generic" name="contacts">List of contacts</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">Updated user profile</returns>
+        /// <path>api/2.0/people/{userid}/contacts</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("{userid}/contacts")]
         public EmployeeWraperFull DeleteMemberContacts(string userid, IEnumerable<Contact> contacts)
         {
@@ -986,8 +954,10 @@ namespace ASC.Api.Employee
         /// Get a user photo
         /// </short>
         /// <category>Photos</category>
-        /// <param name="userid">User ID</param>
-        /// <returns>User photo</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <returns type="ASC.Api.Employee.ThumbnailsDataWrapper, ASC.Api.Employee">User photo</returns>
+        /// <path>api/2.0/people/{userid}/photo</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("{userid}/photo")]
         public ThumbnailsDataWrapper GetMemberPhoto(string userid)
         {
@@ -1006,9 +976,11 @@ namespace ASC.Api.Employee
         /// Update a user photo
         /// </short>
         /// <category>Photos</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="files">New avatar photo URL</param>
-        /// <returns>Updated user photo</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <param type="System.String, System" name="files">New avatar photo URL</param>
+        /// <returns type="ASC.Api.Employee.ThumbnailsDataWrapper, ASC.Api.Employee">Updated user photo</returns>
+        /// <path>api/2.0/people/{userid}/photo</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{userid}/photo")]
         public ThumbnailsDataWrapper UpdateMemberPhoto(string userid, string files)
         {
@@ -1035,8 +1007,10 @@ namespace ASC.Api.Employee
         /// Delete a user photo
         /// </short>
         /// <category>Photos</category>
-        /// <param name="userid">User ID</param>
-        /// <returns>Deleted user photo</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <returns type="ASC.Api.Employee.ThumbnailsDataWrapper,  ASC.Api.Employee">Deleted user photo</returns>
+        /// <path>api/2.0/people/{userid}/photo</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("{userid}/photo")]
         public ThumbnailsDataWrapper DeleteMemberPhoto(string userid)
         {
@@ -1062,13 +1036,15 @@ namespace ASC.Api.Employee
         /// Create a photo thumbnail
         /// </short>
         /// <category>Photos</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="tmpFile">Path to the temporary file</param>
-        /// <param name="x">Horizontal coordinate</param>
-        /// <param name="y">Vertical coordinate</param>
-        /// <param name="width">Thumbnail width</param>
-        /// <param name="height">Thumbnail height</param>
-        /// <returns>Thumbnail</returns>
+        /// <param type="System.String, System" method="url" name="userid">User ID</param>
+        /// <param type="System.String, System" name="tmpFile">Path to the temporary file</param>
+        /// <param type="System.Int32, System" name="x">Horizontal coordinate</param>
+        /// <param type="System.Int32, System" name="y">Vertical coordinate</param>
+        /// <param type="System.Int32, System" name="width">Thumbnail width</param>
+        /// <param type="System.Int32, System" name="height">Thumbnail height</param>
+        /// <path>api/2.0/people/{userid}/photo/thumbnails</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <returns type="ASC.Api.Employee.ThumbnailsDataWrapper, ASC.Api.Employee">Thumbnail</returns>
         [Create("{userid}/photo/thumbnails")]
         public ThumbnailsDataWrapper CreateMemberPhotoThumbnails(string userid, string tmpFile, int x, int y, int width, int height)
         {
@@ -1106,9 +1082,11 @@ namespace ASC.Api.Employee
         /// </summary>
         /// <short>Change a user email</short>
         /// <category>Email</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="email">New email</param>
+        /// <param type="System.Guid, System" name="userid">User ID</param>
+        /// <param type="System.String, System" name="email">New email</param>
         /// <returns>Detailed user information</returns>
+        /// <path>api/2.0/people/{userid}/email</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{userid}/email")]
         public EmployeeWraperFull ChangeUserEmail(Guid userid, string email)
         {
@@ -1162,14 +1140,17 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Reminds a password to the user using the email specified in the request.
+        /// Reminds a password to the user using the email address specified in the request.
         /// </summary>
         /// <short>
         /// Remind a user password
         /// </short>
         /// <category>Password</category>
-        /// <param name="email">User email</param>     
+        /// <param type="System.String, System" name="email">User email</param>
         /// <returns>Email with the password</returns>
+        /// <path>api/2.0/people/password</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Create("password", false, false)] //NOTE: this method doesn't require auth!!!  //NOTE: this method doesn't check payment!!!
         public string SendUserPassword(string email)
@@ -1188,9 +1169,11 @@ namespace ASC.Api.Employee
         /// </summary>
         /// <short>Change a user password</short>
         /// <category>Password</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="password">New password</param>
+        /// <param type="System.Guid, System" name="userid">User ID</param>
+        /// <param type="System.String, System" name="password">New password</param>
         /// <returns>Detailed user information</returns>
+        /// <path>api/2.0/people/{userid}/password</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{userid}/password")]
         public EmployeeWraperFull ChangeUserPassword(Guid userid, string password)
         {
@@ -1246,11 +1229,13 @@ namespace ASC.Api.Employee
         /// <summary>
         /// Sets the required activation status to the user with the ID specified in the request.
         /// </summary>
-        /// <short>Set an activation status</short>
+        /// <short>Set an activation status to the user</short>
         /// <category>Activation status</category>
-        /// <param name="userid">User ID</param>
-        /// <param name="activationstatus">Required activation status</param>
+        /// <param type="System.Guid, System" name="userid">User ID</param>
+        /// <param type="ASC.Core.Users.EmployeeActivationStatus, ASC.Core.Users" name="activationstatus">Activation status ("NotActivated", "Activated", "Pending", or "AutoGenerated")</param>
         /// <returns>Detailed user information</returns>
+        /// <path>api/2.0/people/{userid}/activationstatus</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update("{userid}/activationstatus")]
         public EmployeeWraperFull UpdateEmployeeActivationStatus(Guid userid, EmployeeActivationStatus activationstatus)
@@ -1265,12 +1250,15 @@ namespace ASC.Api.Employee
         /// Sets the required activation status to the list of users with the IDs specified in the request.
         /// </summary>
         /// <short>
-        /// Set an activation status
+        /// Set an activation status to the users
         /// </short>
         /// <category>Activation status</category>
-        /// <param name="userIds">List of user IDs</param>
-        /// <param name="activationstatus">Required activation status</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="userIds">List of user IDs</param>
+        /// <param type="ASC.Core.Users.EmployeeActivationStatus, ASC.Core.Users" name="activationstatus">Activation status ("NotActivated", "Activated", "Pending", or "AutoGenerated")</param>
         /// <returns>List of users</returns>
+        /// <path>api/2.0/people/activationstatus/{activationstatus}</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Update("activationstatus/{activationstatus}")]
         public IEnumerable<EmployeeWraperFull> UpdateEmployeeActivationStatus(EmployeeActivationStatus activationstatus, IEnumerable<Guid> userIds)
@@ -1322,9 +1310,12 @@ namespace ASC.Api.Employee
         /// Change a user type
         /// </short>
         /// <category>User type</category>
-        /// <param name="type">New user type</param>
-        /// <param name="userIds">List of user IDs</param>
-        /// <returns>List of users</returns>
+        /// <param type="ASC.Core.Users.EmployeeType, ASC.Core.Users" method="url" name="type">New user type ("All", "User", or "Visitor")</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="userIds">List of user IDs</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">User list</returns>
+        /// <path>api/2.0/people/type/{type}</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("type/{type}")]
         public IEnumerable<EmployeeWraperFull> UpdateUserType(EmployeeType type, IEnumerable<Guid> userIds)
         {
@@ -1365,6 +1356,8 @@ namespace ASC.Api.Employee
             return users.Select(user => new EmployeeWraperFull(user));
         }
 
+        
+
         /// <summary>
         /// Changes a status for the users with the IDs specified in the request.
         /// </summary>
@@ -1372,9 +1365,12 @@ namespace ASC.Api.Employee
         /// Change a user status
         /// </short>
         /// <category>User status</category>
-        /// <param name="status">New user status</param>
-        /// <param name="userIds">List of user IDs</param>
-        /// <returns>List of users</returns>
+        /// <param type="ASC.Core.Users.EmployeeStatus, ASC.Core.Users" method="url" name="status">New user status ("Active", "Terminated", "LeaveOfAbsence", "All", or "Default"</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="userIds">List of user IDs</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">User list</returns>
+        /// <path>api/2.0/people/status/{status}</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("status/{status}")]
         public IEnumerable<EmployeeWraperFull> UpdateUserStatus(EmployeeStatus status, IEnumerable<Guid> userIds)
         {
@@ -1423,8 +1419,11 @@ namespace ASC.Api.Employee
         /// Resend an activation email
         /// </short>
         /// <category>Profiles</category>
-        /// <param name="userIds">List of user IDs</param>
-        /// <returns>List of users</returns>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="userIds">List of user IDs</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of users</returns>
+        /// <path>api/2.0/people/invite</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("invite")]
         public IEnumerable<EmployeeWraperFull> ResendUserInvites(IEnumerable<Guid> userIds)
         {
@@ -1466,8 +1465,11 @@ namespace ASC.Api.Employee
         /// Delete users
         /// </short>
         /// <category>Profiles</category>
-        /// <param name="userIds">List of user IDs</param>
-        /// <returns>List of users</returns>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="userIds">List of user IDs</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraperFull, ASC.Api.Employee">List of users</returns>
+        /// <path>api/2.0/people/delete</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("delete")]
         public IEnumerable<EmployeeWraperFull> RemoveUsers(IEnumerable<Guid> userIds)
         {
@@ -1501,10 +1503,12 @@ namespace ASC.Api.Employee
         /// Sends instructions for deleting a user profile.
         /// </summary>
         /// <short>
-        /// Send the delete instructions
+        /// Send the deletion instructions
         /// </short>
         /// <category>Profiles</category>
         /// <returns>Information message</returns>
+        /// <path>api/2.0/people/self/delete</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("self/delete")]
         public string SendInstructionsToDelete()
         {
@@ -1521,13 +1525,15 @@ namespace ASC.Api.Employee
 
 
         /// <summary>
-        /// Subscribes to or unsubscribes from the birthday of a user with the ID specified.
+        /// Subscribes to or unsubscribes from the birthday of the user with the ID specified in the request.
         /// </summary>
         /// <short>Birthday subscription</short>
-        /// <param name="userid">User ID</param>
-        /// <param name="onRemind">Defines if the user will be notified about other user's birthday or not</param>
-        /// <returns>Bool value: true means that the user will get the notification</returns>
+        /// <param type="System.Guid, System" name="userid">User ID</param>
+        /// <param type="System.Boolean, System" name="onRemind">Defines if the user will be notified about another user's birthday or not</param>
+        /// <returns>Bool value: true means that the user will get a notification</returns>
         /// <category>Birthday</category>
+        /// <path>api/2.0/people/birthdays/reminder</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("birthdays/reminder")]
         public bool RemindAboutBirthday(Guid userid, bool onRemind)
         {
@@ -1544,7 +1550,9 @@ namespace ASC.Api.Employee
         /// Link a third-pary account
         /// </short>
         /// <category>Third-party accounts</category>
-        /// <param name="serializedProfile">Third-party profile in the serialized format</param>
+        /// <param type="System.String, System" name="serializedProfile">Third-party profile in the serialized format</param>
+        /// <path>api/2.0/people/thirdparty/linkaccount</path>
+        /// <httpMethod>PUT</httpMethod>
         ///<visible>false</visible>
         [Update("thirdparty/linkaccount")]
         public void LinkAccount(string serializedProfile)
@@ -1578,7 +1586,9 @@ namespace ASC.Api.Employee
         /// Unlink a third-pary account
         /// </short>
         /// <category>Third-party accounts</category>
-        /// <param name="provider">Provider name</param>
+        /// <param type="System.String, System" name="provider">Provider name</param>
+        /// <path>api/2.0/people/thirdparty/unlinkaccount</path>
+        /// <httpMethod>DELETE</httpMethod>
         ///<visible>false</visible>
         [Delete("thirdparty/unlinkaccount")]
         public void UnlinkAccount(string provider)
@@ -1616,12 +1626,14 @@ namespace ASC.Api.Employee
         #region Reassign user data
 
         /// <summary>
-        /// Returns the progress of the started reassigning process for the user with the ID specified in the request.
+        /// Returns the progress of the started data reassignment for the user with the ID specified in the request.
         /// </summary>
-        /// <short>Get the reassigning progress</short>
-        /// <param name="userId">User ID whose data is reassigned</param>
-        /// <category>Reassign user data</category>
-        /// <returns>Reassigning progress</returns>
+        /// <short>Get the reassignment progress</short>
+        /// <param type="System.Guid, System" method="url" name="userId">User ID whose data is reassigned</param>
+        /// <category>User data</category>
+        /// <returns type="ASC.Data.Reassigns.ReassignProgressItem, ASC.Data.Reassigns">Reassignment progress</returns>
+        /// <path>api/2.0/people/reassign/progress</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"reassign/progress")]
         public ReassignProgressItem GetReassignProgress(Guid userId)
         {
@@ -1631,11 +1643,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Terminates the reassigning process for the user with the ID specified in the request.
+        /// Terminates the data reassignment for the user with the ID specified in the request.
         /// </summary>
-        /// <short>Terminate the reassigning process</short>
-        /// <param name="userId">User ID whose data is reassigned</param>
-        /// <category>Reassign user data</category>
+        /// <short>Terminate the data reassignment</short>
+        /// <param type="System.Guid, System" name="userId">User ID whose data is reassigned</param>
+        /// <category>User data</category>
+        /// <path>api/2.0/people/reassign/terminate</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <returns></returns>
         [Update(@"reassign/terminate")]
         public void TerminateReassign(Guid userId)
         {
@@ -1645,14 +1660,16 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Starts the reassigning process for the user with the ID specified in the request.
+        /// Starts the data reassignment for the user with the ID specified in the request.
         /// </summary>
-        /// <short>Start the reassigning process</short>
-        /// <param name="fromUserId">User ID whose data will be reassigned to another user</param>
-        /// <param name="toUserId">User ID to whom all the data will be reassigned</param>
-        /// <param name="deleteProfile">Deletes a profile when reassignment will be finished or not</param>
-        /// <category>Reassign user data</category>
-        /// <returns>Reassigning progress</returns>
+        /// <short>Start the data reassignment</short>
+        /// <param type="System.Guid, System" name="fromUserId">User ID whose data will be reassigned to another user</param>
+        /// <param type="System.Guid, System" name="toUserId">User ID to whom all the data will be reassigned</param>
+        /// <param type="System.Boolean, System" name="deleteProfile">Specifies whether to delete a profile when the data reassignment will be finished or not</param>
+        /// <category>User data</category>
+        /// <returns type="ASC.Data.Reassigns.ReassignProgressItem, ASC.Data.Reassigns">Reassignment progress</returns>
+        /// <path>api/2.0/people/reassign/start</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"reassign/start")]
         public ReassignProgressItem StartReassign(Guid fromUserId, Guid toUserId, bool deleteProfile)
         {
@@ -1696,12 +1713,14 @@ namespace ASC.Api.Employee
         #region Remove user data
 
         /// <summary>
-        /// Returns the progress of the started removing process for the user with the ID specified in the request.
+        /// Returns the progress of the started data deletion for the user with the ID specified in the request.
         /// </summary>
-        /// <short>Get the removing progress</short>
-        /// <param name="userId">User ID</param>
-        /// <category>Remove user data</category>
-        /// <returns>Removing progress</returns>
+        /// <short>Get the deletion progress</short>
+        /// <param type="System.Guid, System" method="url" name="userId">User ID</param>
+        /// <category>User data</category>
+        /// <returns type="ASC.Data.Reassigns.RemoveProgressItem, ASC.Data.Reassigns">Deletion progress</returns>
+        /// <path>api/2.0/people/remove/progress</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"remove/progress")]
         public RemoveProgressItem GetRemoveProgress(Guid userId)
         {
@@ -1711,11 +1730,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Terminates the removing process for the user with the ID specified in the request.
+        /// Terminates the data deletion for the user with the ID specified in the request.
         /// </summary>
-        /// <short>Terminate the removing process</short>
-        /// <param name="userId">User ID</param>
-        /// <category>Remove user data</category>
+        /// <short>Terminate the data deletion</short>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <category>User data</category>
+        /// <path>api/2.0/people/remove/terminate</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <returns></returns>
         [Update(@"remove/terminate")]
         public void TerminateRemove(Guid userId)
         {
@@ -1725,12 +1747,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Starts the removing process for the user with the ID specified in the request.
+        /// Starts the data deletion for the user with the ID specified in the request.
         /// </summary>
-        /// <short>Start the removing process</short>
-        /// <param name="userId">User ID</param>
-        /// <category>Remove user data</category>
-        /// <returns>Removing progress</returns>
+        /// <short>Start the data deletion</short>
+        /// <param type="System.Guid, System" name="userId">User ID</param>
+        /// <category>User data</category>
+        /// <returns type="ASC.Data.Reassigns.RemoveProgressItem, ASC.Data.Reassigns">Deletion progress</returns>
+        /// <path>api/2.0/people/remove/start</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"remove/start")]
         public RemoveProgressItem StartRemove(Guid userId)
         {

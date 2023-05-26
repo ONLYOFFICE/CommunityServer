@@ -565,6 +565,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angolan Kwanza.
+        /// </summary>
+        public static string Currency_AngolanKwanza {
+            get {
+                return ResourceManager.GetString("Currency_AngolanKwanza", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Argentinian Peso.
         /// </summary>
         public static string Currency_ArgentinianPeso {
@@ -1200,6 +1209,15 @@ namespace ASC.Web.CRM.Resources {
         public static string Currency_VenezuelanBolivar {
             get {
                 return ResourceManager.GetString("Currency_VenezuelanBolivar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Venezuelan Bolivar Soberano.
+        /// </summary>
+        public static string Currency_VenezuelanBolivarSoberano {
+            get {
+                return ResourceManager.GetString("Currency_VenezuelanBolivarSoberano", resourceCulture);
             }
         }
         

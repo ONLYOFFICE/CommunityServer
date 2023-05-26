@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.Notify;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -45,6 +46,14 @@ namespace ASC.Web.Studio.UserControls.Management
 
             Page.RegisterBodyScripts("~/UserControls/Management/ProfileOperation/js/profileoperation.js")
                 .RegisterStyle("~/UserControls/Management/ProfileOperation/css/profileoperation.less");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/ProfileOperation/css/dark-profileoperation.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/ProfileOperation/css/profileoperation.less");
+            }
         }
 
         protected void DeleteProfile(object sender, EventArgs e)

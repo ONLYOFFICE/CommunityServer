@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- */
+*/
 
 
 const webdav = require('webdav-server').v2;
@@ -31,7 +31,8 @@ const {
     keyPath,
     isHttps,
     virtualPath
-} = require('./config.js');
+} = require(`./config.${process.argv[2]}.js`);
+
 const { logContext, logMessage } = require('../helper/helper.js');
 
 const userManager = new customUserManager();

@@ -7,8 +7,6 @@
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<link rel="stylesheet" type="text/css" href="<%= WebPath.GetPath("UserControls/Management/SingleSignOnSettings/css/singlesignonsettings.css") %>" />
-
 <div class="clearFix">
     <div class="sso-settings-main-container <%= !isAvailable ? "disable" : "" %>">
         <div class="sso-main-container settings-block">

@@ -16,19 +16,27 @@
         <header><%= UserControlsCommonResource.SharingSettingsTitle %></header>
         <body>
             <div class="dialog-content-container">
-                <div class="top-button-container">
-                    <a class="button user-button middle gray"><%= FilesUCResource.ButtonAddUsers %></a>
-                    <span class="splitter-buttons"></span>
-                    <a class="button link-button middle gray"><%= FilesUCResource.ButtonAddLink %></a>
-                    <input type="hidden" class="link-settings" data-available="<%= FilesSettings.ExternalShare.ToString().ToLower() %>" data-social="<%= FilesSettings.ExternalShareSocialMedia.ToString().ToLower() %>">
-                </div>
-                <div class="us-search us-hot-search">
-                    <input class="textEdit" placeholder="<%= ResourceJS.UserSelectorSearchPlaceholder %>">
-                    <span class="clear-search"></span>
-                    <div class="us-popup-dialog">
-                        <div class="us-list-parent">
-                            <div class="us-list"></div>
+                <div class="dialog-top-content-container">
+                    <div class="top-button-container">
+                        <a class="button user-button middle gray" title="<%= FilesUCResource.ButtonAddUsers %>"><%= FilesUCResource.ButtonAddUsers %></a>
+                        <span class="splitter-buttons"></span>
+                        <a class="button link-button middle gray main-part" title="<%= FilesUCResource.ButtonAddLink %>" data-trial="<%= Trial.ToString().ToLowerInvariant() %>"><%= FilesUCResource.ButtonAddLink %></a><a class="button middle gray arrow-part display-none"></a>
+                        <input type="hidden" class="link-settings" data-available="<%= FilesSettings.ExternalShare.ToString().ToLower() %>" data-social="<%= FilesSettings.ExternalShareSocialMedia.ToString().ToLower() %>">
+                    </div>
+                    <div class="us-search us-hot-search">
+                        <input class="textEdit" placeholder="<%= ResourceJS.UserSelectorSearchPlaceholder %>" autocomplete="new-password">
+                        <span class="clear-search"></span>
+                        <div class="us-popup-dialog">
+                            <div class="us-list-parent">
+                                <div class="us-list"></div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="studio-action-panel addlink-action-dialog">
+                        <ul class="dropdown-content">
+                            <li><a class="dropdown-item addlink-new-action"><%= FilesUCResource.ButtonCreateNewExternalLink %></a></li>
+                            <li><a class="dropdown-item addlink-copy-action"><%= FilesUCResource.ButtonCopyDirectLink %></a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="group-actions display-none">
@@ -72,6 +80,10 @@
                             <li><a class="dropdown-item link-action-short"><%= FilesUCResource.ButtonShortenLink %></a></li>
                             <% } %>
                             <li class="dropdown-item-seporator"></li>
+                            <li><a class="dropdown-item link-action-password"><%= FilesUCResource.ButtonSetPassword %></a></li>
+                            <li><a class="dropdown-item link-action-lifetime"><%= FilesUCResource.ButtonSetLifetime %></a></li>
+                            <li><a class="dropdown-item link-action-rename"><%= FilesUCResource.ButtonRename %></a></li>
+                            <li class="dropdown-item-seporator"></li>
                             <li><a class="dropdown-item link-action-delete"><%= FilesUCResource.ButtonDelete %></a></li>
                         </ul>
                     </div>
@@ -83,7 +95,7 @@
                             <% if (!Request.DesktopApp() || !CoreContext.Configuration.CustomMode)
                                { %>
                             <div class="link-share-social">
-                                <span><%= FilesUCResource.ShareTo %>:</span>
+                                <span class="textinfo"><%= FilesUCResource.ShareTo %>:</span>
                                 <% if (!Request.DesktopApp())
                                    { %>
                                 <a class="mail" title="<%= FilesUCResource.LinkViaMail %>" target="_blank" href=""></a>
@@ -105,48 +117,69 @@
                         </div>
                     </div>
                     <div class="us-popup-dialog link-embed-dialog">
-                        <table cellpadding="0" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th colspan="3"><%= FilesUCResource.EmbeddedSize %></th>
-                                    <th class="embed-space"></th>
-                                    <th><%= FilesUCResource.EmbedSizeWidth %></th>
-                                    <th></th>
-                                    <th><%= FilesUCResource.EmbedSizeHeight %></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="embed-size-item embed-size-6x8">
-                                            <span class="baseLinkAction">600 &#215; 800 px</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="embed-size-item embed-size-4x6">
-                                            <span class="baseLinkAction">400 &#215; 600 px</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="embed-size-item embed-size-1x1">
-                                            <span class="baseLinkAction"><%= FilesUCResource.EmbedSizeAuto %></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="embed-size-custom embed-size-width textEdit" value="100%" />
-                                    </td>
-                                    <td>&nbsp;&#215;&nbsp;</td>
-                                    <td>
-                                        <input type="text" class="embed-size-custom embed-size-height textEdit" value="100%" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="link-embed-around">
+                            <div class="embed-size-item embed-size-6x8"><span class="baseLinkAction">600 &#215; 800 px</span></div>
+                            <div class="embed-size-item embed-size-4x6"><span class="baseLinkAction">400 &#215; 600 px</span></div>
+                            <div class="embed-size-item embed-size-1x1"><span class="baseLinkAction"><%= FilesUCResource.EmbedSizeAuto %></span></div>
+                        </div>
+                        <div class="link-embed-around">
+                            <span><%= FilesUCResource.EmbedSizeWidth %></span>
+                            <input type="text" class="embed-size-custom embed-size-width textEdit" value="100%" />
+                            <span>&#215;</span>
+                            <span><%= FilesUCResource.EmbedSizeHeight %></span>
+                            <input type="text" class="embed-size-custom embed-size-height textEdit" value="100%" />
+                        </div>
                         <div class="link-embed-around borderBase">
-                            <input type="text" readonly="readonly" />
+                            <input class="border-none" type="text" readonly="readonly" />
                             <span class="link dotline link-embed-action-copy"><%= FilesUCResource.ButtonCopyToClipboard %></span>
+                        </div>
+                    </div>
+                    <div class="us-popup-dialog auto-width link-password-dialog">
+                        <input type="checkbox" id="cbxLinkPasswordEnabled" class="on-off-checkbox">
+                        <label for="cbxLinkPasswordEnabled"><%= FilesUCResource.EnablePassword %></label>
+                        <div class="password-container">
+                            <input class="textEdit" type="password" autocomplete="new-password" placeholder="<%= FilesUCResource.Password %>" />
+                            <span class="img-btn random" title="<%= FilesUCResource.RandomPassword %>"></span>
+                            <span class="img-btn show"></span>
+                        </div>
+                        <div>
+                            <span class="link dotline clean"><%= FilesUCResource.ButtonClean %></span>
+                            <span class="splitter-buttons"></span>
+                            <span class="link dotline copy"><%= FilesUCResource.ButtonCopyLinkAndPassword %></span>
+                        </div>
+                        <div class="small-button-container">
+                            <a class="button blue"><%= Resource.SaveButton %></a>
+                            <span class="splitter-buttons"></span>
+                            <a class="button gray"><%= Resource.CancelButton %></a>
+                        </div>
+                    </div>
+                    <div class="us-popup-dialog auto-width link-lifetime-dialog">
+                        <input type="checkbox" id="cbxLinkLifetimeEnabled" class="on-off-checkbox">
+                        <label for="cbxLinkLifetimeEnabled"><%= FilesUCResource.EnableTimeLimit %></label>
+                        <div class="datetime-container">
+                            <div class="date-container">
+                                <label><%= FilesUCResource.Date %></label>
+                                <input class="textEditCalendar date"/>
+                            </div>
+                            <div class="time-container">
+                                <label><%= FilesUCResource.Time %></label>
+                                <input class="textEdit time"/>
+                            </div>
+                        </div>
+                        <span class="link dotline link-lifetime-dialog-clean"><%= FilesUCResource.ButtonClean %></span>
+                        <label class="autodelete-label"><input type="checkbox" class="autodelete"><%= FilesUCResource.ButtonDeleteExpiredLink %></label>
+                        <div class="small-button-container">
+                            <a class="button blue"><%= Resource.SaveButton %></a>
+                            <span class="splitter-buttons"></span>
+                            <a class="button gray"><%= Resource.CancelButton %></a>
+                        </div>
+                    </div>
+                    <div class="us-popup-dialog auto-width link-delete-dialog">
+                        <b><%= FilesUCResource.DeleteThisLink %></b>
+                        <div class="small-button-container">
+                            <a class="button blue"><%= Resource.OKButton %></a>
+                            <span class="splitter-buttons"></span>
+                            <a class="button gray"><%= Resource.CancelButton %></a>
                         </div>
                     </div>
                     <div class="us-popup-dialog item-tooltip-dialog"></div>
@@ -156,8 +189,11 @@
 
             <div class="small-button-container clearFix">
                 <div class="bottom-button-container">
-                    <a class="button middle blue main-part display-none"><%= Resource.SaveButton %></a><a class="button middle blue arrow-part display-none"></a><a class="button middle gray"><%= Resource.CancelButton %></a>
-                    <a class="settings-link"><span class="link dotline"><%= FilesUCResource.AdvancedSettings %></span></a>
+                    <a class="button middle blue main-part display-none"><%= Resource.SaveButton %></a><a class="button middle blue arrow-part arrow-up display-none"></a><a class="button middle gray"><%= Resource.CancelButton %></a>
+                    <span class="settings-link-container" title="<%= FilesUCResource.AdvancedSettings %>">
+                        <a class="settings-link"><span class="link dotline"><%= FilesUCResource.AdvancedSettings %></span></a>
+                        <a class="settings-link button middle gray"></a>
+                    </span>
                 </div>
 
                 <div class="studio-action-panel save-action-dialog">
@@ -169,7 +205,7 @@
                     </ul>
                 </div>
 
-                <div class="message-dialog us-popup-dialog">
+                <div class="us-popup-dialog message-dialog">
                     <div class="message-dialog-hdr"><%= FilesUCResource.AddMessage %>:</div>
                     <div class="describe-text"><%= FilesUCResource.NotifyWithChangesInRights %></div>
                     <textarea></textarea>
@@ -180,7 +216,7 @@
                     </div>
                 </div>
 
-                <div class="advanced-settings-dialog us-popup-dialog">
+                <div class="us-popup-dialog advanced-settings-dialog">
                     <div class="advanced-settings-dialog-hdr"><%= FilesUCResource.AdvancedSettings %></div>
                     <label>
                         <input type="checkbox" class="deny-download"/><%= FilesUCResource.DenyDownload %>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,12 +158,12 @@ namespace ASC.Core
 
         public IDbManager GetRegionDb(string region)
         {
-            return DbManager.FromHttpContext(GetRegionService(region).DbId);
+            return new DbManager(GetRegionService(region).DbId);
         }
 
         public IDbManager GetMultiRegionDb()
         {
-            return new MultiRegionalDbManager(GetRegions().Select(r => DbManager.FromHttpContext(GetRegionService(r).DbId)));
+            return new MultiRegionalDbManager(GetRegions().Select(r => new DbManager(GetRegionService(r).DbId)));
         }
 
         public ConnectionStringSettings GetRegionConnectionString(string region)
@@ -241,7 +241,7 @@ namespace ASC.Core
                                 {
                                     try
                                     {
-                                        using (var db = DbManager.FromHttpContext(connectionString.Name))
+                                        using (var db = new DbManager(connectionString.Name))
                                         {
                                             var q = new SqlQuery("regions")
                                                 .Select("region")

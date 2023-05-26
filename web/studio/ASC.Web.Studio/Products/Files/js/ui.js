@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,16 +77,31 @@ window.ASC.Files.UI = (function () {
             ASC.Files.UI.fixContentHeaderWidth();
         });
 
-        isAutoCleanUpOn = jq("#cbxAutomaticallyCleanUp").is(":checked");
-        autoCleanUpGap = isAutoCleanUpOn ? parseInt(jq("#selectGapToAutoCleanUp").val()) : -1;
+        if (!ASC.Resources.Master.IsAuthenticated){
+            ASC.Files.UI.autoCleanUpSetting = {
+                isAutoCleanUp: false
+            };
+            
+            return;
+        }
+        
+        var onGetAutoCleanup = function (data, params, errorMessage) {
+            var isAutoCleanUpOn = data.IsAutoCleanUp;
+            var autoCleanUpGap = data.Gap
 
-        ASC.Files.UI.autoCleanUpSetting = {
-            isAutoCleanUp: isAutoCleanUpOn,
-            gap: autoCleanUpGap
+            ASC.Files.UI.autoCleanUpSetting = {
+                isAutoCleanUp: isAutoCleanUpOn,
+                gap: autoCleanUpGap
+            };
+
+            if (!isAutoCleanUpOn) {
+                jq("#selectGapToAutoCleanUp").val("1").trigger("change");
+            }
         };
 
-        if (!isAutoCleanUpOn) {
-            jq("#selectGapToAutoCleanUp").val("1").trigger("change");
+        if (ASC.Files.ServiceManager) {
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetAutoCleanup, onGetAutoCleanup);
+            ASC.Files.ServiceManager.getAutoCleanup(ASC.Files.ServiceManager.events.GetAutoCleanup);
         }
     };
 
@@ -292,14 +307,6 @@ window.ASC.Files.UI = (function () {
 
         localStorageManager.setItem(storageKey, toStyleIcon);
 
-        if (ASC.Files.Folders.showMore && toStyleIcon != "compact") {
-            ASC.Files.UI.trackShowMore();
-        }
-
-        if (ASC.Files.Mouse) {
-            ASC.Files.Mouse.updateMainContentArea();
-        }
-
         if (toStyleIcon == "thumbnails") {
             jq("#filesMainContent").find(".file-row .thumb-img img[src='']").each(function () {
                 var img = jq(this);
@@ -307,10 +314,23 @@ window.ASC.Files.UI = (function () {
                 img.on("error", ASC.Files.EventHandler.onThumbnailError).attr("src", src);
             });
 
+            jq("#filesMainContent").css("display", "grid");
+
             var filesAwaitingThumbnails = awaitingThumbnails.getFiles();
             if (filesAwaitingThumbnails.length) {
                 Teamlab.createThumbnails(null, { fileIds: filesAwaitingThumbnails });
             }
+        }
+        else {
+            jq("#filesMainContent").css("display", "block");
+        }
+
+        if (ASC.Files.Folders.showMore && toStyleIcon != "compact") {
+            ASC.Files.UI.trackShowMore();
+        }
+
+        if (ASC.Files.Mouse) {
+            ASC.Files.Mouse.updateMainContentArea();
         }
     };
 
@@ -553,7 +573,10 @@ window.ASC.Files.UI = (function () {
             }
 
             if (!entryObj.hasClass("checkloading")) {
-
+                if (!ASC.Resources.Master.IsAuthenticated){
+                    entryObj.addClass("without-share");
+                }
+                
                 if (entryType == "file") {
                     if (rowLink.is(":not(:has(.file-extension))")) {
                         ASC.Files.UI.highlightExtension(rowLink, entryTitle);
@@ -583,7 +606,7 @@ window.ASC.Files.UI = (function () {
 
                     if (ASC.Files.Utility.MustConvert(entryTitle) && !entryData.encrypted) {
                         entryObj.find(".pencil:not(.convert-action)").remove();
-                        if (Teamlab.profile.isVisitor && !ASC.Files.UI.accessEdit()
+                        if ((!ASC.Resources.Master.IsAuthenticated || Teamlab.profile.isVisitor) && !ASC.Files.UI.accessEdit()
                             || ASC.Files.UI.denyDownload(entryData)
                             || ASC.Files.Folders.folderContainer == "trash") {
                             entryObj.find(".convert-action").remove();
@@ -592,7 +615,12 @@ window.ASC.Files.UI = (function () {
                         }
                     } else if (ASC.Files.Utility.CanWebRestrictedEditing(entryTitle) && !entryData.encrypted) {
                         entryObj.find(".pencil:not(.fillform-action)").remove();
-                        entryObj.find(".fillform-action").show();
+                        if (!ASC.Files.UI.editableFile(entryData)) {
+                            entryObj.find(".fillform-action").remove();
+                        }
+                        else {
+                            entryObj.find(".fillform-action").show();
+                        }
                     } else {
                         if (entryData.encrypted) {
                             if (!ASC.Desktop) {
@@ -1428,6 +1456,7 @@ window.ASC.Files.UI = (function () {
 
         jq(".menu-action-on-top").on("click", function () {
             jq(document).scrollTop(0);
+            document.querySelector('.mainPageContent').scrollTo(0, 0);
             return false;
         });
 

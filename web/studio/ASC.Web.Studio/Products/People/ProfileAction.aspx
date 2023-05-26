@@ -8,6 +8,8 @@
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
     <div class="clearFix profile-title header-with-menu">
         <span class="header text-overflow" title="<%= PageTitle.HtmlEncode() %>"><%= PageTitle.HtmlEncode() %></span>
+        <% if (IsPageEditProfile())
+            {%>
         <% if (IsAdmin() || ProfileHelper.UserInfo.IsMe())
         { %>
             <% if (ProfileHelper.UserInfo.IsLDAP())
@@ -18,6 +20,7 @@
             { %>
             <span class="sso-lock-big" title="<%= Resource.SsoUsersListLockTitle %>"></span>
             <% } %>
+        <% } %>
         <% } %>
     </div>
 </asp:Content>

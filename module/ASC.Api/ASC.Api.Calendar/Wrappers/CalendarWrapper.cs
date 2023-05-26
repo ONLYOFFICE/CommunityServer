@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,8 @@ namespace ASC.Api.Calendar.Wrappers
                 _userId = _userViewSettings.UserId;
             }
         }
-
+        ///<example name="isSubscription">false</example>
+        ///<order>80</order>
         [DataMember(Name = "isSubscription", Order = 80)]
         public virtual bool IsSubscription
         {
@@ -76,6 +77,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="iCalUrl"></example>
+        ///<order>230</order>
         [DataMember(Name = "iCalUrl", Order = 230)]
         public virtual string iCalUrl
         {
@@ -89,6 +92,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="isiCalStream">false</example>
+        ///<order>220</order>
         [DataMember(Name = "isiCalStream", Order = 220)]
         public virtual bool IsiCalStream
         {
@@ -102,6 +107,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="isHidden">false</example>
+        ///<order>50</order>
         [DataMember(Name = "isHidden", Order = 50)]
         public virtual bool IsHidden
         {
@@ -112,6 +119,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="canAlertModify">true</example>
+        ///<order>200</order>
         [DataMember(Name = "canAlertModify", Order = 200)]
         public virtual bool CanAlertModify
         {
@@ -122,7 +131,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
-
+        ///<example name="isShared">true</example>
+        ///<order>60</order>
         [DataMember(Name = "isShared", Order = 60)]
         public virtual bool IsShared
         {
@@ -133,6 +143,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<type name="permissions">ASC.Api.Calendar.Wrappers.CalendarPermissions, ASC.Api.Calendar</type>
+        ///<order>70</order>
         [DataMember(Name = "permissions", Order = 70)]
         public virtual CalendarPermissions Permissions
         {
@@ -151,6 +163,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="isEditable">true</example>
+        ///<order>90</order>
         [DataMember(Name = "isEditable", Order = 90)]
         public virtual bool IsEditable
         {
@@ -167,6 +181,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="textColor">#ffffff</example>
+        ///<order>30</order>
         [DataMember(Name = "textColor", Order = 30)]
         public string TextColor
         {
@@ -178,6 +194,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="backgroundColor">#000000</example>
+        ///<order>40</order>
         [DataMember(Name = "backgroundColor", Order = 40)]
         public string BackgroundColor
         {
@@ -189,9 +207,13 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="description">Calendar Description</example>
+        ///<order>20</order>
         [DataMember(Name = "description", Order = 20)]
         public string Description { get { return UserCalendar.Description; } set { } }
 
+        ///<example name="title">Calendar Name</example>
+        ///<order>30</order>
         [DataMember(Name = "title", Order = 30)]
         public string Title
         {
@@ -199,6 +221,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="objectId">1</example>
+        ///<order>0</order>
         [DataMember(Name = "objectId", Order = 0)]
         public string Id
         {
@@ -206,6 +230,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="isTodo">false</example>
+        ///<order>0</order>
         [DataMember(Name = "isTodo", Order = 0)]
         public int IsTodo
         {
@@ -220,6 +246,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<type name="owner">ASC.Api.Calendar.Wrappers.UserParams, ASC.Api.Calendar</type>
+        ///<order>120</order>
         [DataMember(Name = "owner", Order = 120)]
         public UserParams Owner
         {
@@ -234,6 +262,7 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example>false</example>
         public bool IsAcceptedSubscription
         {
             get
@@ -243,12 +272,20 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<type name="events">ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar</type>
+        ///<order>150</order>
+        ///<collection>list</collection>
         [DataMember(Name = "events", Order = 150)]
         public List<EventWrapper> Events { get; set; }
 
+        ///<type name="todos">ASC.Api.Calendar.Wrappers.TodoWrapper, ASC.Api.Calendar</type>
+        ///<order>160</order>
+        ///<collection>list</collection>
         [DataMember(Name = "todos", Order = 160)]
         public List<TodoWrapper> Todos { get; set; }
 
+        ///<type name="defaultAlert">ASC.Api.Calendar.Wrappers.EventAlertWrapper, ASC.Api.Calendar</type>
+        ///<order>160</order>
         [DataMember(Name = "defaultAlert", Order = 160)]
         public EventAlertWrapper DefaultAlertType
         {
@@ -259,6 +296,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<type name="timeZone">ASC.Api.Calendar.Wrappers.TimeZoneWrapper, ASC.Api.Calendar</type>
+        ///<order>160</order>
         [DataMember(Name = "timeZone", Order = 160)]
         public TimeZoneWrapper TimeZoneInfo
         {
@@ -269,6 +308,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<example name="canEditTimeZone">false</example>
+        ///<order>160</order>
         [DataMember(Name = "canEditTimeZone", Order = 160)]
         public bool CanEditTimeZone
         {

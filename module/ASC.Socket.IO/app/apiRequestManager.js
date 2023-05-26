@@ -51,6 +51,10 @@ function makeRequest(apiMethod, req, options, onSuccess){
     });
 }
 
+function deleteTrailingSlash(str) {
+    return str.endsWith('/') ? str.slice(0, -1) : str;
+}
+
 function makeHeaders(req, options) {
 	options.gzip = true;
     options.headers = {};
@@ -64,7 +68,7 @@ function makeHeaders(req, options) {
             xForwardedForHeader = 'x-forwarded-for';
 
         if (req.headers[xRewriterUrlHeader]) {
-            options.headers[xRewriterUrlHeader] = req.headers[xRewriterUrlHeader];
+            options.headers[xRewriterUrlHeader] = deleteTrailingSlash(req.headers[xRewriterUrlHeader]) + "/";
         }
         if (req.headers[xForwardedForHeader]) {
             options.headers[xForwardedForHeader] = req.headers[xForwardedForHeader];

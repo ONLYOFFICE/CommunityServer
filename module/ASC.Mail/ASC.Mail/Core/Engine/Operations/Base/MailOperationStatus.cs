@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,27 +22,35 @@ namespace ASC.Mail.Core.Engine.Operations.Base
     [DataContract]
     public class MailOperationStatus
     {
+        ///<example>true</example>
         [DataMember]
         public bool Completed { get; set; }
 
+        ///<example>Id</example>
         [DataMember]
         public string Id { get; set; }
 
+        ///<example>Status</example>
         [DataMember]
         public string Status { get; set; }
 
+        ///<example>Error</example>
         [DataMember]
         public string Error { get; set; }
 
+        ///<example type="int">100</example>
         [DataMember]
         public int Percents { get; set; }
 
+        ///<example>Source</example>
         [DataMember]
         public string Source { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember]
         public int OperationType { get; set; }
 
+        ///<example>Operation</example>
         [DataMember]
         public string Operation { get; set; }
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web;
 
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
@@ -67,7 +68,7 @@ namespace ASC.Web.Files
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
             Master.Master
-                  .AddStaticStyles(GetStaticStyleSheet())
+                  .AddStaticStyles(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark ? GetStaticDarkStyleSheet() : GetStaticStyleSheet())
                   .AddStaticBodyScripts(GetStaticJavaScript());
 
             var fileSelector = (FileSelector)LoadControl(FileSelector.Location);
@@ -120,13 +121,26 @@ namespace ASC.Web.Files
         {
             return (StyleBundleData)
                    new StyleBundleData("filessaveas", "files")
-                       .AddSource(PathProvider.GetFileStaticRelativePath, "saveas.css")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "saveas.less")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/FileSelector/fileselector.css",
-                                  "Controls/ThirdParty/thirdparty.css",
-                                  "Controls/ContentList/contentlist.css",
-                                  "Controls/EmptyFolder/emptyfolder.css",
-                                  "Controls/Tree/tree.css"
+                                  "Controls/FileSelector/fileselector.less",
+                                  "Controls/ThirdParty/thirdparty.less",
+                                  "Controls/ContentList/contentlist.less",
+                                  "Controls/EmptyFolder/emptyfolder.less",
+                                  "Controls/Tree/tree.less"
+                       );
+        }
+        public StyleBundleData GetStaticDarkStyleSheet()
+        {
+            return (StyleBundleData)
+                   new StyleBundleData("dark-filessaveas", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "saveas.less")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "Controls/FileSelector/fileselector.less",
+                                  "Controls/ThirdParty/dark-thirdparty.less",
+                                  "Controls/ContentList/dark-contentlist.less",
+                                  "Controls/EmptyFolder/emptyfolder.less",
+                                  "Controls/Tree/dark-tree.less"
                        );
         }
     }

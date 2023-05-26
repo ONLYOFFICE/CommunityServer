@@ -20,6 +20,8 @@ const path = require('path');
 
 nconf.argv()
     .env()
-    .file({ file: path.join(__dirname, 'config.json') });
+    .file({ file: path.join(__dirname, `config.${process.argv[2]}.json`) });
+
+nconf.file("default", path.join(__dirname, "config.json"));
 
 module.exports = nconf;

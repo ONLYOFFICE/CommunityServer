@@ -194,7 +194,7 @@
         </div>
         <div class="default-personal-popup_form-i">
             <label class="default-personal-popup_label password"><%= CustomModeResource.PasswordCustomMode %></label>
-            <input class="default-personal-popup_field password" id="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
+            <input class="default-personal-popup_field password" id="pwd" maxlength="<%= PasswordSettings.LimitMaxLength %>" type="password" />
             <input type="hidden" id="passwordHash" name="passwordHash" />
             
             <%if (Request.DesktopApp()){ %>

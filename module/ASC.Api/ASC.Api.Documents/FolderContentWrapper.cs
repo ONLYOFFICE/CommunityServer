@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,16 +31,21 @@ namespace ASC.Api.Documents
     {
         /// <summary>
         /// </summary>
+        /// <type>ASC.Api.Documents.FileWrapper, ASC.Api.Documents</type>
+        /// <collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public List<FileWrapper> Files { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <type>ASC.Api.Documents.FolderWrapper, ASC.Api.Documents</type>
+        /// <collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public List<FolderWrapper> Folders { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <type>ASC.Api.Documents.FolderWrapper, ASC.Api.Documents</type>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public FolderWrapper Current { get; set; }
 
@@ -51,18 +56,26 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
+        /// <example type="int">0</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public int StartIndex { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">4</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public int Count { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">4</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public int Total { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = true)]
+        public int New { get; set; }
 
         /// <summary>
         /// </summary>
@@ -74,7 +87,7 @@ namespace ASC.Api.Documents
             Folders = folderItems.Entries.OfType<Folder>().Select(x => new FolderWrapper(x)).ToList();
             Current = new FolderWrapper(folderItems.FolderInfo);
             PathParts = folderItems.FolderPathParts;
-
+            New = folderItems.RootFoldersIdMarkedAsNew.SingleOrDefault(q => q.Key.ToString() == Current.Id.ToString()).Value;
             StartIndex = startIndex;
             Count = Files.Count + Folders.Count;
             Total = folderItems.Total;

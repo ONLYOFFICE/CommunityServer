@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 @import "base.less";
+@import "params.less";
 /*******************************************************************************
 Default.aspx
 *******************************************************************************/
@@ -170,7 +171,7 @@ ListContactView.ascx
 
     .addPrimaryDataInput {
         display: none;
-        width: 185px;
+        width: 184px;
     }
 
     .contactTitle {
@@ -205,9 +206,9 @@ ListContactView.ascx
     width: auto;
 }
 .contactItemPhotoImg {
-    border: 1px solid #C7C7C7;
+    border: 1px solid @text-area-border-color;
     overflow: hidden;
-    background-color: #FFF;
+    background-color: @defaultBgColor;
 }
 .contactItemPhotoImgContainer {
     width: auto;
@@ -226,17 +227,36 @@ img.contact-info-link-img {
     cursor: pointer;
     background-color: transparent !important;
 }
-body.media-width-0-1300 {
+body.media-width-0-1500 {
     #companyTable {
         .contactTitle {
             max-width: 380px;
         }
 
+        .primaryDataContainer {
+            width: 150px;
+        }
+
+        .addPrimaryDataInput {
+            width: 144px;
+        }
+
+        .nearestTask {
+            width: 150px;
+        }
+    }
+}
+body.media-width-0-1300 {
+    #companyTable {
+        .contactTitle {
+            max-width: 365px;
+        }
+
        .primaryDataContainer {
-            width: 128px;
+            width: 126px;
         }
        .addPrimaryDataInput {
-            width: 123px;
+            width: 120px;
         }
 
         .nearestTask {
@@ -255,7 +275,7 @@ body.media-width-min {
             width: 118px;
         }
         .addPrimaryDataInput {
-            width: 113px;
+            width: 112px;
         }
 
         .nearestTask {
@@ -277,13 +297,13 @@ ContactActionView.ascx
 #contactProfileEdit {
     width: 100%;
 
-    >tbody > tr > td {
+    > tbody > tr > td {
         vertical-align: top;
     }
 
     .contactInfo {
 
-        >:not(.contactManagerPanel) input {
+        > :not(.contactManagerPanel) input {
             padding: 1px 2px;
 
             &.textEditCalendar {
@@ -307,7 +327,7 @@ ContactActionView.ascx
         .requiredField {
             .headerPanelSmall {
                 margin: 5px 0 4px;
-                color: #3C4046;
+                color: @contact-prof-color;
                 font-weight: bold;
             }
 
@@ -435,6 +455,7 @@ ContactActionView.ascx
         position: relative;
         vertical-align: top;
         width: 500px;
+        background-color: @generalListEdi-input_with_type-bg;
 
         input {
             border: medium none;
@@ -445,7 +466,7 @@ ContactActionView.ascx
 
         a {
             border-bottom: 1px dotted;
-            color: #646567;
+            color: @generalListEdi-input_with_type-a-col;
             cursor: pointer;
             display: inline-block;
             font-size: 11px;
@@ -458,7 +479,7 @@ ContactActionView.ascx
             &:after {
                 border-left: 4px solid transparent;
                 border-right: 4px solid transparent;
-                border-top: 4px solid #83888D;
+                border-top: 4px solid @generalListEdit-after;
                 content: "";
                 display: block;
                 height: 0;
@@ -544,7 +565,7 @@ ContactActionView.ascx
 }
 
 .contact-photo {
-    border: 1px solid #BFBFBF;
+    border: 1px solid @contact-photo-bor;
     border-radius: 3px 3px 3px 3px;
     display: block;
     text-align: center;

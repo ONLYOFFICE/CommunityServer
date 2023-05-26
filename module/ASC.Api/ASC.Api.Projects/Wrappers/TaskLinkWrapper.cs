@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,15 @@ namespace ASC.Api.Projects.Wrappers
 {
     public class TaskLinkWrapper
     {
+        ///<example>123</example>
         [DataMember]
         public int DependenceTaskId { get; set; }
 
+        ///<example>44</example>
         [DataMember]
         public int ParentTaskId { get; set; }
 
+        ///<example>1</example>
         [DataMember]
         public TaskLinkType LinkType { get; set; }
 

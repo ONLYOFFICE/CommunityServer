@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -506,7 +506,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return new Core.Folder
             {
                 ID = MakeId(isRoot ? "" : folder.ServerRelativeUrl),
-                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(folder.ServerRelativeUrl)),
+                ParentFolderID = isRoot ? (RootFolderType == FolderType.COMMON ? Global.FolderCommon : Global.FolderMy) : MakeId(GetParentFolderId(folder.ServerRelativeUrl)),
                 CreateBy = Owner,
                 CreateOn = CreateOn,
                 FolderType = FolderType.DEFAULT,

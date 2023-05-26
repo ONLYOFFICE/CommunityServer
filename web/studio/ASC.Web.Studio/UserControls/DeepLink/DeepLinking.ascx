@@ -2,6 +2,8 @@
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="deepLinkForm" class="deep-link-form">
+    <% if (string.IsNullOrEmpty(ErrorMsg)) %>
+    <% { %>
     <div class="file-description">
         <div class="file">
             <div class="thumb-file" title="<%= FileTitle %>"></div>
@@ -15,11 +17,14 @@
     </label>
     <div class="buttonContainer">
         <a id="browserButton" class="button white big signIn"><%= Resource.DeepLinkBrowserBtn %></a>
-
         <a id="appButton" class="button blue big signIn" onclick="" <%if (!String.IsNullOrEmpty(DeepLinkUrl))
             { %>href="<%=DeepLinkUrl%>"
             <%} %>><%= Resource.DeepLinkAppBtn %></a>
-
     </div>
-
+    <% } else { %>
+    <div class="exclamation"><%: ErrorMsg %></div>
+    <div class="buttonContainer">
+        <a class="button white big" href="/"><%= Resource.DeepLinkGoToPortalBtn %></a>
+    </div>
+    <% } %>
 </div>

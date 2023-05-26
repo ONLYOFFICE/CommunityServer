@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,6 +56,13 @@ namespace ASC.SsoAuth.Svc
                 };
 
                 var appSettings = ConfigurationManagerExtension.AppSettings;
+
+                var selfSignedCertPath = appSettings["core.self-signed-cert-path"] ?? "";
+
+                if (!string.IsNullOrEmpty(selfSignedCertPath))
+                {
+                    startInfo.EnvironmentVariables.Add("NODE_EXTRA_CA_CERTS", selfSignedCertPath);
+                }
 
                 startInfo.EnvironmentVariables.Add("core.machinekey", appSettings["core.machinekey"]);
                 startInfo.EnvironmentVariables.Add("port", cfg.Port);

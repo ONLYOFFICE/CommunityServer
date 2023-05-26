@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,6 +129,8 @@ namespace ASC.Mail.Utils
                     return SaslMechanism.None;
                 case Defines.PASSWORD_ENCRYPTED:
                     return SaslMechanism.CramMd5;
+                case Defines.PASSWORD_NTLM:
+                    return SaslMechanism.Ntlm;
                 default:
                     throw new ArgumentException("Unknown mail server authentication type: " + type);
             }
@@ -144,6 +146,8 @@ namespace ASC.Mail.Utils
                     return Defines.NONE;
                 case SaslMechanism.CramMd5:
                     return Defines.PASSWORD_ENCRYPTED;
+                case SaslMechanism.Ntlm:
+                    return Defines.PASSWORD_NTLM;
                 default:
                     throw new ArgumentException("Unknown mail server SaslMechanism: " + Enum.GetName(typeof(SaslMechanism), saslType));
             }

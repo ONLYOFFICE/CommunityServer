@@ -24,7 +24,7 @@
             <tr>
                 <td width="16px" class="borderBase" style="border-right: 0 none;">
                     <label class="searchButton" id="searchImg_${ObjID}" onclick="window.${ObjName}.quickSearch('${ObjID}');"></label>
-                    <img align="absmiddle" id="loaderImg_${ObjID}" src="${StudioManager.GetImage('loader_16.gif')}" style="display:none;"/>
+                    <img align="absmiddle" id="loaderImg_${ObjID}" {{if ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0}}src="${StudioManager.GetImage('loader_16.gif')}"{{else}}src="${StudioManager.GetImage('loader-dark-16.svg')}"{{/if}} style="display:none;"/>
                 </td>
                 <td class="borderBase" style="border-left: 0 none; border-right: 0 none;">
                     <input type="text" id="contactTitle_${ObjID}" value="" class="textEdit" placeholder="${WatermarkText}" autocomplete="off"/>

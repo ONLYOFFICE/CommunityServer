@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
+using ASC.Core.Common.Configuration;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
 
@@ -51,7 +52,7 @@ namespace ASC.FederatedLogin.LoginProviders
         public override string Scopes { get { return "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"; } }
 
         public GoogleLoginProvider() { }
-        public GoogleLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null) : base(name, order, props, additional) { }
+        public GoogleLoginProvider(string name, int order, Dictionary<string, Prop> props, Dictionary<string, Prop> additional = null) : base(name, order, props, additional) { }
 
         public override LoginProfile GetLoginProfile(string accessToken)
         {

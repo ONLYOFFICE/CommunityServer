@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  *
 */
 
-
-@import "settings.less";
 
 .containerBodyBlock {
     .popup {
@@ -36,19 +34,20 @@
     .body {
         margin-top: 18px !important;
         font-size: 12px;
-        color: #333333;
+        color: @text-color;
     }
 
     .header {
-        color: #333333;
+        color: @text-color;
         font-size: 14px;
         font-weight: 600;
         text-align: left;
     }
 
     .error {
-        background-image: url("@{blank-icon-sprite-url}");
-        .blank-icon-mixin (1,4);
+        background-image: url("../images/mail_warning.svg");
+        background-size: 100px;
+        background-repeat: no-repeat;
         padding-left: 119px;
         min-height: 100px;
     }
@@ -59,27 +58,29 @@
     }
 
     .errorImg {
-        background-image: url("@{blank-icon-sprite-url}");
-        .blank-icon-mixin (1,4);
+        background-image: url("../images/mail_warning.svg");
+        background-size: 100px;
+        background-repeat: no-repeat;
         height: 100px;
         width: 100px;
         margin-top: -4px;
     }
 
     .successImg {
-        background-image: url("@{blank-icon-sprite-url}");
-        .blank-icon-mixin (0,4);
+        background-image: url("../images/mail_added_contact.svg");
+        background-size: 100px;
+        background-repeat: no-repeat;
         height: 100px;
         width: 100px;
         margin-top: -4px;
     }
 
     .domainAddedImg {
-        background-image: url("@{blank-icon-sprite-url}");
-        .blank-icon-mixin (0,6);
+        background-image: url("../images/mail_company.svg");
+        background-size: 100px;
+        background-repeat: no-repeat;
         height: 100px;
         width: 100px;
         margin-top: -4px;
     }
-
 }

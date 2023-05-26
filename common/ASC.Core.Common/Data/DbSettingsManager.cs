@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,14 +127,14 @@ namespace ASC.Core.Data
             }
         }
 
-        internal T LoadSettingsFor<T>(int tenantId, Guid userId) where T : class, ISettings
+        internal T LoadSettingsFor<T>(int tenantId, Guid userId, bool useCache = true) where T : class, ISettings
         {
             var settingsInstance = (ISettings)Activator.CreateInstance<T>();
             var key = settingsInstance.ID.ToString() + tenantId + userId;
 
             try
             {
-                var settings = cache.Get<T>(key);
+                var settings = useCache ? cache.Get<T>(key) : null;
                 if (settings != null) return settings;
 
                 using (var db = GetDbManager())
@@ -187,7 +187,7 @@ namespace ASC.Core.Data
 
         private IDbManager GetDbManager()
         {
-            return DbManager.FromHttpContext(dbId);
+            return new DbManager(dbId);
         }
 
         private DataContractJsonSerializer GetJsonSerializer(Type type)

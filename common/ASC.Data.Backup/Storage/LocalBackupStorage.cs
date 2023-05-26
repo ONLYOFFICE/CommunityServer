@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,11 @@
 using System;
 using System.IO;
 
+using ASC.Data.Storage.ZipOperators;
+
 namespace ASC.Data.Backup.Storage
 {
-    internal class LocalBackupStorage : IBackupStorage
+    internal class LocalBackupStorage : IBackupStorage, IGetterWriteOperator
     {
         public string Upload(string storageBasePath, string localPath, Guid userId)
         {
@@ -54,6 +56,11 @@ namespace ASC.Data.Backup.Storage
         public string GetPublicLink(string storagePath)
         {
             return string.Empty;
+        }
+
+        public IDataWriteOperator GetWriteOperator(string storageBasePath, string title, Guid userId)
+        {
+            return null;
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -904,16 +904,33 @@ function UserDomGenerator() {
         var avatar = document.createElement("span");
         avatar.setAttribute("class", "us-avatar");
 
-        if (item.avatar && !item.avatar.endsWith("default_user_photo_size_32-32.png")) {
+        if (item.avatar && !item.avatar.endsWith("default_user_photo_size_32-32.png") && !item.avatar.endsWith("default_user_photo_dark_size_32-32.png")) { 
             avatar.setAttribute("style", "background-image: url(" + item.avatar + ")");
         }
 
         return avatar;
     }
 
-    this.createAccess = function (item) {
+    this.createLinkSettings = function (item) {
+        var settings = document.createElement("span");
+        settings.setAttribute("class", "us-settings");
+
+        var passwordSettings = document.createElement("span");
+        passwordSettings.setAttribute("class", "us-settings-item us-settings-password" + (!item.linkSettings.password ? "" : " enabled"));
+        passwordSettings.setAttribute("title", ResourceJS.PasswordProtection);
+        settings.append(passwordSettings);
+
+        var expirationSettings = document.createElement("span");
+        expirationSettings.setAttribute("class", "us-settings-item us-settings-lifetime" + (!item.linkSettings.expirationDate ? "" : item.linkSettings.expired ? " warning" : " enabled"));
+        expirationSettings.setAttribute("title", ResourceJS.Lifetime);
+        settings.append(expirationSettings);
+
+        return settings;
+    }
+
+    this.createAccess = function (item, static) {
         var access = document.createElement("span");
-        access.setAttribute("class", "us-access" + (item.canEdit === false ? " uneditable" : "") + (item.isOwner ? " owner" : " access-" + item.access));
+        access.setAttribute("class", "us-access" + (item.canEdit === false ? " uneditable" : "") + (item.isOwner ? " owner" : " access-" + item.access) + (static ? " static" : ""));
         access.setAttribute("title", item.accessName || "");
         return access;
     }
@@ -923,12 +940,11 @@ function UserDomGenerator() {
         name.setAttribute("id", item.id);
         name.setAttribute("class", "us-name" +
             (item.isGroup ? " us-groupname" : "") +
-            (item.isLink ? " us-linkname" : "") +
+            (item.isLink ? item.entryType === ASC.Files.Constants.EntryType.Folder ? " us-folder-linkname" : " us-linkname" : "") +
             (item.isCheckbox ? " us-checkbox" : "") +
             (item.selected ? " selected" : "") +
             (item.disabled ? " disabled" : "") +
-            (item.shortened ? " shortened" : "") +
-            (item.individual ? " individual" : "") +
+            (item.infoText ? " info" : "") +
             (item.canSelect === false ? " unselectable" : "") +
             (item.canOpen === false ? " unopenable" : "") +
             (item.canEdit === false ? " uneditable" : "") +
@@ -950,12 +966,8 @@ function UserDomGenerator() {
 
         text.append(inner);
 
-        if (item.isLink) {
-            text.append(this.createNameInfoText(item.shortenedText));
-        }
-
-        if (item.individual) {
-            text.append(this.createNameInfoText(item.individualText));
+        if (item.infoText) {
+            text.append(this.createNameInfoText(item.infoText));
         }
 
         name.append(text);
@@ -1052,12 +1064,40 @@ function UserDomGenerator() {
         var name = this.createName(item);
         name.prepend(avatar);
 
+        var hasSettings = item.linkSettings != undefined && !item.inherited;
+        if (hasSettings) {
+            var linkSettings = this.createLinkSettings(item);
+            name.append(linkSettings);
+        }
+
         if (item.access != undefined) {
-            var access = this.createAccess(item);
+            var access = this.createAccess(item, hasSettings);
             name.append(access);
         }
 
         return name;
+    }
+
+    this.createLinkRenameBlock = function () {
+        var block = document.createElement("div");
+        block.setAttribute("class", "us-rename");
+
+        var input = document.createElement("input");
+        input.setAttribute("class", "textEdit");
+        input.setAttribute("type", "text");
+        block.append(input);
+
+        var apply = document.createElement("span");
+        apply.setAttribute("class", "button gray btn-action __apply");
+        apply.setAttribute("title", ResourceJS.SaveButton);
+        block.append(apply);
+
+        var reset = document.createElement("span");
+        reset.setAttribute("class", "button gray btn-action __reset");
+        reset.setAttribute("title", ResourceJS.CancelButton);
+        block.append(reset);
+
+        return block;
     }
 
     this.createAccessRightsDialogContent = function (accessRights) {
@@ -1102,6 +1142,21 @@ function UserDomGenerator() {
             accessRightsItem.append(accessRightsItemText);
             fragment.append(accessRightsItem);
         }
+
+        var separator = document.createElement("div");
+        separator.setAttribute("class", "dropdown-item-seporator");
+        fragment.append(separator);
+
+        var removeItem = document.createElement("div");
+        removeItem.setAttribute("class", "access-rights-item");
+        removeItem.setAttribute("data-id", "remove");
+
+        var removeItemText = document.createElement("div");
+        removeItemText.setAttribute("class", "us-access access-remove");
+        removeItemText.append(document.createTextNode(ResourceJS.RemoveButton))
+
+        removeItem.append(removeItemText);
+        fragment.append(removeItem);
 
         return fragment;
     }
@@ -1154,6 +1209,7 @@ function UserDomGenerator() {
         var searchInput = document.createElement("input");
         searchInput.setAttribute("class", "textEdit");
         searchInput.setAttribute("placeholder", ResourceJS.UserSelectorSearchPlaceholder);
+        searchInput.setAttribute("autocomplete", "new-password");
         var searchClear = document.createElement("span");
         searchClear.setAttribute("class", "clear-search");
         searchBlock.append(searchInput);
@@ -1202,8 +1258,18 @@ function UserDomGenerator() {
 }
 
 
-function DialogHelper(switcherElement, dialogElement, onBeforeShow, onBeforeHide, doNotHideWhenDisplayed, includeDisconnectedElements) {
+function DialogHelper(switcherElement, dialogElement, onBeforeShow, onBeforeHide, doNotHideWhenDisplayed, includeDisconnectedElements, trustedElement) {
     var that = this;
+
+    that.selection = false;
+
+    that.addSelection = function () {
+        that.selection = true;
+    }
+
+    that.removeSelection = function () {
+        that.selection = false;
+    }
 
     that.show = function () {
 
@@ -1219,18 +1285,25 @@ function DialogHelper(switcherElement, dialogElement, onBeforeShow, onBeforeHide
         dialogElement.style.display = "block";
 
         setTimeout(function () {
-            document.addEventListener("click", that.autoHide);
+            dialogElement.addEventListener("mousedown", that.addSelection);
+            document.addEventListener("mouseup", that.autoHide);
         }, 0);
     }
 
     that.hide = function() {
+        if (that.selection) {
+            that.removeSelection();
+            return;
+        }
+
         if (onBeforeHide && !onBeforeHide()) {
             return;
         }
 
         dialogElement.style.display = "none";
 
-        document.removeEventListener("click", that.autoHide);
+        dialogElement.removeEventListener("mousedown", that.addSelection);
+        document.removeEventListener("mouseup", that.autoHide);
     }
 
     that.autoHide = function(event) {
@@ -1248,17 +1321,19 @@ function DialogHelper(switcherElement, dialogElement, onBeforeShow, onBeforeHide
         var element = event.target;
 
         if (includeDisconnectedElements && !element.isConnected) {
+            that.removeSelection();
             return;
         }
 
         while (element != null) {
-            if (element == dialogElement) {
+            if (element == dialogElement || element == trustedElement) {
+                that.removeSelection();
                 return;
             }
             element = element.parentNode;
         }
 
-        that.hide();
+        setTimeout(that.hide,0);
     }
 
     switcherElement && switcherElement.addEventListener("click", that.show);

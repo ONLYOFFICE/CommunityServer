@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,19 @@ namespace ASC.VoipService
 {
     public class VoipPhone
     {
+        ///<example>id</example>
         public string Id { get; set; }
+
+        ///<example>Number</example>
         public string Number { get; set; }
+
+        ///<example>Alias</example>
         public string Alias { get; set; }
+
+        ///<type>ASC.VoipService.VoipSettings, ASC.VoipService</type>
         public VoipSettings Settings { get; set; }
+
+        ///<type>ASC.VoipService.Agent, ASC.VoipService</type>
         public Agent Caller
         {
             get { return Settings.Caller; }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,15 +92,18 @@ namespace ASC.Web.Studio.Utility
         {
             return CoreContext.PaymentManager.GetTariff(TenantProvider.CurrentTenantID);
         }
-
+        public static TenantQuota GetTenantQuota(bool useCache)
+        {
+            return GetTenantQuota(TenantProvider.CurrentTenantID, useCache);
+        }
         public static TenantQuota GetTenantQuota()
         {
             return GetTenantQuota(TenantProvider.CurrentTenantID);
         }
 
-        public static TenantQuota GetTenantQuota(int tenant)
+        public static TenantQuota GetTenantQuota(int tenant, bool useCache = true)
         {
-            return CoreContext.TenantManager.GetTenantQuota(tenant);
+            return CoreContext.TenantManager.GetTenantQuota(tenant, useCache);
         }
 
         public static IEnumerable<TenantQuota> GetTenantQuotas()

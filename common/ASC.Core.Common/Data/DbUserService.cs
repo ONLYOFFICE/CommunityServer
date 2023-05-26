@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,6 +88,7 @@ namespace ASC.Core.Data
                 {
                     q = new SqlQuery("core_usersecurity s")
                         .SelectCount()
+                        .Where("s.tenant", user.Tenant)
                         .Where("s.userid", user.ID)
                         .Where(Exp.Eq("s.pwdhash", GetPasswordHash(user.ID, passwordHash)));
                     var count = ExecScalar<int>(q);
@@ -167,7 +168,8 @@ namespace ASC.Core.Data
                     .InColumnValue("sid", user.Sid)
                     .InColumnValue("sso_name_id", user.SsoNameId)
                     .InColumnValue("sso_session_id", user.SsoSessionId)
-                    .InColumnValue("create_on", user.CreateDate);
+                    .InColumnValue("create_on", user.CreateDate)
+                    .InColumnValue("user_lead", user.Lead);
 
                 db.ExecuteNonQuery(i);
 
@@ -353,7 +355,7 @@ namespace ASC.Core.Data
             return new SqlQuery("core_user u")
                 .Select("u.id", "u.username", "u.firstname", "u.lastname", "u.sex", "u.bithdate", "u.status", "u.title")
                 .Select("u.workfromdate", "u.terminateddate", "u.contacts", "u.email", "u.location", "u.notes", "u.removed")
-                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.sso_name_id", "u.sso_session_id", "u.create_on");
+                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.sso_name_id", "u.sso_session_id", "u.create_on", "u.user_lead");
         }
 
         private static SqlQuery GetUserQuery(int tenant, DateTime from)
@@ -406,7 +408,8 @@ namespace ASC.Core.Data
                 Sid = (string)r[21],
                 SsoNameId = (string)r[22],
                 SsoSessionId = (string)r[23],
-                CreateDate = Convert.ToDateTime(r[24])
+                CreateDate = Convert.ToDateTime(r[24]),
+                Lead = r[25] != null ? new Guid((string)r[25]) : (Guid?)null
             };
             u.ContactsFromString((string)r[10]);
             return u;

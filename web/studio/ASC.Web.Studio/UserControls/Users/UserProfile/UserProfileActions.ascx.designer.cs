@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Studio.UserControls.Users {
-    
-    
-    public partial class UserProfileActions {
-        
+namespace ASC.Web.Studio.UserControls.Users
+{
+
+
+    public partial class UserProfileActions
+    {
+
         /// <summary>
         /// _phConfirmationDeleteUser control.
         /// </summary>
@@ -20,5 +22,14 @@ namespace ASC.Web.Studio.UserControls.Users {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder _phConfirmationDeleteUser;
+
+        /// <summary>
+        /// _confirmationImpersonateUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder _confirmationImpersonateUser;
     }
 }

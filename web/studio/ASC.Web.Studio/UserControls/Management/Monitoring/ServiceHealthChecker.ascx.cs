@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ using System.Web.UI;
 using AjaxPro;
 
 using ASC.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
@@ -45,9 +46,15 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts("~/UserControls/Management/Monitoring/js/servicehealthchecker.js")
-                .RegisterStyle("~/UserControls/Management/Monitoring/css/monitoring.less");
-
+            Page.RegisterBodyScripts("~/UserControls/Management/Monitoring/js/servicehealthchecker.js");
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/Monitoring/css/dark-monitoring.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/Monitoring/css/monitoring.less");
+            }
             HelpLink = CommonLinkUtility.GetHelpLink();
         }
 

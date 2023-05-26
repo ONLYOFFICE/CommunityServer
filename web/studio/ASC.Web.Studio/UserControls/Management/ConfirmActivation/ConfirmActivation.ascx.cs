@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.PublicResources;
@@ -43,6 +44,8 @@ namespace ASC.Web.Studio.UserControls.Management
         private UserInfo User { get; set; }
         protected ConfirmType Type { get; set; }
 
+        protected Web.Core.Utility.PasswordSettings TenantPasswordSettings;
+
         protected bool isPersonal
         {
             get { return CoreContext.Configuration.Personal; }
@@ -50,8 +53,16 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/UserControls/Management/ConfirmActivation/js/confirmactivation.js")
-                .RegisterStyle("~/UserControls/Management/ConfirmActivation/css/confirmactivation.less");
+            Page.RegisterBodyScripts("~/UserControls/Management/ConfirmActivation/js/confirmactivation.js");
+
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/ConfirmActivation/css/dark-confirmactivation.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/ConfirmActivation/css/confirmactivation.less");
+            }
             Page.Title = HeaderStringHelper.GetPageTitle(Resource.Authorization);
 
             var email = (Request["email"] ?? "").Trim();
@@ -62,6 +73,8 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             Type = typeof(ConfirmType).TryParseEnum(Request["type"] ?? "", ConfirmType.EmpInvite);
+
+            TenantPasswordSettings = Web.Core.Utility.PasswordSettings.Load();
 
             try
             {
@@ -119,12 +132,12 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             if (SecurityContext.IsAuthenticated) return;
 
-            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
+            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.TfaEnabledForUser(user.ID))
             {
                 Response.Redirect(Request.AppendRefererURL(Confirm.SmsConfirmUrl(user)), true);
                 return;
             }
-            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.TfaEnabledForUser(user.ID))
             {
                 Response.Redirect(Request.AppendRefererURL(Confirm.TfaConfirmUrl(user)), true);
                 return;

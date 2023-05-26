@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ namespace ASC.Web.Community.News.Code.DAO
 {
     internal class DbFeedStorage : IFeedStorage
     {
-        private readonly IDbManager dbManager = DbManager.FromHttpContext(FeedStorageFactory.Id);
+        private readonly IDbManager dbManager = new DbManager(FeedStorageFactory.Id);
 
         private readonly int tenant;
 
@@ -270,7 +270,7 @@ namespace ASC.Web.Community.News.Code.DAO
                 if (type == FeedType.Poll && feed is FeedPoll)
                 {
                     NewsNotifyClient.NotifyClient.SendNoticeAsync(
-                        NewsConst.NewFeed, null, null,
+                        NewsConst.NewFeed, null,
                         new TagValue(NewsConst.TagFEED_TYPE, "poll"),
                         new TagValue(NewsConst.TagAnswers, ((FeedPoll)feed).Variants.ConvertAll(v => v.Name)),
                         new TagValue(NewsConst.TagCaption, feed.Caption),
@@ -289,7 +289,7 @@ namespace ASC.Web.Community.News.Code.DAO
                 else
                 {
                     NewsNotifyClient.NotifyClient.SendNoticeAsync(
-                        NewsConst.NewFeed, null, null,
+                        NewsConst.NewFeed, null,
                         new TagValue(NewsConst.TagFEED_TYPE, "feed"),
                         new TagValue(NewsConst.TagCaption, feed.Caption),
                         new TagValue(NewsConst.TagText,
@@ -432,7 +432,7 @@ namespace ASC.Web.Community.News.Code.DAO
             try
             {
                 NewsNotifyClient.NotifyClient.AddInterceptor(initatorInterceptor);
-
+               
                 var mentionedUsers = MentionProvider.GetMentionedUsers(comment.Comment);
                 var mentionedUserIds = mentionedUsers.Select(u => u.ID.ToString());
 
@@ -450,7 +450,7 @@ namespace ASC.Web.Community.News.Code.DAO
                 if (mentionedUsers.Length > 0)
                 {
                     NewsNotifyClient.NotifyClient.SendNoticeToAsync(NewsConst.MentionForFeedComment, objectID, mentionedUsers, false, tags);
-                }
+                }            
             }
             finally
             {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,12 +38,12 @@ namespace ASC.Core.Data
         }
 
 
-        public IEnumerable<TenantQuota> GetTenantQuotas()
+        public IEnumerable<TenantQuota> GetTenantQuotas(bool useCache = false)
         {
             return GetTenantQuotas(Exp.Empty);
         }
 
-        public TenantQuota GetTenantQuota(int id)
+        public TenantQuota GetTenantQuota(int id, bool useCache = false)
         {
             return GetTenantQuotas(Exp.Eq("tenant", id))
                 .SingleOrDefault();
@@ -102,15 +102,28 @@ namespace ASC.Core.Data
             using (var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
-                var counter = db.ExecuteScalar<long>(Query(tenants_quotarow, row.Tenant)
-                    .Select("counter")
-                    .Where("path", row.Path));
 
-                db.ExecuteNonQuery(Insert(tenants_quotarow, row.Tenant)
-                    .InColumnValue("path", row.Path)
-                    .InColumnValue("counter", exchange ? counter + row.Counter : row.Counter)
-                    .InColumnValue("tag", row.Tag)
-                    .InColumnValue("last_modified", DateTime.UtcNow));
+                var userQuotaRow = FindUserQuotaRow(row.Tenant, row.UserId, row.Path);
+                if(userQuotaRow == null)
+                {
+                    db.ExecuteNonQuery(Insert(tenants_quotarow, row.Tenant)
+                        .InColumnValue("path", row.Path)
+                        .InColumnValue("counter", row.Counter)
+                        .InColumnValue("tag", row.Tag)
+                        .InColumnValue("user_id", row.UserId)
+                        .InColumnValue("last_modified", DateTime.UtcNow));
+                }
+                else
+                {
+                    var update = new SqlUpdate(tenants_quotarow)
+                                            .Set("counter", exchange ? userQuotaRow.Counter + row.Counter : row.Counter)
+                                            .Set("last_modified", DateTime.UtcNow)
+                                            .Where("tenant", row.Tenant)
+                                            .Where("path", row.Path)
+                                            .Where("user_id", row.UserId);
+
+                    db.ExecuteNonQuery(update);
+                }
 
                 tx.Commit();
             }
@@ -118,12 +131,13 @@ namespace ASC.Core.Data
 
         public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(int tenantId)
         {
-            var q = new SqlQuery(tenants_quotarow).Select("tenant", "path", "counter", "tag");
+            var q = new SqlQuery(tenants_quotarow).Select("tenant", "path", "counter", "tag", "user_id");
             var where = Exp.Empty;
 
             if (tenantId != Tenant.DEFAULT_TENANT)
             {
                 where &= Exp.Eq("tenant", tenantId);
+                where &= Exp.Eq("user_id", Guid.Empty);
             }
 
             if (where != Exp.Empty)
@@ -141,6 +155,88 @@ namespace ASC.Core.Data
                 });
         }
 
+        public IEnumerable<TenantQuotaRow> FindUserQuotaRows(int tenantId, Guid userId, bool useCache)
+        {
+            var q = new SqlQuery(tenants_quotarow).Select("tenant", "user_id", "path", "counter", "tag");
+            var where = Exp.Empty;
+
+            if (tenantId != Tenant.DEFAULT_TENANT)
+            {
+                where &= Exp.Eq("tenant", tenantId);
+                where &= Exp.Eq("user_id", userId);
+            }
+
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
+            }
+
+            return ExecList(q)
+                .ConvertAll(r => new TenantQuotaRow
+                {
+                    Tenant = Convert.ToInt32(r[0]),
+                    UserId = Guid.Parse((string)r[1]),
+                    Path = (string)r[2],
+                    Counter = Convert.ToInt64(r[3]),
+                    Tag = (string)r[4],
+                });
+        }
+
+        public TenantQuotaRow FindUserQuotaRow(int tenantId, Guid userId, Guid tag)
+        {
+            var q = new SqlQuery(tenants_quotarow).Select("tenant", "user_id", "path", "counter", "tag");
+            var where = Exp.Empty;
+
+            if (tenantId != Tenant.DEFAULT_TENANT)
+            {
+                where &= Exp.Eq("tenant", tenantId);
+                where &= Exp.Eq("user_id", userId);
+                where &= Exp.Eq("tag", tag);
+            }
+
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
+            }
+
+            return ExecList(q)
+                .ConvertAll(r => new TenantQuotaRow
+                {
+                    Tenant = Convert.ToInt32(r[0]),
+                    UserId = Guid.Parse((string)r[1]),
+                    Path = (string)r[2],
+                    Counter = Convert.ToInt64(r[3]),
+                    Tag = (string)r[4],
+                }).SingleOrDefault();
+        }
+
+        public TenantQuotaRow FindUserQuotaRow(int tenantId, Guid userId, string path)
+        {
+            var q = new SqlQuery(tenants_quotarow).Select("tenant", "user_id", "path", "counter", "tag");
+            var where = Exp.Empty;
+
+            if (tenantId != Tenant.DEFAULT_TENANT)
+            {
+                where &= Exp.Eq("tenant", tenantId);
+                where &= Exp.Eq("user_id", userId);
+                where &= Exp.Eq("path", path);
+            }
+
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
+            }
+
+            return ExecList(q)
+                .ConvertAll(r => new TenantQuotaRow
+                {
+                    Tenant = Convert.ToInt32(r[0]),
+                    UserId = Guid.Parse((string)r[1]),
+                    Path = (string)r[2],
+                    Counter = Convert.ToInt64(r[3]),
+                    Tag = (string)r[4],
+                }).SingleOrDefault();
+        }
 
         private static long GetInBytes(long bytes)
         {

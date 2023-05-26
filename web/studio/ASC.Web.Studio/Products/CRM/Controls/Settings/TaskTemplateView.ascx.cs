@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
             var emptyScreenControl = new EmptyScreenControl
             {
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_tasks.png", ProductEntryPoint.ID),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_tasks.svg", ProductEntryPoint.ID),
                 Header = CRMSettingResource.EmptyContentTaskTemplates,
                 Describe = CRMSettingResource.EmptyContentTaskTemplatesDescript,
                 ButtonHTML = String.Format("<a id='addTag' class='link dotline plus' onclick='ASC.CRM.TaskTemplateView.showTemplateConatainerPanel();'>{0}</a>",

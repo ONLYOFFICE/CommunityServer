@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,30 +30,6 @@ namespace ASC.Common.Data
 {
     public static class DataExtensions
     {
-        public static List<object[]> ExecuteList(this DbConnection connection, string sql, params object[] parameters)
-        {
-            using (var command = connection.CreateCommand())
-            {
-                return command.ExecuteList(sql, parameters);
-            }
-        }
-
-        public static T ExecuteScalar<T>(this DbConnection connection, string sql, params object[] parameters)
-        {
-            using (var command = connection.CreateCommand())
-            {
-                return command.ExecuteScalar<T>(sql, parameters);
-            }
-        }
-
-        public static int ExecuteNonQuery(this DbConnection connection, string sql, params object[] parameters)
-        {
-            using (var command = connection.CreateCommand())
-            {
-                return command.ExecuteNonQuery(sql, parameters);
-            }
-        }
-
         public static DbCommand CreateCommand(this DbConnection connection, string sql, params object[] parameters)
         {
             var command = connection.CreateCommand();
@@ -198,28 +174,6 @@ namespace ASC.Common.Data
             return (T)Convert.ChangeType(scalar, scalarType);
         }
 
-        public static async Task<T> ExecuteScalarAsync<T>(this DbCommand command, string sql, params object[] parameters)
-        {
-            command.PrepareCommand(sql, parameters);
-
-            var scalar = await command.ExecuteScalarAsync();
-
-            if (scalar == null || scalar == DBNull.Value)
-            {
-                return default(T);
-            }
-            var scalarType = typeof(T);
-            if (scalarType == typeof(object))
-            {
-                return (T)scalar;
-            }
-            if (scalarType.Name == "Nullable`1")
-            {
-                scalarType = scalarType.GetGenericArguments()[0];
-            }
-            return (T)Convert.ChangeType(scalar, scalarType);
-        }
-
         public static int ExecuteNonQuery(this DbCommand command, string sql, params object[] parameters)
         {
             command.PrepareCommand(sql, parameters);
@@ -232,21 +186,21 @@ namespace ASC.Common.Data
             return command.ExecuteNonQueryAsync();
         }
 
-        public static List<object[]> ExecuteList(this DbCommand command, ISqlInstruction sql, ISqlDialect dialect)
+        public static List<object[]> ExecuteList(this DbManager manager, ISqlInstruction sql, ISqlDialect dialect)
         {
-            ApplySqlInstruction(command, sql, dialect);
+            var command = manager.ApplySqlInstruction(sql, dialect);
             return command.ExecuteList();
         }
 
-        public static Task<List<object[]>> ExecuteListAsync(this DbCommand command, ISqlInstruction sql, ISqlDialect dialect)
+        public static Task<List<object[]>> ExecuteListAsync(this DbManager manager, ISqlInstruction sql, ISqlDialect dialect)
         {
-            ApplySqlInstruction(command, sql, dialect);
+            var command = manager.ApplySqlInstruction(sql, dialect);
             return command.ExecuteListAsync();
         }
 
-        public static List<T> ExecuteList<T>(this DbCommand command, ISqlInstruction sql, ISqlDialect dialect, Converter<IDataRecord, T> mapper)
+        public static List<T> ExecuteList<T>(this DbManager manager, ISqlInstruction sql, ISqlDialect dialect, Converter<IDataRecord, T> mapper)
         {
-            ApplySqlInstruction(command, sql, dialect);
+            var command = manager.ApplySqlInstruction(sql, dialect);
             var result = new List<T>();
             using (var reader = command.ExecuteReader())
             {
@@ -258,37 +212,47 @@ namespace ASC.Common.Data
             return result;
         }
 
-        public static T ExecuteScalar<T>(this DbCommand command, ISqlInstruction sql, ISqlDialect dialect)
+        public static T ExecuteScalar<T>(this DbManager manager, ISqlInstruction sql, ISqlDialect dialect)
         {
-            ApplySqlInstruction(command, sql, dialect);
+            var command = manager.ApplySqlInstruction(sql, dialect);
             return command.ExecuteScalar<T>();
         }
 
-        public static int ExecuteNonQuery(this DbCommand command, ISqlInstruction sql, ISqlDialect dialect)
+        public static int ExecuteNonQuery(this IDbManager manager, ISqlInstruction sql, ISqlDialect dialect)
         {
-            ApplySqlInstruction(command, sql, dialect);
+            var command = ApplySqlInstruction(manager, sql, dialect);
             return command.ExecuteNonQuery();
         }
 
-        private static void ApplySqlInstruction(DbCommand command, ISqlInstruction sql, ISqlDialect dialect)
+        private static DbCommand ApplySqlInstruction(this IDbManager manager, ISqlInstruction sql, ISqlDialect dialect)
         {
             var sqlStr = sql.ToString(dialect);
             var parameters = sql.GetParameters();
-            command.Parameters.Clear();
 
             var sqlParts = sqlStr.Split('?');
             var sqlBuilder = new StringBuilder();
             var i = 0;
-            foreach(var p in parameters)
+
+            var commandParameters = new Dictionary<string, object>();
+
+            foreach (var p in parameters)
             {
                 var name = $"p{i}";
-                command.AddParameter(name, p);
                 sqlBuilder.AppendFormat("{0}@{1}", sqlParts[i], name);
+                commandParameters.Add(name, p);
                 i++;
             }
 
             sqlBuilder.Append(sqlParts[sqlParts.Length - 1]);
+
+            var command = manager.Command;
+            command.Parameters.Clear();
+            foreach (var p in commandParameters)
+            {
+                command.AddParameter(p.Key, p.Value);
+            }
             command.CommandText = sqlBuilder.ToString();
+            return command;
         }
 
 

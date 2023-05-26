@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,15 +62,19 @@ namespace ASC.Core.Common.Contracts
     [DataContract]
     public class BackupProgress
     {
+        ///<example>false</example>
         [DataMember]
         public bool IsCompleted { get; set; }
 
+        ///<example type="int">44</example>
         [DataMember]
         public int Progress { get; set; }
 
+        ///<example>null</example>
         [DataMember]
         public string Error { get; set; }
 
+        ///<example>Link</example>
         [DataMember]
         public string Link { get; set; }
     }
@@ -78,18 +82,23 @@ namespace ASC.Core.Common.Contracts
     [DataContract]
     public class BackupHistoryRecord
     {
+        ///<example>38c0f464-f1e7-493e-8d95-dc4ee8ee834a</example>
         [DataMember]
         public Guid Id { get; set; }
 
+        ///<example>FileName</example>
         [DataMember]
         public string FileName { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember]
         public BackupStorageType StorageType { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         [DataMember]
         public DateTime CreatedOn { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         [DataMember]
         public DateTime ExpiresOn { get; set; }
     }

@@ -1,0 +1,359 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+@import "../../../skins/default/params.less";
+
+.scroll-fix {
+    overflow: hidden !important;
+}
+
+.infoblock {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    color: @bodyColor2;
+    z-index: 400;
+    text-align: center;
+}
+
+.infoblock > span {
+	background-color: black;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.jp-loading,
+.jp-error,
+.jp-state-playing #videoOverlay,
+.jp-video-full .jp-details,
+.jp-video-full #mediaViewerToolbox,
+.jp-no-solution {
+    display: none;
+}
+
+#mediaPlayer {
+    display: none;
+    color: @borderColor;
+}
+
+#videoViewerOverlay {
+    position: fixed;
+    z-index: 400;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.5;
+}
+
+#videoOverlay {
+    height: 60px;
+    width: 80px;
+    background: url('./images/play-large.png') rgba(0, 0, 0, 0.5) no-repeat center;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 401;
+    cursor: pointer;
+}
+
+#videoOverlay:hover {
+    background-color: rgba(80, 80, 80, 0.5);
+}
+
+.jp-details {
+    z-index: 401;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    height: 20px;
+    width: 100%;
+    background: rgba(17, 17, 17, 0.867);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#mediaViewerToolbox {
+    z-index: 401;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    height: 20px;
+    width: 100%;
+    background-color: rgba(11, 11, 11, 0.7);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align:center;
+}
+
+#mediaViewerToolbox div {
+    height: 30px;
+    display: inline-block;
+    margin-top: -6px;
+}
+#mediaViewerToolbox > span:last-child {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+#mediaScroll {
+    position: fixed;
+    width: 100%;
+    height: 0;
+    left: 0;
+    top: 50%;
+    z-index: 401;
+}
+#mediaNext.inactive, #mediaPrev.inactive {
+    opacity: 0.2;
+    cursor: default;
+}
+#mediaNext.inactive:hover, #mediaPrev.inactive:hover {
+    background-color: rgba(11, 11, 11, 0.7);
+}
+#mediaNext, #mediaPrev {
+    position: absolute;
+    height: 40px;
+    top: -20px;
+    background-color: rgba(11, 11, 11, 0.7);
+    border-radius: 50%;
+}
+#mediaNext {
+    margin-left: 20px;
+    right: 20px;
+    background-image: url('./images/next.png');
+}
+#mediaPrev {
+    margin-right: 20px;
+    left: 20px;
+    background-image: url('./images/previous.png');
+}
+
+#filesMediaPlayer {
+    position: absolute;
+    z-index: 400;
+    padding-bottom: 40px;
+    background-color: rgba(11, 11, 11, 0.7);
+}
+
+#filesMediaPlayer > img {
+    background-color: #e4e4ef;
+}
+
+.jp-type-single {
+    display: none;
+    position: absolute;
+    z-index: 400;
+}
+
+.jp-video-full .jp-controls {
+    background-color: rgba(11, 11, 11, 0.4);
+}
+
+.jp-controls {
+    height: 40px;
+}
+
+.videoControl {
+    display: inline-block;
+	height: 30px;
+    line-height: 30px;
+	margin: 5px;
+	float: left;
+}
+
+.videoControlBtn {
+    width: 40px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.videoControlBtn:hover, #mediaNext:hover, #mediaPrev:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+#mediaPlayerClose {
+    background-image: url('./images/close.png');
+    position: fixed;
+    top: 9px;
+    right: 10px;
+    height: 30px;
+}
+
+.jp-play {
+    background-image: url('./images/play.png');
+}
+
+.jp-state-playing .jp-play {
+    background-image: url('./images/pause.png');
+}
+
+.jp-duration {
+    width: 60px;
+    text-align: center;
+}
+
+.jp-video-270p .jp-full-screen, .jp-video-full .jp-full-screen {
+    display: inline-block;
+    width: 40px;
+}
+
+.jp-video-full .jp-full-screen {
+    background-image: url('./images/fullscreen-off.png');
+}
+
+.jp-full-screen {
+    width: 0;
+    display: none;
+    background-image: url('./images/fullscreen-on.png');
+}
+
+.jp-mute {
+    background-image: url('./images/volume.png');
+    margin: 0;
+}
+
+.jp-state-muted .jp-mute {
+    background-image: url('./images/volume_muted.png');
+}
+
+.jp-seek, .jp-pos {
+    margin: 12px 0;
+    height: 6px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.jp-seek {
+    background: rgba(200, 200, 200, 0.2);
+}
+
+.jp-pos {
+    background-color: @borderColor;
+    text-align: right;
+    pointer-events: none;
+}
+
+.jp-pos > span, .jp-volume-bar-value > span {
+    width: 12px;
+    height: 12px;
+    background: @bodyColor2;
+    display: inline-block;
+    border-radius: 50%;
+    margin-top: -3px;
+    margin-right: -3px;
+}
+
+.jp-pos > span, .jp-volume-bar-value > span {
+	margin-left: -3px;
+}
+
+.jp-volume-holder:hover > .jp-volume-wrapper, .jp-volume-wrapper.isChanging {
+    display: block;
+}
+
+.jp-volume-holder:hover > .jp-mute {
+    background-color: rgba(200, 200, 200, 0.2);
+}
+
+.jp-volume-wrapper {
+    display: none;
+	background: black;
+	border-radius: 5px;
+	margin-top: -80px;
+    padding: 8px 0;
+}
+
+.jp-volume-bar, .jp-volume-bar-value {
+	width: 6px;
+	margin: 0 auto;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.jp-volume-bar {
+    height: 64px;
+    background: rgba(200, 200, 200, 0.2);
+    position: relative;
+}
+
+.jp-volume-bar-value {
+    background-color: @borderColor;
+    position: absolute;
+    bottom: 0;
+    pointer-events: none;
+}
+
+#videoDelete {
+    background-image: url('./images/trash.png');
+}
+#videoDownload {
+    background-image: url('./images/dl.png');
+}
+
+/* Image Viewer*/
+
+.image-viewer-temp {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden
+}
+
+#imageViewerContainer {
+    cursor: move;
+    position: absolute;
+    z-index: 401;
+}
+
+#imageZoomIn {
+    background-image: url('./images/zoom-in.png');
+}
+#imageZoomOut {
+    background-image: url('./images/zoom-out.png');
+}
+#imageFullScale {
+    background-image: url('./images/zoom-to-actual-pixels.png');
+}
+#imageRotateLeft {
+    background-image: url('./images/rotate-ccw.png');
+}
+#imageRotateRight {
+    background-image: url('./images/rotate-cw.png');
+}
+
+#imageViewerInfo {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #303030;
+    color: @body-color;
+    display: none;
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;
+    padding: 4px 10px;
+    z-index: 402;
+}

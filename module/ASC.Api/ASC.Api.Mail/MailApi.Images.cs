@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,9 @@ namespace ASC.Api.Mail
         /// <returns>List of addresses. Email adresses are represented as strings in the name@domain format</returns>
         /// <short>Get trusted image addresses</short> 
         /// <category>Images</category>
+        /// <path>api/2.0/mail/display_images/addresses</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"display_images/addresses")]
         public IEnumerable<string> GetDisplayImagesAddresses()
         {
@@ -37,13 +40,15 @@ namespace ASC.Api.Mail
         }
 
         ///  <summary>
-        ///  Adds the image address specified in the request to the list of trusted image addresses.
+        ///  Adds an image address specified in the request to the list of trusted image addresses.
         ///  </summary>
-        /// <param name="address">Image address</param>
+        /// <param type="System.String, System" name="address">Image address</param>
         /// <returns>Added image address</returns>
         /// <short>Add the trusted image address</short> 
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         /// <category>Images</category>
+        ///  <path>api/2.0/mail/display_images/address</path>
+        ///  <httpMethod>POST</httpMethod>
         [Create(@"display_images/address")]
         public string AddDisplayImagesAddress(string address)
         {
@@ -53,13 +58,15 @@ namespace ASC.Api.Mail
         }
 
         ///  <summary>
-        ///  Removes the image address specified in the request from the list of trusted image addresses.
+        ///  Removes an image address specified in the request from the list of trusted image addresses.
         ///  </summary>
-        /// <param name="address">Image address</param>
+        /// <param type="System.String, System" name="address">Image address</param>
         /// <returns>Removed image address</returns>
         ///  <short>Remove the trusted image address</short> 
-        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">An exception occurs when the parameters are invalid. The text description contains the parameter name and the text description.</exception>
         ///  <category>Images</category>
+        ///  <path>api/2.0/mail/display_images/address</path>
+        ///  <httpMethod>DELETE</httpMethod>
         [Delete(@"display_images/address")]
         public string RemovevDisplayImagesAddress(string address)
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,27 @@ namespace ASC.Mail.Core.Entities
 {
     public class MailboxServer : IEquatable<MailboxServer>
     {
+        ///<example type="int">1234</example>
         public int Id { get; set; }
+
+        ///<example type="int">1234</example>
         public int ProviderId { get; set; }
+
+        ///<example>Type</example>
         public string Type { get; set; }
+
+        ///<example>Hostname</example>
         public string Hostname { get; set; }
+
+        ///<example type="int">1234</example>
         public int Port { get; set; }
+
+        ///<example>SocketType</example>
         public string SocketType { get; set; }
 
         private string _username;
+
+        ///<example>Username</example>
         public string Username
         {
             get { return _username; }
@@ -36,6 +49,8 @@ namespace ASC.Mail.Core.Entities
         }
 
         private string _auth;
+
+        ///<example>Authentication</example>
         public string Authentication
         {
             get { return _auth; }
@@ -44,6 +59,8 @@ namespace ASC.Mail.Core.Entities
                 _auth = value ?? "";
             }
         }
+
+        ///<example>true</example>
         public bool IsUserData { get; set; }
 
         #region Equality

@@ -4,6 +4,7 @@ set -e
 
 LETSENCRYPT_ROOT_DIR="/etc/letsencrypt";
 ROOT_DIR="/var/www/onlyoffice/Data/certs";
+CERTIFICATE_NAME="communityserver"
 
 _domains="";
 
@@ -15,18 +16,18 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 mkdir -p ${ROOT_DIR}
 
-certbot certonly --expand --webroot -w ${ROOT_DIR} --noninteractive --agree-tos --email support@$1 $_domains;
+certbot certonly --expand --webroot -w ${ROOT_DIR} --cert-name ${CERTIFICATE_NAME} --noninteractive --agree-tos --email support@$1 $_domains;
 
-cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
-cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/privkey.pem ${ROOT_DIR}/onlyoffice.key
-cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/chain.pem ${ROOT_DIR}/stapling.trusted.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/${CERTIFICATE_NAME}/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/${CERTIFICATE_NAME}/privkey.pem ${ROOT_DIR}/onlyoffice.key
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/${CERTIFICATE_NAME}/chain.pem ${ROOT_DIR}/stapling.trusted.crt
 
 cat > ${LETSENCRYPT_ROOT_DIR}/renewal-hooks/deploy/communityserver.sh <<END
 #!/bin/bash
 
-cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
-cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/privkey.pem ${ROOT_DIR}/onlyoffice.key
-cp -f ${LETSENCRYPT_ROOT_DIR}/live/$1/chain.pem ${ROOT_DIR}/stapling.trusted.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/${CERTIFICATE_NAME}/fullchain.pem ${ROOT_DIR}/onlyoffice.crt
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/${CERTIFICATE_NAME}/privkey.pem ${ROOT_DIR}/onlyoffice.key
+cp -f ${LETSENCRYPT_ROOT_DIR}/live/${CERTIFICATE_NAME}/chain.pem ${ROOT_DIR}/stapling.trusted.crt
 
 service nginx reload
 

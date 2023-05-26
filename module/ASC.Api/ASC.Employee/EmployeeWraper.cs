@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,22 +49,44 @@ namespace ASC.Api.Employee
 
             if (EmployeeWraperFull.CheckContext(context, "avatarSmall"))
             {
-                AvatarSmall = UserPhotoManager.GetSmallPhotoURL(userInfo.ID) + "?_=" + userInfo.LastModified.GetHashCode();
+                var smallPhotoUrl = UserPhotoManager.GetSmallPhotoURL(userInfo.ID);
+
+                AvatarSmall = GetParametrizedPhotoUrl(smallPhotoUrl, userInfo);
             }
         }
 
+        internal string GetParametrizedPhotoUrl(string photoUrl, UserInfo userInfo)
+        {
+            if (!UserPhotoManager.IsDeafaultPhoto(photoUrl))
+            {
+                photoUrl += "?_=" + userInfo.LastModified.GetHashCode();
+            }
+
+            return photoUrl;
+        }
+
+        ///<example>00000000-0000-0000-0000-000000000000</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public Guid Id { get; set; }
 
+        ///<example>Mike Zanyatski</example>
+        ///<order>10</order>
         [DataMember(Order = 10)]
         public string DisplayName { get; set; }
 
+        ///<example>Manager</example>
+        ///<order>11</order>
         [DataMember(Order = 11, EmitDefaultValue = false)]
         public string Title { get; set; }
 
+        ///<example>url to small avatar</example>
+        ///<order>20</order>
         [DataMember(Order = 20)]
         public string AvatarSmall { get; set; }
 
+        ///<example>\/Products\/People\/Profile.aspx?user=administrator</example>
+        ///<order>30</order>
         [DataMember(Order = 30)]
         public string ProfileUrl
         {

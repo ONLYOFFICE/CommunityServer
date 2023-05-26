@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System.Web;
 
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Projects.Resources;
@@ -44,22 +45,42 @@ namespace ASC.Web.Projects
 
             Title = HeaderStringHelper.GetPageTitle(ProjectsFileResource.Files);
 
-            Page
-                .RegisterStyle(PathProvider.GetFileStaticRelativePath("common.css"))
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("dark-common.less"))
                 .RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                               "Controls/MainContent/maincontent.css",
-                               "Controls/ContentList/contentlist.css",
-                               "Controls/AccessRights/accessrights.css",
-                               "Controls/ThirdParty/thirdparty.css",
-                               "Controls/ConvertFile/convertfile.css",
-                               "Controls/ConvertFile/confirmconvert.css",
-                               "Controls/EmptyFolder/emptyfolder.css",
-                               "Controls/FileChoisePopup/filechoisepopup.css",
-                               "Controls/ChunkUploadDialog/chunkuploaddialog.css",
-                               "Controls/Tree/treebuilder.css",
-                               "Controls/Tree/tree.css"
-                )
-                .RegisterBodyScripts(ResolveUrl,
+                               "Controls/MainContent/dark-maincontent.less",
+                               "Controls/ContentList/dark-contentlist.less",
+                               "Controls/AccessRights/dark-accessrights.less",
+                               "Controls/ThirdParty/dark-thirdparty.less",
+                               "Controls/ConvertFile/dark-convertfile.less",
+                               "Controls/ConvertFile/confirmconvert.less",
+                               "Controls/EmptyFolder/emptyfolder.less",
+                               "Controls/FileChoisePopup/filechoisepopup.less",
+                               "Controls/ChunkUploadDialog/dark-chunkuploaddialog.less",
+                               "Controls/Tree/treebuilder.less",
+                               "Controls/Tree/dark-tree.less"
+                );
+            }
+            else
+            {
+                Page
+                .RegisterStyle(PathProvider.GetFileStaticRelativePath("common.less"))
+                .RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                               "Controls/MainContent/maincontent.less",
+                               "Controls/ContentList/contentlist.less",
+                               "Controls/AccessRights/accessrights.less",
+                               "Controls/ThirdParty/thirdparty.less",
+                               "Controls/ConvertFile/convertfile.less",
+                               "Controls/ConvertFile/confirmconvert.less",
+                               "Controls/EmptyFolder/emptyfolder.less",
+                               "Controls/FileChoisePopup/filechoisepopup.less",
+                               "Controls/ChunkUploadDialog/chunkuploaddialog.less",
+                               "Controls/Tree/treebuilder.less",
+                               "Controls/Tree/tree.less"
+                );
+            }
+            Page.RegisterBodyScripts(ResolveUrl,
                                      "~/js/third-party/jquery/jquery.mousewheel.js",
                                      "~/js/third-party/jquery/jquery.uri.js",
                                      "~/js/third-party/sorttable.js",

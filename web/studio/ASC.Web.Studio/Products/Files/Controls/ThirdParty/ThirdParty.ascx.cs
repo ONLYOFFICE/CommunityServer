@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ namespace ASC.Web.Files.Controls
             EmptyScreenThirdParty.Controls.Add(new EmptyScreenControl
             {
                 ID = "emptyThirdPartyContainer",
-                ImgSrc = PathProvider.GetImagePath("empty_screen_my.png"),
+                ImgSrc = PathProvider.GetImagePath("empty_screen_my.svg"),
                 Header = FilesUCResource.ThirdPartyConnectAccounts,
                 HeaderDescribe = FilesUCResource.EmptyScreenThirdPartyDscr,
                 ButtonHTML = string.Format(@"<div class=""account-connect""><a class=""link dotline plus"">{0}</a></div>", FilesUCResource.AddAccount)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -728,9 +728,16 @@ namespace ASC.Web.CRM.Classes
 
     public class ConverterData
     {
+        ///<example>Storage Url</example>
         public string StorageUrl { get; set; }
+
+        ///<example>123ws</example>
         public string RevisionId { get; set; }
+
+        ///<example type="int">2</example>
         public int InvoiceId { get; set; }
+
+        ///<example type="int">1</example>
         public int FileId { get; set; }
     }
 }

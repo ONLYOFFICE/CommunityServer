@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,11 +12,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- */
+*/
 
 
 const request = require('request');
 const axios = require('axios');
+const nodeFetch = require('node-fetch');
 const {
     getHeader,
     getHeaderPeople,
@@ -355,14 +356,27 @@ var createEditSession = async function (ctx, fileId, fileSize, token) {
 var chunkedUploader = async function (ctx, url, data, token, bytesAmount, firstPosition, secondPosition) {
     try {
         const Authorization = token ? token : null;
-        const response = await axios.post(url, data, {
-            maxBodyLength: Infinity,
+        // const response = await axios.post(url, data, {
+        //     maxBodyLength: Infinity,
+        //     headers: {
+        //         Authorization,
+        //         "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        //         "Content-Range": `bytes ${firstPosition}-${secondPosition}/${bytesAmount}`
+        //     }
+        // });
+
+        const requestConfig = {
+            method: 'POST',
             headers: {
-                Authorization,
+                "Authorization": Authorization,
                 "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
                 "Content-Range": `bytes ${firstPosition}-${secondPosition}/${bytesAmount}`
-            }
-        });
+            },
+            body: data
+        };
+
+        const response = await nodeFetch(url, requestConfig);
+
         logResponse(null, response, "requestAPI.chunkedUploader");
     } catch (error) {
         logErrorAndCheckStatus(ctx.context, error, "requestAPI.chunkedUploader");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,8 @@ namespace ASC.Web.Core.Files
         public const string OutType = "outputtype";
         public const string AuthKey = "stream_auth";
         public const string Anchor = "anchor";
+        public const string LinkId = "linkid";
+        public const string FolderShareKey = "share";
 
         public static string FileHandlerPath
         {
@@ -366,7 +368,7 @@ namespace ASC.Web.Core.Files
         }
 
 
-        public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength, bool encrypted)
+        public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength, bool encrypted, string linkId)
         {
             var queryString = string.Format("?initiate=true&{0}={1}&fileSize={2}&tid={3}&userid={4}&culture={5}&encrypted={6}",
                                             FileTitle,
@@ -382,6 +384,17 @@ namespace ASC.Web.Core.Files
 
             if (folderId != null)
                 queryString = queryString + "&" + FolderId + "=" + HttpUtility.UrlEncode(folderId.ToString());
+
+            if (!string.IsNullOrEmpty(linkId))
+            {
+                queryString = queryString + "&" + LinkId + "=" + HttpUtility.UrlEncode(InstanceCrypto.Encrypt(linkId));
+            }
+
+            var shareKey = HttpContext.Current?.Request[FolderShareKey];
+            if (!string.IsNullOrEmpty(shareKey))
+            {
+                queryString = queryString + "&" + FolderShareKey + "=" + shareKey;
+            }
 
             return CommonLinkUtility.GetFullAbsolutePath(GetFileUploaderHandlerVirtualPath() + queryString);
         }

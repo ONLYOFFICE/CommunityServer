@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ namespace ASC.MessagingSystem.DbSender
         private const string AuditEventsTable = "audit_events";
         private readonly Timer ClearTimer;
 
+        private static readonly ILog log = LogManager.GetLogger("ASC.Messaging");
+
+
         public MessagesRepository()
         {
             Cache = new Dictionary<string, EventMessage>();
@@ -95,7 +98,7 @@ namespace ASC.MessagingSystem.DbSender
                         LogManager.GetLogger("ASC").Error("Add " + message.Id, e);
                     }
                 }
-                using (var db = DbManager.FromHttpContext(MessagesDbId))
+                using (var db = new DbManager(MessagesDbId))
                 {
                     if ((int)message.Action < 2000)
                     {
@@ -149,7 +152,7 @@ namespace ASC.MessagingSystem.DbSender
 
             if (events == null) return;
 
-            using (var db = DbManager.FromHttpContext(MessagesDbId))
+            using (var db = new DbManager(MessagesDbId))
             using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 var dict = new Dictionary<string, ClientInfo>();
@@ -209,6 +212,11 @@ namespace ASC.MessagingSystem.DbSender
             i = i.Identity(0, 0, true);
 
             var id = dbManager.ExecuteScalar<int>(i);
+
+            message.Id = id;
+
+            log.TraceFormat("login event - {0}", JsonConvert.SerializeObject(message));
+
             return id;
         }
 
@@ -240,6 +248,11 @@ namespace ASC.MessagingSystem.DbSender
             i = i.Identity(0, 0, true);
 
             var id = dbManager.ExecuteScalar<int>(i);
+
+            message.Id = id;
+
+            log.TraceFormat("audit event - {0}", JsonConvert.SerializeObject(message));
+
             return id;
         }
 
@@ -295,7 +308,7 @@ namespace ASC.MessagingSystem.DbSender
 
             do
             {
-                using (var dbManager = DbManager.FromHttpContext(MessagesDbId, 180000))
+                using (var dbManager = new DbManager(MessagesDbId, 180000))
                 {
                     ids = dbManager.ExecuteList(query).ConvertAll(r => Convert.ToInt32(r[0]));
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,6 +89,8 @@ window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
         } else {
             getTreeSubFolders(folderId, sync);
         }
+
+        changeSelectedNodeWidth(false);
     };
 
     var clickNode = function () {
@@ -100,13 +102,28 @@ window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
         return false;
     };
 
+    var changeSelectedNodeWidth = function (clear) {
+        if (!treeNodeRoot.hasClass("scrolled")) {
+            return;
+        }
+        var wholerow = treeNodeRoot.find(".node-selected > .jstree-wholerow");
+        wholerow.css("width", "");
+        if (!clear) {
+            wholerow.css("width", treeNodeRoot.get(0).scrollWidth + "px");
+        }
+    }
+
     var select = function (treeNode, checkSelected) {
+        changeSelectedNodeWidth(true);
+
         treeNodeRoot.find(".node-selected").removeClass("node-selected");
         treeNodeRoot.find(".parent-selected").removeClass("parent-selected");
 
         treeNode.addClass("node-selected");
         treeNode.parents(".jstree .jstree-closed").addClass("jstree-open").removeClass("jstree-closed");
         treeNode.parents(".jstree .tree-node").addClass("parent-selected");
+
+        changeSelectedNodeWidth(false);
 
         //if (treeNode && treeNode.offset()) {
         //    var nodeY = treeNode.offset().top;

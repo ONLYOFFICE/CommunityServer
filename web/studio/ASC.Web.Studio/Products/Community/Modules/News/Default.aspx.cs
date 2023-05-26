@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -257,31 +257,31 @@ namespace ASC.Web.Community.News
                 switch (feedType)
                 {
                     case FeedType.News:
-                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_news.png", NewsConst.ModuleId);
+                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_news.svg", NewsModule.ModuleId);
                         emptyScreenControl.Header = NewsResource.EmptyScreenNewsCaption;
                         buttonLink = FeedUrls.EditNewsUrl;
                         buttonName = NewsResource.EmptyScreenNewsLink;
                         break;
                     case FeedType.Order:
-                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_order.png", NewsConst.ModuleId);
+                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_order.svg", NewsModule.ModuleId);
                         emptyScreenControl.Header = NewsResource.EmptyScreenOrdersCaption;
                         buttonLink = FeedUrls.EditOrderUrl;
                         buttonName = NewsResource.EmptyScreenOrderLink;
                         break;
                     case FeedType.Advert:
-                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_advert.png", NewsConst.ModuleId);
+                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_advert.svg", NewsModule.ModuleId);
                         emptyScreenControl.Header = NewsResource.EmptyScreenAdvertsCaption;
                         buttonLink = FeedUrls.EditAdvertUrl;
                         buttonName = NewsResource.EmptyScreenAdvertLink;
                         break;
                     case FeedType.Poll:
-                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_poll.png", NewsConst.ModuleId);
+                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_poll.svg", NewsModule.ModuleId);
                         emptyScreenControl.Header = NewsResource.EmptyScreenPollsCaption;
                         buttonLink = FeedUrls.EditPollUrl;
                         buttonName = NewsResource.EmptyScreenPollLink;
                         break;
                     default:
-                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_newslogo.png", NewsConst.ModuleId);
+                        emptyScreenControl.ImgSrc = WebImageSupplier.GetAbsoluteWebPath("150x_newslogo.svg", NewsModule.ModuleId);
                         emptyScreenControl.Header = NewsResource.EmptyScreenEventsCaption;
                         buttonLink = FeedUrls.EditNewsUrl;
                         buttonName = NewsResource.EmptyScreenEventLink;

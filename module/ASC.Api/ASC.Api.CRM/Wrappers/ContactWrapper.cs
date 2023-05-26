@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ namespace ASC.Api.CRM.Wrappers
     /// <summary>
     ///   Person
     /// </summary>
+    ///<inherited>ASC.Api.CRM.Wrappers.ContactWrapper, ASC.Api.CRM</inherited>
     [DataContract(Name = "person", Namespace = "")]
     public class PersonWrapper : ContactWrapper
     {
@@ -88,16 +89,19 @@ namespace ASC.Api.CRM.Wrappers
             return result;
         }
 
-
+        ///<example>Tadjeddine</example>
         [DataMember(IsRequired = true, EmitDefaultValue = false)]
         public String FirstName { get; set; }
 
+        ///<example>Bachir</example>
         [DataMember(IsRequired = true, EmitDefaultValue = false)]
         public String LastName { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactBaseWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ContactBaseWrapper Company { get; set; }
 
+        ///<example>Programmer</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String Title { get; set; }
 
@@ -123,6 +127,7 @@ namespace ASC.Api.CRM.Wrappers
     /// <summary>
     ///  Company
     /// </summary>
+    /// <inherited>ASC.Api.CRM.Wrappers.ContactWrapper, ASC.Api.CRM</inherited>
     [DataContract(Name = "company", Namespace = "")]
     public class CompanyWrapper : ContactWrapper
     {
@@ -174,13 +179,16 @@ namespace ASC.Api.CRM.Wrappers
             return result;
         }
 
-
+        ///<example>Food and Culture Project</example>
         [DataMember(IsRequired = true, EmitDefaultValue = false)]
         public String CompanyName { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactBaseWrapper, ASC.Api.CRM</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = true, EmitDefaultValue = false)]
         public IEnumerable<ContactBaseWrapper> Persons { get; set; }
 
+        ///<example type="int">33</example>
         [DataMember(IsRequired = true, EmitDefaultValue = false)]
         public int PersonsCount { get; set; }
 
@@ -198,6 +206,7 @@ namespace ASC.Api.CRM.Wrappers
         }
     }
 
+    ///<inherited>ASC.Api.CRM.Wrappers.ContactBaseWrapper, ASC.Api.CRM</inherited>
     [DataContract(Name = "contact", Namespace = "")]
     [KnownType(typeof(PersonWrapper))]
     [KnownType(typeof(CompanyWrapper))]
@@ -216,41 +225,55 @@ namespace ASC.Api.CRM.Wrappers
             About = contact.About;
             Industry = contact.Industry;
         }
-
+        ///<type>ASC.Api.CRM.Wrappers.Address, ASC.Api.CRM</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<Address> Addresses { get; set; }
 
-
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public EmployeeWraper CreateBy { get; set; }
 
+        ///<example>2020-12-08T17:37:04.5916406Z</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ApiDateTime Created { get; set; }
 
+        ///<example>About</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String About { get; set; }
 
+        ///<example>Industry</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String Industry { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactStatusBaseWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ContactStatusBaseWrapper ContactStatus { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactTypeBaseWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ContactTypeBaseWrapper ContactType { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<ContactInfoWrapper> CommonData { get; set; }
 
+        ///<type>ASC.Api.CRM.Wrappers.CustomFieldBaseWrapper, ASC.Api.CRM</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<CustomFieldBaseWrapper> CustomFields { get; set; }
 
+        ///<example>Tag1,Tag2</example>
+        ///<collection split=",">list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<String> Tags { get; set; }
 
+        ///<example type="int">1</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public int TaskCount { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool HaveLateTasks { get; set; }
 
@@ -278,7 +301,7 @@ namespace ASC.Api.CRM.Wrappers
             };
         }
     }
-
+    ///<inherited>ASC.Api.CRM.Wrappers.ContactBaseWrapper, ASC.Api.CRM</inherited>
     [DataContract(Name = "contactBase", Namespace = "")]
     public class ContactBaseWithEmailWrapper : ContactBaseWrapper
     {
@@ -314,7 +337,7 @@ namespace ASC.Api.CRM.Wrappers
             }
         }
 
-
+        ///<type>ASC.Api.CRM.Wrappers.ContactInfoWrapper, ASC.Api.CRM</type>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public ContactInfoWrapper Email { get; set; }
     }
@@ -365,6 +388,7 @@ namespace ASC.Api.CRM.Wrappers
     /// <summary>
     ///  Contact base information
     /// </summary>
+    ///<inherited>ASC.Api.CRM.Wrappers.ObjectWrapperBase, ASC.Api.CRM</inherited>
     [DataContract(Name = "contactBase", Namespace = "")]
     public class ContactBaseWrapper : ObjectWrapperBase
     {
@@ -425,36 +449,48 @@ namespace ASC.Api.CRM.Wrappers
         {
         }
 
+        ///<example>url to foto</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String SmallFotoUrl { get; set; }
 
+        ///<example>url to foto</example>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public String MediumFotoUrl { get; set; }
 
+        ///<example>Tadjeddine Bachir</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public String DisplayName { get; set; }
 
+        ///<example>false</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool IsCompany { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<collection>list</collection>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public IEnumerable<EmployeeWraper> AccessList { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool IsPrivate { get; set; }
 
+        ///<example>false</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool IsShared { get; set; }
 
+        ///<example type="int">0</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public ShareType ShareType { get; set; }
 
+        ///<type>ASC.Api.CRM.CurrencyInfoWrapper, ASC.Api.CRM</type>
         [DataMember]
         public CurrencyInfoWrapper Currency { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool CanEdit { get; set; }
 
+        ///<example>true</example>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public bool CanDelete { get; set; }
 

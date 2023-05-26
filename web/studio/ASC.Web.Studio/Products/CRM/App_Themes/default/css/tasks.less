@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 */
 
 
+@import "params.less";
 @import "base.less";
 /*******************************************************************************
 ListTaskView.ascx
@@ -36,7 +37,7 @@ ListTaskView.ascx
         overflow: hidden;
         width: 116px;
         &:not(.removedUser) span{
-            color: @textColor;
+            color: @text-color;
             cursor: pointer;
             display: inline-block;
             font-size: 12px;
@@ -47,7 +48,7 @@ ListTaskView.ascx
 
     tr:hover .divForUser:not(.removedUser) span{
         padding-top: 1px;
-        border-bottom: 1px dotted #000000;
+        border-bottom: 1px dotted @dark-text-color;
     }
 }
 
@@ -121,7 +122,7 @@ taskStatusesMenu
         width: 38px;
 
         &.canEdit {
-            border: 1px solid @borderColor;
+            border: 1px solid @border-color;
             cursor: pointer;
             position: relative;
             .borderRadius(3px);
@@ -143,7 +144,7 @@ taskStatusesMenu
 
         tr:hover .changeStatusCombobox.canEdit,
         .changeStatusCombobox.canEdit.selected {
-            background-color: #eaeaea;
+            background-color: @change-status-button-bg;
             border-color: #A8A8A8;
 
             &:after {

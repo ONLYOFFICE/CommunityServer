@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,17 @@ using ASC.Projects.Core.Domain;
 
 namespace ASC.Api.Projects.Wrappers
 {
+    ///<inherited>ASC.Api.Projects.Wrappers.ObjectWrapperBase, ASC.Api.Projects</inherited>
     [DataContract(Name = "project", Namespace = "")]
     public class ProjectWrapper : ObjectWrapperBase
     {
+        ///<example>false</example>
+        ///<order>31</order>
         [DataMember(Order = 31)]
         public bool CanEdit { get; set; }
 
+        ///<example>false</example>
+        ///<order>32</order>
         [DataMember(Order = 32)]
         public bool IsPrivate { get; set; }
 

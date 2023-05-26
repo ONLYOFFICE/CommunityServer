@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,7 +141,7 @@ window.EditProfileManager = (function () {
 
         edit = jq.getURLParam("action") == "edit";
 
-        teamlab.getPortalPasswordSettings({},
+        teamlab.getPasswordSettings({},
             {
                 success: function (params, data) {
                     passwordSettings = data;
@@ -302,6 +302,34 @@ window.EditProfileManager = (function () {
         //////
         InitDatePicker();
 
+        /// Lead
+
+        $leadSelector = jq("#leadSelector");
+        $leadManager = jq("#leadManager");
+        $leadManagerName = $leadManager.find(".result-name");
+
+        $leadSelector.useradvancedSelector({
+            onechosen: true,   // list without checkbox, you can choose only one item
+            showGroups: true,
+            withGuests: false,
+            itemsDisabledIds: edit && window.userId ? [window.userId] : []
+        }).on("showList", function (event, item) {
+            $leadManagerName.attr("data-id", item.id).html(item.title);
+            $leadManager.removeClass("display-none");
+            $leadSelector.hide();
+        });
+
+        $leadManager.find(".reset-icon").on("click", function () {
+            $leadManager.addClass("display-none");
+            $leadManagerName.attr("data-id", "").text("");
+            $leadSelector.show();
+        });
+
+        if ($leadManagerName.attr("data-id") != "") {
+            $leadSelector.hide();
+            $leadManager.removeClass("display-none");
+        }
+
         jq("#profileActionButton").on("click", function () {
 
             HideRequiredError();
@@ -319,7 +347,8 @@ window.EditProfileManager = (function () {
                 sex,
                 departments = [],
                 contacts = [],
-                comment = $profileComment.val();
+                comment = $profileComment.val(),
+                lead = $leadManagerName.attr("data-id");
 
             isError = false;
 
@@ -446,6 +475,7 @@ window.EditProfileManager = (function () {
                     departments.push($depSelector.attr("data-id"));
                 }
             }
+
             var profile =
                 {
                     isVisitor: isVisitor,
@@ -459,7 +489,8 @@ window.EditProfileManager = (function () {
                     worksfrom: workFromDate,
                     contacts: contacts,
                     files: "", //pathname,
-                    department: departments
+                    department: departments,
+                    lead: lead
                 };
 
 

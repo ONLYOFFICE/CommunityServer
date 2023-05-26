@@ -16,7 +16,7 @@
         <tbody>
             <tr valign="top">
                 <td>
-                    <img src="<%= WebImageSupplier.GetAbsoluteWebPath("export_data.png", ProductEntryPoint.ID) %>"
+                    <img src="<%= WebImageSupplier.GetAbsoluteWebPath("export_data.svg", ProductEntryPoint.ID) %>"
                         alt="<%= CRMSettingResource.ExportData %>" />
                 </td>
                 <td>

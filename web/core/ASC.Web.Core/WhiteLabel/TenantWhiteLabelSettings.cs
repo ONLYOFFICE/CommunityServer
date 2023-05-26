@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,6 @@ namespace ASC.Web.Core.WhiteLabel
     public class TenantWhiteLabelSettings : BaseSettings<TenantWhiteLabelSettings>
     {
         public const string DefaultLogoText = "ONLYOFFICE";
-        private ILog Log = LogManager.GetLogger("ASC");
 
         #region Logos information: extension, isDefault, text for img auto generating
 
@@ -70,6 +69,21 @@ namespace ASC.Web.Core.WhiteLabel
         [DataMember(Name = "DefaultLogoDocsEditorEmbed")]
         private bool _isDefaultLogoDocsEditorEmbed { get; set; }
 
+        [DataMember(Name = "LogoLigthExt")]
+        private string _logoLightExt;
+        [DataMember(Name ="DefaultLogoLight")]
+        private bool _isDefaultLogoLight { get; set; }
+
+        [DataMember(Name = "LogoAboutDarkExt")]
+        private string _logoAboutDarkExt;
+        [DataMember(Name = "DefaultLogoAboutDark")]
+        private bool _isDefaultLogoAboutDark { get; set; }
+
+        [DataMember(Name = "LogAboutLightExt")]
+        private string _logoAboutLightExt;
+        [DataMember(Name = "DefaultLogoAboutLight")]
+        private bool _isDefaultLogoAboutLight { get; set; }
+
         [DataMember(Name = "LogoText")]
         public string _logoText { get; set; }
 
@@ -77,16 +91,16 @@ namespace ASC.Web.Core.WhiteLabel
         {
             get
             {
-                if (!String.IsNullOrEmpty(_logoText) && _logoText != DefaultLogoText)
+                if (!string.IsNullOrEmpty(_logoText) && _logoText != DefaultLogoText)
                     return _logoText;
 
                 var partnerSettings = LoadForDefaultTenant();
-                return String.IsNullOrEmpty(partnerSettings._logoText) ? DefaultLogoText : partnerSettings._logoText;
+                return string.IsNullOrEmpty(partnerSettings._logoText) ? DefaultLogoText : partnerSettings._logoText;
             }
             set { _logoText = value; }
         }
 
-        private const String moduleName = "whitelabel";
+        private const string moduleName = "whitelabel";
 
         #endregion
 
@@ -97,6 +111,9 @@ namespace ASC.Web.Core.WhiteLabel
         public static readonly Size logoFaviconSize = new Size(32, 32);
         public static readonly Size logoDocsEditorSize = new Size(172, 40);
         public static readonly Size logoDocsEditorEmbedSize = new Size(172, 40);
+        public static readonly Size logoLightSize = new Size(432, 70);
+        public static readonly Size logoAboutDarkSize = new Size(432, 70);
+        public static readonly Size logoAboutLightSize = new Size(432, 70);
 
         #endregion
 
@@ -111,12 +128,18 @@ namespace ASC.Web.Core.WhiteLabel
                 _logoFaviconExt = null,
                 _logoDocsEditorExt = null,
                 _logoDocsEditorEmbedExt = null,
+                _logoLightExt = null,
+                _logoAboutDarkExt = null,
+                _logoAboutLightExt = null,
 
                 _isDefaultLogoLightSmall = true,
                 _isDefaultLogoDark = true,
                 _isDefaultLogoFavicon = true,
                 _isDefaultLogoDocsEditor = true,
                 _isDefaultLogoDocsEditorEmbed = true,
+                _isDefaultLogoLight = true,
+                _isDefaultLogoAboutDark = true,
+                _isDefaultLogoAboutLight = true,
 
                 LogoText = null
             };
@@ -138,12 +161,18 @@ namespace ASC.Web.Core.WhiteLabel
                        _logoFaviconExt == defaultSettings._logoFaviconExt &&
                        _logoDocsEditorExt == defaultSettings._logoDocsEditorExt &&
                        _logoDocsEditorEmbedExt == defaultSettings._logoDocsEditorEmbedExt &&
+                       _logoLightExt == defaultSettings._logoLightExt &&
+                       _logoAboutDarkExt == defaultSettings._logoAboutDarkExt &&
+                       _logoAboutLightExt == defaultSettings._logoAboutLightExt &&
 
                        _isDefaultLogoLightSmall == defaultSettings._isDefaultLogoLightSmall &&
                        _isDefaultLogoDark == defaultSettings._isDefaultLogoDark &&
                        _isDefaultLogoFavicon == defaultSettings._isDefaultLogoFavicon &&
                        _isDefaultLogoDocsEditor == defaultSettings._isDefaultLogoDocsEditor &&
                        _isDefaultLogoDocsEditorEmbed == defaultSettings._isDefaultLogoDocsEditorEmbed &&
+                       _isDefaultLogoLight == defaultSettings._isDefaultLogoLight &&
+                       _isDefaultLogoAboutDark == defaultSettings._isDefaultLogoAboutDark &&
+                       _isDefaultLogoAboutLight == defaultSettings._isDefaultLogoAboutLight &&
 
                        LogoText == defaultSettings.LogoText;
             }
@@ -156,12 +185,18 @@ namespace ASC.Web.Core.WhiteLabel
             _logoFaviconExt = null;
             _logoDocsEditorExt = null;
             _logoDocsEditorEmbedExt = null;
+            _logoLightExt = null;
+            _logoAboutDarkExt = null;
+            _logoAboutLightExt = null;
 
             _isDefaultLogoLightSmall = true;
             _isDefaultLogoDark = true;
             _isDefaultLogoFavicon = true;
             _isDefaultLogoDocsEditor = true;
             _isDefaultLogoDocsEditorEmbed = true;
+            _isDefaultLogoLight = true;
+            _isDefaultLogoAboutDark = true;
+            _isDefaultLogoAboutLight = true;
 
             LogoText = null;
 
@@ -172,25 +207,26 @@ namespace ASC.Web.Core.WhiteLabel
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                LogManager.GetLogger("ASC").Error(e);
             }
 
             Save(tenantId, true);
         }
 
-        public void RestoreDefault(WhiteLabelLogoTypeEnum type)
+        public void RestoreDefaultLogo(WhiteLabelLogoTypeEnum type, int tenantId, IDataStore storage = null)
         {
             if (!GetIsDefault(type))
             {
                 try
                 {
+                    SetExt(type, null);
                     SetIsDefault(type, true);
-                    var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), moduleName);
+                    var store = storage ?? StorageFactory.GetStorage(tenantId.ToString(), moduleName);
                     DeleteLogoFromStore(store, type);
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e);
+                    LogManager.GetLogger("ASC").Error(e);
                 }
             }
         }
@@ -215,7 +251,7 @@ namespace ASC.Web.Core.WhiteLabel
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e);
+                    LogManager.GetLogger("ASC").Error(e);
                 }
             }
             #endregion
@@ -247,7 +283,7 @@ namespace ASC.Web.Core.WhiteLabel
                 var currentLogoType = (WhiteLabelLogoTypeEnum)(currentLogo.Key);
                 var currentLogoPath = currentLogo.Value;
 
-                if (!String.IsNullOrEmpty(currentLogoPath))
+                if (!string.IsNullOrEmpty(currentLogoPath))
                 {
                     var fileExt = "png";
                     byte[] data = null;
@@ -263,13 +299,13 @@ namespace ASC.Web.Core.WhiteLabel
                         }
                         catch (Exception ex)
                         {
-                            Log.Error(ex);
+                            LogManager.GetLogger("ASC").Error(ex);
                         }
                     }
                     else
                     {
                         var xB64 = currentLogoPath.Substring(xStart.Length); // Get the Base64 string
-                        data = System.Convert.FromBase64String(xB64); // Convert the Base64 string to binary data
+                        data = Convert.FromBase64String(xB64); // Convert the Base64 string to binary data
                     }
 
                     if (data != null)
@@ -313,6 +349,12 @@ namespace ASC.Web.Core.WhiteLabel
                     return _isDefaultLogoDocsEditor;
                 case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
                     return _isDefaultLogoDocsEditorEmbed;
+                case WhiteLabelLogoTypeEnum.Light:
+                    return _isDefaultLogoLight;
+                case WhiteLabelLogoTypeEnum.AboutDark:
+                    return _isDefaultLogoAboutDark;
+                case WhiteLabelLogoTypeEnum.AboutLight:
+                    return _isDefaultLogoAboutLight;
             }
             return true;
         }
@@ -336,6 +378,15 @@ namespace ASC.Web.Core.WhiteLabel
                 case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
                     _isDefaultLogoDocsEditorEmbed = value;
                     break;
+                case WhiteLabelLogoTypeEnum.Light:
+                    _isDefaultLogoLight = value;
+                    break;
+                case WhiteLabelLogoTypeEnum.AboutDark:
+                    _isDefaultLogoAboutDark = value;
+                    break;
+                case WhiteLabelLogoTypeEnum.AboutLight:
+                    _isDefaultLogoAboutLight = value;
+                    break;
             }
         }
 
@@ -353,11 +404,17 @@ namespace ASC.Web.Core.WhiteLabel
                     return _logoDocsEditorExt;
                 case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
                     return _logoDocsEditorEmbedExt;
+                case WhiteLabelLogoTypeEnum.Light:
+                    return _logoLightExt;
+                case WhiteLabelLogoTypeEnum.AboutDark:
+                    return _logoAboutDarkExt;
+                case WhiteLabelLogoTypeEnum.AboutLight:
+                    return _logoAboutLightExt;
             }
             return "";
         }
 
-        private void SetExt(WhiteLabelLogoTypeEnum type, String fileExt)
+        private void SetExt(WhiteLabelLogoTypeEnum type, string fileExt)
         {
             switch (type)
             {
@@ -375,6 +432,15 @@ namespace ASC.Web.Core.WhiteLabel
                     break;
                 case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
                     _logoDocsEditorEmbedExt = fileExt;
+                    break;
+                case WhiteLabelLogoTypeEnum.Light:
+                    _logoLightExt = fileExt;
+                    break;
+                case WhiteLabelLogoTypeEnum.AboutDark:
+                    _logoAboutDarkExt = fileExt;
+                    break;
+                case WhiteLabelLogoTypeEnum.AboutLight:
+                    _logoAboutLightExt = fileExt;
                     break;
             }
         }
@@ -408,7 +474,7 @@ namespace ASC.Web.Core.WhiteLabel
         public static string GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum type, bool general)
         {
             var partnerLogoPath = GetPartnerStorageLogoPath(type, general);
-            if (!String.IsNullOrEmpty(partnerLogoPath))
+            if (!string.IsNullOrEmpty(partnerLogoPath))
                 return partnerLogoPath;
 
             switch (type)
@@ -423,6 +489,12 @@ namespace ASC.Web.Core.WhiteLabel
                     return general ? WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo_embed_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo_embed.png");
                 case WhiteLabelLogoTypeEnum.Favicon:
                     return general ? WebImageSupplier.GetAbsoluteWebPath("logo/favicon_general.ico") : WebImageSupplier.GetAbsoluteWebPath("logo/favicon.ico");
+                case WhiteLabelLogoTypeEnum.Light:
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/light_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/light.png");
+                case WhiteLabelLogoTypeEnum.AboutLight:
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/about_light_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/about_light.png");
+                case WhiteLabelLogoTypeEnum.AboutDark:
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/about_dark_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/about_dark.png");
             }
             return "";
         }
@@ -487,7 +559,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static string BuildLogoFileName(WhiteLabelLogoTypeEnum type, String fileExt, bool general)
         {
-            return String.Format("logo_{0}{2}.{1}", type.ToString().ToLowerInvariant(), fileExt, general ? "_general" : "");
+            return string.Format("logo_{0}{2}.{1}", type.ToString().ToLowerInvariant(), fileExt, general ? "_general" : "");
         }
 
         public static Size GetSize(WhiteLabelLogoTypeEnum type, bool general)
@@ -496,29 +568,41 @@ namespace ASC.Web.Core.WhiteLabel
             {
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     return new Size(
-                        general ? TenantWhiteLabelSettings.logoLightSmallSize.Width / 2 : TenantWhiteLabelSettings.logoLightSmallSize.Width,
-                        general ? TenantWhiteLabelSettings.logoLightSmallSize.Height / 2 : TenantWhiteLabelSettings.logoLightSmallSize.Height);
+                        general ? logoLightSmallSize.Width / 2 : logoLightSmallSize.Width,
+                        general ? logoLightSmallSize.Height / 2 : logoLightSmallSize.Height);
                 case WhiteLabelLogoTypeEnum.Dark:
                     return new Size(
-                        general ? TenantWhiteLabelSettings.logoDarkSize.Width / 2 : TenantWhiteLabelSettings.logoDarkSize.Width,
-                        general ? TenantWhiteLabelSettings.logoDarkSize.Height / 2 : TenantWhiteLabelSettings.logoDarkSize.Height);
+                        general ? logoDarkSize.Width / 2 : logoDarkSize.Width,
+                        general ? logoDarkSize.Height / 2 : logoDarkSize.Height);
                 case WhiteLabelLogoTypeEnum.Favicon:
                     return new Size(
-                        general ? TenantWhiteLabelSettings.logoFaviconSize.Width / 2 : TenantWhiteLabelSettings.logoFaviconSize.Width,
-                        general ? TenantWhiteLabelSettings.logoFaviconSize.Height / 2 : TenantWhiteLabelSettings.logoFaviconSize.Height);
+                        general ? logoFaviconSize.Width / 2 : logoFaviconSize.Width,
+                        general ? logoFaviconSize.Height / 2 : logoFaviconSize.Height);
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     return new Size(
-                        general ? TenantWhiteLabelSettings.logoDocsEditorSize.Width / 2 : TenantWhiteLabelSettings.logoDocsEditorSize.Width,
-                        general ? TenantWhiteLabelSettings.logoDocsEditorSize.Height / 2 : TenantWhiteLabelSettings.logoDocsEditorSize.Height);
+                        general ? logoDocsEditorSize.Width / 2 : logoDocsEditorSize.Width,
+                        general ? logoDocsEditorSize.Height / 2 : logoDocsEditorSize.Height);
                 case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
                     return new Size(
-                        general ? TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width / 2 : TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width,
-                        general ? TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height / 2 : TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height);
+                        general ? logoDocsEditorEmbedSize.Width / 2 : logoDocsEditorEmbedSize.Width,
+                        general ? logoDocsEditorEmbedSize.Height / 2 : logoDocsEditorEmbedSize.Height);
+                case WhiteLabelLogoTypeEnum.Light:
+                    return new Size(
+                        general ? logoLightSize.Width / 2 : logoLightSize.Width,
+                        general ? logoLightSize.Height / 2 : logoLightSize.Height);
+                case WhiteLabelLogoTypeEnum.AboutDark:
+                    return new Size(
+                        general ? logoAboutDarkSize.Width / 2 : logoAboutDarkSize.Width,
+                        general ? logoAboutDarkSize.Height / 2 : logoAboutDarkSize.Height);
+                case WhiteLabelLogoTypeEnum.AboutLight:
+                    return new Size(
+                        general ? logoAboutLightSize.Width / 2 : logoAboutLightSize.Width,
+                        general ? logoAboutLightSize.Height / 2 : logoAboutLightSize.Height);
             }
             return new Size(0, 0);
         }
 
-        private static void ResizeLogo(WhiteLabelLogoTypeEnum type, String fileName, byte[] data, long maxFileSize, Size size, IDataStore store)
+        private static void ResizeLogo(WhiteLabelLogoTypeEnum type, string fileName, byte[] data, long maxFileSize, Size size, IDataStore store)
         {
             //Resize synchronously
             if (data == null || data.Length <= 0) throw new UnknownImageFormatException();

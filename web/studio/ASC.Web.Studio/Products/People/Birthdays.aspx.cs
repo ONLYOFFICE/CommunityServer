@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.People.Core;
 using ASC.Web.People.Resources;
 using ASC.Web.Studio;
@@ -57,7 +58,7 @@ namespace ASC.Web.People
             {
                 upcomingEmptyContent.Controls.Add(new EmptyScreenControl
                 {
-                    ImgSrc = VirtualPathUtility.ToAbsolute("~/Products/People/App_Themes/default/images/birthdayEmpScr.png"),
+                    ImgSrc = VirtualPathUtility.ToAbsolute("~/Products/People/App_Themes/default/images/birthdayEmpScr.svg"),
                     Header = BirthdaysResource.BirthdayEmptyScreenCaption,
                     Describe = BirthdaysResource.BirthdaysEmptyModuleDescription
                 });
@@ -68,9 +69,15 @@ namespace ASC.Web.People
 
         protected void RenderScripts()
         {
-            Page
-                .RegisterStyle("~/Products/People/App_Themes/default/css/birthdays.css")
-                .RegisterBodyScripts("~/Products/People/js/birthdays.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/People/App_Themes/dark/dark-birthdays.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/People/App_Themes/default/css/birthdays.less");
+            }
+            Page.RegisterBodyScripts("~/Products/People/js/birthdays.js");
         }
 
         private static List<UserInfo> GetTodayBirthdays()

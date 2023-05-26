@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,7 +101,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
                     ((LdapCurrentUserPhotos)LdapCurrentUserPhotos.Load().GetDefault()).Save();
 
                     ((LdapCurrentAcccessSettings)LdapCurrentAcccessSettings.Load().GetDefault()).Save();
-                    //не снимать права при выключении
+                    //do not remove permissions on shutdown
                     //var rights = new List<LdapSettings.AccessRight>();
                     //TakeUsersRights(rights);
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using ASC.CRM.Core.Entities;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Core;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Classes;
 using ASC.Web.Studio.Utility;
 
@@ -71,9 +72,16 @@ namespace ASC.Web.CRM.Controls.Contacts
 
             if (TargetContact is Company)
                 ExecPeopleContainerView();
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/dark/dark-allprojects.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/allprojects.less");
+            }
 
-            Page.RegisterStyle("~/Products/Projects/App_Themes/default/css/allprojects.less")
-                .RegisterBodyScripts("~/Products/Projects/js/base.js")
+            Page.RegisterBodyScripts("~/Products/Projects/js/base.js")
                 .RegisterBodyScripts("~/Products/Projects/js/projects.js");
             RegisterScript();
         }

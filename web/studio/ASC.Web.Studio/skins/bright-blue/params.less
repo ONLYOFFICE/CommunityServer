@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@
 
 @grayButtonTextColor:           #fff;
 @grayButtonTextColorDisable:    #fff;
+@itemRowButtonTextColor: @grayButtonTextColor;
 
 @plusOnGrayBtn:                 #fff;
 
@@ -64,6 +65,13 @@
 @bg-button-default-active:     #bfbfbf;
 @bg-button-default-disable:    #d2d2d2;
 
+@popupContainerHeaderBlock: #bfbfbf;
+@bg-progress-dialog-header: #bfbfbf;
+
+@bg-button-default-menuAction: #a5a5a5;
+@bg-button-default-hover-menuAction: #b4b4b4;
+@bg-button-default-active-menuAction: #bfbfbf;
+@bg-button-default-disable-menuAction: #d2d2d2;
 
 // Buttons border style
 // -------------------------
@@ -72,8 +80,12 @@
 @border-button-default-hover:   #b4b4b4;
 @border-button-default-active:  #BFBFBF;
 @border-button-default-disable: #d2d2d2;
+@border-button-default-item-row: @border-button-default;
 
-
+@border-button-default-menuAction: #a5a5a5;
+@border-button-default-hover-menuAction: #b4b4b4;
+@border-button-default-active-menuAction: #BFBFBF;
+@border-button-default-disable-menuAction: #d2d2d2;
 // Entity menu colors
 // -------------------------
 @entity-menu-color        : #cecece;
@@ -84,7 +96,7 @@
 // -------------------------
 
 @advfilter-combobox-btns : #888888;
-@advfilter-combobox-bkgd : #EDF6FD;
+@advfilter-combobox-bkgd : #fff;
 @advfilter-reset-btn     : #CCCCCC;
 @advfilter-add-btn-plus  : #ffffff;
 @advfilter-add-btn-bkgd  : #a5a5a5;

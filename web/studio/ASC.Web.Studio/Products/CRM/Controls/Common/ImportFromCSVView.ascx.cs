@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ namespace ASC.Web.CRM.Controls.Common
             ImportStartingPanelDescriptionLabel = CRMContactResource.ImportStartingPanelDescription;
             ImportStartingPanelButtonLabel = CRMContactResource.ImportStartingPanelButton;
 
-            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import_contacts.png", ProductEntryPoint.ID);
+            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import_contacts.svg", ProductEntryPoint.ID);
 
             Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataContacts());
             RegisterClientScriptHelper.DataUserSelectorListView(Page, "_ImportContactsManager", null);
@@ -99,7 +99,7 @@ namespace ASC.Web.CRM.Controls.Common
             ImportStartingPanelDescriptionLabel = CRMDealResource.ImportStartingPanelDescription;
             ImportStartingPanelButtonLabel = CRMDealResource.ImportStartingPanelButton;
 
-            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-opportunities.png", ProductEntryPoint.ID);
+            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-opportunities.svg", ProductEntryPoint.ID);
 
             Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataDeals());
 
@@ -128,7 +128,7 @@ namespace ASC.Web.CRM.Controls.Common
             ImportStartingPanelDescriptionLabel = CRMTaskResource.ImportStartingPanelDescription;
             ImportStartingPanelButtonLabel = CRMTaskResource.ImportStartingPanelButton;
 
-            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-tasks.png", ProductEntryPoint.ID);
+            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-tasks.svg", ProductEntryPoint.ID);
 
             Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataTasks());
         }
@@ -147,7 +147,7 @@ namespace ASC.Web.CRM.Controls.Common
             ImportStartingPanelDescriptionLabel = CRMCasesResource.ImportStartingPanelDescription;
             ImportStartingPanelButtonLabel = CRMCasesResource.ImportStartingPanelButton;
 
-            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-cases.png", ProductEntryPoint.ID);
+            ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-cases.svg", ProductEntryPoint.ID);
 
             Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataCases());
 

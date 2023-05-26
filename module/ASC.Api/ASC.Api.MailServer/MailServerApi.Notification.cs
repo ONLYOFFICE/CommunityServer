@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,12 +31,14 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Creates an address for the tenant notifications with the parameters specified in the request.
         /// </summary>
-        /// <param name="name">Address name</param>
-        /// <param name="password">Address password</param>
-        /// <param name="domain_id">Domain ID</param>
-        /// <returns>Notification address data associated with the tenant</returns>
-        /// <short>Create the notification address</short> 
+        /// <param type="System.String, System" name="name">Address name</param>
+        /// <param type="System.String, System" name="password">Address password</param>
+        /// <param type="System.Int32, System" name="domain_id">Domain ID</param>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerNotificationAddressData, ASC.Mail">Notification address data associated with the tenant</returns>
+        /// <short>Create a notification address</short> 
         /// <category>Notifications</category>
+        /// <path>api/2.0/mailserver/notification/address/add</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"notification/address/add")]
         public ServerNotificationAddressData CreateNotificationAddress(string name, string password, int domain_id)
         {
@@ -46,11 +48,14 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        /// Deletes an address for the tenant notification specified in the request. 
+        /// Deletes an address for the tenant notifications specified in the request. 
         /// </summary>
-        /// <param name="address">Address name</param>
-        /// <short>Remove the notification address</short> 
+        /// <param type="System.String, System" name="address">Address name</param>
+        /// <short>Remove a notification address</short> 
         /// <category>Notifications</category>
+        /// <path>api/2.0/mailserver/notification/address/remove</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns></returns>
         [Delete(@"notification/address/remove")]
         public void RemoveNotificationAddress(string address)
         {

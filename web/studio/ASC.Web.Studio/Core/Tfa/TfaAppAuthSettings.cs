@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ namespace ASC.Web.Studio.Core.TFA
 {
     [Serializable]
     [DataContract]
-    public class TfaAppAuthSettings : BaseSettings<TfaAppAuthSettings>
+    public class TfaAppAuthSettings : TfaSettingsBase<TfaAppAuthSettings>
     {
         public override Guid ID
         {
@@ -33,20 +33,24 @@ namespace ASC.Web.Studio.Core.TFA
 
         public override ISettings GetDefault()
         {
-            return new TfaAppAuthSettings { EnableSetting = false, };
+            return new TfaAppAuthSettings();
         }
-
-        [DataMember(Name = "Enable")]
-        public bool EnableSetting { get; set; }
-
 
         public static bool Enable
         {
             get { return Load().EnableSetting; }
             set
             {
-                var settings = Load();
-                settings.EnableSetting = value;
+                TfaAppAuthSettings settings;
+                if (value)
+                {
+                    settings = Load();
+                    settings.EnableSetting = value;
+                }
+                else
+                {
+                    settings = new TfaAppAuthSettings();
+                }
                 settings.Save();
             }
         }
@@ -54,6 +58,13 @@ namespace ASC.Web.Studio.Core.TFA
         public static bool IsVisibleSettings
         {
             get { return SetupInfo.IsVisibleSettings<TfaAppAuthSettings>(); }
+        }
+
+        public static bool TfaEnabledForUser(Guid userGuid)
+        {
+            var settings = Load();
+
+            return settings.TfaEnabledForUserBase(settings, userGuid);
         }
     }
 }

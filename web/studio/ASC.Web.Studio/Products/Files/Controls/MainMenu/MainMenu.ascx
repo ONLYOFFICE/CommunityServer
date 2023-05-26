@@ -13,7 +13,7 @@
 <ul id="treeSecondary" class="menu-list">
     <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
 
-    <% if (!CoreContext.Configuration.Personal)
+    <% if (!CoreContext.Configuration.Personal && SecurityContext.IsAuthenticated)
        { %>
     <% if (!Global.IsOutsider)
        { %>
@@ -22,8 +22,8 @@
             <span class="expander"></span>
             <a href="#setting" class="menu-item-label outer-text text-overflow" title="<%= FilesUCResource.SideCaptionSettings %>">
                 <span class="menu-item-icon settings">
-                    <svg class="menu-item-svg">
-                        <use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconssettings"></use>
+                    <svg class="menu-item-svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconssettings" xlink:href="/skins/default/images/svg/documents-icons.svg?ver=<%= HttpUtility.UrlEncode(ASC.Web.Core.Client.ClientSettings.ResetCacheKey) %>#documentsIconssettings"></use>
                     </svg>
                 </span>
                 <span class="menu-item-label inner-text"><%= FilesUCResource.SideCaptionSettings %></span>

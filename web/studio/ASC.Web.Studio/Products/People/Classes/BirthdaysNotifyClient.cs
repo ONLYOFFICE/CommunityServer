@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,10 +99,8 @@ namespace ASC.Web.People
             {
                 scheduleDate = scheduleDate.AddDays(1);
                 List<Tenant> tenants;
-                using (var db = DbManager.FromHttpContext("core"))
-                using (var command = db.Connection.CreateCommand())
+                using (var db = new DbManager("default", 300))
                 {
-                    command.CommandTimeout = 30 * 10;
                     var q = new SqlQuery("core_user u")
                         .Select("u.tenant")
                         .InnerJoin("tenants_tenants tt", Exp.EqColumns("u.tenant", "tt.id"))
@@ -112,7 +110,7 @@ namespace ASC.Web.People
                         .Where("u.status", EmployeeStatus.Active)
                         .Where("tt.status", TenantStatus.Active)
                         .GroupBy(1);
-                    tenants = command.ExecuteList(q, DbRegistry.GetSqlDialect(db.DatabaseId))
+                    tenants = db.ExecuteList(q)
                         .ConvertAll(r => Convert.ToInt32(r[0]))
                         .Select(id => CoreContext.TenantManager.GetTenant(id))
                         .ToList();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,28 +88,44 @@ namespace ASC.Api.Calendar.Wrappers
             return list;
         }
 
+        ///<example name="objectId">1</example>
+        ///<order>0</order>
         [DataMember(Name = "objectId", Order = 0)]
         public string Id { get { return _baseEvent.Id; } }
 
+        ///<example name="uniqueId">1234wda</example>
+        ///<order>140</order>
         [DataMember(Name = "uniqueId", Order = 140)]
         public string Uid { get { return _baseEvent.Uid; } }
 
+        ///<example>1</example>
         public int TenantId { get; set; }
 
+        ///<example>true</example>
         public bool Todo { get; set; }
 
+        ///<example name="sourceId">calendarID</example>
+        ///<order>10</order>
         [DataMember(Name = "sourceId", Order = 10)]
         public string CalendarId { get { return _baseEvent.CalendarId; } }
 
+        ///<example name="title">Event Name</example>
+        ///<order>20</order>
         [DataMember(Name = "title", Order = 20)]
         public string Name { get { return _baseEvent.Name; } }
 
+        ///<example name="description">Event Description</example>
+        ///<order>30</order>
         [DataMember(Name = "description", Order = 30)]
         public string Description { get { return _baseEvent.Description; } }
 
+        ///<example name="allDay">false</example>
+        ///<order>60</order>
         [DataMember(Name = "allDay", Order = 60)]
         public bool AllDayLong { get { return _baseEvent.AllDayLong; } }
 
+        ///<example name="start">2020-12-01T06:36:10.8645482Z</example>
+        ///<order>40</order>
         [DataMember(Name = "start", Order = 40)]
         public ApiDateTime Start
         {
@@ -128,6 +144,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="end">2020-12-01T06:36:10.8645482Z</example>
+        ///<order>50</order>
         [DataMember(Name = "end", Order = 50)]
         public ApiDateTime End
         {
@@ -146,6 +164,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="repeatRule"></example>
+        ///<order>70</order>
         [DataMember(Name = "repeatRule", Order = 70)]
         public string RepeatRule
         {
@@ -155,6 +175,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<type name="alert">ASC.Api.Calendar.Wrappers.EventAlertWrapper, ASC.Api.Calendar</type>
+        ///<order>110</order>
         [DataMember(Name = "alert", Order = 110)]
         public EventAlertWrapper Alert
         {
@@ -164,6 +186,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="isShared">true</example>
+        ///<order>80</order>
         [DataMember(Name = "isShared", Order = 80)]
         public bool IsShared
         {
@@ -173,6 +197,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="canUnsubscribe">true</example>
+        ///<order>130</order>
         [DataMember(Name = "canUnsubscribe", Order = 130)]
         public bool CanUnsubscribe
         {
@@ -182,6 +208,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="isEditable">false</example>
+        ///<order>100</order>
         [DataMember(Name = "isEditable", Order = 100)]
         public virtual bool IsEditable
         {
@@ -194,6 +222,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<type name="permissions">ASC.Api.Calendar.Wrappers.CalendarPermissions, ASC.Api.Calendar</type>
+        ///<order>90</order>
         [DataMember(Name = "permissions", Order = 90)]
         public Permissions Permissions
         {
@@ -210,7 +240,8 @@ namespace ASC.Api.Calendar.Wrappers
                 return p;
             }
         }
-
+        ///<type name="owner">ASC.Api.Calendar.Wrappers.UserParams, ASC.Api.Calendar</type>
+        ///<order>120</order>
         [DataMember(Name = "owner", Order = 120)]
         public UserParams Owner
         {
@@ -224,6 +255,8 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        ///<example name="status" type="int">0</example>
+        ///<order>150</order>
         [DataMember(Name = "status", Order = 150)]
         public EventStatus Status
         {

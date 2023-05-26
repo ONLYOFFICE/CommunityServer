@@ -1129,7 +1129,11 @@
                {{/if}} 
                     title="${title}">
                <span class="file-name">
-                    ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+                   {{if title}}
+                   ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+                   {{else}}
+                   ${fileUrl}
+                   {{/if}}
                </span>
             </a>
             <span class="fullSizeLabel" {{if size == 0}} style="display:none;" {{/if}}>(${$item.fileSizeToStr(size)})</span>
@@ -1197,7 +1201,11 @@
                {{/if}} 
                     title="${title}">
                <span class="file-name">
-                    ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+                   {{if title}}
+                   ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+                   {{else}}
+                   ${fileUrl}
+                   {{/if}}
                </span>
             </a>
         </td>
@@ -1218,7 +1226,11 @@
                {{/if}} 
                     title="${title}">
                <span class="file-name">
-                    ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+                   {{if title}}
+                   ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+                   {{else}}
+                   ${fileUrl}
+                   {{/if}}
                </span>
             </a>
         </td>

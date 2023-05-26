@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using ASC.Specific;
 
 namespace ASC.Api.CRM.Wrappers
 {
+    ///<inherited>ASC.Api.CRM.Wrappers.CustomFieldBaseWrapper, ASC.Api.CRM</inherited>
     [DataContract(Name = "customField", Namespace = "")]
     public class CustomFieldWrapper : CustomFieldBaseWrapper
     {
@@ -37,6 +38,7 @@ namespace ASC.Api.CRM.Wrappers
         {
         }
 
+        ///<example type="int">0</example>
         [DataMember]
         public int RelativeItemsCount { get; set; }
 
@@ -58,6 +60,7 @@ namespace ASC.Api.CRM.Wrappers
     /// <summary>
     ///  User custom fields
     /// </summary>
+    /// <inherited>ASC.Api.CRM.Wrappers.ObjectWrapperBase, ASC.Api.CRM</inherited>
     [DataContract(Name = "customField", Namespace = "")]
     public class CustomFieldBaseWrapper : ObjectWrapperBase
     {
@@ -76,21 +79,27 @@ namespace ASC.Api.CRM.Wrappers
             Mask = customField.Mask;
         }
 
+        ///<example type="int">14523423</example>
         [DataMember]
         public int EntityId { get; set; }
 
+        ///<example>Birthdate</example>
         [DataMember]
         public String Label { get; set; }
 
+        ///<example>2020-12-08T17:37:04.5916406Z</example>
         [DataMember]
         public String FieldValue { get; set; }
 
+        ///<example type="int">5</example>
         [DataMember]
         public CustomFieldType FieldType { get; set; }
 
+        ///<example type="int">10</example>
         [DataMember]
         public int Position { get; set; }
 
+        ///<example></example>
         [DataMember]
         public String Mask { get; set; }
 

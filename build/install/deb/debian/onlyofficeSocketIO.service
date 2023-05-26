@@ -4,10 +4,10 @@ After=network.target syslog.target mysql.service redis-server.service
 Wants=mysql.service redis-server.service
 
 [Service]
-Type=forking
+Type=simple
+WorkingDirectory=/var/www/onlyoffice/Services/ASC.Socket.IO/
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeSocketIO'
-ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeSocketIO /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.Socket.IO.Svc.Launcher,ASC.Socket.IO.Svc\" --log SocketIO
-Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+ExecStart=/usr/bin/node /var/www/onlyoffice/Services/ASC.Socket.IO/app.js UNIX.SERVER
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

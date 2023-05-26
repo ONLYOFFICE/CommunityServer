@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,22 +27,34 @@ namespace ASC.Api.Events
     [DataContract(Name = "event", Namespace = "")]
     public class EventWrapper : IApiSortableDate
     {
+        ///<example type="int">10</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public long Id { get; set; }
 
+        ///<example>Manager</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Title { get; set; }
 
+        ///<example>2020-12-07T13:56:02.2729203Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Created { get; set; }
 
+        ///<example>2020-12-07T13:56:02.2729203Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Updated
         { get; set; }
 
+        ///<example type="int">1</example>
+        ///<order>4</order>
         [DataMember(Order = 4)]
         public FeedType Type { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>9</order>
         [DataMember(Order = 9)]
         public EmployeeWraper CreatedBy { get; set; }
 

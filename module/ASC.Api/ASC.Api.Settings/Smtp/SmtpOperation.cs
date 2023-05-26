@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -143,8 +143,16 @@ namespace ASC.Api.Settings.Smtp
                     {
                         SetProgress(60, "Authenticate");
 
-                        client.Authenticate(SmtpSettings.CredentialsUserName,
-                            SmtpSettings.CredentialsUserPassword, cancellationToken);
+                        if (SmtpSettings.UseNtlm)
+                        {
+                            var saslMechanism = new SaslMechanismNtlm(SmtpSettings.CredentialsUserName, SmtpSettings.CredentialsUserPassword);
+                            client.Authenticate(saslMechanism, cancellationToken);
+                        }
+                        else
+                        {
+                            client.Authenticate(SmtpSettings.CredentialsUserName,
+                                SmtpSettings.CredentialsUserPassword, cancellationToken);
+                        }
                     }
 
                     SetProgress(80, "Send test message");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,12 +32,15 @@ namespace ASC.Mail.Data.Contracts
 
         public int Tenant { get; private set; }
 
+        ///<example name="mailboxId">132</example>
         [DataMember(Name = "mailboxId")]
         public int MailboxId { get; private set; }
 
+        ///<example name="html">html</example>
         [DataMember(Name = "html")]
         public string Html { get; private set; }
 
+        ///<example name="isActive">true</example>
         [DataMember(Name = "isActive")]
         public bool IsActive { get; private set; }
     }

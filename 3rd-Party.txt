@@ -8,6 +8,10 @@ AjaxPro.2 - .NET Library that provides AJAX related methods to simplify the comm
 License:        MIT License
 License File:   AjaxPro.2.license
 
+Amazon.Extensions.S3.Encryption - The Amazon S3 Encryption Client for .NET simplifies encrypting and decrypting objects to S3 using KMS or custom keys. (https://github.com/aws/amazon-s3-encryption-client-dotnet/blob/main/LICENSE)
+License:        Apache License 2.0
+License File:   Amazon.Extensions.S3.Encryption.license
+
 AntiXSS - AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools. (http://wpl.codeplex.com/license)
 License:        MS-PL License
 License File:   AntiXSS.license
@@ -76,7 +80,7 @@ CommandLineParser - The Command Line Parser Library offers to CLR applications a
 License:        MIT License
 License File:   CommandLineParser.license
 
-CsvHelper - A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects. (https://licenses.nuget.org/MS-PL, или https://licenses.nuget.org/Apache-2.0)
+CsvHelper - A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects. (https://licenses.nuget.org/MS-PL, or https://licenses.nuget.org/Apache-2.0)
 License:        MS-PL or Apache License 2.0
 License File:   CsvHelper.license
 
@@ -447,6 +451,10 @@ License File:   Owin.license
 Pipelines.Sockets.Unofficial - Package Description (https://raw.githubusercontent.com/mgravell/Pipelines.Sockets.Unofficial/master/LICENSE)
 License:        MIT License
 License File:   Pipelines.Sockets.Unofficial.license
+
+Polly - Polly is a library that allows developers to express resilience and transient fault handling policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and thread-safe manner. (https://github.com/App-vNext/Polly/blob/main/LICENSE.txt)
+License:        BSD-3-Clause "New" License
+License File:   Polly.license
 
 Portable.BouncyCastle - BouncyCastle portable version with support for .NET 4, .NET Standard 2.0 (https://www.bouncycastle.org/csharp/licence.html)
 License:        MIT X11 License 

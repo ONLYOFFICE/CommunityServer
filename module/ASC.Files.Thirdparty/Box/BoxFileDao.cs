@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -285,7 +285,10 @@ namespace ASC.Files.Thirdparty.Box
         {
             return SaveFile(file, fileStream);
         }
-
+        public void DeleteFile(object fileId, Guid ownerId)
+        {
+            DeleteFile(fileId);
+        }
         public void DeleteFile(object fileId)
         {
             var boxFile = GetBoxFile(fileId);
@@ -417,7 +420,7 @@ namespace ASC.Files.Thirdparty.Box
 
         public ChunkedUploadSession CreateUploadSession(File file, long contentLength)
         {
-            if (SetupInfo.ChunkUploadSize > contentLength)
+            if (SetupInfo.ChunkUploadSize > contentLength && contentLength != -1)
                 return new ChunkedUploadSession(RestoreIds(file), contentLength) { UseChunks = false };
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
@@ -448,7 +451,7 @@ namespace ASC.Files.Thirdparty.Box
 
             uploadSession.BytesUploaded += chunkLength;
 
-            if (uploadSession.BytesUploaded == uploadSession.BytesTotal)
+            if (uploadSession.BytesUploaded == uploadSession.BytesTotal || uploadSession.LastChunk)
             {
                 using (var fs = new FileStream(uploadSession.GetItemOrDefault<string>("TempPath"),
                                                FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose))
@@ -467,7 +470,11 @@ namespace ASC.Files.Thirdparty.Box
         {
             if (uploadSession.Items.ContainsKey("TempPath"))
             {
-                System.IO.File.Delete(uploadSession.GetItemOrDefault<string>("TempPath"));
+                var path = uploadSession.GetItemOrDefault<string>("TempPath");
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
             }
         }
 
@@ -542,6 +549,16 @@ namespace ASC.Files.Thirdparty.Box
 
         public void SaveProperties(object fileId, EntryProperties entryProperties)
         {
+        }
+
+        public Task UploadChunkAsync(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
+        {
+            throw new NotImplementedException();
+        }
+
+        public File FinalizeUploadSession(ChunkedUploadSession uploadSession)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

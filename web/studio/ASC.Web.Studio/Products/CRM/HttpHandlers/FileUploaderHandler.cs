@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Web;
 
+using ASC.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
 using ASC.Web.CRM.Core;
@@ -34,21 +35,24 @@ namespace ASC.Web.CRM.Classes
     {
         public override FileUploadResult ProcessUpload(HttpContext context)
         {
+            if (!SecurityContext.IsAuthenticated)
+            {
+                throw new HttpException(403, "Access denied.");
+            }
+
             var fileUploadResult = new FileUploadResult();
 
             if (!FileToUpload.HasFilesToUpload(context)) return fileUploadResult;
 
             var file = new FileToUpload(context);
 
-            if (String.IsNullOrEmpty(file.FileName) || file.ContentLength == 0)
+            var fileName = System.IO.Path.GetFileName(file.FileName);
+
+            if (String.IsNullOrEmpty(fileName) || file.ContentLength == 0)
                 throw new InvalidOperationException(CRMErrorsResource.InvalidFile);
 
             if (0 < SetupInfo.MaxUploadSize && SetupInfo.MaxUploadSize < file.ContentLength)
                 throw FileSizeComment.FileSizeException;
-
-            var fileName = file.FileName.LastIndexOf('\\') != -1
-                ? file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1)
-                : file.FileName;
 
             using (var scope = DIHelper.Resolve())
             {

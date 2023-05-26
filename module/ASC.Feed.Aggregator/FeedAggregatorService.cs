@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,9 +79,13 @@ namespace ASC.Feed.Aggregator
         private readonly object removeLock = new object();
         private ServiceHost _healthCheckServiceHost;
 
+        private int queryLimit;
+
         public void Start()
         {
             var cfg = FeedConfigurationSection.GetFeedSection();
+
+            queryLimit = cfg.QueryLimit;
 
             isStopped = false;
             DbRegistry.Configure();
@@ -260,7 +264,7 @@ namespace ASC.Feed.Aggregator
             try
             {
                 log.DebugFormat("Start of removing old news");
-                FeedAggregateDataProvider.RemoveFeedAggregate(DateTime.UtcNow.Subtract((TimeSpan)interval));
+                FeedAggregateDataProvider.RemoveFeedAggregate(DateTime.UtcNow.Subtract((TimeSpan)interval), queryLimit);
             }
             catch (Exception ex)
             {

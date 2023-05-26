@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 */
 
 
-var LoaderPath = StudioManager.GetImage('loader_16.gif');
+var LoaderPath = ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? StudioManager.GetImage('loader_16.gif') : StudioManager.GetImage('loader-dark-16.svg');
 var ContainerElementID ='container';
 
 HelpItem = function(accord,value,rank,help)

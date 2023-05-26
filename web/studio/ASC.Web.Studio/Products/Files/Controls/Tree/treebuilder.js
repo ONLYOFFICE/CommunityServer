@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ window.ASC.Files.Tree = (function () {
 
     var pathParts = new Array();
     var folderIdCurrentRoot = null;
+    var externalFolderIdCurrentRoot = null;
 
     var displayFavoritesStatus = false;
     var displayRecentStatus = false;
@@ -36,6 +37,10 @@ window.ASC.Files.Tree = (function () {
             if (jq(".files-content-panel").attr("data-rootid")) {
                 ASC.Files.Tree.folderIdCurrentRoot = jq(".files-content-panel").attr("data-rootid");
                 rootId = ASC.Files.Constants.FOLDER_ID_PROJECT;
+            }
+
+            if (jq(".files-content-panel").attr("data-externalrootid")) {
+                ASC.Files.Tree.externalFolderIdCurrentRoot = jq(".files-content-panel").attr("data-externalrootid");
             }
 
             treeViewContainer = new ASC.Files.TreePrototype("#treeViewContainer", rootId);
@@ -249,6 +254,7 @@ window.ASC.Files.Tree = (function () {
         pathParts: pathParts,
 
         folderIdCurrentRoot: folderIdCurrentRoot,
+        externalFolderIdCurrentRoot: externalFolderIdCurrentRoot,
 
         updateTreePath: updateTreePath,
 

@@ -44,31 +44,31 @@ apply_connection_string(){
 			done
 		fi
 		
-		sed "s!\"host\":.*,!\"host\":\"${DB_HOST}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json
-		sed "s!\"user\":.*,!\"user\":\"${DB_USER}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json
-		sed "s!\"password\":.*,!\"password\":\"${DB_PWD//!/\\!}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json
-		sed "s!\"database\":.*!\"database\":\"${DB_NAME}\"!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
+		find "${APP_SERVICES_DIR}/ASC.UrlShortener/config" -type f -name "*.json" -exec sed -i \
+		-e "s!\(\"host\":\).*,!\1 \"${DB_HOST}\",!" \
+		-e "s!\(\"user\":\).*,!\1 \"${DB_USER}\",!" \
+		-e "s!\(\"password\":\).*,!\1 \"${DB_PWD//!/\\!}\",!" \
+		-e "s!\(\"database\":\).*!\1 \"${DB_NAME}\"!" {} \;
 
 	fi
 	sed -i "s/Server=.*/Server=$DB_HOST;Port=3306;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=True;ConnectionReset=false\",/g" /etc/{{package_sysname}}/communityserver/appsettings.production.json
 }
 
 apply_core_machinekey(){
-	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc")
+	db_get {{package_sysname}}-communityserver/machinekey || true
+	CORE_MACHINEKEY="${RET:-$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)}";
+	[ -z "$RET" ] && db_set {{package_sysname}}-communityserver/machinekey "${CORE_MACHINEKEY}" || true
 
-	if [ -d /var/www/{{package_sysname}}/ ]; then
-		for i in "${!binDirs[@]}";
-		do
-			if [ ! -z $CORE_MACHINEKEY ]; then
-				find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i '/core.\machinekey/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${CORE_MACHINEKEY}'\"!' {} \;			
-			fi			
-		done
-	fi
-	
-	if [ ! -z $CORE_MACHINEKEY ]; then
-		sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
-		sed "s!\"machinekey\":.*!\"machinekey\":\"${CORE_MACHINEKEY}\",!" -i /etc/{{package_sysname}}/communityserver/appsettings.production.json		
-	fi			
+	sed "s^\(machine_key\)\s*=.*^\1 = ${CORE_MACHINEKEY}^g" -i ${APP_SERVICES_DIR}/TeamLabSvc/radicale.config
+
+	binDirs=("$DIR/ApiSystem/" "$DIR/WebStudio" "$DIR/controlpanel/www/config" "$APP_SERVICES_DIR" "/etc/{{package_sysname}}/communityserver")
+
+	for i in "${!binDirs[@]}"; do
+		if [ -d "${binDirs[$i]}" ]; then
+			find "${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "/core.\machinekey/s_\(value\s*=\s*\"\)[^\"]*\"_\1${CORE_MACHINEKEY}\"_" {} \;
+			find "${binDirs[$i]}" -type f -name "*.json" -exec sed -i "s_\(\"core.machinekey\":\|\"machinekey\":\).*,_\1 \"${CORE_MACHINEKEY}\",_" {} \;
+		fi
+	done	
 }
 
 install_db(){
@@ -139,6 +139,18 @@ install_db(){
 	    else
 			sed "s/default-authentication-plugin.*/default-authentication-plugin = mysql_native_password/" -i ${CNF_PATH} || true # ignore errors
 	    fi
+	
+		if ! grep -q "^interactive_timeout"  ${CNF_PATH}; then
+			sed '/\[mysqld\]/a interactive_timeout = 900' -i ${CNF_PATH}
+		else
+			sed "s/interactive_timeout.*/interactive_timeout = 900/" -i ${CNF_PATH} || true # ignore errors
+		fi
+		
+		if ! grep -q "^wait_timeout"  ${CNF_PATH}; then
+			sed '/\[mysqld\]/a wait_timeout = 900' -i ${CNF_PATH}
+		else
+			sed "s/wait_timeout.*/wait_timeout = 900/" -i ${CNF_PATH} || true # ignore errors
+		fi
 
 	    if [ -e ${CNF_SERVICE_PATH} ]; then
                 if ! grep -q "^LimitNOFILE"  ${CNF_SERVICE_PATH}; then
@@ -182,7 +194,12 @@ install_db(){
 		done	
 	fi
 	
-	
+	if ! grep -q "client_max_body_size" /etc/nginx/nginx.conf; then
+		sed -i '/http {/a\    client_max_body_size 100m;' /etc/nginx/nginx.conf
+	else
+		sed -i "s/\(client_max_body_size\).*\?\;/\1 100m;/" /etc/nginx/nginx.conf
+	fi
+		
 	if [ ! -f /proc/net/if_inet6 ]; then
         sed '/listen\s*\[::\]:80/d' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-common-ssl.conf.template
         sed '/listen\s*\[::\]:443/d' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-common-ssl.conf.template
@@ -263,6 +280,9 @@ END
 				service apport restart || true
 			fi
 		fi
+		
+		[ -f /usr/lib/python3.$(python3 -c 'import sys; print(sys.version_info.minor)')/EXTERNALLY-MANAGED ] && \
+		rm /usr/lib/python3.$(python3 -c 'import sys; print(sys.version_info.minor)')/EXTERNALLY-MANAGED
 		
 		python3 -m pip install --upgrade pip
 		python3 -m pip install --upgrade requests
@@ -437,22 +457,41 @@ EOF
 		sed "s!\"value\":.*!\"value\":\ \"${APP_DATA_DIR}\"!" -i /etc/{{package_sysname}}/communityserver/storage.production.json
 		sed "s!\"folder\":.*,!\"folder\":\ \"${APP_SERVICES_DIR}\",!" -i /etc/{{package_sysname}}/communityserver/appsettings.production.json
 		
-		if [ ! -f /etc/{{package_sysname}}/communityserver/openssl.cnf ] ; then
-			cp /etc/ssl/openssl.cnf \
-				/etc/{{package_sysname}}/communityserver/openssl.cnf;
-			sed '/new_oids$/a openssl_conf = default_conf' -i /etc/{{package_sysname}}/communityserver/openssl.cnf
-    		cat >> /etc/{{package_sysname}}/communityserver/openssl.cnf <<EOF
-[default_conf]
-ssl_conf = ssl_sect
+		OPENSSL_CONF="/etc/{{package_sysname}}/communityserver/openssl.cnf"
+		if [ ! -f $OPENSSL_CONF ]; then
+			cp /etc/ssl/openssl.cnf $OPENSSL_CONF;
+			sed '/new_oids$/a openssl_conf = default_conf' -i $OPENSSL_CONF
+    		
+			if ! grep -q "\[default_conf\]" $OPENSSL_CONF; then
+				echo -e "[default_conf]\nssl_conf = ssl_sect\n" >> $OPENSSL_CONF
+			else
+				sed -i "s/^ssl_conf =.*/ssl_conf = ssl_sect/" $OPENSSL_CONF
+			fi
 
-[ssl_sect]
-system_default = system_default_sect
+			if ! grep -q "\[ssl_sect\]" $OPENSSL_CONF; then
+				echo -e "[ssl_sect]\nsystem_default = system_default_sect\n" >> $OPENSSL_CONF
+			else
+				sed -i "s/^system_default =.*/system_default = system_default_sect/" $OPENSSL_CONF
+			fi
 
-[system_default_sect]
-MinProtocol = TLSv1.2
-CipherString = ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
-Ciphersuites = TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_AES_128_CCM_SHA256
-EOF
+			CIPHERSTRING="DEFAULT@SECLEVEL=1"
+			if ! grep -q "\[system_default_sect\]" $OPENSSL_CONF; then
+				echo -e "[system_default_sect] \n\
+MinProtocol = TLSv1.2 \n\
+CipherString = $CIPHERSTRING \n" >> $OPENSSL_CONF
+			else
+				if ! grep -q "MinProtocol =" $OPENSSL_CONF; then
+					sed "/\[system_default_sect\]/a MinProtocol = TLSv1.2" -i $OPENSSL_CONF
+				else
+					sed -i "s/^MinProtocol =.*/MinProtocol = TLSv1.2/" $OPENSSL_CONF
+				fi
+
+				if ! grep -q "CipherString =" $OPENSSL_CONF; then
+					sed "/\[system_default_sect\]/a CipherString = $CIPHERSTRING" -i $OPENSSL_CONF
+				else
+					sed -i "s/^CipherString =.*/CipherString = $CIPHERSTRING/" $OPENSSL_CONF
+				fi
+			fi
 		fi
 
 		# setup xmppserver

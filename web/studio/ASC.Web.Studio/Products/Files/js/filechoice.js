@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,6 @@ window.ASC.Files.FileChoice = (function () {
         if (isInit === false) {
             isInit = true;
 
-            if (!displayPrivacy && ASC.Files.FileSelector.fileSelectorTree) {
-                var privacyFolderData = ASC.Files.FileSelector.fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_PRIVACY);
-                if (privacyFolderData) {
-                    privacyFolderData.entryObject.addClass("privacy-node");
-                }
-            }
-
             if (typeof thirdParty == "string") {
                 if (thirdParty == "") {
                     thirdParty = undefined;
@@ -45,7 +38,7 @@ window.ASC.Files.FileChoice = (function () {
             jq("#mainContent").addClass("webkit-scrollbar");
 
             var callback = function () {
-                ASC.Files.FileSelector.openDialog(folderId, onlyFolder, thirdParty);
+                ASC.Files.FileSelector.openDialog({ folderId: folderId, onlyFolder: onlyFolder, thirdParty: thirdParty, displayPrivacy: displayPrivacy, scrolled: true });
                 if (onlyFolder) {
                     ASC.Files.FileChoice.eventAfter();
                 }

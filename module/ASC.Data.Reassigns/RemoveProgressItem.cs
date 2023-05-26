@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,11 +54,23 @@ namespace ASC.Data.Reassigns
         private readonly IFileStorageService _docService;
         private readonly MailGarbageEngine _mailEraser;
 
+
+        ///<example type="int">123124</example>
         public object Id { get; set; }
+
+        ///<example type="int">1</example>
         public object Status { get; set; }
+
+        ///<example>error</example>
         public object Error { get; set; }
+
+        ///<example type="double">55.5</example>
         public double Percentage { get; set; }
+
+        ///<example>false</example>
         public bool IsCompleted { get; set; }
+
+        ///<example>f528a377-b268-4cdb-8209-91d0fa1417c2</example>
         public Guid FromUser { get { return _userId; } }
 
         public RemoveProgressItem(HttpContext context, int tenantId, UserInfo user, Guid currentUserId, bool notify)
@@ -102,7 +114,7 @@ namespace ASC.Data.Reassigns
                 logger.Info("deleting of data from documents");
 
                 Percentage = 25;
-                _docService.DeleteStorage(_userId);
+                _docService.DeleteStorage(_userId, _currentUserId);
 
                 logger.Info("deleting of data from crm");
 
@@ -199,7 +211,7 @@ namespace ASC.Data.Reassigns
 
             if (storage != null && storage.IsDirectory(md5Hash))
             {
-                storage.DeleteDirectory(md5Hash);
+                storage.DeleteDirectory(_userId, md5Hash);
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,15 +50,18 @@ namespace ASC.Api.CRM
         /// Get filtered events
         /// </short>
         /// <category>History</category>
-        /// <param optional="true" name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
-        /// <param optional="true" name="entityId">Related entity ID</param>
-        /// <param optional="true" name="categoryId">Event category ID</param>
-        /// <param optional="true" name="createBy">Event author</param>
-        /// <param optional="true" name="fromDate">Earliest event due date</param>
-        /// <param optional="true" name="toDate">Latest event due date</param>
-        /// <returns>
+        /// <param type="System.String, System" method="url" optional="true" name="entityType" remark="Allowed values: opportunity, contact, or case">Related entity type</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="entityId">Related entity ID</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="categoryId">Event category ID</param>
+        /// <param type="System.Guid, System" method="url" optional="true" name="createBy">Event author</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="fromDate">Earliest event due date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" optional="true" name="toDate">Latest event due date</param>
+        /// <returns type="ASC.Api.CRM.Wrappers.RelationshipEventWrapper, ASC.Api.CRM">
         /// Event list
         /// </returns>
+        /// <path>api/2.0/crm/history/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"history/filter")]
         public IEnumerable<RelationshipEventWrapper> GetHistory(
             string entityType,
@@ -154,15 +157,17 @@ namespace ASC.Api.CRM
         /// Deletes an event with the ID specified in the request and all the files associated with this event.
         /// </summary>
         /// <short>
-        /// Delete an event and related files
+        /// Delete an event
         /// </short>
         /// <category>History</category>
-        /// <param name="id">Event ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Event ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.RelationshipEventWrapper, ASC.Api.CRM">
         /// Event
         /// </returns>
+        /// <path>api/2.0/crm/history/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"history/{id:[0-9]+}")]
         public RelationshipEventWrapper DeleteHistory(int id)
         {
@@ -186,13 +191,15 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <short>Create a text file</short>
         /// <category>Files</category>
-        /// <param optional = "true" name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
-        /// <param optional="true" name="entityid">Related entity ID</param>
-        /// <param name="title">File title</param>
-        /// <param name="content">File contents</param>
-        /// <returns>
+        /// <param type="System.String, System" method="url" optional = "true" name="entityType" remark="Allowed values: opportunity, contact, or case">Related entity type</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="entityid">Related entity ID</param>
+        /// <param type="System.String, System" name="title">File title</param>
+        /// <param type="System.String, System" name="content">File contents</param>
+        /// <returns type="ASC.Api.Documents.FileWrapper, ASC.Api.Documents">
         /// File information
         /// </returns>
+        /// <path>api/2.0/crm/{entityType}/{entityid}/files/text</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/text")]
         public FileWrapper CreateTextFile(string entityType, int entityid, string title, string content)
         {
@@ -236,16 +243,18 @@ namespace ASC.Api.CRM
         /// <li>Using standart multipart/form-data method.</li>
         /// </ol>]]>
         /// </remarks>
-        /// <param optional="true" name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
-        /// <param optional="true" name="entityid">Related entity ID</param>
-        /// <param name="file" visible="false">Request input stream</param>
-        /// <param name="contentType" visible="false">Content-Type header</param>
-        /// <param name="contentDisposition" visible="false">Content-Disposition header</param>
-        /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
-        /// <param name="storeOriginalFileFlag" visible="false">Defines if the documents in the original formats are also uploaded or not</param>
-        /// <returns>
-        /// File informatin
+        /// <param type="System.String, System" method="url" optional="true" name="entityType" remark="Allowed values: opportunity, contact, or case">Related entity type</param>
+        /// <param type="System.Int32, System" method="url" optional="true" name="entityid">Related entity ID</param>
+        /// <param type="System.IO.Stream, System.IO" name="file" visible="false">Request input stream</param>
+        /// <param type="System.Net.Mime.ContentType, System.Net.Mime" name="contentType" visible="false">Content-Type header</param>
+        /// <param type="System.Net.Mime.ContentDisposition, System.Net.Mime" name="contentDisposition" visible="false">Content-Disposition header</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase}, System.Collections.Generic" name="files" visible="false">List of files when posted as multipart/form-data</param>
+        /// <param type="System.Boolean, System" name="storeOriginalFileFlag" visible="false">Defines if the documents in the original formats are also stored or not</param>
+        /// <returns type="ASC.Api.Documents.FileWrapper, ASC.Api.Documents">
+        /// File information
         /// </returns>
+        /// <path>api/2.0/crm/{entityType}/{entityid}/files/upload</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/upload")]
         public FileWrapper UploadFileInCRM(
             string entityType,
@@ -295,22 +304,24 @@ namespace ASC.Api.CRM
         /// Create an event
         /// </short>
         /// <category>History</category>
-        /// <param optional="true" name="contactId">Contact ID</param>
-        /// <param optional="true" name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
-        /// <param optional="true" name="entityId">Related entity ID</param>
+        /// <param type="System.String, System" optional="true" name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
+        /// <param type="System.Int32, System" optional="true" name="entityId">Related entity ID</param>
+        /// <param type="System.Int32, System" optional="true" name="contactId">Contact ID</param>
         /// <remarks>
         /// <![CDATA[
-        ///  You should obligatorily set a value for 'contactId' if 'entityId' is not set or the values for the 'entityId' and 'entityType' parameters if 'contactId' is not set.
+        ///  You must set a value for 'contactId' if 'entityId' is not set, or a values for the 'entityId' and 'entityType' parameters if 'contactId' is not set.
         /// ]]>
         /// </remarks>
-        /// <param optional="false" name="content">Event contents</param>
-        /// <param optional="false" name="categoryId">Event category ID</param>
-        /// <param optional="true" name="created">Event creation date</param>
-        /// <param optional="true" name="fileId">List of file IDs for the current event</param>
-        /// <param optional="true" name="notifyUserList">List of users who will be notified about the event</param>
-        /// <returns>
+        /// <param type="System.String, System" optional="false" name="content">Event contents</param>
+        /// <param type="System.Int32, System" optional="false" name="categoryId">Event category ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" optional="true" name="created">Event creation date</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" optional="true" name="fileId">List of file IDs for the current event</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" optional="true" name="notifyUserList">List of users who will be notified about the event</param>
+        /// <returns type="ASC.Api.CRM.Wrappers.RelationshipEventWrapper, ASC.Api.CRM">
         /// Created event
         /// </returns>
+        /// <path>api/2.0/crm/history</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"history")]
         public RelationshipEventWrapper AddHistoryTo(
             string entityType,
@@ -386,7 +397,11 @@ namespace ASC.Api.CRM
             if (fileId != null)
             {
                 var fileIds = fileId.ToList();
-                var files = FilesDaoFactory.GetFileDao().GetFiles(fileIds.Cast<object>().ToList());
+                List<Files.Core.File> files;
+                using (var dao = FilesDaoFactory.GetFileDao())
+                {
+                    files = dao.GetFiles(fileIds.Cast<object>().ToList());
+                }
 
                 if (needNotify)
                 {
@@ -436,17 +451,23 @@ namespace ASC.Api.CRM
         /// <short>
         /// Attach files to the entity
         /// </short>
-        /// <param name="entityType">Entity type</param>
-        /// <param name="entityid">Entity ID</param>
-        /// <param name="fileids">List of IDs of the files</param>
+        /// <param type="System.String, System" method="url" name="entityType">Entity type</param>
+        /// <param type="System.Int32, System" method="url" name="entityid">Entity ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" name="fileids">List of file IDs</param>
         /// <category>Files</category>
-        /// <returns>Entity with the file(s) attached</returns>
+        /// <returns type="ASC.Api.CRM.Wrappers.RelationshipEventWrapper, ASC.Api.CRM">Entity with the file(s) attached</returns>
+        /// <path>api/2.0/crm/{entityType}/{entityid}/files</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
         public RelationshipEventWrapper AttachFiles(string entityType, int entityid, IEnumerable<int> fileids)
         {
             if (entityid <= 0 || fileids == null) throw new ArgumentException();
 
-            var files = FilesDaoFactory.GetFileDao().GetFiles(fileids.Cast<object>().ToList());
+            List<Files.Core.File> files;
+            using (var dao = FilesDaoFactory.GetFileDao())
+            {
+                files = dao.GetFiles(fileids.Cast<object>().ToList());
+            }
 
             var folderid = GetRootFolderID();
 
@@ -480,13 +501,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// Returns the ID for the root folder used to store the files for the CRM module.
+        /// Returns the ID of the root folder used to store the CRM module files.
         /// </summary>
         /// <short>Get root folder ID</short> 
         /// <category>Files</category>
         /// <returns>
         /// Root folder ID
         /// </returns>
+        /// <path>api/2.0/crm/files/root</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"files/root")]
         public object GetRootFolderID()
         {
@@ -496,13 +519,16 @@ namespace ASC.Api.CRM
         /// <summary>
         /// Returns a list of all the files for the entity with the ID and type specified in the request.
         /// </summary>
-        /// <param name="entityType">Entity type</param>
-        /// <param name="entityid">Entity ID</param>
+        /// <param type="System.String, System" method="url" name="entityType">Entity type</param>
+        /// <param type="System.Int32, System" method="url" name="entityid">Entity ID</param>
         /// <short>Get entity files</short> 
         /// <category>Files</category>
-        /// <returns>
+        /// <returns type="ASC.Api.Documents.FileWrapper, ASC.Api.Documents">
         /// List of files
         /// </returns>
+        /// <path>api/2.0/crm/{entityType}/{entityid}/files</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
         public IEnumerable<FileWrapper> GetFiles(string entityType, int entityid)
         {
@@ -527,18 +553,25 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <short>Delete a file</short> 
         /// <category>Files</category>
-        /// <param name="fileid">File ID</param>
+        /// <param type="System.Int32, System" method="url" name="fileid">File ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
+        /// <returns type="ASC.Api.Documents.FileWrapper, ASC.Api.Documents">
         /// File information
         /// </returns>
+        /// <path>api/2.0/crm/files/{fileid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"files/{fileid:[0-9]+}")]
         public FileWrapper DeleteCRMFile(int fileid)
         {
             if (fileid < 0) throw new ArgumentException();
 
-            var file = FilesDaoFactory.GetFileDao().GetFile(fileid);
+            Files.Core.File file;
+            using (var dao = FilesDaoFactory.GetFileDao())
+            {
+                file = dao.GetFile(fileid);
+            }
+
             if (file == null) throw new ItemNotFoundException();
             var result = new FileWrapper(file);
 

@@ -111,6 +111,7 @@
     <asp:PlaceHolder ID="userEmailChange" runat="server"/>
     <asp:PlaceHolder ID="userPwdChange" runat="server"/>
     <asp:PlaceHolder ID="userConfirmationDelete" runat="server"/>
+    <asp:PlaceHolder ID="confirmationImpersonateUser" runat="server"/>
 
     <% if (IsAdmin) { %>
 

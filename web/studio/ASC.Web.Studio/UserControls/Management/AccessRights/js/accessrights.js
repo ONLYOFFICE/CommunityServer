@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -213,7 +213,7 @@ ASC.Settings.AccessRights = new function() {
                 sg[pItem.SelectedGroups[len].ID] = pItem.SelectedGroups[len].Name;
             }
 
-            jq.tmpl("template-productItem", pItem).appendTo("#studioPageContent .mainPageContent:first");
+            jq.tmpl("template-productItem", pItem).appendTo("#studioPageContent .products-section");
 
             var $container = jq("#accessRightsContainer_" + pName),
                 $allRadio = $container.find("#all_" + pId),

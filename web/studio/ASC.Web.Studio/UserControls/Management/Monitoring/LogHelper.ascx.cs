@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Utility;
 
 using ICSharpCode.SharpZipLib.Zip;
@@ -38,9 +39,15 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/UserControls/Management/Monitoring/js/loghelper.js")
-                .RegisterStyle("~/uUserControls/Management/Monitoring/css/monitoring.less");
-
+            Page.RegisterBodyScripts("~/UserControls/Management/Monitoring/js/loghelper.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/uUserControls/Management/Monitoring/css/dark-monitoring.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/uUserControls/Management/Monitoring/css/monitoring.less");
+            }
             if (IsDownloadRequest())
                 DownloadArchive();
 

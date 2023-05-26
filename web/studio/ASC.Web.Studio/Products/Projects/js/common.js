@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -294,25 +294,25 @@ ASC.Projects.Common = (function () {
 
         var tmplObj = {
             blocks: [
-                newBlock("design-project-hierarchy.png", ProjectsCommonResource.DashboardDesignProjectHierarchy,
+                newBlock("design-project-hierarchy.svg", ProjectsCommonResource.DashboardDesignProjectHierarchy,
                     [
                         ProjectsCommonResource.DashboardDesignProjectHierarchyFirstLine,
                         ProjectsCommonResource.DashboardDesignProjectHierarchySecondLine,
                         ProjectsCommonResource.DashboardDesignProjectHierarchyThirdLine
                     ]),
-                newBlock("track-time-and-progress.png", ProjectsCommonResource.DashboardTrackTimeAndProgress,
+                newBlock("track-time-and-progress.svg", ProjectsCommonResource.DashboardTrackTimeAndProgress,
                     [
                         ProjectsCommonResource.DashboardTrackTimeAndProgressFirstLine,
                         ProjectsCommonResource.DashboardTrackTimeAndProgressSecondLine,
                         ProjectsCommonResource.DashboardTrackTimeAndProgressThirdLine
                     ]),
-                newBlock("manage-access-rights.png", ProjectsCommonResource.DashboardManageAccessRights,
+                newBlock("manage-access-rights.svg", ProjectsCommonResource.DashboardManageAccessRights,
                     [
                         ProjectsCommonResource.DashboardManageAccessRightsFirstLine,
                         ProjectsCommonResource.DashboardManageAccessRightsSecondLine,
                         ProjectsCommonResource.DashboardManageAccessRightsThirdLine
                     ]),
-                newBlock("use-more-tools.png", ProjectsCommonResource.DashboardUseMoreTools,
+                newBlock("use-more-tools.svg", ProjectsCommonResource.DashboardUseMoreTools,
                     ASC.Resources.Master.CustomMode
                         ? [
                             ProjectsCommonResource.DashboardUseMoreToolsFirstLine,

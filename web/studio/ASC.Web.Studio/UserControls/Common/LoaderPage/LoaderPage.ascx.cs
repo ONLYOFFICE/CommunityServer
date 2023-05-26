@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Common.LoaderPage
@@ -38,7 +39,14 @@ namespace ASC.Web.Studio.UserControls.Common.LoaderPage
         {
             DefaultSettings = !CoreContext.Configuration.CustomMode && CompanyWhiteLabelSettings.Instance.IsDefault;
 
-            Page.RegisterStyle("~/UserControls/Common/LoaderPage/css/loaderpage.less");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/LoaderPage/css/dark-loaderpage.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/LoaderPage/css/loaderpage.less");
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,11 @@ namespace ASC.Web.Talk.HttpHandlers
         {
             try
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+
                 if (context.Request.Files.Count == 0)
                 {
                     throw new Exception("there is no file");

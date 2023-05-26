@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,9 @@ using ASC.Specific;
 namespace ASC.Api.Feed
 {
     /// <summary>
-    /// Feed access.
+    /// Feed API.
     /// </summary>
+    /// <name>feed</name>
     public class FeedApi : IApiEntryPoint
     {
         private const string newFeedsCountCacheKey = "newfeedscount";
@@ -61,6 +62,9 @@ namespace ASC.Api.Feed
         ///<short>
         ///Read feeds
         ///</short>
+        /// <path>api/2.0/feed/read</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <returns></returns>
         [Update("/read")]
         public void Read()
         {
@@ -74,13 +78,15 @@ namespace ASC.Api.Feed
         ///<short>
         ///Get feeds
         ///</short>
-        /// <param name="product">Product which feeds you want to read</param>
-        /// <param name="from">Time from which the feeds should be displayed</param>
-        /// <param name="to">Time until which the feeds should be displayed</param>
-        /// <param name="author">Author whose feeds you want to read</param>
-        /// <param name="onlyNew">Displays only fresh feeds</param>
-        /// <param name="timeReaded">Time when the feeds were read</param>
-        ///<returns>List of filtered feeds</returns>
+        /// <param type="System.String, System" name="product">Product which feeds you want to read</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="from">Time from which the feeds should be displayed</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="to">Time until which the feeds should be displayed</param>
+        /// <param type="System.Nullable{System.Guid}, System" name="author">Author whose feeds you want to read</param>
+        /// <param type="System.Nullable{System.Boolean}, System" name="onlyNew">Displays only fresh feeds</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="timeReaded">Time when the feeds were read</param>
+        /// <returns>List of filtered feeds</returns>
+        /// <path>api/2.0/feed/filter</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/filter")]
         public object GetFeed(
             string product,
@@ -153,6 +159,8 @@ namespace ASC.Api.Feed
         ///Count fresh feeds
         ///</short>
         ///<returns>Number of fresh feeds</returns>
+        /// <path>api/2.0/feed/newfeedscount</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("/newfeedscount")]
         public object GetFreshNewsCount()
         {

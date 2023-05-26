@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -244,7 +244,9 @@ namespace ASC.Web.Studio
                 }
                 else
                 {
-                    var redirectUrl = string.Format("{0}?url={1}", SetupInfo.NoTenantRedirectURL, Request.GetUrlRewriter().Host);
+                    var requestUri = Request.GetUrlRewriter();
+                    var requestUrl = requestUri.ToString();
+                    var redirectUrl = string.Format("{0}?url={1}&ref={2}", SetupInfo.NoTenantRedirectURL, requestUri.Host, HttpUtility.UrlEncode(requestUrl));
                     ResponseRedirect(redirectUrl, HttpStatusCode.NotFound);
                 }
             }
@@ -270,7 +272,9 @@ namespace ASC.Web.Studio
             }
             else
             {
-                var redirectUrl = string.Format("{0}?url={1}", SetupInfo.NoTenantRedirectURL, Request.GetUrlRewriter().Host);
+                var requestUri = Request.GetUrlRewriter();
+                var requestUrl = requestUri.ToString();
+                var redirectUrl = string.Format("{0}?url={1}&ref={2}", SetupInfo.NoTenantRedirectURL, requestUri.Host, HttpUtility.UrlEncode(requestUrl));
                 ResponseRedirect(redirectUrl, HttpStatusCode.NotFound);
             }
         }

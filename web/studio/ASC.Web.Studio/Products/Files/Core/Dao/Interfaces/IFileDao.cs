@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -178,6 +178,13 @@ namespace ASC.Files.Core
         void DeleteFile(object fileId);
 
         /// <summary>
+        ///   Deletes a file including all previous versions
+        /// </summary>
+        /// <param name="fileId">file id</param>
+        /// <param name="ownerId">file owner id</param>
+        void DeleteFile(object fileId, Guid ownerId);
+
+        /// <summary>
         ///     Checks whether or not file
         /// </summary>
         /// <param name="title">file name</param>
@@ -240,6 +247,8 @@ namespace ASC.Files.Core
         ChunkedUploadSession CreateUploadSession(File file, long contentLength);
 
         File UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength);
+        Task UploadChunkAsync(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength);
+        File FinalizeUploadSession(ChunkedUploadSession uploadSession);
 
         void AbortUploadSession(ChunkedUploadSession uploadSession);
 
@@ -255,7 +264,7 @@ namespace ASC.Files.Core
         void ReassignFiles(IEnumerable<object> fileIds, Guid newOwnerId);
 
         /// <summary>
-        /// Search files in SharedWithMe & Projects
+        /// Search files in SharedWithMe &amp; Projects
         /// </summary>
         /// <param name="parentIds"></param>
         /// <param name="filterType"></param>

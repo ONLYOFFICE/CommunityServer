@@ -239,7 +239,7 @@
         </div>
         <div class="default-personal-popup_form-i">
             <div class="auth-input-wrapper">
-                <input class="password" id="pwd" maxlength="<%= PasswordSettings.MaxLength %>" type="password" />
+                <input class="password" id="pwd" maxlength="<%= PasswordSettings.LimitMaxLength %>" type="password" />
                 <input type="hidden" id="passwordHash" name="passwordHash" />
                 <label class="password"><%= Resource.Password %></label>
             </div>

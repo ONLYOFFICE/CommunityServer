@@ -18,9 +18,9 @@
            { %>
         <label class="default-personal-popup_label"><%= Resource.Password %></label>
         <% } %>
-        <input type="password" id="studio_confirm_pwd" placeholder="<%= isPersonal ? "" : Resource.InvitePassword %>" value="" class="pwdLoginTextbox" autofocus
-            data-maxlength="<%= PasswordSettings.MaxLength %>"
-            data-regex="<%: PasswordSettings.GetPasswordRegex(PasswordSettings.Load()) %>"
+        <input type="password" id="studio_confirm_pwd" placeholder="<%= isPersonal ? "" : Resource.InvitePassword %>" value="" class="pwdLoginTextbox" autocomplete="new-password" autofocus
+            data-maxlength="<%= TenantPasswordSettings.MaxLength %>"
+            data-regex="<%: PasswordSettings.GetPasswordRegex(TenantPasswordSettings) %>"
             data-help="<%= UserManagerWrapper.GetPasswordHelpMessage() %>" />
         <input type="hidden" id="passwordHash" name="passwordHash" />
         <label class="eye-label hide-label" id="passwordShowLabel"></label>
@@ -30,9 +30,9 @@
            { %>
         <label class="default-personal-popup_label"><%= Resource.ConfirmPasswordMatch %></label>
         <% } %>
-        <input type="password" id="studio_confirm_pwd_match" placeholder="<%= Resource.ConfirmPasswordMatch %>"  class="pwdLoginTextbox" 
-            data-maxlength="<%= PasswordSettings.MaxLength %>" 
-            data-regex="<%: PasswordSettings.GetPasswordRegex(PasswordSettings.Load()) %>" />
+        <input type="password" id="studio_confirm_pwd_match" placeholder="<%= Resource.ConfirmPasswordMatch %>"  class="pwdLoginTextbox" autocomplete="new-password"
+            data-maxlength="<%= TenantPasswordSettings.MaxLength %>"
+            data-regex="<%: PasswordSettings.GetPasswordRegex(TenantPasswordSettings) %>" />
         <label class="eye-label hide-label" id="passwordShowLabelMatch"></label>
     </div>
 

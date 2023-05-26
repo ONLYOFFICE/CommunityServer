@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ namespace ASC.Core.Common.Tests
 
         public BillingClientTest()
         {
-            billingClient = new BillingClient();
+            billingClient = new BillingClient(true);
         }
 
 
@@ -47,15 +47,15 @@ namespace ASC.Core.Common.Tests
         [TestMethod]
         public void GetPaymentsTest()
         {
-            var payments = billingClient.GetPayments("918", DateTime.MinValue, DateTime.MaxValue).ToList();
+            var payments = billingClient.GetPayments("918").ToList();
             Assert.AreEqual(10, payments.Count);
-            Assert.AreEqual(payments[0].ProductId, "1");
+            Assert.AreEqual(payments[0].ProductRef, "1");
             Assert.AreEqual(payments[0].CartId, "11806812");
-            Assert.AreEqual(payments[0].Currency, "EUR");
-            Assert.AreEqual(payments[0].Date, new DateTime(2012, 4, 8, 13, 36, 30));
+            Assert.AreEqual(payments[0].PaymentCurrency, "EUR");
+            Assert.AreEqual(payments[0].PaymentDate, new DateTime(2012, 4, 8, 13, 36, 30));
             Assert.AreEqual(payments[0].Email, "digiredo@mac.com");
-            Assert.AreEqual(payments[0].Method, "PayPal");
-            Assert.AreEqual(payments[0].Name, "Erik van der Zijden");
+            Assert.AreEqual(payments[0].PaymentMethod, "PayPal");
+            Assert.AreEqual(payments[0].FName + payments[0].LName, "Erik van der Zijden");
             Assert.AreEqual(payments[0].Price, 37.5);
         }
 
@@ -64,31 +64,31 @@ namespace ASC.Core.Common.Tests
         {
             var result = billingClient.GetPaymentUrls("55380i", new[] { "78", "79", "80", "107", "108" });
             Assert.AreEqual(5, result.Count);
-            Assert.IsNotNull(result["12"].Item1);
-            Assert.IsNotNull(result["13"].Item1);
-            Assert.IsNotNull(result["14"].Item1);
-            Assert.IsNull(result["0"].Item1);
-            Assert.IsNull(result["-2"].Item1);
+            Assert.IsNotNull(result["12"]);
+            Assert.IsNotNull(result["13"]);
+            Assert.IsNotNull(result["14"]);
+            Assert.IsNull(result["0"]);
+            Assert.IsNull(result["-2"]);
 
-            Assert.IsNull(result["12"].Item2);
-            Assert.IsNull(result["13"].Item2);
-            Assert.IsNull(result["14"].Item2);
-            Assert.IsNull(result["0"].Item2);
-            Assert.IsNull(result["-2"].Item2);
+            Assert.IsNull(result["12"]);
+            Assert.IsNull(result["13"]);
+            Assert.IsNull(result["14"]);
+            Assert.IsNull(result["0"]);
+            Assert.IsNull(result["-2"]);
         }
 
         [TestMethod]
         public void GetInvoiceTest()
         {
-            var result = billingClient.GetInvoice("11806812");
-            Assert.IsNotNull(result.Sale);
-            Assert.IsNull(result.Refund);
+            //var result = billingClient.GetInvoice("11806812");
+            //Assert.IsNotNull(result.Sale);
+            //Assert.IsNull(result.Refund);
         }
 
         [TestMethod]
         public void GetProductPriceInfoTest()
         {
-            var result = billingClient.GetProductPriceInfo("36", "60", "131");
+            var result = billingClient.GetProductPriceInfo(new[] { "36", "60", "131" });
             Assert.IsNotNull(result);
         }
     }

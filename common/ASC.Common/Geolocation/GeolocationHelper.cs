@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ namespace ASC.Geolocation
         {
             try
             {
-                using (var db = DbManager.FromHttpContext(dbid))
+                using (var db = new DbManager(dbid))
                 {
                     return db.ExecuteScalar<bool>("select exists(select 1 from dbip_location)");
                 }
@@ -61,7 +61,7 @@ namespace ASC.Geolocation
             try
             {
                 var ipformatted = FormatIP(ip);
-                using (var db = DbManager.FromHttpContext(dbid))
+                using (var db = new DbManager(dbid))
                 {
                     var q = new SqlQuery("dbip_location")
                         .Select("ip_start", "ip_end", "country", "city", "timezone_offset", "timezone_name")

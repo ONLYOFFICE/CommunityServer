@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ namespace ASC.Web.Projects
             var escNoContacts = new Studio.Controls.Common.EmptyScreenControl
             {
                 Header = ProjectsCommonResource.EmptyScreenContasctsHeader,
-                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.png", ProductEntryPoint.ID),
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.svg", ProductEntryPoint.ID),
                 Describe = ProjectsCommonResource.EmptyScreenContactsDescribe,
                 ID = "escNoContacts",
                 ButtonHTML = button,

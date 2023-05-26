@@ -709,7 +709,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify when mentioned in document.
+        ///   Looks up a localized string similar to Mentions in comments.
         /// </summary>
         public static string EditorMentions {
             get {
@@ -849,6 +849,15 @@ namespace ASC.Web.Files.Resources {
         public static string ErrorMassage_FolderCopyError {
             get {
                 return ResourceManager.GetString("ErrorMassage_FolderCopyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This folder has been deleted or is no longer available.
+        /// </summary>
+        public static string ErrorMassage_FolderNotAvailable {
+            get {
+                return ResourceManager.GetString("ErrorMassage_FolderNotAvailable", resourceCulture);
             }
         }
         
@@ -1101,6 +1110,51 @@ namespace ASC.Web.Files.Resources {
         public static string ErrorMassage_SecurityException_ViewFolder {
             get {
                 return ResourceManager.GetString("ErrorMassage_SecurityException_ViewFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared link is expired.
+        /// </summary>
+        public static string ErrorMassage_ShareLinkExpired {
+            get {
+                return ResourceManager.GetString("ErrorMassage_ShareLinkExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid shared link.
+        /// </summary>
+        public static string ErrorMassage_ShareLinkInvalid {
+            get {
+                return ResourceManager.GetString("ErrorMassage_ShareLinkInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared link not found.
+        /// </summary>
+        public static string ErrorMassage_ShareLinkNotFound {
+            get {
+                return ResourceManager.GetString("ErrorMassage_ShareLinkNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect password.
+        /// </summary>
+        public static string ErrorMassage_ShareLinkPassword {
+            get {
+                return ResourceManager.GetString("ErrorMassage_ShareLinkPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed password entry. Too many attempts.
+        /// </summary>
+        public static string ErrorMassage_ShareLinkPasswordBruteForce {
+            get {
+                return ResourceManager.GetString("ErrorMassage_ShareLinkPasswordBruteForce", resourceCulture);
             }
         }
         
@@ -1439,7 +1493,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify when a folder is shared.
+        ///   Looks up a localized string similar to Shared folders.
         /// </summary>
         public static string ShareFolder {
             get {
@@ -1466,7 +1520,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify when document signed via DocuSign.
+        ///   Looks up a localized string similar to DocuSign signature completion.
         /// </summary>
         public static string SubscriptDocuSignComplete {
             get {
@@ -1475,7 +1529,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify when document in DocuSign changed status.
+        ///   Looks up a localized string similar to DocuSign status change.
         /// </summary>
         public static string SubscriptDocuSignStatus {
             get {
@@ -1484,7 +1538,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify when a document is shared.
+        ///   Looks up a localized string similar to Shared documents.
         /// </summary>
         public static string SubscriptForAccess {
             get {
@@ -1493,7 +1547,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify when mailing is complete.
+        ///   Looks up a localized string similar to Mail merge completion.
         /// </summary>
         public static string SubscriptForMailMerge {
             get {

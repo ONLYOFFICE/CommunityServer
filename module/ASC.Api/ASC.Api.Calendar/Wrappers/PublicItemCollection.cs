@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,9 @@ namespace ASC.Api.Calendar.Wrappers
             this.Items = new List<PublicItemWrapper>();
         }
 
+        ///<type name="actions">ASC.Api.Calendar.Wrappers.AccessOption, ASC.Api.Calendar</type>
+        ///<collection>list</collection>
+        ///<order>10</order>
         [DataMember(Name = "actions", Order = 10)]
         public List<AccessOption> AvailableOptions
         {
@@ -38,6 +41,9 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
+        ///<type name="items">ASC.Api.Calendar.Wrappers.PublicItemWrapper, ASC.Api.Calendar</type>
+        ///<collection>list</collection>
+        ///<order>20</order>
         [DataMember(Name = "items", Order = 20)]
         public List<PublicItemWrapper> Items { get; set; }
 

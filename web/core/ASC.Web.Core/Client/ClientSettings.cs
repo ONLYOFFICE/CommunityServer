@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ namespace ASC.Web.Core.Client
         private static bool? bundlesEnabled;
         private static bool? storeEnabled;
         private static bool? gzipEnabled;
+        private static bool? sameSiteCookieEnabled;
         private static readonly string resetCacheKey = ConfigurationManagerExtension.AppSettings["web.client.cache.resetkey"] ?? DateTime.UtcNow.ToString("yyyyMMddhhmmss");
 
 
@@ -41,6 +42,11 @@ namespace ASC.Web.Core.Client
         public static bool GZipEnabled
         {
             get { return gzipEnabled ?? (bool)(gzipEnabled = bool.Parse(ConfigurationManagerExtension.AppSettings["web.client.store.gzip"] ?? "true")); }
+        }
+
+        public static bool SameSiteCookieEnabled
+        {
+            get { return sameSiteCookieEnabled ?? (bool)(sameSiteCookieEnabled = bool.Parse(ConfigurationManagerExtension.AppSettings["web.client.cookie.samesite"] ?? "false")); }
         }
 
         public static string ResetCacheKey

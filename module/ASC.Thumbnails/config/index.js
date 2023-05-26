@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ const path = require('path');
 
 nconf.argv()
     .env()
-    .file({ file: path.join(__dirname, 'config.json') });
+    .file({ file: path.join(__dirname, `config.${process.argv[2]}.json`) });
+
+nconf.file("default", path.join(__dirname, "config.json"));
 
 nconf.noThumb = nconf.get("noThumb");
 

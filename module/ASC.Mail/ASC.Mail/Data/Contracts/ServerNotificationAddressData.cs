@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,24 +24,31 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "NotificationAddress")]
     public class ServerNotificationAddressData
     {
+        ///<example>Email</example>
         [DataMember(IsRequired = true)]
         public string Email { get; set; }
 
+        ///<example name="smtp_server">smtp_server</example>
         [DataMember(Name = "smtp_server")]
         public string SmtpServer { get; set; }
 
+        ///<example type="int" name="smtp_port">33</example>
         [DataMember(Name = "smtp_port")]
         public int SmtpPort { get; set; }
 
+        ///<example name="smtp_account">smtp_account</example>
         [DataMember(Name = "smtp_account")]
         public string SmtpAccount { get; set; }
 
+        ///<example name="smtp_auth">true</example>
         [DataMember(Name = "smtp_auth")]
         public bool SmtpAuth { get; set; }
 
+        ///<example name="smtp_encryption_type">smtp_encryption_type</example>
         [DataMember(Name = "smtp_encryption_type")]
         public string SmptEncryptionType { get; set; }
 
+        ///<example name="smtp_auth_type">smtp_auth_type</example>
         [DataMember(Name = "smtp_auth_type")]
         public string SmtpAuthenticationType { get; set; }
     }

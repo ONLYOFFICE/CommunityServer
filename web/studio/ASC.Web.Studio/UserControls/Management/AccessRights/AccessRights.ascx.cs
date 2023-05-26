@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
@@ -121,9 +122,15 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var isRetina = TenantLogoManager.IsRetina(HttpContext.Current.Request);
 
-            Page.RegisterBodyScripts("~/UserControls/Management/AccessRights/js/accessrights.js")
-                .RegisterStyle("~/UserControls/Management/AccessRights/css/accessrights.less");
-
+            Page.RegisterBodyScripts("~/UserControls/Management/AccessRights/js/accessrights.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/AccessRights/css/dark-accessrights.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/AccessRights/css/accessrights.less");
+            }
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
             var currentOwner = CoreContext.UserManager.GetUsers(curTenant.OwnerId);
 

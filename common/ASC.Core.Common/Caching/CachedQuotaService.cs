@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,19 +63,18 @@ namespace ASC.Core.Caching
         }
 
 
-        public IEnumerable<TenantQuota> GetTenantQuotas()
+        public IEnumerable<TenantQuota> GetTenantQuotas(bool useCache = true)
         {
-            var quotas = cache.Get<IEnumerable<TenantQuota>>(KEY_QUOTA);
+            var quotas = useCache ? cache.Get<IEnumerable<TenantQuota>>(KEY_QUOTA) : null;
             if (quotas == null)
             {
-                cache.Insert(KEY_QUOTA, quotas = service.GetTenantQuotas(), DateTime.UtcNow.Add(CacheExpiration));
+                cache.Insert(KEY_QUOTA, quotas = service.GetTenantQuotas(useCache), DateTime.UtcNow.Add(CacheExpiration));
             }
             return quotas;
         }
-
-        public TenantQuota GetTenantQuota(int tenant)
+        public TenantQuota GetTenantQuota(int tenant, bool useCache = true)
         {
-            return GetTenantQuotas().SingleOrDefault(q => q.Id == tenant);
+            return GetTenantQuotas(useCache).SingleOrDefault(q => q.Id == tenant);
         }
 
         public TenantQuota SaveTenantQuota(TenantQuota quota)
@@ -95,6 +94,12 @@ namespace ASC.Core.Caching
         {
             service.SetTenantQuotaRow(row, exchange);
             cacheNotify.Publish(new QuotaCacheItem { Key = GetKey(row.Tenant) }, CacheNotifyAction.InsertOrUpdate);
+
+            if (row.UserId != Guid.Empty)
+            {
+                cacheNotify.Publish(new QuotaCacheItem { Key = GetKey(row.Tenant, row.UserId) }, CacheNotifyAction.InsertOrUpdate);
+            }
+
         }
 
         public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(int tenantId)
@@ -111,9 +116,46 @@ namespace ASC.Core.Caching
             return result;
         }
 
+        public IEnumerable<TenantQuotaRow> FindUserQuotaRows(int tenantId, Guid userId, bool useCache)
+        {
+            var key = GetKey(tenantId, userId);
+            var result = cache.Get<IEnumerable<TenantQuotaRow>>(key);
+
+            if (result == null || !useCache)
+            {
+                result = service.FindUserQuotaRows(tenantId, userId, useCache);
+                cache.Insert(key, result, DateTime.UtcNow.Add(CacheExpiration));
+            }
+
+            return result;
+        }
+
+        public TenantQuotaRow FindUserQuotaRow(int tenantId, Guid userId, Guid tag)
+        {
+            var key = GetKey(tenantId, userId, tag);
+            var result = cache.Get<TenantQuotaRow>(key);
+
+            if (result == null)
+            {
+                result = service.FindUserQuotaRow(tenantId, userId, tag);
+                if(result != null) cache.Insert(key, result, DateTime.UtcNow.Add(CacheExpiration));
+            }
+
+            return result;
+        }
+
         public string GetKey(int tenant)
         {
             return KEY_QUOTA_ROWS + tenant;
+        }
+
+        public string GetKey(int tenant, Guid userId)
+        {
+            return KEY_QUOTA_ROWS + tenant + userId;
+        }
+        public string GetKey(int tenant, Guid userId, Guid tag)
+        {
+            return KEY_QUOTA_ROWS + tenant + userId + tag;
         }
 
 

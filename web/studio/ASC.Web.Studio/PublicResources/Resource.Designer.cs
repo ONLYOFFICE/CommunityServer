@@ -466,6 +466,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add {!Userlead}.
+        /// </summary>
+        public static string AddLeadButton {
+            get {
+                return ResourceManager.GetString("AddLeadButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Comment.
         /// </summary>
         public static string AddNewCommentButton {
@@ -822,6 +831,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string AuthTermsService {
             get {
                 return ResourceManager.GetString("AuthTermsService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth via NTLM.
+        /// </summary>
+        public static string AuthViaNTLM {
+            get {
+                return ResourceManager.GetString("AuthViaNTLM", resourceCulture);
             }
         }
         
@@ -1373,6 +1391,24 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ConfirmDnsUpdateTitle {
             get {
                 return ResourceManager.GetString("ConfirmDnsUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to log in to the portal on behalf of another user. In order to return, you need to log out..
+        /// </summary>
+        public static string ConfirmImpersonateHelper {
+            get {
+                return ResourceManager.GetString("ConfirmImpersonateHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login under a different name.
+        /// </summary>
+        public static string ConfirmImpersonateUserTitle {
+            get {
+                return ResourceManager.GetString("ConfirmImpersonateUserTitle", resourceCulture);
             }
         }
         
@@ -2286,6 +2322,105 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Managed CMK.
+        /// </summary>
+        public static string ConsumersS3EncryprionCMK {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionCMK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer manager CMK.
+        /// </summary>
+        public static string ConsumersS3EncryprionCMKCustom {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionCMKCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default AWS managed CMK.
+        /// </summary>
+        public static string ConsumersS3EncryprionCMKDefault {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionCMKDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client-Side Encryption.
+        /// </summary>
+        public static string ConsumersS3EncryprionCSE {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionCSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KMS Key Id.
+        /// </summary>
+        public static string ConsumersS3EncryprionKey {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string ConsumersS3EncryprionNone {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server-Side Encryption.
+        /// </summary>
+        public static string ConsumersS3EncryprionSSE {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionSSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSE-KMS.
+        /// </summary>
+        public static string ConsumersS3EncryprionSSEKMS {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionSSEKMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server-Side Encryption with AWS KMS keys (SSE-KMS) protects your assets with a versatile encryption mechanism. Like SSE-S3, It relies on strong AES-256 encryption method, but provides more complex and flexible model, offering separate permissions for a KMS key, audit trail feature, and ability to create unique custom keys..
+        /// </summary>
+        public static string ConsumersS3EncryprionSSEKMSHelp {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionSSEKMSHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSE-S3.
+        /// </summary>
+        public static string ConsumersS3EncryprionSSES3 {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionSSES3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3), your assets will be encrypted with strong AES-256 GCM keys, one separate key for each object. The keys themselves are encrypted with a rotating root key for additional protection..
+        /// </summary>
+        public static string ConsumersS3EncryprionSSES3Help {
+            get {
+                return ResourceManager.GetString("ConsumersS3EncryprionSSES3Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Force Path Style.
         /// </summary>
         public static string ConsumersS3forcepathstyle {
@@ -3186,6 +3321,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dark Theme.
+        /// </summary>
+        public static string DarkTheme {
+            get {
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data Backup.
         /// </summary>
         public static string DataBackup {
@@ -3310,6 +3454,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string DeepLinkDescription {
             get {
                 return ResourceManager.GetString("DeepLinkDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Portal.
+        /// </summary>
+        public static string DeepLinkGoToPortalBtn {
+            get {
+                return ResourceManager.GetString("DeepLinkGoToPortalBtn", resourceCulture);
             }
         }
         
@@ -3545,6 +3698,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string DisabledEmployeeTitle {
             get {
                 return ResourceManager.GetString("DisabledEmployeeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string DisableImpersonateSettings {
+            get {
+                return ResourceManager.GetString("DisableImpersonateSettings", resourceCulture);
             }
         }
         
@@ -4242,6 +4404,33 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable for all full admins.
+        /// </summary>
+        public static string EnableImpersonateSettingsForAllAdmins {
+            get {
+                return ResourceManager.GetString("EnableImpersonateSettingsForAllAdmins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Limit to a list of admins.
+        /// </summary>
+        public static string EnableImpersonateSettingsWithLimits {
+            get {
+                return ResourceManager.GetString("EnableImpersonateSettingsWithLimits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Impersonation.
+        /// </summary>
+        public static string EnableImpersonation {
+            get {
+                return ResourceManager.GetString("EnableImpersonation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable LDAP Authentication.
         /// </summary>
         public static string EnableLDAPAuthentication {
@@ -4364,6 +4553,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ErrorAccessRestricted {
             get {
                 return ResourceManager.GetString("ErrorAccessRestricted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value does not fall within the expected range.
+        /// </summary>
+        public static string ErrorArgumentException {
+            get {
+                return ResourceManager.GetString("ErrorArgumentException", resourceCulture);
             }
         }
         
@@ -5268,6 +5466,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To protect the portal against brute-force attacks, you can set up the limits of unsuccessful login attempts by the user. When the specified limit is reached, attempts coming from the associated IP address will be banned for the chosen period of time..
+        /// </summary>
+        public static string HelpAnswerLoginSettings {
+            get {
+                return ResourceManager.GetString("HelpAnswerLoginSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {1}Logo Settings{2} is a way to change the default logo to be displayed on the {1}Welcome Page{2} of your portal.{0} To replace the portal logo click the {1}Change Logo{2} link to the right and select the image stored on your computer to load it to your portal.{0}Please, keep in mind that you can upload an image no larger than {1}250x100 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}1 MB{2}..
         /// </summary>
         public static string HelpAnswerLogoSettings {
@@ -5286,11 +5493,11 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Password Strength Settings{2} is a way to determine the effectiveness of a password in resisting guessing and brute-force attacks.{0}Use the {1}Minimum Password Length{2} bar to determine how long the password should be. Check the appropriate boxes below to determine the character set that must be used in the password.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
+        ///   Looks up a localized string similar to {1}Password Strength Settings{2} is a way to determine the effectiveness of a password in resisting guessing and brute-force attacks.{0}Use the {1}Password Length Range{2} bar to determine how long the password should be. Check the appropriate boxes below to determine the character set that must be used in the password.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
         /// </summary>
-        public static string HelpAnswerPasswordSettings {
+        public static string HelpAnswerPasswordStrengthSettings {
             get {
-                return ResourceManager.GetString("HelpAnswerPasswordSettings", resourceCulture);
+                return ResourceManager.GetString("HelpAnswerPasswordStrengthSettings", resourceCulture);
             }
         }
         
@@ -5580,6 +5787,89 @@ namespace ASC.Web.Studio.PublicResources {
         public static string HowManyCanImportUsers {
             get {
                 return ResourceManager.GetString("HowManyCanImportUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No, cancel.
+        /// </summary>
+        public static string ImpersonateCancelButton {
+            get {
+                return ResourceManager.GetString("ImpersonateCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feature is available only to the owner of the portal by default. Grant admin access using settings below..
+        /// </summary>
+        public static string ImpersonateSettingsEnableHelp {
+            get {
+                return ResourceManager.GetString("ImpersonateSettingsEnableHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string ImpersonateYesButton {
+            get {
+                return ResourceManager.GetString("ImpersonateYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access for admins:.
+        /// </summary>
+        public static string ImpersonationAccessForAdmins {
+            get {
+                return ResourceManager.GetString("ImpersonationAccessForAdmins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Impersonation{1} allows the owner and the administrators to execute login to the portal on behalf of any user.
+        ///Note: It is not possible
+        ///to access the private room section while logging in as a user. The owner can impersonate any user or admin, but admins cannot impersonate other admins..
+        /// </summary>
+        public static string ImpersonationDescription {
+            get {
+                return ResourceManager.GetString("ImpersonationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Impersonation only within full admin’s own group.
+        /// </summary>
+        public static string ImpersonationOnlyForOwnGroupsChb {
+            get {
+                return ResourceManager.GetString("ImpersonationOnlyForOwnGroupsChb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restrict access:.
+        /// </summary>
+        public static string ImpersonationRestrictAccess {
+            get {
+                return ResourceManager.GetString("ImpersonationRestrictAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restrict access to user and groups.
+        /// </summary>
+        public static string ImpersonationRestrictUsersChb {
+            get {
+                return ResourceManager.GetString("ImpersonationRestrictUsersChb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Impersonation Settings.
+        /// </summary>
+        public static string ImpersonationSettings {
+            get {
+                return ResourceManager.GetString("ImpersonationSettings", resourceCulture);
             }
         }
         
@@ -5926,6 +6216,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interface Theme.
+        /// </summary>
+        public static string InterfaceTheme {
+            get {
+                return ResourceManager.GetString("InterfaceTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password..
         /// </summary>
         public static string InvalidUsernameOrPassword {
@@ -6025,6 +6324,16 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}IP Security{1} is used to restrict login to the portal from all IP addresses except certain addresses. You can set the allowed IP addresses using either exact IP addresses in the IPv4 format (#.#.#.#, where # is a numeric value from 0 to 255), IP range (in the #.#.#.#-#.#.#.# format), or CIDR masking (in the #.#.#.#/# format). The IP security does not work for portal owners, they can access the portal from any IP address.
+        ///Rules set in the For all users section apply to full access administrators as well [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string IpSecurityDescription {
+            get {
+                return ResourceManager.GetString("IpSecurityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable.
         /// </summary>
         public static string IPSecurityDisable {
@@ -6043,11 +6352,20 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}IP Security{1} is used to restrict login to the portal from all IP addresses except certain addresses. You can set the allowed IP addresses using either exact IP addresses in the IPv4 format (#.#.#.#, where # is a numeric value from 0 to 255) or IP range (in the #.#.#.#-#.#.#.# format). The IP security does not work for portal owners, they can access the portal from any IP address..
+        ///   Looks up a localized string similar to For full access administrators only.
         /// </summary>
-        public static string IpSecurityHelp {
+        public static string IpSecurityHeaderForAdmins {
             get {
-                return ResourceManager.GetString("IpSecurityHelp", resourceCulture);
+                return ResourceManager.GetString("IpSecurityHeaderForAdmins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For all users.
+        /// </summary>
+        public static string IpSecurityHeaderForAllUsers {
+            get {
+                return ResourceManager.GetString("IpSecurityHeaderForAllUsers", resourceCulture);
             }
         }
         
@@ -6111,6 +6429,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last update:.
+        /// </summary>
+        public static string LastUpdate {
+            get {
+                return ResourceManager.GetString("LastUpdate", resourceCulture);
             }
         }
         
@@ -7162,6 +7489,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Light Theme.
+        /// </summary>
+        public static string LightTheme {
+            get {
+                return ResourceManager.GetString("LightTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Live Chat.
         /// </summary>
         public static string LiveChat {
@@ -7207,11 +7543,38 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of attempts.
+        /// </summary>
+        public static string LoginAttemptsCount {
+            get {
+                return ResourceManager.GetString("LoginAttemptsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blocking time (sec).
+        /// </summary>
+        public static string LoginBlockTime {
+            get {
+                return ResourceManager.GetString("LoginBlockTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign In.
         /// </summary>
         public static string LoginButton {
             get {
                 return ResourceManager.GetString("LoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check period (sec).
+        /// </summary>
+        public static string LoginCheckPeriod {
+            get {
+                return ResourceManager.GetString("LoginCheckPeriod", resourceCulture);
             }
         }
         
@@ -7248,6 +7611,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string LoginSettingsDescription {
             get {
                 return ResourceManager.GetString("LoginSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Settings.
+        /// </summary>
+        public static string LoginSettingsTitle {
+            get {
+                return ResourceManager.GetString("LoginSettingsTitle", resourceCulture);
             }
         }
         
@@ -7819,6 +8191,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password recovery via email is impossible for users with LDAP/SSO login. Contact your administrator in case of password loss..
+        /// </summary>
+        public static string MessageSendPasswordRecoveryInfo {
+            get {
+                return ResourceManager.GetString("MessageSendPasswordRecoveryInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the email you used while registering on the portal. The password recovery instructions will be sent to that email address..
         /// </summary>
         public static string MessageSendPasswordRecoveryInstructionsOnEmail {
@@ -8296,20 +8677,20 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password length range.
+        /// </summary>
+        public static string PasswordLengthRange {
+            get {
+                return ResourceManager.GetString("PasswordLengthRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passwords match.
         /// </summary>
         public static string PasswordMatch {
             get {
                 return ResourceManager.GetString("PasswordMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimal password length.
-        /// </summary>
-        public static string PasswordMinLength {
-            get {
-                return ResourceManager.GetString("PasswordMinLength", resourceCulture);
             }
         }
         
@@ -8818,6 +9199,132 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to set the memory quota - the memory quota you set is greater than portals quota..
+        /// </summary>
+        public static string QuotaGreaterPortalError {
+            get {
+                return ResourceManager.GetString("QuotaGreaterPortalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set the memory quota - some users cannot use this quota..
+        /// </summary>
+        public static string QuotaGroupError {
+            get {
+                return ResourceManager.GetString("QuotaGroupError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set the memory quota - the memory quota you set is less than used memory..
+        /// </summary>
+        public static string QuotaLessUsedMemoryError {
+            get {
+                return ResourceManager.GetString("QuotaLessUsedMemoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The base quota is the quota that will be set by default for all new users.
+        /// </summary>
+        public static string QuotaSettingsDescription {
+            get {
+                return ResourceManager.GetString("QuotaSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deselect all.
+        /// </summary>
+        public static string QuotaSettingsDeselectAll {
+            get {
+                return ResourceManager.GetString("QuotaSettingsDeselectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit quota.
+        /// </summary>
+        public static string QuotaSettingsEditQuota {
+            get {
+                return ResourceManager.GetString("QuotaSettingsEditQuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base quota.
+        /// </summary>
+        public static string QuotaSettingsHeader {
+            get {
+                return ResourceManager.GetString("QuotaSettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No quota.
+        /// </summary>
+        public static string QuotaSettingsNoQuota {
+            get {
+                return ResourceManager.GetString("QuotaSettingsNoQuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show on page.
+        /// </summary>
+        public static string QuotaSettingsShowOnPage {
+            get {
+                return ResourceManager.GetString("QuotaSettingsShowOnPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Too many quota recalculate operations..
+        /// </summary>
+        public static string QuotaSettingsTooManyOperations {
+            get {
+                return ResourceManager.GetString("QuotaSettingsTooManyOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total count.
+        /// </summary>
+        public static string QuotaSettingsTotalCount {
+            get {
+                return ResourceManager.GetString("QuotaSettingsTotalCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With a quota.
+        /// </summary>
+        public static string QuotaSettingsWithQuota {
+            get {
+                return ResourceManager.GetString("QuotaSettingsWithQuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used.
+        /// </summary>
+        public static string QuotaUsed {
+            get {
+                return ResourceManager.GetString("QuotaUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to out of.
+        /// </summary>
+        public static string QuotaUsedOutOf {
+            get {
+                return ResourceManager.GetString("QuotaUsedOutOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting the address book was successful.
         /// </summary>
         public static string RadicaleCardDavDeleteMessage {
@@ -8859,6 +9366,33 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ReassignDataRemoveUserError {
             get {
                 return ResourceManager.GetString("ReassignDataRemoveUserError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recalculate.
+        /// </summary>
+        public static string RecalculateButton {
+            get {
+                return ResourceManager.GetString("RecalculateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For the quota settings to work correctly, it is necessary to recalculate. When the calculation is done, you will be able to set up a quota for users..
+        /// </summary>
+        public static string RecalculateQuotaDescription {
+            get {
+                return ResourceManager.GetString("RecalculateQuotaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting up a quota.
+        /// </summary>
+        public static string RecalculateQuotaTitle {
+            get {
+                return ResourceManager.GetString("RecalculateQuotaTitle", resourceCulture);
             }
         }
         
@@ -9230,6 +9764,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string SeeAllVideos {
             get {
                 return ResourceManager.GetString("SeeAllVideos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
             }
         }
         
@@ -9807,6 +10350,69 @@ namespace ASC.Web.Studio.PublicResources {
         public static string SmsTooMuchError {
             get {
                 return ResourceManager.GetString("SmsTooMuchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add trusted IP.
+        /// </summary>
+        public static string SmsValidationAddTrustedIP {
+            get {
+                return ResourceManager.GetString("SmsValidationAddTrustedIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user list is empty.
+        /// </summary>
+        public static string SmsValidationEmptyUserList {
+            get {
+                return ResourceManager.GetString("SmsValidationEmptyUserList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Advanced Settings.
+        /// </summary>
+        public static string SmsValidationHideAdvancedSettings {
+            get {
+                return ResourceManager.GetString("SmsValidationHideAdvancedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mandatory Two-factor authentication.
+        /// </summary>
+        public static string SmsValidationMandatoryBlockHeader {
+            get {
+                return ResourceManager.GetString("SmsValidationMandatoryBlockHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Advanced Settings.
+        /// </summary>
+        public static string SmsValidationShowAdvancedSettings {
+            get {
+                return ResourceManager.GetString("SmsValidationShowAdvancedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using IPv4, IP range or CIDR masking.
+        /// </summary>
+        public static string SmsValidationTrustedBlockDescription {
+            get {
+                return ResourceManager.GetString("SmsValidationTrustedBlockDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trusted Networks.
+        /// </summary>
+        public static string SmsValidationTrustedBlockHeader {
+            get {
+                return ResourceManager.GetString("SmsValidationTrustedBlockHeader", resourceCulture);
             }
         }
         
@@ -10900,6 +11506,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use system theme.
+        /// </summary>
+        public static string SystemTheme {
+            get {
+                return ResourceManager.GetString("SystemTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy now.
         /// </summary>
         public static string TariffButtonBuy {
@@ -11675,6 +12290,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating statistics can take a long time.
+        /// </summary>
+        public static string UpdatingStatistics {
+            get {
+                return ResourceManager.GetString("UpdatingStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upgrade pricing plan.
         /// </summary>
         public static string UpgradePlan {
@@ -11716,6 +12340,24 @@ namespace ASC.Web.Studio.PublicResources {
         public static string UserForum {
             get {
                 return ResourceManager.GetString("UserForum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {!Userlead}.
+        /// </summary>
+        public static string UserLead {
+            get {
+                return ResourceManager.GetString("UserLead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lead.
+        /// </summary>
+        public static string UserLeadCaption {
+            get {
+                return ResourceManager.GetString("UserLeadCaption", resourceCulture);
             }
         }
         

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using ASC.Files.Core.Security;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Services.WCFService.FileOperations;
@@ -42,6 +43,8 @@ namespace ASC.Web.Files.Masters.ClientScripts
         {
             get { return "ASC.Files.Constants"; }
         }
+
+        protected override bool CheckAuth => false;
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
@@ -60,7 +63,7 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                 URL_BASE = FilesLinkUtility.FilesBaseAbsolutePath,
                                 URL_WCFSERVICE = PathProvider.GetFileServicePath,
                                 URL_TEMPLATES_HANDLER = CommonLinkUtility.ToAbsolute("~/template.ashx") + "?id=" + PathProvider.TemplatePath + "&name=collection&ver=" + ClientSettings.ResetCacheKey,
-                                URL_LOADER = CommonLinkUtility.ToAbsolute(FilesLinkUtility.FilesBaseVirtualPath + "loader.html"),
+                                URL_LOADER = CommonLinkUtility.ToAbsolute(FilesLinkUtility.FilesBaseVirtualPath + (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.light ? "loader.html" : "loader-dark.html")),
 
                                 ADMIN = Global.IsAdministrator,
                                 MAX_NAME_LENGTH = Global.MaxTitle,
@@ -77,6 +80,8 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                 FOLDER_ID_COMMON_FILES = Global.FolderCommon,
                                 FOLDER_ID_PROJECT = Global.FolderProjects,
                                 FOLDER_ID_TRASH = Global.FolderTrash,
+
+                                GUEST_USER_ID = ASC.Core.Configuration.Constants.Guest.ID,
 
                                 FileConstant.ShareLinkId,
 
@@ -116,8 +121,15 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                         FileConflictResolveType.Duplicate
                                     },
 
+                                EntryType = new
+                                {
+                                    FileEntryType.File,
+                                    FileEntryType.Folder,
+                                },
+
                                 DocuSignFormats = DocuSignHelper.SupportedFormats,
                                 SetupInfo.AvailableFileSize,
+                                FilesLinkUtility.FolderShareKey
                             })
                 };
         }

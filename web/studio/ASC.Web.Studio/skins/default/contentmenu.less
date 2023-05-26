@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 *******************************************************************************/
 .contentMenu
 {
-    background: #fff;
+    background: @contentMenu;
     border-bottom: 1px solid @borderColor;
     color: @textColorBlackLight;
     display: none;
@@ -33,8 +33,8 @@
 
 li.menuActionSelectAll
 {
-    .bg-button-default ();
-    .border-button-default();
+    .bg-button-default-menuAction ();
+    .border-button-default-menuAction();
     color:@textColor;
     display: inline-block !important;
     min-width: 33px;
@@ -69,8 +69,8 @@ li.menuActionSelectAll
     .noneSelect();
 
     &.unlockAction {
-        .bg-button-default();
-        .border-button-default();
+        .bg-button-default-menuAction();
+        .border-button-default-menuAction();
         cursor: pointer;
         color: @grayButtonTextColor;
 

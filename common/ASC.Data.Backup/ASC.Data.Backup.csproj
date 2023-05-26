@@ -43,6 +43,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Backup.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -54,6 +56,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Compile Include="ActionInvoker.cs" />
     <Compile Include="BackupResource.Designer.cs">
@@ -69,7 +72,6 @@
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="FileBackupProvider.cs" />
     <Compile Include="IBackupProvider.cs" />
-    <Compile Include="IDataOperator.cs" />
     <Compile Include="Service\BackupCleanerService.cs" />
     <Compile Include="Service\BackupConfiguration.cs" />
     <Compile Include="Service\BackupCleanerTempFileService.cs" />
@@ -81,12 +83,10 @@
     <Compile Include="Storage\BackupRepository.cs" />
     <Compile Include="Storage\BackupStorageFactory.cs" />
     <Compile Include="Storage\ConsumerBackupStorage.cs" />
-    <Compile Include="Storage\DataStoreBackupStorage.cs" />
     <Compile Include="Storage\DocumentsBackupStorage.cs" />
     <Compile Include="Storage\IBackupRepository.cs" />
     <Compile Include="Storage\IBackupStorage.cs" />
     <Compile Include="Storage\LocalBackupStorage.cs" />
-    <Compile Include="Storage\S3BackupStorage.cs" />
     <Compile Include="Storage\Schedule.cs" />
     <Compile Include="Tasks\BackupPortalTask.cs" />
     <Compile Include="Tasks\DeletePortalTask.cs" />
@@ -128,7 +128,6 @@
     <Compile Include="Utils\ConfigurationProvider.cs" />
     <Compile Include="Utils\FCKEditorPathUtility.cs" />
     <Compile Include="Utils\PathHelper.cs" />
-    <Compile Include="ZipOperator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +195,7 @@
       <Version>3.7.1.29</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.29</Version>
-    </PackageReference>
-    <PackageReference Include="SharpZipLib">
-      <Version>1.3.2</Version>
+      <Version>8.0.32.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -208,5 +204,6 @@
       <LastGenOutput>BackupResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

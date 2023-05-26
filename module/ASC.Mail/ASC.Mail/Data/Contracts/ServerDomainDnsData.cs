@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,23 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "DNSInfo")]
     public class ServerDomainDnsData
     {
+        ///<example type="int">1234</example>
         [DataMember(IsRequired = true)]
         public int Id { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainMxRecordData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerDomainMxRecordData MxRecord { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainDnsRecordData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerDomainDnsRecordData SpfRecord { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainDkimRecordData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerDomainDkimRecordData DkimRecord { get; set; }
 
+        ///<type>ASC.Mail.Data.Contracts.ServerDomainDnsRecordData, ASC.Mail</type>
         [DataMember(IsRequired = true)]
         public ServerDomainDnsRecordData DomainCheckRecord { get; set; }
 

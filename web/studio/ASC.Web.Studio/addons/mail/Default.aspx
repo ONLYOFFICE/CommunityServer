@@ -353,7 +353,7 @@
                     </div>
                 </li>
                 <li class="menu-action-on-top">
-                    <a class="on-top-link" onclick=" javascript:window.scrollTo(0, 0); ">
+                    <a class="on-top-link" onclick=" javascript:window.scrollTo(0, 0) || document.querySelector('.mainPageContent').scrollTo(0, 0);">
                         <%= MailResource.OnTopLabel %>
                     </a>
                 </li>
@@ -371,7 +371,7 @@
         <div id="blankPage" class="hidden page_content">            
         </div>
         <div class="menu-action-on-top">
-                    <a class="on-top-link" onclick=" javascript:window.scrollTo(0, 0); ">
+                    <a class="on-top-link" onclick=" javascript:window.scrollTo(0, 0) || document.querySelector('.mainPageContent').scrollTo(0, 0); ">
                         <%= MailResource.OnTopLabel %>
                     </a>
                 </div>

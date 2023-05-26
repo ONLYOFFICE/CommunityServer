@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -371,7 +371,6 @@ namespace ASC.Web.Studio.Core.Notify
                             null,
                             new[] { StudioNotifyHelper.ToRecipient(u.ID) },
                             new[] { senderName },
-                            null,
                             new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
                             new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx")),
                             new TagValue(Tags.ActiveUsers, CoreContext.UserManager.GetUsers().Count()),
@@ -406,7 +405,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static void SendEnterpriseLetters(INotifyClient client, string senderName, DateTime scheduleDate)
         {
             var nowDate = scheduleDate.Date;
-            const string dbid = "webstudio";
+            const string dbid = "default";
 
             Log.Info("Start SendTariffEnterpriseLetters");
 
@@ -561,7 +560,7 @@ namespace ASC.Web.Studio.Core.Notify
                                 .Where(Exp.Le("created_date", nowDate.AddDays(-1)))
                                 .GroupBy("short_date");
 
-                            using (var db = DbManager.FromHttpContext(dbid))
+                            using (var db = new DbManager(dbid))
                             {
                                 datesWithActivity = db
                                     .ExecuteList(query)
@@ -764,7 +763,6 @@ namespace ASC.Web.Studio.Core.Notify
                             null,
                             new[] { StudioNotifyHelper.ToRecipient(u.ID) },
                             new[] { senderName },
-                            null,
                             new TagValue(Tags.UserName, u.FirstName.HtmlEncode()),
                             new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx")),
                             new TagValue(Tags.ActiveUsers, CoreContext.UserManager.GetUsers().Count()),
@@ -835,7 +833,6 @@ namespace ASC.Web.Studio.Core.Notify
                                 null,
                                 new[] { StudioNotifyHelper.ToRecipient(u.ID) },
                                 new[] { senderName },
-                                null,
                                 new TagValue(Tags.UserName, u.DisplayUserName()),
                                 new TagValue(CommonTags.Footer, "opensource"));
                         }
@@ -933,7 +930,6 @@ namespace ASC.Web.Studio.Core.Notify
                           null,
                           StudioNotifyHelper.RecipientFromEmail(user.Email, true),
                           new[] { senderName },
-                          null,
                           TagValues.PersonalHeaderStart(),
                           TagValues.PersonalHeaderEnd(),
                           TagValues.GreenButton(greenButtonText, greenButtonUrl),

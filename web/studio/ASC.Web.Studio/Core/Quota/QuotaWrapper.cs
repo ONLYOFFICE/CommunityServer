@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,21 +31,27 @@ namespace ASC.Web.Studio.Core.Quota
     [DataContract(Name = "quota", Namespace = "")]
     public class QuotaWrapper
     {
+        ///<example type="int" name="storageSize">1073741824</example>
         [DataMember(Name = "storageSize")]
         public ulong StorageSize { get; set; }
 
+        ///<example type="int" name="maxFileSize">26214400</example>
         [DataMember(Name = "maxFileSize")]
         public ulong MaxFileSize { get; set; }
 
+        ///<example type="int" name="usedSize">262144000</example>
         [DataMember(Name = "usedSize")]
         public ulong UsedSize { get; set; }
 
+        ///<example type="int" name="maxUsersCount">0</example>
         [DataMember(Name = "maxUsersCount")]
         public int MaxUsersCount { get; set; }
 
+        ///<example type="int" name="usersCount">0</example>
         [DataMember(Name = "usersCount")]
         public int UsersCount { get; set; }
 
+        ///<example type="int" name="availableSize">0</example>
         [DataMember(Name = "availableSize")]
         public ulong AvailableSize
         {

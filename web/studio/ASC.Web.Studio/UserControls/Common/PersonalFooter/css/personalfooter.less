@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,26 @@
 */
 
 
+@import "../../../../skins/default/params.less";
+
 .personal-footer {
-    background-color: #f7f7f7;
+    background-color: @bg-button-default-disable;
     font-size: 12px;
-    
     height: auto;
-    position:absolute;
-    bottom:0;
+    position: absolute;
+    bottom: 0;
     width: 100%;
+
     a {
-        color: #000;
+        color: @bg-a-activate;
         text-decoration: none;
-    } 
+    }
 }
 .personal-footer_w {
     width: 955px;
     margin: 0 auto;
     padding: 25px 0 18px;
-    background: #f7f7f7;
+    background: @bg-button-default-disable;
 }
 .personal-footer_rights {
     float: right;
@@ -50,12 +52,12 @@
     position: relative;
 
     span {
-        border-bottom: 1px dotted #666;
+        border-bottom: 1px dotted @textColorBlackDark;
     }
 
     &:after {
         content: "";
-        border-top: 4px solid #666;
+        border-top: 4px solid @textColorBlackDark;
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
         position: absolute;

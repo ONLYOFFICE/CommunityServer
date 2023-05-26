@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,10 +72,17 @@ ASC.AuthorizationKeysManager = (function () {
         var props = [];
 
         var keys = jq("#popupDialog" + itemName + " .auth-service-key");
+        var errors = false;
         for (var i = 0; i < keys.length; i++) {
-            //if (keys[i].value == "") return; //todo: need to create not required fields
-            props.push({ Name: keys[i].id, Value: enable ? keys[i].value.trim() : null });
+            keys[i].classList.remove("with-error")
+            if (keys[i].value == "" && !keys[i].classList.contains("optional")) {
+                errors = true;
+                keys[i].classList.add("with-error");
+            } else {
+                props.push({ Name: keys[i].id, Value: enable ? keys[i].value.trim() : null });
+            }
         }
+        if (errors) return;
 
         jq("#popupDialog" + itemName).block();
 

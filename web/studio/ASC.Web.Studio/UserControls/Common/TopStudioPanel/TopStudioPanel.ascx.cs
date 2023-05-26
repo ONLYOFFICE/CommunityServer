@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +50,7 @@ namespace ASC.Web.Studio.UserControls.Common
         protected UserInfo CurrentUser;
         protected bool DisplayModuleList;
         protected bool UserInfoVisible;
+        protected bool IsImpersonator;
 
         public bool? DisableUserInfo;
 
@@ -85,19 +86,13 @@ namespace ASC.Web.Studio.UserControls.Common
                                          WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_about.svg"));
 
                 var general = !TenantLogoManager.IsRetina(Request);
-
                 var height = TenantWhiteLabelSettings.logoDarkSize.Height / 2;
-
                 var width = TenantWhiteLabelSettings.logoDarkSize.Width / 2;
-
-                if (CoreContext.Configuration.Standalone)
-                {
-                    return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat; background-size: {1}px {0}px;",
-                                         height, width, TenantLogoManager.GetLogoDark(general));
-                }
+                var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
+                var path = theme == ModeTheme.light ? TenantLogoManager.GetLogoAboutDark(general) : TenantLogoManager.GetLogoAboutLight(general);
 
                 return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat; background-size: {1}px {0}px;",
-                                     height, width, TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general));
+                                     height, width, path);
             }
         }
 
@@ -307,6 +302,8 @@ namespace ASC.Web.Studio.UserControls.Common
             }
 
             Startup = !CoreContext.Configuration.CustomMode && TenantExtra.Saas && TenantExtra.GetTenantQuota().Free;
+
+            IsImpersonator = ImpersonationSettings.IsImpersonator();
         }
 
         #region currentProduct

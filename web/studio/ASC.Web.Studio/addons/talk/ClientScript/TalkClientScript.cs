@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,10 +48,10 @@ namespace ASC.Web.Talk.ClientScript
                 {
                     Icons = new
                     {
-                        addonIcon16 = WebImageSupplier.GetAbsoluteWebPath("talk16.png", TalkAddon.AddonID),
-                        addonIcon32 = WebImageSupplier.GetAbsoluteWebPath("talk32.png", TalkAddon.AddonID),
-                        addonIcon48 = WebImageSupplier.GetAbsoluteWebPath("talk48.png", TalkAddon.AddonID),
-                        addonIcon128 = WebImageSupplier.GetAbsoluteWebPath("talk128.png", TalkAddon.AddonID),
+                        addonIcon16 = WebImageSupplier.GetAbsoluteWebPath("talk16.svg", TalkAddon.AddonID),
+                        addonIcon32 = WebImageSupplier.GetAbsoluteWebPath("talk32.svg", TalkAddon.AddonID),
+                        addonIcon48 = WebImageSupplier.GetAbsoluteWebPath("talk48.svg", TalkAddon.AddonID),
+                        addonIcon128 = WebImageSupplier.GetAbsoluteWebPath("talk128.svg", TalkAddon.AddonID),
                         iconNewMessage = WebImageSupplier.GetAbsoluteWebPath("talk-new.ico", TalkAddon.AddonID)
                     }
                 }),

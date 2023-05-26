@@ -1375,9 +1375,6 @@ Czy na pewno chcesz usunąć {!group} `{0}`?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Ustawienia zaufanych domen mailowych{2} to sposób, żeby zdefiniować serwery pocztowe używane do samorejestracji użytkowników. {0}Możesz zaznaczyć opcję {1}Niestandardowa domena{2} i wprowadzić dane zaufanego serwera mailowego w polu poniżej, żeby osoba posiadająca w nim konto mogła się zarejestrować klikając na linku 'Dołącz' na stronie {1}logowania{2}. Możesz też wyłączyć tę opcję. {0}By zapisać wybrane ustawienia, kliknij na przycisku {1}'Zapisz'{2} znajdującym się na dole sekcji.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Ustawienia siły hasła{2} to sposób, żeby ustawić skuteczność hasła względem wielokrotnych prób odgadnięcia hasła i ataków brute-force. {0}Użyj paska {1}Minimalna długość hasła{2} żeby ustalić jego długość. Zaznacz odpowiednie przyciski, żeby ustalić zestaw znaków, które muszą się znaleźć w haśle.{0} By zapisać wybrane ustawienia, kliknij na przycisku {1}'Zapisz'{2} znajdującym się na dole sekcji.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1} Publiczny portal {2} to bezpłatna opcja, która umożliwia każdemu przeglądanie zawartości publicznej bez rejestracji. Żadne prywatne projekty nie są dostępne, a moduł CRM jest wyłączony dla takich portali. {0} Rejestracja do portali publicznych nie jest ograniczona liczbą użytkowników, a nowi użytkownicy są dodawani na żądanie do administratora portalu. Użyj opcji {1} Zarejestrować nowych użytkowników Natychmiast {2}, aby usunąć konieczność potwierdzenia rejestracji.</value>
   </data>
@@ -1571,9 +1568,6 @@ Czy na pewno chcesz usunąć {!group} `{0}`?</value>
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Włączyć</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0} IP Security {1} jest używany do ograniczenia logowania się do portalu ze wszystkich adresów IP z wyjątkiem niektórych adresów. Można ustawić dozwolone adresy IP przy użyciu dokładnych adresów IP w formacie IPv4 (#. #. #, Gdzie # jest wartością numeryczną od 0 do 255) lub zakresem adresu IP (na #. #. #. # - # #. #. # format). Zabezpieczenie IP nie działa dla właścicieli portalu, mogą oni uzyskać dostęp do portalu z dowolnego adresu IP.</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>Bezpieczeństwo IP</value>
@@ -2144,9 +2138,6 @@ jeśli chcesz zmienić zablokowane pola profilu.</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Zmiana hasła</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Minimalna długość hasła</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Odzyskaj hasło</value>

@@ -334,9 +334,6 @@
   <data name="Password" xml:space="preserve">
     <value>رمز عبور</value>
   </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>حداقل طول رمز عبور</value>
-  </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>بازيابي رمز عبور</value>
   </data>

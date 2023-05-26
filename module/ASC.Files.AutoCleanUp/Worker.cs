@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,32 +31,35 @@ using ASC.Core.Tenants;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Files.Services.WCFService.FileOperations;
 
 namespace ASC.Files.AutoCleanUp
 {
     public class Worker
     {
-        private readonly ILog logger;
-        private readonly CancellationTokenSource cancellationToken;
+        private readonly ILog _logger;
+        private readonly CancellationTokenSource _cancellationToken;
         private bool _isStarted;
-        private Timer timer;
+        private Timer _timer;
+        private int _maxDegreeOfParallelism;
+        private TimeSpan _period;
 
         public Worker(ConfigSection configSection, ILog log, CancellationTokenSource cancellationTokenSource)
         {
-            logger = log;
-            cancellationToken = cancellationTokenSource;
-            Period = configSection.Period;
+            _logger = log;
+            _cancellationToken = cancellationTokenSource;
+            _period = configSection.Period;
+            _maxDegreeOfParallelism = configSection.MaxDegreeOfParallelism;
         }
 
-        public TimeSpan Period { get; set; }
 
         public void Start()
         {
             if (!_isStarted)
             {
-                logger.Info("Service: Starting");
-                timer = new Timer(DeleteExpiredFilesInTrash, null, TimeSpan.Zero, Period);
-                logger.Info("Service: Started");
+                _logger.Info("Service: Starting");
+                _timer = new Timer(DeleteExpiredFilesInTrash, null, TimeSpan.Zero, _period);
+                _logger.Info("Service: Started");
                 _isStarted = true;
             }
         }
@@ -65,54 +68,54 @@ namespace ASC.Files.AutoCleanUp
         {
             if (_isStarted)
             {
-                logger.Info("Service: Stopping");
-                if (timer != null)
+                _logger.Info("Service: Stopping");
+                if (_timer != null)
                 {
-                    timer.Change(Timeout.Infinite, Timeout.Infinite);
-                    timer.Dispose();
-                    timer = null;
+                    _timer.Change(Timeout.Infinite, Timeout.Infinite);
+                    _timer.Dispose();
+                    _timer = null;
                 }
 
-                if (cancellationToken != null)
+                if (_cancellationToken != null)
                 {
-                    cancellationToken.Dispose();
+                    _cancellationToken.Dispose();
                 }
 
                 _isStarted = false;
-                logger.Info("Service: Stopped");
+                _logger.Info("Service: Stopped");
             }
         }
 
 
         public void DeleteExpiredFilesInTrash(object _)
         {
-            if (cancellationToken != null && cancellationToken.IsCancellationRequested)
+            if (_cancellationToken != null && _cancellationToken.IsCancellationRequested)
             {
                 Stop();
                 return;
             }
 
-            timer.Change(Timeout.Infinite, Timeout.Infinite);
-            logger.Info("Start procedure");
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            _logger.Info("Start procedure");
 
             var activeTenantsUsers = GetTenantsUsers();
 
             if (!activeTenantsUsers.Any())
             {
-                logger.InfoFormat("Waiting for data. Sleep {0}.", Period);
-                timer.Change(Period, TimeSpan.FromMilliseconds(-1));
+                _logger.InfoFormat("Waiting for data. Sleep {0}.", _period);
+                _timer.Change(_period, TimeSpan.FromMilliseconds(-1));
                 return;
             }
 
-            logger.InfoFormat("Found {0} active users", activeTenantsUsers.Count);
+            _logger.InfoFormat("Found {0} active users", activeTenantsUsers.Count);
 
-            Parallel.ForEach(activeTenantsUsers, tenantUser =>
-            {
-                DeleteFilesAndFolders(tenantUser);
-            });
+            Parallel.ForEach(activeTenantsUsers, new ParallelOptions {
+               MaxDegreeOfParallelism = _maxDegreeOfParallelism,
+               CancellationToken = _cancellationToken.Token
+            }, DeleteFilesAndFolders);
 
-            logger.Info("Finish procedure");
-            timer.Change(Period, Period);
+            _logger.Info("Finish procedure");
+            _timer.Change(_period, _period);
         }
 
         private void DeleteFilesAndFolders(TenantUserSettings tenantUser)
@@ -133,6 +136,7 @@ namespace ASC.Files.AutoCleanUp
 
                     var itemList = new ItemList<string>();
                     var trashId = folderDao.GetFolderIDTrash(false, tenantUser.UserId);
+                    
                     itemList.AddRange(folderDao.GetFolders(trashId)
                         .Where(x => FileDateTime.GetModifiedOnWithAutoCleanUp(x.ModifiedOn, tenantUser.Setting, true) < now)
                         .Select(f => "folder_" + f.ID));
@@ -140,24 +144,33 @@ namespace ASC.Files.AutoCleanUp
                         .Where(x => FileDateTime.GetModifiedOnWithAutoCleanUp(x.ModifiedOn, tenantUser.Setting, true) < now)
                         .Select(y => "file_" + y.ID));
 
-                    logger.InfoFormat("Start clean up tenant {0}, folder {1}", tenantUser.TenantId, trashId);
-                    Global.FileStorageService.DeleteItems("delete", itemList, true, false, true);
-                    logger.InfoFormat("Waiting for tenant {0}, folder {1}...", tenantUser.TenantId, trashId);
-                    while (true)
+                    if (!itemList.Any())
                     {
-                        var statuses = Global.FileStorageService.GetTasksStatuses();
+                        _logger.InfoFormat("No data to delete for tenant {0}, user {1}", tenantUser.TenantId, SecurityContext.CurrentAccount.ID);
 
-                        if (statuses.TrueForAll(r => r.Finished))
-                            break;
-
-                        Thread.Sleep(100);
+                        return;
                     }
-                    logger.InfoFormat("Finish clean up tenant {0}, folder {1}", tenantUser.TenantId, trashId);
+
+                    _logger.InfoFormat("Start clean up tenant {0}, folder {1}", tenantUser.TenantId, trashId);
+
+                    var statuses =  Global.FileStorageService.DeleteItems("delete", itemList, true, false, true);
+                    
+                    _logger.InfoFormat("Waiting for tenant {0}, folder {1}...", tenantUser.TenantId, trashId);
+
+                    do
+                    {
+                        Thread.Sleep(1000);
+
+                        statuses = Global.FileStorageService.GetTasksStatuses();
+
+                    } while (statuses.TrueForAll(r => !r.Finished));
+
+                    _logger.InfoFormat("Finish clean up tenant {0}, folder {1}", tenantUser.TenantId, trashId);
                 }
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
+                _logger.Error(ex);
             }
             finally
             {
@@ -177,7 +190,7 @@ namespace ASC.Files.AutoCleanUp
                 .Where("t.status", (int)TenantStatus.Active)
                 .Having(Exp.Sql("settings = true"));
 
-            using (var dbManager = DbManager.FromHttpContext("default", 180000))
+            using (var dbManager = new DbManager("default", 180000))
             {
                 return dbManager.ExecuteList(query).Select(r => new TenantUserSettings()
                 {

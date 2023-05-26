@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ namespace ASC.Files.Core
         public static readonly string StorageDomainTmp = "files_temp";
         public static readonly string StorageTemplate = "files_template";
 
-        public static readonly string DatabaseId = "files";
+        public static readonly string DatabaseId = "default";
 
         public static readonly Guid ShareLinkId = new Guid("{D77BD6AF-828B-41f5-84ED-7FFE2565B13A}");
         public static readonly Guid DenyDownloadId = new Guid("{EE7A7468-CDA5-4F8B-AFDB-F4E42C318EB6}");

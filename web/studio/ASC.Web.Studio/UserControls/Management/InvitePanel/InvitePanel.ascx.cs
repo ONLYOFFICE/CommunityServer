@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
@@ -46,7 +47,14 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             // Move to CommonBodyScripts.ascx.cs
             //    Page.RegisterBodyScripts("~/UserControls/Management/InvitePanel/js/invitepanel.js")
-            Page.RegisterStyle("~/UserControls/Management/InvitePanel/css/invitepanel.less");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/InvitePanel/css/dark-invitepanel.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/InvitePanel/css/invitepanel.less");
+            }
 
             GeneratedUserLink = GenerateLink(EmployeeType.User);
             GeneratedVisitorLink = GenerateLink(EmployeeType.Visitor);

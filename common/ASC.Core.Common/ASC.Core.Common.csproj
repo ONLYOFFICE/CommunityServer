@@ -26,6 +26,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.Core.Common.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -170,6 +172,7 @@
     <Compile Include="Tenants\TenantDomainValidator.cs" />
     <Compile Include="Tenants\TenantIndustry.cs" />
     <Compile Include="Tenants\TenantQuotaException.cs" />
+    <Compile Include="Tenants\TenantQuotaSettings.cs" />
     <Compile Include="Tenants\TenantQuotaType.cs" />
     <Compile Include="Tenants\TenantTrustedDomainsType.cs" />
     <Compile Include="Tenants\TenantStatus.cs" />
@@ -185,6 +188,7 @@
     <Compile Include="Tenants\TenantRegistrationInfo.cs" />
     <Compile Include="Tenants\TenantUtil.cs" />
     <Compile Include="Tenants\TenantVersion.cs" />
+    <Compile Include="Tenants\TenantUserQuotaSettings.cs" />
     <Compile Include="Users\DisplayUserNameFormat.cs" />
     <Compile Include="Core\EmployeeStatus.cs" />
     <Compile Include="Security\UserSecurityProvider.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="Users\PersonalQuotaSettings.cs" />
     <Compile Include="Users\UserExtensions.cs" />
     <Compile Include="Users\UserFormatter.cs" />
+    <Compile Include="Users\UserQuotaSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
@@ -246,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />

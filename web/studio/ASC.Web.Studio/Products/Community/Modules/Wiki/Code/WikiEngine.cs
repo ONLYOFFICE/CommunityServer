@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -564,7 +564,6 @@ namespace ASC.Web.UserControls.Wiki
                 SecurityContext.CurrentAccount.ID.ToString(),
                 Constants.NewPage,
                 null,
-                null,
                 GetNotifyTags(page.PageName));
         }
 
@@ -574,7 +573,6 @@ namespace ASC.Web.UserControls.Wiki
                 SecurityContext.CurrentAccount.ID.ToString(),
                 Constants.EditPage,
                 PageNameUtil.ReplaceSpaces(page.PageName),
-                null,
                 GetNotifyTags(page.PageName, "edit wiki page", null));
         }
 
@@ -584,7 +582,6 @@ namespace ASC.Web.UserControls.Wiki
                 SecurityContext.CurrentAccount.ID.ToString(),
                 Constants.AddPageToCat,
                 category,
-                null,
                 GetCategoryNotifyTags(category, page));
         }
 
@@ -610,7 +607,7 @@ namespace ASC.Web.UserControls.Wiki
             if (mentionedUsers.Length > 0)
             {
                 WikiNotifyClient.SendNoticeToAsync(authorID, Constants.MentionForWikiComment, objectID, mentionedUsers, tags);
-            }
+            }        
         }
 
         private ITagValue[] GetNotifyTags(string pageName)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,9 +175,9 @@ namespace ASC.Core
         {
             if (user == null) return null;
 
-            var tenantSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, Guid.Empty);
+            var tenantSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, Guid.Empty, false);
             var expires = tenantSettings.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(tenantSettings.LifeTime);
-            var userSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, user.ID);
+            var userSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, user.ID, false);
             return CookieStorage.EncryptCookie(tenantId, user.ID, tenantSettings.Index, expires, userSettings.Index, 0);
         }
 
@@ -186,9 +186,19 @@ namespace ASC.Core
             return tariffService.GetTariff(tenant, withRequestToPaymentSystem);
         }
 
+        public TenantQuotaSettings GetTenantQuotaSettings(int tenantId)
+        {
+            return settingsManager.LoadSettingsFor<TenantQuotaSettings>(tenantId, Guid.Empty, false);
+        }
+        
         public TenantQuota GetTenantQuota(int tenant)
         {
             return clientTenantManager.GetTenantQuota(tenant);
+        }
+
+        public List<TenantQuotaRow> FindTenantQuotaRows(int tenant)
+        {
+            return clientTenantManager.FindTenantQuotaRows(tenant);
         }
 
         public IEnumerable<TenantQuota> GetTenantQuotas()

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -276,14 +276,14 @@ var CommentsManagerObj = new function() {
 
     function redraw() {
         oddcnt = jq('#mainCommentsContainer div[id^=comment_]:even')
-                    .css({ 'border-top': '1px solid #DDD', 'border-bottom': '1px solid #DDD' })
+            .css({ 'border-top': ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '1px solid #DDD' : '1px solid #474747', 'border-bottom': ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '1px solid #DDD' : '1px solid #474747' })
                     .length;
         evencnt = jq('#mainCommentsContainer div[id^=comment_]:odd')
                     .css({ 'border-top': '', 'border-bottom': '' })
                     .length;
 
         if (oddcnt == evencnt) {
-            jq('#mainCommentsContainer').css('border-bottom', '1px solid #DDD');
+            jq('#mainCommentsContainer').css('border-bottom', ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? '1px solid #DDD' : '1px solid #474747');
         } else {
             jq('#mainCommentsContainer').css('border-bottom', '');
         }
@@ -400,8 +400,8 @@ var CommentsManagerObj = new function() {
 
         scrollToElement(obj, 500);
 
-        obj.css({ "background-color": "#ffffcc" });
-        obj.animate({ backgroundColor: '#ffffff' }, 1000);
+        obj.css({ "background-color": ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffcc" : "rgba(204, 184, 102, 0.2)" });
+        obj.animate({ backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333" }, 1000);
 
         CommentsManagerObj.comments.push(comment);
 
@@ -425,8 +425,8 @@ var CommentsManagerObj = new function() {
 
         scrollToElement(obj, 500);
 
-        obj.css({ "background-color": "#ffffcc" });
-        obj.animate({ backgroundColor: '#ffffff' }, 1000);
+        obj.css({ "background-color": ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffcc" : "rgba(204, 184, 102, 0.2)" });
+        obj.animate({ backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333" }, 1000);
 
         CommentsManagerObj.CallFCKComplete();
     };
@@ -554,7 +554,7 @@ var CommentsManagerObj = new function() {
             if (hash.indexOf("#comment_") == 0) {
                 setTimeout(function () {
                     scrollToElement(hash, 500);
-                    jq(hash).css({ "background-color": "#ffffcc" }).animate({ backgroundColor: '#ffffff' }, 1000);
+                    jq(hash).css({ "background-color": ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffcc" : "rgba(204, 184, 102, 0.2)" }).animate({ backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#ffffff" : "#333" }, 1000);
                 }, 1000);
             }
         }

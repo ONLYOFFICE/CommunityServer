@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -630,7 +630,10 @@ namespace ASC.Web.CRM.Classes
 
         public class PhotoData
         {
+            ///<example>url</example>
             public string Url;
+
+            ///<example>path</example>
             public string Path;
         }
 

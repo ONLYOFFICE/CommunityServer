@@ -1,0 +1,58 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+span[class^='poll_remove_span']
+{
+    display:block;
+    background-image: url("img/delete.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    float:right;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 3px 3px 0 3px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.poll_clearFix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+/* MSIE7- */
+.poll_clearFix {
+    zoom: 1;
+    display:block;
+}
+
+.poll_variantLabel
+{
+	top:4px;	
+	position:relative;
+}
+
+.poll_variantDiv
+{
+	height:16px;
+	padding-bottom:12px;
+    width: 600px;
+}

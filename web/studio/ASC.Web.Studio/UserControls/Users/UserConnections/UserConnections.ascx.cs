@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
@@ -38,8 +40,15 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             base.OnInit(e);
 
-            Page.RegisterBodyScripts("~/UserControls/Users/UserConnections/js/connections_manager.js")
-                .RegisterStyle("~/UserControls/Users/UserConnections/css/connections.less");
+            Page.RegisterBodyScripts("~/UserControls/Users/UserConnections/js/connections_manager.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Users/UserConnections/css/dark-connections.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Users/UserConnections/css/connections.less");
+            }
         }
     }
 }

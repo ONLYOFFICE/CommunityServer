@@ -30,7 +30,7 @@
                 <%= FilesUCResource.CaptionConvertPassword %>
                 <br/>
                 <br/>
-                <input type="password" id="convertPassword" class="textEdit" name="convert-field" autocomplete="new-password" />
+                <input type="password" id="convertPassword" class="textEdit convert-password" name="convert-field" autocomplete="new-password" />
             </div>
 
             <div id="progressCopyConvert">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,6 +69,7 @@ namespace ASC.Api.Calendar
     /// <summary>
     /// Access to the calendars.
     /// </summary>
+    ///<name>calendar</name>
     public class iCalApiContentResponse : IApiContentResponce
     {
         private readonly Stream _stream;
@@ -155,6 +156,7 @@ namespace ASC.Api.Calendar
         private static readonly List<String> updatedEvents = new List<string>();
         private readonly ApiContext _context;
         private const int _monthCount = 3;
+        private const string DBId = "default";
         protected DataProvider _dataProvider;
         private static readonly ILog Logger = LogManager.GetLogger("ASC.Calendar");
 
@@ -192,10 +194,13 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Get event days
         /// </short>
-        /// <param name="startDate">Period start date</param>
-        /// <param name="endDate">Period end date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">Period start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="endDate">Period end date</param>
         /// <category>Events</category>
         /// <returns>List of dates</returns>
+        /// <httpMethod>GET</httpMethod>
+        /// <path>api/2.0/calendar/eventdays/{startDate}/{endDate}</path>
+        /// <collection>list</collection>
         /// <visible>false</visible>
         [Read("eventdays/{startDate}/{endDate}")]
         public List<ApiDateTime> GetEventDays(ApiDateTime startDate, ApiDateTime endDate)
@@ -271,10 +276,12 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Get calendars
         /// </short>
-        /// <param name="startDate">Period start date</param>
-        /// <param name="endDate">Period end date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="startDate">Period start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="endDate">Period end date</param>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>List of calendars with events</returns>
+        /// <httpMethod>GET</httpMethod>
+        /// <path>api/2.0/calendar/calendars/{startDate}/{endDate}</path>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper, ASC.Api.Calendar">List of calendars with events</returns>
         [Read("calendars/{startDate}/{endDate}")]
         public List<CalendarWrapper> LoadCalendars(ApiDateTime startDate, ApiDateTime endDate)
         {
@@ -358,6 +365,61 @@ namespace ASC.Api.Calendar
 
         }
 
+        /// <summary>
+        /// Returns a calendar with the events for the current user in the selected period.
+        /// </summary>
+        /// <short>
+        /// Get calendar events
+        /// </short>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="startDate">Period start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="endDate">Period end date</param>
+        /// <category>Calendars and subscriptions</category>
+        /// <httpMethod>GET</httpMethod>
+        /// <path>api/2.0/calendar/calendar/{calendarId}/{startDate}/{endDate}</path>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper, ASC.Api.Calendar">Calendar with events</returns>
+        [Read("calendar/{calendarId}/{startDate}/{endDate}")]
+        public CalendarWrapper GetCalendarEvents(string calendarId, ApiDateTime startDate, ApiDateTime endDate)
+        {
+            int calId;
+            CalendarWrapper result= null;
+
+            if (int.TryParse(calendarId, out calId))
+            {
+                var cal = _dataProvider.GetCalendarById(calId);
+                if (CanRead(cal))
+                {
+                    result = new CalendarWrapper(cal);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                var extCalendar = CalendarManager.Instance.GetCalendarForUser(SecurityContext.CurrentAccount.ID, calendarId);
+                if (extCalendar != null)
+                {
+                    var viewSettings = _dataProvider.GetUserViewSettings(SecurityContext.CurrentAccount.ID, new List<string> { calendarId });
+                    result = new CalendarWrapper(extCalendar, viewSettings.FirstOrDefault());
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            if(result != null)
+            {
+                result.Events = result.UserCalendar.GetEventWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
+                result.Todos = result.UserCalendar.GetTodoWrappers(SecurityContext.CurrentAccount.ID, startDate, endDate);
+
+                return result;
+            }
+            return null;
+        }
+
         private List<CalendarWrapper> LoadInternalCalendars(List<BusinessObjects.Calendar> userCalendars = null)
         {
             var result = new List<CalendarWrapper>();
@@ -406,7 +468,11 @@ namespace ASC.Api.Calendar
         /// Get subscriptions
         /// </short>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>List of subscriptions</returns>
+        /// <remarks>Please note that the list of events in the response will be empty.</remarks>
+        /// <returns type="ASC.Api.Calendar.Wrappers.SubscriptionWrapper, ASC.Api.Calendar">List of subscriptions</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/calendar/subscriptions</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("subscriptions")]
         public List<SubscriptionWrapper> LoadSubscriptions()
         {
@@ -446,13 +512,15 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Updates the subscription states either subscribing or unsubscribing the user to/from it.
+        /// Updates the subscription states either subscribing or unsubscribing a user to/from it.
         /// </summary>
         /// <short>
         /// Update the subscription states
         /// </short>
-        /// <param name="states">New subscription states</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Calendar.CalendarApi.SubscriptionState}, System.Collections.Generic" name="states">New subscription states</param>
         /// <category>Calendars and subscriptions</category>
+        /// <path>api/2.0/calendar/subscriptions/manage</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update("subscriptions/manage")]
         public void ManageSubscriptions(IEnumerable<SubscriptionState> states)
@@ -484,9 +552,12 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Get a calendar by ID
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
+        /// <path>api/2.0/calendar/{calendarId}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <remarks>Please note that the list of events in the response will be empty.</remarks>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Calendar</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper,ASC.Api.Calendar">Calendar</returns>
         [Read("{calendarId}")]
         public CalendarWrapper GetCalendarById(string calendarId)
         {
@@ -529,17 +600,20 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Create a calendar
         /// </short>
-        /// <param name="name">Calendar name</param>
-        /// <param name="description">Calendar description</param>
-        /// <param name="textColor">Event text color</param>
-        /// <param name="backgroundColor">Event background color</param>
-        /// <param name="timeZone">Calendar time zone</param>
-        /// <param name="alertType">Event alert type, in case alert type is set by default</param>
-        /// <param name="sharingOptions">Calendar sharing options with other users</param>
-        /// <param name="iCalUrl">iCal URL</param>
-        /// <param name="isTodo">Defines if this calendar is for the todo list</param>
+        /// <param type="System.String, System" name="name">Calendar name</param>
+        /// <param type="System.String, System" name="description">Calendar description</param>
+        /// <param type="System.String, System" name="textColor">Event text color</param>
+        /// <param type="System.String, System" name="backgroundColor">Event background color</param>
+        /// <param type="System.String, System" name="timeZone">Calendar time zone</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">Event alert type, in case alert type is set by default</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">Calendar sharing options with other users</param>
+        /// <param type="System.String, System" name="iCalUrl">iCal URL</param>
+        /// <param type="System.Int32, System" name="isTodo">Defines if the to-dos are shown in the calendar</param>
+        /// <remarks>Please note that the list of events in the response will be empty.</remarks>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Created calendar</returns>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/calendar</path>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper, ASC.Api.Calendar">Created calendar</returns>
         [Create("")]
         public async Task<CalendarWrapper> CreateCalendar(string name, string description, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, List<SharingParam> sharingOptions, string iCalUrl, int isTodo = 0)
         {
@@ -702,18 +776,21 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Update a calendar
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="name">New calendar name</param>
-        /// <param name="description">New calendar description</param>
-        /// <param name="textColor">New event text color</param>
-        /// <param name="backgroundColor">New event background color</param>
-        /// <param name="timeZone">New calendar time zone</param>
-        /// <param name="alertType">New event alert type, in case alert type is set by default</param>
-        /// <param name="hideEvents">Display type: show or hide events in the calendar</param>
-        /// <param name="sharingOptions">New calendar sharing options with other users</param>
-        /// <param name="iCalUrl">New iCal URL</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="name">New calendar name</param>
+        /// <param type="System.String, System" name="description">New calendar description</param>
+        /// <param type="System.String, System" name="textColor">New event text color</param>
+        /// <param type="System.String, System" name="backgroundColor">New event background color</param>
+        /// <param type="System.String, System" name="timeZone">New calendar time zone</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">New event alert type, in case alert type is set by default</param>
+        /// <param type="System.Boolean, System" name="hideEvents">Display type: show or hide events in the calendar</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">New calendar sharing options with other users</param>
+        /// <param type="System.String, System" name="iCalUrl">New iCal URL</param>
+        /// <remarks>Please note that the list of events in the response will be empty.</remarks>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Updated calendar</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper, ASC.Api.Calendar">Updated calendar</returns>
+        /// <path>api/2.0/calendar/{calendarId}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{calendarId}")]
         public async Task<CalendarWrapper> UpdateCalendar(string calendarId, string name, string description, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, bool hideEvents, List<SharingParam> sharingOptions, string iCalUrl = "")
         {
@@ -895,15 +972,18 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Update the calendar view
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="name">New calendar name</param>
-        /// <param name="textColor">New event text color</param>
-        /// <param name="backgroundColor">New event background color</param>
-        /// <param name="timeZone">New calendar time zone</param>
-        /// <param name="alertType">New event alert type, in case alert type is set by default</param>
-        /// <param name="hideEvents">Display type: show or hide events in calendar</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="name">New calendar name</param>
+        /// <param type="System.String, System" name="textColor">New event text color</param>
+        /// <param type="System.String, System" name="backgroundColor">New event background color</param>
+        /// <param type="System.String, System" name="timeZone">New calendar time zone</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">New event alert type, in case alert type is set by default</param>
+        /// <param type="System.Boolean, System" name="hideEvents">Display type: show or hide events in the calendar</param>
+        /// <remarks>Please note that the list of events in the response will be empty.</remarks>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Updated calendar</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper, ASC.Api.Calendar" >Updated calendar</returns>
+        /// <path>api/2.0/calendar/{calendarId}/view</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("{calendarId}/view")]
         public CalendarWrapper UpdateCalendarView(string calendarId, string name, string textColor, string backgroundColor, string timeZone, EventAlertType alertType, bool hideEvents)
         {
@@ -935,7 +1015,10 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Delete a calendar
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
+        /// <param type="System.Int32, System" method="url" name="calendarId">Calendar ID</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <path>api/2.0/calendar/{calendarId}</path>
         /// <category>Calendars and subscriptions</category>
         [Delete("{calendarId}")]
         public async Task RemoveCalendar(int calendarId)
@@ -1136,6 +1219,8 @@ namespace ASC.Api.Calendar
         {
             if (sendToRadicale)
             {
+                uid = uid.ToLower();
+                guid = guid.ToLower();
                 try
                 {
                     if (guid != null && guid != "")
@@ -1251,6 +1336,7 @@ namespace ASC.Api.Calendar
 
         private async Task CreateCaldavSharedEvents(string calendarId, string calendarIcs, Uri myUri, string currentUserEmail, BaseCalendar icalendar, Common.Security.Authentication.IAccount currentUser, int tenantId)
         {
+            calendarId = calendarId.ToLower();
             var parseCalendar = DDayICalParser.DeserializeCalendar(calendarIcs);
             var calendar = parseCalendar.FirstOrDefault();
             CoreContext.TenantManager.SetCurrentTenant(tenantId);
@@ -1261,7 +1347,7 @@ namespace ASC.Api.Calendar
                     var updateCaldavEventTasks = new List<Task>();
                     var events = new List<CalendarEvent>();
                     var isFullAccess = false;
-                    if (calendarId != BirthdayReminderCalendar.CalendarId && calendarId != "crm_calendar" && !calendarId.Contains("Project_"))
+                    if (calendarId != BirthdayReminderCalendar.CalendarId && calendarId != "crm_calendar" && !calendarId.Contains("project_"))
                     {
                         foreach (var e in icalendar.LoadEvents(currentUser.ID, DateTime.MinValue, DateTime.MaxValue))
                         {
@@ -1294,12 +1380,12 @@ namespace ASC.Api.Calendar
                             var evtUid = split[0].Split(new Char[] { '_' });
                             e.Uid = evtUid[1];
                         }
-                        else if (calendarId.Contains("Project_"))
+                        else if (calendarId.Contains("project_"))
                         {
                             e.Created = null;
                             e.End = new CalDateTime(e.End.AddDays(1));
                         }
-                        else if (calendarId == "crm_calendar" || calendarId.Contains("Project_"))
+                        else if (calendarId == "crm_calendar" || calendarId.Contains("project_"))
                         {
                             e.Created = null;
                             e.Status = EventStatus.Confirmed.ToString();
@@ -1509,6 +1595,11 @@ namespace ASC.Api.Calendar
                     {
                         var calendar = _dataProvider.GetCalendarIdByCaldavGuid(caldavGuid);
 
+                        if (calendar.Count == 0) { 
+                            Logger.WarnFormat("Caldav calendar not found. Caldav guid: {0}", caldavGuid);
+                            return;
+                        }
+
                         calendarId = Convert.ToInt32(calendar[0][0]);
                         ownerId = Guid.Parse(calendar[0][1].ToString());
                         CoreContext.TenantManager.SetCurrentTenant(Convert.ToInt32(calendar[0][2]));
@@ -1579,7 +1670,35 @@ namespace ASC.Api.Calendar
                                         alertType = EventAlertType.Day;
                                 }
                             }
+                            if (eventObj.Organizer == null)
+                            {
+                                var apiServer = new ApiServer();
+                                var apiResponse = apiServer.GetApiResponse(String.Format("{0}mail/accounts.json", SetupInfo.WebApiBaseUrl), "GET");
+                                var obj = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(apiResponse)));
+                                if (obj["response"] != null)
+                                {
+                                    var accounts = (from account in JArray.Parse(obj["response"].ToString())
+                                                    let email = account.Value<String>("email")
+                                                    let enabled = account.Value<Boolean>("enabled")
+                                                    let isGroup = account.Value<Boolean>("isGroup")
+                                                    let isDefault = account.Value<Boolean>("isDefault")
+                                                    where enabled && isDefault && !isGroup
+                                                    select email).ToList();
 
+                                    if (accounts.Any())
+                                    {
+                                        var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                                        eventObj.Organizer = new Organizer("mailto:" + accounts.FirstOrDefault())
+                                        {
+                                            CommonName = string.IsNullOrEmpty(user.UserName)
+                                             ? accounts.FirstOrDefault()
+                                             : user.UserName
+                                        };
+                                    }
+                                }
+                                
+                            }
                             //var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : DDayICalParser.ToUtc(eventObj.Start);
                             //var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : DDayICalParser.ToUtc(eventObj.End);
 
@@ -1614,6 +1733,9 @@ namespace ASC.Api.Calendar
                             }
                             else
                             {
+                                var cal = new Ical.Net.Calendar();
+                                cal.Events.Add(eventObj);
+                                ics = DDayICalParser.SerializeCalendar(cal);
                                 await AddEvent(calendarId, ics, alertType, null, eventGuid).ConfigureAwait(false);
                             }
                         }
@@ -1654,6 +1776,10 @@ namespace ASC.Api.Calendar
 
 
 
+                    }
+                    catch(Exception e)
+                    {
+                        var t = e.Message;
                     }
                     finally
                     {
@@ -1928,9 +2054,11 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Get iCal link
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
         /// <category>Calendars and subscriptions</category>
         /// <returns>iCal link</returns>
+        /// <path>api/2.0/calendar/{calendarId}/icalurl</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("{calendarId}/icalurl")]
         public string GetCalendariCalUrl(string calendarId)
         {
@@ -1954,13 +2082,16 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Get CalDav link
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="uri" visible="false">Current URI</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.Uri, System" name="uri" visible="false">Current URI</param>
         /// <category>Calendars and subscriptions</category>
         /// <returns>CalDav link</returns>
+        /// <path>api/2.0/calendar/{calendarId}/caldavurl</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("{calendarId}/caldavurl")]
         public async Task<DavResponse> GetCalendarCalDavUrl(string calendarId, Uri uri = null)
         {
+            calendarId = calendarId.ToLower();
             var myUri = uri != null ? uri : HttpContext.Current.Request.GetUrlRewriter();
 
             var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
@@ -1991,7 +2122,7 @@ namespace ASC.Api.Calendar
 
                         if (todoCal != null)
                         {
-                            using (var db = DbManager.FromHttpContext("calendar"))
+                            using (var db = new DbManager(DBId))
                             {
                                 using (var tr = db.BeginTransaction())
                                 {
@@ -2026,11 +2157,15 @@ namespace ASC.Api.Calendar
                                                                 ).ConfigureAwait(false);
                                         }
                                         todoCalDavCreateResponse.Data = sharedCalUrl;
+                                        tr.Commit();
+
                                         return todoCalDavCreateResponse;
                                     }
                                     catch (Exception exception)
                                     {
                                         Logger.Error("ERROR: " + exception.Message);
+                                        tr.Rollback();
+
                                         return new DavResponse()
                                         {
                                             Completed = false,
@@ -2073,7 +2208,7 @@ namespace ASC.Api.Calendar
                 if (calendarId == BirthdayReminderCalendar.CalendarId ||
                     calendarId == SharedEventsCalendar.CalendarId ||
                     calendarId == "crm_calendar" ||
-                    calendarId.Contains("Project_"))
+                    calendarId.Contains("project_"))
                 {
 
                     if (SecurityContext.IsAuthenticated)
@@ -2127,11 +2262,20 @@ namespace ASC.Api.Calendar
                     };
 
                 }
-
+                var calWrapper = GetCalendarById(calendarId);
                 var cal = _dataProvider.GetCalendarById(Convert.ToInt32(calendarId));
+
                 var ownerId = cal.OwnerId;
 
-                var isShared = ownerId != SecurityContext.CurrentAccount.ID;
+                var isOwner = ownerId == SecurityContext.CurrentAccount.ID;
+                var isReadOnly = false;
+
+                if (!isOwner)
+                {
+                    isReadOnly = !SecurityContext.PermissionResolver.Check(CoreContext.Authentication.GetAccountByID(SecurityContext.CurrentAccount.ID), cal,
+                                                                   null, CalendarAccessRights.FullAccessAction);
+                }
+
                 var calDavGuid = cal.calDavGuid;
                 if (calDavGuid == "" || calDavGuid == Guid.Empty.ToString())
                 {
@@ -2139,15 +2283,15 @@ namespace ASC.Api.Calendar
                     _dataProvider.UpdateCalendarGuid(Convert.ToInt32(cal.Id), Guid.Parse(calDavGuid));
                 }
 
-                var calDavCalendar = new CalDavCalendar(calDavGuid.ToString(), isShared);
-                var calUrl = calDavCalendar.GetRadicaleUrl(myUri.ToString(), userName, isShared, false, true, calDavGuid.ToString());
+                var calDavCalendar = new CalDavCalendar(calDavGuid.ToString(), isReadOnly);
+                var calUrl = calDavCalendar.GetRadicaleUrl(myUri.ToString(), userName, isReadOnly, false, true, calDavGuid.ToString());
 
 
                 var calDavResponse = calDavCalendar.GetCollection(calUrl, GetUserAuthorization(userName)).Result;
 
                 if (!calDavResponse.Completed && calDavResponse.StatusCode == 404)
                 {
-                    return SyncCaldavCalendar(calendarId, cal.Name, cal.Description, cal.Context.HtmlBackgroundColor, Guid.Parse(calDavGuid), myUri, curCaldavUserName, userName, isShared, cal.SharingOptions).Result;
+                    return SyncCaldavCalendar(calendarId, cal.Name, cal.Description, cal.Context.HtmlBackgroundColor, Guid.Parse(calDavGuid), myUri, curCaldavUserName, userName, isReadOnly, cal.SharingOptions).Result;
                 }
                 calDavResponse.Data = calUrl;
                 return calDavResponse;
@@ -2222,14 +2366,18 @@ namespace ASC.Api.Calendar
 
 
         /// <summary>
-        /// Updates a calendar storage with a new one specified in the request.
+        /// Replaces a calendar storage with a new one specified in the request.
         /// </summary>
         /// <short>
-        /// Update a calendar storage
+        /// Change a calendar storage
         /// </short>
-        /// <param name="change">New calendar storage</param>
-        /// <param name="key">Email key</param>
+        /// <param type="System.String, System" name="change">New calendar storage</param>
+        /// <param type="System.String, System" name="key">Email key</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         /// <category>Calendars and subscriptions</category>
+        /// <path>api/2.0/calendar/change_to_storage</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Read("change_to_storage", false)] //NOTE: This method doesn't require auth!!!
         public async Task ChangeOfCalendarStorage(string change, string key)
@@ -2257,9 +2405,13 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Delete the CalDav event information
         /// </short>
-        /// <param name="eventInfo">Event information that will be deleted</param>
-        /// <param name="key">Email key</param>
+        /// <param type="System.String, System" name="eventInfo">Event information that will be deleted</param>
+        /// <param type="System.String, System" name="key">Email key</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         /// <category>Events</category>
+        /// <path>api/2.0/calendar/caldav_delete_event</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
         /// <visible>false</visible>
         [Read("caldav_delete_event", false)] //NOTE: This method doesn't require auth!!!
         public async Task CaldavDeleteEvent(string eventInfo, string key)
@@ -2356,12 +2508,15 @@ namespace ASC.Api.Calendar
         /// Returns the iCal feed associated with the calendar by its ID and signagure specified in the request.
         /// </summary>
         /// <short>Get the iCal feed</short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="signature">Signature</param>
-        /// <remarks>To get the feed you need to use the method returning the iCal feed link (it will generate the necessary signature).</remarks>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" method="url" name="signature">Signature</param>
+        /// <remarks>To get the feed, you need to use the method returning the iCal feed link (it will generate the necessary signature).</remarks>
         /// <category>Calendars and subscriptions</category>
         /// <returns>Calendar iCal feed</returns>
-        [Read("{calendarId}/ical/{signature}", false)] //NOTE: This method doesn't require auth!!!
+        /// <httpMethod>GET</httpMethod>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <path>api/2.0/calendar/{calendarId}/ical/{signature}</path>
+        [Read("{calendarId}/ical/{signature}", false)] //NOTE: this method doesn't require auth!!!
         public iCalApiContentResponse GetCalendariCalStream(string calendarId, string signature)
         {
             try
@@ -2569,14 +2724,16 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Imports the events from the iCal files specified in the request.
+        /// Imports the events from the iCal files to the default calendar.
         /// </summary>
         /// <short>
-        /// Import events from the iCal files
+        /// Import the iCal events to the default calendar
         /// </short>
-        /// <param name="files">iCal formatted files with the events</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase}, System.Collections.Generic" name="files">The iCal files with the events</param>
         /// <category>Events</category>
         /// <returns>The number of imported events</returns>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/calendar/import</path>
         [Create("import")]
         public int ImportEvents(IEnumerable<HttpPostedFileBase> files)
         {
@@ -2593,12 +2750,14 @@ namespace ASC.Api.Calendar
         /// Imports the events from the iCal files to the calendar with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Import iCal events to the calendar
+        /// Import the iCal events to the specified calendar
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="files">iCal formatted files with the events</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase}, System.Collections.Generic" name="files">The iCal files with the events</param>
         /// <category>Events</category>
         /// <returns>The number of imported events</returns>
+        /// <path>api/2.0/calendar/{calendarId}/import</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("{calendarId}/import")]
         public int ImportEvents(int calendarId, IEnumerable<HttpPostedFileBase> files)
         {
@@ -2621,16 +2780,18 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Imports the events from the iCal files and attachments specified in the request.
+        /// Imports the events and attachments from the iCal files specified in the request.
         /// </summary>
         /// <short>
-        /// Import events from the iCal files and attachments
+        /// Import the iCal events and attachments
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="files">iCal formatted files with the events and attachments</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase}, System.Collections.Generic" name="files">The iCal files with the events and attachments</param>
         /// <visible>false</visible> 
         /// <category>Events</category>
         /// <returns>The number of imported events</returns>
+        /// <path>api/2.0/calendar/importFromAggregator</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("importFromAggregator")]
         public async Task<int> ImportEventsFromAggregator(int calendarId, IEnumerable<HttpPostedFileBase> files)
         {
@@ -2663,15 +2824,17 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Imports the events in the iCal format to the calendar with the ID specified in the request.
+        /// Imports the events from the iCal string to the calendar with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Import ics
+        /// Import the events from the iCal string
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="iCalString">iCal formatted string with the events to be imported</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="iCalString">The iCal string with the events to be imported</param>
         /// <category>Events</category>
         /// <returns>The number of imported events</returns>
+        /// <path>api/2.0/calendar/importIcs</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("importIcs")]
         public int ImportEvents(int calendarId, string iCalString)
         {
@@ -2929,14 +3092,17 @@ namespace ASC.Api.Calendar
         /// Creates a calendar by the link to the external iCal feed.
         /// </summary>
         /// <short>
-        /// Create a calendar by iCal URL
+        /// Create a calendar by the iCal link
         /// </short>
-        /// <param name="iCalUrl">Link to the external iCal feed</param>
-        /// <param name="name">Calendar name</param>
-        /// <param name="textColor">Event text color</param>
-        /// <param name="backgroundColor">Event background name</param>
+        /// <param type="System.String, System" name="iCalUrl">Link to the external iCal feed</param>
+        /// <param type="System.String, System" name="name">Calendar name</param>
+        /// <param type="System.String, System" name="textColor">Event text color</param>
+        /// <param type="System.String, System" name="backgroundColor">Event background name</param>
+        /// <remarks>Please note that the list of events in the response will be empty.</remarks>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Created calendar</returns>
+        /// <path>api/2.0/calendar/calendarUrl</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <returns type="ASC.Api.Calendar.Wrappers.CalendarWrapper, ASC.Api.Calendar">Created calendar</returns>
         [Create("calendarUrl")]
         public CalendarWrapper CreateCalendarStream(string iCalUrl, string name, string textColor, string backgroundColor)
         {
@@ -2973,16 +3139,19 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Create a new event in the default calendar
         /// </short>
-        /// <param name="name">Event name</param>
-        /// <param name="description">Event description</param>
-        /// <param name="startDate">Event start date</param>
-        /// <param name="endDate">Event end date</param>
-        /// <param name="repeatType">Event recurrence type (RRULE string in the iCal format)</param>
-        /// <param name="alertType">Event notification type</param>
-        /// <param name="isAllDayLong">Event duration type: all day long or not</param>
-        /// <param name="sharingOptions">Event sharing access parameters</param>
+        /// <param type="System.String, System" name="name">Event name</param>
+        /// <param type="System.String, System" name="description">Event description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">Event start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="endDate">Event end date</param>
+        /// <param type="System.String, System" name="repeatType">Event repeat type (RRULE string in the iCal format)</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">Event notification type</param>
+        /// <param type="System.Boolean, System" name="isAllDayLong">Event duration type: all day long or not</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">Event sharing access parameters</param>
         /// <category>Events</category>
-        /// <returns>List of events</returns>
+        /// <path>api/2.0/calendar/event</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar">Event list</returns>
         [Create("event")]
         public List<EventWrapper> AddEvent(string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions)
         {
@@ -3005,17 +3174,20 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Create a new event in the selected calendar
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="name">Event name</param>
-        /// <param name="description">Event description</param>
-        /// <param name="startDate">Event start date</param>
-        /// <param name="endDate">Event end date</param>
-        /// <param name="repeatType">Event recurrence type (RRULE string in iCal format)</param>
-        /// <param name="alertType">Event notification type</param>
-        /// <param name="isAllDayLong">Event duration type: all day long or not</param>
-        /// <param name="sharingOptions">Event sharing access parameters</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="name">Event name</param>
+        /// <param type="System.String, System" name="description">Event description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">Event start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="endDate">Event end date</param>
+        /// <param type="System.String, System" name="repeatType">Event repeat type (RRULE string in the iCal format)</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">Event notification type</param>
+        /// <param type="System.Boolean, System" name="isAllDayLong">Event duration type: all day long or not</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">Event sharing access parameters</param>
         /// <category>Events</category>
-        /// <returns>List of events</returns>
+        /// <path>api/2.0/calendar/{calendarId}/event</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar">List of events</returns>
         [Create("{calendarId}/event")]
         public List<EventWrapper> AddEvent(int calendarId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions)
         {
@@ -3098,19 +3270,22 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Update an event
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="eventId">Event ID</param>
-        /// <param name="name">New event name</param>
-        /// <param name="description">New event description</param>
-        /// <param name="startDate">New event start date</param>
-        /// <param name="endDate">New event end date</param>
-        /// <param name="repeatType">New event recurrence type (RRULE string in iCal format)</param>
-        /// <param name="alertType">New event notification type</param>
-        /// <param name="isAllDayLong">New event duration type: all day long or not</param>
-        /// <param name="sharingOptions">New event sharing access parameters</param>
-        /// <param name="status">New event status</param>
+        /// <param type="System.String, System" method="url" name="calendarId">Calendar ID</param>
+        /// <param type="System.Int32, System" method="url" name="eventId">Event ID</param>
+        /// <param type="System.String, System" name="name">New event name</param>
+        /// <param type="System.String, System" name="description">New event description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">New event start date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="endDate">New event end date</param>
+        /// <param type="System.String, System" name="repeatType">New event repeat type (RRULE string in the iCal format)</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">New event notification type</param>
+        /// <param type="System.Boolean, System" name="isAllDayLong">New event duration type: all day long or not</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">New event sharing access parameters</param>
+        /// <param type="ASC.Web.Core.Calendars.EventStatus, ASC.Web.Core.Calendars" name="status">New event status</param>
         /// <category>Events</category>
-        /// <returns>Updated list of events</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar">Updated list of events</returns>
+        /// <path>api/2.0/calendar/{calendarId}/{eventId}</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("{calendarId}/{eventId}")]
         public List<EventWrapper> Update(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status)
         {
@@ -3186,10 +3361,13 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Create a new task
         /// </short>
-        /// <param name="ics">Task in the iCal format</param>
-        /// <param name="todoUid">Task UID</param>
+        /// <param type="System.String, System" name="ics">Task in the iCal format</param>
+        /// <param type="System.String, System" name="todoUid">Task UID</param>
         /// <category>Tasks</category>
-        /// <returns>Task</returns>
+        /// <path>api/2.0/calendar/icstodo</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <returns type="ASC.Api.Calendar.Wrappers.TodoWrapper, ASC.Api.Calendar">Task</returns>
+        /// <collection>list</collection>
         [Create("icstodo")]
         public async Task<List<TodoWrapper>> AddTodo(string ics, string todoUid = null)
         {
@@ -3293,12 +3471,15 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Update a task
         /// </short>
-        /// <param name="todoId">Task ID</param>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="ics">Task in the iCal format</param>
-        /// <param name="fromCalDavServer">Defines if the request is from the CalDav server or not</param>
+        /// <param type="System.String, System" name="todoId">Task ID</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="ics">Task in the iCal format</param>
+        /// <param type="System.Boolean, System" name="fromCalDavServer">Defines if the request is from the CalDav server or not</param>
         /// <category>Tasks</category>
-        /// <returns>Updated task</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.TodoWrapper, ASC.Api.Calendar">Updated task</returns>
+        /// <collection>list</collection>
+        /// <path>api/2.0/calendar/icstodo</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("icstodo")]
         public async Task<List<TodoWrapper>> UpdateTodo(string calendarId, string ics, string todoId, bool fromCalDavServer = false)
         {
@@ -3401,9 +3582,12 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Delete a task
         /// </short>
-        /// <param name="todoId">Task ID</param>
-        /// <param name="fromCaldavServer">Defines if the request is from the CalDav server or not</param>
+        /// <param type="System.Int32, System" method="url" name="todoId">Task ID</param>
+        /// <param type="System.Boolean, System" name="fromCaldavServer">Defines if the request is from the CalDav server or not</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         /// <category>Tasks</category>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <path>api/2.0/calendar/todos/{todoId}</path>
         [Delete("todos/{todoId}")]
         public async Task RemoveTodo(int todoId, bool fromCaldavServer = false)
         {
@@ -3481,16 +3665,18 @@ namespace ASC.Api.Calendar
             return null;
         }
         /// <summary>
-        /// Adds an event in the ics format to the calendar specified in the request.
+        /// Adds the iCal event to the calendar specified in the request.
         /// </summary>
         /// <short>
         /// Add the iCal event
         /// </short>
-        /// <param name="calendarGuid">Calendar GUID</param>
-        /// <param name="eventGuid">Event GUID</param>
-        /// <param name="ics">Event in the iCal format</param>
+        /// <param type="System.String, System" name="calendarGuid">Calendar GUID</param>
+        /// <param type="System.String, System" name="eventGuid">Event GUID</param>
+        /// <param type="System.String, System" name="ics">Event in the iCal format</param>
         /// <category>Events</category>
-        /// <returns>Event</returns>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
+        /// <httpMethod>POST</httpMethod>
+        /// <path>api/2.0/calendar/outsideevent</path>
         [Create("outsideevent")]
         public async Task AddEventOutside(string calendarGuid, string eventGuid, string ics)
         {
@@ -3537,9 +3723,12 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Delete a project calendar
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="team">Project team</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="team">Project team</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         /// <category>Calendars and subscriptions</category>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <path>api/2.0/calendar/caldavprojcal</path>
         [Delete("caldavprojcal")]
         public async Task DeleteCaldavCalendar(string calendarId, List<string> team = null)
         {
@@ -3579,15 +3768,83 @@ namespace ASC.Api.Calendar
 
         }
         /// <summary>
-        /// Deletes the whole CalDav event from the calendar.
+        /// Refreshes the caldav calendar with the id specified in the request.
+        /// </summary>
+        /// <short>
+        /// Refresh CalDav calendar
+        /// </short>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="team">User list</param>
+        /// <category>Tasks</category>
+        /// <httpMethod>UPDATE</httpMethod>
+        /// <path>api/2.0/calendar/refreshcaldavcalendar</path>
+        [Update("refreshcaldavcalendar")]
+        public async Task RefreshCalDavCalendar(string calendarId, List<string> team = null)
+        {
+            try
+            {
+                var myUri = HttpContext.Current.Request.GetUrlRewriter();
+                var caldavHost = myUri.Host;
+                var currentUserId = SecurityContext.CurrentAccount.ID;
+                var currentTenantId = TenantProvider.CurrentTenantID;
+                try
+                {
+                    foreach (var teamMember in team)
+                    {
+                        var user = CoreContext.UserManager.GetUsers(Guid.Parse(teamMember));
+                        try
+                        {
+                            if (CheckUserEmail(user))
+                            {
+                                SecurityContext.AuthenticateMe(user.ID);
+                                var currentUserName = user.Email.ToLower() + "@" + caldavHost;
+
+                                var removeResult = RemoveCaldavCalendar(
+                                    user.Email,
+                                    calendarId,
+                                    myUri,
+                                    true);
+
+                                if (removeResult != null)
+                                {
+                                    await GetCalendarCalDavUrl(calendarId, myUri);
+                                }
+                            }
+                        }
+                        finally
+                        {
+                            SecurityContext.Logout();
+                            if (currentUserId != Guid.Empty)
+                            {
+                                SecurityContext.AuthenticateMe(currentUserId);
+                            }
+                        }
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(String.Format("Refresh caldav calendar: {0}", ex.Message));
+            }
+        }
+        /// <summary>
+        /// Deletes the CalDav event from the calendar with the ID specified in the request.
         /// </summary>
         /// <short>
         /// Delete the CalDav event
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="uid">Event UID</param>
-        /// <param name="responsibles">Task responsibles</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="uid">Event UID</param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="responsibles">Task responsibles</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         /// <category>Events</category>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <path>api/2.0/calendar/caldavevent</path>
         [Delete("caldavevent")]
         public async Task DeleteCaldavEvent(string calendarId, string uid, List<string> responsibles = null)
         {
@@ -3619,6 +3876,8 @@ namespace ASC.Api.Calendar
         {
             try
             {
+                uid = uid.ToLower();
+                calendarId = calendarId.ToLower();
                 foreach (var responsibleSid in responsibles)
                 {
                     CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
@@ -3649,7 +3908,8 @@ namespace ASC.Api.Calendar
             var ddayCalendar = DDayICalParser.ConvertCalendar(calendar.UserCalendar);
             ddayCalendar.Events.Clear();
             evt.Created = null;
-            if (calendarId.Contains("Project_"))
+            calendarId.ToLower();
+            if (calendarId.Contains("project_"))
             {
                 evt.End = new CalDateTime(evt.End.AddDays(1));
             }
@@ -3670,16 +3930,18 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Returns the offset or difference between the time in the specified time zone and Coordinated Universal Time (UTC) for the particular dates.
+        /// Returns the time offset in the specified time zone compared to Coordinated Universal Time (UTC) for the particular dates.
         /// </summary>
         /// <short>
         /// Get the UTC offset
         /// </short>
-        /// <param name="timeZone">Time zone ID</param>
-        /// <param name="startDate">Start date to determine the offset</param>
-        /// <param name="endDate">End date to determine the offset</param>
+        /// <param type="System.String, System" name="timeZone">Time zone ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">Start date to determine the offset</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="endDate">End date to determine the offset</param>
         /// <category>Calendars and subscriptions</category>
         /// <returns>The UTC offset in minutes</returns>
+        /// <path>api/2.0/calendar/utcoffset</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("utcoffset")]
         public object GetUtcOffsets(string timeZone, ApiDateTime startDate, ApiDateTime endDate)
         {
@@ -3699,11 +3961,14 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Update the CalDav event
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="uid">Event UID</param>
-        /// <param name="alert">Event notification type</param>
-        /// <param name="responsibles">Task responsibles</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="uid">Event UID</param>
+        /// <param type="System.Int32, System" name="alert">Defines how many minutes before the event a reminder will be displayed</param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="responsibles">Task responsibles</param>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         /// <category>Events</category>
+        /// <path>api/2.0/calendar/caldavevent</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("caldavevent")]
         public async Task UpdateCaldavEvent(string calendarId, string uid, int alert = 0, List<string> responsibles = null)
         {
@@ -3801,13 +4066,16 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Create a new iCal event
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="ics">Event in the iCal format</param>
-        /// <param name="alertType">Event notification type</param>
-        /// <param name="sharingOptions">Event sharing access parameters</param>
-        /// <param name="eventUid">Event UID</param>
+        /// <param type="System.Int32, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="ics">Event in the iCal format</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">Event notification type</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">Event sharing access parameters</param>
+        /// <param type="System.String, System" name="eventUid">Event UID</param>
         /// <category>Events</category>
-        /// <returns>Event</returns>
+        /// <path>api/2.0/calendar/icsevent</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <collection>list</collection>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar">Event</returns>
         [Create("icsevent")]
         public async Task<List<EventWrapper>> AddEvent(int calendarId, string ics, EventAlertType alertType, List<SharingParam> sharingOptions, string eventUid = null)
         {
@@ -3952,15 +4220,18 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Update the iCal event
         /// </short>
-        /// <param name="eventId">Event ID</param>
-        /// <param name="calendarId">Calendar ID</param>
-        /// <param name="ics">Event in the iCal format</param>
-        /// <param name="alertType">New event notification type</param>
-        /// <param name="sharingOptions">New event sharing access parameters</param>
-        /// <param name="fromCalDavServer">Defines if the request is from the CalDav server or not</param>
-        /// <param name="ownerId">New event owner ID</param>
+        /// <param type="System.Int32, System" name="eventId">Event ID</param>
+        /// <param type="System.String, System" name="calendarId">Calendar ID</param>
+        /// <param type="System.String, System" name="ics">Event in the iCal format</param>
+        /// <param type="ASC.Web.Core.Calendars.EventAlertType, ASC.Web.Core.Calendars" name="alertType">New event notification type</param>
+        /// <param type="System.Collections.Generic.List{ASC.Api.Calendar.CalendarApi.SharingParam}, System.Collections.Generic" name="sharingOptions">New event sharing access parameters</param>
+        /// <param type="System.Boolean, System" name="fromCalDavServer">Defines if the request is from the CalDav server or not</param>
+        /// <param type="System.String, System" name="ownerId">New event owner ID</param>
         /// <category>Events</category>
-        /// <returns>Updated event</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar">Updated event</returns>
+        /// <path>api/2.0/calendar/icsevent</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("icsevent")]
         public async Task<List<EventWrapper>> UpdateEvent(int eventId, string calendarId, string ics, EventAlertType alertType, List<SharingParam> sharingOptions, bool fromCalDavServer = false, string ownerId = "")
         {
@@ -4401,7 +4672,7 @@ namespace ASC.Api.Calendar
 
         private static async Task updateEvent(string ics, string uid, string calendarId, bool sendToRadicale, DateTime updateDate = default(DateTime), Ical.Net.CalendarComponents.VTimeZone calendarVTimeZone = null, TimeZoneInfo calendarTimeZone = null)
         {
-            using (var db = DbManager.FromHttpContext("calendar"))
+            using (var db = new DbManager(DBId))
             {
                 using (var tr = db.BeginTransaction())
                 {
@@ -4503,6 +4774,7 @@ namespace ASC.Api.Calendar
                             Logger.Error("ERROR: " + ex.Message);
                         }
                     }
+                    tr.Commit();
                 }
             }
 
@@ -4521,8 +4793,11 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Delete the event series
         /// </short>
-        /// <param name="eventId">Event ID</param>
+        /// <param type="System.Int32, System" method="url" name="eventId">Event ID</param>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <path>api/2.0/calendar/events/{eventId}</path>
         /// <category>Events</category>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         [Delete("events/{eventId}")]
         public async Task RemoveEvent(int eventId)
         {
@@ -4530,18 +4805,21 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Deletes one event from the series of recurrent events.
+        /// Deletes the specified event(s) from the series of repeating events.
         /// </summary>
         /// <short>
-        /// Delete an event from event series
+        /// Delete the specified event(s) from event series
         /// </short>
-        /// <param name="eventId">Event ID</param>
-        /// <param name="date">Date to be deleted from the recurrent event</param>
-        /// <param name="type">Recurrent event deletion type</param>
-        /// <param name="fromCaldavServer">Defines if the request is from the CalDav server or not</param>
-        /// <param name="uri" visible="false">Current URI</param>
+        /// <param type="System.Int32, System" method="url" name="eventId">Event ID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="date">Date to be deleted from the repeating event</param>
+        /// <param type="ASC.Api.Calendar.CalendarApi.EventRemoveType, ASC.Api.Calendar" name="type">The event deletion type: 0 - the single event, 1 - all the following events, 2 - all the event series.</param>
+        /// <param type="System.Boolean, System" name="fromCaldavServer">Defines if the request is from the CalDav server or not</param>
+        /// <param type="System.Uri, System" name="uri" visible="false">Current URI</param>
         /// <category>Events</category>
-        /// <returns>Updated event series collection</returns>
+        /// <path>api/2.0/calendar/events/{eventId}/custom</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventWrapper, ASC.Api.Calendar">Updated event series collection</returns>
+        /// <collection>list</collection>
         [Delete("events/{eventId}/custom")]
         public async Task<List<EventWrapper>> RemoveEvent(int eventId, ApiDateTime date, EventRemoveType type, Uri uri = null, bool fromCaldavServer = false)
         {
@@ -4581,7 +4859,7 @@ namespace ASC.Api.Calendar
                 }).ToList();
 
             var currentTenantId = TenantProvider.CurrentTenantID;
-            var calendarId = evt.CalendarId;
+            var calendarId = evt.CalendarId.ToLower();
             var myUri = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter() : uri != null ? uri : new Uri("http://localhost");
             var currentUserId = SecurityContext.CurrentAccount.ID;
 
@@ -4661,7 +4939,7 @@ namespace ASC.Api.Calendar
                         if (calendarId != BirthdayReminderCalendar.CalendarId &&
                                 calendarId != SharedEventsCalendar.CalendarId &&
                                 calendarId != "crm_calendar" &&
-                                !calendarId.Contains("Project_"))
+                                !calendarId.Contains("project_"))
                         {
                             if (currentUserId == cal.OwnerId)
                             {
@@ -4798,7 +5076,7 @@ namespace ASC.Api.Calendar
 
         private static async Task deleteEvent(string uid, string calendarId, string email, Uri myUri, bool isShared = false)
         {
-            using (var db = DbManager.FromHttpContext("calendar"))
+            using (var db = new DbManager(DBId))
             {
                 using (var tr = db.BeginTransaction())
                 {
@@ -4808,7 +5086,7 @@ namespace ASC.Api.Calendar
                         if (calendarId != BirthdayReminderCalendar.CalendarId &&
                             calendarId != SharedEventsCalendar.CalendarId &&
                             calendarId != "crm_calendar" &&
-                            !calendarId.Contains("Project_"))
+                            !calendarId.Contains("Project_") && !calendarId.Contains("project_"))
                         {
                             var dataCaldavGuid = db.ExecuteList(new SqlQuery("calendar_calendars")
                                 .Select("caldav_guid")
@@ -4862,6 +5140,7 @@ namespace ASC.Api.Calendar
                     {
                         Logger.Error("ERROR: " + ex.Message);
                     }
+                    tr.Commit();
                 }
             }
         }
@@ -4872,8 +5151,11 @@ namespace ASC.Api.Calendar
         /// <short>
         /// Unsubscribe from the event
         /// </short>
-        /// <param name="eventId">Event ID</param>
+        /// <param type="System.Int32, System" method="url" name="eventId">Event ID</param>
+        /// <path>api/2.0/calendar/events/{eventId}/unsubscribe</path>
+        /// <httpMethod>DELETE</httpMethod>
         /// <category>Events</category>
+        /// <returns type="System.Threading.Tasks.Task, System.Threading.Tasks">Task awaiter</returns>
         [Delete("events/{eventId}/unsubscribe")]
         public async Task UnsubscribeEvent(int eventId)
         {
@@ -4893,14 +5175,16 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Returns an event in the iCal format by its UID from the history.
+        /// Returns the iCal event by its UID from the history.
         /// </summary>
         /// <short>
-        /// Get ics by UID
+        /// Get the iCal event by UID
         /// </short>
-        /// <param name="eventUid">Event UID</param>
+        /// <param type="System.String, System" method="url" name="eventUid">Event UID</param>
         /// <category>Events</category>
-        /// <returns>Event history</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventHistoryWrapper, ASC.Api.Calendar">Event history</returns>
+        /// <path>api/2.0/calendar/events/{eventUid}/historybyuid</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("events/{eventUid}/historybyuid")]
         public EventHistoryWrapper GetEventHistoryByUid(string eventUid)
         {
@@ -4915,14 +5199,16 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Returns an event in the iCal format by its ID from the history.
+        /// Returns the iCal event by its ID from the history.
         /// </summary>
         /// <short>
-        /// Get ics by ID
+        /// Get the iCal event by ID
         /// </short>
-        /// <param name="eventId">Event ID</param>
+        /// <param type="System.String, System" method="url" name="eventId">Event ID</param>
         /// <category>Events</category>
-        /// <returns>Event history</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.EventHistoryWrapper, ASC.Api.Calendar">Event history</returns>
+        /// <path>api/2.0/calendar/events/{eventId}/historybyid</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("events/{eventId}/historybyid")]
         public EventHistoryWrapper GetEventHistoryById(int eventId)
         {
@@ -5136,14 +5422,16 @@ namespace ASC.Api.Calendar
         }
 
         /// <summary>
-        /// Returns the sharing access parameters to the calendar with the ID specified in the request.
+        /// Returns the sharing access parameters of the calendar with the ID specified in the request.
         /// </summary>
         /// <short>
         /// Get access parameters
         /// </short>
-        /// <param name="calendarId">Calendar ID</param>
+        /// <param type="System.Int32, System" method="url" name="calendarId">Calendar ID</param>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Sharing access parameters</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.PublicItemCollection, ASC.Api.Calendar">Sharing access parameters</returns>
+        /// <httpMethod>GET</httpMethod>
+        /// <path>api/2.0/calendar/{calendarId}/sharing</path>
         [Read("{calendarId}/sharing")]
         public PublicItemCollection GetCalendarSharingOptions(int calendarId)
         {
@@ -5166,7 +5454,9 @@ namespace ASC.Api.Calendar
         /// Get default access parameters
         /// </short>
         /// <category>Calendars and subscriptions</category>
-        /// <returns>Default sharing access parameters</returns>
+        /// <returns type="ASC.Api.Calendar.Wrappers.PublicItemCollection, ASC.Api.Calendar">Default sharing access parameters</returns>
+        /// <httpMethod>GET</httpMethod>
+        /// <path>api/2.0/calendar/sharing</path>
         [Read("sharing")]
         public PublicItemCollection GetDefaultSharingOptions()
         {
@@ -5184,10 +5474,7 @@ namespace ASC.Api.Calendar
 
         public void Dispose()
         {
-            if (_dataProvider != null)
-            {
-                _dataProvider.Dispose();
-            }
+
         }
 
         private static bool CheckUserEmail(ASC.Core.Users.UserInfo user)

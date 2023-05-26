@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +55,7 @@ namespace ASC.Data.Storage.Selectel
         {
             _tenant = tenant;
             _modulename = string.Empty;
+            _cache = false;
             _dataList = null;
 
             _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
@@ -67,6 +68,7 @@ namespace ASC.Data.Storage.Selectel
         {
             _tenant = tenant;
             _modulename = moduleConfig.Name;
+            _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
 
             _domainsExpires = moduleConfig.Domains.Cast<DomainConfigurationElement>()
@@ -178,7 +180,7 @@ namespace ASC.Data.Storage.Selectel
 
         }
 
-        public override System.IO.Stream GetReadStream(string domain, string path, int offset)
+        public override System.IO.Stream GetReadStream(string domain, string path, long offset)
         {
             var client = GetClient().Result;
 
@@ -204,7 +206,7 @@ namespace ASC.Data.Storage.Selectel
             return fileStream;
         }
 
-        public override async Task<Stream> GetReadStreamAsync(string domain, string path, int offset)
+        public override async Task<Stream> GetReadStreamAsync(string domain, string path, long offset)
         {
             var client = await GetClient();
 
@@ -229,18 +231,24 @@ namespace ASC.Data.Storage.Selectel
 
             return fileStream;
         }
-
+        public override Uri Save(string domain, string path, System.IO.Stream stream, Guid ownerId)
+        {
+            return Save(domain, path, ownerId, stream, null, null, ACL.Auto, null);
+        }
         public override Uri Save(string domain, string path, System.IO.Stream stream)
         {
-            return Save(domain, path, stream, null, null, ACL.Auto, null);
+            return Save(domain, path, Guid.Empty, stream, null, null, ACL.Auto, null);
         }
 
         public override Uri Save(string domain, string path, System.IO.Stream stream, Configuration.ACL acl)
         {
             return Save(domain, path, stream, null, null, acl);
         }
-
         protected override Uri SaveWithAutoAttachment(string domain, string path, System.IO.Stream stream, string attachmentFileName)
+        {
+            return SaveWithAutoAttachment(domain, path, Guid.Empty, stream, attachmentFileName);
+        }
+        protected override Uri SaveWithAutoAttachment(string domain, string path, Guid ownerId, System.IO.Stream stream, string attachmentFileName)
         {
             var contentDisposition = string.Format("attachment; filename={0};",
                                                   HttpUtility.UrlPathEncode(attachmentFileName));
@@ -250,9 +258,12 @@ namespace ASC.Data.Storage.Selectel
                                                    HttpUtility.UrlPathEncode(attachmentFileName));
             }
 
-            return Save(domain, path, stream, null, null, ACL.Auto, null);
+            return Save(domain, path, ownerId, stream, null, null, ACL.Auto, null);
         }
-
+        public override Uri Save(string domain, string path, Guid ownerId, System.IO.Stream stream, string contentType, string contentDisposition)
+        {
+            return Save(domain, path, stream, contentType, contentDisposition, ACL.Auto, null);
+        }
         public override Uri Save(string domain, string path, System.IO.Stream stream, string contentType, string contentDisposition)
         {
             return Save(domain, path, stream, contentType, contentDisposition, ACL.Auto, null);
@@ -262,8 +273,12 @@ namespace ASC.Data.Storage.Selectel
         {
             return Save(domain, path, stream, null, null, ACL.Auto, contentEncoding, cacheDays);
         }
-
         public Uri Save(string domain, string path, Stream stream, string contentType,
+                                string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5, DateTime? deleteAt = null, long? deleteAfter = null)
+        {
+            return Save(domain, path, Guid.Empty, stream, contentType, contentDisposition, acl, contentEncoding, cacheDays, deleteAt, deleteAfter);
+        }
+        public Uri Save(string domain, string path, Guid ownerId, Stream stream, string contentType,
                                 string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5, DateTime? deleteAt = null, long? deleteAfter = null)
         {
 
@@ -274,7 +289,7 @@ namespace ASC.Data.Storage.Selectel
 
             if (QuotaController != null)
             {
-                QuotaController.QuotaUsedCheck(buffered.Length);
+                QuotaController.QuotaUsedCheck(buffered.Length, ownerId);
             }
 
             var mime = string.IsNullOrEmpty(contentType)
@@ -290,7 +305,7 @@ namespace ASC.Data.Storage.Selectel
 
             if (cacheDays > 0)
             {
-                customHeaders.Add("Cache-Control", String.Format("public, maxage={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds));
+                customHeaders.Add("Cache-Control", String.Format("public, max-age={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds));
                 customHeaders.Add("Expires", DateTime.UtcNow.Add(TimeSpan.FromDays(cacheDays)));
             }
 
@@ -327,7 +342,7 @@ namespace ASC.Data.Storage.Selectel
                 }
             }
 
-            QuotaUsedAdd(domain, buffered.Length);
+            QuotaUsedAdd(domain, buffered.Length, ownerId);
 
             return GetUri(domain, path);
         }
@@ -362,6 +377,10 @@ namespace ASC.Data.Storage.Selectel
 
         public override void DeleteFiles(string domain, string folderPath, string pattern, bool recursive)
         {
+            DeleteFiles(domain, folderPath, pattern, recursive, Guid.Empty);
+        }
+        public override void DeleteFiles(string domain, string folderPath, string pattern, bool recursive, Guid ownerId)
+        {
 
             var client = GetClient().Result;
 
@@ -375,7 +394,7 @@ namespace ASC.Data.Storage.Selectel
 
             if (QuotaController != null)
             {
-                QuotaUsedDelete(domain, files.Select(x => x.Bytes).Sum());
+                QuotaUsedDelete(domain, files.Select(x => x.Bytes).Sum(), ownerId);
             }
         }
 
@@ -530,6 +549,10 @@ namespace ASC.Data.Storage.Selectel
 
         public override void DeleteDirectory(string domain, string path)
         {
+            DeleteDirectory(domain, path, Guid.Empty);
+        }
+        public override void DeleteDirectory(string domain, string path, Guid ownerId)
+        {
             var client = GetClient().Result;
 
             var files = client.GetContainerFilesAsync(_private_container, int.MaxValue, null, MakePath(domain, path), null, null).Result;
@@ -540,7 +563,7 @@ namespace ASC.Data.Storage.Selectel
 
             if (QuotaController != null)
             {
-                QuotaUsedDelete(domain, files.Select(x => x.Bytes).Sum());
+                QuotaUsedDelete(domain, files.Select(x => x.Bytes).Sum(), ownerId);
             }
         }
 
@@ -734,6 +757,17 @@ namespace ASC.Data.Storage.Selectel
         public override bool IsSupportChunking { get { return true; } }
 
         #endregion
+
+        protected override DateTime GetLastModificationDate(string domain, string path)
+        {
+            var client = GetClient().Result;
+
+            var file = client.GetFileAsync(_private_container, MakePath(domain, path), null, false).Result;
+
+            if (file == null) throw new FileNotFoundException();
+
+            return file.LastModified;
+        }
 
     }
 }

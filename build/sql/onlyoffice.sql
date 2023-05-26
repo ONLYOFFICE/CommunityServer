@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `backup_backup` (
   `expires_on` datetime NOT NULL DEFAULT '0001-01-01 00:00:00',
   `storage_params` TEXT NULL,
   `hash` char(64) NOT NULL,
+  `removed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`),
   KEY `expires_on` (`expires_on`),
@@ -349,7 +350,6 @@ CREATE TABLE IF NOT EXISTS `core_user` (
   `workfromdate` datetime DEFAULT NULL,
   `terminateddate` datetime DEFAULT NULL,
   `title` varchar(64) DEFAULT NULL,
-  `department` varchar(128) DEFAULT NULL,
   `culture` varchar(20) DEFAULT NULL,
   `contacts` varchar(1024) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
@@ -362,6 +362,7 @@ CREATE TABLE IF NOT EXISTS `core_user` (
   `removed` int(11) NOT NULL DEFAULT '0',
   `create_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_modified` datetime NOT NULL,
+  `user_lead` VARCHAR(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `last_modified` (`last_modified`),
   KEY `username` (`tenant`,`username`),
@@ -944,8 +945,10 @@ CREATE TABLE IF NOT EXISTS `feed_readed` (
 CREATE TABLE IF NOT EXISTS `feed_users` (
   `feed_id` varchar(88) NOT NULL,
   `user_id` char(38) NOT NULL,
+  `aggregated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`feed_id`,`user_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `aggregated_date` (`aggregated_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `files_bunch_objects` (
@@ -1035,9 +1038,11 @@ CREATE TABLE IF NOT EXISTS `files_security` (
   `entry_id` varchar(50) NOT NULL,
   `entry_type` int(10) NOT NULL,
   `subject` char(38) NOT NULL,
+  `subject_type` tinyint(1) UNSIGNED NOT NULL,
   `owner` char(38) NOT NULL,
   `security` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `options` TEXT NULL,
   PRIMARY KEY (`tenant_id`,`entry_id`,`entry_type`,`subject`),
   KEY `owner` (`owner`),
   KEY `tenant_id` (`tenant_id`,`entry_type`,`entry_id`,`owner`)
@@ -1305,8 +1310,10 @@ CREATE TABLE IF NOT EXISTS `jabber_offmessage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `jid` varchar(255) NOT NULL,
   `message` mediumtext,
+  `stamp` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `jabber_offmessage_jid` (`jid`)
+  KEY `jabber_offmessage_jid` (`jid`),
+  KEY `jabber_offmessage_stamp` (`stamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `jabber_offpresence` (
@@ -2277,6 +2284,7 @@ CREATE TABLE IF NOT EXISTS `tenants_iprestrictions` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `tenant` int(10) NOT NULL,
   `ip` varchar(50) NOT NULL,
+  `for_admin` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2309,7 +2317,8 @@ CREATE TABLE IF NOT EXISTS `tenants_quotarow` (
   `counter` bigint(20) NOT NULL DEFAULT '0',
   `tag` varchar(1024) DEFAULT NULL,
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`tenant`,`path`),
+  `user_id` varchar(36) NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
+  PRIMARY KEY (`tenant`,`path`,`user_id`),
   KEY `last_modified` (`last_modified`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

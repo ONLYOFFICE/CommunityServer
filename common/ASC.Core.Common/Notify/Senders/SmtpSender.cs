@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +50,7 @@ namespace ASC.Core.Notify.Senders
         private int _port;
         private bool _ssl;
         private ICredentials _credentials;
+        private SaslMechanism _saslMechanism;
         const int NETWORK_TIMEOUT = 30000;
 
         public SmtpSender()
@@ -90,9 +91,9 @@ namespace ASC.Core.Notify.Senders
 
                 if (_initProperties.ContainsKey("userName"))
                 {
-                    _credentials = new NetworkCredential(
-                         _initProperties["userName"],
-                         _initProperties["password"]);
+                    var useNtlm = _initProperties.ContainsKey("useNtlm") && bool.Parse(_initProperties["useNtlm"]);
+                    _credentials = !useNtlm ? new NetworkCredential(_initProperties["userName"], _initProperties["password"]) : null;
+                    _saslMechanism = useNtlm ? new SaslMechanismNtlm(_initProperties["userName"], _initProperties["password"]) : null;
                 }
             }
             else
@@ -101,10 +102,13 @@ namespace ASC.Core.Notify.Senders
 
                 _host = s.Host;
                 _port = s.Port;
-                _ssl = s.EnableSSL;
-                _credentials = !string.IsNullOrEmpty(s.CredentialsUserName)
-                    ? new NetworkCredential(s.CredentialsUserName, s.CredentialsUserPassword)
-                    : null;
+                _ssl = s.EnableSSL; 
+
+                if (!string.IsNullOrEmpty(s.CredentialsUserName))
+                {
+                    _credentials = !s.UseNtlm ? new NetworkCredential(s.CredentialsUserName, s.CredentialsUserPassword) : null;
+                    _saslMechanism = s.UseNtlm ? new SaslMechanismNtlm(s.CredentialsUserName, s.CredentialsUserPassword) : null;
+                }
             }
         }
 
@@ -130,6 +134,10 @@ namespace ASC.Core.Notify.Senders
                     if (_credentials != null)
                     {
                         smtpClient.Authenticate(_credentials);
+                    }
+                    else if (_saslMechanism != null)
+                    {
+                        smtpClient.Authenticate(_saslMechanism);
                     }
 
                     smtpClient.Send(mail);

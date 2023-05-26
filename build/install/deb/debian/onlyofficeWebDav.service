@@ -4,10 +4,10 @@ After=network.target syslog.target mysql.service
 Wants=mysql.service
 
 [Service]
-Type=forking
+Type=simple
+WorkingDirectory=/var/www/onlyoffice/Services/ASC.WebDav/server
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeWebDav'
-ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeWebDav /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.WebDav.Svc.Launcher,ASC.WebDav.Svc\" --log WebDav
-Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+ExecStart=/usr/bin/node /var/www/onlyoffice/Services/ASC.WebDav/server/webDavServer.js UNIX.SERVER
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

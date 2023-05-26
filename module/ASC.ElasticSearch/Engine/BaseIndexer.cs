@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -422,7 +422,7 @@ namespace ASC.ElasticSearch
 
         private void Clear()
         {
-            using (var db = DbManager.FromHttpContext("default"))
+            using (var db = new DbManager("default"))
             {
                 db.ExecuteNonQuery(new SqlDelete("webstudio_index").Where("index_name", Wrapper.IndexName));
             }
@@ -439,7 +439,7 @@ namespace ASC.ElasticSearch
 
             DateTime lastIndexed;
 
-            using (var db = DbManager.FromHttpContext("default"))
+            using (var db = new DbManager("default"))
             {
                 lastIndexed = db.ExecuteScalar<DateTime>(new SqlQuery("webstudio_index").Select("last_modified").Where("index_name", Wrapper.IndexName));
             }
@@ -482,7 +482,7 @@ namespace ASC.ElasticSearch
                 }
             }
 
-            using (var db = DbManager.FromHttpContext("default"))
+            using (var db = new DbManager("default"))
             {
                 db.ExecuteNonQuery(
                     new SqlInsert("webstudio_index", true)
@@ -990,7 +990,7 @@ namespace ASC.ElasticSearch
 
             AddJoins(Wrapper, dataQuery, Alias);
 
-            using (var db = DbManager.FromHttpContext("default", 1800000))
+            using (var db = new DbManager("default", 1800000))
             {
                 db.ExecuteNonQuery("SET SESSION group_concat_max_len = 4294967295;");
                 data = db.ExecuteList(dataQuery);
@@ -1004,7 +1004,7 @@ namespace ASC.ElasticSearch
         {
             var idColumn = Wrapper.GetColumnName(ColumnTypeEnum.Id, Alias);
 
-            using (var db = DbManager.FromHttpContext("default", 1800000))
+            using (var db = new DbManager("default", 1800000))
             {
                 var dataQuery = GetBaseQuery(lastIndexed)
                     .Select(idColumn)
@@ -1034,7 +1034,7 @@ namespace ASC.ElasticSearch
             var idColumn = Wrapper.GetColumnName(ColumnTypeEnum.Id, Alias);
             long start = 0;
             var result = new List<long>();
-            using (var db = DbManager.FromHttpContext("default", 1800000))
+            using (var db = new DbManager("default", 1800000))
             {
                 while (true)
                 {

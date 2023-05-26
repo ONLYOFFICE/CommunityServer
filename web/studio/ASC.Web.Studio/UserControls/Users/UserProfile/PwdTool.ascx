@@ -18,6 +18,9 @@
                 <input type="hidden" id="studio_pwdReminderInfoID" value="<%=_pwdRemainderContainer.ClientID%>_InfoPanel" />
                 <div id="pswdRecoveryDialogText" class="display-none">
                     <%= Resource.MessageSendPasswordRecoveryInstructionsOnEmail.HtmlEncode() %>
+                    <% if (!ASC.Core.CoreContext.Configuration.Personal) { %>
+                    <p id="pswdRecoveryInfoText"><%= Resource.MessageSendPasswordRecoveryInfo %></p>
+                    <% } %>
                     <input type="email" id="studio_emailPwdReminder" class="textEdit" />
                 </div>
                 <div id="pswdChangeDialogText" class="display-none">

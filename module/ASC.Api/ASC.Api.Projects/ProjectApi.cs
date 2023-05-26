@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ namespace ASC.Api.Projects
     ///<summary>
     ///Project information access.
     ///</summary>
+    ///<name>project</name>
     public partial class ProjectApi : ProjectApiBase, IApiEntryPoint
     {
         private readonly DocumentsApi documentsApi;
@@ -179,18 +180,20 @@ namespace ASC.Api.Projects
             }
         }
 
-        ///<summary>
-        ///Updates the project settings with the parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update settings
-        ///</short>
-        ///<category>Settings</category>
-        ///<param name="everebodyCanCreate">Specifies if all the portal users can create projects or not</param>
-        ///<param name="hideEntitiesInPausedProjects">Specifies if the entities will be hidden in the paused projects or not</param>
-        ///<param name="startModule">Module type: Projects, Tasks, Discussions, TimeTracking</param>
-        ///<param name="folderId">Folder ID</param>
-        ///<returns>Updated settings</returns>
+        /// <summary>
+        /// Updates the project settings with the parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update the project settings
+        /// </short>
+        /// <category>Settings</category>
+        /// <param type="System.Nullable{System.Boolean}, System" name="everebodyCanCreate">Specifies if all the portal users can create projects or not</param>
+        /// <param type="System.Nullable{System.Boolean}, System" name="hideEntitiesInPausedProjects">Specifies if the entities will be hidden in the paused projects or not</param>
+        /// <param type="System.Nullable{ASC.Web.Projects.StartModuleType}, System" name="startModule">Module type: Projects, Tasks, Discussions, TimeTracking</param>
+        /// <param type="System.Object, System" name="folderId">Folder ID</param>
+        /// <returns type="ASC.Web.Projects.ProjectsCommonSettings, ASC.Web.Projects">Updated project settings</returns>
+        /// <path>api/2.0/project/settings</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"settings")]
         public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate,
             bool? hideEntitiesInPausedProjects,
@@ -238,14 +241,16 @@ namespace ASC.Api.Projects
             return null;
         }
 
-        ///<summary>
-        ///Returns the common project settings.
-        ///</summary>
-        ///<short>
-        ///Get settings
-        ///</short>
-        ///<category>Settings</category>
-        ///<returns>Project common settings</returns>
+        /// <summary>
+        /// Returns the common project settings.
+        /// </summary>
+        /// <short>
+        /// Get the project settings
+        /// </short>
+        /// <category>Settings</category>
+        /// <returns type="ASC.Web.Projects.ProjectsCommonSettings, ASC.Web.Projects">Project common settings</returns>
+        /// <path>api/2.0/project/settings</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"settings")]
         public ProjectsCommonSettings GetSettings()
         {
@@ -262,30 +267,34 @@ namespace ASC.Api.Projects
         }
 
 
-        ///<summary>
-        ///Creates a task status specified in the request.
-        ///</summary>
-        ///<short>
-        ///Create a task status
-        ///</short>
-        ///<param name="status">Task status</param>
+        /// <summary>
+        /// Creates a task status specified in the request.
+        /// </summary>
+        /// <short>
+        /// Create a task status
+        /// </short>
+        /// <param type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects" file="ASC.Web.Projects" name="status">Task status</param>
+        /// <returns type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects">Task status</returns>
+        /// <path>api/2.0/project/status</path>
+        /// <httpMethod>POST</httpMethod>
         ///<category>Tasks</category>
-        ///<returns>Task status</returns>
         [Create(@"status")]
         public CustomTaskStatus CreateStatus(CustomTaskStatus status)
         {
             return EngineFactory.StatusEngine.Create(status);
         }
 
-        ///<summary>
-        ///Updates a task status with a value specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a task status
-        ///</short>
-        ///<param name="newStatus">New task status</param>
+        /// <summary>
+        /// Updates a task status with a value specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a task status
+        /// </short>
+        /// <param type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects" file="ASC.Web.Projects" name="newStatus">New task status</param>
+        /// <returns type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects">Updated task status</returns>
+        /// <path>api/2.0/project/status</path>
+        /// <httpMethod>PUT</httpMethod>
         ///<category>Tasks</category>
-        ///<returns>Updated task status</returns>
         [Update(@"status")]
         public CustomTaskStatus UpdateStatus(CustomTaskStatus newStatus)
         {
@@ -309,16 +318,18 @@ namespace ASC.Api.Projects
 
             return status;
         }
-
-        ///<summary>
-        ///Updates the task statuses with the values specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update task statuses
-        ///</short>
-        ///<param name="statuses">New task statuses</param>
-        ///<category>Tasks</category>
-        ///<returns>Updated task statuses</returns>
+        /// <summary>
+        /// Updates the task statuses with the values specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update task statuses
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Collections.Generic.List{ASC.Web.Projects.CustomTaskStatus}, System.Collections.Generic" file="ASC.Web.Projects" name="statuses">New task statuses</param>
+        /// <returns type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects">Updated task statuses</returns>
+        /// <path>api/2.0/project/statuses</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"statuses")]
         public List<CustomTaskStatus> UpdateStatuses(List<CustomTaskStatus> statuses)
         {
@@ -330,29 +341,34 @@ namespace ASC.Api.Projects
             return statuses;
         }
 
-        ///<summary>
-        ///Returns all the task statuses.
-        ///</summary>
-        ///<short>
-        ///Get task statuses
-        ///</short>
+        /// <summary>
+        /// Returns all the task statuses.
+        /// </summary>
+        /// <short>
+        /// Get task statuses
+        /// </short>
+        /// <returns type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects">Task statuses</returns>
+        /// <path>api/2.0/project/status</path>
+        /// <httpMethod>GET</httpMethod>
         ///<category>Tasks</category>
-        ///<returns>Task statuses</returns>
+        /// <collection>list</collection>
         [Read(@"status")]
         public List<CustomTaskStatus> GetStatuses()
         {
             return EngineFactory.StatusEngine.GetWithDefaults();
         }
 
-        ///<summary>
-        ///Deletes a task status with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Delete a task status
-        ///</short>
-        ///<param name="id">Task status ID</param>
+        /// <summary>
+        /// Deletes a task status with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Delete a task status
+        /// </short>
+        /// <param type="System.Int32, System" method="url" name="id">Task status ID</param>
+        /// <returns type="ASC.Web.Projects.CustomTaskStatus, ASC.Web.Projects">Task status</returns>
+        /// <path>api/2.0/project/status/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         ///<category>Tasks</category>
-        ///<returns>Task status</returns>
         [Delete(@"status/{id}")]
         public CustomTaskStatus DeleteStatus(int id)
         {

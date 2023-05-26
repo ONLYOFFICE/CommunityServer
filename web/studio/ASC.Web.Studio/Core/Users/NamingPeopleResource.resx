@@ -85,6 +85,9 @@
   <data name="CommonUser" xml:space="preserve">
     <value>User</value>
   </data>
+  <data name="CommonUserLead" xml:space="preserve">
+    <value>Lead</value>
+  </data>
   <data name="CommonUsers" xml:space="preserve">
     <value>Users</value>
   </data>
@@ -118,6 +121,9 @@
   <data name="DefaultUser" xml:space="preserve">
     <value>Employee</value>
   </data>
+  <data name="DefaultUserLead" xml:space="preserve">
+    <value>Lead</value>
+  </data>
   <data name="DefaultUsers" xml:space="preserve">
     <value>Employees</value>
   </data>
@@ -150,6 +156,9 @@
   </data>
   <data name="EducationUser" xml:space="preserve">
     <value>Teacher/Student</value>
+  </data>
+  <data name="EducationUserLead" xml:space="preserve">
+    <value>Curator</value>
   </data>
   <data name="EducationUsers" xml:space="preserve">
     <value>Teachers/Students</value>

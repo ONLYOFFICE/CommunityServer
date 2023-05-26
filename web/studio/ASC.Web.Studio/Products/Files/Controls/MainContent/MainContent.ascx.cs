@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files.Controls
 {
@@ -42,6 +43,7 @@ namespace ASC.Web.Files.Controls
         }
 
         public object FolderIDCurrentRoot { get; set; }
+        public object ExternalFolderIDCurrentRoot { get; set; }
 
         public String TitlePage { get; set; }
 
@@ -52,6 +54,7 @@ namespace ASC.Web.Files.Controls
         protected bool IsFirstVisit;
 
         protected bool IsVisitor;
+        protected bool Trial { get; set; }
 
         public void Page_Init(object sender, EventArgs e)
         {
@@ -69,6 +72,12 @@ namespace ASC.Web.Files.Controls
             InitControls();
 
             InitScripts();
+
+            if (TenantExtra.Saas)
+            {
+                var quota = TenantExtra.GetTenantQuota();
+                Trial = quota.Trial || quota.Free;
+            }
         }
 
         private void InitControls()

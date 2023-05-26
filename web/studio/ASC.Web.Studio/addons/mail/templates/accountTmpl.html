@@ -55,8 +55,9 @@
                         <div>
                             <input id="port" type="text" maxlength="5" class="mini textEdit" value="{{if typeof(port)!=='undefined' && port !=''}}${port}{{else}}110{{/if}}"/>
                             <select id="auth_type_in_sel" class="authenticationTypeBox form-control">
-                                <option value="1" {{if typeof(auth_type_in)==='undefined' || auth_type_in== 1}}selected="selected"{{/if}}>${ASC.Mail.Resources.MailResource.SimplePasswordAuthentication}</option>
-                                <option value="4" {{if typeof(auth_type_in)!=='undefined' && auth_type_in== 4}}selected="selected"{{/if}}>${ASC.Mail.Resources.MailResource.EncryptedPaswordAuthentication}</option>
+                                <option value="1" {{if typeof(auth_type_in)==='undefined' || auth_type_in== 1}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.SimplePasswordAuthentication}</option>
+                                <option value="4" {{if typeof(auth_type_in)!=='undefined' && auth_type_in== 4}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.EncryptedPaswordAuthentication}</option>
+                                <option value="7" {{if typeof(auth_type_in)!=='undefined' && auth_type_in== 7}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.NTLMPasswordAuthentication}</option>
                             </select>
                         </div>
                     </div>
@@ -68,9 +69,10 @@
                         <div>
                             <input id="smtp_port" type="text" maxlength="5" class="mini textEdit" value="{{if typeof(smtp_port)!=='undefined' && smtp_port !=''}}${smtp_port}{{else}}25{{/if}}"/>
                             <select id="auth_type_smtp_sel" class="authenticationTypeBox form-control">
-                                <option value="0" {{if typeof(auth_type_smtp)==='undefined' || auth_type_smtp== 0}}selected="selected"{{/if}}>${ASC.Mail.Resources.MailResource.NonePasswordAuthentication}</option>
-                                <option value="1" {{if typeof(auth_type_smtp)!=='undefined' && auth_type_smtp== 1}}selected="selected"{{/if}}>${ASC.Mail.Resources.MailResource.SimplePasswordAuthentication}</option>
-                                <option value="4" {{if typeof(auth_type_smtp)!=='undefined' && auth_type_smtp== 4}}selected="selected"{{/if}}>${ASC.Mail.Resources.MailResource.EncryptedPaswordAuthentication}</option>
+                                <option value="0" {{if typeof(auth_type_smtp)==='undefined' || auth_type_smtp== 0}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.NonePasswordAuthentication}</option>
+                                <option value="1" {{if typeof(auth_type_smtp)!=='undefined' && auth_type_smtp== 1}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.SimplePasswordAuthentication}</option>
+                                <option value="4" {{if typeof(auth_type_smtp)!=='undefined' && auth_type_smtp== 4}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.EncryptedPaswordAuthentication}</option>
+                                <option value="7" {{if typeof(auth_type_smtp)!=='undefined' && auth_type_smtp== 7}} selected="selected" {{/if}}>${ASC.Mail.Resources.MailResource.NTLMPasswordAuthentication}</option>
                             </select>
                         </div>
                     </div>

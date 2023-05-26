@@ -3,10 +3,10 @@ Description=ONLYOFFICE SsoAuth Service
 After=network.target syslog.target
 
 [Service]
-Type=forking
+Type=simple
+WorkingDirectory=/var/www/onlyoffice/Services/ASC.SsoAuth
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeSsoAuth'
-ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeSsoAuth /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.SsoAuth.Svc.Launcher,ASC.SsoAuth.Svc\" --log SsoAuth
-Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+ExecStart=/usr/bin/node /var/www/onlyoffice/Services/ASC.SsoAuth/app.js UNIX.SERVER
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

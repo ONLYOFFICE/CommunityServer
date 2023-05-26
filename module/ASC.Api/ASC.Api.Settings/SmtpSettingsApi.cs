@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,9 @@ namespace ASC.Api.Settings
         /// Get the SMTP settings
         /// </short>
         /// <category>SMTP</category>
-        /// <returns>SMTP settings</returns>
+        /// <returns type="ASC.Api.Settings.Smtp.SmtpSettingsWrapper, ASC.Api.Settings">SMTP settings</returns>
+        /// <path>api/2.0/settings/smtp</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("smtp")]
         public SmtpSettingsWrapper GetSmtpSettings()
         {
@@ -58,8 +60,10 @@ namespace ASC.Api.Settings
         /// Save the SMTP settings
         /// </short>
         /// <category>SMTP</category>
-        /// <param name="smtpSettings">SMTP settings</param>
-        /// <returns>SMTP settings</returns>
+        /// <param type="ASC.Api.Settings.Smtp.SmtpSettingsWrapper, ASC.Api.Settings.Smtp" file="ASC.Api.Settings" name="smtpSettings">SMTP settings</param>
+        /// <returns type="ASC.Api.Settings.Smtp.SmtpSettingsWrapper, ASC.Api.Settings">SMTP settings</returns>
+        /// <path>api/2.0/settings/smtp</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("smtp")]
         public SmtpSettingsWrapper SaveSmtpSettings(SmtpSettingsWrapper smtpSettings)
         {
@@ -86,7 +90,9 @@ namespace ASC.Api.Settings
         /// Reset the SMTP settings
         /// </short>
         /// <category>SMTP</category>
-        /// <returns>Default SMTP settings</returns>
+        /// <returns type="ASC.Api.Settings.Smtp.SmtpSettingsWrapper, ASC.Api.Settings">Default SMTP settings</returns>
+        /// <path>api/2.0/settings/smtp</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("smtp")]
         public SmtpSettingsWrapper ResetSmtpSettings()
         {
@@ -109,7 +115,9 @@ namespace ASC.Api.Settings
         /// Test the SMTP settings
         /// </short>
         /// <category>SMTP</category>
-        /// <returns>SMTP operation status</returns>
+        /// <returns type="ASC.Api.Settings.Smtp.SmtpOperationStatus, ASC.Api.Settings">SMTP operation status</returns>
+        /// <path>api/2.0/settings/smtp/test</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("smtp/test")]
         public SmtpOperationStatus TestSmtpSettings()
         {
@@ -131,7 +139,9 @@ namespace ASC.Api.Settings
         /// Get the SMTP test process status
         /// </short>
         /// <category>SMTP</category>
-        /// <returns>SMTP operation status</returns>
+        /// <returns type="ASC.Api.Settings.Smtp.SmtpOperationStatus, ASC.Api.Settings">SMTP operation status</returns>
+        /// <path>api/2.0/settings/smtp/test/status</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("smtp/test/status")]
         public SmtpOperationStatus GetSmtpOperationStatus()
         {
@@ -197,6 +207,7 @@ namespace ASC.Api.Settings
             if (settingsWrapper.EnableAuth)
             {
                 settingsConfig.SetCredentials(settingsWrapper.CredentialsUserName, settingsWrapper.CredentialsUserPassword);
+                settingsConfig.UseNtlm = settingsWrapper.UseNtlm;
             }
 
             return settingsConfig;
@@ -213,7 +224,8 @@ namespace ASC.Api.Settings
                 CredentialsUserName = settingsConfig.CredentialsUserName,
                 CredentialsUserPassword = hidePassword ? "" : settingsConfig.CredentialsUserPassword,
                 EnableSSL = settingsConfig.EnableSSL,
-                EnableAuth = settingsConfig.EnableAuth
+                EnableAuth = settingsConfig.EnableAuth,
+                UseNtlm = settingsConfig.UseNtlm
             };
         }
 

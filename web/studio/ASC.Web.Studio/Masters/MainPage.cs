@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,13 +119,14 @@ namespace ASC.Web.Studio
             if (!MayPhoneNotActivate
                 && SecurityContext.IsAuthenticated)
             {
-                if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable
+
+                if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.TfaEnabledForUser(user.ID)
                     && (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated))
                 {
                     Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.PhoneActivation), true);
                 }
 
-                if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable
+                if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.TfaEnabledForUser(user.ID)
                     && !TfaAppUserSettings.EnableForUser(user.ID))
                 {
                     Response.Redirect(CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.TfaActivation), true);

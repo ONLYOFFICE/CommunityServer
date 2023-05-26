@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,20 +28,30 @@ namespace ASC.Api.Forums
     [DataContract(Name = "post", Namespace = "")]
     public class ForumTopicPostWrapper : IApiSortableDate
     {
+        ///<example type="int">123</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public int Id { get; set; }
 
+        ///<example>Sample subject</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Subject { get; set; }
 
+        ///<example>Post text</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Text { get; set; }
 
+        ///<example>2020-12-07T13:56:02.3269198Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Created { get; set; }
 
         private ApiDateTime updated;
 
+        ///<example>2020-12-07T13:56:02.3269198Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Updated
         {
@@ -49,12 +59,19 @@ namespace ASC.Api.Forums
             set { updated = value; }
         }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>9</order>
         [DataMember(Order = 9)]
         public EmployeeWraper CreatedBy { get; set; }
 
+        ///<example>Title</example>
+        ///<order>10</order>
         [DataMember(Order = 10)]
         public string ThreadTitle { get; set; }
 
+        ///<type>ASC.Api.Forums.ForumTopicPostAttachmentWrapper, ASC.Api.Community</type>
+        ///<order>100</order>
+        ///<collection></collection>
         [DataMember(Order = 100, EmitDefaultValue = false)]
         public List<ForumTopicPostAttachmentWrapper> Attachments { get; set; }
 

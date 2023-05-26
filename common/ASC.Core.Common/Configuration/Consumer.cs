@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,9 @@ namespace ASC.Core.Common.Configuration
             }
         }
 
+        private ICollection<string> Optionals { get; set; }
+        private ICollection<string> Passwords { get; set; }
+
         private static readonly bool OnlyDefault;
 
         public bool IsSet
@@ -86,28 +89,44 @@ namespace ASC.Core.Common.Configuration
             Order = int.MaxValue;
             Props = new Dictionary<string, string>();
             Additional = new Dictionary<string, string>();
+            Optionals = new List<string>();
+            Passwords = new List<string>();
         }
 
-        public Consumer(string name, int order, Dictionary<string, string> additional)
+        public Consumer(string name, int order, Dictionary<string, Prop> additional)
         {
             Name = name;
             Order = order;
             Props = new Dictionary<string, string>();
-            Additional = additional;
+            Additional = ConvertToDictionaryString(additional);
+            Optionals = GetOptionalKeys(additional);
+            Passwords = GetPasswordsKeys(additional);
         }
 
-        public Consumer(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional)
+        public Consumer(string name, int order, Dictionary<string, Prop> props, Dictionary<string, Prop> additional)
         {
             Name = name;
             Order = order;
-            Props = props ?? new Dictionary<string, string>();
-            Additional = additional ?? new Dictionary<string, string>();
-
+            Props = ConvertToDictionaryString(props) ?? new Dictionary<string, string>();
+            Additional = ConvertToDictionaryString(additional) ?? new Dictionary<string, string>();
+            Optionals = GetOptionalKeys(props, additional);
+            Passwords = GetPasswordsKeys(props, additional);
             if (props != null && props.Any())
             {
-                CanSet = props.All(r => string.IsNullOrEmpty(r.Value));
+                CanSet = props.All(r => string.IsNullOrEmpty(r.Value.value));
             }
         }
+
+        public bool IsOptional(string key)
+        {
+            return Optionals.Contains(key);
+        }
+
+        public bool IsPassword(string key)
+        {
+            return Passwords.Contains(key);
+        }
+
 
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
         {
@@ -235,6 +254,52 @@ namespace ASC.Core.Common.Configuration
         {
             return "AuthKey_" + name;
         }
+
+        protected Dictionary<string, string> ConvertToDictionaryString(Dictionary<string, Prop> props)
+        {
+            if (props == null) return null;
+            return props.ToDictionary(r => r.Key, r => r.Value.value);
+        }
+
+        protected Dictionary<string, Prop> ConvertToDictionaryProp(Dictionary<string, string> props)
+        {
+            if (props == null) return null;
+            return props.ToDictionary(r => r.Key, r => new Prop() { value = r.Value , optional = Optionals.Contains(r.Key), password = Passwords.Contains(r.Key)});
+        }
+
+        private List<string> GetOptionalKeys(Dictionary<string, Prop> props)
+        {
+            if (props == null) return null;
+            return props.Where(r => r.Value.optional).Select(r=> r.Key).ToList();
+        }
+
+        private List<string> GetOptionalKeys(Dictionary<string, Prop> props1, Dictionary<string, Prop> props2)
+        {
+            if (props1 == null && props2 == null) return null;
+
+            props1 = props1 ?? new Dictionary<string, Prop>();
+            props2 = props2 ?? new Dictionary<string, Prop>();
+
+            var props = props1.Union(props2);
+            return props.Where(r => r.Value.optional).Select(r => r.Key).ToList();
+        }
+
+        private List<string> GetPasswordsKeys(Dictionary<string, Prop> props)
+        {
+            if (props == null) return null;
+            return props.Where(r => r.Value.password).Select(r => r.Key).ToList();
+        }
+
+        private List<string> GetPasswordsKeys(Dictionary<string, Prop> props1, Dictionary<string, Prop> props2)
+        {
+            if (props1 == null && props2 == null) return null;
+
+            props1 = props1 ?? new Dictionary<string, Prop>();
+            props2 = props2 ?? new Dictionary<string, Prop>();
+
+            var props = props1.Union(props2);
+            return props.Where(r => r.Value.password).Select(r => r.Key).ToList();
+        }
     }
 
     public class DataStoreConsumer : Consumer, ICloneable
@@ -250,13 +315,13 @@ namespace ASC.Core.Common.Configuration
 
         }
 
-        public DataStoreConsumer(string name, int order, Dictionary<string, string> additional)
+        public DataStoreConsumer(string name, int order, Dictionary<string, Prop> additional)
             : base(name, order, additional)
         {
             Init(additional);
         }
 
-        public DataStoreConsumer(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional)
+        public DataStoreConsumer(string name, int order, Dictionary<string, Prop> props, Dictionary<string, Prop> additional)
             : base(name, order, props, additional)
         {
             Init(additional);
@@ -272,16 +337,16 @@ namespace ASC.Core.Common.Configuration
             return base.GetSettingsKey(Name + name);
         }
 
-        private void Init(IReadOnlyDictionary<string, string> additional)
+        private void Init(IReadOnlyDictionary<string, Prop> additional)
         {
             if (additional == null || !additional.ContainsKey(HandlerTypeKey))
                 throw new ArgumentException(HandlerTypeKey);
 
-            HandlerType = Type.GetType(additional[HandlerTypeKey]);
+            HandlerType = Type.GetType(additional[HandlerTypeKey].value);
 
             if (additional.ContainsKey(CdnKey))
             {
-                Cdn = GetCdn(additional[CdnKey]);
+                Cdn = GetCdn(additional[CdnKey].value);
             }
         }
 
@@ -293,12 +358,14 @@ namespace ASC.Core.Common.Configuration
             var additional = fromConfig.AdditionalKeys.ToDictionary(prop => prop, prop => fromConfig[prop]);
             additional.Add(HandlerTypeKey, HandlerType.AssemblyQualifiedName);
 
-            return new DataStoreConsumer(fromConfig.Name, fromConfig.Order, props, additional);
+            return new DataStoreConsumer(fromConfig.Name, fromConfig.Order, ConvertToDictionaryProp(props), ConvertToDictionaryProp(additional));
         }
 
         public object Clone()
         {
-            return new DataStoreConsumer(Name, Order, Props.ToDictionary(r => r.Key, r => r.Value), Additional.ToDictionary(r => r.Key, r => r.Value));
+            var props = ConvertToDictionaryProp(Props);
+            var additional = ConvertToDictionaryProp(Additional);
+            return new DataStoreConsumer(Name, Order, props, additional);
         }
     }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading;
@@ -44,6 +45,8 @@ using AuthenticationException = MailKit.Security.AuthenticationException;
 using MailFolder = ASC.Mail.Data.Contracts.MailFolder;
 using Pop3Client = MailKit.Net.Pop3.Pop3Client;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+
+using SaslMechanism = ASC.Mail.Enums.SaslMechanism;
 
 namespace ASC.Mail.Clients
 {
@@ -481,19 +484,30 @@ namespace ASC.Mail.Clients
                 Imap.Authenticated += ImapOnAuthenticated;
                 authSubscribed = true;
 
-                if (string.IsNullOrEmpty(Account.OAuthToken))
+                if (Account.Authentication == SaslMechanism.Ntlm)
                 {
-                    Log.DebugFormat("Imap.Authentication({0})", Account.Account);
+                    Log.DebugFormat("Imap.AuthenticationByNtlm({0})", Account.Account);
 
-                    t = Imap.AuthenticateAsync(Account.Account, Account.Password, CancelToken);
+                    var credentials = new NetworkCredential(Account.Account, Account.Password);
+                    var ntlm = new SaslMechanismNtlm(credentials);
+                    t = Imap.AuthenticateAsync(ntlm, CancelToken);
                 }
                 else
                 {
-                    Log.DebugFormat("Imap.AuthenticationByOAuth({0})", Account.Account);
+                    if (string.IsNullOrEmpty(Account.OAuthToken))
+                    {
+                        Log.DebugFormat("Imap.Authentication({0})", Account.Account);
 
-                    var oauth2 = new SaslMechanismOAuth2(Account.Account, Account.AccessToken);
+                        t = Imap.AuthenticateAsync(Account.Account, Account.Password, CancelToken);
+                    }
+                    else
+                    {
+                        Log.DebugFormat("Imap.AuthenticationByOAuth({0})", Account.Account);
 
-                    t = Imap.AuthenticateAsync(oauth2, CancelToken);
+                        var oauth2 = new SaslMechanismOAuth2(Account.Account, Account.AccessToken);
+
+                        t = Imap.AuthenticateAsync(oauth2, CancelToken);
+                    }
                 }
 
                 if (!t.Wait(Defines.MailServerLoginTimeout, CancelToken))
@@ -1181,19 +1195,30 @@ namespace ASC.Mail.Clients
 
                 Pop.Authenticated += PopOnAuthenticated;
 
-                if (string.IsNullOrEmpty(Account.OAuthToken))
+                if (Account.Authentication == SaslMechanism.Ntlm)
                 {
-                    Log.DebugFormat("Pop3.Authentication({0})", Account.Account);
+                    Log.DebugFormat("Pop3.AuthenticationByNtlm({0})", Account.Account);
 
-                    t = Pop.AuthenticateAsync(Account.Account, Account.Password, CancelToken);
+                    var credentials = new NetworkCredential(Account.Account, Account.Password);
+                    var ntlm = new SaslMechanismNtlm(credentials);
+                    t = Imap.AuthenticateAsync(ntlm, CancelToken);
                 }
                 else
                 {
-                    Log.DebugFormat("Pop3.AuthenticationByOAuth({0})", Account.Account);
+                    if (string.IsNullOrEmpty(Account.OAuthToken))
+                    {
+                        Log.DebugFormat("Pop3.Authentication({0})", Account.Account);
 
-                    var oauth2 = new SaslMechanismOAuth2(Account.Account, Account.AccessToken);
+                        t = Pop.AuthenticateAsync(Account.Account, Account.Password, CancelToken);
+                    }
+                    else
+                    {
+                        Log.DebugFormat("Pop3.AuthenticationByOAuth({0})", Account.Account);
 
-                    t = Pop.AuthenticateAsync(oauth2, CancelToken);
+                        var oauth2 = new SaslMechanismOAuth2(Account.Account, Account.AccessToken);
+
+                        t = Pop.AuthenticateAsync(oauth2, CancelToken);
+                    }
                 }
 
                 if (!t.Wait(Defines.MailServerLoginTimeout, CancelToken))
@@ -1444,19 +1469,29 @@ namespace ASC.Mail.Clients
 
                 Smtp.Authenticated += SmtpOnAuthenticated;
 
-                if (string.IsNullOrEmpty(Account.OAuthToken))
+                if (Account.SmtpAuthentication == SaslMechanism.Ntlm)
                 {
-                    Log.DebugFormat("Smtp.Authentication({0})", Account.SmtpAccount);
+                    Log.DebugFormat("Smtp.AuthenticationByNtlm({0})", Account.SmtpAccount);
 
-                    t = Smtp.AuthenticateAsync(Account.SmtpAccount, Account.SmtpPassword, CancelToken);
+                    var ntlm = new SaslMechanismNtlm(Account.SmtpAccount, Account.SmtpPassword);
+                    t = Smtp.AuthenticateAsync(ntlm, CancelToken);
                 }
                 else
                 {
-                    Log.DebugFormat("Smtp.AuthenticationByOAuth({0})", Account.SmtpAccount);
+                    if (string.IsNullOrEmpty(Account.OAuthToken))
+                    {
+                        Log.DebugFormat("Smtp.Authentication({0})", Account.SmtpAccount);
 
-                    var oauth2 = new SaslMechanismOAuth2(Account.Account, Account.AccessToken);
+                        t = Smtp.AuthenticateAsync(Account.SmtpAccount, Account.SmtpPassword, CancelToken);
+                    }
+                    else
+                    {
+                        Log.DebugFormat("Smtp.AuthenticationByOAuth({0})", Account.SmtpAccount);
 
-                    t = Smtp.AuthenticateAsync(oauth2, CancelToken);
+                        var oauth2 = new SaslMechanismOAuth2(Account.Account, Account.AccessToken);
+
+                        t = Smtp.AuthenticateAsync(oauth2, CancelToken);
+                    }
                 }
 
                 if (!t.Wait(Defines.MailServerLoginTimeout, CancelToken))

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,6 @@ namespace ASC.Data.Backup.Tasks.Modules
                         DateColumns = new Dictionary<string, bool> {{"timestamp", false}}
                     },
                 new TableInfo("feed_users") {InsertMethod = InsertMethod.None},
-                new TableInfo("backup_backup", "tenant_id", "id", IdType.Guid),
                 new TableInfo("backup_schedule", "tenant_id"),
                 new TableInfo("core_settings", "tenant")
             };
@@ -133,12 +132,6 @@ namespace ASC.Data.Backup.Tasks.Modules
                                  x => ValidateSource(BlogsSourceID, x) && Convert.ToString(x["action"]) == BlogsNewCommentActionID),
 
                 new RelationInfo("core_user", "id", "feed_users", "user_id", typeof(CoreModuleSpecifics)),
-
-                new RelationInfo("files_folder", "id", "backup_backup", "storage_base_path", typeof(FilesModuleSpecifics),
-                                 x => IsDocumentsStorageType(Convert.ToString(x["storage_type"]))),
-
-                new RelationInfo("files_file", "id", "backup_backup", "storage_path", typeof(FilesModuleSpecifics),
-                                 x => IsDocumentsStorageType(Convert.ToString(x["storage_type"]))),
 
                 new RelationInfo("files_folder", "id", "backup_schedule", "storage_base_path", typeof(FilesModuleSpecifics),
                                  x => IsDocumentsStorageType(Convert.ToString(x["storage_type"]))),

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "../../../../skins/default/params.less";
 
 label .checkbox {
     margin: 0 5px 3px 0;
@@ -35,7 +37,7 @@ label .checkbox {
     color: #e85e12;
 }
 a.link-black-14 {
-    color: #333;
+    color: @textColor;
     font-size: 14px;
 
     &.bold:hover {
@@ -43,7 +45,7 @@ a.link-black-14 {
     }
 }
 a.link-black-12 {
-    color: #333;
+    color: @textColor;
     font-size: 12px;
 }
 .required-mark {

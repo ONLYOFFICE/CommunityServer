@@ -28,7 +28,7 @@
 
     <%--password--%>
     <div class="auth-form_password">
-        <input type="password" id="pwd" class="pwdLoginTextbox <%= IsPasswordInvalid ? "error" : ""%>" maxlength="<%= PasswordSettings.MaxLength %>" placeholder="<%= Resource.Password %>" />
+        <input type="password" id="pwd" class="pwdLoginTextbox <%= IsPasswordInvalid ? "error" : ""%>" maxlength="<%= PasswordSettings.LimitMaxLength %>" placeholder="<%= Resource.Password %>" autocomplete="current-password" />
         <input type="hidden" id="passwordHash" name="passwordHash" />
     </div>
     <%--buttons--%>

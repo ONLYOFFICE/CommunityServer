@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,7 @@ namespace ASC.ActiveDirectory.Base.Data
             }
         }
 
-        public static UserInfo ToUserInfo(this LdapObject ldapUser, LdapUserImporter ldapUserImporter, ILog log = null)
+        public static UserInfo ToUserInfo(this LdapObject ldapUser, LdapUserImporter ldapUserImporter, TenantUserQuotaSettings quotaSettings, ILog log = null)
         {
             var settings = ldapUserImporter.Settings;
             var resource = ldapUserImporter.Resource;
@@ -132,6 +132,9 @@ namespace ASC.ActiveDirectory.Base.Data
             var emails = ldapUser.GetContacts(Mapping.AdditionalMail, settings, log);
             var skype = ldapUser.GetContacts(Mapping.Skype, settings, log);
 
+            var quota = settings.LdapMapping.ContainsKey(Mapping.UserQuotaLimit) ?
+                LdapUtils.ConvertSizeToBytes(GetAttribute(ldapUser, settings.LdapMapping[Mapping.UserQuotaLimit],log)) : 
+                quotaSettings.DefaultUserQuota;
 
             if (string.IsNullOrEmpty(userName))
                 throw new Exception("LDAP LoginAttribute is empty");
@@ -153,7 +156,8 @@ namespace ASC.ActiveDirectory.Base.Data
                 Title = !string.IsNullOrEmpty(title) ? title : string.Empty,
                 Location = !string.IsNullOrEmpty(location) ? location : string.Empty,
                 WorkFromDate = TenantUtil.DateTimeNow(),
-                Contacts = contacts
+                Contacts = contacts,
+                LdapQouta = quota
             };
 
             if (!string.IsNullOrEmpty(firstName))

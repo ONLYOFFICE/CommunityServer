@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +50,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         }
 
 
-        public FileDownloadOperation(Dictionary<object, string> folders, Dictionary<object, string> files, Dictionary<string, string> headers)
-            : base(folders.Select(f => f.Key).ToList(), files.Select(f => f.Key).ToList())
+        public FileDownloadOperation(Dictionary<object, string> folders, Dictionary<object, string> files, Dictionary<string, string> headers, IEnumerable<System.Web.HttpCookie> httpCookies)
+            : base(folders.Select(f => f.Key).ToList(), files.Select(f => f.Key).ToList(), cookies: httpCookies)
         {
             this.files = files;
             this.headers = headers;
@@ -95,7 +95,22 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                     var store = Global.GetStore();
 
-                    var path = string.Format(@"{0}\{1}", ((IAccount)Thread.CurrentPrincipal.Identity).ID, fileName);
+                    string path = null;
+                    string sessionKey = null;
+
+                    if (SecurityContext.IsAuthenticated)
+                    {
+                        path = string.Format(@"{0}\{1}", SecurityContext.CurrentAccount.ID, fileName);
+                    }
+                    else if (FileShareLink.TryGetSessionId(out var id) && FileShareLink.TryGetCurrentLinkId(out var linkId))
+                    {
+                        path = string.Format(@"{0}\{1}\{2}", linkId, id, fileName);
+                        sessionKey = FileShareLink.CreateDownloadSessionKey(linkId, id);
+                    }
+                    else
+                    {
+                        throw new System.Security.SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
+                    }
 
                     if (store.IsFile(FileConstant.StorageDomainTmp, path))
                     {
@@ -110,6 +125,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         "attachment; filename=\"" + Uri.EscapeDataString(fileName) + "\"");
 
                     Status = string.Format("{0}?{1}=bulk&filename={2}", FilesLinkUtility.FileHandlerPath, FilesLinkUtility.Action, Uri.EscapeDataString(InstanceCrypto.Encrypt(fileName)));
+
+                    if (!SecurityContext.IsAuthenticated)
+                    {
+                        Status += $"&session={System.Web.HttpUtility.UrlEncode(sessionKey)}";
+                    }
 
                     ProgressStep();
                 }

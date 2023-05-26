@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -165,7 +165,7 @@ namespace ASC.Web.Studio.Core.Users
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             var settings = IPRestrictionsSettings.Load();
-            if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
+            if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant, email))
             {
                 throw new Exception(Resource.ErrorAccessRestricted);
             }
@@ -177,15 +177,15 @@ namespace ASC.Web.Studio.Core.Users
             }
             if (userInfo.Status == EmployeeStatus.Terminated)
             {
-                return Resource.ErrorDisabledProfile;
+                throw new Exception(Resource.ErrorDisabledProfile);
             }
             if (userInfo.IsLDAP())
             {
-                return Resource.CouldNotRecoverPasswordForLdapUser;
+                throw new Exception(Resource.CouldNotRecoverPasswordForLdapUser);
             }
             if (userInfo.IsSSO())
             {
-                return Resource.CouldNotRecoverPasswordForSsoUser;
+                throw new Exception(Resource.CouldNotRecoverPasswordForSsoUser);
             }
 
             StudioNotifyService.Instance.UserPasswordChange(userInfo);
@@ -203,7 +203,7 @@ namespace ASC.Web.Studio.Core.Users
             var text = new StringBuilder();
 
             text.AppendFormat("{0} ", Resource.ErrorPasswordMessage);
-            text.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
+            text.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, passwordSettings.MaxLength);
             text.AppendFormat(", {0}", Resource.ErrorPasswordOnlyASCII);
 
             if (passwordSettings.UpperCase)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,13 @@ namespace ASC.Api.Employee
     [DataContract(Name = "contact", Namespace = "")]
     public class Contact
     {
+        ///<example>GTalk</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public string Type { get; set; }
 
+        ///<example>my@gmail.com</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Value { get; set; }
 

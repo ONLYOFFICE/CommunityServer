@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Web.UI;
 
 using ASC.Core;
 using ASC.Data.Storage;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
@@ -40,10 +41,17 @@ namespace ASC.Web.Studio.UserControls.Management
 
             Page.RegisterBodyScripts("~/UserControls/Management/LoginHistory/js/loginhistory.js")
                 .RegisterStyle("~/UserControls/Management/LoginHistory/css/loginhistory.less");
-
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Management/LoginHistory/css/dark-loginhistory.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Management/LoginHistory/css/loginhistory.less");
+            }
             var emptyScreenControl = new EmptyScreenControl
             {
-                ImgSrc = WebPath.GetPath("UserControls/Management/LoginHistory/img/login_history_empty_screen.jpg"),
+                ImgSrc = WebPath.GetPath("UserControls/Management/LoginHistory/img/login_history_empty_screen.svg"),
                 Header = AuditResource.LoginHistoryEmptyScreenHeader,
                 Describe = AuditResource.LoginHistoryEmptyScreenDscr
             };

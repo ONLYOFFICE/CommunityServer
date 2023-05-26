@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,12 +32,14 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Creates a mail group with the parameters specified in the request.
         /// </summary>
-        /// <param name="name">Sender name</param>
-        /// <param name="domain_id">Domain ID</param>
-        /// <param name="address_ids">List of address IDs</param>
-        /// <returns>Mail group data associated with the tenant</returns>
+        /// <param type="System.String, System" name="name">Sender name</param>
+        /// <param type="System.Int32, System" name="domain_id">Domain ID</param>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="address_ids">List of address IDs</param>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainGroupData, ASC.Mail">Mail group data associated with the tenant</returns>
         /// <short>Create a mail group</short>
         /// <category>Mail groups</category>
+        /// <path>api/2.0/mailserver/groupaddress/add</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"groupaddress/add")]
         public ServerDomainGroupData CreateMailGroup(string name, int domain_id, List<int> address_ids)
         {
@@ -49,11 +51,13 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Adds an address with the ID specified in the request to the mail group.
         /// </summary>
-        /// <param name="mailgroup_id">Mail group ID</param>
-        /// <param name="address_id">Address ID</param>
-        /// <returns>Mail group data associated with the tenant</returns>
+        /// <param type="System.Int32, System" name="mailgroup_id">Mail group ID</param>
+        /// <param type="System.Int32, System" name="address_id">Address ID</param>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainGroupData, ASC.Mail">Mail group data associated with the tenant</returns>
         /// <short>Add an address to the mail group</short> 
         /// <category>Mail groups</category>
+        /// <path>api/2.0/mailserver/groupaddress/address/add</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"groupaddress/address/add")]
         public ServerDomainGroupData AddMailGroupAddress(int mailgroup_id, int address_id)
         {
@@ -63,13 +67,15 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        /// Remove an address with the ID specified in the request from the mail group.
+        /// Removes an address with the ID specified in the request from the mail group.
         /// </summary>
-        /// <param name="mailgroup_id">Mail group ID</param>
-        /// <param name="address_id">Address ID</param>
+        /// <param type="System.Int32, System" name="mailgroup_id">Mail group ID</param>
+        /// <param type="System.Int32, System" name="address_id">Address ID</param>
         /// <returns>Mail group ID</returns>
         /// <short>Remove an address from the mail group</short>
         /// <category>Mail groups</category>
+        /// <path>api/2.0/mailserver/groupaddress/addresses/remove</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"groupaddress/addresses/remove")]
         public int RemoveMailGroupAddress(int mailgroup_id, int address_id)
         {
@@ -81,9 +87,12 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Returns a list of mail groups associated with the tenant.
         /// </summary>
-        /// <returns>List of mail group data for the current tenant</returns>
+        /// <returns type="ASC.Mail.Data.Contracts.ServerDomainGroupData, ASC.Mail">List of mail group data for the current tenant</returns>
         /// <short>Get mail groups</short>
         /// <category>Mail groups</category>
+        /// <path>api/2.0/mailserver/groupaddress/get</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"groupaddress/get")]
         public List<ServerDomainGroupData> GetMailGroups()
         {
@@ -95,10 +104,12 @@ namespace ASC.Api.MailServer
         /// <summary>
         /// Deletes a mail group with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Mail group ID</param>
+        /// <param type="System.Int32, System" method="url" name="id">Mail group ID</param>
         /// <returns>Mail group ID</returns>
         /// <short>Remove a mail group</short> 
         /// <category>Mail groups</category>
+        /// <path>api/2.0/mailserver/groupaddress/remove/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"groupaddress/remove/{id}")]
         public int RemoveMailGroup(int id)
         {

@@ -4,10 +4,10 @@ After=network.target syslog.target mysql.service
 Wants=mysql.service
 
 [Service]
-Type=forking
+Type=simple
+WorkingDirectory=/var/www/onlyoffice/Services/ASC.UrlShortener/
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeUrlShortener'
-ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeUrlShortener /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.UrlShortener.Svc.Launcher,ASC.UrlShortener.Svc\" --log UrlShortener
-Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/TeamLabSvc/
+ExecStart=/usr/bin/node /var/www/onlyoffice/Services/ASC.UrlShortener/index.js UNIX.SERVER
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

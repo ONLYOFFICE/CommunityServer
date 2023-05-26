@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,6 +154,50 @@ namespace ASC.ActiveDirectory
             }
 
             return false;
+        }
+
+        public static long ConvertSizeToBytes(string size)
+        {
+            long bytes = 0;
+            try
+            {
+                if (size == null) { return -1; }
+
+                var regex = new Regex(@"\d+|\w+");
+                var matches = regex.Matches(size);
+                if (matches.Count > 0)
+                {
+                    var num = int.Parse(matches[0].Value);
+                    var unit = matches[1].Value.ToLower();
+                    switch (unit)
+                    {
+                        case "bytes":
+                            bytes = num;
+                            break;
+                        case "kb":
+                            bytes = num * 1024;
+                            break;
+                        case "mb":
+                            bytes = Convert.ToInt64(num * Math.Pow(1024, 2));
+                            break;
+                        case "gb":
+                            bytes = Convert.ToInt64(num * Math.Pow(1024, 3));
+                            break;
+                        case "tb":
+                            bytes = Convert.ToInt64(num * Math.Pow(1024, 4));
+                            break;
+                        case "pb":
+                            bytes = Convert.ToInt64(num * Math.Pow(1024, 5));
+                            break;
+                    }
+                    return bytes;
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return -1;
         }
 
         public static bool TryInstallCert(Syscert.X509Certificate certificate, ILog log = null)

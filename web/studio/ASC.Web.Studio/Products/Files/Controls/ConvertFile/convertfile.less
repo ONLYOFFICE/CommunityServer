@@ -1,0 +1,154 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+@import "../../App_Themes/default/params.less";
+/*******************************************************************************
+    Convert&Dowload
+*******************************************************************************/
+.cnvrt-list-file-block {
+    padding: 10px 0;
+}
+.cnvrt-list-file-block .tl-combobox {
+    max-width: 100%;
+    display: none;
+}
+.cnvrt-list-file-block .tl-combobox .combobox-container .container-top {
+    right: 8px;
+}
+.cnvrt-list-file-block .tl-combobox .combobox-container .combobox-options {
+    max-height: none;
+}
+.cnvrt-file-block {
+    border-left: medium none;
+    border-right: medium none;
+    margin-bottom: -1px;
+    min-height: 30px;
+}
+.cnvrt-file-block:hover {
+    background-color: @cnvrt-file-block-hover;
+}
+.cnvrt-file-block-active {
+    background-color: @cnvrt-file-block-active;
+}
+.cnvrt-file-block-open .cnvrt-file-block-head {
+    border-bottom: 1px dotted #d1d1d1;
+}
+.cnvrt-file-block-body {
+    padding-left: 20px;
+}
+.cnvrt-file-block-open .cnvrt-file-block-body {
+    display: block;
+}
+.cnvrt-file-block-closed .cnvrt-file-block-body {
+    display: none;
+}
+.cnvrt-status-content {
+    background-color: transparent;
+    background-image: url("images/tree_action.png");
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    width: 20px;
+}
+.cnvrt-file-block-open .cnvrt-status-content {
+    background-position: -12px 5px;
+}
+.cnvrt-file-block-closed .cnvrt-status-content {
+    background-position: 5px 5px;
+}
+.cnvrt-cbx-content {
+    float: left;
+    margin-top: 6px;
+}
+.cnvrt-format-icon-content {
+    float: left;
+    margin: 4px 5px 5px;
+}
+.cnvrt-title-content {
+    float: left;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 205px;
+}
+.cnvrt-title-content .file-extension {
+    font-weight: bold;
+}
+.cnvrt-file-block-head .cnvrt-title-content {
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 5px;
+    width: 231px;
+}
+.cnvrt-tooltip-content {
+    color: #808080;
+    display: none;
+    float: left;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 0 10px;
+    text-align: right;
+    text-overflow: ellipsis;
+    width: 115px;
+    white-space: nowrap;
+}
+.cnvrt-format-title-content {
+    float: right;
+    margin-top: 8px;
+    width: 130px;
+}
+.cnvrt-format-title-content select {
+    width: 122px;
+}
+.mobile .cnvrt-format-title-content {
+    margin-top: 3px;
+}
+.cnvrt-format-title-content .tl-combobox {
+    height: 15px;
+}
+.cnvrt-format-title {
+    display: none;
+}
+
+.cnvrt-file-block-active .tl-combobox {
+    display: inline-block;
+}
+.cnvrt-file-block-active .tl-combobox .combobox-title .inner-text {
+    border-bottom-width: 0;
+}
+.cnvrt-file-block-active:hover .tl-combobox .combobox-title .inner-text {
+    border-bottom-width: 1px;
+}
+
+.cnvrt-file-block-active .cnvrt-file-block-head .cnvrt-tooltip-content,
+.cnvrt-file-block-active .cnvrt-file-row-active .cnvrt-tooltip-content {
+    display: block;
+}
+.cnvrt-file-row,
+.cnvrt-file-block-head {
+    height: 30px;
+}
+/***********************************\
+    Convert and Open
+\***********************************/
+#confirmCopyConvert .files-progress-box {
+    border: none;
+    display: block;
+    margin-left: auto;
+    padding: 0;
+}

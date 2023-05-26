@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@
     position: absolute;
     padding: 4px;
     z-index: 1999;
+    background-color: @body-color !important;
+    border-color: @bg-dropdown-separator !important;
     .borderRadius(4px);
     .boxShadow();
     .noneSelect();
@@ -115,7 +117,7 @@
             &:hover,
             &:hover a {
                 text-decoration: none;
-                background-color: #e9e9e9;
+                background-color: @menu-selected-bg;
                 .borderRadius(2px);
             }
         }
@@ -125,7 +127,7 @@
             position: relative;
 
             &:after {
-                content: url("/skins/default/images/svg/context/icon_arrow.svg");
+                content: url("/skins/default/images/svg/context/@{icon-arrow}");
                 right: 4px;
                 position: absolute;
                 top: 8px;
@@ -168,15 +170,15 @@
         .dropdown-item-svg {
             width: 16px;
             height: 16px;
-            fill:#83888d;
-         }
+            fill: #83888d;
+        }
 
         .dropdown-item-icon {
             width: 16px;
             height: 16px;
             margin: 8px 5px 0 0;
             float: left;
-        } 
+        }
     }
 }
 
@@ -251,7 +253,7 @@
 }
 
 .dropdown-item-seporator {
-    border-top: 1px solid #E4E4E4;
+    border-top: 1px solid @bg-dropdown-separator;
     width: 100%;
     margin: 2px 0;
 }
@@ -288,6 +290,19 @@
     background-repeat: no-repeat;
     background-position: 4px center;
     float: none;
+    position: relative;
+
+    &::before {
+        content: "";
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 100%;
+        position: absolute;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: 4px center;
+        background-color: @action-panel-context-bg;
+    }
 
     &.with-toggle {
         padding-right: 0;
@@ -308,9 +323,9 @@
 
             &.off {
                 text-align: left;
-                background: #CCCCCC;
+                background: @toggle-switcher-bg;
             }
-            
+
             .switcher {
                 width: 9px;
                 height: 9px;
@@ -322,235 +337,388 @@
         }
     }
 
-    &.accept {
-        background-image: url("/skins/default/images/svg/context/icon_accept.svg");
-    }
-    &.access {
-        background-image: url("/skins/default/images/svg/context/icon_access.svg");
-    }
-    &.add-email {
-        background-image: url("/skins/default/images/svg/context/icon_add_email.svg");
-    }
-    &.block {
-        background-image: url("/skins/default/images/svg/context/icon_block.svg");
-    }
-    &.call {
-        background-image: url("/skins/default/images/svg/context/icon_call.svg");
-    }
-    &.case {
-        background-image: url("/skins/default/images/svg/context/icon_case.svg");
-    }
-    &.calendar {
-        background-image: url("/skins/default/images/svg/context/icon_calendar.svg");
-    }
-    &.chat {
-        background-image: url("/skins/default/images/svg/context/icon_chat.svg");
-    }
-    &.closed-tasks-report {
-        background-image: url("/skins/default/images/svg/context/icon_closed_tasks_report.svg");
-    }
-    &.create {
-        background-image: url("/skins/default/images/svg/context/icon_create.svg");
-    }
-    &.create-form {
-        background-image: url("/skins/default/images/svg/context/icon_create_form.svg");
-    }
-    &.delete {
-        background-image: url("/skins/default/images/svg/context/icon_delete.svg");
-    }
-    &.disable-item {
-        background-image: url("/skins/default/images/svg/context/icon_disable.svg");
-    }
-    &.document {
-        background-image: url("/skins/default/images/svg/context/icon_document.svg");
-    }
-    &.download {
-        background-image: url("/skins/default/images/svg/context/icon_download.svg");
-    }
-    &.download-as {
-        background-image: url("/skins/default/images/svg/context/icon_download_as.svg");
-    }
-    &.download-as {
-        background-image: url("/skins/default/images/svg/context/icon_download_as.svg");
-    }
-    &.edit {
-        background-image: url("/skins/default/images/svg/context/icon_edit.svg");
-    }
-    &.email {
-        background-image: url("/skins/default/images/svg/context/icon_email.svg");
-    }
-    &.email-v2 {
-        background-image: url("/skins/default/images/svg/context/icon_email_v2.svg");
-    }
-    &.empty-recycle-bin {
-        background-image: url("/skins/default/images/svg/context/icon_empty_recycle_bin.svg");
-    }
-    &.enable-item {
-        background-image: url("/skins/default/images/svg/context/icon_enable.svg");
-    }
-    &.export {
-        background-image: url("/skins/default/images/svg/context/icon_export.svg");
-    }
-    &.extrn-link {
-        background-image: url("/skins/default/images/svg/context/icon_extrn_link.svg");
-    }
-    &.extrn-link-v2 {
-        background-image: url("/skins/default/images/svg/context/icon_extrn_link_v2.svg");
-    }
-    &.favorites {
-        background-image: url("/skins/default/images/svg/context/icon_favorite.svg");
-    }
-    &.fill-form {
-        background-image: url("/skins/default/images/svg/context/icon_fill_form.svg");
-    }
-    &.filter {
-        background-image: url("/skins/default/images/svg/context/icon_filter.svg");
-    }
-    &.form-filling {
-        background-image: url("/skins/default/images/svg/context/icon_form_filling.svg");
-    }
-    &.forward {
-        background-image: url("/skins/default/images/svg/context/icon_forward.svg");
-    }
-    &.history {
-        background-image: url("/skins/default/images/svg/context/icon_history.svg");
-    }
-    &.image {
-        background-image: url("/skins/default/images/svg/context/icon_image.svg");
-    }
-    &.invoice {
-        background-image: url("/skins/default/images/svg/context/icon_invoice.svg");
-    }
-    &.invoice-draft {
-        background-image: url("/skins/default/images/svg/context/icon_invoice_draft.svg");
-    }
-    &.invoice-paid {
-        background-image: url("/skins/default/images/svg/context/icon_invoice_paid.svg");
-    }
-    &.invoice-rejected {
-        background-image: url("/skins/default/images/svg/context/icon_invoice_rejected.svg");
-    }
-    &.invoice-send {
-        background-image: url("/skins/default/images/svg/context/icon_invoice_send.svg");
-    }
-    &.link {
-        background-image: url("/skins/default/images/svg/context/icon_link.svg");
-    }
-    &.mark-as-important {
-        background-image: url("/skins/default/images/svg/context/icon_mark_as_important.svg");
-    }
-    &.mark-as-read {
-        background-image: url("/skins/default/images/svg/context/icon_mark_as_read.svg");
-    }
-    &.move {
-        background-image: url("/skins/default/images/svg/context/icon_move.svg");
-    }
-    &.move-or-copy {
-        background-image: url("/skins/default/images/svg/context/icon_move_or_copy.svg");
-    }
-    &.move-to-milestone {
-        background-image: url("/skins/default/images/svg/context/icon_move_to_milestone.svg");
-    }
-    &.new-opportunity {
-        background-image: url("/skins/default/images/svg/context/icon_new_opportunity.svg");
-    }
-    &.new-tab {
-        background-image: url("/skins/default/images/svg/context/icon_new_tab.svg");
-    }
-    &.new-task {
-        background-image: url("/skins/default/images/svg/context/icon_new_task.svg");
-    }
-    &.notify-responsible {
-        background-image: url("/skins/default/images/svg/context/icon_notify_responsible.svg");
-    }
-    &.open-folder {
-        background-image: url("/skins/default/images/svg/context/icon_open_folder.svg");
-    }
-    &.open-location {
-        background-image: url("/skins/default/images/svg/context/icon_open_location.svg");
-    }
-    &.open-mail {
-        background-image: url("/skins/default/images/svg/context/icon_open_mail.svg");
-    }
-    &.open-tasks-report {
-        background-image: url("/skins/default/images/svg/context/icon_open_tasks_report.svg");
-    }
-    &.permissions {
-        background-image: url("/skins/default/images/svg/context/icon_permissions.svg");
-    }
-    &.phone {
-        background-image: url("/skins/default/images/svg/context/icon_phone.svg");
-    }
-    &.preview {
-        background-image: url("/skins/default/images/svg/context/icon_preview.svg");
-    }
-    &.print {
-        background-image: url("/skins/default/images/svg/context/icon_print.svg");
-    }
-    &.project {
-        background-image: url("/skins/default/images/svg/context/icon_project.svg");
-    }
-    &.reassign-data {
-        background-image: url("/skins/default/images/svg/context/icon_reassign_data.svg");
-    }
-    &.rename {
-        background-image: url("/skins/default/images/svg/context/icon_rename.svg");
-    }
-    &.reply {
-        background-image: url("/skins/default/images/svg/context/icon_reply.svg");
-    }
-    &.reply-all {
-        background-image: url("/skins/default/images/svg/context/icon_reply_all.svg");
-    }
-    &.restore {
-        background-image: url("/skins/default/images/svg/context/icon_restore.svg");
-    }
-    &.ringtone {
-        background-image: url("/skins/default/images/svg/context/icon_ringtone.svg");
-    }
-    &.settings {
-        background-image: url("/skins/default/images/svg/context/icon_settings.svg");
-    }
-    &.sign {
-        background-image: url("/skins/default/images/svg/context/icon_sign.svg");
-    }
-    &.spam {
-        background-image: url("/skins/default/images/svg/context/icon_spam.svg");
-    }
-    &.subtask {
-        background-image: url("/skins/default/images/svg/context/icon_subtask.svg");
-    }
-    &.subtask-v2 {
-        background-image: url("/skins/default/images/svg/context/icon_subtask_v2.svg");
-    }
-    &.templates {
-        background-image: url("/skins/default/images/svg/context/icon_template.svg");
-    }
-    &.track-time {
-        background-image: url("/skins/default/images/svg/context/icon_track_time.svg");
-    }
-    &.un-notify-responsible {
-        background-image: url("/skins/default/images/svg/context/icon_un_notify_responsible.svg");
-    }
-    &.unlink {
-        background-image: url("/skins/default/images/svg/context/icon_unlink.svg");
-    }
-    &.unlink-v2 {
-        background-image: url("/skins/default/images/svg/context/icon_unlink_v2.svg");
-    }
-    &.user {
-        background-image: url("/skins/default/images/svg/context/icon_user.svg");
-    }
-    &.user-active {
-        background-image: url("/skins/default/images/svg/context/icon_user_active.svg");
-    }
-    &.user-deactive {
-        background-image: url("/skins/default/images/svg/context/icon_user_deactive.svg");
-    }
-    &.user-new {
-        background-image: url("/skins/default/images/svg/context/icon_user_new.svg");
-    }
-    &.user-v2 {
-        background-image: url("/skins/default/images/svg/context/icon_user_v2.svg");
+    &.accept::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_accept.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_accept.svg");
+    }
+
+    &.access::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_access.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_access.svg");
+    }
+
+    &.add-email::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_add_email.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_add_email.svg");
+    }
+
+    &.block::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_block.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_block.svg");
+    }
+
+    &.call::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_call.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_call.svg");
+    }
+
+    &.case::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_case.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_case.svg");
+    }
+
+    &.calendar::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_calendar.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_calendar.svg");
+    }
+
+    &.chat::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_chat.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_chat.svg");
+    }
+
+    &.closed-tasks-report::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_closed_tasks_report.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_closed_tasks_report.svg");
+    }
+
+    &.create::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_create.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_create.svg");
+    }
+
+    &.create-form::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_create_form.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_create_form.svg");
+    }
+
+    &.delete::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_delete.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_delete.svg");
+    }
+
+    &.disable-item::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_disable.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_disable.svg");
+    }
+
+    &.impersonate-item::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_user.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_user.svg");
+    }
+
+    &.document::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_document.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_document.svg");
+    }
+
+    &.download::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_download.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_download.svg");
+    }
+
+    &.download-as::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_download_as.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_download_as.svg");
+    }
+
+    &.edit::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_edit.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_edit.svg");
+    }
+
+    &.email::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_email.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_email.svg");
+    }
+
+    &.email-v2::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_email_v2.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_email_v2.svg");
+    }
+
+    &.empty-recycle-bin::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_empty_recycle_bin.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_empty_recycle_bin.svg");
+    }
+
+    &.enable-item::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_enable.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_enable.svg");
+    }
+
+    &.export::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_export.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_export.svg");
+    }
+
+    &.extrn-link::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_extrn_link.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_extrn_link.svg");
+    }
+
+    &.extrn-link-v2::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_extrn_link_v2.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_extrn_link_v2.svg");
+    }
+
+    &.favorites::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_favorite.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_favorite.svg");
+    }
+
+    &.fill-form::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_fill_form.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_fill_form.svg");
+    }
+
+    &.filter::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_filter.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_filter.svg");
+    }
+
+    &.form-filling::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_form_filling.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_form_filling.svg");
+    }
+
+    &.forward::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_forward.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_forward.svg");
+    }
+
+    &.history::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_history.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_history.svg");
+    }
+
+    &.image::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_image.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_image.svg");
+    }
+
+    &.invoice::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_invoice.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_invoice.svg");
+    }
+
+    &.invoice-draft::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_invoice_draft.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_invoice_draft.svg");
+    }
+
+    &.invoice-paid::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_invoice_paid.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_invoice_paid.svg");
+    }
+
+    &.invoice-rejected::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_invoice_rejected.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_invoice_rejected.svg");
+    }
+
+    &.invoice-send::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_invoice_send.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_invoice_send.svg");
+    }
+
+    &.link::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_link.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_link.svg");
+    }
+
+    &.mark-as-important::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_mark_as_important.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_mark_as_important.svg");
+    }
+
+    &.mark-as-read::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_mark_as_read.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_mark_as_read.svg");
+    }
+
+    &.move::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_move.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_move.svg");
+    }
+
+    &.move-or-copy::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_move_or_copy.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_move_or_copy.svg");
+    }
+
+    &.move-to-milestone::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_move_to_milestone.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_move_to_milestone.svg");
+    }
+
+    &.new-opportunity::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_new_opportunity.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_new_opportunity.svg");
+    }
+
+    &.new-tab::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_new_tab.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_new_tab.svg");
+    }
+
+    &.new-task::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_new_task.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_new_task.svg");
+    }
+
+    &.notify-responsible::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_notify_responsible.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_notify_responsible.svg");
+    }
+
+    &.open-folder::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_open_folder.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_open_folder.svg");
+    }
+
+    &.open-location::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_open_location.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_open_location.svg");
+    }
+
+    &.open-mail::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_open_mail.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_open_mail.svg");
+    }
+
+    &.open-tasks-report::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_open_tasks_report.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_open_tasks_report.svg");
+    }
+
+    &.permissions::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_permissions.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_permissions.svg");
+    }
+
+    &.phone::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_phone.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_phone.svg");
+    }
+
+    &.preview::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_preview.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_preview.svg");
+    }
+
+    &.print::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_print.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_print.svg");
+    }
+
+    &.project::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_project.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_project.svg");
+    }
+
+    &.reassign-data::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_reassign_data.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_reassign_data.svg");
+    }
+
+    &.rename::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_rename.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_rename.svg");
+    }
+
+    &.reply::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_reply.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_reply.svg");
+    }
+
+    &.reply-all::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_reply_all.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_reply_all.svg");
+    }
+
+    &.restore::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_restore.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_restore.svg");
+    }
+
+    &.ringtone::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_ringtone.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_ringtone.svg");
+    }
+
+    &.settings::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_settings.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_settings.svg");
+    }
+
+    &.sign::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_sign.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_sign.svg");
+    }
+
+    &.spam::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_spam.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_spam.svg");
+    }
+
+    &.subtask::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_subtask.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_subtask.svg");
+    }
+
+    &.subtask-v2::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_subtask_v2.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_subtask_v2.svg");
+    }
+
+    &.templates::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_template.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_template.svg");
+    }
+
+    &.track-time::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_track_time.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_track_time.svg");
+    }
+
+    &.un-notify-responsible::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_un_notify_responsible.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_un_notify_responsible.svg");
+    }
+
+    &.unlink::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_unlink.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_unlink.svg");
+    }
+
+    &.unlink-v2::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_unlink_v2.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_unlink_v2.svg");
+    }
+
+    &.user::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_user.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_user.svg");
+    }
+
+    &.user-active::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_user_active.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_user_active.svg");
+    }
+
+    &.user-deactive::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_user_deactive.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_user_deactive.svg");
+    }
+
+    &.user-new::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_user_new.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_user_new.svg");
+    }
+
+    &.user-v2::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_user_v2.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_user_v2.svg");
     }
 }

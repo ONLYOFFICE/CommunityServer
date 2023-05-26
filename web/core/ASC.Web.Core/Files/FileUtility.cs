@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -155,10 +155,10 @@ namespace ASC.Web.Core.Files
                     _extsConvertible = new Dictionary<string, List<string>>();
                     if (string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl)) return _extsConvertible;
 
-                    const string databaseId = "files";
+                    const string databaseId = "default";
                     const string tableTitle = "files_converts";
 
-                    using (var dbManager = DbManager.FromHttpContext(databaseId))
+                    using (var dbManager = new DbManager(databaseId))
                     {
                         var sqlQuery = new SqlQuery(tableTitle).Select("input", "output");
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -221,6 +221,11 @@ window.userFoldersManager = (function($) {
 
     function moveTo(id, toId) {
         var initFolder = get(id);
+
+        if (!initFolder) {
+            eventsHandler.trigger(supportedCustomEvents.OnError, "Unknown folder");
+            return;
+        }
 
         if (initFolder.parent === toId) {
             eventsHandler.trigger(supportedCustomEvents.OnError, "Folder already exists in this folder");

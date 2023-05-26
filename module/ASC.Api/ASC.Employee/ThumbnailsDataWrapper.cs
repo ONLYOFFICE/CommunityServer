@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,22 +38,27 @@ namespace ASC.Api.Employee
         private ThumbnailsDataWrapper()
         {
         }
-
+        ///<example>default_user_photo_size_1280-1280.png</example>
         [DataMember]
         public string Original { get; set; }
 
+        ///<example>default_user_photo_size_360-360.png</example>
         [DataMember]
         public string Retina { get; set; }
 
+        ///<example>default_user_photo_size_200-200.png</example>
         [DataMember]
         public string Max { get; set; }
 
+        ///<example>default_user_photo_size_82-82.png</example>
         [DataMember]
         public string Big { get; set; }
 
+        ///<example>"default_user_photo_size_48-48.png</example>
         [DataMember]
         public string Medium { get; set; }
 
+        ///<example>default_user_photo_size_32-32.png</example>
         [DataMember]
         public string Small { get; set; }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ using System.Web.Optimization;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Employee;
+using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Api.Utils;
 using ASC.Common.Logging;
@@ -73,16 +74,24 @@ using StorageHelper = ASC.Web.Studio.UserControls.CustomNavigation.StorageHelper
 namespace ASC.Api.Settings
 {
     ///<summary>
-    /// Portal settings.
+    /// Portal settings API.
     ///</summary>
+    ///<name>settings</name>
     public partial class SettingsApi : IApiEntryPoint
     {
         private const int ONE_THREAD = 1;
         private ILog Log = LogManager.GetLogger("ASC");
+        private static readonly DistributedTaskQueue userQuotaTasks = new DistributedTaskQueue("userQuotaOperations", ONE_THREAD);
         private static readonly DistributedTaskQueue ldapTasks = new DistributedTaskQueue("ldapOperations");
         private static readonly DistributedTaskQueue quotaTasks = new DistributedTaskQueue("quotaOperations", ONE_THREAD);
         private static readonly DistributedTaskQueue smtpTasks = new DistributedTaskQueue("smtpOperations");
 
+        private readonly ApiContext _context;
+
+        public SettingsApi(ApiContext context)
+        {
+            _context = context;
+        }
         public string Name
         {
             get { return "settings"; }
@@ -113,14 +122,16 @@ namespace ASC.Api.Settings
             get { return smtpTasks; }
         }
 
-        ///<summary>
+        /// <summary>
         /// Returns a list of all the available portal settings with the current values for each parameter.
-        ///</summary>
-        ///<short>
+        /// </summary>
+        /// <short>
         /// Get the portal settings
-        ///</short>
-        ///<category>Common settings</category>
-        ///<returns>Settings</returns>
+        /// </short>
+        /// <category>Common settings</category>
+        /// <returns type="ASC.Api.Settings.SettingsWrapper, ASC.Api.Settings">Settings</returns>
+        /// <path>api/2.0/settings</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("")]
         public SettingsWrapper GetSettings()
         {
@@ -135,27 +146,84 @@ namespace ASC.Api.Settings
             return settings;
         }
 
-        ///<summary>
-        /// Returns the space usage quota for the portal with the space usage of each module.
-        ///</summary>
-        ///<short>
+        /// <summary>
+        /// Returns the space usage quota for the portal with the specified space usage for each module.
+        /// </summary>
+        /// <short>
         /// Get the space usage
-        ///</short>
-        ///<category>Quota</category>
-        ///<returns>Space usage and limits for upload</returns>
+        /// </short>
+        /// <category>Quota</category>
+        /// <returns type="ASC.Web.Studio.Core.Quota.QuotaWrapper, ASC.Web.Studio">Space usage and limits for upload</returns>
+        /// <path>api/2.0/settings/quota</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("quota")]
         public QuotaWrapper GetQuotaUsed()
         {
             return QuotaWrapper.GetCurrent();
         }
 
-        ///<summary>
-        /// Starts the process of recalculating quota.
+        /// <summary>
+        /// Save user quota limit
         ///</summary>
         ///<short>
-        /// Recalculates quota 
+        /// Save user quota limit
         ///</short>
-        ///<category>Quota</category>
+        ///<category>User quota</category>
+        ///<returns>Operation result</returns>
+        [Create("userquotasettings")]
+        public TenantUserQuotaSettings SaveUserQuotaSettings(bool enableUserQuota, long defaultUserQuota)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var tenanSpaceQuota = TenantExtra.GetTenantQuota(false).MaxTotalSize;
+            if (tenanSpaceQuota < defaultUserQuota)
+            {
+                throw new Exception(Resource.QuotaGreaterPortalError);
+            }
+
+            var tenantUserQuotaSetting = TenantUserQuotaSettings.Load();
+
+            var newTenantUserQuotaSetting = new TenantUserQuotaSettings { EnableUserQuota = enableUserQuota, DefaultUserQuota = defaultUserQuota, LastRecalculateDate = tenantUserQuotaSetting.LastRecalculateDate };
+
+            newTenantUserQuotaSetting.Save();
+
+            return tenantUserQuotaSetting;
+        }
+
+        ///<summary>
+        /// Set tenant quota settings
+        ///</summary>
+        ///<short>
+        /// Set tenant quota settings
+        ///</short>
+        ///<category>Tenant quota</category>
+        ///<returns>Operation result</returns>
+        [Update("tenantquotasettings")]
+        public TenantQuotaSettings SetTenantQuotaSettings(int tenantId, bool disableQuota)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() || !CoreContext.Configuration.Standalone)
+                throw new NotSupportedException("Not available.");
+
+            var tenantQuotaSetting = new TenantQuotaSettings { DisableQuota = disableQuota };
+            tenantQuotaSetting.SaveForTenant(tenantId);
+
+            return tenantQuotaSetting;
+        }
+
+       
+
+        ///<summary>
+        /// Starts the process of recalculating quota.
+        /// </summary>
+        /// <short>
+        /// Recalculate quota 
+        /// </short>
+        /// <category>Quota</category>
+        /// <path>api/2.0/settings/recalculatequota</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <returns></returns>
         [Read("recalculatequota")]
         public void RecalculateQuota()
         {
@@ -174,14 +242,16 @@ namespace ASC.Api.Settings
             quotaTasks.QueueTask(op.RunJob, op.GetDistributedTask());
         }
 
-        ///<summary>
+        /// <summary>
         /// Checks the process of recalculating quota.
-        ///</summary>
-        ///<short>
-        /// Check quota recalculating
-        ///</short>
-        ///<category>Quota</category>
-        ///<returns>Boolean value: True - quota recalculating process is enabled, False - quota recalculating process is disabled</returns>
+        /// </summary>
+        /// <short>
+        /// Check quota recalculation
+        /// </short>
+        /// <category>Quota</category>
+        /// <returns>Boolean value: true - quota recalculation process is enabled, false - quota recalculation process is disabled</returns>
+        /// <path>api/2.0/settings/checkrecalculatequota</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("checkrecalculatequota")]
         public bool CheckRecalculateQuota()
         {
@@ -199,12 +269,120 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
+        /// Changes a quota limit for the users with the IDs specified in the request.
+        /// </summary>
+        /// <short>
+        /// Change a user quota limit
+        /// </short>
+        /// <category>User quota</category>
+        /// <param name="userIds">List of user IDs</param>
+        /// <param name="quota">User quota</param>
+        /// <returns>List of users</returns>
+        [Update("userquota")]
+        public IEnumerable<EmployeeWraperFull> UpdateUserQuota(IEnumerable<Guid> userIds, long quota)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var tenanSpaceQuota = TenantExtra.GetTenantQuota(false).MaxTotalSize;
+            if (tenanSpaceQuota < quota)
+            {
+                throw new Exception(Resource.QuotaGreaterPortalError);
+            }
+
+            var users = userIds
+                .Select(userId => CoreContext.UserManager.GetUsers(userId))
+                .Where(userInfo => !CoreContext.UserManager.IsSystemUser(userInfo.ID))
+                .ToList();
+
+            foreach (var user in users)
+            {
+                if (quota >= 0)
+                {
+                    var usedSpace = Math.Max(0,
+                        CoreContext.TenantManager.FindUserQuotaRows(CoreContext.TenantManager.GetCurrentTenant().TenantId, user.ID)
+                        .Where(r => !string.IsNullOrEmpty(r.Tag)).Where(r => r.Tag != Guid.Empty.ToString()).Sum(r => r.Counter)
+                    );
+
+                    if (usedSpace > quota)
+                    {
+                        if (users.Count > 1)
+                        {
+                            throw new Exception(Resource.QuotaGroupError);
+                        }
+                        else
+                        {
+                            throw new Exception(Resource.QuotaLessUsedMemoryError);
+                        }
+                    }
+                }
+
+                var userQuotaSettings = new UserQuotaSettings { UserQuota = quota };
+                userQuotaSettings.SaveForUser(user.ID);
+            }
+
+            return users.Select(user => new EmployeeWraperFull(user, _context));
+
+        }
+
+        ///<summary>
+        /// Starts the process of recalculating users quota.
+        ///</summary>
+        ///<short>
+        /// Recalculates quota 
+        ///</short>
+        ///<category>Quota</category>
+        [Read("recalculateuserquota")]
+        public void RecalculateUserQuota()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var operations = userQuotaTasks.GetTasks()
+                .Where(t => t.GetProperty<int>(UserQuotaSync.TenantIdKey) == TenantProvider.CurrentTenantID);
+
+            if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
+            {
+                throw new InvalidOperationException(Resource.QuotaSettingsTooManyOperations);
+            }
+
+            var op = new UserQuotaSync(TenantProvider.CurrentTenantID);
+
+            userQuotaTasks.QueueTask(op.RunJob, op.GetDistributedTask());
+        }
+
+        ///<summary>
+        /// Checks the process of recalculating users quota.
+        ///</summary>
+        ///<short>
+        /// Check users quota recalculating
+        ///</short>
+        ///<category>Quota</category>
+        ///<returns>Boolean value: True - quota recalculating process is running, False - quota recalculating process is stopped</returns>
+        [Read("checkrecalculateuserquota")]
+        public bool CheckRecalculateUserQuota()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var task = userQuotaTasks.GetTasks().FirstOrDefault(t => t.GetProperty<int>(UserQuotaSync.TenantIdKey) == TenantProvider.CurrentTenantID);
+
+            if (task != null && task.Status != DistributedTaskStatus.Created && task.Status != DistributedTaskStatus.Running)
+            {
+                userQuotaTasks.RemoveTask(task.Id);
+                return false;
+            }
+
+            return task != null;
+        }
+
+        /// <summary>
         /// Returns the current build version.
         /// </summary>
         /// <short>Get the current build version</short>
         /// <category>Versions</category>
+        /// <path>api/2.0/settings/version/build</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
-        /// <returns>Current onlyoffice, editor, mailserver versions</returns>
+        /// <requiresAuthorization>false</requiresAuthorization>
+        /// <returns>Current ONLYOFFICE, editor, mailserver versions</returns>
         [Read("version/build", false, false)] //NOTE: this method doesn't require auth!!!  //NOTE: this method doesn't check payment!!!
         public BuildVersion GetBuildVersions()
         {
@@ -218,6 +396,8 @@ namespace ASC.Api.Settings
         /// Get the portal versions
         /// </short>
         /// <category>Versions</category>
+        /// <path>api/2.0/settings/version</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         /// <returns>List of availibe portal versions including the current version</returns>
         [Read("version")]
@@ -227,13 +407,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Sets the current portal version to the one with the ID specified in the request.
+        /// Sets a version with the ID specified in the request to the current tenant.
         /// </summary>
         /// <short>
         /// Change the portal version
         /// </short>
         /// <category>Versions</category>
-        /// <param name="versionId">Version ID</param>
+        /// <param type="System.Int32, System" name="versionId">Version ID</param>
+        /// <path>api/2.0/settings/version</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         /// <returns>List of availibe portal versions including the current version</returns>
         [Update("version")]
@@ -248,14 +430,17 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns the security settings for the product, module or add-ons specified in the request.
+        /// Returns the security settings for the modules specified in the request.
         /// </summary>
         /// <short>
         /// Get the security settings
         /// </short>
         /// <category>Security</category>
-        /// <param name="ids">List of module IDs</param>
-        /// <returns>Security settings</returns>
+        /// <param type="System.Collections.Generic.IEnumerable{System.String}, System.Collections.Generic" method="url" name="ids">List of module IDs</param>
+        /// <returns type="ASC.Api.Settings.SecurityWrapper, ASC.Api.Settings">Security settings</returns>
+        /// <path>api/2.0/settings/security</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("security")]
         public IEnumerable<SecurityWrapper> GetWebItemSecurityInfo(IEnumerable<string> ids)
         {
@@ -284,8 +469,10 @@ namespace ASC.Api.Settings
         /// Get the module availability
         /// </short>
         /// <category>Security</category>
-        /// <param name="id">Module ID</param>
-        /// <returns>Boolean value: True - module is enabled, False - module is disabled</returns>
+        /// <param type="System.Guid, System" method="url" name="id">Module ID</param>
+        /// <returns>Boolean value: true - module is enabled, false - module is disabled</returns>
+        /// <path>api/2.0/settings/security/{id}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("security/{id}")]
         public bool GetWebItemSecurityInfo(Guid id)
         {
@@ -302,6 +489,8 @@ namespace ASC.Api.Settings
         /// </short>
         /// <category>Security</category>
         /// <returns>List of enabled modules</returns>
+        /// <path>api/2.0/settings/security/modules</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("security/modules")]
         public object GetEnabledModules()
@@ -326,25 +515,69 @@ namespace ASC.Api.Settings
         /// </short>
         /// <category>Security</category>
         /// <returns>Password settings</returns>
+        /// <path>api/2.0/settings/security/password</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("security/password")]
-        public object GetPasswordSettings()
+        public PasswordSettings GetPasswordSettings()
         {
-            var UserPasswordSettings = PasswordSettings.Load();
-
-            return UserPasswordSettings;
+            return PasswordSettings.Load();
         }
 
         /// <summary>
-        /// Sets the security settings to the product, module or add-ons.
+        /// Sets the portal password settings.
         /// </summary>
         /// <short>
-        /// Set the security settings
+        /// Set the password settings
         /// </short>
         /// <category>Security</category>
-        /// <param name="id">Module ID</param>
-        /// <param name="enabled">Specifies if the module is enabled or not</param>
-        /// <param name="subjects">List of user/group IDs</param>
-        /// <returns>Security settings</returns>
+        /// <param type="System.Int32, System" method="url" name="maxLength">Maximum length</param>
+        /// <param type="System.Int32, System" method="url" name="minLength">Minimum length</param>
+        /// <param type="System.Boolean, System" method="url" name="upperCase">Specifies whether to include uppercase letters or not</param>
+        /// <param type="System.Boolean, System" method="url" name="digits">Specifies whether to include digits or not</param>
+        /// <param type="System.Boolean, System" method="url" name="specSymbols">Specifies whether to include special symbols or not</param>
+        /// <returns>Password settings</returns>
+        /// <path>api/2.0/settings/security/password</path>
+        /// <httpMethod>PUT</httpMethod>
+        [Update("security/password")]
+        public PasswordSettings SetPasswordSettings(int maxLength, int minLength, bool upperCase, bool digits, bool specSymbols)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (maxLength < minLength)
+            {
+                throw new ArgumentException(Resource.ErrorArgumentException);
+            }
+
+            var settings = new PasswordSettings()
+            {
+                MaxLength = maxLength,
+                MinLength = minLength,
+                UpperCase = upperCase,
+                Digits = digits,
+                SpecSymbols = specSymbols
+            };
+
+            settings.Save();
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.PasswordStrengthSettingsUpdated);
+
+            return settings;
+        }
+
+        /// <summary>
+        /// Sets the security settings to the module with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Set the module security settings
+        /// </short>
+        /// <category>Security</category>
+        /// <param type="System.String, System" name="id">Module ID</param>
+        /// <param type="System.Boolean, System" name="enabled">Specifies if the selected module is enabled or not</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="subjects">List of user/group IDs</param>
+        /// <path>api/2.0/settings/security</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
+        /// <returns type="ASC.Api.Settings.SecurityWrapper, ASC.Api.Settings">Security settings</returns>
         [Update("security")]
         public IEnumerable<SecurityWrapper> SetWebItemSecurity(string id, bool enabled, IEnumerable<Guid> subjects)
         {
@@ -380,14 +613,17 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Sets access to the products, modules or add-ons specified in the request.
+        /// Sets the security settings to the modules with the IDs specified in the request.
         /// </summary>
         /// <short>
-        /// Set access to web items
+        /// Set the security settings to modules
         /// </short>
         /// <category>Security</category>
-        /// <param name="items">Modules, products or add-ons with security information</param>
-        /// <returns>Security settings</returns>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.String, System.Boolean}}" name="items">Modules with security information</param>
+        /// <path>api/2.0/settings/security/access</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
+        /// <returns type="ASC.Api.Settings.SecurityWrapper, ASC.Api.Settings">Security settings</returns>
         [Update("security/access")]
         public IEnumerable<SecurityWrapper> SetAccessToWebItems(IEnumerable<ItemKeyValuePair<String, Boolean>> items)
         {
@@ -443,8 +679,11 @@ namespace ASC.Api.Settings
         /// Get the product administrators
         /// </short>
         /// <category>Security</category>
-        /// <param name="productid">Product ID</param>
-        /// <returns>List of product administrators</returns>
+        /// <param type="System.Guid, System" method="url" name="productid">Product ID</param>
+        /// <returns type="ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee">List of product administrators</returns>
+        /// <path>api/2.0/settings/security/administrator/{productid}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("security/administrator/{productid}")]
         public IEnumerable<EmployeeWraper> GetProductAdministrators(Guid productid)
         {
@@ -460,9 +699,11 @@ namespace ASC.Api.Settings
         /// Check the product administrator
         /// </short>
         /// <category>Security</category>
-        /// <param name="productid">Product ID</param>
-        /// <param name="userid">User ID</param>
-        /// <returns>Object with user security information</returns>
+        /// <param type="System.Guid, System" method="url" name="productid">Product ID</param>
+        /// <param type="System.Guid, System" method="url" name="userid">User ID</param>
+        /// <returns>Object with the user security information</returns>
+        /// <path>api/2.0/settings/security/administrator</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("security/administrator")]
         public object IsProductAdministrator(Guid productid, Guid userid)
         {
@@ -477,10 +718,12 @@ namespace ASC.Api.Settings
         /// Set the product administrator
         /// </short>
         /// <category>Security</category>
-        /// <param name="productid">Product ID</param>
-        /// <param name="userid">User ID</param>
-        /// <param name="administrator">Specifies if the user will be added to the product as an administrator or deleted from it</param>
-        /// <returns>Object with user security information</returns>
+        /// <param type="System.Guid, System" name="productid">Product ID</param>
+        /// <param type="System.Guid, System" name="userid">User ID</param>
+        /// <param type="System.Boolean, System" name="administrator">Specifies if a user will be a product administrator or not</param>
+        /// <returns>Object with the user security information</returns>
+        /// <path>api/2.0/settings/security/administrator</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("security/administrator")]
         public object SetProductAdministrator(Guid productid, Guid userid, bool administrator)
         {
@@ -517,11 +760,14 @@ namespace ASC.Api.Settings
         /// Get a portal logo
         /// </short>
         /// <category>Common settings</category>
+        /// <param type="System.Boolean, System" name="dark">Specifies if the portal logo will be used for the dark theme or not</param>
         /// <returns>Portal logo image URL</returns>
+        /// <path>api/2.0/settings/logo</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("logo")]
-        public string GetLogo()
+        public string GetLogo(bool dark)
         {
-            return TenantInfoSettings.Load().GetAbsoluteCompanyLogoPath();
+            return TenantInfoSettings.Load().GetAbsoluteCompanyLogoPath(dark);
         }
 
 
@@ -532,10 +778,12 @@ namespace ASC.Api.Settings
         /// Save the white label settings
         /// </short>
         /// <category>Rebranding</category>
-        /// <param name="logoText">Logo text</param>
-        /// <param name="logo">Tenant IDs with their logos</param>
-        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
-        ///<visible>false</visible>
+        /// <param type="System.String, System" name="logoText">Logo text</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.Int32, System.String}}" name="logo">Tenant IDs with their logos</param>
+        /// <param type="System.Boolean, System" name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <path>api/2.0/settings/whitelabel/save</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <visible>false</visible>
         [Create("whitelabel/save")]
         public void SaveWhiteLabelSettings(string logoText, IEnumerable<ItemKeyValuePair<int, string>> logo, bool isDefault)
         {
@@ -591,9 +839,11 @@ namespace ASC.Api.Settings
         /// Save the white label settings from files
         /// </short>
         /// <category>Rebranding</category>
-        /// <param name="attachments">Files with white label settings</param>
-        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
-        ///<visible>false</visible>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase}, System.Collections.Generic" name="attachments">Files with the white label settings</param>
+        /// <param type="System.Boolean, System" name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <path>api/2.0/settings/whitelabel/savefromfiles</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <visible>false</visible>
         [Create("whitelabel/savefromfiles")]
         public void SaveWhiteLabelSettingsFromFiles(IEnumerable<HttpPostedFileBase> attachments, bool isDefault)
         {
@@ -654,7 +904,9 @@ namespace ASC.Api.Settings
         /// </short>
         /// <category>Rebranding</category>
         /// <returns>White label sizes</returns>
-        ///<visible>false</visible>
+        /// <path>api/2.0/settings/whitelabel/sizes</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <visible>false</visible>
         [Read("whitelabel/sizes")]
         public object GetWhiteLabelSizes()
         {
@@ -669,7 +921,10 @@ namespace ASC.Api.Settings
                 new {type = (int)WhiteLabelLogoTypeEnum.Dark, name = WhiteLabelLogoTypeEnum.Dark.ToString(), height = TenantWhiteLabelSettings.logoDarkSize.Height, width = TenantWhiteLabelSettings.logoDarkSize.Width},
                 new {type = (int)WhiteLabelLogoTypeEnum.Favicon, name = WhiteLabelLogoTypeEnum.Favicon.ToString(), height = TenantWhiteLabelSettings.logoFaviconSize.Height, width = TenantWhiteLabelSettings.logoFaviconSize.Width},
                 new {type = (int)WhiteLabelLogoTypeEnum.DocsEditor, name = WhiteLabelLogoTypeEnum.DocsEditor.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorSize.Width},
-                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed, name = WhiteLabelLogoTypeEnum.DocsEditorEmbed.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width}
+                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed, name = WhiteLabelLogoTypeEnum.DocsEditorEmbed.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.Light, name = WhiteLabelLogoTypeEnum.Light.ToString(), height = TenantWhiteLabelSettings.logoLightSize.Height, width = TenantWhiteLabelSettings.logoLightSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.AboutDark, name = WhiteLabelLogoTypeEnum.AboutDark.ToString(), height = TenantWhiteLabelSettings.logoAboutDarkSize.Height, width = TenantWhiteLabelSettings.logoAboutDarkSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.AboutLight, name = WhiteLabelLogoTypeEnum.AboutLight.ToString(), height = TenantWhiteLabelSettings.logoAboutLightSize.Height, width = TenantWhiteLabelSettings.logoAboutLightSize.Width}
             };
         }
 
@@ -682,10 +937,12 @@ namespace ASC.Api.Settings
         /// Get the white label logos
         /// </short>
         /// <category>Rebranding</category>
-        /// <param name="retina">Specifies if the logos will be for the retina screens or not</param>
-        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <param type="System.Boolean, System" name="retina">Specifies if the logos will be for the retina screens or not</param>
+        /// <param type="System.Boolean, System" name="isDefault">Specifies if the default settings will be saved or not</param>
         /// <returns>White label logos</returns>
-        ///<visible>false</visible>
+        /// <path>api/2.0/settings/whitelabel/logos</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <visible>false</visible>
         [Read("whitelabel/logos")]
         public Dictionary<int, string> GetWhiteLabelLogos(bool retina, bool isDefault)
         {
@@ -702,6 +959,9 @@ namespace ASC.Api.Settings
                 result.Add((int)WhiteLabelLogoTypeEnum.Favicon, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Favicon, !retina)));
                 result.Add((int)WhiteLabelLogoTypeEnum.DocsEditor, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, !retina)));
                 result.Add((int)WhiteLabelLogoTypeEnum.DocsEditorEmbed, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, !retina)));
+                result.Add((int)WhiteLabelLogoTypeEnum.Light, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Light, !retina)));
+                result.Add((int)WhiteLabelLogoTypeEnum.AboutDark, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.AboutDark, !retina)));
+                result.Add((int)WhiteLabelLogoTypeEnum.AboutLight, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.AboutLight, !retina)));
             }
             else
             {
@@ -712,6 +972,9 @@ namespace ASC.Api.Settings
                 result.Add((int)WhiteLabelLogoTypeEnum.Favicon, CommonLinkUtility.GetFullAbsolutePath(settings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, !retina)));
                 result.Add((int)WhiteLabelLogoTypeEnum.DocsEditor, CommonLinkUtility.GetFullAbsolutePath(settings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, !retina)));
                 result.Add((int)WhiteLabelLogoTypeEnum.DocsEditorEmbed, CommonLinkUtility.GetFullAbsolutePath(settings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, !retina)));
+                result.Add((int)WhiteLabelLogoTypeEnum.Light, CommonLinkUtility.GetFullAbsolutePath(settings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Light, !retina)));
+                result.Add((int)WhiteLabelLogoTypeEnum.AboutDark, CommonLinkUtility.GetFullAbsolutePath(settings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.AboutDark, !retina)));
+                result.Add((int)WhiteLabelLogoTypeEnum.AboutLight, CommonLinkUtility.GetFullAbsolutePath(settings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.AboutLight, !retina)));
             }
 
             return result;
@@ -724,9 +987,11 @@ namespace ASC.Api.Settings
         /// Get the white label logo text
         /// </short>
         /// <category>Rebranding</category>
-        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <param type="System.Boolean, System" name="isDefault">Specifies if the default settings will be saved or not</param>
         /// <returns>Logo text</returns>
-        ///<visible>false</visible>
+        /// <path>api/2.0/settings/whitelabel/logotext</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <visible>false</visible>
         [Read("whitelabel/logotext")]
         public string GetWhiteLabelLogoText(bool isDefault)
         {
@@ -747,8 +1012,10 @@ namespace ASC.Api.Settings
         /// Restore the white label options
         /// </short>
         /// <category>Rebranding</category>
-        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
-        ///<visible>false</visible>
+        /// <param type="System.Boolean, System" name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <path>api/2.0/settings/whitelabel/restore</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <visible>false</visible>
         [Update("whitelabel/restore")]
         public void RestoreWhiteLabelOptions(bool isDefault)
         {
@@ -767,7 +1034,7 @@ namespace ASC.Api.Settings
             }
         }
 
-        public void RestoreWhiteLabelOptionsForCurrentTenant()
+        private void RestoreWhiteLabelOptionsForCurrentTenant()
         {
             var settings = TenantWhiteLabelSettings.Load();
 
@@ -778,7 +1045,7 @@ namespace ASC.Api.Settings
             tenantInfoSettings.Save();
         }
 
-        public void RestoreWhiteLabelOptionsForDefaultTenant()
+        private void RestoreWhiteLabelOptionsForDefaultTenant()
         {
             var settings = TenantWhiteLabelSettings.LoadForDefaultTenant();
             var storage = StorageFactory.GetStorage(string.Empty, "static_partnerdata");
@@ -786,9 +1053,75 @@ namespace ASC.Api.Settings
             RestoreWhiteLabelOptionsForTenant(settings, storage, Tenant.DEFAULT_TENANT);
         }
 
-        public void RestoreWhiteLabelOptionsForTenant(TenantWhiteLabelSettings settings, IDataStore storage, int tenantId)
+        private void RestoreWhiteLabelOptionsForTenant(TenantWhiteLabelSettings settings, IDataStore storage, int tenantId)
         {
             settings.RestoreDefault(tenantId, storage);
+        }
+
+        /// <summary>
+        /// Restores the white label logos.
+        /// </summary>
+        /// <short>
+        /// Restore the white label logos
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <param type="System.Collections.Generic.List{ASC.Web.Core.WhiteLabel.WhiteLabelLogoTypeEnum}, System.Collections.Generic" name="logoTypes">Logo types</param>
+        /// <param type="System.Boolean, System" name="restoreLogoText">Specifies if the logo text will be saved or not</param>
+        /// <param type="System.Boolean, System" name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <path>api/2.0/settings/whitelabel/restorelogos</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <visible>false</visible>
+        [Update("whitelabel/restorelogos")]
+        public void RestoreWhiteLabelLogos(List<WhiteLabelLogoTypeEnum> logoTypes, bool restoreLogoText, bool isDefault)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            DemandWhiteLabelPermission();
+
+            if (isDefault)
+            {
+                DemandRebrandingPermission();
+                RestoreWhiteLabelLogosForDefaultTenant(logoTypes, restoreLogoText);
+            }
+            else
+            {
+                RestoreWhiteLabelLogosForCurrentTenant(logoTypes, restoreLogoText);
+            }
+        }
+
+        private void RestoreWhiteLabelLogosForCurrentTenant(List<WhiteLabelLogoTypeEnum> logoTypes, bool restoreLogoText)
+        {
+            var settings = TenantWhiteLabelSettings.Load();
+
+            if (restoreLogoText)
+            {
+                settings.LogoText = null;
+            }
+
+            RestoreWhiteLabelLogosForTenant(settings, null, TenantProvider.CurrentTenantID, logoTypes);
+        }
+
+        private void RestoreWhiteLabelLogosForDefaultTenant(List<WhiteLabelLogoTypeEnum> logoTypes, bool restoreLogoText)
+        {
+            var settings = TenantWhiteLabelSettings.LoadForDefaultTenant();
+            var storage = StorageFactory.GetStorage(string.Empty, "static_partnerdata");
+
+            if (restoreLogoText)
+            {
+                settings.LogoText = null;
+            }
+
+            RestoreWhiteLabelLogosForTenant(settings, storage, Tenant.DEFAULT_TENANT, logoTypes);
+        }
+
+        private void RestoreWhiteLabelLogosForTenant(TenantWhiteLabelSettings settings, IDataStore storage, int tenantId, List<WhiteLabelLogoTypeEnum> logoTypes)
+        {
+            foreach(var type in logoTypes)
+            {
+                settings.RestoreDefaultLogo(type, tenantId, storage);
+            }
+
+            settings.SaveForTenant(tenantId);
         }
 
         /// <summary>
@@ -796,7 +1129,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Get the IP portal restrictions</short>
         /// <category>IP restrictions</category>
-        /// <returns>IP restrictions</returns>
+        /// <returns type="ASC.IPSecurity.IPRestriction, ASC.IPSecurity">IP restrictions</returns>
+        /// <path>api/2.0/settings/iprestrictions</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("/iprestrictions")]
         public IEnumerable<IPRestriction> GetIpRestrictions()
         {
@@ -809,10 +1145,13 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Save the IP restrictions</short>
         /// <category>IP restrictions</category>
-        /// <param name="ips">New IP restrictions</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.IPSecurity.IPRestrictionBase}, System.Collections.Generic" name="ips">New IP restrictions</param>
         /// <returns>New IP restrictions</returns>
+        /// <path>api/2.0/settings/iprestrictions</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("iprestrictions")]
-        public IEnumerable<string> SaveIpRestrictions(IEnumerable<string> ips)
+        public IEnumerable<IPRestrictionBase> SaveIpRestrictions(IEnumerable<IPRestrictionBase> ips)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
             return IPRestrictionsService.Save(ips, CurrentTenant);
@@ -821,10 +1160,12 @@ namespace ASC.Api.Settings
         /// <summary>
         /// Updates the IP restriction settings with a parameter specified in the request.
         /// </summary>
-        /// <short>Update the IP restriction settings</short>
+        /// <short>Update the IP restrictions</short>
         /// <category>IP restrictions</category>
-        /// <param name="enable">Enables IP restrictions</param>
-        /// <returns>Updated IP restriction settings</returns>
+        /// <param type="System.Boolean, System" name="enable">Specifies whether to enable IP restrictions or not</param>
+        /// <returns type="ASC.Web.Studio.Core.IPRestrictionsSettings, ASC.Web.Studio">Updated IP restriction settings</returns>
+        /// <path>api/2.0/settings/iprestrictions/settings</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("iprestrictions/settings")]
         public IPRestrictionsSettings UpdateIpRestrictionsSettings(bool enable)
         {
@@ -841,8 +1182,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Update the tip settings</short>
         /// <category>Tips</category>
-        /// <param name="show">Shows tips for the user</param>
-        /// <returns>Updated tip settings</returns>
+        /// <param type="System.Boolean, System" name="show">Specifies whether to show tips for the user or not</param>
+        /// <returns type="ASC.Web.Studio.Core.TipsSettings, ASC.Web.Studio">Updated tip settings</returns>
+        /// <path>api/2.0/settings/tips</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("tips")]
         public TipsSettings UpdateTipsSettings(bool show)
         {
@@ -876,7 +1219,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Update the tip subscription</short>
         /// <category>Tips</category>
-        /// <returns>Updated tip subscription</returns>
+        /// <returns>Boolean value: true if the user is subscribed to the tips</returns>
+        /// <path>api/2.0/settings/tips/change/subscription</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("tips/change/subscription")]
         public bool UpdateTipsSubscription()
         {
@@ -889,6 +1234,8 @@ namespace ASC.Api.Settings
         /// <short>Complete the Wizard settings</short>
         /// <category>Wizard</category>
         /// <returns>Wizard settings</returns>
+        /// <path>api/2.0/settings/wizard/complete</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update("wizard/complete")]
         public WizardSettings CompleteWizard()
@@ -911,10 +1258,15 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Update the TFA settings</short>
         /// <category>TFA settings</category>
-        /// <param name="type">TFA type: sms, app or none</param>
+        /// <param type="ASC.Api.Settings.TfaSettingsType, ASC.Api.Settings" name="type">TFA type (None, Sms, or App)</param>
+        /// <param type="System.Collections.Generic.List{System.String}, System.Collections.Generic" name="trustedIps">List of trusted IP addresses</param>
+        /// <param type="System.Collections.Generic.List{System.Guid}, System.Collections.Generic" name="mandatoryUsers">List of users required for the TFA verification</param>
+        /// <param type="System.Collections.Generic.List{System.Guid}, System.Collections.Generic" name="mandatoryGroups">List of groups required for the TFA verification</param>
         /// <returns>True if an operation is successful</returns>
+        ///<path>api/2.0/settings/tfaapp</path>
+        ///<httpMethod>PUT</httpMethod>
         [Update("tfaapp")]
-        public bool TfaSettings(string type)
+        public bool TfaSettings(TfaSettingsType type, List<string> trustedIps, List<Guid> mandatoryUsers, List<Guid> mandatoryGroups)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
@@ -923,14 +1275,17 @@ namespace ASC.Api.Settings
             MessageAction action;
             switch (type)
             {
-                case "sms":
+                case TfaSettingsType.Sms:
                     if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings)
                         throw new Exception(Resource.SmsNotAvailable);
 
                     if (!SmsProviderManager.Enabled())
                         throw new MethodAccessException();
 
-                    StudioSmsNotificationSettings.Enable = true;
+                    var smsSettings = StudioSmsNotificationSettings.Load();
+                    SetProperties(smsSettings);
+                    smsSettings.Save();
+
                     action = MessageAction.TwoFactorAuthenticationEnabledBySms;
 
                     if (TfaAppAuthSettings.Enable)
@@ -942,13 +1297,16 @@ namespace ASC.Api.Settings
 
                     break;
 
-                case "app":
+                case TfaSettingsType.App:
                     if (!TfaAppAuthSettings.IsVisibleSettings)
                     {
                         throw new Exception(Resource.TfaAppNotAvailable);
                     }
 
-                    TfaAppAuthSettings.Enable = true;
+                    var appSettings = TfaAppAuthSettings.Load();
+                    SetProperties(appSettings);
+                    appSettings.Save();
+
                     action = MessageAction.TwoFactorAuthenticationEnabledByTfaApp;
 
                     if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
@@ -983,6 +1341,14 @@ namespace ASC.Api.Settings
 
             MessageService.Send(Request, action);
             return result;
+
+            void SetProperties(ITfaSettings settings)
+            {
+                settings.EnableSetting = true;
+                settings.TrustedIps = trustedIps;
+                settings.MandatoryUsers = mandatoryUsers;
+                settings.MandatoryGroups = mandatoryGroups;
+            }
         }
 
         /// <summary>
@@ -991,7 +1357,10 @@ namespace ASC.Api.Settings
         /// <short>Get the TFA codes</short>
         /// <category>TFA settings</category>
         /// <returns>List of TFA application codes</returns>
-        ///<visible>false</visible>
+        /// <path>api/2.0/settings/tfaappcodes</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
+        /// <visible>false</visible>
         [Read("tfaappcodes")]
         public IEnumerable<object> TfaAppGetCodes()
         {
@@ -1000,7 +1369,7 @@ namespace ASC.Api.Settings
             if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppUserSettings.EnableForUser(currentUser.ID))
                 throw new Exception(Resource.TfaAppNotAvailable);
 
-            if (currentUser.IsVisitor() || currentUser.IsOutsider())
+            if (currentUser.IsOutsider())
                 throw new NotSupportedException("Not available.");
 
             return TfaAppUserSettings.LoadForCurrentUser().CodesSetting.Select(r => new { r.IsUsed, r.Code }).ToList();
@@ -1009,9 +1378,12 @@ namespace ASC.Api.Settings
         /// <summary>
         /// Requests the new backup codes for the two-factor authentication application.
         /// </summary>
-        /// <short>Request the new TFA codes</short>
+        /// <short>Request the TFA codes</short>
         /// <category>TFA settings</category>
         /// <returns>New backup codes</returns>
+        /// <path>api/2.0/settings/tfaappnewcodes</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update("tfaappnewcodes")]
         public IEnumerable<object> TfaAppRequestNewCodes()
         {
@@ -1020,7 +1392,7 @@ namespace ASC.Api.Settings
             if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppUserSettings.EnableForUser(currentUser.ID))
                 throw new Exception(Resource.TfaAppNotAvailable);
 
-            if (currentUser.IsVisitor() || currentUser.IsOutsider())
+            if (currentUser.IsOutsider())
                 throw new NotSupportedException("Not available.");
 
             var codes = currentUser.GenerateBackupCodes().Select(r => new { r.IsUsed, r.Code }).ToList();
@@ -1033,8 +1405,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Unlink the TFA application</short>
         /// <category>TFA settings</category>
-        /// <param name="id">User ID</param>
+        /// <param type="System.Guid, System" name="id">User ID</param>
         /// <returns>Login URL</returns>
+        /// <path>api/2.0/settings/tfaappnewapp</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("tfaappnewapp")]
         public string TfaAppNewApp(Guid id)
         {
@@ -1047,7 +1421,7 @@ namespace ASC.Api.Settings
             if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppUserSettings.EnableForUser(user.ID))
                 throw new Exception(Resource.TfaAppNotAvailable);
 
-            if (user.IsVisitor() || user.IsOutsider())
+            if (user.IsOutsider())
                 throw new NotSupportedException("Not available.");
 
             TfaAppUserSettings.DisableForUser(user.ID);
@@ -1063,11 +1437,55 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Saves a documents firebase device token specified in the request.
+        /// Returns the current two-factor authentication settings.
         /// </summary>
-        /// <short>Saves a firebase device token</short>
-        /// <param name="firebaseDeviceToken">firebase device token</param>
+        /// <short>Get TFA settings</short>
+        /// <category>TFA settings</category>
+        /// <returns>TFA settings</returns>
+        /// <path>api/2.0/settings/tfaapp</path>
+        /// <httpMethod>GET</httpMethod>
+        [Read("tfaapp")]
+        public TfaSettingsWrapper GetTfaSettings()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var studioSmsNotificationSettings = StudioSmsNotificationSettings.Load();
+
+            if (studioSmsNotificationSettings.EnableSetting)
+            {
+                return new TfaSettingsWrapper
+                {
+                    TfaSettings = studioSmsNotificationSettings,
+                    TfaSettingsType = TfaSettingsType.Sms
+                };
+            }
+
+            var tfaAppAuthSettings = TfaAppAuthSettings.Load();
+
+            if (tfaAppAuthSettings.EnableSetting)
+            {
+                return new TfaSettingsWrapper
+                {
+                    TfaSettings = tfaAppAuthSettings,
+                    TfaSettingsType = TfaSettingsType.App
+                };
+            }
+
+            return new TfaSettingsWrapper
+            {
+                TfaSettingsType = TfaSettingsType.None
+            };
+        }
+
+        /// <summary>
+        /// Saves the Firebase device token specified in the request for the Documents application.
+        /// </summary>
+        /// <short>Saves the Documents Firebase device token</short>
+        /// <category>Firebase</category>
+        /// <param name="firebaseDeviceToken">Firebase device token</param>
         /// <returns>FireBase user</returns>
+        /// <path>api/2.0/settings/push/docregisterdevice</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("push/docregisterdevice")]
         public FireBaseUser DocRegisterPusnNotificationDevice(string firebaseDeviceToken)
         {
@@ -1076,11 +1494,14 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Saves a projects firebase device token specified in the request.
+        /// Saves the Firebase device token specified in the request for the Projects application.
         /// </summary>
-        /// <short>Saves a firebase device token</short>
-        /// <param name="firebaseDeviceToken">firebase device token</param>
-        /// <returns>FireBase user</returns>
+        /// <short>Saves the Projects Firebase device token</short>
+        /// <category>Firebase</category>
+        /// <param type="System.String, System" name="firebaseDeviceToken">Firebase device token</param>
+        /// <returns>Firebase user</returns>
+        /// <path>api/2.0/settings/push/projregisterdevice</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("push/projregisterdevice")]
         public FireBaseUser ProjRegisterPusnNotificationDevice(string firebaseDeviceToken)
         {
@@ -1089,12 +1510,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Subscribe to documents push notification.
+        /// Subscribes to the Documents push notification.
         /// </summary>
-        /// <short> Subscribe to push notification </short>
-        /// <param name="firebaseDeviceToken">firebase device token</param>
-        /// <param name="isSubscribed">is subscribed</param>
-        /// <returns>FireBase user</returns>
+        /// <short>Subscribe to Documents push notification</short>
+        /// <category>Firebase</category>
+        /// <param type="System.String, System" name="firebaseDeviceToken">Firebase device token</param>
+        /// <param type="System.Boolean, System" name="isSubscribed">Specifies whether the current user is subscribed to the Documents push notification or not</param>
+        /// <returns>Firebase user</returns>
+        /// <path>api/2.0/settings/push/docsubscribe</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update("push/docsubscribe")]
         public FireBaseUser SubscribeDocumentsPushNotification(string firebaseDeviceToken, bool isSubscribed)
@@ -1104,12 +1528,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Subscribe to projects push notification.
+        /// Subscribes to the Projects push notification.
         /// </summary>
-        /// <short> Subscribe to push notification </short>
-        /// <param name="firebaseDeviceToken">firebase device token</param>
-        /// <param name="isSubscribed">is subscribed</param>
-        /// <returns>FireBase user</returns>
+        /// <short>Subscribe to Projects push notification</short>
+        /// <category>Firebase</category>
+        /// <param type="System.String, System" name="firebaseDeviceToken">Firebase device token</param>
+        /// <param type="System.Boolean, System" name="isSubscribed">Specifies whether the current user is subscribed to the Projects push notification or not</param>
+        /// <returns>Firebase user</returns>
+        /// <path>api/2.0/settings/push/projsubscribe</path>
+        /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update("push/projsubscribe")]
         public FireBaseUser SubscribeProjectsPushNotification(string firebaseDeviceToken, bool isSubscribed)
@@ -1119,11 +1546,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns a link that will connect Telegram Bot to your account.
+        /// Returns a link that will connect the Telegram Bot to your account.
         /// </summary>
         /// <short>Get the Telegram link</short>
         /// <category>Telegram</category>
         /// <returns>Telegram link</returns>
+        /// <path>api/2.0/settings/telegramlink</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("telegramlink")]
         public string TelegramLink()
@@ -1141,11 +1570,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Checks if the current user is connected to Telegram Bot or not.
+        /// Checks if the current user is connected to the Telegram Bot or not.
         /// </summary>
         /// <short>Check the Telegram connection</short>
         /// <category>Telegram</category>
         /// <returns>Integer value: 0 - not connected, 1 - connected, 2 - awaiting confirmation</returns>
+        /// <path>api/2.0/settings/telegramisconnected</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("telegramisconnected")]
         public int TelegramIsConnected()
         {
@@ -1153,10 +1584,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Unlinks Telegram Bot from your account.
+        /// Unlinks the Telegram Bot from your account.
         /// </summary>
-        /// <short>Unlink Telegram Bot</short>
+        /// <short>Unlink Telegram</short>
         /// <category>Telegram</category>
+        /// <path>api/2.0/settings/telegramdisconnect</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns></returns>
         [Delete("telegramdisconnect")]
         public void TelegramDisconnect()
         {
@@ -1168,6 +1602,8 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Close the welcome pop-up notification</short>
         /// <category>Common settings</category>
+        /// <path>api/2.0/settings/welcome/close</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("welcome/close")]
         public void CloseWelcomePopup()
         {
@@ -1182,11 +1618,13 @@ namespace ASC.Api.Settings
             collaboratorPopupSettings.SaveForCurrentUser();
         }
 
-        ///<summary>
-        /// Close the admin helper notification.
+        /// <summary>
+        /// Closes the admin helper notification.
         /// </summary>
         /// <short>Close the admin helper notification</short>
         /// <category>Common settings</category>
+        /// <path>api/2.0/settings/closeadminhelper</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("closeadminhelper")]
         public void CloseAdminHelper()
         {
@@ -1200,12 +1638,14 @@ namespace ASC.Api.Settings
 
 
         /// <summary>
-        /// Saves a portal color theme specified in the request.
+        /// Saves the portal color theme specified in the request.
         /// </summary>
-        /// <short>Save a color theme</short>
+        /// <short>Save color theme</short>
         /// <category>Common settings</category>
-        /// <param name="theme">Portal theme</param>
-        ///<visible>false</visible>
+        /// <param type="System.String, System" name="theme">Portal theme</param>
+        /// <path>api/2.0/settings/colortheme</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <visible>false</visible>
         [Update("colortheme")]
         public void SaveColorTheme(string theme)
         {
@@ -1215,14 +1655,32 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
+        /// Saves a portal mode theme specified in the request.
+        /// </summary>
+        /// <short>Save a mode theme</short>
+        /// <category>Common settings</category>
+        /// <param type="ASC.Web.Core.Utility.ModeTheme, ASC.Web.Core.Utility" name="theme">Portal mode theme (light or dark)</param>
+        /// <param type="System.Boolean, System" name="auto_mode">Specifies whether the interface theme  will be detected automatically or not</param>
+        /// <path>api/2.0/settings/modetheme</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <visible>false</visible>
+        [Update("modetheme")]
+        public void SaveModeTheme(ModeTheme theme, bool auto_mode)
+        {
+            ModeThemeSettings.SaveModeTheme(theme, auto_mode);
+        }
+
+        /// <summary>
         /// Sets the portal time zone and language specified in the request.
         /// </summary>
         /// <short>Set time zone and language</short>
         /// <category>Common settings</category>
-        /// <param name="lng">Language</param>
-        /// <param name="timeZoneID">Time zone ID</param>
-        /// <returns>Operation result</returns>
-        ///<visible>false</visible>
+        /// <param type="System.String, System" name="lng">Language</param>
+        /// <param type="System.String, System" name="timeZoneID">Time zone ID</param>
+        /// <returns>Message about the operation result</returns>
+        /// <path>api/2.0/settings/timeandlanguage</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <visible>false</visible>
         [Update("timeandlanguage")]
         public string TimaAndLanguage(string lng, string timeZoneID)
         {
@@ -1271,8 +1729,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Set the default product page</short>
         /// <category>Common settings</category>
-        /// <param name="defaultProductID">Default product ID</param>
-        /// <returns>Operation result</returns>
+        /// <param type="System.String, System" name="defaultProductID">Default product ID</param>
+        /// <returns>Message about the operation result</returns>
+        /// <path>api/2.0/settings/defaultpage</path>
+        /// <httpMethod>PUT</httpMethod>
         ///<visible>false</visible>
         [Update("defaultpage")]
         public string SaveDefaultPageSettings(string defaultProductID)
@@ -1298,7 +1758,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Refresh the license</short>
         /// <category>Common settings</category>
-        /// <returns>Boolean value: True - an operation is successful, False - an operation is unsuccessful</returns>
+        /// <returns>Boolean value: true - an operation is successful, false - an operation is unsuccessful</returns>
+        /// <path>api/2.0/settings/license/refresh</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("license/refresh")]
         public bool RefreshLicense()
@@ -1314,7 +1776,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Get the custom navigation items</short>
         /// <category>Custom navigation</category>
-        /// <returns>List of the custom navigation items</returns>
+        /// <returns type="ASC.Web.Studio.Core.CustomNavigationItem, ASC.Web.Studio">List of the custom navigation items</returns>
+        /// <path>api/2.0/settings/customnavigation/getall</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("customnavigation/getall")]
         public List<CustomNavigationItem> GetCustomNavigationItems()
         {
@@ -1326,7 +1791,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Get a custom navigation item sample</short>
         /// <category>Custom navigation</category>
-        /// <returns>Custom navigation item</returns>
+        /// <returns type="ASC.Web.Studio.Core.CustomNavigationItem, ASC.Web.Studio">Custom navigation item</returns>
+        /// <path>api/2.0/settings/customnavigation/getsample</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("customnavigation/getsample")]
         public CustomNavigationItem GetCustomNavigationItemSample()
         {
@@ -1338,8 +1805,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Get a custom navigation item by ID</short>
         /// <category>Custom navigation</category>
-        /// <param name="id">Item ID</param>
-        /// <returns>Custom navigation item</returns>
+        /// <param type="System.Guid, System" method="url" name="id">Item ID</param>
+        /// <returns type="ASC.Web.Studio.Core.CustomNavigationItem, ASC.Web.Studio">Custom navigation item</returns>
+        /// <path>api/2.0/settings/customnavigation/get/{id}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("customnavigation/get/{id}")]
         public CustomNavigationItem GetCustomNavigationItem(Guid id)
         {
@@ -1351,8 +1820,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Add a custom navigation item</short>
         /// <category>Custom navigation</category>
-        /// <param name="item">Item parameters</param>
-        /// <returns>Custom navigation item</returns>
+        /// <param type="ASC.Web.Studio.Core.CustomNavigationItem, ASC.Web.Studio.Core." file="ASC.Web.Studio" name="item">Item parameters</param>
+        /// <returns type="ASC.Web.Studio.Core.CustomNavigationItem, ASC.Web.Studio">Custom navigation item</returns>
+        /// <path>api/2.0/settings/customnavigation/create</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("customnavigation/create")]
         public CustomNavigationItem CreateCustomNavigationItem(CustomNavigationItem item)
         {
@@ -1404,11 +1875,14 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Deletes a custom navigation item by the ID specified in the request.
+        /// Deletes a custom navigation item with the ID specified in the request.
         /// </summary>
         /// <short>Delete a custom navigation item</short>
         /// <category>Custom navigation</category>
-        /// <param name="id">Item ID</param>
+        /// <param type="System.Guid, System" method="url" name="id">Item ID</param>
+        /// <path>api/2.0/settings/customnavigation/delete/{id}</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns></returns>
         [Delete("customnavigation/delete/{id}")]
         public void DeleteCustomNavigationItem(Guid id)
         {
@@ -1434,8 +1908,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Update the email activation settings</short>
         /// <category>Common settings</category>
-        /// <param name="show">Shows the email activation panel for the user</param>
-        /// <returns>Updated email activation settings</returns>
+        /// <param type="System.Boolean, System" name="show">Specifies whether to show the email activation panel to the user or not</param>
+        /// <returns type="ASC.Web.Studio.Core.EmailActivationSettings, ASC.Web.Studio">Updated email activation settings</returns>
+        /// <path>api/2.0/settings/emailactivation</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("emailactivation")]
         public EmailActivationSettings UpdateEmailActivationSettings(bool show)
         {
@@ -1452,6 +1928,9 @@ namespace ASC.Api.Settings
         /// <short>Get the licensor data</short>
         /// <category>Common settings</category>
         /// <returns>List of company white label settings</returns>
+        /// <path>api/2.0/settings/companywhitelabel</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         ///<visible>false</visible>
         [Read("companywhitelabel")]
         public List<CompanyWhiteLabelSettings> GetLicensorData()
@@ -1471,12 +1950,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns the space usage statistics of the web item with the ID specified in the request.
+        /// Returns the space usage statistics of the module with the ID specified in the request.
         /// </summary>
         /// <category>Statistics</category>
         /// <short>Get the space usage statistics</short>
-        /// <param name="id">Web item ID</param>
-        /// <returns>Space usage statistics of the web item</returns>
+        /// <param method="url" name="id">Module ID</param>
+        /// <returns type="ASC.Api.Settings.UsageSpaceStatItemWrapper, ASC.Api.Settings">Module space usage statistics</returns>
+        /// <path>api/2.0/settings/statistics/spaceusage/{id}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("statistics/spaceusage/{id}")]
         public List<UsageSpaceStatItemWrapper> GetSpaceUsageStatistics(Guid id)
         {
@@ -1507,9 +1989,12 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Statistics</category>
         /// <short>Get the visit statistics</short>
-        /// <param name="fromDate">Start period date</param>
-        /// <param name="toDate">End period date</param>
-        /// <returns>List of point charts</returns>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="fromDate">Start period date</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="toDate">End period date</param>
+        /// <returns type="ASC.Api.Settings.ChartPointWrapper, ASC.Api.Settings">List of point charts</returns>
+        /// <path>api/2.0/settings/statistics/visit</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("statistics/visit")]
         public List<ChartPointWrapper> GetVisitStatistics(ApiDateTime fromDate, ApiDateTime toDate)
         {
@@ -1563,7 +2048,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Get storages</short>
-        /// <returns>List of storages</returns>
+        /// <returns type="ASC.Api.Settings.StorageWrapper, ASC.Api.Settings">List of storages</returns>
+        /// <path>api/2.0/settings/storage</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("storage")]
         public List<StorageWrapper> GetAllStorages()
         {
@@ -1582,6 +2070,8 @@ namespace ASC.Api.Settings
         /// <category>Storage</category>
         /// <short>Get the storage progress</short>
         /// <returns>Storage progress</returns>
+        /// <path>api/2.0/settings/storage/progress</path>
+        /// <httpMethod>GET</httpMethod>
         [Read("storage/progress", checkPayment: false)]
         public double GetStorageProgress()
         {
@@ -1600,15 +2090,20 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Update a storage</short>
-        /// <param name="module">Storage name</param>
-        /// <param name="props">New storage properties</param>
-        /// <returns>Updated storage</returns>
+        /// <param type="System.String, System" name="module">Storage name</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.String, System.String}}" name="props">New storage properties</param>
+        /// <returns type="ASC.Data.Storage.Configuration.StorageSettings, ASC.Data.Storage">Updated storage</returns>
+        /// <path>api/2.0/settings/storage</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("storage")]
         public StorageSettings UpdateStorage(string module, IEnumerable<ItemKeyValuePair<string, string>> props)
         {
 
             try
             {
+                LogManager.GetLogger("ASC").Debug("UpdateStorage");
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+            if (!CoreContext.Configuration.Standalone) return null;
                 Log.Debug("UpdateStorage");
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
                 if (!CoreContext.Configuration.Standalone) return null;
@@ -1640,6 +2135,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Reset the storage settings</short>
+        /// <path>api/2.0/settings/storage</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns></returns>
         [Delete("storage")]
         public void ResetStorageToDefault()
         {
@@ -1671,7 +2169,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Get the CDN storages</short>
-        /// <returns>List of the CDN storages</returns>
+        /// <returns type="ASC.Api.Settings.StorageWrapper, ASC.Api.Settings">List of the CDN storages</returns>
+        /// <path>api/2.0/settings/storage/cdn</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("storage/cdn")]
         public List<StorageWrapper> GetAllCdnStorages()
         {
@@ -1690,9 +2191,11 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Update the CDN storage</short>
-        /// <param name="module">CDN storage name</param>
-        /// <param name="props">New CDN storage properties</param>
-        /// <returns>Updated CDN storage</returns>
+        /// <returns type="ASC.Data.Storage.Configuration.CdnStorageSettings, ASC.Data.Storage">Updated CDN storage</returns>
+        /// <param type="System.String, System" name="module">CDN storage name</param>
+        /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.String, System.String}}" name="props">New CDN storage properties</param>
+        /// <path>api/2.0/settings/storage/cdn</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("storage/cdn")]
         public CdnStorageSettings UpdateCdn(string module, IEnumerable<ItemKeyValuePair<string, string>> props)
         {
@@ -1734,6 +2237,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Reset the CDN storage settings</short>
+        /// <path>api/2.0/settings/storage/cdn</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <returns></returns>
         [Delete("storage/cdn")]
         public void ResetCdnToDefault()
         {
@@ -1750,7 +2256,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Storage</category>
         /// <short>Get the backup storages</short>
-        /// <returns>List of the backup storages</returns>
+        /// <returns type="ASC.Api.Settings.StorageWrapper, ASC.Api.Settings">List of the backup storages</returns>
+        /// <path>api/2.0/settings/storage/backup</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("storage/backup")]
         public List<StorageWrapper> GetAllBackupStorages()
         {
@@ -1789,12 +2298,28 @@ namespace ASC.Api.Settings
             CoreContext.TenantManager.SaveTenant(tenant);
         }
 
+        /// <summary>
+        /// Returns a list of all Amazon regions.
+        /// </summary>
+        /// <category>Storage</category>
+        /// <short>Get Amazon regions</short>
+        /// <returns>List of the Amazon regions</returns>
+        /// <path>api/2.0/settings/storage/s3/regions</path>
+        /// <httpMethod>GET</httpMethod>
+        [Read("storage/s3/regions")]
+        public object GetAmazonS3Regions()
+        {
+            return Amazon.RegionEndpoint.EnumerableAllRegions;
+        }
+
 
         /// <summary>
         /// Returns the socket settings.
         /// </summary>
         /// <category>Common settings</category>
         /// <short>Get the socket settings</short>
+        /// <path>api/2.0/settings/socket</path>
+        /// <httpMethod>GET</httpMethod>
         /// <returns>Socket settings</returns>
         [Read("socket")]
         public object GetSocketSettings()
@@ -1812,11 +2337,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns the tenant control panel settings.
+        /// Returns the tenant Control Panel settings.
         /// </summary>
         /// <category>Common settings</category>
-        /// <short>Get the tenant control panel settings</short>
-        /// <returns>Tenant control panel settings</returns>
+        /// <short>Get the tenant Control Panel settings</short>
+        /// <returns>Tenant Control Panel settings</returns>
+        /// <path>api/2.0/settings/controlpanel</path>
+        /// <httpMethod>GET</httpMethod>
         ///<visible>false</visible>
         [Read("controlpanel")]
         public TenantControlPanelSettings GetTenantControlPanelSettings()
@@ -1829,7 +2356,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Rebranding</category>
         /// <short>Save the white label settings</short>
-        /// <param name="settings">White label settings</param>
+        /// <param type="ASC.Web.Core.WhiteLabel.CompanyWhiteLabelSettings, ASC.Web.Core.WhiteLabel" name="settings">White label settings</param>
+        /// <path>api/2.0/settings/rebranding/company</path>
+        /// <httpMethod>POST</httpMethod>
         ///<visible>false</visible>
         [Create("rebranding/company")]
         public void SaveCompanyWhiteLabelSettings(CompanyWhiteLabelSettings settings)
@@ -1849,6 +2378,8 @@ namespace ASC.Api.Settings
         /// <category>Rebranding</category>
         /// <short>Get the white label settings</short>
         /// <returns>Company white label settings</returns>
+        /// <path>api/2.0/settings/rebranding/company</path>
+        /// <httpMethod>GET</httpMethod>
         ///<visible>false</visible>
         [Read("rebranding/company")]
         public CompanyWhiteLabelSettings GetCompanyWhiteLabelSettings()
@@ -1864,6 +2395,8 @@ namespace ASC.Api.Settings
         /// <category>Rebranding</category>
         /// <short>Delete the white label settings</short>
         /// <returns>Default company white label settings</returns>
+        /// <path>api/2.0/settings/rebranding/company</path>
+        /// <httpMethod>DELETE</httpMethod>
         ///<visible>false</visible>
         [Delete("rebranding/company")]
         public CompanyWhiteLabelSettings DeleteCompanyWhiteLabelSettings()
@@ -1882,8 +2415,10 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Rebranding</category>
         /// <short>Save the additional white label settings</short>
-        /// <param name="settings">Additional white label settings</param>
-        ///<visible>false</visible>
+        /// <param type="ASC.Web.Core.WhiteLabel.AdditionalWhiteLabelSettings, ASC.Web.Core.WhiteLabel" name="settings">Additional white label settings</param>
+        /// <path>api/2.0/settings/rebranding/additional</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <visible>false</visible>
         [Create("rebranding/additional")]
         public void SaveAdditionalWhiteLabelSettings(AdditionalWhiteLabelSettings settings)
         {
@@ -1900,6 +2435,8 @@ namespace ASC.Api.Settings
         /// <category>Rebranding</category>
         /// <short>Get the additional white label settings</short>
         /// <returns>Additional white label settings</returns>
+        /// <path>api/2.0/settings/rebranding/additional</path>
+        /// <httpMethod>GET</httpMethod>
         ///<visible>false</visible>
         [Read("rebranding/additional")]
         public AdditionalWhiteLabelSettings GetAdditionalWhiteLabelSettings()
@@ -1914,7 +2451,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Rebranding</category>
         /// <short>Delete the additional white label settings</short>
-        /// <returns>Default white label settings</returns>
+        /// <returns>Default additional white label settings</returns>
+        /// <path>api/2.0/settings/rebranding/additional</path>
+        /// <httpMethod>DELETE</httpMethod>
         ///<visible>false</visible>
         [Delete("rebranding/additional")]
         public AdditionalWhiteLabelSettings DeleteAdditionalWhiteLabelSettings()
@@ -1933,7 +2472,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Rebranding</category>
         /// <short>Save the mail white label settings</short>
-        /// <param name="settings">Mail white label settings</param>
+        /// <param type="ASC.Web.Core.WhiteLabel.MailWhiteLabelSettings, ASC.Web.Core.WhiteLabel" name="settings">Mail white label settings</param>
+        /// <path>api/2.0/settings/rebranding/mail</path>
+        /// <httpMethod>POST</httpMethod>
         ///<visible>false</visible>
         [Create("rebranding/mail")]
         public void SaveMailWhiteLabelSettings(MailWhiteLabelSettings settings)
@@ -1950,7 +2491,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <category>Rebranding</category>
         /// <short>Update the mail white label settings</short>
-        /// <param name="footerEnabled">Specified if the footer will be enabled or not</param>
+        /// <param type="System.Boolean, System" name="footerEnabled">Specifies if a footer will be enabled or not</param>
+        /// <path>api/2.0/settings/rebranding/mail</path>
+        /// <httpMethod>PUT</httpMethod>
         ///<visible>false</visible>
         [Update("rebranding/mail")]
         public void UpdateMailWhiteLabelSettings(bool footerEnabled)
@@ -1970,6 +2513,8 @@ namespace ASC.Api.Settings
         /// <category>Rebranding</category>
         /// <short>Get the mail white label settings</short>
         /// <returns>Mail white label settings</returns>
+        /// <path>api/2.0/settings/rebranding/mail</path>
+        /// <httpMethod>GET</httpMethod>
         ///<visible>false</visible>
         [Read("rebranding/mail")]
         public MailWhiteLabelSettings GetMailWhiteLabelSettings()
@@ -1985,6 +2530,8 @@ namespace ASC.Api.Settings
         /// <category>Rebranding</category>
         /// <short>Delete the mail white label settings</short>
         /// <returns>Default mail white label settings</returns>
+        /// <path>api/2.0/settings/rebranding/mail</path>
+        /// <httpMethod>DELETE</httpMethod>
         ///<visible>false</visible>
         [Delete("rebranding/mail")]
         public MailWhiteLabelSettings DeleteMailWhiteLabelSettings()
@@ -2024,6 +2571,8 @@ namespace ASC.Api.Settings
         /// <short>Get the storage encryption settings</short>
         /// <category>Encryption</category>
         /// <returns>Storage encryption settings</returns>
+        /// <path>api/2.0/settings/encryption/settings</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("encryption/settings")]
         public EncryptionSettings GetStorageEncryptionSettings()
@@ -2068,6 +2617,8 @@ namespace ASC.Api.Settings
         /// <short>Get the storage encryption progress</short>
         /// <category>Encryption</category>
         /// <returns>Storage encryption progress</returns>
+        /// <path>api/2.0/settings/encryption/progress</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("encryption/progress", checkPayment: false)]
         public double GetStorageEncryptionProgress()
@@ -2100,7 +2651,9 @@ namespace ASC.Api.Settings
         /// </summary>
         /// <short>Start the storage encryption process</short>
         /// <category>Encryption</category>
-        /// <param name="notifyUsers">Specifies if the users will be notified about the encryption process or not</param>
+        /// <param type="System.Boolean, System" name="notifyUsers">Specifies if the users will be notified about the encryption process or not</param>
+        /// <path>api/2.0/settings/encryption/start</path>
+        /// <httpMethod>POST</httpMethod>
         /// <visible>false</visible>
         [Create("encryption/start")]
         public void StartStorageEncryption(bool notifyUsers)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,6 +72,8 @@ namespace ASC.Web.Files.Utils
                               .ThenBy(r => r.Level)
                               .ThenByDescending(r => r.Share, new FileShareRecord.ShareComparer()).FirstOrDefault());
 
+            var unknownSubjects = new List<Guid>();
+
             foreach (var r in records)
             {
                 if (r.Subject == FileConstant.ShareLinkId)
@@ -80,8 +82,42 @@ namespace ASC.Web.Files.Utils
                     continue;
                 }
 
-                if (r.Subject == FileConstant.DenyDownloadId || r.Subject == FileConstant.DenySharingId)
+                if (r.SubjectType == SubjectType.Restriction)
                 {
+                    continue;
+                }
+
+                if (r.SubjectType == SubjectType.ExternalLink)
+                {
+                    var options = r.Options ?? new FileShareOptions();
+                    var expired = options.IsExpired();
+                    var lw = new AceWrapper
+                    {
+                        SubjectId = r.Subject,
+                        SubjectName = options.Title,
+                        SubjectGroup = true,
+                        Share = expired ? FileShare.Restrict : r.Share,
+                        Link = FilesSettings.ExternalShare ? entry is File ? FileShareLink.GetLink((File)entry, true, r.Subject) 
+                            : FileShareLink.GetLink((Folder)entry, r.Subject) : string.Empty,
+                        LinkSettings = new LinkSettingsWrapper
+                        {
+                            Password = options.Password,
+                            ExpirationDate = options.GetExpirationDateStr(),
+                            AutoDelete = options.AutoDelete,
+                            Expired = expired
+                        },
+                        EntryType = r.EntryType,
+                        Inherited = (entry is File && r.EntryType == FileEntryType.Folder) || (entry is Folder && r.Level > 0)
+                    };
+
+                    // only editable format on SaaS trial/startup
+                    if (lw.Inherited && entry is File && !FileUtility.CanWebView(entry.Title) && TenantExtra.Saas &&
+                        (TenantExtra.GetTenantQuota().Trial || TenantExtra.GetTenantQuota().Free))
+                    {
+                        continue;
+                    }
+
+                    result.Add(lw);
                     continue;
                 }
 
@@ -103,7 +139,7 @@ namespace ASC.Web.Files.Utils
 
                     if (g.ID == Constants.LostGroupInfo.ID)
                     {
-                        fileSecurity.RemoveSubject(r.Subject);
+                        unknownSubjects.Add(r.Subject);
                         continue;
                     }
                 }
@@ -126,6 +162,11 @@ namespace ASC.Web.Files.Utils
                     LockedRights = r.Subject == SecurityContext.CurrentAccount.ID
                 };
                 result.Add(w);
+            }
+
+            if (unknownSubjects.Any())
+            {
+                fileSecurity.RemoveSubjects(unknownSubjects);
             }
 
             if (entry.FileEntryType == FileEntryType.File
@@ -215,7 +256,7 @@ namespace ASC.Web.Files.Utils
 
             foreach (var w in aceWrappers.OrderByDescending(ace => ace.SubjectGroup))
             {
-                var subjects = fileSecurity.GetUserSubjects(w.SubjectId);
+                var subjects = fileSecurity.GetUserSubjects(w.SubjectId, w.IsLink);
 
                 if (entry.RootFolderType == FolderType.COMMON && subjects.Contains(Constants.GroupAdmin.ID)
                     || ownerId == w.SubjectId)
@@ -223,7 +264,7 @@ namespace ASC.Web.Files.Utils
 
                 var share = w.Share;
 
-                if (w.SubjectId == FileConstant.ShareLinkId)
+                if (w.IsLink)
                 {
                     if (w.Share == FileShare.ReadWrite && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
                         throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
@@ -232,21 +273,46 @@ namespace ASC.Web.Files.Utils
                     if (CoreContext.Configuration.Personal && !FileUtility.CanWebView(entry.Title) && w.Share != FileShare.Restrict)
                         throw new SecurityException(FilesCommonResource.ErrorMassage_BadRequest);
 
-                    // only editable format on SaaS trial
-                    if (w.Share != FileShare.Restrict && !CoreContext.Configuration.Standalone && TenantExtra.GetTenantQuota().Trial && !FileUtility.CanWebView(entry.Title))
+                    // only editable format on SaaS trial/startup
+                    if (w.Share != FileShare.Restrict && TenantExtra.Saas && (TenantExtra.GetTenantQuota().Trial || TenantExtra.GetTenantQuota().Free) 
+                        && !FileUtility.CanWebView(entry.Title) && entry.FileEntryType == FileEntryType.File)
                         throw new SecurityException(FilesCommonResource.ErrorMassage_BadRequest);
 
-                    share = w.Share == FileShare.Restrict
-                            || !FilesSettings.ExternalShare
-                                ? FileShare.None
+                    share = w.Share != FileShare.None && !FilesSettings.ExternalShare
+                                ? FileShare.Restrict
                                 : w.Share;
+
+                    share = w.SubjectId == FileConstant.ShareLinkId && share == FileShare.Restrict
+                                ? FileShare.None
+                                : share;
                 }
 
-                fileSecurity.Share(entry.ID, entryType, w.SubjectId, share);
+                SubjectType subjectType = SubjectType.UserOrGroup;
+                FileShareOptions options = null;
+
+                if (w.IsLink)
+                {
+                    subjectType = SubjectType.ExternalLink;
+                    if (w.LinkSettings != null)
+                    {
+                        DateTime.TryParse(w.LinkSettings.ExpirationDate, out DateTime expirationDate);
+                        options = new FileShareOptions()
+                        {
+                            Title = w.SubjectName,
+                            Password = w.LinkSettings.Password,
+                            ExpirationDate = expirationDate,
+                            AutoDelete = w.LinkSettings.AutoDelete
+                        };
+                    }
+                }
+
+                fileSecurity.Share(entry.ID, entryType, w.SubjectId, subjectType, share, options);
                 changed = true;
 
-                if (w.SubjectId == FileConstant.ShareLinkId)
+                if (w.IsLink)
+                {
                     continue;
+                }
 
                 entry.Access = share;
 
@@ -310,8 +376,8 @@ namespace ASC.Web.Files.Utils
 
             if (advancedSettings != null && entryType == FileEntryType.File && ownerId == SecurityContext.CurrentAccount.ID && FileUtility.CanWebView(entry.Title) && !entry.ProviderEntry)
             {
-                fileSecurity.Share(entry.ID, entryType, FileConstant.DenyDownloadId, advancedSettings.DenyDownload ? FileShare.Restrict : FileShare.None);
-                fileSecurity.Share(entry.ID, entryType, FileConstant.DenySharingId, advancedSettings.DenySharing ? FileShare.Restrict : FileShare.None);
+                fileSecurity.Share(entry.ID, entryType, FileConstant.DenyDownloadId, SubjectType.Restriction, advancedSettings.DenyDownload ? FileShare.Restrict : FileShare.None);
+                fileSecurity.Share(entry.ID, entryType, FileConstant.DenySharingId, SubjectType.Restriction, advancedSettings.DenySharing ? FileShare.Restrict : FileShare.None);
             }
 
             usersWithoutRight.ForEach(userId => FileMarker.RemoveMarkAsNew(entry, userId));
@@ -332,7 +398,7 @@ namespace ASC.Web.Files.Utils
                             return;
 
                         var entryType = entry.FileEntryType;
-                        fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID,
+                        fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID, SubjectType.UserOrGroup,
                             entry.RootFolderType == FolderType.USER
                             ? fileSecurity.DefaultMyShare
                             : fileSecurity.DefaultPrivacyShare);

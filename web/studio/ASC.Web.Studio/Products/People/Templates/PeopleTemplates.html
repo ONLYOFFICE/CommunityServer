@@ -15,6 +15,9 @@
         {{if ($data.isAdmin === true || $data.isMe === true) && (user.status === "waited")}}
         <li><a class="email-activation dropdown-item with-icon email">${ASC.People.Resources.PeopleResource.LblSendActivation}</a></li>
         {{/if}}
+        {{if (user.status !== "blocked") && user.canImpersonateUser}}
+        <li><a class="impersonate-user dropdown-item with-icon impersonate-item">${ASC.Resources.Master.ResourceJS.ImpersonateUser}</a></li>
+        {{/if}}
         {{if ($data.canDel === "true") && ($data.isAdmin === true) && ($data.isMe !== true) && (user.status !== "blocked") && (user.isLDAP === "false")}}
         <li><a class="block-profile dropdown-item with-icon disable-item">${ASC.People.Resources.PeopleResource.DisableUserButton}</a></li>
         {{/if}}
@@ -128,12 +131,12 @@
         <div id="peopleEmailSwitcher_${id}" class="studio-action-panel">
             <ul class="dropdown-content">
                 <li>
-                    <a class="send-email dropdown-item">${ASC.People.Resources.PeopleResource.LblSendEmail}</a>
+                    <a class="send-email dropdown-item" data-module="mail">${ASC.People.Resources.PeopleResource.LblSendEmail}</a>
                 </li>
-                {{if !user.isMe && !user.isTerminated}}
-         <li>
-             <a class="open-dialog dropdown-item">${ASC.People.Resources.PeopleResource.LblSendMessage}</a>
-         </li>
+                {{if $data.talkModuleEnabled && !user.isMe && !user.isTerminated}}
+                <li>
+                    <a class="open-dialog dropdown-item" data-module="talk">${ASC.People.Resources.PeopleResource.LblSendMessage}</a>
+                </li>
                 {{/if}}
             </ul>
         </div>

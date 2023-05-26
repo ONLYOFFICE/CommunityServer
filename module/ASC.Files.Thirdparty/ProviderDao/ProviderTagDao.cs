@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         public IEnumerable<Tag> GetNewTags(Guid subject, Folder parentFolder, bool deepSearch)
         {
-            return GetSelector(parentFolder.ID).GetTagDao(parentFolder.ID).GetNewTags(subject, parentFolder, deepSearch);
+            using (var tagDao = GetSelector(parentFolder.ID).GetTagDao(parentFolder.ID))
+            {
+                return tagDao.GetNewTags(subject, parentFolder, deepSearch);
+            }
         }
 
         #region Only for Teamlab Documents

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,8 @@
 */
 
 
-@import "common.less";
+@import "params.less";
 @import "icons.less";
-@import "messages.less";
-@import "message.less";
-@import "tags.less";
-@import "attachments.less";
-@import "popup.less";
-@import "accountspanel.less";
-@import "accounts.less";
-@import "contacts.less";
-@import "settings.less";
-@import "crm_integration.less";
-@import "accountpopup.less";
-@import "print.less";
-@import "administration.less";
-@import "calendar.less";
-@import "filters.less";
-@import "folders.less";
 
 #firstLoader {
     position: fixed;
@@ -71,7 +55,7 @@ div[id^="fu_item_"] {
     .head {
         .value-group.compose {
             label {
-                color: #83888D;
+                color: @header-label;
                 width: 55px;
                 margin-left: 0;
                 float: left;
@@ -114,8 +98,8 @@ a.anchorLinkButton {
 .actionPanel {
     display: none;
     position: absolute;
-    background: none repeat scroll 0 0 white;
-    border: 1px solid #D1D1D1;
+    background: none repeat scroll 0 0 @light-text-color;
+    border: 1px solid @border-color-panel;
     padding: 4px;
     margin-top: 5px;
     z-index: @z-dropdown;
@@ -136,7 +120,7 @@ a.anchorLinkButton {
             cursor: pointer;
 
             &:hover {
-                background-color: #e9e9e9;
+                background-color: @hover-panel;
                 text-decoration: none;
                 -moz-border-radius: 2px;
                 -webkit-border-radius: 2px;
@@ -184,7 +168,7 @@ a.anchorLinkButton {
     }
 
     .actionPanelSection {
-        color: #333;
+        color: @text-color;
         font-size: 12px;
         font-weight: normal;
         margin-bottom: 8px;
@@ -223,11 +207,11 @@ a.anchorLinkButton {
 label.checkbox, label.mark_all_checkbox {
     width: 100% !important;
     cursor: pointer;
-    color: #333 !important;
+    color: @text-color !important;
 }
 
 .settings {
-    color: #999999;
+    color: @light-gray-text-color;
     cursor: pointer;
 }
 
@@ -269,12 +253,12 @@ div#itemContainer div.pages-navigation a.button.page, div#itemContainer div.page
 }
 
 div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-navigation span.button {
-    background: #FFF;
+    background: @body-color;
     display: inline-block;
     height: 22px;
     line-height: 22px;
     margin: 0 5px 0 0;
-    color: #000;
+    color: @dark-text;
     text-align: center;
     text-decoration: none;
 }
@@ -329,7 +313,7 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
 }
 
 .mail-gray-text {
-    color: #83888D !important;
+    color: @header-label !important;
 }
 
 .menu-item:hover {
@@ -340,7 +324,7 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
 
 .lattersCount {
     padding-right: 8px;
-    color: #333333;
+    color: @text-color;
     position: relative;
     text-decoration: none;
     display: inline-block;
@@ -352,7 +336,7 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
 }
 
 .row.selected {
-    background: #f2f2f2;
+    background: @hover-text-color;
 
     .tagArrow {
         background-position: right -40px;
@@ -490,14 +474,14 @@ div.studioSideBoxMailBody {
 .subject, .subject a {
     -webkit-appearance: none;
     -moz-appearance: none;
-    color: #333;
+    color: @text-color;
     border-radius: 0;
 }
 
 div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-navigation span.button {
     min-width: 50px;
     cursor: pointer;
-    border: 1px solid #C7C7C7;
+    border: 1px solid @border-color;
 }
 
 .del {
@@ -558,7 +542,7 @@ div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-nav
     width: 0;
     height: 0;
     border-width: 4px 4px 0 4px;
-    border-color: #666 transparent transparent transparent;
+    border-color: @grey-text transparent transparent transparent;
     border-style: solid solid outset solid;
 }
 
@@ -571,8 +555,8 @@ div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-nav
 }
 
 div.studioSideBoxMailHeader {
-    border-bottom: 1px solid #C7C7C7;
-    color: #333;
+    border-bottom: 1px solid @border-color;
+    color: @text-color;
     font-size: 18px;
     padding: 0 0 5px 0;
 }
@@ -620,8 +604,8 @@ a.disable:hover {
         vertical-align: middle;
         .combobox-title {
             .inner-text {
-                color: #83888D;
-                border-bottom: 1px dotted #83888D;
+                color: @header-label;
+                border-bottom: 1px dotted @header-label;
             }
         }
     }
@@ -636,22 +620,22 @@ a.disable:hover {
 .progressContainer {
     min-height: 32px;
     .loader {
-        background: url("@{imaqes-base-url}loader/loader_16.gif") 0 8px no-repeat;
+        background: url("../images/loader/@{loader-16}") 0 8px no-repeat;
         padding-left: 20px;
         line-height: 32px;
-        color: #999;
+        color: @light-gray-text-color;
     }
 }
 
 .more_lnk {
     margin: 0 5px 0 10px;
-    text-align:right;
-    display:inline-block;
+    text-align: right;
+    display: inline-block;
     cursor: pointer;
-    
+
     .gray {
         border-bottom: none;
-        color: #333;
+        color: @text-color;
         cursor: pointer;
         text-decoration: none;
     }
@@ -692,12 +676,14 @@ noindex:-moz-any-link {
 }
 
 .large-loading {
-    background: url("@{imaqes-base-url}loader/loader32.gif") center center no-repeat !important;
+    background: url("../images/loader/@{loader-32}") center center no-repeat !important;
     min-height: 100px !important;
 }
 
 input[type="checkbox"] {
     vertical-align: middle;
+    accent-color: @checkbox-accent-color;
+    color-scheme: @checkbox-color-sheme;
 }
 
 div.checkbox {
@@ -706,7 +692,7 @@ div.checkbox {
 }
 
 table#newMessage div.helper div.mailbox-from-helper, table#newMessage div.helper div.mailbox-to-helper {
-    background: #FFF;
+    background: @body-color;
     border: 1px solid #8e908f;
     padding: 0 3px 0 3px;
 }
@@ -752,7 +738,7 @@ span.editTag {
 .newMessageWrap {
     padding-top: 2px;
     b {
-        color: #333;
+        color: @text-color;
     }
     .disabled {
         background: none;
@@ -820,9 +806,9 @@ textarea {
     .collapse-conversation {
         display: inline-block;
         margin: 3px 8px 0 0;
-        color: #666;
+        color: @grey-text;
         font-size: 11px;
-        border-bottom: 1px dotted #666;
+        border-bottom: 1px dotted @grey-text;
         cursor: pointer;
     }
 }
@@ -831,24 +817,24 @@ textarea {
     .contentMenuWrapper {
         .menuAction.btnNext.unlockAction {
             .arrow-right {
-                border-left: 5px solid #ffffff;
+                border-left: 5px solid @body-color;
             }
         }
 
         .menuAction.btnPrev.unlockAction {
             .arrow-left {
-                border-right: 5px solid #ffffff;
+                border-right: 5px solid @body-color;
             }
         }
         .menuAction.btnNext {
             .arrow-right {
-                border-left: 5px solid #ffffff;
+                border-left: 5px solid @body-color;
             }
         }
 
         .menuAction.btnPrev {
             .arrow-left {
-                border-right: 5px solid #ffffff;
+                border-right: 5px solid @body-color;
             }
         }
     }
@@ -868,7 +854,7 @@ textarea {
           height: 0; 
           border-top: 5px solid transparent;
           border-bottom: 5px solid transparent;  
-          border-left: 5px solid #999999;
+          border-left: 5px solid @light-gray-text-color;
           margin-top: 4px;
           margin-left: 3px;
         }
@@ -890,7 +876,7 @@ textarea {
           height: 0; 
           border-top: 5px solid transparent;
           border-bottom: 5px solid transparent;  
-          border-right: 5px solid #999999; 
+          border-right: 5px solid @light-gray-text-color; 
           margin-top: 4px;
           margin-left: 2px;
         }
@@ -962,19 +948,19 @@ textarea {
     .content .module-block .img {
         &.use-mail-server
         {
-            background-image: url("@{imaqes-base-url}/dashboard/use-mail-server.png");
+            background-image: url("@{imaqes-base-url}/dashboard/use-mail-server.svg");
         }
         &.collect-all-emails-in-one-place
         {
-            background-image: url("@{imaqes-base-url}/dashboard/collect-all-emails-in-one-place.png");
+            background-image: url("@{imaqes-base-url}/dashboard/collect-all-emails-in-one-place.svg");
         }
         &.structure-correspondence
         {
-            background-image: url("@{imaqes-base-url}/dashboard/structure-correspondence.png");
+            background-image: url("@{imaqes-base-url}/dashboard/structure-correspondence.svg");
         }
         &.communicate-easily
         {
-            background-image: url("@{imaqes-base-url}/dashboard/communicate-easily.png");
+            background-image: url("@{imaqes-base-url}/dashboard/communicate-easily.svg");
         }
     }
 
@@ -1028,7 +1014,7 @@ textarea {
 }
 
 .containerBodyBlock {
-    color: #333;
+    color: @text-color;
 
     input[type="email"],
     input[type="password"] {
@@ -1073,7 +1059,7 @@ textarea {
 
     .hint {
         font-size: 14px;
-        color: #999999;
+        color: @light-gray-text-color;
         margin-bottom: 9px;
     }
 
@@ -1105,12 +1091,14 @@ textarea {
         overflow-y: hidden;
 
         .tag {
-            margin: 5px 5px 0 0;
+            margin: 5px 10px 0 0;
             padding: 0 10px 0 0;
             height: 20px;
             -ms-text-overflow: clip;
             -o-text-overflow: clip;
             text-overflow: clip;
+            overflow: hidden;
+            white-space: nowrap;
         }
     }
 
@@ -1124,7 +1112,7 @@ textarea {
         }
 
         .text {
-            color: #999;
+            color: @light-gray-text-color;
             height: 19px;
             display: inline-block;
         }
@@ -1147,7 +1135,7 @@ textarea {
     .createTagMenu {
         background: none;
         border: 0;
-        color: #333333;
+        color: @text-color;
         cursor: pointer;
         display: block;
         font-size: 12px;
@@ -1158,7 +1146,7 @@ textarea {
     }
 
     .createTagMenu:hover {
-        background-color: #e9e9e9;
+        background-color: @hover-panel;
         border-radius: 2px;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
@@ -1199,7 +1187,7 @@ div.error-popup, .read-confirmation-popup {
 }
 
 .read-confirmation-popup .close-info-popup {
-    color: #000000;
+    color: @dark-text;
     filter: alpha(Opacity=40);
     opacity: 0.4;
 }
@@ -1244,7 +1232,7 @@ input {
 }
 
 .placeholder {
-    color: #999;
+    color: @light-gray-text-color;
 }
 
 .subject {
@@ -1271,54 +1259,53 @@ input {
         height: @blank-icon-height;
         margin-right: 12px;
         margin-top: 10px;
-        background-image: url("@{blank-icon-sprite-url}");
 
         &.trash {
-            .blank-icon-mixin (1,2);
+            background-image: url("../images/mail_trash.svg");
         }
 
         &.contacts {
-            .blank-icon-mixin (0,0);
+            background-image: url("../images/mail_person.svg");
         }
 
         &.inbox {
-            .blank-icon-mixin (1,0);
+            background-image: url("../images/incoming_mail.svg");
         }
 
         &.spam {
-            .blank-icon-mixin (0,2);
+            background-image: url("../images/block_mail.svg");
         }
 
         &.drafts {
-            .blank-icon-mixin (1,1);
+            background-image: url("../images/write_letter.svg");
         }
 
         &.sent {
-            .blank-icon-mixin (0,1);
+            background-image: url("../images/mail_send.svg");
         }
 
         &.filter {
-            background-image: url("@{common-images-url}empty_screen_filter.png");
+            background-image: url("@{common-images-url}empty_screen_filter.svg");
         }
 
         &.accounts {
-            .blank-icon-mixin(0,3);
+            background-image: url("../images/mail_new_contact.svg");
         }
 
         &.tags {
-            .blank-icon-mixin(1,3);
+            background-image: url("../images/mail_tags.svg");
         }
 
         &.domains {
-            .blank-icon-mixin(0,5);
+            background-image: url("../images/mail_domain.svg");
         }
 
         &.userfolder {
-            background-position: -135px -906px;
+            background-image: url("../images/mail_folder.svg");
         }
 
         &.userFilter {
-            background-position: 5px -1056px;
+            background-image: url("../images/mail_filter.svg");
         }
     }
 }
@@ -1378,47 +1365,40 @@ body.media-width-0-1200
     z-index: @z-popup;
 }
 
-#add-first-account
-{
+#add-first-account {
     text-align: left;
 
-    .img_accounts
-    {
-        background: url("@{blank-icon-sprite-url}") no-repeat 1px -599px;
+    .img_accounts {
+        background: url("../images/mail_new_contact.svg");
         width: 104px;
         min-height: 100px;
         margin: 0 12px 0 -4px;
         float: left;
         background-repeat: no-repeat;
+        background-size: 100px 100px;
     }
 
-    .body
-    {
-        .title
-        {
+    .body {
+        .title {
             font-weight: bolder;
             font-size: 14px;
         }
 
-        .info
-        {
+        .info {
             padding-top: 4px;
             line-height: 14px;
         }
 
-        .question
-        {
+        .question {
             line-height: 12px;
         }
     }
 
-    .buttons
-    {
+    .buttons {
         clear: both;
         margin: 15px 0 0 2px;
 
-        .button
-        {
+        .button {
             clear: both;
             margin-right: @message-spliter-width;
         }
@@ -1473,33 +1453,33 @@ body.media-width-0-1200
         font-weight: normal;
         line-height: 13px;
         height: 15px;
-        color: #666666;
-        background-color: #dedede;
-        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f3f3f3), to(#dedede));
-        background-image: -webkit-linear-gradient(top, #f3f3f3, 0%, #dedede, 100%);
-        background-image: -moz-linear-gradient(top, #f3f3f3 0%, #dedede 100%);
-        background-image: linear-gradient(to bottom, #f3f3f3 0%, #dedede 100%);
+        color: @grey-text;
+        background-color: @button-gradient-bottom;
+        background-image: -webkit-gradient(linear, left 0%, left 100%, from(@button-gradient-top), to(@button-gradient-bottom));
+        background-image: -webkit-linear-gradient(top, @button-gradient-top, 0%, @button-gradient-bottom, 100%);
+        background-image: -moz-linear-gradient(top, @button-gradient-top 0%, @button-gradient-bottom 100%);
+        background-image: linear-gradient(to bottom, @button-gradient-top 0%, @button-gradient-bottom 100%);
         background-repeat: repeat-x;
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff3f3f3', endColorstr='#ffdedede', GradientType=0);
-        border: 1px solid #bfbfbf;
+        border: 1px solid @button-gradient-bor !important;
         white-space: nowrap !important;
     }
 
     .ui-checkboxradio-checked,
-    .ui-widget-content .ui-state-active, 
-    .ui-widget-header .ui-state-active, 
-    a.ui-button:active, 
-    .ui-button:active, 
+    .ui-widget-content .ui-state-active,
+    .ui-widget-header .ui-state-active,
+    a.ui-button:active,
+    .ui-button:active,
     .ui-button.ui-state-active:hover {
-        border: 1px solid #bfbfbf;
-        background: #fff;
-        color: #666666;
+        border: 1px solid @button-gradient-bor;
+        background: @button-gradient-checked;
+        color: @grey-text;
     }
 
     .ui-state-active:hover {
-        border: 1px solid #bfbfbf;
-        background: gray; 
-        color: #666666;
+        border: 1px solid @button-gradient-bor;
+        background: gray;
+        color: @grey-text;
     }
 
     .ui-corner-left {
@@ -1539,9 +1519,6 @@ body.media-width-0-1200
 /*******************************************************************************
     Mouse moving
 *******************************************************************************/
-
-@drag-color: #fcf6e0;
-@drag-hover-color: #F9EEC2;
 
 .mailMouseMove,
 .mailMouseMove * {

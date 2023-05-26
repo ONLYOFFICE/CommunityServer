@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ namespace ASC.Web.Core.Mail
 
         private static IDbManager GetDb()
         {
-            return DbManager.FromHttpContext("webstudio");
+            return new DbManager("default");
         }
 
         private static IDbManager GetDb(string dbid, string connectionString)
@@ -74,7 +74,7 @@ namespace ASC.Web.Core.Mail
 
             DbRegistry.RegisterDatabase(connectionSettings.Name, connectionSettings);
 
-            return DbManager.FromHttpContext(connectionSettings.Name);
+            return new DbManager(connectionSettings.Name);
         }
 
         private static void DemandPermission()

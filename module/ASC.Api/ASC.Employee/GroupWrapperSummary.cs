@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,13 +37,18 @@ namespace ASC.Api.Employee
         {
         }
 
-
+        ///<example>Group Name</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Name { get; set; }
 
+        ///<example>00000000-0000-0000-0000-000000000000</example>
+        ///<order>1</order>
         [DataMember(Order = 1)]
         public Guid Id { get; set; }
 
+        ///<example>Jake.Zazhitski</example>
+        ///<order>9</order>
         [DataMember(Order = 9, EmitDefaultValue = true)]
         public string Manager { get; set; }
 

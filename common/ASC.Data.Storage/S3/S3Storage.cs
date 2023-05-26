@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -28,14 +29,19 @@ using System.Web;
 using Amazon;
 using Amazon.CloudFront;
 using Amazon.CloudFront.Model;
+using Amazon.Extensions.S3.Encryption;
+using Amazon.Extensions.S3.Encryption.Primitives;
 using Amazon.S3;
+using Amazon.S3.Internal;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.Util;
 
 using ASC.Common;
 using ASC.Core;
+using ASC.Core.ChunkedUploader;
 using ASC.Data.Storage.Configuration;
+using ASC.Data.Storage.ZipOperators;
 
 using MimeMapping = ASC.Common.Web.MimeMapping;
 
@@ -51,22 +57,25 @@ namespace ASC.Data.Storage.S3
         private string _recycleDir = "";
         private Uri _bucketRoot;
         private Uri _bucketSSlRoot;
-        private string _region = String.Empty;
+        private string _region = "";
         private string _serviceurl;
         private bool _forcepathstyle;
         private string _secretAccessKeyId = "";
-        private ServerSideEncryptionMethod _sse = ServerSideEncryptionMethod.AES256;
         private bool _useHttp = true;
 
         private bool _lowerCasing = true;
         private bool _revalidateCloudFront;
-        private string _distributionId = string.Empty;
-        private String _subDir = String.Empty;
+        private string _distributionId = "";
+        private string _subDir = "";
+
+        private EncryptionMethod _encryptionMethod = EncryptionMethod.None;
+        private string _encryptionKey = null;
 
         public S3Storage(string tenant)
         {
             _tenant = tenant;
             _modulename = string.Empty;
+            _cache = false;
             _dataList = null;
 
             //Make expires
@@ -80,6 +89,7 @@ namespace ASC.Data.Storage.S3
         {
             _tenant = tenant;
             _modulename = moduleConfig.Name;
+            _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
             _domains.AddRange(
                 moduleConfig.Domains.Cast<DomainConfigurationElement>().Select(x => string.Format("{0}/", x.Name)));
@@ -159,6 +169,11 @@ namespace ASC.Data.Storage.S3
 
                 foreach (var h in headers)
                 {
+                    if (h.StartsWith("SecureKey"))
+                    {
+                        continue;
+                    }
+                    
                     if (h.StartsWith("Content-Disposition")) headersOverrides.ContentDisposition = (h.Substring("Content-Disposition".Length + 1));
                     else if (h.StartsWith("Cache-Control")) headersOverrides.CacheControl = (h.Substring("Cache-Control".Length + 1));
                     else if (h.StartsWith("Content-Encoding")) headersOverrides.ContentEncoding = (h.Substring("Content-Encoding".Length + 1));
@@ -180,15 +195,21 @@ namespace ASC.Data.Storage.S3
         {
             var uri = new Uri(preSignedURL);
             var signedPart = uri.PathAndQuery.TrimStart('/');
-            return new UnencodedUri(uri.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase) ? _bucketSSlRoot : _bucketRoot, signedPart);
+
+            var baseUri = uri.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase) ? _bucketSSlRoot : _bucketRoot;
+
+            if (preSignedURL.StartsWith(baseUri.ToString())) return uri;
+
+            return new UnencodedUri(baseUri, signedPart);
         }
+
 
         public override Stream GetReadStream(string domain, string path)
         {
             return GetReadStream(domain, path, 0);
         }
 
-        public override Stream GetReadStream(string domain, string path, int offset)
+        public override Stream GetReadStream(string domain, string path, long offset)
         {
             var request = new GetObjectRequest
             {
@@ -215,7 +236,7 @@ namespace ASC.Data.Storage.S3
                 throw;
             }
         }
-        public override async Task<Stream> GetReadStreamAsync(string domain, string path, int offset)
+        public override async Task<Stream> GetReadStreamAsync(string domain, string path, long offset)
         {
             var request = new GetObjectRequest
             {
@@ -242,8 +263,11 @@ namespace ASC.Data.Storage.S3
                 throw;
             }
         }
-
-        protected override Uri SaveWithAutoAttachment(string domain, string path, Stream stream, string attachmentFileName)
+        protected override Uri SaveWithAutoAttachment(string domain, string path, System.IO.Stream stream, string attachmentFileName)
+        {
+            return SaveWithAutoAttachment(domain, path, Guid.Empty, stream, attachmentFileName);
+        }
+        protected override Uri SaveWithAutoAttachment(string domain, string path, Guid ownerId, System.IO.Stream stream, string attachmentFileName)
         {
             var contentDisposition = string.Format("attachment; filename={0};",
                                                    HttpUtility.UrlPathEncode(attachmentFileName));
@@ -252,23 +276,31 @@ namespace ASC.Data.Storage.S3
                 contentDisposition = string.Format("attachment; filename*=utf-8''{0};",
                                                    HttpUtility.UrlPathEncode(attachmentFileName));
             }
-            return Save(domain, path, stream, null, contentDisposition);
+            return Save(domain, path, ownerId, stream, null, contentDisposition);
         }
-
+        public override Uri Save(string domain, string path, Guid ownerId, Stream stream, string contentType,
+                        string contentDisposition)
+        {
+            return Save(domain, path, ownerId, stream, contentType, contentDisposition, ACL.Auto);
+        }
         public override Uri Save(string domain, string path, Stream stream, string contentType,
                         string contentDisposition)
         {
             return Save(domain, path, stream, contentType, contentDisposition, ACL.Auto);
         }
-
         public Uri Save(string domain, string path, Stream stream, string contentType,
+                                 string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5)
+        {
+            return Save(domain, path, Guid.Empty, stream, contentType, contentDisposition, acl, contentEncoding, cacheDays);
+        }
+        public Uri Save(string domain, string path, Guid ownerId, Stream stream, string contentType,
                                  string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5)
         {
             var buffered = stream.GetBuffered();
 
             if (QuotaController != null)
             {
-                QuotaController.QuotaUsedCheck(buffered.Length);
+                QuotaController.QuotaUsedCheck(buffered.Length, ownerId);
             }
 
             using (var client = GetClient())
@@ -283,15 +315,21 @@ namespace ASC.Data.Storage.S3
                     BucketName = _bucket,
                     Key = MakePath(domain, path),
                     ContentType = mime,
-                    ServerSideEncryptionMethod = _sse,
                     InputStream = buffered,
                     AutoCloseStream = false,
                     Headers =
                     {
-                        CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds),
+                        CacheControl = string.Format("public, max-age={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds),
                         ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(cacheDays))
                     }
                 };
+
+                if (!(client is IAmazonS3Encryption))
+                {
+                    string kmsKeyId;
+                    request.ServerSideEncryptionMethod = GetServerSideEncryptionMethod(out kmsKeyId);
+                    request.ServerSideEncryptionKeyManagementServiceKeyId = kmsKeyId;
+                }
 
                 if (!WorkContext.IsMono) //  System.Net.Sockets.SocketException: Connection reset by peer
                 {
@@ -325,7 +363,7 @@ namespace ASC.Data.Storage.S3
 
                 InvalidateCloudFront(MakePath(domain, path));
 
-                QuotaUsedAdd(domain, buffered.Length);
+                QuotaUsedAdd(domain, buffered.Length, ownerId);
 
                 return GetUri(domain, path);
             }
@@ -356,10 +394,13 @@ namespace ASC.Data.Storage.S3
                 cfClient.CreateInvalidation(invalidationRequest);
             }
         }
-
+        public override Uri Save(string domain, string path, Stream stream, Guid ownerId)
+        {
+            return Save(domain, path, ownerId, stream, string.Empty, string.Empty);
+        }
         public override Uri Save(string domain, string path, Stream stream)
         {
-            return Save(domain, path, stream, string.Empty, string.Empty);
+            return Save(domain, path, Guid.Empty, stream, string.Empty, string.Empty);
         }
 
         public override Uri Save(string domain, string path, Stream stream, string contentEncoding, int cacheDays)
@@ -373,18 +414,23 @@ namespace ASC.Data.Storage.S3
         }
 
         #region chunking
-
         public override string InitiateChunkedUpload(string domain, string path)
         {
             var request = new InitiateMultipartUploadRequest
             {
                 BucketName = _bucket,
-                Key = MakePath(domain, path),
-                ServerSideEncryptionMethod = _sse
+                Key = MakePath(domain, path)
             };
 
             using (var s3 = GetClient())
             {
+                if (!(s3 is IAmazonS3Encryption))
+                {
+                    string kmsKeyId;
+                    request.ServerSideEncryptionMethod = GetServerSideEncryptionMethod(out kmsKeyId);
+                    request.ServerSideEncryptionKeyManagementServiceKeyId = kmsKeyId;
+                }
+
                 var response = s3.InitiateMultipartUpload(request);
                 return response.UploadId;
             }
@@ -406,6 +452,36 @@ namespace ASC.Data.Storage.S3
                 using (var s3 = GetClient())
                 {
                     var response = s3.UploadPart(request);
+                    return response.ETag;
+                }
+            }
+            catch (AmazonS3Exception error)
+            {
+                if (error.ErrorCode == "NoSuchUpload")
+                {
+                    AbortChunkedUpload(domain, path, uploadId);
+                }
+
+                throw;
+            }
+        }
+
+        public override async Task<string> UploadChunkAsync(string domain, string path, string uploadId, Stream stream, long defaultChunkSize, int chunkNumber, long chunkLength)
+        {
+            var request = new UploadPartRequest
+            {
+                BucketName = _bucket,
+                Key = MakePath(domain, path),
+                UploadId = uploadId,
+                PartNumber = chunkNumber,
+                InputStream = stream
+            };
+
+            try
+            {
+                using (var s3 = GetClient())
+                {
+                    var response = await s3.UploadPartAsync(request);
                     return response.ETag;
                 }
             }
@@ -475,6 +551,13 @@ namespace ASC.Data.Storage.S3
         }
 
         public override bool IsSupportChunking { get { return true; } }
+
+        public override IDataWriteOperator CreateDataWriteOperator(
+            CommonChunkedUploadSession chunkedUploadSession,
+            CommonChunkedUploadSessionHolder sessionHolder)
+        {
+            return new S3ZipWriteOperator(chunkedUploadSession, sessionHolder);
+        }
 
         #endregion
 
@@ -552,6 +635,10 @@ namespace ASC.Data.Storage.S3
 
         public override void DeleteFiles(string domain, string path, string pattern, bool recursive)
         {
+            DeleteFiles(domain, path, pattern, recursive, Guid.Empty);
+        }
+        public override void DeleteFiles(string domain, string path, string pattern, bool recursive, Guid ownerId)
+        {
             var makedPath = MakePath(domain, path) + '/';
             var objToDel = GetS3Objects(domain, path)
                 .Where(x =>
@@ -573,7 +660,7 @@ namespace ASC.Data.Storage.S3
 
                     client.DeleteObject(deleteRequest);
 
-                    QuotaUsedDelete(domain, Convert.ToInt64(s3Object.Size));
+                    QuotaUsedDelete(domain, Convert.ToInt64(s3Object.Size), ownerId);
                 }
             }
         }
@@ -674,7 +761,7 @@ namespace ASC.Data.Storage.S3
                     InputStream = buffered,
                     Headers =
                     {
-                        CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(5).TotalSeconds),
+                        CacheControl = string.Format("public, max-age={0}", (int)TimeSpan.FromDays(5).TotalSeconds),
                         ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(5)),
                         ContentDisposition = "attachment",
                     }
@@ -911,7 +998,11 @@ namespace ASC.Data.Storage.S3
 
         public override void DeleteDirectory(string domain, string path)
         {
-            DeleteFiles(domain, path, "*", true);
+            DeleteDirectory(domain, path, Guid.Empty);
+        }
+        public override void DeleteDirectory(string domain, string path, Guid ownerId)
+        {
+            DeleteFiles(domain, path, "*", true, ownerId);
         }
 
         public override long GetFileSize(string domain, string path)
@@ -1082,18 +1173,26 @@ namespace ASC.Data.Storage.S3
                 switch (props["sse"].ToLower())
                 {
                     case "none":
-                        _sse = ServerSideEncryptionMethod.None;
+                        _encryptionMethod = EncryptionMethod.None;
                         break;
                     case "aes256":
-                        _sse = ServerSideEncryptionMethod.AES256;
+                        _encryptionMethod = EncryptionMethod.ServerS3;
                         break;
                     case "awskms":
-                        _sse = ServerSideEncryptionMethod.AWSKMS;
+                        _encryptionMethod = EncryptionMethod.ServerKms;
+                        break;
+                    case "clientawskms":
+                        _encryptionMethod = EncryptionMethod.ClientKms;
                         break;
                     default:
-                        _sse = ServerSideEncryptionMethod.None;
+                        _encryptionMethod = EncryptionMethod.None;
                         break;
                 }
+            }
+
+            if (props.ContainsKey("ssekey") && !string.IsNullOrEmpty(props["ssekey"]))
+            {
+                _encryptionKey = props["ssekey"];
             }
 
             _bucketRoot = props.ContainsKey("cname") && Uri.IsWellFormedUriString(props["cname"], UriKind.Absolute)
@@ -1188,9 +1287,15 @@ namespace ASC.Data.Storage.S3
                         {
                             BucketName = _bucket,
                             Key = destinationKey,
-                            CannedACL = GetDomainACL(newdomain),
-                            ServerSideEncryptionMethod = _sse
+                            CannedACL = GetDomainACL(newdomain)
                         };
+
+                    if (!(client is IAmazonS3Encryption))
+                    {
+                        string kmsKeyId;
+                        initiateRequest.ServerSideEncryptionMethod = GetServerSideEncryptionMethod(out kmsKeyId);
+                        initiateRequest.ServerSideEncryptionKeyManagementServiceKeyId = kmsKeyId;
+                    }
 
                     if (storageClass != null)
                     {
@@ -1201,7 +1306,7 @@ namespace ASC.Data.Storage.S3
 
                     var uploadId = initResponse.UploadId;
 
-                    var partSize = 5 * (long)Math.Pow(2, 20); // Part size is 5 MB.
+                    var partSize = GetChunkSize(); 
 
                     long bytePosition = 0;
                     for (int i = 1; bytePosition < objectSize; i++)
@@ -1243,9 +1348,15 @@ namespace ASC.Data.Storage.S3
                         DestinationBucket = _bucket,
                         DestinationKey = destinationKey,
                         CannedACL = GetDomainACL(newdomain),
-                        ServerSideEncryptionMethod = _sse,
                         MetadataDirective = metadataDirective,
                     };
+
+                    if (!(client is IAmazonS3Encryption))
+                    {
+                        string kmsKeyId;
+                        request.ServerSideEncryptionMethod = GetServerSideEncryptionMethod(out kmsKeyId);
+                        request.ServerSideEncryptionKeyManagementServiceKeyId = kmsKeyId;
+                    }
 
                     if (storageClass != null)
                     {
@@ -1265,9 +1376,16 @@ namespace ASC.Data.Storage.S3
 
         private IAmazonS3 GetClient()
         {
+            var encryptionClient = GetEncryptionClient();
+
+            if (encryptionClient != null)
+            {
+                return encryptionClient;
+            }
+
             var cfg = new AmazonS3Config { MaxErrorRetry = 3 };
 
-            if (!String.IsNullOrEmpty(_serviceurl))
+            if (!string.IsNullOrEmpty(_serviceurl))
             {
                 cfg.ServiceURL = _serviceurl;
 
@@ -1357,6 +1475,116 @@ namespace ASC.Data.Storage.S3
                 base.Dispose(disposing);
                 if (disposing) _response.Dispose();
             }
+        }
+
+
+        private IAmazonS3 GetEncryptionClient()
+        {
+            if (string.IsNullOrEmpty(_encryptionKey))
+            {
+                return null;
+            }
+
+            EncryptionMaterialsV2 encryptionMaterials = null;
+
+            switch (_encryptionMethod)
+            {
+                case EncryptionMethod.ClientKms:
+                    var encryptionContext = new Dictionary<string, string>();
+                    encryptionMaterials = new EncryptionMaterialsV2(_encryptionKey, KmsType.KmsContext, encryptionContext);
+                    break;
+                    //case EncryptionMethod.ClientAes:
+                    //    var symmetricAlgorithm = Aes.Create();
+                    //    symmetricAlgorithm.Key = Encoding.UTF8.GetBytes(_encryptionKey);
+                    //    encryptionMaterials = new EncryptionMaterialsV2(symmetricAlgorithm, SymmetricAlgorithmType.AesGcm);
+                    //    break;
+                    //case EncryptionMethod.ClientRsa:
+                    //    var asymmetricAlgorithm = RSA.Create();
+                    //    asymmetricAlgorithm.FromXmlString(_encryptionKey);
+                    //    encryptionMaterials = new EncryptionMaterialsV2(asymmetricAlgorithm, AsymmetricAlgorithmType.RsaOaepSha1);
+                    //    break;
+            }
+
+            if (encryptionMaterials == null)
+            {
+                return null;
+            }
+
+            var cfg = new AmazonS3CryptoConfigurationV2(SecurityProfile.V2AndLegacy)
+            {
+                StorageMode = CryptoStorageMode.ObjectMetadata,
+                MaxErrorRetry = 3
+            };
+
+            if (!string.IsNullOrEmpty(_serviceurl))
+            {
+                cfg.ServiceURL = _serviceurl;
+                cfg.ForcePathStyle = _forcepathstyle;
+            }
+            else
+            {
+                cfg.RegionEndpoint = RegionEndpoint.GetBySystemName(_region);
+            }
+
+            cfg.UseHttp = _useHttp;
+
+            return new AmazonS3EncryptionClientV2(_accessKeyId, _secretAccessKeyId, cfg, encryptionMaterials);
+        }
+
+        private ServerSideEncryptionMethod GetServerSideEncryptionMethod(out string kmsKeyId)
+        {
+            kmsKeyId = null;
+
+            var method = ServerSideEncryptionMethod.None;
+
+            switch (_encryptionMethod)
+            {
+                case EncryptionMethod.ServerS3:
+                    method = ServerSideEncryptionMethod.AES256;
+                    break;
+                case EncryptionMethod.ServerKms:
+                    method = ServerSideEncryptionMethod.AWSKMS;
+                    if (!string.IsNullOrEmpty(_encryptionKey))
+                    {
+                        kmsKeyId = _encryptionKey;
+                    }
+                    break;
+            }
+
+            return method;
+        }
+
+        protected override DateTime GetLastModificationDate(string domain, string path)
+        {
+            using (var client = GetClient())
+            {
+                var a = new Amazon.S3.IO.S3FileInfo(client, _bucket, MakePath(domain, path));
+                if (a.Exists) return a.LastWriteTimeUtc;
+            }
+
+            throw new FileNotFoundException("file not found", path);
+        }
+
+        private long GetChunkSize()
+        {
+            var configSetting = ConfigurationManagerExtension.AppSettings["files.uploader.chunk-size"];
+            if (!string.IsNullOrEmpty(configSetting))
+            {
+                configSetting = configSetting.Trim();
+                return long.Parse(configSetting);
+            }
+            long defaultValue = 10 * 1024 * 1024;
+            return defaultValue;
+        }
+
+        private enum EncryptionMethod
+        {
+            None,
+            ServerS3,
+            ServerKms,
+            ClientKms,
+            //ClientAes,
+            //ClientRsa
         }
     }
 }

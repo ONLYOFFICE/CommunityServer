@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 using ASC.Core.ChunkedUploader;
 using ASC.Files.Core;
@@ -74,6 +75,11 @@ namespace ASC.Web.Files.Utils
         public static void UploadChunk(ChunkedUploadSession uploadSession, Stream stream, long length)
         {
             CommonSessionHolder().UploadChunk(uploadSession, stream, length);
+        }
+
+        public static async Task UploadChunkAsync(ChunkedUploadSession uploadSession, Stream stream, long length)
+        {
+            await CommonSessionHolder().UploadChunkAsync(uploadSession, stream, length);
         }
 
         public static void FinalizeUploadSession(ChunkedUploadSession uploadSession)

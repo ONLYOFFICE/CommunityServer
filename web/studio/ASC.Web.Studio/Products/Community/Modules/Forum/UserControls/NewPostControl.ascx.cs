@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -51,6 +52,11 @@ namespace ASC.Web.UserControls.Forum
             var result = new FileUploadResult { Success = false };
             try
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+
                 if (FileToUpload.HasFilesToUpload(context))
                 {
                     var settingsID = new Guid(context.Request["SettingsID"]);
@@ -60,11 +66,19 @@ namespace ASC.Web.UserControls.Forum
 
                     var forumManager = settings.ForumManager;
                     var offsetPhysicalPath = string.Empty;
-                    forumManager.GetAttachmentVirtualDirPath(thread, settingsID, new Guid(context.Request["UserID"]), out offsetPhysicalPath);
+                    var userId = new Guid(context.Request["UserID"]);
+
+                    if (userId != SecurityContext.CurrentAccount.ID)
+                    {
+                        result.Message = ForumUCResource.ErrorAccessDenied;
+                        return result;
+                    }
+
+                    forumManager.GetAttachmentVirtualDirPath(thread, settingsID, userId, out offsetPhysicalPath);
 
                     var file = new FileToUpload(context);
 
-                    var newFileName = GetFileName(file.FileName);
+                    var newFileName = Path.GetFileName(file.FileName);
                     var origFileName = newFileName;
 
                     var i = 1;

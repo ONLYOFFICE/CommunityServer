@@ -7,6 +7,8 @@
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Users.UserProfile" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id="studio_userProfileCardInfo" data-id="<%= UserInfo.ID %>" data-email="<%= UserInfo.Email.HtmlEncode() %>"></div>
@@ -47,6 +49,53 @@
                { %>
             <div class="profile-role <%= Role.Class %>" title="<%= Role.Title%>"></div>
             <% } %>
+        </div>
+
+        <div class="user-quota-info <% if (Int32.Parse(QuotaLimit.Split(' ')[0]) <= 0)
+            { %> no-quota <% } %> ">
+            <span><%= Resource.QuotaUsed %></span>
+            <span class="used-space<% if (EnableUserQuota && Int32.Parse(QuotaLimit.Split(' ')[0]) <= 0 && IsAdmin)
+                { %> link dotted <% } %> "><%= UsedSpace %></span>
+            <div id="editNoQuotaMenu" class="studio-action-panel">
+                <ul class="dropdown-content">
+                    <li>
+                        <a class="dropdown-item edit-quota"><%= Resource.QuotaSettingsEditQuota %></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item no-quota"><%= Resource.QuotaSettingsNoQuota %></a>
+                    </li>
+                </ul>
+            </div>
+            <% if (EnableUserQuota)
+                {  %>
+            <div id="editQuota">
+                <span><%= Resource.QuotaUsedOutOf %> </span>
+                <span class=" <% if (IsAdmin)
+                    { %> link dotted <% } %>"><%= QuotaLimit %></span>
+                <div id="editQuotaMenu" class="studio-action-panel">
+                    <ul class="dropdown-content">
+                        <li>
+                            <a class="dropdown-item edit-quota"><%= Resource.QuotaSettingsEditQuota %></a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item no-quota"><%= Resource.QuotaSettingsNoQuota %></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <% } %>
+            <div id="setQuotaForm" class="set-quota" style="display: none">
+                <input class="textEdit" />
+                <div class="sizes">
+                    <div id="editQuotaVal" class="val"></div>
+                </div>
+                <div class="save-btn">
+                    <span class="mark"></span>
+                </div>
+                <div class="close-btn">
+                    <span class="mark"></span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -104,6 +153,14 @@
                             <div class="field">
                                 <span class="field-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>:</span>
                                 <span id="titleUserProfile" class="field-value"><%= HttpUtility.HtmlEncode(UserInfo.Title) %></span>
+                            </div>
+                            <% } %>
+
+                            <% if (Lead != null)
+                               { %>
+                            <div class="field">
+                                <span class="field-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserLead").HtmlEncode() %>:</span>
+                                <a href="<%= CommonLinkUtility.GetUserProfile(Lead.ID.ToString()) %>"><%= Lead.DisplayUserName() %></a>
                             </div>
                             <% } %>
 
@@ -249,6 +306,32 @@
 </div>
 <% } %>
 
+ <% if (UserInfo.IsMe())
+     { %>
+<div class="user-block interface theme">
+    <div class="tabs-section">
+        <span class="header-base"> <%= Resource.InterfaceTheme %></span>
+        <span id="switcherTheme" class="toggle-button" data-switcher="1" 
+            data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>"> <%= Resource.Show %>
+        </span>
+    </div>
+   <div id="ThemeContainer" style="display: none;">
+       <div class="radio-but-theme">
+           <input type="radio" id ="<%= ModeTheme.light%>" value ="<%= ModeTheme.light%>"  auto_mode=false  <%= (ModeTheme.light.Equals(ChosenMode.ModeThemeName) && false.Equals(ChosenMode.AutoDetect) ? "checked=\"checked\"" : "") %> name="typeTheme"/>
+                <label for="<%= ModeTheme.light%>"><%= Resource.LightTheme %></label>
+       </div>
+       <div class="radio-but-theme">
+           <input type="radio"  id ="<%= ModeTheme.dark%>" value ="<%= ModeTheme.dark%>" auto_mode=false <%= (ModeTheme.dark.Equals(ChosenMode.ModeThemeName) && false.Equals(ChosenMode.AutoDetect) ? "checked=\"checked\"" : "") %> name="typeTheme"/>
+                <label for="<%= ModeTheme.dark%>"><%= Resource.DarkTheme %></label>
+       </div>
+       <div class="radio-but-theme">
+            <input type="radio" id ="interface_mode" value ="interface_mode" auto_mode=true <%= (true.Equals(ChosenMode.AutoDetect) ? "checked=\"checked\"" : "") %> name="typeTheme"/>
+                <label for="interface_mode"><%= Resource.SystemTheme %></label>
+       </div>
+   </div>
+         
+</div>
+ <% }%>
 <% if (!String.IsNullOrEmpty(UserInfo.Notes.HtmlEncode()))
    { %>
 <div class="user-block profile-comment">

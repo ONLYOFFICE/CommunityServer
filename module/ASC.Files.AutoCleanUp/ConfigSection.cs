@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,12 @@ namespace ASC.Files.AutoCleanUp
         public TimeSpan Period
         {
             get { return (TimeSpan)this["period"]; }
+        }
+
+        [ConfigurationProperty("maxDegreeOfParallelism", DefaultValue = "10")]
+        public int MaxDegreeOfParallelism
+        {
+            get { return (int)this["maxDegreeOfParallelism"]; }
         }
 
         public static ConfigSection GetSection()

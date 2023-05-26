@@ -37,6 +37,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\ASC.Web.Studio.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -47,7 +49,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web">
@@ -55,6 +61,7 @@
     </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +82,9 @@
     <Compile Include="Core\Notify\SpamEmailSettings.cs" />
     <Compile Include="Core\OpensourceGiftSettings.cs" />
     <Compile Include="Core\PrivacyRoomSettings.cs" />
+    <Compile Include="Core\Quota\UserQuotaSync.cs" />
+    <Compile Include="Core\Tfa\ITfaSettings.cs" />
+    <Compile Include="Core\Tfa\TfaSettingsBase.cs" />
     <Compile Include="Core\WarmUp.cs" />
     <Compile Include="DeepLink.aspx.cs">
       <DependentUpon>DeepLink.aspx</DependentUpon>
@@ -460,6 +470,13 @@
     <Compile Include="UserControls\Management\Backup\Backup.ascx.designer.cs" Condition="Exists('UserControls\Management\Backup\Backup.ascx.designer.cs')">
       <DependentUpon>Backup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Management\ShareLinkPassword\ShareLinkPassword.ascx.cs">
+      <DependentUpon>ShareLinkPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ShareLinkPassword\ShareLinkPassword.ascx.designer.cs">
+      <DependentUpon>ShareLinkPassword.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Management\CookieSettings\CookieSettings.ascx.cs">
       <DependentUpon>CookieSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -475,6 +492,27 @@
       <DependentUpon>CustomNavigation.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\CustomNavigation\LogoUploader.cs" />
+    <Compile Include="UserControls\Management\ImpersonateUser\ImpersonateSettings.ascx.cs">
+      <DependentUpon>ImpersonateSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ImpersonateUser\ImpersonateSettings.ascx.designer.cs">
+      <DependentUpon>ImpersonateSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ImpersonateUser\ImpersonateUserConfirmationPanel.ascx.cs">
+      <DependentUpon>ImpersonateUserConfirmationPanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ImpersonateUser\ImpersonateUserConfirmationPanel.ascx.designer.cs">
+      <DependentUpon>ImpersonateUserConfirmationPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\LoginSettings\LoginSettings.ascx.cs">
+      <DependentUpon>LoginSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\LoginSettings\LoginSettings.ascx.designer.cs">
+      <DependentUpon>LoginSettings.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Management\PricingPageSettings\PricingPageSettings.ascx.cs">
       <DependentUpon>PricingPageSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -704,6 +742,7 @@
       <DependentUpon>SmtpSettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\TariffSettings\TariffSettings.cs" />
+    <Compile Include="UserControls\Statistics\ProductQuotes\ClientTemplateResources.cs" />
     <Compile Include="UserControls\Users\TipsSettings\TipsSettings.ascx.cs">
       <DependentUpon>TipsSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -733,7 +772,6 @@
     <Compile Include="Utility\BBCodeParser\TagParamOption.cs" />
     <Compile Include="Utility\RefererURL.cs" />
     <Compile Include="Utility\WhiteLabelHelper.cs" />
-    <Compile Include="Utility\TenantLogoHelper.cs" />
     <Compile Include="Utility\HtmlUtility\CodeFormat\CLikeFormat.cs" />
     <Compile Include="Utility\HtmlUtility\CodeFormat\CodeFormat.cs" />
     <Compile Include="Utility\HtmlUtility\CodeFormat\CppFormat.cs" />
@@ -1143,6 +1181,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="DeepLink.aspx" />
+    <Content Include="js\asc\core\desktop.polyfills.js" />
     <Content Include="js\asc\core\headscript.js" />
     <Content Include="js\asc\plugins\userselector.js" />
     <Content Include="js\asc\plugins\svg4everybody.js" />
@@ -1184,28 +1223,65 @@
     <Content Include="skins\bright-blue\img\up.svg" />
     <Content Include="skins\dark-green\img\rotate.svg" />
     <Content Include="skins\dark-green\img\up.svg" />
+    <Content Include="skins\dark-img\advfilter-icons.png" />
+    <Content Include="skins\dark-img\btn-onoff.png" />
+    <Content Include="skins\dark-img\btn_icons.png" />
+    <Content Include="skins\dark-img\btn_row_icons.png" />
+    <Content Include="skins\dark-img\convert_pencil.png" />
+    <Content Include="skins\dark-img\dropdown-menu-icons.png" />
+    <Content Include="skins\dark-img\dropdown-menu-icons_retina.png" />
+    <Content Include="skins\dark-img\edit_lock.png" />
+    <Content Include="skins\dark-img\edit_pencil.png" />
+    <Content Include="skins\dark-img\gantt-icons.png" />
+    <Content Include="skins\dark-img\icons_nav_panel.png" />
+    <Content Include="skins\dark-img\icons_nav_panel_retina.png" />
+    <Content Include="skins\dark-img\mainmenu_upload.png" />
+    <Content Include="skins\dark-img\name_action.png" />
+    <Content Include="skins\dark-img\refresh.png" />
+    <Content Include="skins\dark-img\rotate.svg" />
+    <Content Include="skins\dark-img\switch_view.png" />
+    <Content Include="skins\dark-img\top-studio-menu.png" />
+    <Content Include="skins\dark-img\top-studio-menu_retina.png" />
+    <Content Include="skins\dark-img\unfollow.png" />
+    <Content Include="skins\dark-img\up.png" />
+    <Content Include="skins\dark-img\up.svg" />
     <Content Include="skins\deep-blue\img\rotate.svg" />
     <Content Include="skins\deep-blue\img\up.svg" />
     <Content Include="skins\default\imagescss\rotate.svg" />
+    <Content Include="skins\default\imagescss\security.svg" />
     <Content Include="skins\default\imagescss\up.svg" />
+    <Content Include="skins\default\imagescss\upload.svg" />
+    <Content Include="skins\default\imagescss\welcometo_logo.svg" />
     <Content Include="skins\default\images\checkboxes.png" />
+    <Content Include="skins\default\images\common_search_icon.svg" />
+    <Content Include="skins\default\images\community150.svg" />
+    <Content Include="skins\default\images\dark-checkboxes.png" />
     <Content Include="skins\default\images\dashboard\apps-you-need.svg" />
-    <Content Include="skins\default\images\dashboard\communicate-with-clients.png" />
-    <Content Include="skins\default\images\dashboard\create-clients-database.png" />
+    <Content Include="skins\default\images\dashboard\communicate-with-clients.svg" />
+    <Content Include="skins\default\images\dashboard\create-clients-database.svg" />
     <Content Include="skins\default\images\dashboard\creating-business-cloud.svg" />
-    <Content Include="skins\default\images\dashboard\customize-your-crm.png" />
-    <Content Include="skins\default\images\dashboard\discuss-with-team.png" />
+    <Content Include="skins\default\images\dashboard\customize-your-crm.svg" />
+    <Content Include="skins\default\images\dashboard\discuss-with-team.svg" />
     <Content Include="skins\default\images\dashboard\integration-with-infrastructure.svg" />
-    <Content Include="skins\default\images\dashboard\keep-your-team-posted.png" />
-    <Content Include="skins\default\images\dashboard\make-co-editing-comfy.png" />
-    <Content Include="skins\default\images\dashboard\share-files.png" />
-    <Content Include="skins\default\images\dashboard\share-news-and-knowledge.png" />
+    <Content Include="skins\default\images\dashboard\keep-your-team-posted.svg" />
+    <Content Include="skins\default\images\dashboard\make-co-editing-comfy.svg" />
+    <Content Include="skins\default\images\dashboard\share-files.svg" />
+    <Content Include="skins\default\images\dashboard\share-news-and-knowledge.svg" />
     <Content Include="skins\default\images\dashboard\tailored-cloud.svg" />
-    <Content Include="skins\default\images\dashboard\track-sales.png" />
+    <Content Include="skins\default\images\dashboard\track-sales.svg" />
     <Content Include="skins\default\images\dashboard\ultimate-security.svg" />
-    <Content Include="skins\default\images\dashboard\use-more-collaboration-tools.png" />
-    <Content Include="skins\default\images\dashboard\work-with-office-docs.png" />
+    <Content Include="skins\default\images\dashboard\use-more-collaboration-tools.svg" />
+    <Content Include="skins\default\images\dashboard\work-with-office-docs.svg" />
+    <Content Include="skins\default\images\default_user_photo_dark_size_200-200.png" />
+    <Content Include="skins\default\images\default_user_photo_dark_size_32-32.png" />
+    <Content Include="skins\default\images\default_user_photo_dark_size_360-360.png" />
+    <Content Include="skins\default\images\default_user_photo_dark_size_48-48.png" />
+    <Content Include="skins\default\images\default_user_photo_dark_size_82-82.png" />
+    <Content Include="skins\default\images\documents150.svg" />
+    <Content Include="skins\default\images\empty_screen_filter.svg" />
+    <Content Include="skins\default\images\empty_search.svg" />
     <Content Include="skins\default\images\event_66.png" />
+    <Content Include="skins\default\images\exclamation.svg" />
     <Content Include="skins\default\images\filetype\file_avi.png" />
     <Content Include="skins\default\images\filetype\file_dvd.png" />
     <Content Include="skins\default\images\filetype\file_epub.png" />
@@ -1319,13 +1395,21 @@
     <Content Include="skins\default\images\filetype\thumb\file_xps.png" />
     <Content Include="skins\default\images\filetype\thumb\folder.png" />
     <Content Include="skins\default\images\icon-controlpanel.svg" />
+    <Content Include="skins\default\images\jstree\throbber-dark-12.svg" />
+    <Content Include="skins\default\images\lastadded_widget.svg" />
+    <Content Include="skins\default\images\loader-dark-12.svg" />
+    <Content Include="skins\default\images\loader-dark-16.svg" />
+    <Content Include="skins\default\images\loader-dark-24.svg" />
+    <Content Include="skins\default\images\loader-dark-32.svg" />
+    <Content Include="skins\default\images\loader-dark-48.svg" />
+    <Content Include="skins\default\images\loader-dark-64.svg" />
     <Content Include="skins\default\images\loader.svg" />
     <Content Include="skins\default\images\lock_transparent.png" />
     <Content Include="skins\default\images\logo\editor_logo_embed.png" />
     <Content Include="skins\default\images\logo\editor_logo_embed_general.png" />
+    <Content Include="skins\default\images\mail.svg" />
     <Content Include="skins\default\images\notification\demo-100.png" />
     <Content Include="skins\default\images\notification\mailus-100.png" />
-    <Content Include="skins\default\images\notification\mail_logo.png" />
     <Content Include="skins\default\images\notification\personal-wellcome-bg.png" />
     <Content Include="skins\default\images\notification\privacy.png" />
     <Content Include="skins\default\images\notification\social-blog-40.png" />
@@ -1354,6 +1438,9 @@
     <Content Include="skins\default\images\notification\tips-documents-mailmerge-100.png" />
     <Content Include="skins\default\images\notification\tips-documents-review-100.png" />
     <Content Include="skins\default\images\notification\tips-documents-share-100.png" />
+    <Content Include="skins\default\images\logo\fb_icon_325x325.jpg" />
+    <Content Include="skins\default\images\logo\light_small.svg" />
+    <Content Include="skins\default\images\logo\light_small_general.svg" />
     <Content Include="skins\default\images\notification\tips-welcome-backup-50.png" />
     <Content Include="skins\default\images\notification\tips-welcome-brand-50.png" />
     <Content Include="skins\default\images\notification\tips-welcome-customize-50.png" />
@@ -1361,16 +1448,17 @@
     <Content Include="skins\default\images\notification\tips-welcome-security-50.png" />
     <Content Include="skins\default\images\notification\tips-welcome-telephony-50.png" />
     <Content Include="skins\default\images\notification\tips-welcome-usertrack-50.png" />
-    <Content Include="skins\default\images\logo\fb_icon_325x325.jpg" />
-    <Content Include="skins\default\images\logo\light_small.svg" />
-    <Content Include="skins\default\images\logo\light_small_general.svg" />
     <Content Include="skins\default\images\personal_logo\logo_personal.svg" />
     <Content Include="skins\default\images\personal_logo\logo_personal_about.svg" />
     <Content Include="skins\default\images\personal_logo\logo_personal_auth.svg" />
+    <Content Include="skins\default\images\product_logo.svg" />
+    <Content Include="skins\default\images\quickview.svg" />
+    <Content Include="skins\default\images\recent_activity.svg" />
     <Content Include="skins\default\images\svg\context\icon_accept.svg" />
     <Content Include="skins\default\images\svg\context\icon_access.svg" />
     <Content Include="skins\default\images\svg\context\icon_add_email.svg" />
     <Content Include="skins\default\images\svg\context\icon_arrow.svg" />
+    <Content Include="skins\default\images\svg\context\icon_arrow_light.svg" />
     <Content Include="skins\default\images\svg\context\icon_block.svg" />
     <Content Include="skins\default\images\svg\context\icon_calendar.svg" />
     <Content Include="skins\default\images\svg\context\icon_call.svg" />
@@ -1446,6 +1534,7 @@
     <Content Include="skins\default\images\svg\documents\recent.svg" />
     <Content Include="skins\default\images\svg\documents\templateblue.svg" />
     <Content Include="skins\default\images\svg\documents\templategray.svg" />
+    <Content Include="skins\default\images\svg\exclamation.svg" />
     <Content Include="skins\default\images\svg\people\google.svg" />
     <Content Include="skins\default\images\svg\people\mailru.png" />
     <Content Include="skins\default\images\svg\people\vk.png" />
@@ -1466,7 +1555,15 @@
     <Content Include="skins\default\images\svg\share\access_varies.svg" />
     <Content Include="skins\default\images\svg\share\close.svg" />
     <Content Include="skins\default\images\svg\share\group_avatar.svg" />
+    <Content Include="skins\default\images\svg\share\lifetime.svg" />
+    <Content Include="skins\default\images\svg\share\password.svg" />
+    <Content Include="skins\default\images\svg\share\trash.svg" />
     <Content Include="skins\default\images\svg\share\user_avatar.svg" />
+    <Content Include="skins\default\images\svg\share\user_avatar_dark.svg" />
+    <Content Include="skins\default\images\talk.svg" />
+    <Content Include="skins\default\images\to_left.svg" />
+    <Content Include="skins\default\images\to_right.svg" />
+    <Content Include="skins\default\images\ui-icons_cccccc_256x240.png" />
     <Content Include="skins\default\layout-desktop.less" />
     <Content Include="skins\default\layout-media.less" />
     <Content Include="skins\default\layout.less" />
@@ -1474,6 +1571,8 @@
     <Content Include="skins\pure-orange\img\up.svg" />
     <Content Include="skins\wild-pink\img\rotate.svg" />
     <Content Include="skins\wild-pink\img\up.svg" />
+    <Content Include="ThirdParty\plugin\wordpress\icon.svg" />
+    <Content Include="UserControls\Common\Attachments\images\documents-logo.svg" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\arrow_right_black.svg" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\buttons_icons\cs\app_store.svg" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\buttons_icons\cs\google_play.svg" />
@@ -1596,7 +1695,6 @@
     <Content Include="ThirdParty\plugin\pluginBase.js" />
     <Content Include="ThirdParty\plugin\plugins.css" />
     <Content Include="ThirdParty\plugin\wordpress\config.json" />
-    <Content Include="ThirdParty\plugin\wordpress\icon.png" />
     <Content Include="ThirdParty\plugin\wordpress\index.html" />
     <Content Include="ThirdParty\plugin\wordpress\style.css" />
     <Content Include="ThirdParty\plugin\wordpress\translations\br-BR.json" />
@@ -1635,7 +1733,25 @@
     <Content Include="UserControls\Common\MediaViewer\images\zoom-to-actual-pixels.png" />
     <Content Include="UserControls\Common\MediaViewer\jquery.jplayer.swf" />
     <Content Include="UserControls\Common\MediaViewer\MediaPlayer.ascx" />
-    <Content Include="UserControls\Common\MediaViewer\mediaplayer.css" />
+    <Content Include="UserControls\Common\MediaViewer\mediaplayer.less" />
+    <Content Include="UserControls\Common\Attachments\css\dark-attachments.less" />
+    <Content Include="UserControls\Common\Authorize\css\dark-authorize.less" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\dark-authorizedocs.less" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\dark-custom-mode.less" />
+    <Content Include="UserControls\Common\LoaderPage\css\dark-loaderpage.less" />
+    <Content Include="UserControls\Common\MediaViewer\dark-mediaplayer.less" />
+    <Content Include="skins\dark\dark-common_style.less" />
+    <Content Include="skins\dark\dark-empty-screen-control.less" />
+    <Content Include="skins\dark\dark-jquery-advansedselector.less" />
+    <Content Include="skins\dark\dark-userselector.less" />
+    <Content Include="skins\dark\dark-page-tabs-navigators.less" />
+    <Content Include="skins\dark\dark-toastr.less" />
+    <Content Include="skins\dark\dark-phonecontroller.less" />
+    <Content Include="skins\dark\dark-groupselector.less" />
+    <Content Include="skins\dark\dark-codestyle.less" />
+    <Content Include="skins\dark\dark-jquery-emailadvansedselector.less" />
+    <Content Include="skins\dark\dark-helper.less" />
+    <Content Include="skins\dark\dark-jquery-advansedfilter-fix.less" />
     <Content Include="UserControls\Common\MediaViewer\mediaplayer.js" />
     <Content Include="js\asc\core\asc.socketio.js" />
     <Content Include="js\asc\core\voip.navigationitem.js" />
@@ -1672,7 +1788,6 @@
     <Content Include="skins\default\images\app_install\Mac_os.png" />
     <Content Include="skins\default\images\app_install\Windows.png" />
     <Content Include="skins\default\images\default_user_photo_size_360-360.png" />
-    <Content Include="skins\default\images\exclamation.png" />
     <Content Include="PreparationPortal.aspx" />
     <Content Include="skins\bright-blue\img\advfilter-icons.png" />
     <Content Include="skins\bright-blue\img\btn_icons.png" />
@@ -1887,9 +2002,7 @@
     <Content Include="skins\default\images\ui-icons_cc0000_256x240.png" />
     <Content Include="skins\default\images\ui-icons_ffffff_256x240.png" />
     <Content Include="skins\default\jplayer.css" />
-    <Content Include="skins\default\jquery-emailadvansedselector.css" />
-    <Content Include="skins\default\images\community150.png" />
-    <Content Include="skins\default\images\documents150.png" />
+    <Content Include="skins\default\jquery-emailadvansedselector.less" />
     <Content Include="skins\default\opensansoffline\fonts\opensans-bold.svg" />
     <Content Include="skins\default\opensansoffline\fonts\opensans-extrabold.svg" />
     <Content Include="skins\default\opensansoffline\fonts\opensans-light.svg" />
@@ -1907,7 +2020,6 @@
     <Content Include="skins\default\images\default_user_photo_size_48-48.png" />
     <Content Include="skins\default\images\default_user_photo_size_82-82.png" />
     <Content Include="skins\default\images\dropdown-corner-bottom.gif" />
-    <Content Include="skins\default\images\empty_search.png" />
     <Content Include="skins\default\images\folders.png" />
     <Content Include="skins\default\images\info.png" />
     <Content Include="skins\default\images\link_16.png" />
@@ -1923,8 +2035,6 @@
     <Content Include="skins\default\images\minus.png" />
     <Content Include="skins\default\images\people_icon.png" />
     <Content Include="skins\default\images\plus.png" />
-    <Content Include="skins\default\images\product_logo.png" />
-    <Content Include="skins\default\images\quickview.png" />
     <Content Include="skins\default\images\status_away.png" />
     <Content Include="skins\default\images\status_na.png" />
     <Content Include="skins\default\images\trash_16.png" />
@@ -2054,22 +2164,63 @@
     <Content Include="UserControls\DeepLink\js\deeplinking.js" />
     <Content Include="UserControls\DeepLink\css\deeplinking.less" />
     <Content Include="UserControls\EmptyScreens\WelcomeDashboard.ascx" />
+    <Content Include="UserControls\Feed\images\empty_filter.svg" />
+    <Content Include="UserControls\Feed\images\empty_screen_feed.svg" />
+    <Content Include="UserControls\FirstTime\css\images\warning_16.svg" />
     <Content Include="UserControls\Management\AdminHelperSettings\AdminHelperSettings.ascx" />
     <Content Include="UserControls\Management\AdminHelperSettings\css\images\cross.svg" />
     <Content Include="UserControls\Management\AdminHelperSettings\css\images\subtract.svg" />
     <Content Include="UserControls\Management\AdminHelperSettings\js\adminhelpersettings.js" />
+    <Content Include="UserControls\Management\AuditTrail\img\audit_trail_empty_screen.svg" />
+    <Content Include="UserControls\Management\Backup\js\consumersettings.js" />
+    <Content Include="UserControls\Management\ShareLinkPassword\ShareLinkPassword.ascx" />
+    <Content Include="UserControls\Management\ShareLinkPassword\js\sharelinkpassword.js" />
+    <Content Include="UserControls\Management\ColorThemes\css\img\dark_mode_themes_previews_sprite.png" />
+    <Content Include="UserControls\Management\ColorThemes\css\img\themes_previews_sprite.png" />
     <Content Include="UserControls\Management\ConfirmActivation\css\images\first_screen_bg.svg" />
     <Content Include="UserControls\Management\ConfirmInviteActivation\css\images\first_screen_bg.svg" />
+    <Content Include="UserControls\Management\ImpersonateUser\ImpersonateSettings.ascx" />
+    <Content Include="UserControls\Management\ImpersonateUser\ImpersonateUserConfirmationPanel.ascx" />
+    <Content Include="UserControls\Management\ImpersonateUser\js\impersonateuserconfirmationpanel.js" />
+    <Content Include="UserControls\Management\ImpersonateUser\js\impersonatesettings.js" />
+    <Content Include="UserControls\Management\LoginHistory\img\login_history_empty_screen.svg" />
+    <Content Include="UserControls\Management\LoginSettings\js\loginsettings.js" />
+    <Content Include="UserControls\Management\LoginSettings\LoginSettings.ascx" />
     <Content Include="UserControls\Management\ProfileOperation\css\images\checkmark_exclamatiomark.svg" />
     <Content Include="UserControls\Management\ProfileOperation\css\images\first_screen_bg.svg" />
     <Content Include="UserControls\Management\ProfileOperation\css\images\logo.svg" />
     <Content Include="UserControls\Management\ProfileOperation\js\profileoperation.js" />
     <Content Include="UserControls\Management\ProfileOperation\ProfileOperation.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\add_users_info.svg" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\icon_storage.svg" />
     <Content Include="UserControls\Management\TariffSettings\css\img\info.svg" />
     <Content Include="UserControls\Management\TariffSettings\css\tariffsaas.less" />
     <Content Include="UserControls\Management\ProfileOperation\css\profileoperation.less" />
     <Content Include="UserControls\Management\AdminHelperSettings\css\adminhelpersettings.less" />
+    <Content Include="UserControls\Statistics\ProductQuotes\js\jq_quota_extensions.js" />
+    <Content Include="UserControls\Statistics\ProductQuotes\js\navigatorhandler.js" />
+    <Content Include="UserControls\Statistics\ProductQuotes\js\user_quota_controller.js" />
+    <Content Include="UserControls\Statistics\ProductQuotes\Templates\PeopleTemplates.html" />
+    <Content Include="UserControls\Statistics\ProductQuotes\img\corner-dark.png" />
     <Content Include="UserControls\Users\UserConnections\css\connections.less" />
+    <Content Include="UserControls\Management\LoginSettings\css\loginsettings.less" />
+    <Content Include="UserControls\Management\SmsControls\css\smsvalidationsettings.less" />
+    <Content Include="UserControls\Management\ShareLinkPassword\css\sharelinkpassword.less" />
+    <Content Include="UserControls\Management\StorageSettings\css\dark-storagesettings.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\dark-tariff.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\dark-tariffcustom.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\dark-tariffhistory.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\dark-tariffsaas.less" />
+    <Content Include="UserControls\Users\UserConnections\css\dark-connections.less" />
+    <Content Include="UserControls\Users\UserProfile\css\dark-profileeditcontrol_style.less" />
+    <Content Include="UserControls\Users\UserProfile\css\dark-userprofilecontrol_style.less" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\dark-subscriptions.less" />
+    <Content Include="UserControls\Users\UserProfile\css\dark-loadphoto_style.less" />
+    <Content Include="UserControls\Management\ImpersonateUser\css\impersonatesettings.less" />
+    <Content Include="UserControls\Management\ImpersonateUser\css\impersonateuserconfirmationpanel.less" />
+    <Content Include="UserControls\Statistics\ProductQuotes\css\dark_productquotes_style.less" />
+    <Content Include="UserControls\Common\HelpCenter\css\dark-help-center.less" />
+    <Content Include="skins\default\jstree\themes\default\dark-style.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\asc\plugins\jquery-contactadvansedselector.js" />
@@ -2106,8 +2257,8 @@
     <Content Include="skins\deep-blue\img\edit_pencil.png" />
     <Content Include="skins\deep-blue\img\mainmenu_upload.png" />
     <Content Include="skins\deep-blue\img\unfollow.png" />
-    <Content Include="skins\default\codestyle.css" />
-    <Content Include="skins\default\groupselector.css" />
+    <Content Include="skins\default\codestyle.less" />
+    <Content Include="skins\default\groupselector.less" />
     <Content Include="skins\default\imagescss\arrow-right-blue.png" />
     <Content Include="skins\default\imagescss\arrow-right.png" />
     <Content Include="skins\default\imagescss\asp_28.png" />
@@ -2160,7 +2311,6 @@
     <Content Include="skins\default\imagescss\refresh.png" />
     <Content Include="skins\default\imagescss\remove_16.png" />
     <Content Include="skins\default\imagescss\search_16.png" />
-    <Content Include="skins\default\imagescss\security.png" />
     <Content Include="skins\default\imagescss\settings.png" />
     <Content Include="skins\default\imagescss\sql_28.png" />
     <Content Include="skins\default\imagescss\success12.png" />
@@ -2169,11 +2319,9 @@
     <Content Include="skins\default\imagescss\trash.png" />
     <Content Include="skins\default\imagescss\unfollow.png" />
     <Content Include="skins\default\imagescss\up.png" />
-    <Content Include="skins\default\imagescss\upload.png" />
     <Content Include="skins\default\imagescss\vb_28.png" />
     <Content Include="skins\default\imagescss\video_icon.png" />
     <Content Include="skins\default\imagescss\xml_28.png" />
-    <Content Include="skins\default\images\empty_screen_filter.png" />
     <Content Include="skins\default\jquery-advansedselector.less" />
     <Content Include="skins\default\toastr.less" />
     <Content Include="skins\pure-orange\img\btn-onoff.png" />
@@ -2196,7 +2344,6 @@
     <Content Include="UserControls\Common\Attachments\css\imagescss\upload.png" />
     <Content Include="UserControls\Common\Attachments\css\attachments.less" />
     <Content Include="UserControls\Common\Attachments\Attachments.ascx" />
-    <Content Include="UserControls\Common\Attachments\images\documents-logo.png" />
     <Content Include="UserControls\Common\Attachments\js\attachments.js" />
     <Content Include="UserControls\Common\AuthorizeDocs\AuthorizeDocs.ascx" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\authorizedocs.less" />
@@ -2211,9 +2358,10 @@
     <Content Include="UserControls\Common\LoaderPage\LoaderPage.ascx" />
     <Content Include="UserControls\Common\PersonalFooter\js\personalfooter.js" />
     <Content Include="UserControls\Common\PersonalFooter\PersonalFooter.ascx" />
-    <Content Include="UserControls\Common\PollForm\css\style.css" />
+    <Content Include="UserControls\Common\PersonalFooter\css\dark-personalfooter.less" />
+    <Content Include="UserControls\Common\PollForm\css\style.less" />
     <Content Include="UserControls\Common\PollForm\js\pollform.js" />
-    <Content Include="UserControls\Common\PreparationPortal\css\preparationportal.css" />
+    <Content Include="UserControls\Common\PreparationPortal\css\preparationportal.less" />
     <Content Include="UserControls\Common\PreparationPortal\js\preparationportal.js" />
     <Content Include="UserControls\Common\PreparationPortal\PreparationPortal.ascx" />
     <Content Include="UserControls\Common\SmallChat\css\images\icon_ch-size.png" />
@@ -2222,7 +2370,15 @@
     <Content Include="UserControls\Common\SmallChat\css\images\main_icons_sprite.png" />
     <Content Include="UserControls\Common\SmallChat\css\images\status_sprite.png" />
     <Content Include="UserControls\Common\SmallChat\css\jquery.cssemoticons.css" />
-    <Content Include="UserControls\Common\SmallChat\css\smallchat.css" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-bright-blue\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-dark-green\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-deep-blue\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-default\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-pure-orange\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-wild-pink\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\Search\css\dark-searchresults.less" />
+    <Content Include="UserControls\Common\SmallChat\css\dark-smallchat.less" />
+    <Content Include="UserControls\Common\SmallChat\css\smallchat.less" />
     <Content Include="UserControls\Common\SmallChat\css\sounds\chat.mp3" />
     <Content Include="UserControls\Common\SmallChat\css\sounds\chat.wav" />
     <Content Include="UserControls\Common\SmallChat\js\smallchat.js" />
@@ -2231,7 +2387,8 @@
     <Content Include="UserControls\Common\UserForum\UserForum.ascx" />
     <Content Include="UserControls\Common\VideoGuides\js\videoguides.js" />
     <Content Include="UserControls\Common\VideoGuides\VideoGuides.ascx" />
-    <Content Include="UserControls\Common\ViewSwitcher\css\viewswitcher.css" />
+    <Content Include="UserControls\Common\ViewSwitcher\css\dark-viewswitcher.less" />
+    <Content Include="UserControls\Common\ViewSwitcher\css\viewswitcher.less" />
     <Content Include="UserControls\Common\ViewSwitcher\js\viewswitcher.js" />
     <Content Include="UserControls\EmptyScreens\CommunityDashboardEmptyScreen.ascx" />
     <Content Include="UserControls\EmptyScreens\FilesDashboardEmptyScreen.ascx" />
@@ -2243,7 +2400,6 @@
     <Content Include="UserControls\FirstTime\css\images\collapse_down_dark.png" />
     <Content Include="UserControls\FirstTime\css\images\collapse_right_light.png" />
     <Content Include="UserControls\FirstTime\css\images\round.png" />
-    <Content Include="UserControls\FirstTime\css\images\warning_16.png" />
     <Content Include="StartScriptsStyles.aspx" />
     <Content Include="UserControls\Management\AuditTrail\AuditTrail.ascx" />
     <Content Include="UserControls\Management\AuditTrail\css\audittrail.css">
@@ -2252,10 +2408,16 @@
     <Content Include="UserControls\Management\AuditTrail\css\audittrail.min.css">
       <DependentUpon>audittrail.less</DependentUpon>
     </Content>
-    <Content Include="UserControls\Management\AuditTrail\img\audit_trail_empty_screen.jpg" />
     <Content Include="UserControls\Management\AuditTrail\js\audittrail.js" />
     <Content Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx" />
-    <Content Include="UserControls\Management\AuthorizationKeys\css\authorizationkeys.css" />
+    <Content Include="UserControls\DeepLink\css\dark-deeplinking.less" />
+    <Content Include="UserControls\Feed\css\dark-feed.less" />
+    <Content Include="UserControls\FirstTime\css\dark-emailandpassword.less" />
+    <Content Include="UserControls\FirstTime\css\dark-stepcontainer.less" />
+    <Content Include="UserControls\Management\AccessRights\css\dark-accessrights.less" />
+    <Content Include="UserControls\Management\AdminHelperSettings\css\dark-adminhelpersettings.less" />
+    <Content Include="UserControls\Management\AuthorizationKeys\css\dark-authorizationkeys.less" />
+    <Content Include="UserControls\Management\AuthorizationKeys\css\authorizationkeys.less" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\bitly.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\box.svg" />
     <Content Include="UserControls\Management\AuthorizationKeys\img\clickatell.svg" />
@@ -2283,7 +2445,6 @@
     <Content Include="UserControls\Management\Backup\Backup.ascx" />
     <Content Include="UserControls\Management\Backup\css\backup.less" />
     <Content Include="UserControls\Management\Backup\js\backup.js" />
-    <Content Include="UserControls\Management\ColorThemes\css\img\themes_previews_sprite.png" />
     <Content Include="UserControls\Management\CookieSettings\js\cookiesettings.js" />
     <Content Include="UserControls\Management\CookieSettings\CookieSettings.ascx" />
     <Content Include="UserControls\Management\CustomNavigation\CustomNavigation.ascx" />
@@ -2291,7 +2452,12 @@
     <Content Include="UserControls\Management\InvitePanel\css\img\exclamation.png" />
     <Content Include="UserControls\Management\PricingPageSettings\PricingPageSettings.ascx" />
     <Content Include="UserControls\Management\PricingPageSettings\js\pricingpagesettings.js" />
-    <Content Include="UserControls\Management\MailService\css\mailservice.css" />
+    <Content Include="UserControls\Management\ConfirmActivation\css\dark-confirmactivation.less" />
+    <Content Include="UserControls\Management\ConfirmInviteActivation\css\dark-confirm_invite_activation.less" />
+    <Content Include="UserControls\Management\LdapSettings\css\Default\dark-ldapsettings.less" />
+    <Content Include="UserControls\Management\LoginHistory\css\dark-loginhistory.less" />
+    <Content Include="UserControls\Management\InvitePanel\css\dark-invitepanel.less" />
+    <Content Include="UserControls\Management\MailService\css\mailservice.less" />
     <Content Include="UserControls\Management\MailService\MailService.ascx" />
     <Content Include="UserControls\Management\MailService\js\mailservice.js" />
     <Content Include="UserControls\Management\DnsSettings\DnsSettings.ascx" />
@@ -2377,16 +2543,28 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="skins\default\userselector.less" />
-    <None Include="skins\default\whitelabel.less" />
+    <Content Include="skins\dark-pure-orange\dark-params.less" />
+    <Content Include="skins\dark-pure-orange\main.less" />
+    <Content Include="skins\dark-dark-green\main.less" />
+    <Content Include="skins\dark-dark-green\dark-params.less" />
+    <Content Include="skins\dark-deep-blue\main.less" />
+    <Content Include="skins\dark-bright-blue\main.less" />
+    <Content Include="skins\dark-wild-pink\main.less" />
+    <Content Include="skins\dark-bright-blue\dark-params.less" />
+    <Content Include="skins\dark-deep-blue\dark-params.less" />
+    <Content Include="skins\dark-wild-pink\dark-params.less" />
+    <Content Include="skins\dark-default\dark-params.less" />
+    <Content Include="skins\dark-default\main.less" />
+    <Content Include="skins\default\whitelabel.less" />
     <Content Include="UserControls\Management\WhiteLabel\js\whitelabel.js" />
     <Content Include="UserControls\Management\ColorThemes\ColorThemes.ascx" />
-    <Content Include="UserControls\Management\ColorThemes\css\colorthemes.css" />
+    <Content Include="UserControls\Management\ColorThemes\css\colorthemes.less" />
     <Content Include="UserControls\Management\ColorThemes\js\colorthemes.js" />
     <Content Include="UserControls\Management\ConfirmActivation\js\confirmactivation.js" />
-    <Content Include="UserControls\Management\FullTextSearch\css\fulltextsearch.css" />
+    <Content Include="UserControls\Management\FullTextSearch\css\fulltextsearch.less" />
     <Content Include="UserControls\Management\FullTextSearch\js\fulltextsearch.js" />
     <Content Include="UserControls\Management\FullTextSearch\FullTextSearch.ascx" />
-    <Content Include="UserControls\Management\DocService\css\docservice.css" />
+    <Content Include="UserControls\Management\DocService\css\docservice.less" />
     <Content Include="UserControls\Management\DocService\DocService.ascx" />
     <Content Include="UserControls\Management\DocService\js\docservice.js" />
     <Content Include="UserControls\Management\GreetingSettings\GreetingLogoSettings.ascx" />
@@ -2404,7 +2582,7 @@
     <Content Include="UserControls\Management\DeactivatePortal\js\deactivateportal.js" />
     <Content Include="UserControls\Management\IpSecurity\IpSecurity.ascx" />
     <Content Include="UserControls\Management\IpSecurity\js\ipsecurity.js" />
-    <Content Include="UserControls\Management\LdapSettings\css\Default\ldapsettings.css" />
+    <Content Include="UserControls\Management\LdapSettings\css\Default\ldapsettings.less" />
     <Content Include="UserControls\Management\LdapSettings\js\ldapsettings.js" />
     <Content Include="UserControls\Management\LdapSettings\LdapSettings.ascx" />
     <Content Include="UserControls\Management\LoginHistory\css\loginhistory.css">
@@ -2413,7 +2591,6 @@
     <Content Include="UserControls\Management\LoginHistory\css\loginhistory.min.css">
       <DependentUpon>loginhistory.less</DependentUpon>
     </Content>
-    <Content Include="UserControls\Management\LoginHistory\img\login_history_empty_screen.jpg" />
     <Content Include="UserControls\Management\LoginHistory\js\loginhistory.js" />
     <Content Include="UserControls\Management\LoginHistory\LoginHistory.ascx" />
     <Content Include="UserControls\Management\Monitoring\js\loghelper.js" />
@@ -2427,15 +2604,16 @@
     <Content Include="UserControls\Management\PromoCode\PromoCode.ascx" />
     <Content Include="UserControls\Management\PromoCode\promocode.js" />
     <Content Include="UserControls\Management\Restore\js\restore.js" />
-    <Content Include="UserControls\Management\SingleSignOnSettings\css\singlesignonsettings.css" />
+    <Content Include="UserControls\Management\Monitoring\css\dark-monitoring.less" />
+    <Content Include="UserControls\Management\PasswordSettings\css\dark-passwordsettings.less" />
+    <Content Include="UserControls\Management\ProfileOperation\css\dark-profileoperation.less" />
+    <Content Include="UserControls\Management\SingleSignOnSettings\css\singlesignonsettings.less" />
     <Content Include="UserControls\Management\SingleSignOnSettings\js\singlesignonsettings.js" />
     <Content Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx" />
     <Content Include="UserControls\Management\Restore\Restore.ascx" />
-    <Content Include="UserControls\Management\SmtpSettings\css\smtpsettings.css" />
+    <Content Include="UserControls\Management\SmtpSettings\css\smtpsettings.less" />
     <Content Include="UserControls\Management\SmtpSettings\js\smtpsettings.js" />
     <Content Include="UserControls\Management\SmtpSettings\SmtpSettings.ascx" />
-    <Content Include="UserControls\Management\TariffSettings\css\img\add_users_info.png" />
-    <Content Include="UserControls\Management\TariffSettings\css\img\icon_storage.png" />
     <Content Include="UserControls\Management\TariffSettings\css\img\line_helper.png" />
     <Content Include="UserControls\Management\TariffSettings\css\rub.eot" />
     <Content Include="UserControls\Management\TariffSettings\css\rub.svg" />
@@ -2453,7 +2631,7 @@
     <Content Include="UserControls\Users\TipsSettings\TipsSettings.ascx" />
     <Content Include="UserControls\Users\UserConnections\js\connections_manager.js" />
     <Content Include="UserControls\Users\UserConnections\UserConnections.ascx" />
-    <Content Include="UserControls\Users\UserProfile\css\images\birthday.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\birthday.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\btn-edit.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\check_tick.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\facebook.svg" />
@@ -2466,7 +2644,7 @@
     <Content Include="UserControls\Users\UserProfile\css\images\social-icons-grey.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\social-icons-small.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\twitter.svg" />
-    <Content Include="UserControls\Users\UserProfile\css\images\user-blocked.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\user-blocked.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\user-waiting.png" />
     <Content Include="UserControls\Users\UserProfile\css\accountlink_style.less" />
     <Content Include="UserControls\Users\UserProfile\css\images\vk.svg" />
@@ -2499,6 +2677,7 @@
     <Content Include="UserControls\Management\TariffSettings\css\tariff.less" />
     <Content Include="skins\default\wizard.less" />
     <Content Include="UserControls\Common\Comments\css\codehighlighter\vs.less" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\img\hmenu-selected-dark.png" />
     <Content Include="Warmup.aspx" />
     <Content Include="web.autofac.config">
       <SubType>Designer</SubType>
@@ -3538,17 +3717,13 @@
     <Content Include="skins\default\imagescss\button-cut.png" />
     <Content Include="skins\default\imagescss\cut-scissors.png" />
     <Content Include="skins\default\imagescss\icons_nav_panel.png" />
-    <Content Include="skins\default\imagescss\welcometo_logo.png" />
     <Content Include="skins\default\imagescss\toast_icon01.png" />
     <Content Include="skins\default\imagescss\toast_icon02.png" />
     <Content Include="skins\default\imagescss\toast_icon03.png" />
     <Content Include="skins\default\imagescss\flags.gif" />
     <Content Include="skins\default\imagescss\trash_16.png" />
     <Content Include="skins\default\images\blank.gif" />
-    <Content Include="skins\default\images\common_search_icon.png" />
     <Content Include="skins\default\images\default_greeting_logo.jpg" />
-    <Content Include="skins\default\images\lastadded_widget.png" />
-    <Content Include="skins\default\images\mail.png" />
     <Content Include="skins\default\images\people_search_icon.png" />
     <Content Include="skins\default\images\profile.gif" />
     <Content Include="skins\default\images\smile1.gif" />
@@ -3576,8 +3751,6 @@
     <Content Include="skins\default\images\status_offline.png" />
     <Content Include="skins\default\images\status_online.png" />
     <Content Include="skins\default\images\talk.png" />
-    <Content Include="skins\default\images\to_left.png" />
-    <Content Include="skins\default\images\to_right.png" />
     <Content Include="skins\default\images\recent_activity.png" />
     <Content Include="skins\default\images\group_12.png" />
     <Content Include="skins\default\images\user_12.png" />
@@ -3621,7 +3794,7 @@
     <Content Include="skins\default\links.less" />
     <Content Include="skins\default\lists.less" />
     <Content Include="skins\default\sidepanel.less" />
-    <Content Include="skins\default\phonecontroller.css" />
+    <Content Include="skins\default\phonecontroller.less" />
     <Content Include="UserControls\Common\PersonalFooter\css\personalfooter.less" />
     <Content Include="UserControls\Users\UserProfile\css\userlanguages.less" />
     <Content Include="UserControls\Management\AuditTrail\css\audittrail.less" />
@@ -3885,7 +4058,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="skins\default\filetype_style.css" />
+    <Content Include="skins\default\filetype_style.less" />
     <Content Include="UserControls\Management\AdminMessageSettings\AdminMessageSettings.ascx" />
     <Content Include="UserControls\Management\AdminMessageSettings\js\admmess.js" />
     <Content Include="UserControls\Management\ConfirmInviteActivation\ConfirmInviteActivation.ascx" />
@@ -3939,7 +4112,6 @@
     <Content Include="js\asc\plugins\jquery.dropdowntoggle.js" />
     <Content Include="js\asc\plugins\jquery.helper.js" />
     <Content Include="js\asc\plugins\jquery.sets.js" />
-    <Content Include="js\asc\plugins\jquery.tlblock.js" />
     <Content Include="js\asc\plugins\jquery.tlcombobox.js" />
     <Content Include="js\asc\plugins\jquery-advansedselector.js" />
     <Content Include="js\asc\plugins\jquery-useradvansedselector.js" />
@@ -3976,8 +4148,6 @@
     <Content Include="UserControls\Feed\FeedList.ascx" />
     <Content Include="UserControls\Feed\images\arrow-right-blue.png" />
     <Content Include="UserControls\Feed\images\arrow-right.png" />
-    <Content Include="UserControls\Feed\images\empty_filter.png" />
-    <Content Include="UserControls\Feed\images\empty_screen_feed.png" />
     <Content Include="UserControls\Feed\images\fade.png" />
     <Content Include="UserControls\Feed\images\loader16.gif" />
     <Content Include="UserControls\Feed\js\feed.filter.js" />
@@ -4173,7 +4343,7 @@
     <Content Include="skins\default\common.less" />
     <Content Include="skins\default\actionpanel.less" />
     <Content Include="skins\default\buttons.less" />
-    <None Include="skins\default\common_style.wide-screen.less" />
+    <Content Include="skins\default\common_style.wide-screen.less" />
     <Content Include="UserControls\Common\HelpCenter\css\help-center.less" />
   </ItemGroup>
   <ItemGroup>
@@ -4297,7 +4467,7 @@
       <Version>10.0.1</Version>
     </PackageReference>
     <PackageReference Include="SharpZipLib">
-      <Version>1.3.2</Version>
+      <Version>1.4.2</Version>
     </PackageReference>
     <PackageReference Include="StackExchange.Redis.Extensions.Core">
       <Version>7.2.1</Version>

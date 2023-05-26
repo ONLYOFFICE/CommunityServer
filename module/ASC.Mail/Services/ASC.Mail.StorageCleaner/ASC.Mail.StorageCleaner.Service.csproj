@@ -44,6 +44,8 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>bin\Debug\ASC.Mail.StorageCleaner.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -114,16 +116,17 @@
       <Version>2.0.9</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.29</Version>
+      <Version>8.0.32.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.11</Version>
+      <Version>5.1.2</Version>
     </PackageReference>
     <PackageReference Include="SelectelSharp">
       <Version>0.8.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

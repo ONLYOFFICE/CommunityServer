@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Community
 {
+    ///<name>community</name>
     public partial class CommunityApi
     {
         private BlogsEngine _blogEngine;
@@ -55,11 +56,14 @@ namespace ASC.Api.Community
 
 
         ///<summary>
-        /// Returns a list of all the posts from the portal blogs with the post titles, dates of creation and update, post texts, authors.
+        /// Returns a list of all the posts from the portal blogs with the post titles, dates of creation and update, post texts, and authors.
         ///</summary>
         ///<short>Get posts</short>
-        ///<returns>List of all posts</returns>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperSummary, ASC.Api.Community">List of all posts</returns>
         ///<category>Blogs</category>
+        ///<path>api/2.0/community/blog</path>
+        ///<collection>list</collection>
+        ///<httpMethod>GET</httpMethod>
         [Read("blog")]
         public IEnumerable<BlogPostWrapperSummary> GetPosts()
         {
@@ -70,11 +74,11 @@ namespace ASC.Api.Community
         ///Creates a blog post with the specified title, content, tags and subscription to comments defined in the request body.
         ///</summary>
         ///<short>Create a post</short>
-        ///<param name="title">Post title</param>
-        ///<param name="content">Post text</param>
-        ///<param name="tags">List of tags separated with comma</param>
-        ///<param name="subscribeComments">Subscribes to the post comments</param>
-        ///<returns>Newly created post</returns>
+        ///<param type="System.String, System" name="title">Post title</param>
+        ///<param type="System.String, System" name="content">Post text</param>
+        ///<param type="System.String, System" name="tags">List of tags separated with comma</param>
+        ///<param type="System.Boolean, System" name="subscribeComments">Subscribes to the post comments or not</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperFull, ASC.Api.Community">Newly created post</returns>
         ///<example>
         ///<![CDATA[Sending data in application/json:
         ///
@@ -90,6 +94,8 @@ namespace ASC.Api.Community
         ///</example>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<category>Blogs</category>
+        /// <path>api/2.0/community/blog</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("blog")]
         public BlogPostWrapperFull CreatePost(string title, string content, string tags, bool subscribeComments)
         {
@@ -110,11 +116,11 @@ namespace ASC.Api.Community
         ///Updates the selected post changing the post title, content or/and tags specified in the request.
         ///</summary>
         ///<short>Update a post</short>
-        ///<param name="postid">Post ID</param>
-        ///<param name="title">New title</param>
-        ///<param name="content">New post text</param>
-        ///<param name="tags">New list of tags separated with comma</param>
-        ///<returns>Updated post</returns>
+        ///<param type="System.Guid, System" method="url" name="postid">Post ID</param>
+        ///<param type="System.String, System" name="title">New title</param>
+        ///<param type="System.String, System" name="content">New post text</param>
+        ///<param type="System.String, System" name="tags">New list of tags separated with comma</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperFull, ASC.Api.Community">Updated post</returns>
         ///<example>
         ///<![CDATA[
         ///Sending data in application/json:
@@ -131,6 +137,8 @@ namespace ASC.Api.Community
         ///</example>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<category>Blogs</category>
+        ///<path>api/2.0/community/blog/{postid}</path>
+        ///<httpMethod>PUT</httpMethod>
         [Update("blog/{postid}")]
         public BlogPostWrapperFull UpdatePost(Guid postid, string title, string content, string tags)
         {
@@ -147,9 +155,12 @@ namespace ASC.Api.Community
         ///Deletes a post with the ID specified in the request from blogs.
         ///</summary>
         ///<short>Delete a post</short>
-        ///<param name="postid">Post ID</param>
+        ///<param type="System.Guid, System" method="url" name="postid">Post ID</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperFull, ASC.Api.Community">Deleted post</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<category>Blogs</category>
+        ///<path>api/2.0/community/blog/{postid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("blog/{postid}")]
         public BlogPostWrapperFull DeletePost(Guid postid)
         {
@@ -161,11 +172,14 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns a list of all the blog posts for the current user with the post titles, dates of creation and update, post texts, authors.
+        ///Returns a list of all the blog posts for the current user with the post titles, dates of creation and update, post texts, and author.
         ///</summary>
         ///<category>Blogs</category>
         ///<short>Get my posts</short>
-        ///<returns>List of my posts</returns>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperSummary, ASC.Api.Community">List of my posts</returns>
+        ///<colletion>list</colletion>
+        ///<path>api/2.0/community/blog/@self</path>
+        ///<httpMethod>GET</httpMethod>
         [Read("blog/@self")]
         public IEnumerable<BlogPostWrapperSummary> GetMyPosts()
         {
@@ -173,14 +187,17 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns a list of blog posts matching the search query specified in the request with the post titles, dates of creation and update, post texts, authors.
+        ///Returns a list of blog posts matching the search query specified in the request with the post titles, dates of creation and update, post texts, and authors.
         ///</summary>
         ///<category>Blogs</category>
         ///<short>
         ///Search posts
         ///</short>
-        /// <param name="query">Search query</param>
-        ///<returns>List of found posts</returns>
+        /// <param type="System.String, System" method="url" name="query">Search query</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperSummary, ASC.Api.Community">List of found posts</returns>
+        ///<path>api/2.0/community/blog/@search/{query}</path>
+        ///<httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read("blog/@search/{query}")]
         public IEnumerable<BlogPostWrapperSummary> GetSearchPosts(string query)
         {
@@ -192,8 +209,11 @@ namespace ASC.Api.Community
         ///</summary>
         ///<short>Get user posts</short>
         ///<category>Blogs</category>
-        ///<param name="username" remark="You can retrieve the user name through the 'people' api">User name</param>
-        ///<returns>List of user posts</returns>
+        ///<param type="System.String, System" method="url" name="username" remark="You can retrieve the user name through the 'people' API">User name</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperSummary, ASC.Api.Community">List of user posts</returns>
+        ///<path>api/2.0/community/blog/user/{username}</path>
+        ///<httpMethod>GET</httpMethod>
+        /// <colletion>list</colletion>
         [Read("blog/user/{username}")]
         public IEnumerable<BlogPostWrapperSummary> GetUserPosts(string username)
         {
@@ -202,12 +222,15 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns a list of blog posts containing the tag specified in the request with the post titles, dates of creation and update, post texts, authors.
+        ///Returns a list of blog posts containing the tag specified in the request with the post titles, dates of creation and update, post texts, and authors.
         ///</summary>
         ///<short>Get posts by tag</short>
         ///<category>Blogs</category>
-        ///<param name="tag">Tag name</param>
-        ///<returns>List of posts with the specified tag name</returns>
+        ///<param type="System.String, System" method="url" name="tag">Tag name</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperSummary, ASC.Api.Community">List of posts with the specified tag name</returns>
+        ///<collection>list</collection>
+        ///<path>api/2.0/community/blog/tag/{tag}</path>
+        ///<httpMethod>GET</httpMethod>
         [Read("blog/tag/{tag}")]
         public IEnumerable<BlogPostWrapperSummary> GetPostsByTag(string tag)
         {
@@ -215,11 +238,14 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns a list of all the tags used with blog posts with the number showing the tag usage.
+        ///Returns a list of all the tags used in the blog posts with a number specifying the tag usage.
         ///</summary>
         /// <category>Blogs</category>
         /// <short>Get tags</short>
-        ///<returns>List of tags</returns>
+        ///<returns type="ASC.Api.Blogs.BlogTagWrapper, ASC.Api.Community">List of tags</returns>
+        ///<path>api/2.0/community/blog/tag</path>
+        ///<httpMethod>GET</httpMethod>
+        ///<colletion>list</colletion>
         [Read("blog/tag")]
         public IEnumerable<BlogTagWrapper> GetTags()
         {
@@ -235,8 +261,10 @@ namespace ASC.Api.Community
         ///</summary>
         ///<short>Get a post</short>
         ///<category>Blogs</category>
-        ///<param name="postid">Post ID</param>
-        ///<returns>Post information</returns>
+        ///<param type="System.Guid, System" method="url" name="postid">Post ID</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostWrapperFull, ASC.Api.Community">Post information</returns>
+        ///<path>api/2.0/community/blog/{postid}</path>
+        ///<httpMethod>GET</httpMethod>
         [Read("blog/{postid}")]
         public BlogPostWrapperFull GetPost(Guid postid)
         {
@@ -248,8 +276,11 @@ namespace ASC.Api.Community
         ///</summary>
         ///<category>Blogs</category>
         /// <short>Get post comments</short>
-        ///<param name="postid">Post ID (GUID)</param>
-        ///<returns>List of post comments</returns>
+        ///<param type="System.Guid, System" method="url" name="postid">Post ID (GUID)</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostCommentWrapper, ASC.Api.Community">List of post comments</returns>
+        ///<path>api/2.0/community/blog/{postid}/comment</path>
+        ///<httpMethod>GET</httpMethod>
+        /// <colletion>list</colletion>
         [Read("blog/{postid}/comment")]
         public IEnumerable<BlogPostCommentWrapper> GetComments(Guid postid)
         {
@@ -261,10 +292,10 @@ namespace ASC.Api.Community
         ///</summary>
         /// <short>Add a post comment</short>
         /// <category>Blogs</category>
-        ///<param name="postid">Post ID</param>
-        ///<param name="content">Comment text</param>
-        ///<param name="parentId">Parent comment ID</param>
-        ///<returns>List of post comments</returns>
+        ///<param type="System.Guid, System" method="url" name="postid">Post ID</param>
+        ///<param type="System.String, System" name="content">Comment text</param>
+        ///<param type="System.Guid, System" name="parentId">Parent comment ID</param>
+        ///<returns type="ASC.Api.Blogs.BlogPostCommentWrapper, ASC.Api.Community">List of post comments</returns>
         /// <example>
         /// <![CDATA[
         /// Sending data in application/json:
@@ -281,6 +312,8 @@ namespace ASC.Api.Community
         /// <remarks>
         /// Send parentId=00000000-0000-0000-0000-000000000000 or don't send it at all if you want your comment to be on the root level.
         /// </remarks>
+        /// <path>api/2.0/community/blog/{postid}/comment</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("blog/{postid}/comment")]
         public BlogPostCommentWrapper AddComment(Guid postid, string content, Guid parentId)
         {
@@ -306,10 +339,12 @@ namespace ASC.Api.Community
         /// </summary>
         /// <short>Get a comment preview</short>
         /// <section>Comments</section>
-        /// <param name="commentid">Comment ID</param>
-        /// <param name="htmltext">Comment text in the HTML format</param>
-        /// <returns>Comment information</returns>
+        /// <param type="System.String, System" name="commentid">Comment ID</param>
+        /// <param type="System.String, System" name="htmltext">Comment text in the HTML format</param>
+        /// <returns type="ASC.Web.Studio.UserControls.Common.Comments.CommentInfo, ASC.Web.Studio">Comment information</returns>
         /// <category>Blogs</category>
+        /// <path>api/2.0/community/blog/comment/preview</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("blog/comment/preview")]
         public CommentInfo GetBlogCommentPreview(string commentid, string htmltext)
         {
@@ -334,9 +369,11 @@ namespace ASC.Api.Community
         /// </summary>
         /// <short>Remove a comment</short>
         /// <section>Comments</section>
-        /// <param name="commentid">Comment ID</param>
+        /// <param type="System.String, System" method="url" name="commentid">Comment ID</param>
         /// <returns>Comment ID</returns>
         /// <category>Blogs</category>
+        /// <path>api/2.0/community/blog/comment/{commentid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete("blog/comment/{commentid}")]
         public string RemoveBlogComment(string commentid)
         {
@@ -365,18 +402,18 @@ namespace ASC.Api.Community
             return commentid;
         }
 
-
-
         /// <summary>
         /// Adds a blog comment with the comment text specified in the request. The parent comment ID can be also specified if needed.
         /// </summary>
         /// <short>Add a blog comment</short>
         /// <section>Comments</section>
-        /// <param name="parentcommentid">Parent comment ID</param>
-        /// <param name="entityid">Entity ID</param>
-        /// <param name="content">Comment text</param>
-        /// <returns>Comment information</returns>
+        /// <param type="System.String, System" name="parentcommentid">Parent comment ID</param>
+        /// <param type="System.String, System" name="entityid">Entity ID where a comment will be added</param>
+        /// <param type="System.String, System" name="content">Comment text</param>
+        /// <returns type="ASC.Web.Studio.UserControls.Common.Comments.CommentInfo, ASC.Web.Studio">Comment information</returns>
         /// <category>Blogs</category>
+        /// <path>api/2.0/community/blog/comment</path>
+        /// <httpMethod>POST</httpMethod>
         [Create("blog/comment")]
         public CommentInfo AddBlogComment(string parentcommentid, string entityid, string content)
         {
@@ -421,10 +458,12 @@ namespace ASC.Api.Community
         /// </summary>
         /// <short>Update a blog comment</short>
         /// <section>Comments</section>
-        /// <param name="commentid">Comment ID</param>
-        /// <param name="content">New comment text</param>
-        /// <returns>Updated blog comment</returns>
         /// <category>Blogs</category>
+        /// <param type="System.String, System" method="url" name="commentid">Comment ID</param>
+        /// <param type="System.String, System" name="content">New comment text</param>
+        /// <returns>Updated blog comment</returns>
+        /// <path>api/2.0/community/blog/comment/{commentid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update("blog/comment/{commentid}")]
         public string UpdateBlogComment(string commentid, string content)
         {

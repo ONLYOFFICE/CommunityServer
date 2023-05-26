@@ -1249,9 +1249,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Luotetut sähköpostin verkkotunnukset{2} asetuksilla voidaan määrittää sähköpostipalvelimet, joiden käyttäjät voivat omatoimisesti rekisteröityä sivuston käyttäjiksi.{0}Voit ottaa ominaisuuden käyttöön ja lisätä yhden tai useamman luotetun sähköpostipalvelimen tiedot.{0}Nyt kuka tahansa, jolla on tili luotetulla sähköpostipalvelimella, voi rekisteröidä itsensä valitsemalla kirjautumissivulla {1}Klikkaa tästä liittyäksesi mukaan{2} ja syöttämällä sähköpostiosoitteensa.{0}Voit ottaa tämän toiminnon pois päältä {1}Ei käytössä{2} valinnalla.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1}Salasanan vahvuusasetuksilla{2} voidaan määrittää salasanan luotettavuus väärinkäyttöä ja tietomurtoja vastaan.{0}Käytä {1}Salasanan vähimmäispituus{2} palkkia määrittääksesi kuinka pitkä salasanan täytyy olla, jotta se voidaan hyväksyä luotettavana. Voit määrittää myös salasanassa käytettävän merkistön palkin alapuolella olevilla valinnoilla.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>{1}Julkinen portaali{2} on ilmainen vaihtoehto, joka mahdollistaa kenen tahansa selata julkista tietoasi ilman rekisteröintiä. Yksityisiä projekteja ei ole saatavilla ja Asiakkuudenhallinnan moduuli on poistettu käytöstä.{0}Rekisteröityneiden käyttäjien määrää ei ole rajoitettu ja portaalin ylläpitäjä voi hyväksyä rekisteröinnin pyynnöt. Käytä {1}Hyväksy uudet käyttäjät välittömästi{2} poistaaksesi kaikki rajoitukset sivustosi rekisteröinnin vahvistukseen.</value>
   </data>
@@ -1438,9 +1435,6 @@
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>Ota käyttöön</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>{0}IP-suodatusta{1} käytetään rajoittamaan pääsy sivustolle muista kuin sallituista osoitteista. Voit antaa listan sallituista yksittäisistä osoitteista muodossa (#.#.#.#) tai IP-osoitevälin muodossa (#.#.#.#-#.#.#.#).</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP-suodatus</value>
@@ -1912,9 +1906,6 @@
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Salasanan muuttaminen</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Salasanan vähimmäispituus</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Salasanan palauttaminen</value>

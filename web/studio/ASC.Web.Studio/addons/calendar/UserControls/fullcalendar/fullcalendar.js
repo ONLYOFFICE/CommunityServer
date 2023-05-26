@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,7 +126,7 @@ var defaults = function defaultsModule() {return {
 
 		dropAccept: '*',
 
-		eventTextColor:       "#000",
+		eventTextColor:       ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#000" : '#FFFFFFEB',
 		eventBackgroundColor: "#87CEFA",
 		eventBorderColor:     "#297FB4",
 		eventBg2BorderRatio:  0.8,
@@ -302,7 +302,7 @@ var defaults = function defaultsModule() {return {
 		    dialogButton_details:        "Details",
 			
 			// new option
-			dialogRepeatOption_custom:   "настройка",
+			dialogRepeatOption_custom:   "Setting",
 			dialogHeader_createEvent: "Create new event",
 			dialogHeader_editEvent: "Edit event",
 			dialogHeader_viewEvent: "View event",
@@ -1901,12 +1901,6 @@ function Calendar(element, options, eventSources) {
 
 		currentView.setWidth(oldWidth, dateChanged);
 		ignoreWindowResize--;
-
-		var paddingStudioPageContent = jq("#studioPageContent .mainPageLayout:not(.studio-top-panel)").outerHeight(true) - jq("#studioPageContent .mainPageLayout:not(.studio-top-panel)").height();
-		var paddingmainPageTable = jq(".mainPageTable .mainPageTableSidePanel.ui-resizable").outerHeight(true) - jq(".mainPageTable .mainPageTableSidePanel.ui-resizable").height();
-		var smallChatDownPanel = jq('.small_chat_down_panel').length > 0 ? jq('.small_chat_down_panel').height() : 0;
-
-		catlist.resize(suggestedViewHeight - paddingStudioPageContent - paddingmainPageTable - smallChatDownPanel);
 
 		if (todolist && todolist.length > 0) {todolist.resize(suggestedViewHeight);}
 		var newWidth = content.width();
@@ -5821,7 +5815,7 @@ function TodoList(calendar) {
 		var sortTodos = todos.sort(function (a, b) {
 		    return a.start - b.start;
 		});
-		var minDate = new Date(1, 0, 2, 23, 59, 59);
+		var minDate = new Date(1, 0, 1, 23, 59, 59);
 
 	    var now = new Date();
 	    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).valueOf();
@@ -8385,8 +8379,7 @@ function EventEditor(calendar, uiBlocker) {
 					.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat))
 					.prop("disabled", false);
 			dlg.to_t
-					.val(_eventObj.end instanceof Date ?
-							formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
+					.val(formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
 					.prop("disabled", false);
 		    
 			if(!dlg.to.val())
@@ -8624,7 +8617,7 @@ function EventEditor(calendar, uiBlocker) {
 			    jq(_eventObj.attendees).each(function (index, attendee) {
 			        
 			        var attendeeEmail = attendee[3].replace(new RegExp("mailto:", "ig"), "");
-			        var attendeePartstat = attendee[1].partstat.toUpperCase();
+			        var attendeePartstat = (attendee[1].partstat || statuses.needsAction).toUpperCase();
 
 			        if (!showReplyButtons) {
 			            jq(ASC.Mail.Accounts).each(function(j, account) {

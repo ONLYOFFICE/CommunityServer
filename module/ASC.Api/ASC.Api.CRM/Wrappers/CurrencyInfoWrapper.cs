@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,21 +42,27 @@ namespace ASC.Api.CRM
             IsBasic = currencyInfo.IsBasic;
         }
 
+        ///<example>Chinese Yuan</example>
         [DataMember]
         public String Title { get; set; }
 
+        ///<example>¥</example>
         [DataMember]
         public String Symbol { get; set; }
 
+        ///<example>CNY</example>
         [DataMember]
         public String Abbreviation { get; set; }
 
+        ///<example>CN</example>
         [DataMember]
         public String CultureName { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool IsConvertable { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool IsBasic { get; set; }
 
@@ -78,6 +84,7 @@ namespace ASC.Api.CRM
     /// <summary>
     ///  Currency rate information
     /// </summary>
+    /// <inherited>ASC.Api.CRM.CurrencyInfoWrapper, ASC.Api.CRM</inherited>
     [DataContract(Name = "currencyRateInfo", Namespace = "")]
     public class CurrencyRateInfoWrapper : CurrencyInfoWrapper
     {
@@ -90,6 +97,7 @@ namespace ASC.Api.CRM
             Rate = rate;
         }
 
+        ///<example type="double">1,1</example>
         [DataMember]
         public Decimal Rate { get; set; }
     }

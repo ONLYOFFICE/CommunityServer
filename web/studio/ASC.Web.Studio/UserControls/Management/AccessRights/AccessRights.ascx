@@ -99,7 +99,7 @@
     <table width="100%" cellspacing="0" cellpadding="0">
             <tbody>
                 <tr>
-                    <td width="390px" valign="top">
+                    <td width="370px" valign="top">
                         <div id="adminAdvancedSelector" class="advanced-selector-select <% if (!EnableAddAdmin) { %> disabled <%} %>">
                               <%= CustomNamingPeople.Substitute<Resource>("ChooseUser").HtmlEncode() %>
                          </div>
@@ -141,3 +141,5 @@
             </tbody>
         </table>
 </div>
+
+<div class ="products-section"></div>

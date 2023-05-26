@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,7 @@ namespace ASC.Feed.Aggregator.Modules.CRM
                 .Where("tenant_id", filter.Tenant)
                 .Where(Exp.Between("create_on", filter.Time.From, filter.Time.To));
 
-            using (var db = DbManager.FromHttpContext(DbId))
+            using (var db = new DbManager(DbId))
             {
                 var contacts = db.ExecuteList(query).ConvertAll(ToContact);
                 return contacts.Select(c => new Tuple<Feed, object>(ToFeed(c), c));

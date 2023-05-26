@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ namespace ASC.Web.Core
 
     public class WebItemManager
     {
-        private static readonly ILog log = LogManager.GetLogger("ASC.Web");
+        private static readonly ILog log = BaseLogManager.GetLogger("ASC.WebItemManager");
 
         private readonly Dictionary<Guid, IWebItem> items = new Dictionary<Guid, IWebItem>();
         private static readonly string disableItem = ConfigurationManagerExtension.AppSettings["web.disabled-items"] + ",";
@@ -134,7 +134,7 @@ namespace ASC.Web.Core
                         {
                             if (RegistryItem(webitem))
                             {
-                                log.DebugFormat("Web item {0} loaded", webitem.Name);
+                                log.DebugFormat("Web item {0} loaded", webitem.ProductClassName);
                             }
                         }
                     }

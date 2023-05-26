@@ -724,9 +724,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1} 신뢰할 수있는 메일 도메인 설정 {2}이 (가) 사용자가 자기 registeration에 사용되는 메일 서버를 지정하는 방법입니다. {0} 당신이 할 수있는 하나 {1} 사용자 정의 도메인 {2} 옵션을 선택하고 신뢰할 수있는 메일 서버를 입력 할 수 아래 입력란 그래서 그것을 계정을 가지고 그 사람이 {2} 페이지에서 로그인하거나이 옵션을 사용하지 않도록 {1}에 가입 링크를 클릭하여 그 (그녀) 자기를 등록 할 수 있습니다. {0} 매개 변수를 만들려면 당신은 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭하여 적용 설정합니다.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>{1} 비밀번호 강도 설정 {2}이 (가) 추측과 짐승 - 강제 공격을 저항에 암호의 효과를 결정하는 방법입니다. {0} 얼마나 오래 암호가해야 결정하기 위해 {1} 최소 비밀번호 길이는 {2} 막대를 사용 수. 비밀번호를 사용해야합니다 문자 집합을 결정하기 위해 아래의 해당 확인란을 선택합니다. 귀하가 설정 한 매개 변수를 확인하려면 {0}을 적용 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭합니다.</value>
-  </data>
   <data name="HelpAnswerPortalVersion" xml:space="preserve">
     <value>{1} 포털 버전 {2}이 (가) 사용 가능한 ONLYOFFICE™ 포털 버전 사이를 전환 할 수있는 방법입니다. {0} 당신도 다시 포털의 이전 버전에 새 버전 또는 스위치를 사용할 수 있습니다. {0}가 설정 매개 변수를 만들려면 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭하여 적용됩니다.</value>
   </data>
@@ -989,9 +986,6 @@
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>비밀번호 변경</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>최소 암호 길이</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>비밀번호 복구</value>

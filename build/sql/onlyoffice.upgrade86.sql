@@ -21,12 +21,19 @@ BEGIN
 
 	IF NOT EXISTS(SELECT * FROM information_schema.`TABLES` WHERE `TABLE_SCHEMA` = DATABASE() AND `TABLE_NAME` = 'jabber_offmessage' AND `TABLE_COLLATION` = 'utf8mb4_general_ci') THEN
 		RENAME TABLE jabber_offmessage TO jabber_offmessage_old;
+
+		IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'jabber_offmessage_old' AND COLUMN_NAME = 'stamp') THEN
+			ALTER TABLE `jabber_offmessage_old` ADD COLUMN `stamp` DATETIME NULL AFTER `message`, ADD INDEX `jabber_offmessage_stamp` (`stamp`);
+		END IF;
+
 		CREATE TABLE `jabber_offmessage` (
 			`id` INT(11) NOT NULL AUTO_INCREMENT,
 			`jid` VARCHAR(255) NOT NULL,
 			`message` MEDIUMTEXT NULL DEFAULT NULL,
+			`stamp` datetime NOT NULL,
 			PRIMARY KEY (`id`),
-			INDEX `jabber_offmessage_jid` (`jid`(190))
+			INDEX `jabber_offmessage_jid` (`jid`(190)),
+			INDEX `jabber_offmessage_stamp` (`stamp`)
 		)
 		COLLATE='utf8mb4_general_ci';
 		INSERT INTO jabber_offmessage SELECT * FROM jabber_offmessage_old;

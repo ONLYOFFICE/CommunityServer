@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,15 +24,23 @@ namespace ASC.Api.Projects.Wrappers
     [DataContract(Name = "project", Namespace = "")]
     public class SimpleProjectWrapper
     {
+        ///<example>123</example>
+        /// <order>60</order>
         [DataMember(Order = 60)]
         public int Id { get; set; }
 
+        ///<example>Sample project</example>
+        ///<order>61</order>
         [DataMember(Order = 61)]
         public string Title { get; set; }
 
+        ///<example type="int">0</example>
+        ///<order>62</order>
         [DataMember(Order = 62)]
         public int Status { get; set; }
 
+        ///<example>false</example>
+        ///<order>63</order>
         [DataMember(Order = 63)]
         public bool IsPrivate { get; set; }
 

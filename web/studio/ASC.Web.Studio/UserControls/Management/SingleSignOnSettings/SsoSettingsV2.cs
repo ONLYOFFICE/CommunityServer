@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,30 +87,42 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
             };
         }
 
+        ///<example>true</example>
         [DataMember]
         public bool EnableSso { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoIdpSettings, ASC.Web.Studio</type>
+        ///<collection>list</collection>
         [DataMember]
         public SsoIdpSettings IdpSettings { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoCertificate, ASC.Web.Studio</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<SsoCertificate> IdpCertificates { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoIdpCertificateAdvanced, ASC.Web.Studio</type>
         [DataMember]
         public SsoIdpCertificateAdvanced IdpCertificateAdvanced { get; set; }
 
+        ///<example>SpLoginLabel</example>
         [DataMember]
         public string SpLoginLabel { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoCertificate, ASC.Web.Studio</type>
+        ///<collection>list</collection>
         [DataMember]
         public List<SsoCertificate> SpCertificates { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSpCertificateAdvanced, ASC.Web.Studio</type>
         [DataMember]
         public SsoSpCertificateAdvanced SpCertificateAdvanced { get; set; }
 
+        ///<type>ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoFieldMapping, ASC.Web.Studio</type>
         [DataMember]
         public SsoFieldMapping FieldMapping { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool HideAuthPage { get; set; }
     }
@@ -122,21 +134,27 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
     [DataContract]
     public class SsoIdpSettings
     {
+        ///<example>EntityId</example>
         [DataMember]
         public string EntityId { get; set; }
 
+        ///<example>SsoUrl</example>
         [DataMember]
         public string SsoUrl { get; set; }
 
+        ///<example>SsoBinding</example>
         [DataMember]
         public string SsoBinding { get; set; }
 
+        ///<example>SloUrl</example>
         [DataMember]
         public string SloUrl { get; set; }
 
+        ///<example>SloBinding</example>
         [DataMember]
         public string SloBinding { get; set; }
 
+        ///<example>NameIdFormat</example>
         [DataMember]
         public string NameIdFormat { get; set; }
     }
@@ -150,21 +168,27 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
     [DataContract]
     public class SsoFieldMapping
     {
+        ///<example>FirstName</example>
         [DataMember]
         public string FirstName { get; set; }
 
+        ///<example>LastName</example>
         [DataMember]
         public string LastName { get; set; }
 
+        ///<example>Email</example>
         [DataMember]
         public string Email { get; set; }
 
+        ///<example>Title</example>
         [DataMember]
         public string Title { get; set; }
 
+        ///<example>Location</example>
         [DataMember]
         public string Location { get; set; }
 
+        ///<example>Phone</example>
         [DataMember]
         public string Phone { get; set; }
     }
@@ -178,24 +202,31 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
     [DataContract]
     public class SsoCertificate
     {
+        ///<example>true</example>
         [DataMember]
         public bool SelfSigned { get; set; }
 
+        ///<example>Crt</example>
         [DataMember]
         public string Crt { get; set; }
 
+        ///<example>Key</example>
         [DataMember]
         public string Key { get; set; }
 
+        ///<example>Action</example>
         [DataMember]
         public string Action { get; set; }
 
+        ///<example>DomainName</example>
         [DataMember]
         public string DomainName { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         [DataMember]
         public DateTime StartDate { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         [DataMember]
         public DateTime ExpiredDate { get; set; }
     }
@@ -204,21 +235,27 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
     [DataContract]
     public class SsoIdpCertificateAdvanced
     {
+        ///<example>VerifyAlgorithm</example>
         [DataMember]
         public string VerifyAlgorithm { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool VerifyAuthResponsesSign { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool VerifyLogoutRequestsSign { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool VerifyLogoutResponsesSign { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string DecryptAlgorithm { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool DecryptAssertions { get; set; }
     }
@@ -227,21 +264,27 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
     [DataContract]
     public class SsoSpCertificateAdvanced
     {
+        ///<example>SigningAlgorithm</example>
         [DataMember]
         public string SigningAlgorithm { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool SignAuthRequests { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool SignLogoutRequests { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public bool SignLogoutResponses { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string EncryptAlgorithm { get; set; }
 
+        ///<example>true</example>
         [DataMember]
         public string DecryptAlgorithm { get; set; }
 

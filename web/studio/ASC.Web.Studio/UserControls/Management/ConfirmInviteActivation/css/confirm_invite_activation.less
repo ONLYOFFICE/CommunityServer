@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  *
 */
 
+
+@import "../../../../skins/default/params.less";
 
 @orangeMain: #FF6F3D;
 
@@ -220,7 +222,7 @@
         border: none;
         .border-radius(3px);
         .box-sizing();
-        color: #FFFFFF;
+        color: @body-color;
         cursor: pointer;
         font-size: 14px;
         font-weight: bold;
@@ -268,7 +270,7 @@
         width: auto;
 
         .property {
-            background: #FFFFFF;
+            background: @body-color;
             border: 1px solid #AAAAAA;
             border-radius: 3px;
             -webkit-box-sizing: border-box;
@@ -310,15 +312,15 @@
             }
 
             &.focus {
-                background: #FFFFFF;
-                border-color: #666666;
+                background: @body-color;
+                border-color: @textColorBlackDark;
 
                 input:-webkit-autofill {
-                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #FFFFFF);
+                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, @body-color);
                 }
 
                 .name {
-                    color: #333333;
+                    color: @textColor;
                 }
             }
 
@@ -335,7 +337,7 @@
                 }
 
                 .name {
-                    color: #666666;
+                    color: @textColorBlackDark;
                     transform: translateX(2px) translateY(-12px);
                 }
             }
@@ -356,11 +358,11 @@
             }
 
             .textEdit {
-                background: transparent;
+                background-color: @back-ground-text;
                 border: none;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                color: #333333;
+                color: @textColor;
                 font-size: 16px;
                 height: auto;
                 line-height: 20px;
@@ -370,8 +372,8 @@
                 width: 100%;
 
                 &:-webkit-autofill {
-                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #FFFFFF);
-                    color: #333333;
+                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, @body-color);
+                    color: @textColor;
                     font-size: 16px;
 
                     & ~ .name {
@@ -415,7 +417,7 @@
 
             #studio_confirm_pwd, #studio_confirm_pwd_match {
                 width: 100%;
-                padding-right:40px;
+                padding-right: 40px;
             }
         }
     }

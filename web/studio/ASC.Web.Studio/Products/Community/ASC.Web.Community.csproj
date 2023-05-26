@@ -33,6 +33,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\bin\ASC.Web.Community.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -2371,13 +2373,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\default\images\icon-blogs.png" />
-    <Content Include="App_Themes\default\images\icon-bookmarks.png" />
-    <Content Include="App_Themes\default\images\icon-employees.png" />
-    <Content Include="App_Themes\default\images\icon-helpcenter.png" />
+    <Content Include="App_Themes\default\images\icon-blogs.svg" />
+    <Content Include="App_Themes\default\images\icon-bookmarks.svg" />
+    <Content Include="App_Themes\default\images\icon-employees.svg" />
+    <Content Include="App_Themes\default\images\icon-events.svg" />
+    <Content Include="App_Themes\default\images\icon-helpcenter.svg" />
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
     <Content Include="Controls\ButtonSidePanel.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -2392,11 +2394,19 @@
     <Content Include="Modules\Blogs\AddBlog.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Modules\Blogs\App_Themes\default\blogstyle.css" />
-    <Content Include="Modules\Blogs\App_Themes\default\images\BlogIconWG.png" />
-    <Content Include="Modules\Blogs\App_Themes\default\images\blogs.png" />
-    <Content Include="Modules\Blogs\App_Themes\default\images\blog_add.png" />
-    <Content Include="Modules\Blogs\App_Themes\default\images\blog_icon.png" />
+    <Content Include="App_Themes\dark\dark-bookmarkingstyle.less" />
+    <Content Include="App_Themes\dark\dark-blogstyle.less" />
+    <Content Include="App_Themes\dark\dark-params.less" />
+    <Content Include="App_Themes\dark\dark-newsstylesheet.less" />
+    <Content Include="App_Themes\dark\dark-style.less" />
+    <Content Include="App_Themes\dark\dark-wikicss.less" />
+    <Content Include="App_Themes\dark\dark-main.less" />
+    <Content Include="App_Themes\default\params.less" />
+    <Content Include="Modules\Blogs\App_Themes\default\blogstyle.less" />
+    <Content Include="Modules\Blogs\App_Themes\default\images\BlogIconWG.svg" />
+    <Content Include="Modules\Blogs\App_Themes\default\images\blogs.svg" />
+    <Content Include="Modules\Blogs\App_Themes\default\images\blog_add.svg" />
+    <Content Include="Modules\Blogs\App_Themes\default\images\blog_icon.svg" />
     <Content Include="Modules\Blogs\App_Themes\default\images\comboarrow_bottom.png" />
     <Content Include="Modules\Blogs\App_Themes\default\images\tags.png" />
     <Content Include="Modules\Blogs\Core\Service\blog_patterns.xml" />
@@ -2412,7 +2422,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Modules\Bookmarking\App_Data\IECapt.exe" />
-    <Content Include="Modules\Bookmarking\App_Themes\default\css\bookmarkingstyle.css" />
+    <Content Include="Modules\Bookmarking\App_Themes\default\css\bookmarkingstyle.less" />
     <Content Include="Modules\Bookmarking\App_Themes\default\css\imagescss\16_edit.png" />
     <Content Include="Modules\Bookmarking\App_Themes\default\css\imagescss\add_book.gif" />
     <Content Include="Modules\Bookmarking\App_Themes\default\css\imagescss\bookmarking_details.png" />
@@ -2438,10 +2448,10 @@
     <Content Include="Modules\Bookmarking\App_Themes\default\css\imagescss\yell02_bg.png" />
     <Content Include="Modules\Bookmarking\App_Themes\default\css\imagescss\yell03_end.png" />
     <Content Include="Modules\Bookmarking\App_Themes\default\images\ajax_progress_loader.gif" />
-    <Content Include="Modules\Bookmarking\App_Themes\default\images\bookmarking_icon.png" />
-    <Content Include="Modules\Bookmarking\App_Themes\default\images\bookmarking_mini_icon.png" />
-    <Content Include="Modules\Bookmarking\App_Themes\default\images\bookmarks_icon.png" />
-    <Content Include="Modules\Bookmarking\App_Themes\default\images\goldstar.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\default\images\bookmarking_icon.svg" />
+    <Content Include="Modules\Bookmarking\App_Themes\default\images\bookmarking_mini_icon.svg" />
+    <Content Include="Modules\Bookmarking\App_Themes\default\images\bookmarks_icon.svg" />
+    <Content Include="Modules\Bookmarking\App_Themes\default\images\goldstar.svg" />
     <Content Include="Modules\Bookmarking\App_Themes\default\images\greystar.png" />
     <Content Include="Modules\Bookmarking\App_Themes\default\images\noimageavailable.jpg" />
     <Content Include="Modules\Bookmarking\App_Themes\default\images\tags.png" />
@@ -2485,9 +2495,9 @@
     <Content Include="Modules\Forum\App_Themes\default\images\comboarrow_bottom.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\complete.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\down.png" />
-    <Content Include="Modules\Forum\App_Themes\default\images\forums_icon.png" />
-    <Content Include="Modules\Forum\App_Themes\default\images\forum_icon.png" />
-    <Content Include="Modules\Forum\App_Themes\default\images\forum_mini_icon.png" />
+    <Content Include="Modules\Forum\App_Themes\default\images\forums_icon.svg" />
+    <Content Include="Modules\Forum\App_Themes\default\images\forum_icon.svg" />
+    <Content Include="Modules\Forum\App_Themes\default\images\forum_mini_icon.svg" />
     <Content Include="Modules\Forum\App_Themes\default\images\forum_read.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\forum_unread.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\goto.png" />
@@ -2512,8 +2522,8 @@
     <Content Include="Modules\Forum\App_Themes\default\images\top_new_sticky.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\top_sticky.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\trash.png" />
-    <Content Include="Modules\Forum\App_Themes\default\images\upload.png" />
-    <Content Include="Modules\Forum\App_Themes\default\style.css" />
+    <Content Include="Modules\Forum\App_Themes\default\images\upload.svg" />
+    <Content Include="Modules\Forum\App_Themes\default\style.less" />
     <Content Include="Modules\Forum\Core\Module\forum_patterns.xml" />
     <Content Include="Modules\Forum\Default.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -2549,18 +2559,18 @@
     <Content Include="Modules\Forum\UserControls\TopicEditorControl.ascx" />
     <Content Include="Modules\Forum\UserControls\TopicListControl.ascx" />
     <Content Include="Modules\Forum\UserTopics.aspx" />
-    <Content Include="Modules\News\App_Themes\default\images\150x_advert.png" />
-    <Content Include="Modules\News\App_Themes\default\images\150x_news.png" />
-    <Content Include="Modules\News\App_Themes\default\images\150x_newslogo.png" />
-    <Content Include="Modules\News\App_Themes\default\images\150x_order.png" />
-    <Content Include="Modules\News\App_Themes\default\images\150x_poll.png" />
-    <Content Include="Modules\News\App_Themes\default\images\32x_advert.png" />
-    <Content Include="Modules\News\App_Themes\default\images\32x_news.png" />
-    <Content Include="Modules\News\App_Themes\default\images\32x_order.png" />
-    <Content Include="Modules\News\App_Themes\default\images\32x_poll.png" />
+    <Content Include="Modules\News\App_Themes\default\images\150x_advert.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\150x_news.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\150x_newslogo.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\150x_order.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\150x_poll.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\32x_advert.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\32x_news.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\32x_order.svg" />
+    <Content Include="Modules\News\App_Themes\default\images\32x_poll.svg" />
     <Content Include="Modules\News\App_Themes\default\images\comboarrow_bottom.png" />
-    <Content Include="Modules\News\App_Themes\default\images\newslogo.png" />
-    <Content Include="Modules\News\App_Themes\default\newsstylesheet.css" />
+    <Content Include="Modules\News\App_Themes\default\images\newslogo.svg" />
+    <Content Include="Modules\News\App_Themes\default\newsstylesheet.less" />
     <Content Include="Modules\News\Controls\FeedItem.ascx" />
     <Content Include="Modules\News\Controls\FeedView.ascx">
       <SubType>ASPXCodeBehind</SubType>
@@ -2575,9 +2585,9 @@
     <Content Include="Modules\News\js\news.js" />
     <Content Include="Modules\News\News.aspx" />
     <Content Include="Modules\News\Resources\news_patterns.xml" />
-    <Content Include="Modules\Wiki\App_Themes\default\css\filetype_style.css" />
-    <Content Include="Modules\Wiki\App_Themes\default\css\wikicss.css" />
-    <Content Include="Modules\Wiki\App_Themes\default\css\wikicssprint.css" />
+    <Content Include="Modules\Wiki\App_Themes\default\css\filetype_style.less" />
+    <Content Include="Modules\Wiki\App_Themes\default\css\wikicss.less" />
+    <Content Include="Modules\Wiki\App_Themes\default\css\wikicssprint.less" />
     <Content Include="Modules\Wiki\App_Themes\default\images\filetype\file_image.png" />
     <Content Include="Modules\Wiki\App_Themes\default\images\filetype\file_mpg.png" />
     <Content Include="Modules\Wiki\App_Themes\default\images\filetype\file_na.png" />
@@ -2586,14 +2596,14 @@
     <Content Include="Modules\Wiki\App_Themes\default\images\filetype\file_txt.png" />
     <Content Include="Modules\Wiki\App_Themes\default\images\filetype\file_xls.png" />
     <Content Include="Modules\Wiki\App_Themes\default\images\filetype\file_zip.png" />
-    <Content Include="Modules\Wiki\App_Themes\default\images\page.png" />
-    <Content Include="Modules\Wiki\App_Themes\default\images\wikilogo150.png" />
-    <Content Include="Modules\Wiki\App_Themes\default\images\wikilogo16.png" />
-    <Content Include="Modules\Wiki\App_Themes\default\images\wikilogo32.png" />
+    <Content Include="Modules\Wiki\App_Themes\default\images\page.svg" />
+    <Content Include="Modules\Wiki\App_Themes\default\images\wikilogo150.svg" />
+    <Content Include="Modules\Wiki\App_Themes\default\images\wikilogo16.svg" />
+    <Content Include="Modules\Wiki\App_Themes\default\images\wikilogo32.svg" />
     <Content Include="Modules\Wiki\Code\Patterns\wiki_patterns.xml" />
     <Content Include="Modules\Wiki\content\anchor.png" />
     <Content Include="Modules\Wiki\content\bold.png" />
-    <Content Include="Modules\Wiki\content\box.png" />
+    <Content Include="Modules\Wiki\content\box.svg" />
     <Content Include="Modules\Wiki\content\br.png" />
     <Content Include="Modules\Wiki\content\code.png" />
     <Content Include="Modules\Wiki\content\comment.png" />
@@ -2612,7 +2622,7 @@
     <Content Include="Modules\Wiki\content\link.png" />
     <Content Include="Modules\Wiki\content\lock_icon.gif" />
     <Content Include="Modules\Wiki\content\mail_icon.gif" />
-    <Content Include="Modules\Wiki\content\main.css" />
+    <Content Include="Modules\Wiki\content\main.less" />
     <Content Include="Modules\Wiki\content\nobr.png" />
     <Content Include="Modules\Wiki\content\nowiki.png" />
     <Content Include="Modules\Wiki\content\pagelink.png" />
@@ -3127,6 +3137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>

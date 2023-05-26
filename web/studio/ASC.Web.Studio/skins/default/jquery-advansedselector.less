@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 @import "../base.less";
+@import "params.less";
 
 .advanced-selector-select {
     display: inline-block;
@@ -94,11 +95,11 @@
 
 .advanced-selector-add-text,
 .advanced-selector-add-new-text {
-    border-bottom: 1px dotted #333;
+    border-bottom: 1px dotted @textColor;
 }
 
 .advanced-selector-block {
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid @borderColor;
     position: relative;
 }
 
@@ -118,9 +119,9 @@
     margin: 0 0 12px 0;
     position: relative;
 }
-input[type="text"].advanced-selector-search-field, 
+input[type="text"].advanced-selector-search-field,
 input[type="text"].advanced-selector-search-field:focus {
-    border: solid 1px #c7c7c7;
+    border: solid 1px @borderColor2;
     font-size: 12px;
     height: 21px;
     padding: 0 25px 0 5px;
@@ -171,11 +172,11 @@ input[type="text"].advanced-selector-search-field:focus {
         text-align: left;
 
         &.selected {
-            background-color: #f2f2f2;
+            background-color: @activeTable;
         }
 
         &:hover, &.active {
-            background-color: #e5e5e5;
+            background-color: @hoverTable;
         }
 
         &.disabled {
@@ -200,7 +201,7 @@ input[type="text"].advanced-selector-search-field:focus {
 .div-check() {
     div {
         background-color: transparent;
-        background-image: url("images/checkboxes.png");
+        background-image: url("images/@{checkboxes-img}");
         background-position: 0px 0px;
         background-repeat: no-repeat;
         margin: 0 8px 0 0;
@@ -245,7 +246,7 @@ input[type="text"].advanced-selector-search-field:focus {
     align-items: center;
 
     &:hover {
-        background-color: #e5e5e5;
+        background-color: @hoverTable;
     }
 
     input {
@@ -262,14 +263,14 @@ input[type="text"].advanced-selector-search-field:focus {
 
 /*********Add New Container *********/
 .advanced-selector-add-new-block {
-    border-right: 1px solid #d1d1d1;
+    border-right: 1px solid @borderColor;
     float: left;
     height: 260px;
     padding: 10px 10px 13px 10px;
     width: 195px;
 
     &.right-position {
-        border-left: 1px solid #d1d1d1;
+        border-left: 1px solid @borderColor;
         border-right: none;
     }
 }
@@ -304,7 +305,7 @@ input[type="text"].advanced-selector-search-field:focus {
     top: 0;
 }
 .advanced-selector-field {
-    border: solid 1px #c7c7c7;
+    border: solid 1px @borderColor2;
     font-size: 12px;
     height: 21px;
     margin-bottom: 3px;
@@ -350,7 +351,7 @@ select.advanced-selector-field {
 }
 
 .advanced-selector-loader-list {
-    background: url(./images/loader_32.gif) no-repeat 0 0 transparent;
+    background: url("images/@{loader-gif-32}") no-repeat 0 0 transparent;
     height: 32px;
     width: 32px;
     position: absolute;
@@ -371,7 +372,7 @@ select.advanced-selector-field {
 }
 
 .advanced-selector-loader {
-    background: url("images/loader_16.gif") no-repeat scroll 0 0 transparent;
+    background: url("images/@{loader-gif-16}") no-repeat scroll 0 0 transparent;
     color: #999999;    
     font-size:11px;
     line-height: 18px;
@@ -399,7 +400,7 @@ select.advanced-selector-field {
 }
 
 .advanced-selector-field-list {
-    background-color: #fff;
+    background-color: @body-color;
     border: 1px solid #ccc;
     display: none;
     max-height: 70px;
@@ -420,11 +421,11 @@ select.advanced-selector-field {
         .text-overflow();
 
         &.selected {
-            background-color: #f2f2f2;
+            background-color: @activeTable;
         }
 
         &:hover, &.active {
-            background-color: #e5e5e5;
+            background-color: @hoverTable;
         }
     }
 }
@@ -435,7 +436,7 @@ select.advanced-selector-field {
     top:2px;
     left:2px;
     height: 16px;
-    background: url("images/loader_16.gif") no-repeat left center transparent;
+    background: url("images/@{loader-gif-16}") no-repeat left center transparent;
 }
 
 .advanced-selector-list-results {

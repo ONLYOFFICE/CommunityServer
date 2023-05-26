@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,57 +26,90 @@ using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
 {
+    ///<inherited>ASC.Api.Projects.Wrappers.ObjectWrapperFullBase, ASC.Api.Projects</inherited>
     [DataContract(Name = "task", Namespace = "")]
     public class TaskWrapper : ObjectWrapperFullBase
     {
+        ///<example>false</example>
         [DataMember]
         public bool CanEdit { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateSubtask { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanCreateTimeSpend { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanDelete { get; set; }
 
+        ///<example>false</example>
         [DataMember]
         public bool CanReadFiles { get; set; }
 
+        ///<example>2020-12-22T04:11:56.5768573Z</example>
+        ///<order>12</order>
         [DataMember(Order = 12, EmitDefaultValue = false)]
         public ApiDateTime Deadline { get; set; }
 
+        ///<example>2020-12-22T04:11:56.5768573Z</example>
         [DataMember(EmitDefaultValue = false)]
         public ApiDateTime StartDate { get; set; }
 
+        /// <example type="int">123</example>
+        /// <order>13</order>
         [DataMember(Order = 13, EmitDefaultValue = false)]
         public int MilestoneId { get; set; }
 
+        /// <example type="int">1</example>
+        /// <order>12</order>
         [DataMember(Order = 12)]
         public TaskPriority Priority { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.SimpleProjectWrapper, ASC.Api.Projects</type>
+        ///<order>14</order>
         [DataMember(Order = 14)]
         public SimpleProjectWrapper ProjectOwner { get; set; }
 
+        /// <example type="int">55</example>
+        /// <order>15</order>
         [DataMember(Order = 15, EmitDefaultValue = false)]
         public int Progress { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.SubtaskWrapper, ASC.Api.Projects</type>
+        ///<order>20</order>
+        ///<collection>list</collection>
         [DataMember(Order = 20, EmitDefaultValue = false)]
         public List<SubtaskWrapper> Subtasks { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.TaskLinkWrapper, ASC.Api.Projects</type>
+        ///<order>21</order>
+        ///<collection>list</collection>
         [DataMember(Order = 21, EmitDefaultValue = false)]
         public IEnumerable<TaskLinkWrapper> Links { get; set; }
 
+        ///<type>ASC.Api.Employee.EmployeeWraper, ASC.Api.Employee</type>
+        ///<order>53</order>
+        ///<collection>list</collection>
         [DataMember(Order = 53)]
         public List<EmployeeWraper> Responsibles { get; set; }
 
+        ///<example>00000000-0000-0000-0000-000000000000</example>
+        ///<order>53</order>
+        ///<collection>list</collection>
         [DataMember(Order = 53, EmitDefaultValue = false)]
         public List<Guid> ResponsibleIds { get; set; }
 
+        ///<type>ASC.Api.Projects.Wrappers.SimpleMilestoneWrapper, ASC.Api.Projects</type>
+        ///<order>54</order>
         [DataMember(Order = 54, EmitDefaultValue = false)]
         public SimpleMilestoneWrapper Milestone { get; set; }
 
+        ///<example type="int">1</example>
+        ///<order>55</order>
         [DataMember(Order = 55, EmitDefaultValue = false)]
         public int? CustomTaskStatus { get; set; }
 

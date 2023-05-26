@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,22 +63,24 @@ namespace ASC.Web.Studio
 
             Page.RegisterStyle("~/skins/page_default.less");
 
-            var defaultPageSettings = StudioDefaultPageSettings.Load();
-            if (defaultPageSettings != null && defaultPageSettings.DefaultProductID != Guid.Empty)
+            var defaultPageSettings = StudioDefaultPageSettings.Load() ?? (StudioDefaultPageSettings)new StudioDefaultPageSettings().GetDefault();
+            var isDesktop = Request.DesktopApp();
+            var defaultProductID = isDesktop ? WebItemManager.DocumentsProductID : defaultPageSettings.DefaultProductID;
+            if (defaultProductID != Guid.Empty)
             {
-                if (defaultPageSettings.DefaultProductID == defaultPageSettings.FeedModuleID && !CurrentUser.IsOutsider())
+                if (defaultProductID == defaultPageSettings.FeedModuleID && !CurrentUser.IsOutsider())
                 {
                     Response.Redirect("Feed.aspx", true);
                 }
 
-                var webItem = WebItemManager.Instance[defaultPageSettings.DefaultProductID];
+                var webItem = WebItemManager.Instance[defaultProductID];
                 if (webItem != null && webItem.Visible)
                 {
-                    var securityInfo = WebItemSecurity.GetSecurityInfo(defaultPageSettings.DefaultProductID.ToString());
-                    if (securityInfo.Enabled && WebItemSecurity.IsAvailableForMe(defaultPageSettings.DefaultProductID))
+                    var securityInfo = WebItemSecurity.GetSecurityInfo(defaultProductID.ToString());
+                    if (securityInfo.Enabled && WebItemSecurity.IsAvailableForMe(defaultProductID))
                     {
                         var url = webItem.StartURL;
-                        if (Request.DesktopApp())
+                        if (isDesktop)
                         {
                             url += "?desktop=true";
                             if (!string.IsNullOrEmpty(Request["first"]))

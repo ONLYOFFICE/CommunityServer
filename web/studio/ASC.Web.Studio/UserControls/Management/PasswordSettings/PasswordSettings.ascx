@@ -12,13 +12,12 @@
 
         <div class="clearFix slider">
             <div class="header-base-small">
-                <%= Resource.PasswordMinLength %></div>
+                <%= Resource.PasswordLengthRange %></div>
             <div class="clearFix passwordLengthBox">
                 <div class="sliderPassword">
-                    <div id="slider" data-min="<%= ((PasswordSettings)new PasswordSettings().GetDefault()).MinLength %>" data-max="<%= PasswordSettings.MaxLength %>"></div>
+                    <div id="slider"></div>
                 </div>
-                <div class="float-left" id="count">
-                </div>
+                <div class="float-left" id="count">&nbsp;</div>
                 <div class="countLabel float-left">
                 <%= Resource.PasswordSymbolsCountLabel %>
                 </div>
@@ -45,7 +44,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= String.Format(Resource.HelpAnswerPasswordSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
+        <p><%= String.Format(Resource.HelpAnswerPasswordStrengthSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
         <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
             <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ChangingSecuritySettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>

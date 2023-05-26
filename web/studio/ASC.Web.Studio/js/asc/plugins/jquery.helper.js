@@ -23,6 +23,7 @@
             position: "absolute",
             fixWinSize: false,
             popup: false,
+            BlockHelper: null,
             BlockHelperID: '', //obligatory  parameter
             enableAutoHide: true,
             close: false,
@@ -36,9 +37,9 @@
                 scrWidth = w.width(),
                 scrHeight = w.height(),
                 addTop = options.addTop-20,
-                addLeft = options.addLeft-29,         // the left padding of the arrow
+                addLeft = options.addLeft-29, // the left padding of the arrow
                 topPadding = w.scrollTop(),
-                leftPadding = w.scrollLeft();            
+                leftPadding = w.scrollLeft();
 
             if (options.position == "fixed") {
                 addTop -= topPadding;
@@ -46,7 +47,7 @@
             }
 
 
-            var $helpBlock = jq('#' + options.BlockHelperID),
+            var $helpBlock = options.BlockHelper || jq('#' + options.BlockHelperID),
                 elem = jq(this),
                 elemPos = elem.offset(),
                 elemPosLeft = elemPos.left,
@@ -58,22 +59,22 @@
             }
 
             if (options.close) {
-                if (jq('#' + options.BlockHelperID + ' .closeBlock').length == 0) {
+                if ($helpBlock.find('.closeBlock').length == 0) {
                     $helpBlock.prepend('<div class="closeBlock"></div>');
-                    jq('#' + options.BlockHelperID + ' .closeBlock').on("click", function() {
+                    $helpBlock.find('.closeBlock').on("click", function() {
                         $helpBlock.hide();
                     });
                 }
             }
             if (options.next) {
-                if (jq('#' + options.BlockHelperID + ' .buttons').length == 0) {
+                if ($helpBlock.find('.buttons').length == 0) {
                      $helpBlock.append('<div class="buttons"><a class="button gray nextHelp">' 
                      + ASC.Resources.Master.ResourceJS.ShowNext + '</a><a class="neverShow">'
-                     + ASC.Resources.Master.ResourceJS.NeverShow + '</a></div>');                                     
+                     + ASC.Resources.Master.ResourceJS.NeverShow + '</a></div>');
                 }
-            }          
+            }
 
-            jq('#' + options.BlockHelperID + ' ' + '.cornerHelpBlock').remove();
+            $helpBlock.find('.cornerHelpBlock').remove();
 
             if (options.fixWinSize && (elemPosLeft + addLeft + $helpBlock.outerWidth()) > (leftPadding + scrWidth)) {
                 elemPosLeft = Math.max(0, leftPadding + scrWidth - $helpBlock.outerWidth()) - addLeft;

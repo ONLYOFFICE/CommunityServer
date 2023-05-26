@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,21 +25,33 @@ namespace ASC.Api.Forums
     [DataContract(Name = "post", Namespace = "")]
     public class ForumTopicPostAttachmentWrapper : IApiSortableDate
     {
+        ///<example>2020-12-07T13:56:02.3269198Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Created { get; set; }
 
+        ///<example>2020-12-07T13:56:02.3269198Z</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public ApiDateTime Updated { get; set; }
 
+        ///<example>picture.jpg</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string Name { get; set; }
 
+        ///<example>image/jpeg</example>
+        ///<order>2</order>
         [DataMember(Order = 2)]
         public string ContentType { get; set; }
 
+        ///<example type="int">122345</example>
+        ///<order>3</order>
         [DataMember(Order = 3)]
         public int Size { get; set; }
 
+        ///<example>url to file</example>
+        ///<order>5</order>
         [DataMember(Order = 5)]
         public string Path { get; set; }
 

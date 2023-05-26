@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ namespace ASC.Web.Studio.Core.SMS
                 }
             }
 
-            if (StudioSmsNotificationSettings.Enable)
+            if (StudioSmsNotificationSettings.TfaEnabledForUser(user.ID))
             {
                 PutAuthCode(user, false);
             }
@@ -70,7 +70,7 @@ namespace ASC.Web.Studio.Core.SMS
         {
             if (user == null || Equals(user, Constants.LostUser)) throw new Exception(Resource.ErrorUserNotFound);
 
-            if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings || !StudioSmsNotificationSettings.Enable) throw new MethodAccessException();
+            if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings || !StudioSmsNotificationSettings.TfaEnabledForUser(user.ID)) throw new MethodAccessException();
 
             var mobilePhone = SmsSender.GetPhoneValueDigits(user.MobilePhone);
 
@@ -86,8 +86,9 @@ namespace ASC.Web.Studio.Core.SMS
 
         public static void ValidateSmsCode(UserInfo user, string code, bool isEntryPoint = false)
         {
+
             if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings
-                || !StudioSmsNotificationSettings.Enable)
+                || !StudioSmsNotificationSettings.TfaEnabledForUser(user.ID))
             {
                 return;
             }

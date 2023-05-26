@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.ViewSwitcher
 {
@@ -153,9 +155,15 @@ namespace ASC.Web.Studio.UserControls.Common.ViewSwitcher
 
         public void InitViewSwitcherScripts(Page p, List<ViewSwitcherTabItem> tabs)
         {
-            Page.RegisterBodyScripts("~/UserControls/Common/ViewSwitcher/js/viewswitcher.js")
-                .RegisterStyle("~/UserControls/Common/ViewSwitcher/css/viewswitcher.css");
-
+            Page.RegisterBodyScripts("~/UserControls/Common/ViewSwitcher/js/viewswitcher.js");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/UserControls/Common/ViewSwitcher/css/dark-viewswitcher.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/UserControls/Common/ViewSwitcher/css/viewswitcher.less");
+            }
             if (tabs != null && tabs.Count > 0)
             {
                 try

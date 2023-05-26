@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Security;
 using ASC.Web.Core.Sms;
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.PublicResources;
@@ -122,8 +123,15 @@ namespace ASC.Web.Studio.UserControls.Management
                     .RegisterClientScript(new CountriesResources())
                     .RegisterBodyScripts(
                         "~/js/asc/plugins/countries.js",
-                        "~/js/asc/plugins/phonecontroller.js")
-                    .RegisterStyle("~/skins/default/phonecontroller.css");
+                        "~/js/asc/plugins/phonecontroller.js");
+                if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+                {
+                    Page.RegisterStyle("~/skins/dark/dark-phonecontroller.less");
+                }
+                else
+                {
+                    Page.RegisterStyle("~/skins/default/phonecontroller.less");
+                }
             }
         }
 
@@ -161,10 +169,11 @@ namespace ASC.Web.Studio.UserControls.Management
         public object SaveMobilePhone(string query, string mobilePhone)
         {
             var user = GetUser(query);
+            var request = HttpContext.Current.Request;
             mobilePhone = SmsManager.SaveMobilePhone(user, mobilePhone);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedMobileNumber, MessageTarget.Create(user.ID), user.DisplayUserName(false), mobilePhone);
+            MessageService.Send(request, MessageAction.UserUpdatedMobileNumber, MessageTarget.Create(user.ID), user.DisplayUserName(false), mobilePhone);
 
-            var mustConfirm = StudioSmsNotificationSettings.Enable;
+            var mustConfirm = StudioSmsNotificationSettings.TfaEnabledForUser(user.ID);
 
             var refererUrl = HttpUtility.ParseQueryString(query)["refererurl"];
             if (string.IsNullOrEmpty(refererUrl))

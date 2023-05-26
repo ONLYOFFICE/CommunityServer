@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ namespace ASC.Feed.Aggregator.Modules.CRM
                 )
                 .Select(ContactColumns().Select(c => "c." + c).ToArray());
 
-            using (var db = DbManager.FromHttpContext(Constants.CrmDbId))
+            using (var db = new DbManager(Constants.CrmDbId))
             {
                 var deals = db.ExecuteList(query).ConvertAll(ToDeal);
                 return deals.Select(d => new Tuple<Feed, object>(ToFeed(d), d));

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
@@ -60,10 +61,76 @@ namespace ASC.Core.Common.Configuration
         public int Order { get { return Convert.ToInt32(this[OrderElement]); } }
 
         [ConfigurationProperty(PropsElement, IsRequired = false)]
-        public DictionaryElementCollection Props { get { return this[PropsElement] as DictionaryElementCollection; } }
+        public PropDictionaryElementCollection Props { get { return this[PropsElement] as PropDictionaryElementCollection; } }
+    }
 
-        [ConfigurationProperty(AdditionalElement, IsRequired = false)]
-        public DictionaryElementCollection Additional { get { return this[AdditionalElement] as DictionaryElementCollection; } }
+    public class PropListItemElement : ConfigurationElement
+    {
+        private const string valueAttributeName = "value";
+        private const string keyAttributeName = "key";
+        private const string hiddenAttributeName = "hidden";
+        private const string optionalAttributeName = "optional";
+        private const string passwordAttributeName = "password";
+
+        [ConfigurationProperty(keyAttributeName, IsRequired = true)]
+        public string Key
+        {
+            get
+            {
+                return (string)this[keyAttributeName];
+            }
+        }
+
+        [ConfigurationProperty(valueAttributeName, IsRequired = true)]
+        public string Value
+        {
+            get
+            {
+                return (string)this[valueAttributeName];
+            }
+        }
+
+        [ConfigurationProperty(hiddenAttributeName, IsRequired = false)]
+        public bool Hidden
+        {
+            get
+            {
+                return (bool)this[hiddenAttributeName];
+            }
+        }
+
+        [ConfigurationProperty(optionalAttributeName, IsRequired = false)]
+        public bool Optional
+        {
+            get
+            {
+                return (bool)this[optionalAttributeName];
+            }
+        }
+
+        [ConfigurationProperty(passwordAttributeName, IsRequired = false)]
+        public bool Password
+        {
+            get
+            {
+                return (bool)this[passwordAttributeName];
+            }
+        }
+    }
+
+    public class PropDictionaryElementCollection : ConfigurationElementCollection<PropListItemElement>
+    {
+        public PropDictionaryElementCollection()
+          : base("item")
+        {
+        }
+    }
+
+    public class Prop
+    {
+        public string value;
+        public bool optional;
+        public bool password;
     }
 
     public class ConsumerConfigLoader
@@ -96,12 +163,10 @@ namespace ASC.Core.Common.Configuration
 
                 if (component.Props != null && component.Props.Any())
                 {
-                    builder.WithParameter(new NamedParameter(ConsumerElement.PropsElement, component.Props.ToDictionary(r => r.Key, r => r.Value)));
-                }
-
-                if (component.Additional != null && component.Additional.Any())
-                {
-                    builder.WithParameter(new NamedParameter(ConsumerElement.AdditionalElement, component.Additional.ToDictionary(r => r.Key, r => r.Value)));
+                    var props = component.Props.Where(r=> !r.Hidden).ToDictionary(r => r.Key, r => new Prop() { value = r.Value, password = r.Password, optional = r.Optional });
+                    var additional = component.Props.Where(r=> r.Hidden).ToDictionary(r => r.Key, r => new Prop() { value = r.Value, password = r.Password, optional = r.Optional });
+                    builder.WithParameter(new NamedParameter(ConsumerElement.PropsElement, props));
+                    builder.WithParameter(new NamedParameter(ConsumerElement.AdditionalElement, additional));
                 }
             }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -659,7 +659,7 @@ namespace ASC.Mail.Core.Engine
 
             long freedQuotaSize;
 
-            using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
+            using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
             {
                 var daoFactory = new DaoFactory(db);
                 using (var tx = daoFactory.DbManager.BeginTransaction())
@@ -671,7 +671,7 @@ namespace ASC.Mail.Core.Engine
             }
 
             var engine = new EngineFactory(mailbox.TenantId, mailbox.UserId, Log);
-            engine.QuotaEngine.QuotaUsedDelete(freedQuotaSize);
+            engine.QuotaEngine.QuotaUsedDelete(freedQuotaSize,Guid.Parse(mailbox.UserId));
 
             CacheEngine.Clear(mailbox.UserId);
 
@@ -709,7 +709,7 @@ namespace ASC.Mail.Core.Engine
         {
             long freedQuotaSize;
 
-            using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
+            using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
             {
                 var daoFactory = new DaoFactory(db);
                 using (var tx = daoFactory.DbManager.BeginTransaction())

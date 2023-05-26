@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,21 +22,33 @@ namespace ASC.Specific.AuthorizationApi
     [DataContract(Name = "token", Namespace = "")]
     public class AuthenticationTokenData
     {
+        /// <example>abcde12345</example>
+        /// <order>1</order>
         [DataMember(Order = 1)]
         public string Token { get; set; }
 
+        /// <example>2020-11-24T05:36:20.4206897Z</example>
+        /// <order>2</order>
         [DataMember(Order = 2, EmitDefaultValue = false)]
         public ApiDateTime Expires { get; set; }
 
+        /// <example>true</example>
+        /// <order>3</order>
         [DataMember(Order = 3, EmitDefaultValue = false)]
         public bool Sms { get; set; }
 
+        /// <example>8(999)999-99-99</example>
+        /// <order>4</order>
         [DataMember(Order = 4, EmitDefaultValue = false)]
         public string PhoneNoise { get; set; }
 
+        /// <example>true</example>
+        /// <order>5</order>
         [DataMember(Order = 5, EmitDefaultValue = false)]
         public bool Tfa { get; set; }
 
+        /// <example>123dwa</example>
+        /// <order>6</order>
         [DataMember(Order = 6, EmitDefaultValue = false)]
         public string TfaKey { get; set; }
 

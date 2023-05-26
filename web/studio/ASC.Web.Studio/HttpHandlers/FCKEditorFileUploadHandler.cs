@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,15 +44,7 @@ namespace ASC.Web.Studio.HttpHandlers
                     return;
                 }
 
-                var filename = file.FileName;
-
-                var ind = filename.LastIndexOf("\\", StringComparison.Ordinal);
-                if (ind >= 0)
-                {
-                    filename = filename.Substring(ind + 1);
-                }
-
-                filename = new Regex("[\t*\\+:\"<>#%&?|\\\\/]").Replace(filename, "_");
+                var filename = string.IsNullOrEmpty(file.FileName) ? string.Empty : Guid.NewGuid() + System.IO.Path.GetExtension(file.FileName);
 
                 if (FileUtility.GetFileTypeByFileName(filename) != FileType.Image)
                 {

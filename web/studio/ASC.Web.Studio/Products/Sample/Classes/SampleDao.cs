@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,13 @@ namespace ASC.Web.Sample.Classes
 {
     public static class SampleDao
     {
-        private const string DbId = "core";
+        private const string DbId = "default";
         private const string Table = "sample_table";
         private static bool _tableExist;
 
         private static IDbManager GetDb()
         {
-            return DbManager.FromHttpContext(DbId);
+            return new DbManager(DbId);
         }
 
 

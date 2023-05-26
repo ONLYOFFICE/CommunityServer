@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2023
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -24,6 +41,8 @@ namespace ASC.Api.Settings
         /// Get a link to the CardDav address book
         /// </short>
         /// <category>CardDav address book</category>
+        /// <path>api/2.0/settings/carddavurl</path>
+        /// <httpMethod>GET</httpMethod>
         /// <visible>false</visible>
         [Read("carddavurl")]
         public async Task<DavResponse> GetCardDavUrl()
@@ -97,6 +116,8 @@ namespace ASC.Api.Settings
         /// Delete a CardDav address book
         /// </short>
         /// <category>CardDav address book</category>
+        /// <path>api/2.0/settings/deletebook</path>
+        /// <httpMethod>DELETE</httpMethod>
         /// <visible>false</visible>
         [Delete("deletebook")]
         public async Task<DavResponse> DeleteCardDavAddressBook()

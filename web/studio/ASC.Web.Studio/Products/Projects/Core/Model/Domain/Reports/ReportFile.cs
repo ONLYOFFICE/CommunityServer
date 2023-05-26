@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,25 @@ namespace ASC.Projects.Core.Domain.Reports
 {
     public class ReportFile
     {
+        ///<example type="int">123</example>
         public int Id { get; set; }
 
+        ///<example>Name</example>
         public string Name { get; set; }
 
+        ///<example type="int">1</example>
         public int ReportTemplate { get; set; }
 
+        ///<example>92eb52c8-bb93-4caf-87fb-46ea11530899</example>
         public Guid CreateBy { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime CreateOn { get; set; }
 
+        ///<example type="int">1</example>
         public ReportType ReportType { get; set; }
 
+        ///<example>null</example>
         public object FileId { get; set; }
     }
 }

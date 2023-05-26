@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ using Autofac;
 
 namespace ASC.Projects.Core.Domain
 {
+    ///<inherited>ASC.Projects.Core.Domain.ProjectEntity, ASC.Web.Projects</inherited>
     [DebuggerDisplay("Task: ID = {ID}, Title = {Title}, Status = {Status}")]
     public class Task : ProjectEntity
     {
@@ -34,34 +35,52 @@ namespace ASC.Projects.Core.Domain
 
         public override string ItemPath { get { return "{0}Tasks.aspx?prjID={1}&ID={2}"; } }
 
+        ///<example type="int">1</example>
         public TaskPriority Priority { get; set; }
 
+        ///<example type="int">1</example>
         public TaskStatus Status { get; set; }
 
+        ///<example type="int">1</example>
         public int? CustomTaskStatus { get; set; }
 
+        ///<example type="int">1</example>
         public int Milestone { get; set; }
 
+        ///<example type="int">1</example>
         public int SortOrder { get; set; }
 
+        ///<example type="int">1</example>
         public DateTime Deadline { get; set; }
 
+        ///<type>ASC.Projects.Core.Domain.Subtask, ASC.Web.Projects</type>
+        ///<collection>list</collection>
         public List<Subtask> SubTasks { get; set; }
 
+        ///<example>2fdfe577-3c26-4736-9df9-b5a683bb8520</example>
+        ///<collection>list</collection>
         public List<Guid> Responsibles { get; set; }
 
+        ///<type>ASC.Projects.Core.Domain.TaskLink, ASC.Web.Projects</type>
+        ///<collection>list</collection>
         public List<TaskLink> Links { get; set; }
 
+        ///<type>ASC.Projects.Core.Domain.TaskLink, ASC.Web.Projects</type>
         public Milestone MilestoneDesc { get; set; }
 
+        ///<example>2020-12-22T04:11:57.0469085+00:00</example>
         public DateTime StatusChangedOn { get; set; }
 
+        ///<example>2020-12-22T04:11:57.0469085+00:00</example>
         public DateTime StartDate { get; set; }
 
+        ///<type>ASC.Web.Projects.Classes.TaskSecurityInfo, ASC.Web.Projects</type>
         public TaskSecurityInfo Security { get; set; }
 
+        ///<example type="int">1</example>
         private int progress;
 
+        ///<example type="int">1</example>
         public int Progress
         {
             get { return progress; }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using AjaxPro;
 using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
@@ -46,6 +47,7 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         protected TenantInfoSettings _tenantInfoSettings;
+        protected string _logoPath;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,6 +62,10 @@ namespace ASC.Web.Studio.UserControls.Management
                 "~/UserControls/Management/GreetingSettings/js/greetinglogosettings.js");
 
             _tenantInfoSettings = TenantInfoSettings.Load();
+
+            var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
+
+            _logoPath = _tenantInfoSettings.GetAbsoluteCompanyLogoPath(theme == ModeTheme.light);
 
             RegisterScript();
         }
@@ -112,11 +118,13 @@ namespace ASC.Web.Studio.UserControls.Management
                 _tenantInfoSettings.RestoreDefaultLogo();
                 _tenantInfoSettings.Save();
 
+                var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
+
                 return new
                 {
                     Status = 1,
                     Message = Resource.SuccessfullySaveGreetingSettingsMessage,
-                    LogoPath = _tenantInfoSettings.GetAbsoluteCompanyLogoPath()
+                    LogoPath = _tenantInfoSettings.GetAbsoluteCompanyLogoPath(theme == ModeTheme.light)
                 };
             }
             catch (Exception e)

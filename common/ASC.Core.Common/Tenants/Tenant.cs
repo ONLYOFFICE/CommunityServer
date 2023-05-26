@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,55 +55,80 @@ namespace ASC.Core.Tenants
             TenantId = id;
         }
 
-
+        ///<example type="int">1</example>
         public int TenantId { get; internal set; }
 
+        ///<example>TenantAlias</example>
         public string TenantAlias { get; set; }
 
+        ///<example>MappedDomain</example>
         public string MappedDomain { get; set; }
 
+        ///<example type="int">1</example>
         public int Version { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime VersionChanged { get; set; }
 
+        ///<example>TenantDomain</example>
         public string TenantDomain { get { return GetTenantDomain(); } }
 
+        ///<example>HostedRegion</example>
         public string HostedRegion { get; set; }
 
+        ///<example>Name</example>
         public string Name { get; set; }
 
+        ///<example>Language</example>
         public string Language { get; set; }
 
+        ///<example>TimeZone</example>
         public TimeZoneInfo TimeZone { get; set; }
 
+        ///<example>TrustedDomains</example>
+        ///<collection>list</collection>
         public List<string> TrustedDomains { get; private set; }
 
+        ///<example type="int">1</example>
         public TenantTrustedDomainsType TrustedDomainsType { get; set; }
 
+        ///<example>38c0f464-f1e7-493e-8d95-dc4ee8ee834a</example>
         public Guid OwnerId { get; set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime CreatedDateTime { get; internal set; }
 
+        ///<example>ru-RU</example>
         public CultureInfo GetCulture() { return !string.IsNullOrEmpty(Language) ? CultureInfo.GetCultureInfo(Language) : CultureInfo.CurrentCulture; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime LastModified { get; set; }
 
+        ///<example type="int">1</example>
         public TenantStatus Status { get; internal set; }
 
+        ///<example>2019-07-26T00:00:00</example>
         public DateTime StatusChangeDate { get; internal set; }
 
+        ///<example>PartnerId</example>
         public string PartnerId { get; set; }
 
+        ///<example>AffiliateId</example>
         public string AffiliateId { get; set; }
 
+        ///<example>Campaign</example>
         public string Campaign { get; set; }
 
+        ///<example>PaymentId</example>
         public string PaymentId { get; set; }
 
+        ///<example type="int">1</example>
         public TenantIndustry Industry { get; set; }
 
+        ///<example>true</example>
         public bool Spam { get; set; }
 
+        ///<example>true</example>
         public bool Calls { get; set; }
 
         public void SetStatus(TenantStatus status)

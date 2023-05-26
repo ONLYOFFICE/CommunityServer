@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ namespace ASC.Api.Calendar.Wrappers
     [DataContract(Name = "permissions", Namespace = "")]
     public class CalendarPermissions : Permissions
     {
+        ///<type>ASC.Api.Calendar.Wrappers.PublicItemCollection, ASC.Api.Calendar</type>
         [DataMember(Name = "data")]
         public PublicItemCollection Data { get; set; }
 
@@ -53,10 +54,12 @@ namespace ASC.Api.Calendar.Wrappers
     [DataContract(Name = "userparams", Namespace = "")]
     public class UserParams
     {
-        [DataMember(Name = "objectId")]
+        ///<example name="objectId">2fdfe577-3c26-4736-9df9-b5a683bb8520</example>
+        [DataMember(Name="objectId")]
         public Guid Id { get; set; }
 
-        [DataMember(Name = "name")]
+        ///<example name="name">Valery Zykov</example>
+        [DataMember(Name="name")]
         public string Name { get; set; }
 
         public static object GetSample()

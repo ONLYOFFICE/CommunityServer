@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,18 +34,22 @@ using ASC.Web.Projects;
 
 namespace ASC.Api.Projects
 {
+    ///<name>project</name>
     public partial class ProjectApi
     {
         #region tasks
 
-        ///<summary>
-        ///Returns a list with the detailed information about all the tasks for the current user.
-        ///</summary>
-        ///<short>
-        ///Get my tasks
-        ///</short>
-        ///<category>Tasks</category>
-        ///<returns>List of tasks</returns>
+        /// <summary>
+        /// Returns a list with the detailed information about all the tasks for the current user.
+        /// </summary>
+        /// <short>
+        /// Get my tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">List of tasks</returns>
+        /// <path>api/2.0/project/task/@self</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/@self")]
         public IEnumerable<TaskWrapper> GetMyTasks()
         {
@@ -55,15 +59,18 @@ namespace ASC.Api.Projects
                 .ToList();
         }
 
-        ///<summary>
-        ///Returns a list with the detailed information about the tasks for the current user with a status specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get my tasks by status
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="status">Task status: not accept|open|closed|disable|unclassified|not in milestone</param>
-        ///<returns>List of tasks</returns>
+        /// <summary>
+        /// Returns a list with the detailed information about the tasks for the current user with a status specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get my tasks by status
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="ASC.Projects.Core.Domain.TaskStatus, ASC.Projects.Core.Domain" method="url" name="status">Task status</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">List of tasks</returns>
+        /// <path>api/2.0/project/task/@self/{status}</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/@self/{status:(notaccept|open|closed|disable|unclassified|notinmilestone)}")]
         public IEnumerable<TaskWrapper> GetMyTasks(TaskStatus status)
         {
@@ -73,16 +80,18 @@ namespace ASC.Api.Projects
                 .ToList();
         }
 
-        ///<summary>
-        ///Returns the detailed information about a task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get a task
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<returns>Task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns the detailed information about a task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get a task
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapperFull, ASC.Api.Projects">Task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"task/{taskid:[0-9]+}")]
         public TaskWrapperFull GetTask(int taskid)
         {
@@ -106,16 +115,19 @@ namespace ASC.Api.Projects
             return new TaskWrapper(this, task, milestone);
         }
 
-        ///<summary>
-        ///Returns the detailed information about the tasks with the IDs specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get tasks
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task IDs</param>
-        ///<returns>Task</returns>
-        ///<visible>false</visible>
+        /// <summary>
+        /// Returns the detailed information about the tasks with the IDs specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" name="taskid">Task IDs</param>
+        /// <returns>List of tasks</returns>
+        /// <path>api/2.0/project/task</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
+        /// <visible>false</visible>
         [Read(@"task")]
         public IEnumerable<TaskWrapper> GetTask(IEnumerable<int> taskid)
         {
@@ -123,30 +135,33 @@ namespace ASC.Api.Projects
             return tasks.Select(TaskWrapperSelector).ToList();
         }
 
-        ///<summary>
-        ///Returns a list with the detailed information about all the tasks matching the filter parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get tasks by filter
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="projectid" optional="true"> Project ID</param>
-        ///<param name="myProjects">Returns tasks only from my projects</param>
-        ///<param name="milestone" optional="true">Milestone ID</param>
-        ///<param name="myMilestones">Returns tasks only from my milestones</param>
-        ///<param name="nomilestone">Returns tasks only without milestones</param>
-        ///<param name="tag" optional="true">Project tag</param>
-        ///<param name="status" optional="true">Task status</param>
-        ///<param name="substatus" optional="true">Custom task status</param>
-        ///<param name="follow">Messages only from followed tasks or not</param>
-        ///<param name="departament" optional="true">Departament GUID</param>
-        ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="creator">Creator GUID</param>
-        ///<param name="deadlineStart" optional="true">Minimum value of task deadline</param>
-        ///<param name="deadlineStop" optional="true">Maximum value of task deadline</param>
-        ///<param name="lastId">Last task ID</param>
-        ///<returns>List of tasks</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns a list with the detailed information about all the tasks matching the parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get filtered tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="projectid" optional="true"> Project ID</param>
+        /// <param type="System.Boolean, System" method="url" name="myProjects">Specifies whether to return tasks only from my projects or not</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" name="milestone" optional="true">Milestone ID</param>
+        /// <param type="System.Boolean, System" method="url" name="myMilestones">Specifies whether to return tasks only from my milestones or not</param>
+        /// <param type="System.Boolean, System" method="url" name="nomilestone">Specifies whether to return tasks only without milestones or not</param>
+        /// <param type="System.Int32, System" method="url" name="tag" optional="true">Project tag</param>
+        /// <param type="System.Nullable{ASC.Projects.Core.Domain.TaskStatus}, System" method="url" name="status" optional="true">Task status</param>
+        /// <param type="System.Nullable{System.Int32}, System" method="url" name="substatus" optional="true">Custom task status</param>
+        /// <param type="System.Boolean, System" method="url" name="follow">Specifies whether to return only followed tasks or not</param>
+        /// <param type="System.Guid, System" method="url" name="departament" optional="true">Departament GUID</param>
+        /// <param type="System.Nullable{System.Guid}, System" method="url" name="participant" optional="true">Participant GUID</param>
+        /// <param type="System.Guid, System" method="url" name="creator">Creator GUID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="deadlineStart" optional="true">Minimum value of task deadline</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" method="url" name="deadlineStop" optional="true">Maximum value of task deadline</param>
+        /// <param type="System.Int32, System" method="url" name="lastId">Last task ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">List of tasks</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/filter</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/filter")]
         public IEnumerable<TaskWrapper> GetTaskByFilter(int projectid, bool myProjects, int? milestone,
             bool myMilestones, bool nomilestone, int tag,
@@ -182,29 +197,32 @@ namespace ASC.Api.Projects
             return filterResult.FilterResult.Select(TaskWrapperSelector).ToList();
         }
 
-        ///<summary>
-        ///Returns a list of all the tasks matching the filter parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get tasks without detailed information by filter
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="projectid" optional="true"> Project ID</param>
-        ///<param name="myProjects">Returns tasks only from my projects</param>
-        ///<param name="milestone" optional="true">Milestone ID</param>
-        ///<param name="myMilestones">Returns tasks only from my milestones</param>
-        ///<param name="tag" optional="true">Project Tag</param>
-        ///<param name="status" optional="true">Task Status</param>
-        ///<param name="follow">Messages only from followed tasks or not</param>
-        ///<param name="departament" optional="true">Departament GUID</param>
-        ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="creator">Creator GUID</param>
-        ///<param name="deadlineStart" optional="true">Minimum value of task deadline</param>
-        ///<param name="deadlineStop" optional="true">Maximum value of task deadline</param>
-        ///<param name="lastId">Last task ID</param>
-        ///<visible>false</visible>
-        ///<returns>List of tasks</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns a list of all the tasks matching the filter parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get filtered tasks without detailed information
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" name="projectid" optional="true"> Project ID</param>
+        /// <param type="System.Boolean, System" name="myProjects">Specifies whether to return tasks only from my projects or not</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="milestone" optional="true">Milestone ID</param>
+        /// <param type="System.Boolean, System" name="myMilestones">Specifies whether to return tasks only from my milestones or not</param>
+        /// <param type="System.Int32, System" name="tag" optional="true">Project tag</param>
+        /// <param type="System.Nullable{ASC.Projects.Core.Domain.TaskStatus}, System" name="status" optional="true">Task status</param>
+        /// <param type="System.Boolean, System" name="follow">Specifies whether to return only followed tasks or not</param>
+        /// <param type="System.Guid, System" name="departament" optional="true">Departament GUID</param>
+        /// <param type="System.Nullable{System.Guid}, System" name="participant" optional="true">Participant GUID</param>
+        /// <param type="System.Guid, System" name="creator">Creator GUID</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadlineStart" optional="true">Minimum value of task deadline</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadlineStop" optional="true">Maximum value of task deadline</param>
+        /// <param type="System.Int32, System" name="lastId">Last task ID</param>
+        /// <visible>false</visible>
+        /// <returns>List of tasks</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/filter/simple</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/filter/simple")]
         public IEnumerable<SimpleTaskWrapper> GetSimpleTaskByFilter(int projectid, bool myProjects, int? milestone,
             bool myMilestones, int tag,
@@ -237,16 +255,19 @@ namespace ASC.Api.Projects
             return filterResult.FilterResult.Select(r => new SimpleTaskWrapper(this, r));
         }
 
-        ///<summary>
-        ///Returns a list of all the files attached to the task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get task files
-        ///</short>
-        ///<category>Files</category>
-        ///<param name="taskid">Task ID</param>
-        ///<returns>List of files</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns a list of all the files attached to the task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get task files
+        /// </short>
+        /// <category>Files</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns type="ASC.Api.Documents.FileWrapper, ASC.Api.Documents">List of files</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/files</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/{taskid:[0-9]+}/files")]
         public IEnumerable<FileWrapper> GetTaskFiles(int taskid)
         {
@@ -259,17 +280,19 @@ namespace ASC.Api.Projects
             return taskEngine.GetFiles(task).Select(FileWrapperSelector);
         }
 
-        ///<summary>
-        ///Uploads the files specified in the request to the selected task.
-        ///</summary>
-        ///<short>
-        ///Upload files to the task
-        ///</short>
-        ///<category>Files</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="files">File IDs</param>
-        ///<returns>Task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Uploads the files specified in the request to the selected task.
+        /// </summary>
+        /// <short>
+        /// Upload files to the task
+        /// </short>
+        /// <category>Files</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Int32}, System.Collections.Generic" name="files">File IDs</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/files</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task/{taskid:[0-9]+}/files")]
         public TaskWrapper UploadFilesToTask(int taskid, IEnumerable<int> files)
         {
@@ -294,17 +317,19 @@ namespace ASC.Api.Projects
             return TaskWrapperSelector(task);
         }
 
-        ///<summary>
-        ///Detaches the selected file from a task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Detach a file from a task
-        ///</short>
-        ///<category>Files</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="fileid">File ID</param>
-        ///<returns>Task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Detaches the selected file from a task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Detach a file from a task
+        /// </short>
+        /// <category>Files</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" name="fileid">File ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/files</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"task/{taskid:[0-9]+}/files")]
         public TaskWrapper DetachFileFromTask(int taskid, int fileid)
         {
@@ -322,18 +347,20 @@ namespace ASC.Api.Projects
             return TaskWrapperSelector(task);
         }
 
-        ///<summary>
-        ///Detaches the selected files from a task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Detach files from a task
-        ///</short>
-        ///<category>Files</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="files">File IDs</param>
-        ///<returns>Task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
-        ///<visible>false</visible>
+        /// <summary>
+        /// Detaches the selected files from a task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Detach files from a task
+        /// </short>
+        /// <category>Files</category>
+        /// <param type="System.Int32, System" name="taskid">Task ID</param>
+        /// <param type="System.Collections.Generic.List{System.Int32}, System.Collections.Generic" name="files">File IDs</param>
+        /// <returns>Task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/filesmany</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <visible>false</visible>
         [Delete(@"task/{taskid:[0-9]+}/filesmany")]
         public TaskWrapper DetachFileFromTask(int taskid, List<int> files)
         {
@@ -365,11 +392,13 @@ namespace ASC.Api.Projects
         /// Update a task status by task ID
         /// </short>
         /// <category>Tasks</category>
-        /// <param name="taskid">Task ID</param>
-        /// <param name="status">New task status: Open or Closed</param>
-        /// <param name="statusId">Custom status ID</param>
-        /// <returns>Updated task</returns>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="ASC.Projects.Core.Domain.TaskStatus, ASC.Projects.Core.Domain" name="status">New task status</param>
+        /// <param type="System.Int32, System" name="statusId">Custom status ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapperFull, ASC.Api.Projects">Updated task</returns>
         /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/status</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/status")]
         public TaskWrapperFull UpdateTask(int taskid, TaskStatus status, int statusId = 0)
         {
@@ -384,17 +413,21 @@ namespace ASC.Api.Projects
             return GetTask(taskid);
         }
 
-        ///<summary>
-        ///Updates a status of the tasks with the IDs specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a status of tasks
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskids">Task IDs</param>
-        ///<param name="status">New task status: Open or Closed</param>
-        ///<param name="statusId">New custom status ID</param>
-        ///<returns>Updated tasks</returns>
+        /// <summary>
+        /// Updates a status of the tasks with the IDs specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a status of tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32[], System" name="taskids">Task IDs</param>
+        /// <param type="ASC.Projects.Core.Domain.TaskStatus, ASC.Projects.Core.Domain" name="status">New task status</param>
+        /// <param type="System.Int32, System" name="statusId">New custom status ID</param>
+        /// <returns>Updated tasks</returns>
+        /// <path>api/2.0/project/task/status</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapperFull, ASC.Api.Projects">Updated tasks</returns>
         [Update(@"task/status")]
         public IEnumerable<TaskWrapperFull> UpdateTasks(int[] taskids, TaskStatus status, int statusId = 0)
         {
@@ -415,17 +448,19 @@ namespace ASC.Api.Projects
             return result;
         }
 
-        ///<summary>
-        ///Updates a milestone of a task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a task milestone
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="milestoneid">Milestone ID</param>
-        ///<returns>Updated task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates a milestone of a task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a task milestone
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" name="milestoneid">Milestone ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapperFull, ASC.Api.Projects">Updated task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/milestone</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/milestone")]
         public TaskWrapperFull UpdateTask(int taskid, int milestoneid)
         {
@@ -450,17 +485,20 @@ namespace ASC.Api.Projects
             return GetTask(taskid);
         }
 
-        ///<summary>
-        ///Updates a milestone of the tasks with the IDs specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a milestone of tasks
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskids">Task IDs</param>
-        ///<param name="milestoneid">Milestone ID</param>
-        ///<returns>Updated tasks</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates a milestone of the tasks with the IDs specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a milestone of tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32[], System" name="taskids">Task IDs</param>
+        /// <param type="System.Int32, System" name="milestoneid">Milestone ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapperFull, ASC.Api.Projects">Updated tasks</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/milestone</path>
+        /// <httpMethod>PUT</httpMethod>
+        /// <collection>list</collection>
         [Update(@"task/milestone")]
         public IEnumerable<TaskWrapperFull> UpdateTasks(int[] taskids, int milestoneid)
         {
@@ -483,28 +521,30 @@ namespace ASC.Api.Projects
             return result;
         }
 
-        ///<summary>
-        ///Copies a task with the parameters specified in the request.
-        ///</summary>
-        ///<short>
-        ///Copy a task
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="projectid">Project ID</param>
-        ///<param name="description">Task description</param>
-        ///<param name="deadline">Task deadline</param>
-        ///<param name="priority">Task priority: Low|Normal|High</param>
-        ///<param name="title">Task title</param>
-        ///<param name="milestoneid">Task milestone ID</param>
-        ///<param name="responsibles">List of task responsibles</param>
-        ///<param name="notify">Notifies responsibles about the task actions or not</param>
-        ///<param name="startDate">Task start date</param>
-        ///<param name="copyFrom">Task ID from which the information is copied</param>
-        ///<param name="copySubtasks">Specifies if the subtasks will be copied or not</param>
-        ///<param name="copyFiles">Specifies if the files will be copied or not</param>
-        ///<param name="removeOld">Specifies if the original task will be removed or not</param>
-        ///<returns>Copied task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Copies a task with the parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Copy a task
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" name="projectid">Project ID</param>
+        /// <param type="System.String, System" name="description">Task description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadline">Task deadline</param>
+        /// <param type="ASC.Projects.Core.Domain.TaskPriority, ASC.Projects.Core.Domain" name="priority">Task priority: Low|Normal|High</param>
+        /// <param type="System.String, System" name="title">Task title</param>
+        /// <param type="System.Int32, System" name="milestoneid">Task milestone ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="responsibles">List of task responsibles</param>
+        /// <param type="System.Boolean, System" name="notify">Specifies whether to notify responsibles about the task actions or not</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">Task start date</param>
+        /// <param type="System.Int32, System" method="url" name="copyFrom">Task ID from which the information is copied</param>
+        /// <param type="System.Boolean, System" name="copySubtasks">Specifies if the subtasks will be copied or not</param>
+        /// <param type="System.Boolean, System" name="copyFiles">Specifies if the attached files will be copied or not</param>
+        /// <param type="System.Boolean, System" name="removeOld">Specifies if the original task will be removed or not</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Copied task</returns>
+        /// <path>api/2.0/project/task/{copyFrom}/copy</path>
+        /// <httpMethod>POST</httpMethod>
+        /// <exception cref="ItemNotFoundException"></exception>
         [Create(@"task/{copyFrom:[0-9]+}/copy")]
         public TaskWrapper CopyTask(int projectid, string description, ApiDateTime deadline,
                                           TaskPriority priority, string title, int milestoneid,
@@ -569,27 +609,29 @@ namespace ASC.Api.Projects
             return GetTask(task);
         }
 
-        ///<summary>
-        ///Updates the selected task with the parameters (responsible user ID, task description, deadline time, etc) specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a task
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="description">New task description</param>
-        ///<param name="deadline">New task deadline time</param>
-        ///<param name="startDate">New task start date</param>
-        ///<param name="priority">New task priority</param>
-        ///<param name="title">New task title</param>
-        ///<param name="milestoneid">New task milestone ID</param>
-        ///<param name="responsibles">New list of task responsibles</param>
-        ///<param name="projectID">New task project ID</param>
-        ///<param name="notify">Notifies responsibles about the task actions or not</param>
-        ///<param name="status" optional="true">New task status</param>
-        ///<param name="progress" optional="true">New task progress</param>
-        ///<returns>Updated task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates the selected task with the parameters (responsible user ID, task description, deadline time, etc) specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a task
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.String, System" name="description">New task description</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="deadline">New task deadline time</param>
+        /// <param type="ASC.Specific.ApiDateTime, ASC.Specific" name="startDate">New task start date</param>
+        /// <param type="System.Nullable{ASC.Projects.Core.Domain.TaskPriority}, System" name="priority">New task priority</param>
+        /// <param type="System.String, System" name="title">New task title</param>
+        /// <param type="System.Int32, System" name="milestoneid">New task milestone ID</param>
+        /// <param type="System.Collections.Generic.IEnumerable{System.Guid}, System.Collections.Generic" name="responsibles">New list of task responsibles</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="projectID">New task project ID</param>
+        /// <param type="System.Boolean, System" name="notify">Specifies whether to notify responsibles about the task actions or not</param>
+        /// <param type="System.Nullable{ASC.Projects.Core.Domain.TaskStatus}, System" name="status" optional="true">New task status</param>
+        /// <param type="System.Nullable{System.Int32}, System" name="progress" optional="true">New task progress</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapperFull, ASC.Api.Projects">Updated task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}")]
         public TaskWrapperFull UpdateProjectTask(
             int taskid,
@@ -683,16 +725,18 @@ namespace ASC.Api.Projects
             return GetTask(taskid);
         }
 
-        ///<summary>
-        ///Deletes a task with the ID specified in the request from the project.
-        ///</summary>
-        ///<short>
-        ///Delete a task
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<returns>Deleted task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Deletes a task with the ID specified in the request from the project.
+        /// </summary>
+        /// <short>
+        /// Delete a task
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns>Deleted task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"task/{taskid:[0-9]+}")]
         public TaskWrapper DeleteTask(int taskid)
         {
@@ -706,16 +750,19 @@ namespace ASC.Api.Projects
             return TaskWrapperSelector(task);
         }
 
-        ///<summary>
-        ///Deletes the tasks with the IDs specified in the request from the project.
-        ///</summary>
-        ///<short>
-        ///Delete tasks
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskids">Task IDs</param>
-        ///<returns>Deleted tasks</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Deletes the tasks with the IDs specified in the request from the project.
+        /// </summary>
+        /// <short>
+        /// Delete tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32[], System" name="taskids">Task IDs</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Deleted tasks</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task</path>
+        /// <httpMethod>DELETE</httpMethod>
+        /// <collection>list</collection>
         [Delete(@"task")]
         public IEnumerable<TaskWrapper> DeleteTasks(int[] taskids)
         {
@@ -736,16 +783,19 @@ namespace ASC.Api.Projects
             return result;
         }
 
-        ///<summary>
-        ///Returns a list of the comments for the task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Get task comments
-        ///</short>
-        ///<category>Comments</category>
-        ///<param name="taskid">Task ID</param>
-        ///<returns>List of comments</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns a list of the comments for the task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get task comments
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.CommentWrapper, ASC.Api.Projects">List of comments</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/comment</path>
+        /// <httpMethod>GET</httpMethod>
+        /// <collection>list</collection>
         [Read(@"task/{taskid:[0-9]+}/comment")]
         public IEnumerable<CommentWrapper> GetTaskComments(int taskid)
         {
@@ -754,18 +804,20 @@ namespace ASC.Api.Projects
         }
 
 
-        ///<summary>
-        ///Adds a comment to the selected task with the comment text and parent comment ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Add a task comment
-        ///</short>
-        ///<category>Comments</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="content">Comment text</param>
-        ///<param name="parentid">Parent comment ID</param>
-        ///<returns>List of comments</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Adds a comment to the selected task with the comment text and parent comment ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Add a task comment
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.String, System" name="content">Comment text</param>
+        /// <param type="System.Guid, System" name="parentid">Parent comment ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.CommentWrapper, ASC.Api.Projects">List of comments</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/comment</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task/{taskid:[0-9]+}/comment")]
         public CommentWrapper AddTaskComments(int taskid, string content, Guid parentid)
         {
@@ -794,16 +846,18 @@ namespace ASC.Api.Projects
             return new CommentWrapper(this, comment, task);
         }
 
-        ///<summary>
-        ///Notifies the responsible for the task with the ID specified in the request about the task.
-        ///</summary>
-        ///<short>
-        ///Notify the task responsible
-        ///</short>
-        ///<category>Tasks</category>
-        ///<returns>Task</returns>
-        ///<param name="taskid">Task ID</param>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Notifies the responsible for the task with the ID specified in the request about the task.
+        /// </summary>
+        /// <short>
+        /// Notify the task responsible
+        /// </short>
+        /// <category>Tasks</category>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Task</returns>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/notify</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"task/{taskid:[0-9]+}/notify")]
         public TaskWrapper NotifyTaskResponsible(int taskid)
         {
@@ -816,16 +870,18 @@ namespace ASC.Api.Projects
             return TaskWrapperSelector(task);
         }
 
-        ///<summary>
-        ///Subscribes to the notifications about the actions performed with the selected task.
-        ///</summary>
-        ///<short>
-        ///Subscribe to task actions
-        ///</short>
-        ///<category>Tasks</category>
-        ///<returns>Task</returns>
-        ///<param name="taskid">Task ID</param>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Subscribes to the notifications about the actions performed with the selected task.
+        /// </summary>
+        /// <short>
+        /// Subscribe to a task
+        /// </short>
+        /// <category>Tasks</category>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Task</returns>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/subscribe</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/subscribe")]
         public TaskWrapper SubscribeToTask(int taskid)
         {
@@ -840,16 +896,18 @@ namespace ASC.Api.Projects
             return TaskWrapperSelector(task);
         }
 
-        ///<summary>
-        ///Checks the subscription to the notifications about the actions performed with the selected task.
-        ///</summary>
-        ///<short>
-        ///Check the subscription to task actions
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<returns>Boolean value: True - subscribed, False - unsubscribed</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Checks the subscription to the notifications about the actions performed with the selected task.
+        /// </summary>
+        /// <short>
+        /// Check the task subscription
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <returns>Boolean value: true - subscribed, false - unsubscribed</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/subscribe</path>
+        /// <httpMethod>GET</httpMethod>
         [Read(@"task/{taskid:[0-9]+}/subscribe")]
         public bool IsSubscribeToTask(int taskid)
         {
@@ -862,18 +920,20 @@ namespace ASC.Api.Projects
             return taskEngine.IsSubscribed(task);
         }
 
-        ///<summary>
-        ///Adds a link between the dependent and parent tasks specified in the request.
-        ///</summary>
-        ///<short>
-        ///Add a link between tasks
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="parentTaskId">Parent task ID</param>
-        ///<param name="dependenceTaskId">Dependent task ID</param>
-        ///<param name="linkType">Link type</param>
-        ///<returns>Dependent task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Adds a link between the dependent and parent tasks specified in the request.
+        /// </summary>
+        /// <short>
+        /// Add a link between tasks
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="parentTaskId">Parent task ID</param>
+        /// <param type="System.Int32, System" name="dependenceTaskId">Dependent task ID</param>
+        /// <param type="ASC.Projects.Core.Domain.TaskLinkType, ASC.Projects.Core.Domain" name="linkType">Link type</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Dependent task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{parentTaskId}/link</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task/{parentTaskId:[0-9]+}/link")]
         public TaskWrapper AddLink(int parentTaskId, int dependenceTaskId, TaskLinkType linkType)
         {
@@ -888,17 +948,19 @@ namespace ASC.Api.Projects
             return TaskWrapperSelector(dependentTask);
         }
 
-        ///<summary>
-        ///Removes a link between the dependent and parent tasks specified in the request.
-        ///</summary>
-        ///<short>
-        ///Remove a link between tasks 
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="dependenceTaskId">Dependent task ID</param>
-        ///<param name="parentTaskId">Parent task ID</param>
-        ///<returns>Dependent task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Removes a link between the dependent and parent tasks specified in the request.
+        /// </summary>
+        /// <short>
+        /// Remove a link between tasks 
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" name="dependenceTaskId">Dependent task ID</param>
+        /// <param type="System.Int32, System" name="parentTaskId">Parent task ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.TaskWrapper, ASC.Api.Projects">Dependent task</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/link</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"task/{taskid:[0-9]+}/link")]
         public TaskWrapper RemoveLink(int dependenceTaskId, int parentTaskId)
         {
@@ -917,18 +979,20 @@ namespace ASC.Api.Projects
 
         #region subtasks
 
-        ///<summary>
-        ///Creates a subtask with the title and responsible within the parent task specified in the request.
-        ///</summary>
-        ///<short>
-        ///Create a subtask
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Parent task ID</param>
-        ///<param name="responsible">Subtask responsible</param>
-        ///<param name="title">Subtask title</param>
-        ///<returns>Task</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Creates a subtask with the title and responsible within the parent task specified in the request.
+        /// </summary>
+        /// <short>
+        /// Create a subtask
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Parent task ID</param>
+        /// <param type="System.Guid, System" name="responsible">Subtask responsible</param>
+        /// <param type="System.String, System" name="title">Subtask title</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.SubtaskWrapper, ASC.Api.Projects">Subtask</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task/{taskid:[0-9]+}")]
         public SubtaskWrapper AddSubtask(int taskid, Guid responsible, string title)
         {
@@ -951,17 +1015,19 @@ namespace ASC.Api.Projects
             return new SubtaskWrapper(this, subtask, task);
         }
 
-        ///<summary>
-        ///Copies a subtask with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Copy a subtask
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="subtaskid">Subtask ID</param>
-        ///<returns>New subtask</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Copies a subtask with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Copy a subtask
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="subtaskid">Subtask ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.SubtaskWrapper, ASC.Api.Projects">New subtask</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/{subtaskid}/copy</path>
+        /// <httpMethod>POST</httpMethod>
         [Create(@"task/{taskid:[0-9]+}/{subtaskid:[0-9]+}/copy")]
         public SubtaskWrapper CopySubtask(int taskid, int subtaskid)
         {
@@ -978,17 +1044,19 @@ namespace ASC.Api.Projects
             return new SubtaskWrapper(this, newSubtask, task);
         }
 
-        ///<summary>
-        ///Moves a subtask with the ID specified in the request to another task.
-        ///</summary>
-        ///<short>
-        ///Move a subtask
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="subtaskid">Subtask ID</param>
-        ///<returns>Updated subtask</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Moves a subtask with the ID specified in the request to another task.
+        /// </summary>
+        /// <short>
+        /// Move a subtask
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" name="subtaskid">Subtask ID</param>
+        /// <returns>Updated subtask</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/{subtaskid}/move</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/{subtaskid:[0-9]+}/move")]
         public SubtaskWrapper MoveSubtask(int taskid, int subtaskid)
         {
@@ -1014,19 +1082,21 @@ namespace ASC.Api.Projects
             return new SubtaskWrapper(this, subtask, toTask);
         }
 
-        ///<summary>
-        ///Updates the selected subtask with the title and responsible specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a subtask
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="subtaskid">Subtask ID</param>
-        ///<param name="responsible">New subtask responsible</param>
-        ///<param name="title">New subtask title</param>
-        ///<returns>Updated subtask</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates the selected subtask with the title and responsible specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a subtask
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="subtaskid">Subtask ID</param>
+        /// <param type="System.Guid, System" name="responsible">New subtask responsible</param>
+        /// <param type="System.String, System" name="title">New subtask title</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.SubtaskWrapper, ASC.Api.Projects">Updated subtask</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/{subtaskid}</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/{subtaskid:[0-9]+}")]
         public SubtaskWrapper UpdateSubtask(int taskid, int subtaskid, Guid responsible, string title)
         {
@@ -1059,17 +1129,19 @@ namespace ASC.Api.Projects
             return new SubtaskWrapper(this, subtask, task);
         }
 
-        ///<summary>
-        ///Deletes the selected subtask from the parent task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Delete a subtask
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="subtaskid">Subtask ID</param>
-        ///<returns>Subtask</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Deletes the selected subtask from the parent task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Delete a subtask
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="subtaskid">Subtask ID</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.SubtaskWrapper, ASC.Api.Projects">Subtask</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/{subtaskid}</path>
+        /// <httpMethod>DELETE</httpMethod>
         [Delete(@"task/{taskid:[0-9]+}/{subtaskid:[0-9]+}")]
         public SubtaskWrapper DeleteSubtask(int taskid, int subtaskid)
         {
@@ -1082,18 +1154,20 @@ namespace ASC.Api.Projects
             return new SubtaskWrapper(this, subtask, task);
         }
 
-        ///<summary>
-        ///Updates the selected subtask status of the parent task with the ID specified in the request.
-        ///</summary>
-        ///<short>
-        ///Update a subtask status
-        ///</short>
-        ///<category>Tasks</category>
-        ///<param name="taskid">Task ID</param>
-        ///<param name="subtaskid">Subtask ID</param>
-        ///<param name="status">New subtask status: open|closed|disable|unclassified</param>
-        ///<returns>Updated subtask</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Updates the selected subtask status of the parent task with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Update a subtask status
+        /// </short>
+        /// <category>Tasks</category>
+        /// <param type="System.Int32, System" method="url" name="taskid">Task ID</param>
+        /// <param type="System.Int32, System" method="url" name="subtaskid">Subtask ID</param>
+        /// <param type="ASC.Projects.Core.Domain.TaskStatus, ASC.Projects.Core.Domain" name="status">New subtask status</param>
+        /// <returns type="ASC.Api.Projects.Wrappers.SubtaskWrapper, ASC.Api.Projects">Updated subtask</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <path>api/2.0/project/task/{taskid}/{subtaskid}/status</path>
+        /// <httpMethod>PUT</httpMethod>
         [Update(@"task/{taskid:[0-9]+}/{subtaskid:[0-9]+}/status")]
         public SubtaskWrapper UpdateSubtask(int taskid, int subtaskid, TaskStatus status)
         {

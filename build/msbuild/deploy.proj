@@ -196,7 +196,21 @@
     <CreateItem Include="$(OutDir)WebStudio\web.appsettings.config;$(OutDir)WebStudio\web.connections.config;$(OutDir)WebStudio\web.storage.config;$(OutDir)WebStudio\web.autofac.config;$(OutDir)WebStudio\web.consumers.config">
       <Output ItemName="WebConfigurationFiles" TaskParameter="Include" />
     </CreateItem>
+    <Copy Condition="Exists('$(RootDir)build\install\install.bat')" SourceFiles="$(RootDir)build\install\install.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
+    <Copy Condition="Exists('$(RootDir)build\install\uninstall.bat')" SourceFiles="$(RootDir)build\install\uninstall.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
+    <Copy Condition="Exists('$(RootDir)build\start\start.bat')" SourceFiles="$(RootDir)build\start\start.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
+    <Copy Condition="Exists('$(RootDir)build\start\stop.bat')" SourceFiles="$(RootDir)build\start\stop.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
+    <Copy Condition="Exists('$(RootDir)build\start\command.ps1')" SourceFiles="$(RootDir)build\start\command.ps1" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
     <Copy Condition="Exists('$(RootDir)build\ManageServices.bat')" SourceFiles="$(RootDir)build\ManageServices.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
+    <Copy Condition="Exists('$(RootDir)build\WinSW3.0.0.exe')" SourceFiles="$(RootDir)build\WinSW3.0.0.exe" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\WebDav\config.js" DestinationFiles="$(OutDir)Services\ASC.WebDav\server\config.$(DeployTo).js" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\WebDav\config.$(DeployTo).js" DestinationFiles="$(OutDir)Services\ASC.WebDav\server\config.$(DeployTo).js" Condition="'$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\SSO\config.json" DestinationFiles="$(OutDir)Services\ASC.SsoAuth\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\SSO\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.SsoAuth\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\Thumb\config.json" DestinationFiles="$(OutDir)Services\ASC.Thumbnails\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\Thumb\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.Thumbnails\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\UrlShortener\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.UrlShortener\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\Socket.IO\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.Socket.IO\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
     <Copy Condition="Exists('$(OutDir)Uploads\')" SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFiles="$(OutDir)Services\MailAggregator\web.storage.config" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
@@ -220,6 +234,10 @@
     <CallTarget Targets="LessCompile" Condition=" '$(LessCompile)' == '1' " />
     <CallTarget Targets="GenerateBundle" Condition=" '$(GenerateBundle)' == '1' " />
     <CallTarget Targets="GenerateHelpCenterHtml" Condition=" '$(GenerateHelpCenterHtml)' == '1' " />
+    <CreateItem Include="$(RootDir)build\run\Radicale.xml;$(RootDir)build\run\SsoAuth.xml;$(RootDir)build\run\SocketIO.xml;$(RootDir)build\run\WebDav.xml;$(RootDir)build\run\UrlShortener.xml;$(RootDir)build\run\Thumb.xml">
+      <Output ItemName="ServicesFiles" TaskParameter="Include" />
+    </CreateItem>
+    <Copy Condition="Exists('$(RootDir)build\run\')" SourceFiles="@(ServicesFiles)" DestinationFolder="$(OutDir)Services\run\" />
   </Target>
   <Target Name="DeployUpload">
     <Message Text="Deploying upload" />
@@ -366,6 +384,21 @@
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)WebStudio\web.storage.config">
         <SubstitutionsFile>..\config\private\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\run\WebDav.xml">
+        <SubstitutionsFile>..\config\private\WebDav.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\run\SocketIO.xml">
+        <SubstitutionsFile>..\config\private\SocketIO.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\run\SsoAuth.xml">
+        <SubstitutionsFile>..\config\private\SsoAuth.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\run\Thumb.xml">
+        <SubstitutionsFile>..\config\private\Thumb.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\run\UrlShortener.xml">
+        <SubstitutionsFile>..\config\private\UrlShortener.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config" Condition="'$(MailTask)' == '1'">
         <SubstitutionsFile>..\config\private\Mail.Agg.Substitutions.xml</SubstitutionsFile>

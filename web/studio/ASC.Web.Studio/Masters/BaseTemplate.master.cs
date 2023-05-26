@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,8 @@ using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
+using Newtonsoft.Json;
+
 namespace ASC.Web.Studio.Masters
 {
     public partial class BaseTemplate : MasterPage
@@ -66,6 +68,8 @@ namespace ASC.Web.Studio.Masters
 
         public bool IsMobile { get; set; }
 
+        public bool IsHealthcheck { get; set; }
+
         public TopStudioPanel TopStudioPanel;
 
         protected override void OnInit(EventArgs e)
@@ -82,6 +86,8 @@ namespace ASC.Web.Studio.Masters
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            IsHealthcheck = !string.IsNullOrEmpty(Request["healthcheck"]);
+
             InitScripts();
 
             HubUrl = ConfigurationManagerExtension.AppSettings["web.hub"] ?? string.Empty;
@@ -102,11 +108,11 @@ namespace ASC.Web.Studio.Masters
 
             if (!DisabledSidePanel && !CoreContext.Configuration.Personal)
             {
-                /** InvitePanel popup **/
+                // InvitePanel popup
                 InvitePanelHolder.Controls.Add(LoadControl(InvitePanel.Location));
             }
 
-            if ((!DisabledSidePanel || !DisabledTopStudioPanel) && !TopStudioPanel.DisableSettings &&
+            if ((!DisabledSidePanel || !DisabledTopStudioPanel) && !TopStudioPanel.DisableSettings && !IsHealthcheck &&
                 HubUrl != string.Empty && SecurityContext.IsAuthenticated)
             {
                 AddBodyScripts(ResolveUrl, "~/js/third-party/socket.io.js", "~/js/asc/core/asc.socketio.js");
@@ -139,6 +145,11 @@ namespace ASC.Web.Studio.Masters
                 {
                     AddBodyScripts(ResolveUrl, "~/js/asc/core/collaborators.js");
                 }
+            }
+
+            if (Request.DesktopApp())
+            {
+                AddBodyScripts(ResolveUrl, "~/js/asc/core/desktop.polyfills.js");
             }
 
             var matches = Regex.Match(HttpContext.Current.Request.Url.AbsolutePath, "(products|addons)/(\\w+)/(share\\.aspx|saveas\\.aspx|filechoice\\.aspx|ganttchart\\.aspx|jabberclient\\.aspx|timer\\.aspx|generatedreport\\.aspx).*", RegexOptions.IgnoreCase);
@@ -193,12 +204,14 @@ namespace ASC.Web.Studio.Masters
         private void InitStudioSettingsInlineScript()
         {
             var paid = !TenantStatisticsProvider.IsNotPaid();
-            var showPromotions = paid && PromotionsSettings.Load().Show;
-            var showTips = !Request.DesktopApp() && paid && TipsSettings.LoadForCurrentUser().Show;
+            var showPromotions = !IsHealthcheck && paid && PromotionsSettings.Load().Show;
+            var showTips = !IsHealthcheck && paid && !Request.DesktopApp() && TipsSettings.LoadForCurrentUser().Show;
+            var modeThemeSettings = ModeThemeSettings.GetModeThemesSettings();
 
             var script = new StringBuilder();
             script.AppendFormat("window.ASC.Resources.Master.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
             script.AppendFormat("window.ASC.Resources.Master.ShowTips={0};", showTips.ToString().ToLowerInvariant());
+            script.AppendFormat("window.ASC.Resources.Master.ModeThemeSettings={0};", JsonConvert.SerializeObject(modeThemeSettings));
 
             RegisterInlineScript(script.ToString(), true, false);
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,17 @@ using ASC.Web.Community.News.Code;
 
 namespace ASC.Api.Events
 {
+    ///<inherited>ASC.Api.Events.EventWrapper, ASC.Api.Community</inherited>
     [DataContract(Name = "event", Namespace = "")]
     public class EventWrapperFull : EventWrapper
     {
+        ///<example>Text of feed</example>
+        ///<order>100</order>
         [DataMember(Order = 100)]
         public string Text { get; set; }
 
-
-
+        ///<type>ASC.Api.Events.PollWrapper, ASC.Api.Community</type>
+        ///<order>200</order>
         [DataMember(Order = 200, EmitDefaultValue = false)]
         public PollWrapper Poll { get; set; }
 

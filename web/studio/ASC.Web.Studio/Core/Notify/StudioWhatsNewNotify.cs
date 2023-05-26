@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -173,7 +173,7 @@ namespace ASC.Web.Studio.Core.Notify
                         {
                             log.InfoFormat("Send whats new to {0}", user.Email);
                             client.SendNoticeAsync(
-                                Actions.SendWhatsNew, null, user, null,
+                                Actions.SendWhatsNew, null, user,
                                 new TagValue(Tags.Activities, activities),
                                 new TagValue(Tags.Date, DateToString(scheduleDate.AddDays(-1), culture)),
                                 new TagValue(CommonTags.Priority, 1)

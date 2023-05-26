@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,7 +141,7 @@ namespace ASC.Web.Studio.UserControls.Common.PollForm
         {
             base.OnLoad(e);
             Page.RegisterBodyScripts("~/UserControls/Common/PollForm/js/pollform.js")
-                .RegisterStyle("~/UserControls/Common/PollForm/css/style.css");
+                .RegisterStyle("~/UserControls/Common/PollForm/css/style.less");
         }
 
         protected override void OnInit(EventArgs e)

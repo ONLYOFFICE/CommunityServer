@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.People {
-    
-    
-    public partial class Default {
-        
+namespace ASC.Web.People
+{
+
+
+    public partial class Default
+    {
+
         /// <summary>
         /// loaderHolder control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ASC.Web.People {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder loaderHolder;
-        
+
         /// <summary>
         /// userEmailChange control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace ASC.Web.People {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder userEmailChange;
-        
+
         /// <summary>
         /// userPwdChange control.
         /// </summary>
@@ -47,5 +49,14 @@ namespace ASC.Web.People {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder userConfirmationDelete;
+
+        /// <summary>
+        /// confirmationImpersonateUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder confirmationImpersonateUser;
     }
 }

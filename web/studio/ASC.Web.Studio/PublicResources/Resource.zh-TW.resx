@@ -1280,10 +1280,6 @@
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}受信任的郵件域設置{2}是一種用於指定用於用戶自註冊的郵件服務器的方法。{0}您可以選中“ {1}自定義域{2}”選項，然後在下方的字段，以便擁有該帳戶的人可以通過單擊{1}登錄{2}頁面上的“加入”鏈接或禁用此選項來自行註冊。{0}進行參數設置您設置為生效，請點擊該部分底部的{1}保存{2}按鈕。</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>
-{1}密碼強度設置{2}是確定密碼在抵抗猜測和蠻力攻擊中的有效性的一種方法。{0}使用{1}最小密碼長度{2}欄來確定密碼應保留多長時間是。選中下面相應的框，確定密碼中必須使用的字符集。{0}要使設置的參數生效，請單擊該部分底部的{1}保存{2}按鈕。</value>
-  </data>
   <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
     <value>
 {1}公共門戶網站{2}是一個免費選項，允許任何人無需註冊即可查看您的公共內容。沒有可用的私有項目，並且此類門戶網站已禁用CRM模塊。{0}註冊到公共門戶網站的用戶數量不受限制，根據請求向門戶網站管理員添加新用戶。使用{1}立即註冊新用戶{2}選項可以刪除所有註冊確認信息。</value>
@@ -1524,10 +1520,6 @@
   </data>
   <data name="IPSecurityEnable" xml:space="preserve">
     <value>啟用</value>
-  </data>
-  <data name="IpSecurityHelp" xml:space="preserve">
-    <value>
-{0} IP安全性{1}用於限制從除某些地址之外的所有IP地址登錄到門戶。您可以使用IPv4格式的精確IP地址（＃。＃。＃。＃，其中＃是從0到255的數字值）或IP範圍（在＃。＃。＃。＃-中）設置允許的IP地址。 ＃。＃。＃。＃格式）。 IP安全性不適用於門戶網站所有者，他們可以從任何IP地址存取門戶網站。</value>
   </data>
   <data name="IpSecurityNav" xml:space="preserve">
     <value>IP保全</value>
@@ -2171,9 +2163,6 @@
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>密碼變更</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>最小密碼長度</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>找回密碼</value>

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,6 +57,15 @@ namespace ASC.WebDav.Svc
 
                 startInfo.EnvironmentVariables.Add("port", cfg.Port);
                 startInfo.EnvironmentVariables.Add("logPath", Path.Combine(Logger.LogDirectory, "web.webdav.log"));
+
+                var appSettings = ConfigurationManagerExtension.AppSettings;
+
+                var selfSignedCertPath = appSettings["core.self-signed-cert-path"] ?? "";
+
+                if (!string.IsNullOrEmpty(selfSignedCertPath))
+                {
+                    startInfo.EnvironmentVariables.Add("NODE_EXTRA_CA_CERTS", selfSignedCertPath);
+                }
 
                 StartNode();
                 HealthCheckSvc = new HealthCheckSvc(cfg.Port, ResultOfPing, Logger, PathToPing);

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,15 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "FilterCondition")]
     public class MailSieveFilterConditionData
     {
+        ///<example name="key" type="int">1</example>
         [DataMember(IsRequired = true, Name = "key")]
         public ConditionKeyType Key { get; set; }
 
+        ///<example name="operation" type="int">1</example>
         [DataMember(IsRequired = true, Name = "operation")]
         public ConditionOperationType Operation { get; set; }
 
+        ///<example name="value">value</example>
         [DataMember(Name = "value")]
         public string Value { get; set; }
     }

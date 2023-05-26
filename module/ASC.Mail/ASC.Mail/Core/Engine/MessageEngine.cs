@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -989,9 +989,11 @@ namespace ASC.Mail.Core.Engine
             return usedQuota;
         }
 
-        public void SetRemoved(FolderType folder)
+        public List<int> SetRemoved(FolderType folder)
         {
             long usedQuota;
+
+            List<int> ids = new List<int>();
 
             using (var daoFactory = new DaoFactory())
             {
@@ -1004,9 +1006,9 @@ namespace ASC.Mail.Core.Engine
                         .SetFolder((int)folder)
                         .Build());
 
-                if (!mailInfoList.Any()) return;
+                if (!mailInfoList.Any()) return ids;
 
-                var ids = mailInfoList.Select(m => m.Id).ToList();
+                ids = mailInfoList.Select(m => m.Id).ToList();
 
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
@@ -1061,10 +1063,12 @@ namespace ASC.Mail.Core.Engine
             }
 
             if (usedQuota <= 0)
-                return;
+                return ids;
 
             var engine = new EngineFactory(Tenant);
             engine.QuotaEngine.QuotaUsedDelete(usedQuota);
+
+            return ids;
         }
 
         public int MailSave(MailBoxData mailbox, MailMessageData message,

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,26 +29,31 @@ namespace ASC.Api.Documents
 {
     /// <summary>
     /// </summary>
+    /// <inherited>ASC.Api.Documents.FileEntryWrapper, ASC.Api.Documents</inherited>
     [DataContract(Name = "folder", Namespace = "")]
     public class FolderWrapper : FileEntryWrapper
     {
         /// <summary>
         /// </summary>
+        /// <example type="int">1840746475</example>
         [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public object ParentId { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">1840746475</example>
         [DataMember(EmitDefaultValue = true, IsRequired = false)]
         public int FilesCount { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example type="int">1840746475</example>
         [DataMember(EmitDefaultValue = true, IsRequired = false)]
         public int FoldersCount { get; set; }
 
         /// <summary>
         /// </summary>
+        /// <example>true</example>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public bool IsShareable { get; set; }
 

@@ -16,9 +16,15 @@
                                                 { %>try-welcome-top<% } %>">
     <ul>
         <li class="studio-top-logo">
+            <% if (SecurityContext.IsAuthenticated) { %>
             <a class="top-logo" title="<%: GetAbsoluteCompanyTopLogoTitle() %>" href="<%= CommonLinkUtility.GetDefault() %>">
                 <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
             </a>
+            <% } else { %>
+            <span class="top-logo" title="<%: GetAbsoluteCompanyTopLogoTitle() %>">
+                <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
+            </span>
+            <% } %>
         </li>
 
         <% if (CoreContext.Configuration.Personal && !SecurityContext.IsAuthenticated && !DisableLoginPersonal)
@@ -249,7 +255,7 @@
 
     <% if (!DisableSearch)
        { %>
-        <div id="studio_searchPopupPanel" class="studio-action-panel">
+        <div id="studio_searchPopupPanel" class="studio-action-panel freeze-display">
             <div class="dropdown-content">
                 <div class="search-input-box">
                     <input type="search" id="studio_search" class="search-input textEdit" placeholder="<%= UserControlsCommonResource.SearchHld %>" maxlength="255" data-url="<%= VirtualPathUtility.ToAbsolute("~/Search.aspx") %>" />
@@ -366,7 +372,12 @@
                 <% } %>
 
                 <%--Logout--%>
-                <li id="logout_ref"><a class="dropdown-item" href="<%= CommonLinkUtility.Logout %>"><%= UserControlsCommonResource.LogoutButton %></a></li>
+                <% if (IsImpersonator) { %>
+                    <li id="back_to_yourself"><a class="dropdown-item"> <%= UserControlsCommonResource.LogoutButton %></a></li>
+                <% } %>
+                <% else { %>
+                    <li id="logout_ref"><a class="dropdown-item" href="<%= CommonLinkUtility.Logout %>"><%= UserControlsCommonResource.LogoutButton %></a></li>
+                <% } %>
             </ul>
         </div>
     <% } %>

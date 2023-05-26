@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Web.UI;
 
 using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Masters.ClientScripts;
@@ -89,16 +90,23 @@ namespace ASC.Web.Projects.Masters
             WriteProjectResources();
 
             Master
-                .AddStaticStyles(GetStaticStyleSheet())
+                .AddStaticStyles(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark ? GetStaticDarkStyleSheet() : GetStaticStyleSheet())
                 .AddStaticBodyScripts(GetStaticJavaScript());
         }
 
         public void RegisterCRMResources()
         {
-            Master
-                .AddStyles(ResolveUrl, "~/Products/CRM/App_Themes/default/css/common.less",
-                    "~/Products/CRM/App_Themes/default/css/contacts.less")
-                .AddBodyScripts(ResolveUrl,
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Master.AddStyles(ResolveUrl, "~/Products/CRM/App_Themes/dark/dark-common.less",
+                    "~/Products/CRM/App_Themes/dark/dark-contacts.less");
+            }
+            else
+            {
+                Master.AddStyles(ResolveUrl, "~/Products/CRM/App_Themes/default/css/common.less",
+                    "~/Products/CRM/App_Themes/default/css/contacts.less");
+            }
+            Master.AddBodyScripts(ResolveUrl,
                     "~/Products/CRM/js/contacts.js",
                     "~/Products/CRM/js/common.js");
         }
@@ -163,17 +171,15 @@ namespace ASC.Web.Projects.Masters
             return (StyleBundleData)
                 new StyleBundleData("projects", "projects")
                     .AddSource(PathProvider.GetFileStaticRelativePath,
-                        "allprojects.less",
-                        "projectaction.css",
-                        "milestones.less",
-                        "alltasks.less",
-                        "discussions.less",
-                        "timetracking.less",
-                        "projectteam.less",
-                        "projecttemplates.css",
-                        "import.css",
-                        "reports.css",
-                        "common.less");
+                        "full.less");
+
+        }
+        public StyleBundleData GetStaticDarkStyleSheet()
+        {
+            return (StyleBundleData)
+                new StyleBundleData("dark-projects", "projects")
+                    .AddSource(ResolveUrl,
+                    "~/Products/Projects/App_Themes/dark/dark-full.less");
         }
     }
 }

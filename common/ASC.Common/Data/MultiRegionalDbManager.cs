@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ namespace ASC.Common.Data
 {
     public class MultiRegionalDbManager : IDbManager
     {
-        private readonly List<IDbManager> databases;
+        private readonly List<DbManager> databases;
 
         private readonly IDbManager localDb;
 
@@ -45,6 +45,11 @@ namespace ASC.Common.Data
             get { return localDb.Connection; }
         }
 
+        public DbCommand Command
+        {
+            get { return localDb.Command; }
+        }
+
 
         public MultiRegionalDbManager(string dbId)
         {
@@ -52,12 +57,12 @@ namespace ASC.Common.Data
             DatabaseId = dbId;
             databases = ConfigurationManager.ConnectionStrings.OfType<ConnectionStringSettings>()
                                             .Where(c => c.Name.Equals(dbId, cmp) || c.Name.StartsWith(dbId + ".", cmp))
-                                            .Select(c => DbManager.FromHttpContext(c.Name))
+                                            .Select(c => new DbManager(c.Name))
                                             .ToList();
             localDb = databases.SingleOrDefault(db => db.DatabaseId.Equals(dbId, cmp));
         }
 
-        public MultiRegionalDbManager(IEnumerable<IDbManager> databases)
+        public MultiRegionalDbManager(IEnumerable<DbManager> databases)
         {
             this.databases = databases.ToList();
             localDb = databases.FirstOrDefault();

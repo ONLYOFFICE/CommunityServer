@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,27 +24,35 @@ namespace ASC.Mail.Data.Contracts
     [DataContract(Namespace = "", Name = "UserFolder")]
     public class MailUserFolderData
     {
+        ///<example type="int" name="id">1234</example>
         [DataMember(IsRequired = true, Name = "id")]
         public uint Id { get; set; }
 
+        ///<example type="int" name="parent">1234</example>
         [DataMember(IsRequired = true, Name = "parent")]
         public uint ParentId { get; set; }
 
+        ///<example name="name">name</example>
         [DataMember(IsRequired = true, Name = "name")]
         public string Name { get; set; }
 
+        ///<example type="int" name="unread_count">123</example>
         [DataMember(IsRequired = true, Name = "unread_count")]
         public int UnreadCount { get; set; }
 
+        ///<example type="int" name="total_count">123</example>
         [DataMember(IsRequired = true, Name = "total_count")]
         public int TotalCount { get; set; }
 
+        ///<example type="int" name="unread_chain_count">123</example>
         [DataMember(IsRequired = true, Name = "unread_chain_count")]
         public int UnreadChainCount { get; set; }
 
+        ///<example type="int" name="total_chain_count">123</example>
         [DataMember(IsRequired = true, Name = "total_chain_count")]
         public int TotalChainCount { get; set; }
 
+        ///<example type="int" name="folder_count">123</example>
         [DataMember(IsRequired = true, Name = "folder_count")]
         public int FolderCount { get; set; }
     }

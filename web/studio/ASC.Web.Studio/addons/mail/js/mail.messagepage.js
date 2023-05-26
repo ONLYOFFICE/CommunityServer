@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3502,13 +3502,7 @@ window.messagePage = (function ($) {
             $('#filesFolderUnlinkButton').hide();
 
             ASC.Files.FileSelector.fileSelectorTree.resetFolder();
-
-            var privacyFolderData = ASC.Files.FileSelector.fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_PRIVACY);
-            if (privacyFolderData) {
-                privacyFolderData.entryObject.addClass("privacy-node");
-            }
-
-            ASC.Files.FileSelector.openDialog(null, true);
+            ASC.Files.FileSelector.openDialog({ folderId: null, onlyFolder: true, displayPrivacy: false, scrolled: true });
         };
 
         if (ASC.Files.Utility.MustConvert(attachmentName)) {

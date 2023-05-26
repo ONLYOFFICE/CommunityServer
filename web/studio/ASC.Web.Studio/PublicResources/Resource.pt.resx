@@ -663,10 +663,6 @@ Tem a certeza que quer eliminar o {!group} '{0}'?</value>
   <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
     <value>{1}Configurações de domínio de email confiável{2} é uma maneira de especificar os servidores de email que podem ser usados para registo automático de utilizadores no ONLYOFFICE™.{0} Pode também alterar a opção {1}Domínios personalizados{2} e confirmar  o servidor de e-mail no campo abaixo.{0}Neste caso qualquer membro da sua organização que possua uma conta no servidor de email indicado poderá registar-se clicando no link {1}Aderir{2} na página {1}Assinar{2} ao digitar um email desse domínio.{0}Para desactivar esta opção verifique e mude a opção activa do botão de escolha existentente para o efeito.{0}Para confirmar as alterações use o botão {1}Guardar{2} no fim da secção.</value>
   </data>
-  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
-    <value>A {1}configuração do nível de segurança da senha {2} é a maneira de determinar a força da senha (a eficácia de uma senha em resistir a que alguém a descubra e utilize os seus dados).{0}Use a barra de comprimento {1} mínimo da password {2} {1} para determinar {2}  o quanto a senha é considerada forte. Selecione as caixas adequadas em baixo na barra para determinar o conjunto de carateres que devem ser usados na senha.{0} Para confirmar as alterações que fez,  {1} salve {2} utilizando o botão na parte inferior da secção.
-</value>
-  </data>
   <data name="HelpAnswerTeamTemplate" xml:space="preserve">
     <value>{1}Modelo do Team {2} é uma maneira de dar um nome à organização (ou grupo), seus membros e suas atividades.{0} Selecione o {1} Template {2} da lista para escolher um dos padrões disponíveis ou digite o nome selecionando a opção  {1}Personalizar{2}  na lista.{0}Para confirmar o padrão selecionado use o botão{1} Guardar {2} na parte inferior da secção.</value>
   </data>
@@ -909,9 +905,6 @@ Tem a certeza que quer eliminar o {!group} '{0}'?</value>
   </data>
   <data name="PasswordChangeTitle" xml:space="preserve">
     <value>Alteração de senha</value>
-  </data>
-  <data name="PasswordMinLength" xml:space="preserve">
-    <value>Comprimento mínimo da senha</value>
   </data>
   <data name="PasswordRecoveryTitle" xml:space="preserve">
     <value>Recuperação de senha</value>

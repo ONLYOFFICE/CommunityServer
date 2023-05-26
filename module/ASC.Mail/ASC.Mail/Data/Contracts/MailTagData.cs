@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,18 +38,24 @@ namespace ASC.Mail.Data.Contracts
             }
         }
 
+        ///<example type="int" name="id">1234</example>
         [DataMember(IsRequired = true, Name = "id")]
         public int Id { get; set; }
 
+        ///<example name="name">name</example>
         [DataMember(IsRequired = true, Name = "name")]
         public string Name { get; set; }
 
+        ///<example name="style">style</example>
         [DataMember(IsRequired = true, Name = "style")]
         public string Style { get; set; }
 
+        ///<example name="addresses">addresses</example>
+        ///<collection>list</collection>
         [DataMember(IsRequired = true, Name = "addresses")]
         public AddressesList<string> Addresses { get; set; }
 
+        ///<example type="int" name="lettersCount">1234</example>
         [DataMember(Name = "lettersCount")]
         public int LettersCount { get; set; }
     }

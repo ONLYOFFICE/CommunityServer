@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1168,7 +1168,12 @@ window.ServiceFactory = (function() {
             culture: o.cultureName || '',
             profileUrl: o.profileUrl || '',
             isLDAP: typeof (o.isLDAP) != "undefined" ? o.isLDAP : typeof (o.isldap) != "undefined" ? o.isldap : false,
-            isSSO: typeof (o.isSSO) != "undefined" ? o.isSSO : typeof (o.issso) != "undefined" ? o.issso : false
+            isSSO: typeof (o.isSSO) != "undefined" ? o.isSSO : typeof (o.issso) != "undefined" ? o.issso : false,
+            usedSpace: o.usedSpace,
+            docsSpace: o.docsSpace,
+            mailSpace: o.mailSpace,
+            talkSpace: o.talkSpace,
+            quotaLimit: o.quotaLimit
         };
 
         return person;

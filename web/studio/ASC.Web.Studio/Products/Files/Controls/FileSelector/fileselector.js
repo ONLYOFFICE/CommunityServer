@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2021
+ * (c) Copyright Ascensio System Limited 2010-2023
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,8 +159,8 @@ window.ASC.Files.FileSelector = (function () {
         jq("#fileSelectorDialog").toggleClass("hide-thirdparty", hide);
     };
 
-    var openDialog = function (folderId, onlyFolder, thirdParty) {
-        isFolderSelector = !jq("#mainContent").length || onlyFolder;
+    var openDialog = function (data) {
+        isFolderSelector = !jq("#mainContent").length || data.onlyFolder;
 
         ASC.Files.FileSelector.fileSelectorTree.clickOnFolder = isFolderSelector ? checkFolder : selectFolder;
 
@@ -170,8 +170,18 @@ window.ASC.Files.FileSelector = (function () {
             ASC.Files.UI.blockUI("#fileSelectorDialog", isFolderSelector ? 440 : 1030);
         }
 
+        jq("#fileSelectorTree").toggleClass("scrolled", data.scrolled);
+
+        if (!data.displayPrivacy) {
+            var privacyFolderData = ASC.Files.FileSelector.fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_PRIVACY);
+            if (privacyFolderData) {
+                privacyFolderData.entryObject.addClass("privacy-node");
+            }
+        }
+
         PopupKeyUpActionProvider.EnterAction = "jq(\"#submitFileSelector\").trigger('click');";
 
+        var thirdParty = data.thirdParty;
         if (typeof thirdParty != "undefined") {
             jq("#fileSelectorTree>ul>li:not(.third-party-entry)").toggle(!thirdParty);
 
@@ -180,7 +190,7 @@ window.ASC.Files.FileSelector = (function () {
 
         ASC.Files.FileSelector.fileSelectorTree.rollUp();
 
-        folderId = folderId || ASC.Files.FileSelector.fileSelectorTree.getDefaultFolderId();
+        var folderId = data.folderId || ASC.Files.FileSelector.fileSelectorTree.getDefaultFolderId();
         ASC.Files.FileSelector.fileSelectorTree.setCurrent(folderId);
 
         ASC.Files.FileSelector.fileSelectorTree.clickOnFolder(folderId);
