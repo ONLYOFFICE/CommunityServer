@@ -10,6 +10,8 @@
 * Fixed issue in Calendar when an event from an attached ics file not synchronized via the CalDAV protocol (Bug #62048).
 * Increased horizontal scroll in Desktop editors when connected to a portal (Bug #62153).
 * Fixed issue with Show backup codes button would not working in People (Bug #62159).
+* Fixed issue with downloading letters for LDAP users (Bug #58469).
+* Fixed issue with installation/upgrade on Windows Server 2012.
 * Fixed the inability to download a >5 MB file from an external access folder.
 * Added translation of comments in source code into English.
 * Fixed styles for Dark mode.
