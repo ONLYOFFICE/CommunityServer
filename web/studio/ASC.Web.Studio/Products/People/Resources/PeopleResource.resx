@@ -352,6 +352,9 @@ and password.</value>
   <data name="LblChangePassword" xml:space="preserve">
     <value>Change password</value>
   </data>
+  <data name="LblCopyEmail" xml:space="preserve">
+    <value>Copy email</value>
+  </data>
   <data name="LblCreateNew" xml:space="preserve">
     <value>Create</value>
   </data>

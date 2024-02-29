@@ -35,8 +35,6 @@ namespace ASC.FederatedLogin.LoginProviders
     {
         public static string TwitterKey { get { return Instance.ClientID; } }
         public static string TwitterSecret { get { return Instance.ClientSecret; } }
-        public static string TwitterDefaultAccessToken { get { return Instance["twitterAccessToken_Default"]; } }
-        public static string TwitterAccessTokenSecret { get { return Instance["twitterAccessTokenSecret_Default"]; } }
 
         public override string AccessTokenUrl { get { return "https://api.twitter.com/oauth/access_token"; } }
         public override string RedirectUri { get { return this["twitterRedirectUrl"]; } }

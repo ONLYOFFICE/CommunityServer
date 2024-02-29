@@ -89,15 +89,26 @@ namespace ASC.AuditTrail
 
             var isNeedFindEntry = entry.HasValue && entry.Value != EntryType.None && target != null;
 
+            IEnumerable<KeyValuePair<MessageAction, MessageMaps>> actions = new List<KeyValuePair<MessageAction, MessageMaps>>();
 
             if (action.HasValue && action.Value != MessageAction.None)
             {
-                q.Where("a.action", (int)action);
+                if (isNeedFindEntry)
+                {
+                    actions = AuditActionMapper.Mappers
+                            .SelectMany(r => r.Mappers)
+                            .SelectMany(r => r.Actions)
+                            .Where(r => r.Key == action);
+
+                    FindByEntry(q, entry.Value, target, actions);
+                }
+                else
+                {
+                    q.Where("a.action", (int)action);
+                }
             }
             else
             {
-                IEnumerable<KeyValuePair<MessageAction, MessageMaps>> actions = new List<KeyValuePair<MessageAction, MessageMaps>>();
-
                 var isFindActionType = actionType.HasValue && actionType.Value != ActionType.None;
 
                 if (productType.HasValue && productType.Value != ProductType.None)
@@ -185,11 +196,11 @@ namespace ASC.AuditTrail
             {
                 if (action.Value.EntryType1 == entry)
                 {
-                    sb.Append(string.Format("(a.action = {0} AND SUBSTRING_INDEX(SUBSTRING_INDEX(a.target,',',{1}),',',1) = {2}) OR ", (int)action.Key, -2, target));
+                    sb.Append(string.Format("(a.action = {0} AND SUBSTRING_INDEX(SUBSTRING_INDEX(a.target,',',{1}),',',1) = '{2}') OR ", (int)action.Key, -2, target));
                 }
                 if (action.Value.EntryType2 == entry)
                 {
-                    sb.Append(string.Format("(a.action = {0} AND SUBSTRING_INDEX(SUBSTRING_INDEX(a.target,',',{1}),',',1) = {2}) OR ", (int)action.Key, -1, target));
+                    sb.Append(string.Format("(a.action = {0} AND SUBSTRING_INDEX(SUBSTRING_INDEX(a.target,',',{1}),',',1) = '{2}') OR ", (int)action.Key, -1, target));
                 }
             }
 

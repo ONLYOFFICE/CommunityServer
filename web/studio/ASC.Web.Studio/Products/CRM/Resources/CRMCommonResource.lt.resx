@@ -460,9 +460,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Kitas įrašas</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Nėra įrašų</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Nėra elektroninio pašto paskyrų</value>
   </data>

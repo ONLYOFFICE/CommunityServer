@@ -461,9 +461,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Наступний запис</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Записів немає</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Немає доступних облікових записів електронної пошти</value>
   </data>

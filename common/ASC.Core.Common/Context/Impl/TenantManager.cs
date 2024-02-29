@@ -24,6 +24,7 @@ using System.Threading;
 using System.Web;
 
 using ASC.Core.Billing;
+using ASC.Core.Data;
 using ASC.Core.Tenants;
 
 
@@ -217,11 +218,35 @@ namespace ASC.Core
                 {
                     currentQuota = (TenantQuota)currentQuota.Clone();
 
-                    if (currentQuota.ActiveUsers == -1)
+                    if (tenantService.IsDocspace)
                     {
-                        currentQuota.ActiveUsers = tariff.Quantity;
-                        currentQuota.MaxTotalSize *= currentQuota.ActiveUsers;
-                        currentQuota.Price *= currentQuota.ActiveUsers;
+                        currentQuota.ActiveUsers *= tariff.Quantity;
+                        currentQuota.MaxTotalSize *= tariff.Quantity;
+                        currentQuota.Price *= tariff.Quantity;
+
+                        var additionalTariffs = tariffService.GetAdditionalTariffs(tenant);
+                        if (additionalTariffs != null)
+                        {
+                            foreach (var additionalTariff in additionalTariffs)
+                            {
+                                var additionalQuota = quotaService.GetTenantQuota(additionalTariff.QuotaId);
+                                if (additionalQuota != null)
+                                {
+                                    currentQuota.ActiveUsers += additionalQuota.ActiveUsers * additionalTariff.Quantity;
+                                    currentQuota.MaxTotalSize += additionalQuota.MaxTotalSize * additionalTariff.Quantity;
+                                    currentQuota.Price += additionalQuota.Price * additionalTariff.Quantity;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (currentQuota.ActiveUsers == -1)
+                        {
+                            currentQuota.ActiveUsers = tariff.Quantity;
+                            currentQuota.MaxTotalSize *= currentQuota.ActiveUsers;
+                            currentQuota.Price *= currentQuota.ActiveUsers;
+                        }
                     }
 
                     return currentQuota;

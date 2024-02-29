@@ -82,13 +82,14 @@ namespace ASC.Web.Projects
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
+            var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
             var icons = new[]
                         {
                             "/skins/default/images/svg/projects/timetrack.svg",
-                            "/skins/default/images/svg/projects/inbox.svg",
-                            "/skins/default/images/svg/projects/pause.svg",
+                            theme == ModeTheme.dark ? "/skins/default/images/svg/projects/inbox-dark.svg" : "/skins/default/images/svg/projects/inbox.svg",
+                            theme == ModeTheme.dark ? "/skins/default/images/svg/projects/pause-dark.svg" : "/skins/default/images/svg/projects/pause.svg",
                             "/skins/default/images/svg/projects/milstones.svg",
-                            "/skins/default/images/svg/projects/check_tick.svg",
+                            theme == ModeTheme.dark ? "/skins/default/images/svg/projects/check_tick-dark.svg" : "/skins/default/images/svg/projects/check_tick.svg",
                             "/skins/default/images/svg/projects/documents.svg",
                             "/skins/default/images/svg/projects/bookmark.svg",
                             "/skins/default/images/svg/projects/discussions.svg",

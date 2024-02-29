@@ -77,7 +77,7 @@ namespace ASC.Data.Storage.S3
             _modulename = string.Empty;
             _cache = false;
             _dataList = null;
-
+            _attachment = false;
             //Make expires
             _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
 
@@ -91,6 +91,7 @@ namespace ASC.Data.Storage.S3
             _modulename = moduleConfig.Name;
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
+            _attachment = moduleConfig.Attachment;
             _domains.AddRange(
                 moduleConfig.Domains.Cast<DomainConfigurationElement>().Select(x => string.Format("{0}/", x.Name)));
 
@@ -718,6 +719,10 @@ namespace ASC.Data.Storage.S3
 
         public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
         {
+            return Move(srcdomain, srcpath, newdomain, newpath, Guid.Empty, quotaCheckFileSize);
+        }
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true)
+        {
             var srcKey = MakePath(srcdomain, srcpath);
             var dstKey = MakePath(newdomain, newpath);
             var size = GetFileSize(srcdomain, srcpath);
@@ -726,7 +731,7 @@ namespace ASC.Data.Storage.S3
             Delete(srcdomain, srcpath);
 
             QuotaUsedDelete(srcdomain, size);
-            QuotaUsedAdd(newdomain, size, quotaCheckFileSize);
+            QuotaUsedAdd(newdomain, size, ownerId, quotaCheckFileSize);
 
             return GetUri(newdomain, newpath);
         }
@@ -1278,7 +1283,7 @@ namespace ASC.Data.Storage.S3
                 var metadataResponse = client.GetObjectMetadata(metadataRequest);
                 var objectSize = metadataResponse.ContentLength;
 
-                if (objectSize >= 100 * 1024 * 1024L) //100 megabytes
+                if (objectSize >= 1000 * 1024 * 1024L) //1000 megabytes
                 {
                     var copyResponses = new List<CopyPartResponse>();
 
@@ -1306,7 +1311,7 @@ namespace ASC.Data.Storage.S3
 
                     var uploadId = initResponse.UploadId;
 
-                    var partSize = GetChunkSize(); 
+                    var partSize = 500 * 1024 * 1024L; //500 megabytes
 
                     long bytePosition = 0;
                     for (int i = 1; bytePosition < objectSize; i++)
@@ -1563,18 +1568,6 @@ namespace ASC.Data.Storage.S3
             }
 
             throw new FileNotFoundException("file not found", path);
-        }
-
-        private long GetChunkSize()
-        {
-            var configSetting = ConfigurationManagerExtension.AppSettings["files.uploader.chunk-size"];
-            if (!string.IsNullOrEmpty(configSetting))
-            {
-                configSetting = configSetting.Trim();
-                return long.Parse(configSetting);
-            }
-            long defaultValue = 10 * 1024 * 1024;
-            return defaultValue;
         }
 
         private enum EncryptionMethod

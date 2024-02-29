@@ -427,9 +427,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Tải ảnh từ PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Chọn từ mạng xã hội</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Cho phép tất cả người dùng CRM truy cập vào công ty này</value>
   </data>
@@ -483,9 +480,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Không khớp trong ONLYOFFICE™ CRM, chọn từ danh sách</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Không có ảnh tương ứng với hồ sơ này</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Thông báo cho quản lý liên hệ qua email</value>

@@ -224,54 +224,6 @@
     </tr>
 </script>
 
-<script id="TwitterProfileTmpl" type="text/x-jquery-tmpl">
-    <tr>
-        <td class="sm_tbl_UserList_clmnBtRelate">
-            <a class="button gray plus"
-                onclick="ASC.CRM.SocialMedia.AddTwitterProfileToContact('${screenName}'); return false;">
-                ${ASC.CRM.Resources.CRMCommonResource.Add}
-            </a>
-        </td>
-        <td class="sm_tbl_UserList_clmnAvatar">
-            <div style="min-height: 40px;">
-                <img src="${smallImageUrl}" alt="${userName}" width="40"/>
-            </div>
-        </td>
-        <td class="sm_tbl_UserList_clmnUserName" style="padding:5px;">
-            <span class="header-base-small sn_userName" style="color: Black !important;">${userName}</span>
-            <br />
-            ${description}
-        </td>
-    </tr>
-</script>
-
-<script id="TwitterProfileTabTmpl" type="text/x-jquery-tmpl">
-    <tr>
-        <td class="sm_tbl_UserList_clmnBtRelate">
-            <a class="button gray plus"
-                onclick="ASC.CRM.SocialMedia.AddAndSaveTwitterProfileToContact('${screenName}', jq.getURLParam('id')); return false;">
-                ${ASC.CRM.Resources.CRMCommonResource.Choose}
-            </a>
-        </td>
-        <td class="sm_tbl_UserList_clmnAvatar">
-            <div style="min-height: 40px;">
-                <img src="${smallImageUrl}" width="40" alt=""/>
-            </div>
-        </td>
-        <td class="sm_tbl_UserList_clmnUserName" style="padding:5px;">
-            <span class="header-base-small sn_userName" style="color: Black !important;">${userName}</span>
-            <br />
-            ${description}
-        </td>
-    </tr>
-</script>
-
-<script id="socialMediaAvatarTmpl" type="text/x-jquery-tmpl">
-    <div class="ImageHolderOuter" onclick="ASC.CRM.SocialMedia.UploadUserAvatar(event,'${socialNetwork}','${identity}');">
-        <img src="${imageUrl}" alt="Avatar" class="AvatarImage" />
-    </div>
-</script>F
-
 <script id="collectionContainerTmpl" type="text/x-jquery-tmpl">
     <tr>
         <td class="describe-text" style="white-space:nowrap;">${Type}:</td>
@@ -347,31 +299,4 @@
         </div>
         <input type="hidden" name="selectedContactToMergeID" value="0" />
     </li>
-</script>
-
-<script id="twitterMessageListTmpl" type="text/x-jquery-tmpl">
-    <div class="sm_message_line clearFix">
-        <div class="sn_user_icon">
-            <a href="https://twitter.com/#!/${userId}" target="_blank">
-                <img alt="" src="${userImageUrl}" width="32" />
-            </a>&nbsp;
-        </div>
-        <div class="sn_message_block longWordsBreak">
-            <span class="header-base-small sn_userName">
-                <img style="border-width:0px;" src="${StudioManager.GetCRMImage('twitter.png')}"" class="sn_small_img">
-                ${userName}
-            </span><br />
-            <div class="sn_message_text">
-                {{html htmlUtility.getFull(Encoder.htmlDecode(ASC.CRM.Common.convertText(text, true)))}}
-            </div>
-            <span class="describe-text">${postedOnDisplay}</span>
-        </div>
-    </div>
-</script>
-
-<script id="twitterMessageListPanelTmpl" type="text/x-jquery-tmpl">
-    <div style="display:none;" class="infoPanel sm_messagesList_ErrorDescription" id="smErrorDescriptionContainer">
-        <div id="smErrorDescription"></div>
-    </div>
-    <div class="clearFix"></div>
 </script>

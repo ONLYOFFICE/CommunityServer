@@ -140,9 +140,6 @@
     <value>入力したすべての情報は失われます。
 あなたは、このまま続行してもよろしいですか？</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>あなたのTwitterアカウントの名前を入力してください。たとえば、teamlabdotcom</value>
-  </data>
   <data name="Deal" xml:space="preserve">
     <value>機会</value>
   </data>
@@ -248,9 +245,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>推定契約期日</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Twitterでアカウントを検索</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>あなたの受信者リストが生成されました。 {0}はあなたの電子メールは電子メールプログラムに引き継がアドレス渡すには、以下のリンクをクリックしてください。</value>
   </data>
@@ -352,9 +346,6 @@
   </data>
   <data name="PleaseRefreshThePage" xml:space="preserve">
     <value>ページを再読み込みしてください</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>のための可能なプロファイル{0}</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>プライマリー</value>

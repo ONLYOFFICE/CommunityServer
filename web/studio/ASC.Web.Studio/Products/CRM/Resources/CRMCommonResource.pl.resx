@@ -471,9 +471,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Następny wpis</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Wpisów nie ma</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Brak dostępnych kont pocztowych</value>
   </data>

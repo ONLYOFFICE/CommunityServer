@@ -38,7 +38,7 @@ window.ASC.Controls.TfaAppShowBackupCodes = (function () {
 
                 addEvents();
 
-                if (ASC.Controls.AnchorController.getAnchor() === "codes") {
+                if (jq.getURLParam("codes", location.href)) {
                     openDialog();
                 }
             }
@@ -100,7 +100,6 @@ window.ASC.Controls.TfaAppShowBackupCodes = (function () {
     }
 
     function openDialog () {
-        ASC.Controls.AnchorController.move();
         $content.show();
         StudioBlockUIManager.blockUI("#studio_showBackupCodesDialog", 500);
     }

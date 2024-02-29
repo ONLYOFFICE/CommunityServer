@@ -663,13 +663,18 @@ namespace ASC.Web.Core.WhiteLabel
             if (!AppliedTenants.Contains(tenantId)) AppliedTenants.Add(tenantId);
         }
 
+        public void ClearAppliedTenants()
+        {
+            AppliedTenants.Clear();
+        }
+
         public void Save(int tenantId, bool restore = false)
         {
             SaveForTenant(tenantId);
 
             if (tenantId == Tenant.DEFAULT_TENANT)
             {
-                AppliedTenants.Clear();
+                ClearAppliedTenants();
             }
             else
             {

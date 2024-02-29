@@ -149,9 +149,6 @@
     <value>Sve unesene informacije će biti izgubljene.
 Jeste li sigurni da ionako želite nastaviti?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Unesite ime svog Twitter naloga. Na primjer, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Država</value>
   </data>
@@ -281,9 +278,6 @@ Jeste li sigurni da ionako želite nastaviti?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Procenjeni rok dospijeća posla</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Pronađi račun na Twitteru</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Lista primatelja je generirana. {0} Kliknite dole navedene veze kako biste proslijedili adrese e-pošte programu e-pošte.</value>
   </data>
@@ -394,9 +388,6 @@ Jeste li sigurni da ionako želite nastaviti?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Molimo sačekajte...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Mogući profili za {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Prethodno</value>

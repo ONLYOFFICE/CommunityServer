@@ -57,15 +57,15 @@ namespace ASC.Api.Migration
         }
 
         /// <summary>
-        /// Returns the temporary folder where all the created backups are stored.
+        /// Returns the temporary folder where all the migration files are stored.
         /// </summary>
         /// <short>
-        /// Get backup folder
+        /// Get migration temporary folder
         /// </short>
-        /// <returns>Path to the backup folder</returns>
-        /// <path>api/2.0/migration/backuptmp</path>
+        /// <returns>Path to the migration temporary folder</returns>
+        /// <path>api/2.0/migration/tmp</path>
         /// <httpMethod>GET</httpMethod>
-        [Read("backuptmp")]
+        [Read("tmp")]
         public string GetTmpFolder()
         {
             if (!CoreContext.Configuration.Standalone || !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin()) throw new System.Security.SecurityException();

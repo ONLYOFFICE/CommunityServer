@@ -431,9 +431,6 @@ Vill du radera denna etikett även från företaget och från alla dess personer
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Ladda upp bild från PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Välj från sociala nätverk</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Tillåta tillgång till företaget för alla CRM-användare</value>
   </data>
@@ -487,9 +484,6 @@ Vill du radera denna etikett även från företaget och från alla dess personer
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Inga matchningar i ONLYOFFICE™ CRM, välj från listan</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Inga tillgängliga bilder matchar profilen</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Avisera kontaktansvarig via mejl</value>

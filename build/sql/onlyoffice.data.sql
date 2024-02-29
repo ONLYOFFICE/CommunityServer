@@ -283,7 +283,6 @@ BEGIN
 	insert into files_converts (input, output) values ('.docxf', '.fb2');
 	insert into files_converts (input, output) values ('.docxf', '.html');
 	insert into files_converts (input, output) values ('.docxf', '.odt');
-	insert into files_converts (input, output) values ('.docxf', '.oform');
 	insert into files_converts (input, output) values ('.docxf', '.ott');
 	insert into files_converts (input, output) values ('.docxf', '.pdf');
 	insert into files_converts (input, output) values ('.docxf', '.rtf');

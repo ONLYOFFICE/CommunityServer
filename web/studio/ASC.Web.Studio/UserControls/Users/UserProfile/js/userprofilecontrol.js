@@ -285,23 +285,11 @@ function initActionMenu() {
     });
 
     jq("input[name='typeTheme']").on("click", function () {
-        var theme = jq(this).val();
         var auto_mode = jq(this).attr("auto_mode");
+        var theme = auto_mode == "true" ? jq.cookies.get("mode_theme_key") : jq(this).val();
 
-        if (theme == "interface_mode") {
-            var mode_theme = "light";
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches == true) {
-                mode_theme = "dark";
-            }
-            theme = mode_theme;
-        }
         Teamlab.setModeTheme(null, theme, auto_mode,  {
-            success: function (params, response) {
-                if (auto_mode) {
-                    jq.cookies.set("mode_theme_key", theme, { path: '/' });
-                } else {
-                    jq.cookies.del("mode_theme_key");
-                }
+            success: function () {
                 window.location.reload(true);
             }
         });

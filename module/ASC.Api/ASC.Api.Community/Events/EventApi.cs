@@ -336,14 +336,11 @@ namespace ASC.Api.Community
         [Create("event/{feedid}/vote")]
         public EventWrapperFull VoteForEvent(int feedid, long[] variants)
         {
-            var feed = FeedStorage.GetFeed(feedid).NotFoundIfNull();
-
-            if (feed.FeedType != FeedType.Poll) throw new ArgumentException("Feed is not a poll");
-            if (((FeedPoll)feed).IsUserVote(SecurityContext.CurrentAccount.ID.ToString())) throw new ArgumentException("User already voted");
+            var feed = FeedStorage.GetFeed(feedid);
 
             //Voting
             string error;
-            PollVoteHandler.VoteForPoll(variants.ToList(), FeedStorage, feedid, out error);//this method is from 
+            PollVoteHandler.VoteForPoll(variants.ToList(), FeedStorage, feed, out error);//this method is from 
             if (!string.IsNullOrEmpty(error))
                 throw new Exception(error);
 

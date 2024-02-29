@@ -148,9 +148,6 @@
   <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
     <value>Уся введена інформація буде загублена. Ви упевнені, що хочете продовжити?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Введіть назву вашого Twitter аккаунта. Наприклад, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Країна</value>
   </data>
@@ -280,9 +277,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Передбачувана дата закриття угоди</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Знайти акаунт на Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Ваш список одержувачів був створений. {0} Клацніть на посилання нижче, щоб передати свої електронні адреси в програму електронної пошти.</value>
   </data>
@@ -393,9 +387,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Будь ласка, зачекайте....</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Можливі профілі для {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Попередній</value>

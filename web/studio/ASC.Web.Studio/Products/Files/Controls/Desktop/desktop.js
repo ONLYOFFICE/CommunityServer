@@ -23,6 +23,7 @@ window.ASC.Desktop = (function () {
     var isInit = false;
     var domain = null;
     var isEncryptionSupport = typeof window.AscDesktopEditor.cloudCryptoCommand === "function";
+    var desktopVersion = /(AscDesktopEditor)[ \/]([\w.]+)/.exec(navigator.userAgent)[2];
 
     var init = function () {
         if (isInit === false) {
@@ -48,6 +49,8 @@ window.ASC.Desktop = (function () {
             domain: domain,
             email: ASC.Files.Editor ? ASC.Files.Editor.docServiceParams.email : Teamlab.profile.email,
             provider: "onlyoffice",
+            uiTheme: ASC.Files.Editor ? ASC.Files.Editor.configurationParams.editorConfig.customization.uiTheme 
+                : ASC.Resources.Master.ModeThemeSettings.ModeThemeName === 1 ? "default-dark" : "default-light",
             userId: ASC.Files.Editor ? ASC.Files.Editor.configurationParams.editorConfig.user.id : Teamlab.profile.id,
         };
 
@@ -174,12 +177,18 @@ window.ASC.Desktop = (function () {
         ? null
         : function (callback) {
 
-            var filter = jq(ASC.Files.Utility.Resource.ExtsWebEncrypt).map(function (i, format) {
-                return "*" + format;
-            }).toArray().join(" ");
+            var versionSplit = desktopVersion.split(".");
+            if (versionSplit[0] <= 7 && versionSplit[1] <= 3 && versionSplit[2] < 4) {
+                var filter = jq(ASC.Files.Utility.Resource.ExtsWebEncrypt).map(function (i, format) {
+                    return "*" + format;
+                }).toArray().join(" ");
 
-            if (!!filter.length) {
-                filter = "(" + filter + ")";
+                if (!!filter.length) {
+                    filter = "(" + filter + ")";
+                }
+            } else {
+                //desktop preset since v7.3.4
+                filter = "cryptofiles";
             }
 
             window.AscDesktopEditor.cloudCryptoCommand("upload",

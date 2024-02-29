@@ -172,7 +172,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             if (!hidePricingPage && tariff.State == TariffState.Delay)
             {
-                var text = String.Format(Resource.TariffPaymentDelayText,
+                var text = String.Format(Resource.TariffPaymentDelayText.HtmlEncode(),
                                          "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>",
                                          tariff.DelayDueDate.Date.ToLongDateString());
                 return new Tuple<string, string>(Resource.TariffPaymentDelay, text);

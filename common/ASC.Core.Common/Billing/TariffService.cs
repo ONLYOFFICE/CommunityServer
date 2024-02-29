@@ -107,7 +107,7 @@ namespace ASC.Core.Billing
                 tariff = CalculateTariff(tenantId, tariff);
                 cache.Insert(key, tariff, DateTime.UtcNow.Add(GetCacheExpiration()));
 
-                if (BillingClient.Configured && withRequestToPaymentSystem)
+                if (BillingClient.Configured && withRequestToPaymentSystem && !IsDocspace)
                 {
                     Task.Run(() =>
                     {
@@ -177,6 +177,22 @@ namespace ASC.Core.Billing
             return tariff;
         }
 
+        public IEnumerable<Tariff> GetAdditionalTariffs(int tenantId)
+        {
+            if (CoreContext.Configuration.Standalone || !IsDocspace)
+                return null;
+
+            var key = GetAdditionalTariffsCacheKey(tenantId);
+            var tariffs = cache.Get<List<Tariff>>(key);
+            if (tariffs == null)
+            {
+                tariffs = GetDocspaceTariffs(tenantId, true);
+                cache.Insert(key, tariffs, DateTime.UtcNow.Add(GetCacheExpiration()));
+            }
+
+            return tariffs;
+        }
+
         public void SetTariff(int tenantId, Tariff tariff)
         {
             if (tariff == null)
@@ -206,6 +222,11 @@ namespace ASC.Core.Billing
         private static string GetTariffCacheKey(int tenantId)
         {
             return string.Format("{0}:{1}", tenantId, "tariff");
+        }
+
+        private static string GetAdditionalTariffsCacheKey(int tenantId)
+        {
+            return string.Format("{0}:{1}", tenantId, "tariff:additional");
         }
 
         private static string GetBillingUrlCacheKey(int tenantId)
@@ -420,11 +441,16 @@ namespace ASC.Core.Billing
 
         private Tariff GetBillingInfo(int tenant)
         {
+            if (IsDocspace)
+            {
+                return GetDocspaceTariffs(tenant, false).FirstOrDefault() ?? Tariff.CreateDefault();
+            }
+
             var q = new SqlQuery("tenants_tariff")
-                .Select("tariff", "stamp", "quantity")
-                .Where("tenant", tenant)
-                .OrderBy("id", false)
-                .SetMaxResults(1);
+                    .Select("tariff", "stamp", "quantity")
+                    .Where("tenant", tenant)
+                    .OrderBy("id", false)
+                    .SetMaxResults(1);
 
             return ExecList(q)
                 .ConvertAll(r =>
@@ -439,8 +465,44 @@ namespace ASC.Core.Billing
                 ?? Tariff.CreateDefault();
         }
 
+        private List<Tariff> GetDocspaceTariffs(int tenant, bool? additional)
+        {
+            var q = new SqlQuery("tenants_tariff tt")
+                    .InnerJoin("tenants_tariffrow ttr", Exp.EqColumns("tt.id", "ttr.tariff_id"))
+                    .Select("ttr.quota", "tt.stamp", "ttr.quantity")
+                    .Where(string.Format("tt.id = (SELECT max(id) FROM tenants_tariff WHERE tenant={0})", tenant));
+
+            //additional tariffs: disk, admin1
+            if (additional.HasValue)
+            {
+                if (additional.Value)
+                {
+                    q.Where(Exp.In("ttr.quota", new[] { -4, -5 }));
+                }
+                else
+                {
+                    q.Where(!Exp.In("ttr.quota", new[] { -4, -5 }));
+                }
+            }
+
+            return ExecList(q)
+                .ConvertAll(r =>
+                {
+                    var tariff = Tariff.CreateDefault();
+                    tariff.QuotaId = Convert.ToInt32(r[0]);
+                    tariff.DueDate = ((DateTime)r[1]).Year < 9999 ? (DateTime)r[1] : DateTime.MaxValue;
+                    tariff.Quantity = Convert.ToInt32(r[2]);
+                    return tariff;
+                });
+        }
+
         private bool SaveBillingInfo(int tenant, Tariff tariffInfo, bool renewal = true)
         {
+            if (IsDocspace)
+            {
+                return SaveDocspaceBillingInfo(tenant, tariffInfo);
+            }
+
             var inserted = false;
             var currentTariff = GetBillingInfo(tenant);
             if (!tariffInfo.EqualsByParams(currentTariff))
@@ -480,6 +542,70 @@ namespace ASC.Core.Billing
                     tenantService.SaveTenant(t);
                 }
             }
+            return inserted;
+        }
+
+        private bool SaveDocspaceBillingInfo(int tenant, Tariff tariffInfo)
+        {
+            var inserted = false;
+            var currentTariff = GetBillingInfo(tenant);
+            if (!tariffInfo.EqualsByParams(currentTariff))
+            {
+                var additionalTariffs = GetAdditionalTariffs(tenant);
+
+                using (var db = GetDb())
+                using (var tx = db.BeginTransaction())
+                {
+                    var q = new SqlInsert("tenants_tariff")
+                        .InColumnValue("id", 0)
+                        .InColumnValue("tenant", tenant)
+                        .InColumnValue("stamp", tariffInfo.DueDate)
+                        .InColumnValue("customer_id", string.Empty)
+                        .InColumnValue("create_on", DateTime.UtcNow)
+                        .Identity(0, 0, true);
+
+                    var id = db.ExecuteScalar<int>(q);
+
+                    q = new SqlInsert("tenants_tariffrow")
+                        .InColumnValue("tariff_id", id)
+                        .InColumnValue("quota", tariffInfo.QuotaId)
+                        .InColumnValue("tenant", tenant)
+                        .InColumnValue("quantity", tariffInfo.Quantity);
+
+                    db.ExecuteNonQuery(q);
+
+                    if (additionalTariffs != null)
+                    {
+                        foreach (var additionalTariff in additionalTariffs)
+                        {
+                            q = new SqlInsert("tenants_tariffrow")
+                            .InColumnValue("tariff_id", id)
+                            .InColumnValue("quota", additionalTariff.QuotaId)
+                            .InColumnValue("tenant", tenant)
+                            .InColumnValue("quantity", additionalTariff.Quantity);
+
+                            db.ExecuteNonQuery(q);
+                        }
+                    }
+
+                    cache.Remove(GetTariffCacheKey(tenant));
+                    cache.Remove(GetAdditionalTariffsCacheKey(tenant));
+                    inserted = true;
+
+                    tx.Commit();
+                }
+            }
+
+            if (inserted)
+            {
+                var t = tenantService.GetTenant(tenant);
+                if (t != null)
+                {
+                    // update tenant.LastModified to flush cache in documents
+                    tenantService.SaveTenant(t);
+                }
+            }
+
             return inserted;
         }
 

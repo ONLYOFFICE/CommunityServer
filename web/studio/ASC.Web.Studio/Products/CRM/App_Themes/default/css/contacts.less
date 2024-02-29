@@ -45,7 +45,7 @@ sliders
 }
 .ui-slider .ui-slider-handle{
     background-color: #dedede;
-    background: url( "../images/icons.png" ) -1px -500px no-repeat transparent;
+    background: url( "../images/@{icons-png}" ) -1px -500px no-repeat transparent;
     border: 1px solid #aaaaaa;
     cursor: pointer;
     margin-left: -0.4em;
@@ -218,7 +218,7 @@ ListContactView.ascx
     margin-left: 4px;
 
     &.sharedContact:after {
-        background: url( "../images/icons.png") 0 -768px no-repeat transparent;
+        background: url( "../images/@{icons-png}") 0 -768px no-repeat transparent;
         .crm-img-pseudo-base(auto, -2px, 12px, 12px);
         bottom: -2px;
     }
@@ -284,7 +284,7 @@ body.media-width-min {
     }
 }
 #previewAttachments label.previewAttachment{
-    background: url( "../images/icons.png" ) 0 -415px no-repeat;
+    background: url( "../images/@{icons-png}" ) 0 -415px no-repeat;
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -510,7 +510,7 @@ ContactActionView.ascx
     }
 
     .is_primary {
-        background-image: url( "../images/icons.png");
+        background-image: url( "../images/@{icons-png}");
         background-repeat: no-repeat;
         background-color: transparent;
         cursor: pointer;
@@ -600,7 +600,7 @@ ContactActionView.ascx
     position: relative;
 
     &.sharedContact:after {
-        background: url( "../images/icons.png") 0 -783px no-repeat transparent;
+        background: url( "../images/@{icons-png}") 0 -783px no-repeat transparent;
         .crm-img-pseudo-base(auto, 8px, 22px, 22px);
         bottom: 8px;
     }
@@ -656,7 +656,7 @@ body.media-width-min {
 
 #companySelectorsContainer {
     .delete_company_for_person {
-        background: url("../images/icons.png") 0 -263px no-repeat transparent;
+        background: url("../images/@{icons-png}") 0 -263px no-repeat transparent;
         cursor: pointer;
         display: inline-block;
         height: 16px;
@@ -820,25 +820,57 @@ HistoryView.ascx
 }
 
 /********************************************************************************
-SocialMedia
-********************************************************************************/
-
-.sm_UserSearchView_ErrorDescription{
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-}
-.select-container{
-  position:relative;
-}
-.select-container.type-select-container{
-  min-width:180px;
-}
-.select-container.tags-select-container{
-  min-width:160px;
-}
-/********************************************************************************
 Page Navigation
 ********************************************************************************/
 #contactsFilterContainer, #tableForContactNavigation {
     display: none;
+}
+
+/********************************************************************************
+Contact Photo (ContactDetailsView, ContactActionView)
+********************************************************************************/
+#divLoadPhotoWindow h4 {
+    margin-bottom: 5px;
+}
+
+#divLoadPhotoFromPC {
+    .fileUploadDscr {
+        margin-left: 12px;
+    }
+
+    .fileUploadError {
+        color: #CC0000;
+        display: none;
+        font: 12px Tahoma;
+        margin-left: 12px;
+    }
+}
+
+#divLoadPhotoDefault {
+    margin-top: 10px;
+}
+
+.ImageHolderOuter {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid @text-color;
+
+    img {
+        padding: 2px;
+
+        &:hover {
+            border: 2px solid #1A6DB3 !important;
+            padding: 0px;
+        }
+    }
+}
+
+.AvatarImage {
+    width: 50px;
+    height: 50px;
 }

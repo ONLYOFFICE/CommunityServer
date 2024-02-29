@@ -527,9 +527,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>下一則紀錄</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>沒有記錄</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>沒有可用的郵件帳戶</value>
   </data>

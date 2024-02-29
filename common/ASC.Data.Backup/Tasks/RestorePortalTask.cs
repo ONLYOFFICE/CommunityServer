@@ -73,7 +73,7 @@ namespace ASC.Data.Backup.Tasks
         {
             Logger.Debug("begin restore portal");
 
-            Logger.Debug("begin restore data");
+            Logger.Debug($"begin restore data from {BackupFilePath}");
 
             using (var dataReader = new ZipReadOperator(BackupFilePath))
             {
@@ -82,13 +82,19 @@ namespace ASC.Data.Backup.Tasks
                     Dump = entry != null && CoreContext.Configuration.Standalone;
                 }
 
+                Logger.Debug($"restore data dbFactory: {ConfigPath}");
+
                 var dbFactory = new DbFactory(ConfigPath);
                 if (Dump)
                 {
+                    Logger.Debug("begin restore from dump.");
+
                     RestoreFromDump(dataReader);
                 }
                 else
                 {
+                    Logger.Debug("begin restore not from dump.");
+
                     var modulesToProcess = GetModulesToProcess().ToList();
                     SetStepsCount(ProcessStorage ? modulesToProcess.Count + 1 : modulesToProcess.Count);
 
@@ -102,7 +108,25 @@ namespace ASC.Data.Backup.Tasks
                         }
                         restoreTask.RunJob();
                     }
-                    var backupRepository = BackupStorageFactory.GetBackupRepository();
+                    RestoreMailTable(dataReader);
+
+                    try
+                    {
+                        using (var dbManager = new DbManager("default", 100000))
+                        {
+                            //set new domain name in dns record
+                            dbManager.ExecuteNonQuery("update mail_server_dns set mx=(select hostname from mail_mailbox_server where id_provider=-1 limit 1)");
+
+                            dbManager.ExecuteNonQuery("update mail_mailbox set id_smtp_server = (select id from mail_mailbox_server where id_provider = -1 and type = 'smtp' limit 1), id_in_server = (select id from mail_mailbox_server where id_provider = -1 and type = 'imap' limit 1) where is_server_mailbox=1");
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
+
+                        var backupRepository = BackupStorageFactory.GetBackupRepository();
                     backupRepository.MigrationBackupRecords(TenantId, _columnMapper.GetTenantMapping(), ConfigPath);
                 }
 
@@ -142,7 +166,44 @@ namespace ASC.Data.Backup.Tasks
             Logger.Debug("end restore portal");
         }
 
-        private void RestoreFromDump(IDataReadOperator dataReader) 
+        private void RestoreMailTable(IDataReadOperator dataReader)
+        {
+            if (!CoreContext.Configuration.Standalone || !dataReader.GetDirectories("").Any(r => r.EndsWith("mailtable")))
+            {
+                Logger.Debug($"RestoreMailTable: Not Standalone, skip restore.");
+
+                return;
+            }
+
+            try
+            {
+                string dbconnection = null;
+                using (var dbManager = new DbManager("default", 100000))
+                {
+                    dbManager.ExecuteList("select connection_string from mail_server_server").ForEach(r =>
+                    {
+                        dbconnection = JsonConvert.DeserializeObject<Dictionary<string, object>>(Convert.ToString(r[0]))["DbConnection"].ToString();
+                    });
+                }
+                Logger.Debug($"RestoreMailTable connection string: {dbconnection}");
+
+                if (string.IsNullOrEmpty(dbconnection)) dbconnection = "Server=onlyoffice-mysql-server;Database=onlyoffice_mailserver;User ID=root;Password=my-secret-pw;Pooling=True;Character Set=utf8;AutoEnlist=false;SSL Mode=None;Connection Timeout=30;Maximum Pool Size=300;";
+
+                Logger.Debug($"RestoreMailTable connection string: {dbconnection}");
+
+                if (dbconnection != null)
+                {
+                    var restoreTask = new RestoreMailTableTask(Logger, dataReader, ConfigPath, dbconnection);
+                    restoreTask.RunJob();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"RestoreMailTable error: {ex}");
+            }
+        }
+
+        private void RestoreFromDump(IDataReadOperator dataReader)
         {
             var keyBase = KeyHelper.GetDatabaseSchema();
             var keys = dataReader.GetEntries(keyBase).Select(r => Path.GetFileName(r)).ToList();

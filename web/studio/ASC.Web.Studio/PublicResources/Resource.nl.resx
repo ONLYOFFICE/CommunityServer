@@ -742,12 +742,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Toegangstoken</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Toegangstoken Geheim</value>
-  </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter in CRM-sleutel</value>
   </data>

@@ -47,7 +47,6 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 RegisterResourceSet("CRMCasesResource", CRMCasesResource.ResourceManager),
                 RegisterResourceSet("CRMEnumResource", CRMEnumResource.ResourceManager),
                 RegisterResourceSet("CRMSettingResource", CRMSettingResource.ResourceManager),
-                RegisterResourceSet("CRMSocialMediaResource", CRMSocialMediaResource.ResourceManager),
                 RegisterResourceSet("CRMVoipResource", CRMVoipResource.ResourceManager),
                 RegisterResourceSet("CRMReportResource", CRMReportResource.ResourceManager),
                 RegisterObject(new
@@ -95,7 +94,6 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                            CurrentUser = CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(),
                            PrivatePanelAccessListLable = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode(),
                            PrivatePanelDescription = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode(),
-                           SocialMediaAccountNotFoundTwitter = CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode(),
                            DisabledEmployeeTitle = Resource.DisabledEmployeeTitle.HtmlEncode()
                        })
                    };

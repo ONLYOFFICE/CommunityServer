@@ -502,6 +502,7 @@ window.ASC.Files.ServiceManager = (function () {
         RestoreVersion: "restoreversion",
 
         GetReferenceData: "getreferencedata",
+        GetReferenceLink: "getreferencelink",
 
         GetMails: "getmails",
         StartMailMerge: "startmailmerge"
@@ -519,7 +520,7 @@ window.ASC.Files.ServiceManager = (function () {
 
     var getFolderItems = function (eventType, params, data) {
         params.showLoading = params.append != true;
-        request("post", "xml", eventType, params, data, "folders?parentId=" + encodeURIComponent(params.folderId) + "&from=" + params.from + "&count=" + params.count + "&filter=" + params.filter + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&withSubfolders=" + !!params.withSubfolders + "&searchInContent=" + !!params.searchInContent + "&search=" + encodeURIComponent(params.search));
+        request("post", "xml", eventType, params, data, "folders?parentId=" + encodeURIComponent(params.folderId) + "&from=" + params.from + "&count=" + params.count + "&filter=" + params.filter + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&withSubfolders=" + !!params.withSubfolders + "&searchInContent=" + !!params.searchInContent + "&search=" + encodeURIComponent(params.search) + (params.extension ? "&extension=" + encodeURIComponent(params.extension) : ""));
     };
 
     var getTreeSubFolders = function (eventType, params) {
@@ -535,7 +536,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getItems = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "folders-entries?filter=" + params.filter + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&search=" + encodeURIComponent(params.search));
+        request("post", "json", eventType, params, data, "folders-entries?filter=" + params.filter + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&search=" + encodeURIComponent(params.search) + (params.extension ? "&extension=" + encodeURIComponent(params.extension) : ""));
     };
 
     var getFile = function (eventType, params) {
@@ -560,7 +561,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getSiblingsImage = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "folders-files-siblings?fileId=" + encodeURIComponent(params.fileId) + "&parentId=" + encodeURIComponent(params.folderId || "") + "&filter=" + params.filter + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&withSubfolders=" + !!params.withSubfolders + "&searchInContent=" + !!params.searchInContent + "&search=" + encodeURIComponent(params.search));
+        request("post", "json", eventType, params, data, "folders-files-siblings?fileId=" + encodeURIComponent(params.fileId) + "&parentId=" + encodeURIComponent(params.folderId || "") + "&filter=" + params.filter + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&withSubfolders=" + !!params.withSubfolders + "&searchInContent=" + !!params.searchInContent + "&search=" + encodeURIComponent(params.search) + (params.extension ? "&extension=" + encodeURIComponent(params.extension) : ""));
     };
 
     var getPresignedUri = function (eventType, params) {
@@ -645,8 +646,12 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "publickeys?fileId=" + encodeURIComponent(params.fileId));
     };
 
-    var getUsers = function (eventType, params) {
+    var getSharedUsers = function (eventType, params) {
         request("get", "json", eventType, params, "sharedusers?fileId=" + encodeURIComponent(params.fileId));
+    };
+
+    var getProtectUsers = function (eventType, params) {
+        request("get", "json", eventType, params, "protectusers?fileId=" + encodeURIComponent(params.fileId));
     };
 
     var sendEditorNotify = function (eventType, params, data) {
@@ -721,7 +726,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getTemplates = function (eventType, params) {
-        request("get", "xml", eventType, params, "gettemplates?filter=" + params.filter + "&from=" + params.from + "&count=" + params.count + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&searchInContent=" + !!params.searchInContent + "&search=" + encodeURIComponent(params.search));
+        request("get", "xml", eventType, params, "gettemplates?filter=" + params.filter + "&from=" + params.from + "&count=" + params.count + "&subjectGroup=" + !!params.subjectGroup + "&subjectID=" + params.subjectId + "&searchInContent=" + !!params.searchInContent + "&search=" + encodeURIComponent(params.search) + (params.extension ? "&extension=" + encodeURIComponent(params.extension) : ""));
     
     };
 
@@ -815,7 +820,8 @@ window.ASC.Files.ServiceManager = (function () {
         changeExternalShareSettings: changeExternalShareSettings,
         changeExternalShareSocialMediaSettings: changeExternalShareSocialMediaSettings,
 
-        getUsers: getUsers,
+        getSharedUsers: getSharedUsers,
+        getProtectUsers: getProtectUsers,
         sendEditorNotify: sendEditorNotify,
 
         checkConversion: checkConversion,

@@ -149,9 +149,6 @@
     <value>Bütün daxil edilmiş məlumat itiriləcək.
 Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Twitter hesabınızın adını daxil edin. Örnək olaraq, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Ölkə</value>
   </data>
@@ -281,9 +278,6 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Təxmini qapadılma tarixi</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Twitter'də hesabı tap</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Alıcıların siyahısı yaradıldı.{0}Aşağıdakı keçidlərə basın ki, elektron poçt ünvanlarını elektron poçt proqramına keçirəsiniz.</value>
   </data>
@@ -397,9 +391,6 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Gözləyin...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>{0} üçün mümkün profillər</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Əvvəlki</value>

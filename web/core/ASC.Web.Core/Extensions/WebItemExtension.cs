@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ASC.Core;
+using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 
 namespace ASC.Web.Core
@@ -78,8 +79,12 @@ namespace ASC.Web.Core
 
         public static string GetLargeIconAbsoluteURL(this IWebItem item)
         {
-            if (item == null || item.Context == null || String.IsNullOrEmpty(item.Context.LargeIconFileName)) return string.Empty;
-            return WebImageSupplier.GetAbsoluteWebPath(item.Context.LargeIconFileName, item.ID);
+            var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
+            var fileName = theme == ModeTheme.dark ? item.Context.LargeIconFileNameDark : item.Context.LargeIconFileName;
+
+            if (item == null || item.Context == null || string.IsNullOrEmpty(fileName)) return string.Empty;
+
+            return WebImageSupplier.GetAbsoluteWebPath(fileName, item.ID);
         }
 
         public static List<string> GetUserOpportunities(this IWebItem item)

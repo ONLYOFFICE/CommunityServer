@@ -431,9 +431,6 @@ Desideri eliminare questa etichetta anche dall'azienda e dalle sue persone?</val
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Carica foto dal PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Seleziona una dalle reti sociali:</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Consenti l'accesso a questa azienda a tutti gli utenti di CRM</value>
   </data>
@@ -487,9 +484,6 @@ Desideri eliminare questa etichetta anche dall'azienda e dalle sue persone?</val
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Nessuna corrispondenza con ONLYOFFICE™ CRM, seleziona dall'elenco</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Nessuna foto disponibile corrispondente a questo profilo</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Notifica il responsabile per email</value>

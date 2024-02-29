@@ -149,9 +149,6 @@
     <value>Toute information saisie sera perdue.
 Continuer ?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Veuillez entrer le nom de votre compte Twitter. Par exemple, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>pays</value>
   </data>
@@ -281,9 +278,6 @@ Continuer ?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Date limite supposée</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Trouver le compte dans Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Votre liste des destinataires a été générée. {0} Cliquez sur les liens ci-dessous pour passer vos adresses email dans le programme de messagerie.</value>
   </data>
@@ -397,9 +391,6 @@ Continuer ?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Veuillez patienter...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Les profils possibles pour {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Précédent</value>

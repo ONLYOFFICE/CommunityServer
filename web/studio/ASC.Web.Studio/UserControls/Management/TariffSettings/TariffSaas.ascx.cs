@@ -365,10 +365,10 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var yearQuota = quotaList.FirstOrDefault(q => q.Year && !q.Trial && !q.Free && !q.Open);
 
-            if (yearQuota == null)
-            {
-                throw new NotSupportedException(UserControlsCommonResource.SaasTariffErrorYearTariffNotFound);
-            }
+            //if (yearQuota == null)
+            //{
+            //    throw new NotSupportedException(UserControlsCommonResource.SaasTariffErrorYearTariffNotFound);
+            //}
 
             return yearQuota;
         }
@@ -377,10 +377,10 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var threeYearsQuota = quotaList.FirstOrDefault(q => q.Year3 && !q.Trial && !q.Free && !q.Open);
 
-            if (threeYearsQuota == null)
-            {
-                throw new NotSupportedException(UserControlsCommonResource.SaasTariffErrorThreeYearsTariffNotFound);
-            }
+            //if (threeYearsQuota == null)
+            //{
+            //    throw new NotSupportedException(UserControlsCommonResource.SaasTariffErrorThreeYearsTariffNotFound);
+            //}
 
             return threeYearsQuota;
         }

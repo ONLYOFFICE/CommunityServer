@@ -92,7 +92,7 @@ window.ASC.Files.CreateMenu = (function () {
     };
 
     var disableMenu = function (enable) {
-        var listButtons = jq("#menuUploadActionsButton, #buttonUpload, #buttonFolderUpload, #createDocument, #createSpreadsheet, #createPresentation, #createMasterFormPointer, #createMasterForm, #createMasterFormFromFile, #createNewFolder" +
+        var listButtons = jq("#menuUploadActionsButton, #buttonUpload, #buttonFolderUpload, #createDocument, #createSpreadsheet, #createPresentation, #createMasterFormPointer, #createMasterForm, #createMasterFormFromFile, #createNewFolder, #createMesterFormFromLocalFile" +
             (!ASC.Files.Tree.folderIdCurrentRoot
                 ? ", .page-menu .menu-actions .menu-main-button"
                 : ""));

@@ -56,7 +56,8 @@ namespace ASC.Web.UserControls.Forum
             var q = ForumDataProvider.GetPollByID(TenantProvider.CurrentTenantID, idQuestion);
             if (q == null
                 || !_forumManager.ValidateAccessSecurityAction(ForumAction.PollVote, q)
-                || ForumDataProvider.IsUserVote(TenantProvider.CurrentTenantID, idQuestion, SecurityContext.CurrentAccount.ID))
+                || ForumDataProvider.IsUserVote(TenantProvider.CurrentTenantID, idQuestion, SecurityContext.CurrentAccount.ID)
+                || (q.Type == QuestionType.OneAnswer && variantIDs.Count > 1))
             {
                 errorMessage = ForumUCResource.ErrorAccessDenied;
                 return false;

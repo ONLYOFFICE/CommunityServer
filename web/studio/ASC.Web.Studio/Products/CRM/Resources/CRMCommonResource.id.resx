@@ -448,9 +448,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Rekaman berikutnya</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Tidak ada rekaman</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Tidak tersedia akun surat</value>
   </data>

@@ -44,16 +44,6 @@ namespace ASC.Data.Backup.Service
             set { this["limit"] = value; }
         }
 
-        [ConfigurationProperty("chunkSize", DefaultValue = 20971520L)]
-        public long ChunkSize
-        {
-            get
-            {
-                return long.Parse(this["chunkSize"].ToString());
-            }
-            set { this["chunkSize"] = value; }
-        }
-
         [ConfigurationProperty("service")]
         public ServiceConfigurationElement Service
         {
@@ -80,6 +70,13 @@ namespace ASC.Data.Backup.Service
         {
             get { return (WebConfigCollection)this["webConfigs"]; }
             set { this["webConfigs"] = value; }
+        }
+
+        [ConfigurationProperty("mailServer")]
+        public MailServerConfigurationElement MailServer
+        {
+            get { return (MailServerConfigurationElement)this["mailServer"]; }
+            set { this["mailServer"] = value; }
         }
 
         public static BackupConfigurationSection GetSection()
@@ -122,6 +119,44 @@ namespace ASC.Data.Backup.Service
         {
             get { return (int)this["workerCount"]; }
             set { this["workerCount"] = value; }
+        }
+    }
+
+    public class MailServerConfigurationElement : ConfigurationElement
+    {
+        [ConfigurationProperty("pathToMailFilesOnHost", DefaultValue = "")]
+        public string PathToMailFilesOnHost
+        {
+            get { return (string)this["pathToMailFilesOnHost"]; }
+            set { this["pathToMailFilesOnHost"] = value; }
+        }
+
+        [ConfigurationProperty("hostAddress", DefaultValue = "")]
+        public string HostAddress
+        {
+            get { return (string)this["hostAddress"]; }
+            set { this["hostAddress"] = value; }
+        }
+
+        [ConfigurationProperty("hostUsername", DefaultValue = "")]
+        public string HostUsername
+        {
+            get { return (string)this["hostUsername"]; }
+            set { this["hostUsername"] = value; }
+        }
+
+        [ConfigurationProperty("hostPassword", DefaultValue = "")]
+        public string HostPassword
+        {
+            get { return (string)this["hostPassword"]; }
+            set { this["hostPassword"] = value; }
+        }
+
+        [ConfigurationProperty("hostKey", DefaultValue = "")]
+        public string HostKey
+        {
+            get { return (string)this["hostKey"]; }
+            set { this["hostKey"] = value; }
         }
     }
 

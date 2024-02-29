@@ -526,9 +526,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Registrazione successiva</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Nessuna registrazione</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Nessun account disponibile</value>
   </data>

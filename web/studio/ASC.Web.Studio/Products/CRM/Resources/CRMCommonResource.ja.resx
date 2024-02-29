@@ -449,9 +449,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>次のレコード</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>レコードなしません</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>利用可能なメールアカウントはありません</value>
   </data>

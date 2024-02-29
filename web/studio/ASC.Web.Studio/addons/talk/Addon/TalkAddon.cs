@@ -66,6 +66,7 @@ namespace ASC.Web.Talk.Addon
                 DisabledIconFileName = "product_logo_disabled.png",
                 IconFileName = "product_logo.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 DefaultSortOrder = 60,
                 SpaceUsageStatManager = new TalkSpaceUsageStatManager()
             };

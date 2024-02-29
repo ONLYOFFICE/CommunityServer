@@ -1109,6 +1109,7 @@ namespace ASC.Api.Settings
             if (restoreLogoText)
             {
                 settings.LogoText = null;
+                settings.ClearAppliedTenants();
             }
 
             RestoreWhiteLabelLogosForTenant(settings, storage, Tenant.DEFAULT_TENANT, logoTypes);
@@ -1412,8 +1413,8 @@ namespace ASC.Api.Settings
         [Update("tfaappnewapp")]
         public string TfaAppNewApp(Guid id)
         {
-            var isMe = id.Equals(Guid.Empty);
-            var user = CoreContext.UserManager.GetUsers(isMe ? SecurityContext.CurrentAccount.ID : id);
+            var user = CoreContext.UserManager.GetUsers(id.Equals(Guid.Empty) ? SecurityContext.CurrentAccount.ID : id);
+            var isMe = user.IsMe();
 
             if (!isMe && !SecurityContext.CheckPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser))
                 throw new SecurityAccessDeniedException(Resource.ErrorAccessDenied);

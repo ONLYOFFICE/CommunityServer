@@ -123,7 +123,7 @@
 
             .inner-label {
                 bottom: 2px;
-                color: #fff;
+                color: @defaultButtonTextColor;
                 display: none;
                 font-size: 8px;
                 height: 8px;
@@ -440,7 +440,7 @@ body.desktop .studio-top-panel {
 
                 .title-all-day-event {
                     .limitedSingleText(330px);
-                    color: #000;
+                    color: @black-text;
                     margin-left: 2px;
                     font-size: 12px;
                     text-decoration: none;
@@ -657,14 +657,15 @@ only screen and (                min-resolution: 2dppx)
             max-height: 300px;
             overflow-y: auto;
 
-            span {
-                border: 1px solid @borderColor;
-                display: inline-block;
-                float: left;
-                height: 40px;
-                margin: 5px 5px 0 0;
-                width: 158px;
-                position: relative;
+        span {
+            border: 1px solid @borderColor;
+            display: inline-block;
+            float: left;
+            height: 40px;
+            margin: 5px 5px 0 0;
+            width: 158px;
+            position: relative;
+            background-color: @apps-list-bc;
 
                 img {
                     position: absolute;

@@ -86,6 +86,31 @@ namespace ASC.Core.Data
             }
         }
 
+        public static BaseEvent GetLoginEvent(int tenantId, int loginEventId)
+        {
+            using (var db = GetDbManager())
+            {
+                var query = new SqlQuery("login_events")
+                    .Select("id", "substring_index(ip, ':', 1) ip", "platform", "browser", "date", "user_id")
+                    .Where("tenant_id", tenantId)
+                    .Where("id", loginEventId)
+                    .Where("active", true);
+
+                var loginEvent = db.ExecuteList(query).Select(row => new BaseEvent
+                {
+                    TenantId = tenantId,
+                    Id = (int)row[0],
+                    IP = (string)row[1],
+                    Platform = (string)row[2],
+                    Browser = (string)row[3],
+                    Date = TenantUtil.DateTimeFromUtc((DateTime)row[4]),
+                    UserId = Guid.Parse((string)row[5])
+                }).FirstOrDefault();
+
+                return loginEvent;
+            }
+        }
+
         public static List<BaseEvent> GetLoginEvents(int tenantId, Guid userId)
         {
             using (var db = GetDbManager())

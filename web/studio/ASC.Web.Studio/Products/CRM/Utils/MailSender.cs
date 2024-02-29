@@ -79,8 +79,10 @@ namespace ASC.Web.CRM.Classes
         public bool IsCompleted { get; set; }
 
 
+        /// <summary>
+        /// Constructor for serialization/deserialization public properties (redis cache)
+        /// </summary>
         private SendBatchEmailsOperation()
-            : this(new List<int>(), new List<int>(), String.Empty, String.Empty, false)
         {
         }
 

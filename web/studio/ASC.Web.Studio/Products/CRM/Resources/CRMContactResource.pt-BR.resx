@@ -432,9 +432,6 @@ Você deseja excluir esta etiqueta também da empresa e de todas as suas pessoas
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Carregar foto do PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Selecionar a partir das redes sociais</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Permitir acesso à empresa para todos os usuários do CRM</value>
   </data>
@@ -488,9 +485,6 @@ Você deseja excluir esta etiqueta também da empresa e de todas as suas pessoas
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Nenhuma correspondência no CRM do ONLYOFFICE™, selecione da lista</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Não há fotos disponíveis correspondentes ao perfil</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Notificar gerente de contato por e-mail</value>

@@ -39,7 +39,7 @@
             <% if (TenantExtra.EnableControlPanel)
                { %>
                 <a class="link header product" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
-                    <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.svg") + "?" + ResetCacheKey %>" />
+                    <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ControlPanelImg + "?" + ResetCacheKey %>" />
                     <span class="title">
                         <%= Resource.ControlPanelLabel %>
                     </span>

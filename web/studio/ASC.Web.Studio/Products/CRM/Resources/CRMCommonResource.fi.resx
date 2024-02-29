@@ -457,9 +457,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Seuraava tietue</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Ei tietueita</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Ei sähköpostitilejä.</value>
   </data>

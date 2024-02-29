@@ -34,6 +34,7 @@ using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
+using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
@@ -188,6 +189,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object RemoveBookmarkFromFavouriteInFavouriteMode(int userBookmarkID)
         {
+            CheckPermission();
+
             _serviceHelper.RemoveBookmarkFromFavourite(userBookmarkID);
             return null;
         }
@@ -205,6 +208,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object RemoveBookmarkFromFavourite(int userBookmarkID, string uniqueID)
         {
+            CheckPermission();
+
             var b = _serviceHelper.RemoveBookmarkFromFavourite(userBookmarkID);
 
             var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
@@ -252,6 +257,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object SaveBookmark(string BookmarkUrl, string BookmarkName, string BookmarkDescription, string BookmarkTags)
         {
+            CheckPermission();
+
             var url = UpdateURL(BookmarkUrl);
             var b = _serviceHelper.AddBookmark(url, BookmarkName, BookmarkDescription, BookmarkTags);
             return GetBookmarkAsString(b, Guid.NewGuid());
@@ -260,6 +267,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object SaveBookmarkAjax(string BookmarkUrl, string BookmarkName, string BookmarkDescription, string BookmarkTags, string uniqueID)
         {
+            CheckPermission();
+
             var url = UpdateURL(BookmarkUrl);
 
             var b = _serviceHelper.AddBookmark(url, BookmarkName, BookmarkDescription, BookmarkTags);
@@ -288,6 +297,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public void RemoveBookmark(int userBookmarkID)
         {
+            CheckPermission();
+
             _serviceHelper.RemoveBookmark(userBookmarkID);
         }
 
@@ -353,6 +364,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object GetBookmarkByUrl(string url)
         {
+            CheckPermission();
+
             //Create thumbnail if it doesn't exists
             ThumbnailHelper.Instance.MakeThumbnail(url, true, true, HttpContext.Current, TenantProvider.CurrentTenantID);
 
@@ -376,6 +389,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object GetUserBookmarkByUrl(string url)
         {
+            CheckPermission();
+
             //Create bookmark thumbnail
             ThumbnailHelper.Instance.MakeThumbnail(url, true, true, HttpContext.Current, TenantProvider.CurrentTenantID);
 
@@ -522,6 +537,8 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object UpdateThumbnailImageSrc()
         {
+            CheckPermission();
+
             try
             {
                 var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
@@ -556,18 +573,24 @@ namespace ASC.Web.UserControls.Bookmarking
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public void MakeThumbnail(string url)
         {
+            CheckPermission();
+
             ThumbnailHelper.Instance.MakeThumbnail(url, true, true, HttpContext.Current, TenantProvider.CurrentTenantID);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public void GenerateAllThumbnails(bool overrideFlag)
         {
+            CheckPermission();
+
             BookmarkingServiceHelper.GenerateAllThumbnails(overrideFlag);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public void UpdateBookmarkThumbnail(int bookmarkID)
         {
+            CheckPermission();
+
             BookmarkingServiceHelper.UpdateBookmarkThumbnail(bookmarkID);
         }
 
@@ -652,6 +675,21 @@ namespace ASC.Web.UserControls.Bookmarking
             var jsResource = new StringBuilder();
             jsResource.Append("jq('#tableForNavigation select').val(" + BookmarkPageCounter + ").on('change', function(evt) {changeBookmarksCountOfRows(this.value);}).tlCombobox();");
             Page.RegisterInlineScript(jsResource.ToString(), true);
+        }
+
+        private void CheckPermission()
+        {
+            var product = WebItemManager.Instance[WebItemManager.CommunityProductID];
+            if (product == null || product.IsDisabled())
+            {
+                throw new System.Security.SecurityException();
+            }
+
+            var module = WebItemManager.Instance[BookmarkingSettings.ModuleId];
+            if (module == null || module.IsDisabled())
+            {
+                throw new System.Security.SecurityException();
+            }
         }
     }
 }

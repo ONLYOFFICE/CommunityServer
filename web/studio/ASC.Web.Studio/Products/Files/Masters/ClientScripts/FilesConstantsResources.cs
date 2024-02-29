@@ -111,7 +111,8 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                         FilterType.ByUser,
                                         FilterType.ByDepartment,
                                         FilterType.ByExtension,
-                                        FilterType.MediaOnly
+                                        FilterType.MediaOnly,
+                                        FilterType.ByExtensionIncludeFolders
                                     },
 
                                 ConflictResolveType = new

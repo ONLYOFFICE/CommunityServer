@@ -144,7 +144,7 @@ namespace ASC.Web.CRM.Classes
 
             var revisionId = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
             string urlToFile;
-            DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, null, null, null, null, false, out urlToFile);
+            DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, null, null, null, null, false, out urlToFile, out _);
 
             Log.DebugFormat("PdfCreator. GetUrlToFile. urlToFile = {0}", urlToFile);
             return urlToFile;
@@ -159,7 +159,7 @@ namespace ASC.Web.CRM.Classes
 
                 var revisionId = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
                 string urlToFile;
-                DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, null, null, null, null, true, out urlToFile);
+                DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, null, null, null, null, true, out urlToFile, out _);
 
                 return new ConverterData
                 {
@@ -178,7 +178,7 @@ namespace ASC.Web.CRM.Classes
             }
 
             string urlToFile;
-            DocumentServiceConnector.GetConvertedUri(data.StorageUrl, FormatDocx, FormatPdf, data.RevisionId, null, null, null, null, true, out urlToFile);
+            DocumentServiceConnector.GetConvertedUri(data.StorageUrl, FormatDocx, FormatPdf, data.RevisionId, null, null, null, null, true, out urlToFile, out _);
 
             if (string.IsNullOrEmpty(urlToFile))
             {

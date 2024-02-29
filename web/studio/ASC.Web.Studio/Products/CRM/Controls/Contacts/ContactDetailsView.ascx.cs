@@ -126,13 +126,12 @@ namespace ASC.Web.CRM.Controls.Contacts
             var sb = new StringBuilder();
 
             sb.AppendFormat(@"
-                    ASC.CRM.ContactDetailsView.init({0},{1},{2},{3},{4},{5});
-                    {6}",
+                    ASC.CRM.ContactDetailsView.init({0},{1},{2},{3},{4});
+                    {5}",
 
                 TargetContact.ID,
                 (TargetContact is Company).ToString().ToLower(),
                 WebItemSecurity.IsAvailableForMe(WebItemManager.ProjectsProductID).ToString().ToLower(),
-                (!string.IsNullOrEmpty(TwitterLoginProvider.TwitterDefaultAccessToken)).ToString().ToLower(),
                 (int)TargetContact.ShareType,
                 CRMSecurity.CanEdit(TargetContact).ToString().ToLower(),
                 ShowEventLinkToPanel ? "" : "jq('#eventLinkToPanel').hide();"

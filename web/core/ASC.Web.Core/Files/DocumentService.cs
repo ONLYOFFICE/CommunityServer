@@ -88,6 +88,7 @@ namespace ASC.Web.Core.Files
         /// <param name="isAsync">Perform conversions asynchronously</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="convertedDocumentUri">Uri to the converted document</param>
+        /// <param name="convertedFileType">Extension of the converted file</param>
         /// <returns>The percentage of completion of conversion</returns>
         /// <example>
         /// string convertedDocumentUri;
@@ -107,7 +108,8 @@ namespace ASC.Web.Core.Files
             SpreadsheetLayout spreadsheetLayout,
             bool isAsync,
             string signatureSecret,
-            out string convertedDocumentUri)
+            out string convertedDocumentUri,
+            out string convertedFileType)
         {
             fromExtension = string.IsNullOrEmpty(fromExtension) ? Path.GetExtension(documentUri) : fromExtension;
             if (string.IsNullOrEmpty(fromExtension)) throw new ArgumentNullException("fromExtension", "Document's extension for conversion is not known");
@@ -222,7 +224,7 @@ namespace ASC.Web.Core.Files
                     response.Dispose();
             }
 
-            return GetResponseUri(dataResponse, out convertedDocumentUri);
+            return GetResponseUri(dataResponse, out convertedDocumentUri, out convertedFileType);
         }
 
         /// <summary>
@@ -858,8 +860,9 @@ namespace ASC.Web.Core.Files
         /// </summary>
         /// <param name="jsonDocumentResponse">The resulting json from editing service</param>
         /// <param name="responseUri">Uri to the converted document</param>
+        /// <param name="responseType">Extension of the converted file</param>
         /// <returns>The percentage of completion of conversion</returns>
-        private static int GetResponseUri(string jsonDocumentResponse, out string responseUri)
+        private static int GetResponseUri(string jsonDocumentResponse, out string responseUri, out string responseType)
         {
             if (string.IsNullOrEmpty(jsonDocumentResponse)) throw new ArgumentException("Invalid param", "jsonDocumentResponse");
 
@@ -873,9 +876,11 @@ namespace ASC.Web.Core.Files
 
             int resultPercent;
             responseUri = string.Empty;
+            responseType = string.Empty;
             if (isEndConvert)
             {
                 responseUri = responseFromService.Value<string>("fileUrl");
+                responseType = responseFromService.Value<string>("fileType");
                 resultPercent = 100;
             }
             else

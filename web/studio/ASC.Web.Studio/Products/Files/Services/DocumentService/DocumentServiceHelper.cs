@@ -257,7 +257,8 @@ namespace ASC.Web.Files.Services.DocumentService
                                     ChangeHistory = rightChangeHistory,
                                     ModifyFilter = rightModifyFilter,
                                     Print = rightToDownload,
-                                    Download = rightToDownload
+                                    Download = rightToDownload,
+                                    Copy = rightToDownload
                                 }
                         },
                 EditorConfig =

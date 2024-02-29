@@ -2817,25 +2817,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access Token.
-        /// </summary>
-        public static string ConsumerstwitterAccessToken_Default {
-            get {
-                return ResourceManager.GetString("ConsumerstwitterAccessToken_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Access Token Secret.
-        /// </summary>
-        public static string ConsumerstwitterAccessTokenSecret_Default {
-            get {
-                return ResourceManager.GetString("ConsumerstwitterAccessTokenSecret_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Twitter account and search for contacts..
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Twitter account..
         /// </summary>
         public static string ConsumersTwitterDescription {
             get {

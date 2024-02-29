@@ -57,7 +57,7 @@ window.ASC.Files.EmptyScreen = (function () {
         jq("#filesMainContent, #switchViewFolder, #mainContentHeader, #pageNavigatorHolder, #filesBreadCrumbs").hide();
         jq("#emptyContainer > div").hide();
 
-        if (!ASC.Files.Filter || !ASC.Files.Filter.getFilterSettings().isSet) {
+        if ((!ASC.Files.Filter || !ASC.Files.Filter.getFilterSettings().isSet) && (!ASC.Files.FileSelector || !ASC.Files.FileSelector.filesFilterText)) {
             jq(".files-filter").hide();
 
             jq("#emptyContainer .empty-folder-create").toggle(ASC.Files.Folders.folderContainer == "privacy" ? !!ASC.Desktop : ASC.Files.UI.accessEdit());

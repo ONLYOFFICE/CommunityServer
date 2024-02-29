@@ -102,6 +102,15 @@ window.peopleActions = (function() {
             }
         },
 
+        copy_email: function (evt, $btn, copyEmailModuleEnabled) {
+            var userId = $btn.parents('tr.item.profile:first').attr('data-id');
+            var btn_id = $btn.parents('div.studio-action-panel:first').attr('id');;
+            if (userId) {
+                var email = $btn.parents('tr.item.profile:first').attr('data-email');
+                ASC.EmailOperationManager.copyEmailToClipboard(email, btn_id);
+            }
+        },
+
         open_dialog: function(evt, $btn, talkModuleEnabled) {
             var userId = $btn.parents('tr.item.profile:first').attr('data-id');
             if (talkModuleEnabled && userId) {

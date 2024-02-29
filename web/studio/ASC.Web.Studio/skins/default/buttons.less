@@ -477,7 +477,9 @@ body.custom-mode {
         }
 
         &.__share:after {
-            background-image: url('images/svg/documents/feed.svg');
+            -webkit-mask-image: url('images/svg/documents/feed.svg');
+            mask-image: url('images/svg/documents/feed.svg');
+            background-color: @feed-svg-bc;
         }
 
         &.__lock:after {
@@ -506,7 +508,9 @@ body.custom-mode {
         }
 
         &.__share:after {
-            background-image: url('images/svg/documents/feedblack.svg');
+            -webkit-mask-image: url('images/svg/documents/feedblack.svg');
+            mask-image: url('images/svg/documents/feedblack.svg');
+            background-color: @feedblack-svg-bc;
         }
 
         &.__lock:after {
@@ -521,7 +525,9 @@ body.custom-mode {
     &.__active {
         .btn-row {
             &.__share:after {
-                background-image: url('images/svg/documents/feedblack.svg');
+                -webkit-mask-image: url('images/svg/documents/feedblack.svg');
+                mask-image: url('images/svg/documents/feedblack.svg');
+                background-color: @feedblack-svg-bc;
             }
 
             &.__lock:after {

@@ -26,7 +26,12 @@ window.ShareLinkPasswordManager = new function () {
     var $shareLinkPasswordDownloadBlock = jq("#shareLinkPasswordDownloadBlock");
     var $shareLinkPasswordDownloadBtn = jq("#shareLinkPasswordDownloadBtn");
 
+    var $errorBlock = jq("#shareLinkPasswordBlock .red-text");
+
     var init = function () {
+        if ($errorBlock.length) {
+            document.title = $errorBlock.text();
+        }
         $sendBtn.on("click", sendPassword);
         $passwordLabel.on("click", togglePasswordType);
         $passwordInput.on("keydown", inputKeyDown).trigger("focus");

@@ -1,0 +1,10 @@
+<service>
+  <id>OnlyofficeWebDav</id>
+  <name>OnlyOfficeWebDav</name>
+  <startmode>Automatic</startmode>
+  <executable>node</executable>
+  <arguments>../ASC.WebDav/server/webDavServer.js</arguments>
+  <log mode="none"/>
+  <delayedAutoStart>true</delayedAutoStart>
+  <onfailure action="restart" delay="5 sec" />
+</service>

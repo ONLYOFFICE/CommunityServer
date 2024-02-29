@@ -31,7 +31,7 @@ const {
     keyPath,
     isHttps,
     virtualPath
-} = require(`./config.${process.argv[2]}.js`);
+} = require(`./config.js`);
 
 const { logContext, logMessage } = require('../helper/helper.js');
 

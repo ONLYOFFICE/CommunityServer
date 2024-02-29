@@ -574,6 +574,8 @@ namespace ASC.Api.Projects
         [Delete(@"")]
         public IEnumerable<ProjectWrapperFull> DeleteProjects(int[] projectids)
         {
+            projectids = projectids.Distinct().ToArray();
+
             var result = new List<ProjectWrapperFull>(projectids.Length);
 
             foreach (var id in projectids)
@@ -1259,7 +1261,7 @@ namespace ASC.Api.Projects
             var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
 
             if (ProjectSecurity.CanReadFiles(project))
-                return documentsApi.GetFolder(EngineFactory.FileEngine.GetRoot(id).ToString(), Guid.Empty, FilterType.None, false, false);
+                return documentsApi.GetFolder(EngineFactory.FileEngine.GetRoot(id).ToString(), Guid.Empty, FilterType.None, false, null, false);
 
             throw new SecurityException("Access to files is denied");
         }

@@ -23,6 +23,7 @@ using System.Web;
 
 using ASC.Common.Logging;
 using ASC.Core;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Web.Studio.HttpHandlers
 {
@@ -42,7 +43,7 @@ namespace ASC.Web.Studio.HttpHandlers
 
             try
             {
-                if (!SecurityContext.IsAuthenticated)
+                if (!SecurityContext.IsAuthenticated || !SetupInfo.IsVisibleSettings("ProxyHttpContent"))
                     throw new HttpException(403, "Access denied.");
 
                 var url = context.Request.QueryString["url"];

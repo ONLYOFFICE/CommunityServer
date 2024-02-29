@@ -120,7 +120,7 @@ window.EditProfileManager = (function () {
         $advancedUserType = jq('#advancedUserType');
         $popupHelperCreateEmailString = jq('#AnswerForEmail p:eq(1)');
 
-        $setPassword.on('click', showSettingPassword);
+        $setPassword.on('click', function () { showSettingPassword(true); });
         $createEmailOnDomain.on('click', showCreateEmailOnDomain);
         $setExistingEmail.on('click', showUseExistingEmail);
         $password.on('input', checkPassword);
@@ -377,6 +377,7 @@ window.EditProfileManager = (function () {
                         ? showRequiredError($portalEmail)
                         : null);
             }
+            if (!isUserEmail) { checkEmptyField(password, $password); }
 
             if (!ASC.Mail.Utility.IsValidEmail(email)) {
                 if (isUserEmail) {
@@ -448,7 +449,7 @@ window.EditProfileManager = (function () {
                     ? sex = 'female'
                     : sex = '';
 
-            var resetDate = new Date(1900, 00, 01);
+            var resetDate = new Date(1900, 0, 1);
 
             if (birthDate && birthDate.length) {
                 birthDate = $profileBirthDate.datepicker('getDate');
@@ -1037,7 +1038,7 @@ window.EditProfileManager = (function () {
         isUserEmail = false;
         $inputUserEmail.hide();
         $inputPortalEmail.show();
-        showSettingPassword();
+        showSettingPassword(false);
         copyLocalPart();
         cutDomainInSelector();
 
@@ -1112,13 +1113,16 @@ window.EditProfileManager = (function () {
         }
     };
 
-    function showSettingPassword() {
+    function showSettingPassword(setFocus) {
         isUserPassword = true;
         $generatedPassword.hide();
         jq('.validationBlock').show();
         if (!isUserEmail) {
             $tablePassword.addClass('requiredField');
             $titlePassword.addClass('requiredTitle');
+        }
+        if (setFocus) {
+            $password.trigger("focus");
         }
     };
 

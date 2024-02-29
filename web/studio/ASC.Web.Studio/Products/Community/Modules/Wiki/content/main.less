@@ -44,11 +44,11 @@ div.wiki {
 }
 .wiki h1 {
 	font-size: 24px;
-	border-bottom: solid 1px @dark-text-color;
+	border-bottom: solid 1px @wiki-h2-bor;
 }
 .wiki h2 {
 	font-size: 21px;
-	border-bottom: solid 1px @dark-text-color;
+	border-bottom: solid 1px @wiki-h2-bor;
 }
 .wiki h3 { font-size: 18px; }
 .wiki h4 { font-size: 14px; font-weight:bold; }
@@ -124,7 +124,7 @@ div.wiki {
 .wiki a.mail { background: url(mail_icon.gif) center right no-repeat; padding-right: 18px; padding-bottom: 2px; }
 .wiki a.internalNotExists { color:Red !important; }
 .wiki a.ftp { background: url(file_icon.gif) center right no-repeat; padding-right: 16px; }
-.wiki a:link { color: #002bb8; text-decoration: none; }
+.wiki a:link { color: @wiki-link-color; text-decoration: none; }
 .wiki a:visited { color: #5a3696; text-decoration: none; }
 .wiki a:active { text-decoration: none; }
 .wiki a:hover { text-decoration: underline; }
@@ -132,9 +132,9 @@ div.wiki {
 .wiki dt { font-weight: bold; margin-top: 1pt; margin-bottom: 1pt; }
 .wiki pre 
 {
-	background-color:#F9F9F9;
-	border:1px dashed #2F6FAB;
-	color:black;
+	background-color:@wiki-pre-bc;
+	border:1px dashed @wiki-pre-bor;
+	color:@wiki-pre-col;
 	line-height:1.1em;
 	padding:1em;
 	margin:1em;
@@ -164,7 +164,7 @@ div.wiki {
 .wiki ol li li li { list-style-type: lower-roman }
 .wiki ol li li li li { list-style-type: none }
 
-div.TOC { background-color:#EEEEEE; border:1px solid #CCCCCC; margin-bottom:15px; padding:15px 10px 20px 0; width:266px; overflow:hidden;}
+div.TOC { background-color:@wiki-example-bc; border:1px solid @wiki-example-bor; margin-bottom:15px; padding:15px 10px 20px 0; width:266px; overflow:hidden;}
 div.TOC div.TOC1 {  }
 div.TOC div.TOC2 { margin-left: 20px; }
 div.TOC div.TOC3 { margin-left: 40px; }

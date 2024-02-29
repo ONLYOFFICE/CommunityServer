@@ -295,7 +295,7 @@
         width: auto;
         padding-bottom: 8px;
         padding-top: 8px;
-		background-color: #fff;
+        background-color: #fff;
         color: #333;
         min-height: @body-message-height;
         margin-top: 8px;
@@ -304,6 +304,7 @@
             white-space: pre-wrap;
             -ms-word-wrap: break-word;
             word-wrap: break-word;
+            color: #333;
         }
 
         p {
@@ -537,7 +538,7 @@
 
     .collapsed-messages {
         border-top: 1px solid #D7D8DC;
-        background-color: #e5e5e5;
+        background-color: @short-view-row-bg;
         text-align: center;
         padding: 9px 0;
 
@@ -547,7 +548,7 @@
         }
 
         &:hover {
-            background-color: #E5E5E5;
+            background-color: @short-view-row-bg;
             cursor: pointer;
         }
     }

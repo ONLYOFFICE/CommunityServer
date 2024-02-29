@@ -74,6 +74,7 @@ namespace ASC.Web.Calendar
                 DisabledIconFileName = "disabledlogo.png",
                 IconFileName = "logo.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 SubscriptionManager = new CalendarSubscriptionManager(),
                 SpaceUsageStatManager = new CalendarSpaceUsageStatManager(),
             };

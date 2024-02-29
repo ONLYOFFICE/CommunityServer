@@ -334,9 +334,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Carregar foto do PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>ou selecione das redes sociais:</value>
-  </data>
   <data name="MassSendAlreadySent" xml:space="preserve">
     <value>Já enviado</value>
   </data>

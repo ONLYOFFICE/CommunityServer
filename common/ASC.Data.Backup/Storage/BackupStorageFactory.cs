@@ -63,6 +63,37 @@ namespace ASC.Data.Backup.Storage
             }
         }
 
+        public static void CheckBackupStorage(StartBackupRequest backupRequest)
+        {
+            if (backupRequest == null)
+            {
+                throw new ArgumentNullException("backupRequest");
+            }
+
+            if (backupRequest.StorageType != BackupStorageType.Documents &&
+                backupRequest.StorageType != BackupStorageType.ThridpartyDocuments)
+            {
+                return;
+            }
+
+            CoreContext.TenantManager.SetCurrentTenant(backupRequest.TenantId);
+
+            using (var folderDao = Web.Files.Classes.Global.DaoFactory.GetFolderDao())
+            {
+                var folder = folderDao.GetFolder(backupRequest.StorageBasePath);
+
+                if (folder == null)
+                {
+                    throw new System.IO.DirectoryNotFoundException("Folder not found.");
+                }
+
+                if (folder.RootFolderType != Files.Core.FolderType.COMMON)
+                {
+                    throw new NotSupportedException("Root folder type is not supported.");
+                }
+            }
+        }
+
         public static IBackupRepository GetBackupRepository()
         {
             return new BackupRepository();

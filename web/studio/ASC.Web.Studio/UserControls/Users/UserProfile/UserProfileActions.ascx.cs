@@ -79,7 +79,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
             ReassignDataLink = "Reassigns.aspx?user=" + HttpUtility.UrlEncode(ProfileHelper.UserInfo.UserName);
 
-            CanImpersonateUser = ImpersonationSettings.CanImpersonateUser(ProfileHelper.UserInfo.ID);
+            CanImpersonateUser = ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated && ImpersonationSettings.CanImpersonateUser(ProfileHelper.UserInfo.ID);
 
             if (CanImpersonateUser)
             {

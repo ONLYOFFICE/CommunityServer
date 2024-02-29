@@ -431,9 +431,6 @@ Wilt u deze tag ook van het bedrijf en al zijn personen verwijderen?</value>
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Foto van PC uploaden</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Selecteer uit sociale netwerken</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Toegang toestaan tot het bedrijf voor alle CRM-gebruikers</value>
   </data>
@@ -487,9 +484,6 @@ Wilt u deze tag ook van het bedrijf en al zijn personen verwijderen?</value>
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Geen overeenkomsten in ONLYOFFICE™ CRM, selecteer uit lijst</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Er zijn geen beschikbare foto's die overeenkomen met het profiel</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Contactmanager informeren per e-mail</value>

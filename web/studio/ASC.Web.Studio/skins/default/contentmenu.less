@@ -83,15 +83,19 @@ li.menuActionSelectAll
             cursor: default;
         }
 
+        &.disable {
+            color: @unlock-action-disable;
+        }
+
         .down_arrow {
-            border-color: @grayButtonTextColor transparent transparent transparent;
+            border-color: @drop-down-arrow-col transparent transparent transparent;
             cursor: pointer;
         }
     }
 
     .buttonDropdown {
-        .bg-button-default();
-        .border-button-default();
+        .bg-button-default-menuAction();
+        .border-button-default-menuAction();
         border-radius: 3px 0 0 3px;
         margin-top: -2px;
         margin-left: -6px;
@@ -105,8 +109,8 @@ li.menuActionSelectAll
     }
 
     .arrowDropdown {
-        .bg-button-default();
-        .border-button-default();
+        .bg-button-default-menuAction();
+        .border-button-default-menuAction();
         position: relative;
         margin-top: -2px;
         height: 17px;
@@ -114,7 +118,7 @@ li.menuActionSelectAll
         border-radius: 0 3px 3px 0;
 
         &:after {
-            border-color: @grayButtonTextColor transparent transparent;
+            border-color: @drop-down-arrow-col transparent transparent;
             border-style: solid solid outset;
             border-width: 4px 4px 0;
             content: "";
@@ -151,12 +155,12 @@ li.menuActionSelectAll
         border-width: 0;
     }
 
-        &.menuActionBack span {
-            background: url("@{imagesBaseUrl}back_sprite.png") no-repeat 0 0 transparent;
-            text-decoration: underline;
-            padding-left: 22px;
-            margin-left: -4px;
-        }
+    &.menuActionBack span {
+        background: url("@{imagesBaseUrl}back_sprite.png") no-repeat 0 0 transparent;
+        text-decoration: underline;
+        padding-left: 22px;
+        margin-left: -4px;
+    }
 
     &.plus {
         padding-left: 15px;

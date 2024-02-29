@@ -66,7 +66,7 @@ namespace ASC.Api.Calendar.iCalParser
         {
             try
             {
-                var serializer = new Ical.Net.Serialization.CalendarSerializer();
+                var serializer = new Ical.Net.Serialization.ComponentSerializer();
 
                 return StringUtils.NormalizeStringForMySql(serializer.SerializeToString(calendar));
             }
@@ -214,7 +214,7 @@ namespace ASC.Api.Calendar.iCalParser
             result.Method = Ical.Net.CalendarMethods.Publish;
             result.Scale = Ical.Net.CalendarScales.Gregorian;
             result.Version = Ical.Net.LibraryMetadata.Version;
-            result.ProductId = "-//Ascensio System//OnlyOffice Calendar//EN";
+            result.ProductId = "-//Ascensio System//ONLYOFFICE Calendar//EN";
 
             if (!string.IsNullOrEmpty(calandarObj.Name))
             {

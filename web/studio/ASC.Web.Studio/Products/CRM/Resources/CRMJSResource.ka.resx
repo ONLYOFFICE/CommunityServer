@@ -91,9 +91,6 @@
   <data name="ConfirmDeleteTask" xml:space="preserve">
     <value>დარწმუნებული ხართ, რომ გსურთ ამ დავალების წაშლა?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>შეიყვანეთ თქვენი Twitter ანგარიში. მაგალითად, teamlabdotcom</value>
-  </data>
   <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
     <value>დარწმუნებული ხართ, რომ გსურთ '{0}' კომპანიის წაშლა?</value>
   </data>
@@ -160,9 +157,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>გარიგების დასრულების სავარაუდი თარიღი</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>მოძებნე ანგარიში Twitter ზე</value>
-  </data>
   <data name="ManyContacts" xml:space="preserve">
     <value>კონტაქტები</value>
   </data>
@@ -210,9 +204,6 @@
   </data>
   <data name="PleaseRefreshThePage" xml:space="preserve">
     <value>გთხოვთ განაახლოთ გვერდი.</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>შესაძლებელი პროფილები {0} -თვის</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>ძირითადი</value>

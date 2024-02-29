@@ -558,7 +558,7 @@
       <Version>1.6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Ical.Net">
-      <Version>4.1.11</Version>
+      <Version>4.2.0</Version>
     </PackageReference>
     <PackageReference Include="MailKit">
       <Version>2.15.0</Version>
@@ -574,6 +574,9 @@
     </PackageReference>
     <PackageReference Include="RestSharp">
       <Version>106.12.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.Serialization.Primitives">
+      <Version>4.3.0</Version>
     </PackageReference>
     <PackageReference Include="UDE.CSharp">
       <Version>1.1.0</Version>

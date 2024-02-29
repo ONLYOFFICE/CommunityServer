@@ -298,7 +298,7 @@
 
         label {
             font-size: 13px;
-            margin: 24px 0 8px 0;
+            margin: 0 0 8px 0;
             display: block;
         }
 
@@ -340,7 +340,7 @@
 
         &.requiredFieldError {
             select {
-                border-color: #CC0000;
+                border-color: @requiredField-col;
             }
 
             .selected-tariff-total {
@@ -361,7 +361,7 @@
                 }
 
                 a {
-                    color: #CC0000;
+                    color: @requiredField-col;
                 }
             }
         }
@@ -382,7 +382,12 @@
         border: 1px solid @subscription-period-bor;
         box-sizing: border-box;
         border-radius: 3px;
-        display: flex
+        display: flex;
+        margin: 0 0 24px 0;
+
+        &.display-none {
+            display: none;
+        }
     }
 
     .subscription-period-item {
@@ -390,6 +395,7 @@
         width: 80px;
         display: flex;
         flex-direction: column;
+        flex: 1 1 auto;
         align-items: center;
         justify-content: center;
         cursor: pointer;

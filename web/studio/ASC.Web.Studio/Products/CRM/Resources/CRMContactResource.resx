@@ -431,9 +431,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Upload photo from PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Select from social networks</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Allow access to the company for all CRM users</value>
   </data>
@@ -487,9 +484,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>No matches in ONLYOFFICE™ CRM, select from list</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>There are no available photos corresponding to the profile</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Notify contact manager by email</value>

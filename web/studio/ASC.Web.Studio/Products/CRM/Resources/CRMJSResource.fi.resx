@@ -149,9 +149,6 @@
     <value>Kaikki syötetyt tiedot menetetään.
 Oletko varma että haluat jatkaa?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Anna Twitter tilisi nimi. </value>
-  </data>
   <data name="CurrentMonth" xml:space="preserve">
     <value>Nykyinen kuukausi</value>
   </data>
@@ -278,9 +275,6 @@ Oletko varma että haluat jatkaa?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Arvioitu sopimuksen määräpäivä</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Etsi Twitter-tili</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Vastaanottajaluettelo on luotu. {0}Klikkaa allaolevia linkkejä siirtääksesi osoitteet sähköpostiohjelmaan.</value>
   </data>
@@ -391,9 +385,6 @@ Oletko varma että haluat jatkaa?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Ole hyvä ja odota...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Mahdolliset profiilit</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Edellinen</value>

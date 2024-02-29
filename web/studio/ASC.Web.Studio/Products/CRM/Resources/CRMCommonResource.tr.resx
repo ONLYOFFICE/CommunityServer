@@ -469,9 +469,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Sonraki kayıt</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Kayıt yok</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Mevcut posta hesabı yok</value>
   </data>

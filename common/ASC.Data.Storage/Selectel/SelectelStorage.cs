@@ -57,7 +57,7 @@ namespace ASC.Data.Storage.Selectel
             _modulename = string.Empty;
             _cache = false;
             _dataList = null;
-
+            _attachment = false;
             _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
             _domainsAcl = new Dictionary<string, ACL>();
             _moduleAcl = ACL.Auto;
@@ -70,7 +70,7 @@ namespace ASC.Data.Storage.Selectel
             _modulename = moduleConfig.Name;
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
-
+            _attachment = moduleConfig.Attachment;
             _domainsExpires = moduleConfig.Domains.Cast<DomainConfigurationElement>()
                                                   .Where(x => x.Expires != TimeSpan.Zero)
                                                   .ToDictionary(x => x.Name, y => y.Expires);
@@ -472,6 +472,10 @@ namespace ASC.Data.Storage.Selectel
 
         public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
         {
+            return Move(srcdomain, srcpath, newdomain, newpath, Guid.Empty, quotaCheckFileSize);
+        }
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true)
+        {
             var srcKey = MakePath(srcdomain, srcpath);
             var dstKey = MakePath(newdomain, newpath);
             var size = GetFileSize(srcdomain, srcpath);
@@ -481,7 +485,7 @@ namespace ASC.Data.Storage.Selectel
             Delete(srcdomain, srcpath);
 
             QuotaUsedDelete(srcdomain, size);
-            QuotaUsedAdd(newdomain, size, quotaCheckFileSize);
+            QuotaUsedAdd(newdomain, size, ownerId, quotaCheckFileSize);
 
             return GetUri(newdomain, newpath);
         }

@@ -1283,8 +1283,13 @@
     <Content Include="skins\default\images\event_66.png" />
     <Content Include="skins\default\images\exclamation.svg" />
     <Content Include="skins\default\images\filetype\file_avi.png" />
+    <Content Include="skins\default\images\filetype\file_docxf.png" />
+    <Content Include="skins\default\images\filetype\file_dps.png" />
+    <Content Include="skins\default\images\filetype\file_dpt.png" />
     <Content Include="skins\default\images\filetype\file_dvd.png" />
     <Content Include="skins\default\images\filetype\file_epub.png" />
+    <Content Include="skins\default\images\filetype\file_et.png" />
+    <Content Include="skins\default\images\filetype\file_ett.png" />
     <Content Include="skins\default\images\filetype\file_fb2.png" />
     <Content Include="skins\default\images\filetype\file_flv.png" />
     <Content Include="skins\default\images\filetype\file_fodp.png" />
@@ -1293,18 +1298,31 @@
     <Content Include="skins\default\images\filetype\file_htm.png" />
     <Content Include="skins\default\images\filetype\file_ics.png" />
     <Content Include="skins\default\images\filetype\file_mht.png" />
+    <Content Include="skins\default\images\filetype\file_mhtml.png" />
     <Content Include="skins\default\images\filetype\file_mkv.png" />
     <Content Include="skins\default\images\filetype\file_mov.png" />
     <Content Include="skins\default\images\filetype\file_mp4.png" />
     <Content Include="skins\default\images\filetype\file_mpg.png" />
+    <Content Include="skins\default\images\filetype\file_oform.png" />
     <Content Include="skins\default\images\filetype\file_otp.png" />
     <Content Include="skins\default\images\filetype\file_ots.png" />
     <Content Include="skins\default\images\filetype\file_ott.png" />
+    <Content Include="skins\default\images\filetype\file_stw.png" />
+    <Content Include="skins\default\images\filetype\file_sxc.png" />
+    <Content Include="skins\default\images\filetype\file_sxi.png" />
+    <Content Include="skins\default\images\filetype\file_sxw.png" />
+    <Content Include="skins\default\images\filetype\file_wps.png" />
+    <Content Include="skins\default\images\filetype\file_wpt.png" />
     <Content Include="skins\default\images\filetype\retina\file_avi.png" />
     <Content Include="skins\default\images\filetype\retina\file_cal.png" />
     <Content Include="skins\default\images\filetype\retina\file_doct.png" />
+    <Content Include="skins\default\images\filetype\retina\file_docxf.png" />
+    <Content Include="skins\default\images\filetype\retina\file_dps.png" />
+    <Content Include="skins\default\images\filetype\retina\file_dpt.png" />
     <Content Include="skins\default\images\filetype\retina\file_dvd.png" />
     <Content Include="skins\default\images\filetype\retina\file_epub.png" />
+    <Content Include="skins\default\images\filetype\retina\file_et.png" />
+    <Content Include="skins\default\images\filetype\retina\file_ett.png" />
     <Content Include="skins\default\images\filetype\retina\file_fb2.png" />
     <Content Include="skins\default\images\filetype\retina\file_flv.png" />
     <Content Include="skins\default\images\filetype\retina\file_fodp.png" />
@@ -1316,14 +1334,22 @@
     <Content Include="skins\default\images\filetype\retina\file_htm.png" />
     <Content Include="skins\default\images\filetype\retina\file_ics.png" />
     <Content Include="skins\default\images\filetype\retina\file_mht.png" />
+    <Content Include="skins\default\images\filetype\retina\file_mhtml.png" />
     <Content Include="skins\default\images\filetype\retina\file_mkv.png" />
     <Content Include="skins\default\images\filetype\retina\file_mov.png" />
     <Content Include="skins\default\images\filetype\retina\file_mp4.png" />
     <Content Include="skins\default\images\filetype\retina\file_mpg.png" />
+    <Content Include="skins\default\images\filetype\retina\file_oform.png" />
     <Content Include="skins\default\images\filetype\retina\file_otp.png" />
     <Content Include="skins\default\images\filetype\retina\file_ots.png" />
     <Content Include="skins\default\images\filetype\retina\file_ott.png" />
     <Content Include="skins\default\images\filetype\retina\file_pptt.png" />
+    <Content Include="skins\default\images\filetype\retina\file_stw.png" />
+    <Content Include="skins\default\images\filetype\retina\file_sxc.png" />
+    <Content Include="skins\default\images\filetype\retina\file_sxi.png" />
+    <Content Include="skins\default\images\filetype\retina\file_sxw.png" />
+    <Content Include="skins\default\images\filetype\retina\file_wps.png" />
+    <Content Include="skins\default\images\filetype\retina\file_wpt.png" />
     <Content Include="skins\default\images\filetype\retina\file_xlst.png" />
     <Content Include="skins\default\images\filetype\thumb\file.png" />
     <Content Include="skins\default\images\filetype\thumb\file_archive.png" />
@@ -1335,12 +1361,17 @@
     <Content Include="skins\default\images\filetype\thumb\file_docm.png" />
     <Content Include="skins\default\images\filetype\thumb\file_doct.png" />
     <Content Include="skins\default\images\filetype\thumb\file_docx.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_docxf.png" />
     <Content Include="skins\default\images\filetype\thumb\file_dot.png" />
     <Content Include="skins\default\images\filetype\thumb\file_dotm.png" />
     <Content Include="skins\default\images\filetype\thumb\file_dotx.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_dps.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_dpt.png" />
     <Content Include="skins\default\images\filetype\thumb\file_dvd.png" />
     <Content Include="skins\default\images\filetype\thumb\file_ebook.png" />
     <Content Include="skins\default\images\filetype\thumb\file_epub.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_et.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_ett.png" />
     <Content Include="skins\default\images\filetype\thumb\file_fb2.png" />
     <Content Include="skins\default\images\filetype\thumb\file_flv.png" />
     <Content Include="skins\default\images\filetype\thumb\file_fodp.png" />
@@ -1356,6 +1387,7 @@
     <Content Include="skins\default\images\filetype\thumb\file_image.png" />
     <Content Include="skins\default\images\filetype\thumb\file_m2ts.png" />
     <Content Include="skins\default\images\filetype\thumb\file_mht.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_mhtml.png" />
     <Content Include="skins\default\images\filetype\thumb\file_mkv.png" />
     <Content Include="skins\default\images\filetype\thumb\file_mov.png" />
     <Content Include="skins\default\images\filetype\thumb\file_mp4.png" />
@@ -1363,6 +1395,7 @@
     <Content Include="skins\default\images\filetype\thumb\file_odp.png" />
     <Content Include="skins\default\images\filetype\thumb\file_ods.png" />
     <Content Include="skins\default\images\filetype\thumb\file_odt.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_oform.png" />
     <Content Include="skins\default\images\filetype\thumb\file_otp.png" />
     <Content Include="skins\default\images\filetype\thumb\file_ots.png" />
     <Content Include="skins\default\images\filetype\thumb\file_ott.png" />
@@ -1380,10 +1413,16 @@
     <Content Include="skins\default\images\filetype\thumb\file_rtf.png" />
     <Content Include="skins\default\images\filetype\thumb\file_sound.png" />
     <Content Include="skins\default\images\filetype\thumb\file_soundunk.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_stw.png" />
     <Content Include="skins\default\images\filetype\thumb\file_svg.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_sxc.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_sxi.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_sxw.png" />
     <Content Include="skins\default\images\filetype\thumb\file_txt.png" />
     <Content Include="skins\default\images\filetype\thumb\file_video.png" />
     <Content Include="skins\default\images\filetype\thumb\file_videounk.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_wps.png" />
+    <Content Include="skins\default\images\filetype\thumb\file_wpt.png" />
     <Content Include="skins\default\images\filetype\thumb\file_xls.png" />
     <Content Include="skins\default\images\filetype\thumb\file_xlsm.png" />
     <Content Include="skins\default\images\filetype\thumb\file_xlst.png" />
@@ -1394,6 +1433,7 @@
     <Content Include="skins\default\images\filetype\thumb\file_xml.png" />
     <Content Include="skins\default\images\filetype\thumb\file_xps.png" />
     <Content Include="skins\default\images\filetype\thumb\folder.png" />
+    <Content Include="skins\default\images\icon-controlpanel-dark.svg" />
     <Content Include="skins\default\images\icon-controlpanel.svg" />
     <Content Include="skins\default\images\jstree\throbber-dark-12.svg" />
     <Content Include="skins\default\images\lastadded_widget.svg" />
@@ -1531,12 +1571,25 @@
     <Content Include="skins\default\images\svg\context\icon_user_new.svg" />
     <Content Include="skins\default\images\svg\context\icon_user_v2.svg" />
     <Content Include="skins\default\images\svg\documents\favorite.svg" />
+    <Content Include="skins\default\images\svg\documents\fillformsblue.svg" />
+    <Content Include="skins\default\images\svg\documents\fillformsgray.svg" />
+    <Content Include="skins\default\images\svg\documents\locksmallcolored.svg" />
+    <Content Include="skins\default\images\svg\documents\locksmallgray.svg" />
+    <Content Include="skins\default\images\svg\documents\pencilgraydark.svg" />
     <Content Include="skins\default\images\svg\documents\recent.svg" />
+    <Content Include="skins\default\images\svg\documents\rotateblue.svg" />
+    <Content Include="skins\default\images\svg\documents\rotategray.svg" />
     <Content Include="skins\default\images\svg\documents\templateblue.svg" />
     <Content Include="skins\default\images\svg\documents\templategray.svg" />
     <Content Include="skins\default\images\svg\exclamation.svg" />
+    <Content Include="skins\default\images\svg\people\appleid.png" />
+    <Content Include="skins\default\images\svg\people\close.svg" />
+    <Content Include="skins\default\images\svg\people\copy.svg" />
+    <Content Include="skins\default\images\svg\people\currentconnection.svg" />
     <Content Include="skins\default\images\svg\people\google.svg" />
     <Content Include="skins\default\images\svg\people\mailru.png" />
+    <Content Include="skins\default\images\svg\people\microsoft.png" />
+    <Content Include="skins\default\images\svg\people\pencilgraydark.svg" />
     <Content Include="skins\default\images\svg\people\vk.png" />
     <Content Include="skins\default\images\svg\people\vk_ru.png" />
     <Content Include="skins\default\images\svg\people\yandex.png" />
@@ -1544,20 +1597,45 @@
     <Content Include="skins\default\images\svg\gift\mobile.svg" />
     <Content Include="skins\default\images\svg\gift\private.svg" />
     <Content Include="skins\default\images\svg\gift\pro.svg" />
+    <Content Include="skins\default\images\svg\projects\calendar.svg" />
+    <Content Include="skins\default\images\svg\projects\check_tick-dark.svg" />
+    <Content Include="skins\default\images\svg\projects\circle-empty.svg" />
+    <Content Include="skins\default\images\svg\projects\forbidden.svg" />
+    <Content Include="skins\default\images\svg\projects\forum.svg" />
+    <Content Include="skins\default\images\svg\projects\important.svg" />
+    <Content Include="skins\default\images\svg\projects\inbox-dark.svg" />
+    <Content Include="skins\default\images\svg\projects\key-alt.svg" />
+    <Content Include="skins\default\images\svg\projects\pause-dark.svg" />
+    <Content Include="skins\default\images\svg\projects\payment-small.svg" />
+    <Content Include="skins\default\images\svg\settings\recalculate_quota.svg" />
     <Content Include="skins\default\images\svg\share\access_comment.svg" />
+    <Content Include="skins\default\images\svg\share\access_comment_dark.svg" />
+    <Content Include="skins\default\images\svg\share\access_deny_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_filter.svg" />
     <Content Include="skins\default\images\svg\share\access_deny.svg" />
+    <Content Include="skins\default\images\svg\share\access_filter_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_form.svg" />
+    <Content Include="skins\default\images\svg\share\access_form_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_full.svg" />
+    <Content Include="skins\default\images\svg\share\access_full_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_owner.svg" />
+    <Content Include="skins\default\images\svg\share\access_owner_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_read.svg" />
+    <Content Include="skins\default\images\svg\share\access_read_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_review.svg" />
+    <Content Include="skins\default\images\svg\share\access_review_dark.svg" />
     <Content Include="skins\default\images\svg\share\access_varies.svg" />
+    <Content Include="skins\default\images\svg\share\access_varies_dark.svg" />
     <Content Include="skins\default\images\svg\share\close.svg" />
+    <Content Include="skins\default\images\svg\share\close_dark.svg" />
     <Content Include="skins\default\images\svg\share\group_avatar.svg" />
+    <Content Include="skins\default\images\svg\share\group_avatar_dark.svg" />
     <Content Include="skins\default\images\svg\share\lifetime.svg" />
+    <Content Include="skins\default\images\svg\share\lifetime_dark.svg" />
     <Content Include="skins\default\images\svg\share\password.svg" />
+    <Content Include="skins\default\images\svg\share\password_dark.svg" />
     <Content Include="skins\default\images\svg\share\trash.svg" />
+    <Content Include="skins\default\images\svg\share\trash_dark.svg" />
     <Content Include="skins\default\images\svg\share\user_avatar.svg" />
     <Content Include="skins\default\images\svg\share\user_avatar_dark.svg" />
     <Content Include="skins\default\images\talk.svg" />
@@ -1917,6 +1995,7 @@
     <Content Include="skins\default\images\logo\slide.ico" />
     <Content Include="skins\default\images\logo\cell.ico" />
     <Content Include="skins\default\images\logo\word.ico" />
+    <Content Include="skins\default\images\logo\pdf.ico" />
     <Content Include="skins\default\images\svg\appInstall\desktop.svg" />
     <Content Include="skins\default\images\svg\appInstall\document.svg" />
     <Content Include="skins\default\images\svg\appInstall\projects.svg" />
@@ -2214,6 +2293,8 @@
     <Content Include="UserControls\Users\UserConnections\css\dark-connections.less" />
     <Content Include="UserControls\Users\UserProfile\css\dark-profileeditcontrol_style.less" />
     <Content Include="UserControls\Users\UserProfile\css\dark-userprofilecontrol_style.less" />
+    <Content Include="UserControls\Users\UserProfile\css\images\social-icons-grey-dark.svg" />
+    <Content Include="UserControls\Users\UserProfile\css\images\social-icons-grey.svg" />
     <Content Include="UserControls\Users\UserSubscriptions\css\dark-subscriptions.less" />
     <Content Include="UserControls\Users\UserProfile\css\dark-loadphoto_style.less" />
     <Content Include="UserControls\Management\ImpersonateUser\css\impersonatesettings.less" />
@@ -2221,6 +2302,7 @@
     <Content Include="UserControls\Statistics\ProductQuotes\css\dark_productquotes_style.less" />
     <Content Include="UserControls\Common\HelpCenter\css\dark-help-center.less" />
     <Content Include="skins\default\jstree\themes\default\dark-style.less" />
+    <Content Include="skins\page_default_dark.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\asc\plugins\jquery-contactadvansedselector.js" />
@@ -2641,7 +2723,6 @@
     <Content Include="UserControls\Users\UserProfile\css\images\linkenin.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\mailru.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\read-only.svg" />
-    <Content Include="UserControls\Users\UserProfile\css\images\social-icons-grey.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\social-icons-small.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\twitter.svg" />
     <Content Include="UserControls\Users\UserProfile\css\images\user-blocked.svg" />
@@ -2678,6 +2759,7 @@
     <Content Include="skins\default\wizard.less" />
     <Content Include="UserControls\Common\Comments\css\codehighlighter\vs.less" />
     <Content Include="UserControls\Users\UserSubscriptions\css\img\hmenu-selected-dark.png" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\img\icons_titles.svg" />
     <Content Include="Warmup.aspx" />
     <Content Include="web.autofac.config">
       <SubType>Designer</SubType>
@@ -4169,7 +4251,6 @@
     <Content Include="UserControls\Management\TransferPortal\TransferPortal.ascx" />
     <Content Include="UserControls\Users\ResendInvitesControl\js\resendinvitescontrol.js" />
     <Content Include="UserControls\Users\UserSubscriptions\css\img\hmenu-selected.png" />
-    <Content Include="UserControls\Users\UserSubscriptions\css\img\icons_titles.png" />
     <Compile Include="Controls\Common\FeedControl.cs" />
     <Compile Include="Core\StudioTrustedDomainSettings.cs" />
     <Compile Include="Core\CollaboratorSettings.cs" />
@@ -4400,10 +4481,6 @@
     <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
-      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
-      <Name>ASC.Thrdparty</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>

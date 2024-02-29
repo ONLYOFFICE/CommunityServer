@@ -450,9 +450,9 @@ input[type="checkbox"][disabled="disabled"] {
 *******************************************************************************/
 
 /*all links*/
-a, a:visited, a:hover, a:active  {
+a, a:visited, a:hover, a:active {
     font-weight: normal;
-    color: #116d9d;
+    color: @linkColor;
     text-decoration: underline;
 }
 a:hover {
@@ -609,19 +609,19 @@ a.linkAction:hover {
 }
 /*----------------Style Placeholder------------------*/
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:   #b2b2b2;
+    color: @place-holder-col;
     font-family: @baseFont;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:   #b2b2b2;
+    color: @place-holder-col;
     font-family: @baseFont;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:   #b2b2b2;
+    color: @place-holder-col;
     font-family: @baseFont;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:   #b2b2b2;
+    color: @place-holder-col;
     font-family: @baseFont;
 }
 

@@ -24,6 +24,7 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 
 namespace ASC.Core.Data
 {
@@ -168,8 +169,11 @@ namespace ASC.Core.Data
                     .InColumnValue("sid", user.Sid)
                     .InColumnValue("sso_name_id", user.SsoNameId)
                     .InColumnValue("sso_session_id", user.SsoSessionId)
-                    .InColumnValue("create_on", user.CreateDate)
-                    .InColumnValue("user_lead", user.Lead);
+                    .InColumnValue("create_on", user.CreateDate);
+
+                if (!IsDocspace) {
+                    i.InColumnValue("user_lead", user.Lead);
+                }
 
                 db.ExecuteNonQuery(i);
 
@@ -231,9 +235,26 @@ namespace ASC.Core.Data
 
         public DateTime GetUserPasswordStamp(int tenant, Guid id)
         {
-            var q = Query("core_usersecurity", tenant).Select("LastModified").Where("userid", id.ToString());
-            var stamp = ExecScalar<string>(q);
-            return !string.IsNullOrEmpty(stamp) ? Convert.ToDateTime(stamp) : DateTime.MinValue;
+            var userId = id.ToString();
+            var auditQuery = new SqlQuery("audit_events")
+                .Select("date")
+                .Where("tenant_id", tenant)
+                .Where("action", (int)MessageAction.UserSentPasswordChangeInstructions)
+                .Where("target", userId)
+                .OrderBy("id", false)
+                .SetMaxResults(1);
+
+            var auditValue = ExecScalar<string>(auditQuery);
+            var auditDate = string.IsNullOrEmpty(auditValue) ? DateTime.MinValue : Convert.ToDateTime(auditValue);
+
+            var securityQuery = Query("core_usersecurity", tenant)
+                .Select("LastModified")
+                .Where("userid", userId);
+
+            var securityValue = ExecScalar<string>(securityQuery);
+            var securityDate = string.IsNullOrEmpty(securityValue) ? DateTime.MinValue : Convert.ToDateTime(securityValue);
+
+            return auditDate.CompareTo(securityDate) > 0 ? auditDate : securityDate;
         }
 
         public void SetUserPasswordHash(int tenant, Guid id, string passwordHash)
@@ -350,15 +371,16 @@ namespace ASC.Core.Data
             ExecBatch(i, u);
         }
 
-        private static SqlQuery GetUserQuery()
+        private SqlQuery GetUserQuery()
         {
             return new SqlQuery("core_user u")
                 .Select("u.id", "u.username", "u.firstname", "u.lastname", "u.sex", "u.bithdate", "u.status", "u.title")
                 .Select("u.workfromdate", "u.terminateddate", "u.contacts", "u.email", "u.location", "u.notes", "u.removed")
-                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.sso_name_id", "u.sso_session_id", "u.create_on", "u.user_lead");
+                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.sso_name_id", "u.sso_session_id", "u.create_on")
+                .Select(IsDocspace ? "NULL" : "u.user_lead");
         }
 
-        private static SqlQuery GetUserQuery(int tenant, DateTime from)
+        private SqlQuery GetUserQuery(int tenant, DateTime from)
         {
             var q = GetUserQuery();
             var where = Exp.Empty;

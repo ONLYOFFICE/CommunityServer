@@ -83,6 +83,9 @@
     <Content Include="App_Themes\default\images\gantt_icons_left_panel.png" />
     <Content Include="App_Themes\default\images\gantt_mode_butts.png" />
     <Content Include="App_Themes\default\images\icon_empty_gantt.svg" />
+    <Content Include="App_Themes\default\images\mobile_app_btns.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="App_Themes\default\images\project-templates_logo.svg" />
     <Content Include="App_Themes\default\images\projects_logo.svg" />
     <Content Include="App_Themes\default\images\small-icons.png" />

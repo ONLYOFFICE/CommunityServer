@@ -526,9 +526,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Suivant</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Aucun enregistrement</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Pas de comptes disponibles</value>
   </data>

@@ -8379,12 +8379,12 @@ function EventEditor(calendar, uiBlocker) {
 					.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat))
 					.prop("disabled", false);
 			dlg.to_t
-					.val(formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
+					.val(formatDate(_eventObj.end instanceof Date ? _eventObj.end : defaultEndDate, calendar.options.eventEditor.timeFormat))
 					.prop("disabled", false);
 		    
 			if(!dlg.to.val())
-                dlg.to.val(_eventObj.end instanceof Date ?
-					formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.dateFormat));
+                dlg.to.val(
+					formatDate(_eventObj.end instanceof Date ? _eventObj.end : defaultEndDate, calendar.options.eventEditor.dateFormat));
 		}
 		_validateDateFields();
 	}
@@ -11096,16 +11096,14 @@ function EventPage(calendar) {
 					.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat))
 					.prop("disabled", false);
             if (_eventObj.end == _eventObj.start) {
-                _eventObj.end = new Date(_eventObj.end.getFullYear(), _eventObj.end.getMonth(), _eventObj.end.getDate(), _eventObj.end.getHours(), _eventObj.end.getMinutes() + 30);
+                _eventObj.end = defaultEndDate;
             }
             dlg.to_t
-					.val(_eventObj.end instanceof Date ?
-							formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
+					.val(formatDate(_eventObj.end instanceof Date ? _eventObj.end : defaultEndDate, calendar.options.eventEditor.timeFormat))
 					.prop("disabled", false);
             
             if(!dlg.to.val())
-                dlg.to.val(_eventObj.end instanceof Date ?
-					formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.dateFormat));
+                dlg.to.val(formatDate(_eventObj.end instanceof Date ? _eventObj.end : defaultEndDate, calendar.options.eventEditor.dateFormat));
         }
         _validateDateFields();
     }

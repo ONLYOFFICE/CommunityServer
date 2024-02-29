@@ -118,30 +118,33 @@ ASC.Sample.PageScript = (function () {
             }
         });
 
-        var activeUsers = ASC.Resources.Master.ApiResponses_ActiveProfiles.response;
+        var activeUsers = window.UserManager.getAllUsers(true);
 
-        var users = jq.grep(activeUsers, function (user) {
+        var users = [];
+
+        for (var userId in activeUsers) {
+            var user = activeUsers[userId];
 
             if (group != null) {
                 var groups = jq.map(user.groups, function (item) {
                     return item.id;
                 });
                 if (!groups.includes(group))
-                    return false;
+                    continue;
             }
 
             if (status != null) {
                 if (user.isAdmin != status)
-                    return false;
+                    continue;
             }
 
             if (text != null) {
                 if (user.displayName.toLowerCase().indexOf(text) == -1)
-                    return false;
+                    continue;
             }
 
-            return true;
-        });
+            users.push(user);
+        }
 
         users.sort(function (a, b) {
             var res = ((a.displayName < b.displayName) ? -1 : ((a.displayName > b.displayName) ? 1 : 0));

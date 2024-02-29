@@ -28,7 +28,7 @@
                     <% if (CRMSecurity.CanEdit(TargetContact)) %>
                     <% { %>
                     <div class="under_logo">
-                        <a onclick="ASC.CRM.SocialMedia.OpenLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
+                        <a onclick="ASC.CRM.ContactPhotoUploader.openLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
                              <span class="bold"><%= CRMContactResource.ChangePhoto%></span>
                         </a>
                     </div>

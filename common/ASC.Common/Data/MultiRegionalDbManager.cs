@@ -51,15 +51,25 @@ namespace ASC.Common.Data
         }
 
 
-        public MultiRegionalDbManager(string dbId)
+        public MultiRegionalDbManager(string dbId, bool? docspace)
         {
             const StringComparison cmp = StringComparison.InvariantCultureIgnoreCase;
             DatabaseId = dbId;
             databases = ConfigurationManager.ConnectionStrings.OfType<ConnectionStringSettings>()
                                             .Where(c => c.Name.Equals(dbId, cmp) || c.Name.StartsWith(dbId + ".", cmp))
+                                            .Where(c => FilterDocspace(c, docspace))
                                             .Select(c => new DbManager(c.Name))
                                             .ToList();
             localDb = databases.SingleOrDefault(db => db.DatabaseId.Equals(dbId, cmp));
+        }
+
+        private bool FilterDocspace(ConnectionStringSettings connectionString, bool? docspace)
+        {
+            if (!docspace.HasValue) return true;
+
+            var isDocspace = connectionString.ConnectionString.Contains("docspace");
+
+            return docspace.Value ? isDocspace : !isDocspace;
         }
 
         public MultiRegionalDbManager(IEnumerable<DbManager> databases)
@@ -76,11 +86,6 @@ namespace ASC.Common.Data
                 disposed = true;
                 databases.ForEach(db => db.Dispose());
             }
-        }
-
-        public static MultiRegionalDbManager FromHttpContext(string databaseId)
-        {
-            return new MultiRegionalDbManager(databaseId);
         }
 
         public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)

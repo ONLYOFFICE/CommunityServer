@@ -56,8 +56,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                     {"empty_screen_case_participants", WebImageSupplier.GetAbsoluteWebPath("empty_screen_case_participants.svg", ProductEntryPoint.ID)},
                     {"empty_screen_projects", WebImageSupplier.GetAbsoluteWebPath("empty_screen_projects.svg", ProductEntryPoint.ID)},
                     {"empty_screen_userfields", WebImageSupplier.GetAbsoluteWebPath("empty_screen_userfields.svg", ProductEntryPoint.ID)},
-                    {"empty_screen_tags", WebImageSupplier.GetAbsoluteWebPath("empty_screen_tags.svg", ProductEntryPoint.ID)},
-                    {"empty_screen_twitter", WebImageSupplier.GetAbsoluteWebPath("empty_screen_twitter.svg", ProductEntryPoint.ID)}
+                    {"empty_screen_tags", WebImageSupplier.GetAbsoluteWebPath("empty_screen_tags.svg", ProductEntryPoint.ID)}
                 };
 
             return new List<KeyValuePair<string, object>>(1)

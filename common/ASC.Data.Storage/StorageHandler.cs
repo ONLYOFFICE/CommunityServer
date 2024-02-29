@@ -91,7 +91,7 @@ namespace ASC.Data.Storage.DiscStorage
         {
             var path = _path;
             var header = context.Request[Constants.QUERY_HEADER] ?? "";
-            var headers = header.Length > 0 ? header.Split('&').Select(HttpUtility.UrlDecode) : new string[] { };
+            var headers = header.Length > 0 ? header.Split('&').Select(HttpUtility.UrlDecode).ToList() : new List<string>();
 
             if (_checkAuth && !SecurityContext.IsAuthenticated)
             {
@@ -125,6 +125,14 @@ namespace ASC.Data.Storage.DiscStorage
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return;
+            }
+
+            if (storage.IsContentDispositionAsAttachment)
+            {
+                if (!headers.Any(h => h.StartsWith("Content-Disposition")))
+                {
+                    headers.Add("Content-Disposition:attachment");
+                }
             }
 
             const int bigSize = 5 * 1024 * 1024;

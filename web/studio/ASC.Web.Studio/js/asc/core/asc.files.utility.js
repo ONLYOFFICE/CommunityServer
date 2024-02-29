@@ -41,9 +41,13 @@ ASC.Files.Utility.FileExtensionLibrary = {
     DotExts: [".dot"],
     DotmExts: [".dotm"],
     DotxExts: [".dotx"],
+    DpsExts: [".dps"],
+    DptExts: [".dpt"],
     DvdExts: [".dvd"],
     //EbookExts: [".epub", ".fb2"],
     EpubExts: [".epub"],
+    EtExts: [".et"],
+    EttExts: [".ett"],
     Fb2Exts: [".fb2"],
     FlvExts: [".flv"],
     FodpExts: [".fodp"],
@@ -59,6 +63,7 @@ ASC.Files.Utility.FileExtensionLibrary = {
     ImgExts: [".bmp", ".cod", ".gif", ".ief", ".jpe", ".jpeg", ".jpg", ".jfif", ".tiff", ".tif", ".cmx", ".ico", ".png", ".pnm", ".pbm", ".ppm", ".rgb", ".xbm", ".xpm", ".xwd", ".webp"],
     M2tsExts: [".m2ts"],
     MhtExts: [".mht"],
+    MhtmlExts: [".mhtml"],
     MkvExts: [".mkv"],
     MovExts: [".mov"],
     Mp4Exts: [".mp4"],
@@ -84,10 +89,16 @@ ASC.Files.Utility.FileExtensionLibrary = {
     RtfExts: [".rtf"],
     SoundExts: [".aac", ".flac", ".m4a", ".mp3", ".oga", ".ogg", ".wav"],
     SoundUnkExts: [".ac3", ".aiff", ".amr", ".ape", ".cda", ".mid", ".mka", ".mpc", ".pcm", ".ra", ".raw", ".wma"],
+    StwExts: [".stw"],
     SvgExts: [".svg"],
+    SxcExts: [".sxc"],
+    SxiExts: [".sxi"],
+    SxwExts: [".sxw"],
     TxtExts: [".txt"],
     VideoExts: [".f4v", ".m4v", ".mpeg", ".ogv", ".webm", ".wmv" ],
-    VideoUnkExts: [".3gp", ".asf", ".fla", ".mts", ".svi", ".vob" ],
+    VideoUnkExts: [".3gp", ".asf", ".fla", ".mts", ".svi", ".vob"],
+    WpsExts: [".wps"],
+    WptExts: [".wpt"],
     XlsExts: [".xls", ".xlsb"],
     XlsmExts: [".xlsm"],
     XlstExts: [".xlst"],
@@ -137,12 +148,20 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Dotm";
     else if (checkInArray(fileExtensionLibrary.DotxExts))
         ext = "Dotx";
+    else if (checkInArray(fileExtensionLibrary.DpsExts))
+        ext = "Dps";
+    else if (checkInArray(fileExtensionLibrary.DptExts))
+        ext = "Dpt";
     else if (checkInArray(fileExtensionLibrary.DvdExts))
         ext = "Dvd";
     //else if (checkInArray(fileExtensionLibrary.EbookExts))
     //    ext = "Ebook";
     else if (checkInArray(fileExtensionLibrary.EpubExts))
         ext = "Epub";
+    else if (checkInArray(fileExtensionLibrary.EtExts))
+        ext = "Et";
+    else if (checkInArray(fileExtensionLibrary.EttExts))
+        ext = "Ett";
     else if (checkInArray(fileExtensionLibrary.Fb2Exts))
         ext = "Fb2";
     else if (checkInArray(fileExtensionLibrary.FlvExts))
@@ -173,6 +192,8 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "M2ts";
     else if (checkInArray(fileExtensionLibrary.MhtExts))
         ext = "Mht";
+    else if (checkInArray(fileExtensionLibrary.MhtmlExts))
+        ext = "Mhtml";
     else if (checkInArray(fileExtensionLibrary.MkvExts))
         ext = "Mkv";
     else if (checkInArray(fileExtensionLibrary.MovExts))
@@ -223,14 +244,26 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Sound";
     else if (checkInArray(fileExtensionLibrary.SoundUnkExts))
         ext = "SoundUnk";
+    else if (checkInArray(fileExtensionLibrary.StwExts))
+        ext = "Stw";
     else if (checkInArray(fileExtensionLibrary.SvgExts))
         ext = "Svg";
+    else if (checkInArray(fileExtensionLibrary.SxcExts))
+        ext = "Sxc";
+    else if (checkInArray(fileExtensionLibrary.SxiExts))
+        ext = "Sxi";
+    else if (checkInArray(fileExtensionLibrary.SxwExts))
+        ext = "Sxw";
     else if (checkInArray(fileExtensionLibrary.TxtExts))
         ext = "Txt";
     else if (checkInArray(fileExtensionLibrary.VideoExts))
         ext = "Video";
     else if (checkInArray(fileExtensionLibrary.VideoUnkExts))
         ext = "VideoUnk";
+    else if (checkInArray(fileExtensionLibrary.WpsExts))
+        ext = "Wps";
+    else if (checkInArray(fileExtensionLibrary.WptExts))
+        ext = "Wpt";
     else if (checkInArray(fileExtensionLibrary.XlsExts))
         ext = "Xls";
     else if (checkInArray(fileExtensionLibrary.XlsmExts))

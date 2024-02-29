@@ -63,6 +63,8 @@
   <ItemGroup>
     <Content Include="App_Themes\default\images\product_logo.png" />
     <Content Include="App_Themes\default\images\product_logo_disabled.png" />
+    <Content Include="App_Themes\default\images\product_logo_large.svg" />
+    <Content Include="App_Themes\default\images\product_logo_large_dark.svg" />
     <Content Include="App_Themes\default\images\product_logo_nav.png" />
     <Content Include="Controls\ButtonsSidePanel.ascx" />
     <Content Include="Controls\NavigationSidePanel.ascx" />

@@ -1131,6 +1131,8 @@ namespace ASC.Api.Employee
                     CoreContext.UserManager.SaveUserInfo(user, syncCardDav: true);
                     MessageService.Send(Request, MessageAction.UserUpdatedEmail, messageTarget, messageDescription);
 
+                    CookiesManager.ResetUserCookie(user.ID);
+
                     StudioNotifyService.Instance.SendEmailActivationInstructions(user, email);
                     MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, messageTarget, messageDescription);
                 }

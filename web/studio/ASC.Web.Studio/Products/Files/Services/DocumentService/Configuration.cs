@@ -55,6 +55,11 @@ namespace ASC.Web.Files.Services.DocumentService
                 { FileType.Presentation, "slide" }
             };
 
+        public static readonly List<string> PdfType = new List<string>
+            {
+                ".djvu", ".oxps", ".pdf", ".xps"
+            };
+
         public enum EditorType
         {
             Desktop,
@@ -348,6 +353,10 @@ namespace ASC.Web.Files.Services.DocumentService
                 ///<example name="review">true</example>
                 [DataMember(Name = "review")]
                 public bool Review = true;
+
+                ///<example name="copy">true</example>
+                [DataMember(Name = "copy")]
+                public bool Copy = true;
             }
 
             #endregion
@@ -438,6 +447,9 @@ namespace ASC.Web.Files.Services.DocumentService
                     if (!SecurityContext.IsAuthenticated || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return null;
                     if (!FilesSettings.TemplatesSection) return null;
 
+                    var ext = FileUtility.GetFileExtension(_configuration.Document.Info.File.Title);
+                    if (PdfType.Contains(ext)) return null;
+
                     var extension = FileUtility.GetInternalExtension(_configuration.Document.Title).TrimStart('.');
                     var filter = FilterType.FilesOnly;
                     switch (_configuration.GetFileType)
@@ -456,7 +468,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     using (var folderDao = Global.DaoFactory.GetFolderDao())
                     using (var fileDao = Global.DaoFactory.GetFileDao())
                     {
-                        var files = EntryManager.GetTemplates(folderDao, fileDao, filter, false, Guid.Empty, string.Empty, false);
+                        var files = EntryManager.GetTemplates(folderDao, fileDao, filter, false, Guid.Empty, string.Empty, false, null);
                         var listTemplates = from file in files
                                             select
                                                 new TemplatesConfig
@@ -486,6 +498,9 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     if (_configuration.Document.Info.Type != EditorType.Desktop) return null;
                     if (!SecurityContext.IsAuthenticated || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return null;
+
+                    var ext = FileUtility.GetFileExtension(_configuration.Document.Info.File.Title);
+                    if (PdfType.Contains(ext)) return null;
 
                     return GetCreateUrl(_configuration.GetFileType);
                 }
@@ -562,7 +577,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     using (var folderDao = Global.DaoFactory.GetFolderDao())
                     using (var fileDao = Global.DaoFactory.GetFileDao())
                     {
-                        var files = EntryManager.GetRecent(folderDao, fileDao, filter, false, Guid.Empty, string.Empty, false);
+                        var files = EntryManager.GetRecent(folderDao, fileDao, filter, false, Guid.Empty, string.Empty, false, null);
 
                         var listRecent = from file in files
                                          where !Equals(_configuration.Document.Info.File.ID, file.ID)
@@ -851,7 +866,7 @@ namespace ASC.Web.Files.Services.DocumentService
                                     return null;
                                 }
 
-                                if(_configuration.Document.Info.File.Encrypted
+                                if (_configuration.Document.Info.File.Encrypted
                                     && _configuration.Document.Info.File.RootFolderType == FolderType.Privacy
                                     && !fileSecurity.CanRead(parent))
                                 {
@@ -918,7 +933,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         return false;
                     }
                 }
-                
+
                 [DataMember(Name = "uiTheme", EmitDefaultValue = false)]
                 public string UiTheme
                 {
@@ -1039,11 +1054,8 @@ namespace ASC.Web.Files.Services.DocumentService
                         set { }
                         get
                         {
-                            var fillingForm = FileUtility.CanWebRestrictedEditing(_configuration.Document.Title);
-
                             return
                                 _configuration.Type == EditorType.Embedded
-                                || fillingForm
                                     ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDocsEditorEmbed(!_configuration.EditorConfig.Customization.IsRetina))
                                     : CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDocsEditor(!_configuration.EditorConfig.Customization.IsRetina));
                         }

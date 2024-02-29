@@ -361,9 +361,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Próximo registo</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Não há registos</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>Sem correspondência</value>
   </data>

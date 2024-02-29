@@ -170,7 +170,7 @@
         .dropdown-item-svg {
             width: 16px;
             height: 16px;
-            fill: #83888d;
+            fill: @dropdown-items-svg-col;
         }
 
         .dropdown-item-icon {
@@ -300,7 +300,9 @@
         height: 100%;
         position: absolute;
         -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
         -webkit-mask-position: 4px center;
+        mask-position: 4px center;
         background-color: @action-panel-context-bg;
     }
 
@@ -575,6 +577,11 @@
     &.open-folder::before {
         -webkit-mask-image: url("/skins/default/images/svg/context/icon_open_folder.svg");
         mask-image: url("/skins/default/images/svg/context/icon_open_folder.svg");
+    }
+
+    &.come-back::before {
+        -webkit-mask-image: url("/skins/default/images/svg/context/icon_come_back.svg");
+        mask-image: url("/skins/default/images/svg/context/icon_come_back.svg");
     }
 
     &.open-location::before {

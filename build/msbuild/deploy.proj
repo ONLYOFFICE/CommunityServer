@@ -25,7 +25,6 @@
     <GenerateBundle Condition="$(GenerateBundle)==''">0</GenerateBundle>
     <GenerateHelpCenterHtml Condition="$(GenerateHelpCenterHtml)==''">0</GenerateHelpCenterHtml>
     <Uploads Condition="'$(Uploads)' == ''">1</Uploads>
-    <MailTask Condition="'$(MailTask)' == ''">1</MailTask>
     <ServicesTask Condition="'$(ServicesTask)' == ''">1</ServicesTask>
     <NuGetCommand Condition=" '$(OS)' == 'Windows_NT'">$(RootDir).nuget\NuGet.exe</NuGetCommand>
     <NuGetCommand Condition=" '$(OS)' != 'Windows_NT' ">mono $(RootDir).nuget\NuGet.exe</NuGetCommand>
@@ -34,24 +33,6 @@
     <LessCommand Condition=" '$(OS)' == 'Windows_NT'">$(RootDir)packages\dotless.1.5.2\tool\dotless.compiler.exe</LessCommand>
     <LessCommand Condition=" '$(OS)' != 'Windows_NT' ">mono $(RootDir)packages\dotless.1.5.2\tool\dotless.compiler.exe</LessCommand>
   </PropertyGroup>
-  <ItemGroup>
-    <MailServiceToDeploy Include="MailAggregator">
-      <ProjPath>module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj</ProjPath>
-      <ServicePath>$(OutDir)Services\MailAggregator\</ServicePath>
-    </MailServiceToDeploy>
-    <MailServiceToDeploy Include="MailAggregator">
-      <ProjPath>module\ASC.Mail\Services\ASC.Mail.EmlDownloader\ASC.Mail.EmlDownloader.csproj</ProjPath>
-      <ServicePath>$(OutDir)Services\MailAggregator\</ServicePath>
-    </MailServiceToDeploy>
-    <MailServiceToDeploy Include="MailWatchdog">
-      <ProjPath>module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\ASC.Mail.Watchdog.Service.csproj</ProjPath>
-      <ServicePath>$(OutDir)Services\MailWatchdog\</ServicePath>
-    </MailServiceToDeploy>
-    <MailServiceToDeploy Include="MailCleaner">
-      <ProjPath>module\ASC.Mail\Services\ASC.Mail.StorageCleaner\ASC.Mail.StorageCleaner.Service.csproj</ProjPath>
-      <ServicePath>$(OutDir)Services\MailCleaner\</ServicePath>
-    </MailServiceToDeploy>
-  </ItemGroup>
   <ItemGroup>
     <ServiceToDeploy Include="SocketIO">
       <Launcher>ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc</Launcher>
@@ -173,9 +154,6 @@
     <StepsToRunInParallel Include="$(MSBuildThisFileFullPath)" Condition="'$(ServicesTask)' == '1'">
       <Properties>TargetToInvoke=DeployService</Properties>
     </StepsToRunInParallel>
-    <StepsToRunInParallel Include="$(MSBuildThisFileFullPath)" Condition="'$(MailTask)' == '1'">
-      <Properties>TargetToInvoke=DeployMail</Properties>
-    </StepsToRunInParallel>
     <StepsToRunInParallel Include="$(MSBuildThisFileFullPath)">
       <Properties>TargetToInvoke=DeployWeb</Properties>
     </StepsToRunInParallel>
@@ -204,23 +182,17 @@
     <Copy Condition="Exists('$(RootDir)build\ManageServices.bat')" SourceFiles="$(RootDir)build\ManageServices.bat" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
     <Copy Condition="Exists('$(RootDir)build\WinSW3.0.0.exe')" SourceFiles="$(RootDir)build\WinSW3.0.0.exe" DestinationFolder="$(OutDir)Services\TeamLabSvc\" />
     <Copy SourceFiles="$(RootDir)build\config\private\Services\WebDav\config.js" DestinationFiles="$(OutDir)Services\ASC.WebDav\server\config.$(DeployTo).js" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
-    <Copy SourceFiles="$(RootDir)build\config\private\Services\WebDav\config.$(DeployTo).js" DestinationFiles="$(OutDir)Services\ASC.WebDav\server\config.$(DeployTo).js" Condition="'$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\WebDav\config.$(DeployTo).js" DestinationFiles="$(OutDir)Services\ASC.WebDav\server\config.$(DeployTo).js" Condition="'$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='R7-OFFICE.UNIX.SERVER' Or '$(DeployTo)'=='R7-OFFICE.SERVER'" />
     <Copy SourceFiles="$(RootDir)build\config\private\Services\SSO\config.json" DestinationFiles="$(OutDir)Services\ASC.SsoAuth\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM'" />
-    <Copy SourceFiles="$(RootDir)build\config\private\Services\SSO\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.SsoAuth\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\SSO\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.SsoAuth\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='R7-OFFICE.UNIX.SERVER' Or '$(DeployTo)'=='R7-OFFICE.SERVER'" />
     <Copy SourceFiles="$(RootDir)build\config\private\Services\Thumb\config.json" DestinationFiles="$(OutDir)Services\ASC.Thumbnails\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
-    <Copy SourceFiles="$(RootDir)build\config\private\Services\Thumb\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.Thumbnails\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
-    <Copy SourceFiles="$(RootDir)build\config\private\Services\UrlShortener\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.UrlShortener\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
-    <Copy SourceFiles="$(RootDir)build\config\private\Services\Socket.IO\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.Socket.IO\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\Thumb\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.Thumbnails\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='R7-OFFICE.UNIX.SERVER' Or '$(DeployTo)'=='R7-OFFICE.SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\UrlShortener\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.UrlShortener\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='R7-OFFICE.UNIX.SERVER' Or '$(DeployTo)'=='R7-OFFICE.SERVER'" />
+    <Copy SourceFiles="$(RootDir)build\config\private\Services\Socket.IO\config.$(DeployTo).json" DestinationFiles="$(OutDir)Services\ASC.Socket.IO\config\config.$(DeployTo).json" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO' Or '$(DeployTo)'=='GURU.INFO' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='R7-OFFICE.UNIX.SERVER' Or '$(DeployTo)'=='R7-OFFICE.SERVER'" />
     <Copy Condition="Exists('$(OutDir)Uploads\')" SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
-    <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFiles="$(OutDir)Services\MailAggregator\web.storage.config" />
-    <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
-    <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFolder="$(OutDir)Services\MailCleaner\" />
-    <Copy SourceFiles="$(OutDir)WebStudio\web.autofac.config" DestinationFolder="$(OutDir)Services\%(MailServiceToDeploy.Identity)\" />
     <Copy SourceFiles="$(RootDir)build\config\private\sp.pfx" DestinationFolder="$(OutDir)WebStudio\Certificates\" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
     <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition="'$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='AMI.SERVER'" />
     <Delete Files="$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll" Condition=" Exists( '$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll' ) " />
-    <XmlUpdate XmlFileName="$(OutDir)Services\MailAggregator\web.storage.config" XPath="/storage/handler/add[@name='disc']/property/@value" Value="..\..\Data\" />
-    <XmlUpdate XmlFileName="$(OutDir)Services\MailCleaner\web.storage.config" XPath="/storage/handler/add[@name='disc']/property/@value" Value="..\..\Data\" />
     <ItemGroup>
       <EncryptionDeleteList Include="$(OutDir)**\ASC.Data.Encryption.*" />
     </ItemGroup>
@@ -297,11 +269,6 @@
     <FileUpdate Condition=" %(ServiceToDeploy.Identity) == 'Radicale'" Files="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)%(ServiceToDeploy.ServicePath)'))\radicale.log.config" Encoding="ASCII" Regex="args = .+" ReplacementText="args = ($(RadicaleLogFile),'midnight', 1, 7)" />
     <FileUpdate Condition=" %(ServiceToDeploy.Identity) == 'Radicale'" Files="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)%(ServiceToDeploy.ServicePath)'))\radicale.config" Encoding="ASCII" Regex="machine_key =.+" ReplacementText="machine_key = $(RadicaleMachineKey)" />
     <FileUpdate Condition=" %(ServiceToDeploy.Identity) == 'Radicale'" Files="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)%(ServiceToDeploy.ServicePath)'))\radicale.rights" Encoding="ASCII" Regex="user: admin@radicale" ReplacementText="user: $(RadicaleRightsAdmin)" />
-  </Target>
-  <Target Name="DeployMail">
-    <Message Text="Deploying service %(MailServiceToDeploy.Identity)" />
-    <Message Text="Deploying service path $([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)%(MailServiceToDeploy.ServicePath)'))" />
-    <MSBuild BuildInParallel="true" Projects="$(RootDir)%(MailServiceToDeploy.ProjPath)" Targets="$(BuildTargets)" Properties="Configuration=$(Configuration);OutDir=$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)%(MailServiceToDeploy.ServicePath)'));AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants);Disable_CopyWebApplication=true" StopOnFirstFailure="true" />
   </Target>
   <Target Name="GenerateBundle">
     <GenerateBundle WebStudioFolder="$(OutDir)\WebStudio\" />
@@ -399,39 +366,6 @@
       </ConfigFiles>
       <ConfigFiles Include="$(OutDir)Services\run\UrlShortener.xml">
         <SubstitutionsFile>..\config\private\UrlShortener.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Agg.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Agg.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.log4net.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Agg.Log4net.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.nlog.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Agg.NLog.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\ASC.Mail.Watchdog.Service.exe.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Dog.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Dog.NLog.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.log4net.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Dog.Log4net.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Dog.NLog.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailCleaner\ASC.Mail.StorageCleaner.exe.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Cln.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.log4net.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Cln.Log4net.Substitutions.xml</SubstitutionsFile>
-      </ConfigFiles>
-      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.nlog.config" Condition="'$(MailTask)' == '1'">
-        <SubstitutionsFile>..\config\private\Mail.Cln.NLog.Substitutions.xml</SubstitutionsFile>
       </ConfigFiles>
       <ConfigFiles Remove="@(ConfigFiles)" Condition="!Exists('%(ConfigFiles.SubstitutionsFile)')" />
     </ItemGroup>

@@ -141,13 +141,11 @@ window.ASC.Files.ThirdParty = (function () {
         }
 
         for (var classItem in ASC.Files.ThirdParty.thirdPartyList) {
-            jq("#thirdPartyAccount span, #thirdPartyTitle").removeClass(classItem);
+            jq("#thirdPartyAccount span").removeClass(classItem);
         }
         jq("#thirdPartyAccount").attr("data-token", "");
-        jq("#thirdPartyAccount span, #thirdPartyTitle").addClass(thirdParty.key);
-        jq("#thirdPartyTitle").trigger("focus");
-
-        jq("#thirdPartyTitle").val(thirdParty.customerTitle);
+        jq("#thirdPartyAccount span").addClass(thirdParty.key);
+        jq("#thirdPartyTitle").val(thirdParty.customerTitle).trigger("focus");
         ASC.Files.UI.checkCharacter(jq("#thirdPartyTitle"));
 
         jq("#thirdPartyPanel input").prop("disabled", false);
@@ -1025,10 +1023,14 @@ window.ASC.Files.ThirdParty = (function () {
         var folderId = params.folderId || jsonData;
         var folderTitle = params.customerTitle;
         var folderObj = ASC.Files.UI.getEntryObject("folder", folderId);
+        var fromParent = false;
 
         if (folderObj != null && folderObj.length) {
-            ASC.Files.UI.removeEntryObject(folderObj);
-            ASC.Files.UI.checkEmptyContent();
+            fromParent = folderObj.is(".to-parent-folder-dropdown");
+            if (!fromParent) {
+                ASC.Files.UI.removeEntryObject(folderObj);
+                ASC.Files.UI.checkEmptyContent();
+            }
         } else if (providerKey == ASC.Files.ThirdParty.thirdPartyList.DocuSign.key) {
             ASC.Files.ThirdParty.docuSignAttached(false);
         }
@@ -1045,6 +1047,10 @@ window.ASC.Files.ThirdParty = (function () {
 
         var parentId = ASC.Files.Tree.getParentId(folderId);
         ASC.Files.Tree.reloadFolder(parentId);
+
+        if (fromParent) {
+            ASC.Files.Folders.clickOnFolder(parentId);
+        }
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoRemoveThirdParty.format(folderTitle));
     };

@@ -7,6 +7,7 @@ Type=simple
 WorkingDirectory=/var/www/onlyoffice/Services/ASC.SsoAuth
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeSsoAuth'
 ExecStart=/usr/bin/node /var/www/onlyoffice/Services/ASC.SsoAuth/app.js UNIX.SERVER
+Environment=NODE_OPTIONS=--dns-result-order=ipv4first
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

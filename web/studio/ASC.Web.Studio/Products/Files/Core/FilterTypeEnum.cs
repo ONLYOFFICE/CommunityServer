@@ -45,5 +45,7 @@ namespace ASC.Files.Core
         [EnumMember] ByExtension = 11,
 
         [EnumMember] MediaOnly = 12,
+
+        [EnumMember] ByExtensionIncludeFolders = 13,
     }
 }

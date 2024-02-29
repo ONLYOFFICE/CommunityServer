@@ -181,9 +181,6 @@
   <data name="ButtonCreateMasterFormFromBlank" xml:space="preserve">
     <value>Boş fayldan</value>
   </data>
-  <data name="ButtonCreateMasterFormFromFile" xml:space="preserve">
-    <value>Mövcud Mətn faylından</value>
-  </data>
   <data name="ButtonCreatePresentation" xml:space="preserve">
     <value>Təqdimat</value>
   </data>

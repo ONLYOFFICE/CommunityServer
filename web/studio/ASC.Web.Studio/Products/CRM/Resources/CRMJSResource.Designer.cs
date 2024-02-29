@@ -332,15 +332,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter the name of your Twitter account. For example, teamlabdotcom.
-        /// </summary>
-        public static string ContactTwitterDescription {
-            get {
-                return ResourceManager.GetString("ContactTwitterDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string CountryWatermark {
@@ -737,15 +728,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find account in Twitter.
-        /// </summary>
-        public static string FindTwitter {
-            get {
-                return ResourceManager.GetString("FindTwitter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Your recipient list has been generated. {0} Click the links below to pass your email addresses over to the email program..
         /// </summary>
         public static string GenerateLinkInfo {
@@ -1084,15 +1066,6 @@ namespace ASC.Web.CRM.Resources {
         public static string PleaseWait {
             get {
                 return ResourceManager.GetString("PleaseWait", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Possible profiles for {0}.
-        /// </summary>
-        public static string PossibleSocialMediaAccounts {
-            get {
-                return ResourceManager.GetString("PossibleSocialMediaAccounts", resourceCulture);
             }
         }
         

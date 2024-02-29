@@ -37,7 +37,7 @@
 					<div style="float: left; width: calc(100% - 70px);" id="BookmarkUrlContainer">
 				<% } %>
 					<input type="text" class="bookmarkingInputUrl" onkeydown="return bookmarkInputUrlOnKeyDown(event);"
-						style="background-color:#FFFFFF;" id="BookmarkUrl" name="BookmarkUrl"
+						id="BookmarkUrl" name="BookmarkUrl"
 						autocomplete="off"/>
 				</div>
 				<div id="NewBookmarkRaiting" style="float: right; margin-top: 2px;">

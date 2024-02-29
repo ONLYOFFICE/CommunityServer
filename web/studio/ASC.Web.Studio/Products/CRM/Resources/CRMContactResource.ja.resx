@@ -345,9 +345,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>PCから写真をアップロード</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>またはソーシャルネットワークから選択します。</value>
-  </data>
   <data name="MassSendAlreadySent" xml:space="preserve">
     <value>すでに送信</value>
   </data>

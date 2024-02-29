@@ -469,9 +469,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Nākamais ieraksts</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Nav ierakstu</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Nav pieejami pasta konti</value>
   </data>

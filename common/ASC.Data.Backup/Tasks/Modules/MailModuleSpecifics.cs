@@ -50,44 +50,74 @@ namespace ASC.Data.Backup.Tasks.Modules
                         UserIDColumns = new[] {"id_user"},
                         DateColumns = new Dictionary<string, bool> {{"begin_date", false}}
                     },
+                new TableInfo("mail_mailbox_server", idColumn: "id"),
+                new TableInfo("mail_mailbox_provider", idColumn: "id"),
+                new TableInfo("mail_mailbox_domain", idColumn: "id"),
+
+                new TableInfo("mail_server_dns", "tenant", "id")  {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_server_domain", "tenant", "id"),
+                new TableInfo("mail_server_address", "tenant", "id"),
+                new TableInfo("mail_server_mail_group", "id_tenant"),
+
                 new TableInfo("mail_tag", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
                 new TableInfo("mail_tag_addresses", "tenant"),
                 new TableInfo("mail_tag_mail", "tenant") {UserIDColumns = new[] {"id_user"}},
                 new TableInfo("mail_chain_x_crm_entity", "id_tenant"),
                 new TableInfo("mail_mailbox_signature", "tenant"),
-                new TableInfo("mail_mailbox_autoreply", "tenant"),
+                new TableInfo("mail_mailbox_autoreply", "tenant") {InsertMethod = InsertMethod.Ignore},
                 new TableInfo("mail_mailbox_autoreply_history", "tenant"),
                 new TableInfo("mail_contact_info", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
-                new TableInfo("mail_mailbox_provider", idColumn: "id"),
-                new TableInfo("mail_mailbox_domain", idColumn: "id"),
-                new TableInfo("mail_mailbox_server", idColumn: "id")
+               
+                new TableInfo("mail_filter", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_folder", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_user_folder", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_user_folder_x_mail", "tenant") {UserIDColumns = new[] {"id_user"}}               
             };
 
         private readonly RelationInfo[] _tableRelations = new[]
             {
+                new RelationInfo("mail_user_folder", "id", "mail_user_folder", "parent_id"),
                 new RelationInfo("mail_mail", "id", "mail_attachment", "id_mail"),
+                new RelationInfo("mail_mail", "id", "mail_user_folder_x_mail", "id_mail"),
+                new RelationInfo("mail_mail", "id", "mail_tag_mail", "id_mail"),
+                new RelationInfo("mail_mailbox", "id", "mail_mail", "id_mailbox"),
                 new RelationInfo("mail_mailbox", "id", "mail_chain", "id_mailbox"),
+                new RelationInfo("mail_mailbox", "id", "mail_chain_x_crm_entity", "id_mailbox"),
+                new RelationInfo("mail_mailbox", "id", "mail_mailbox_autoreply", "id_mailbox"),
+                new RelationInfo("mail_mailbox", "id", "mail_mailbox_autoreply_history", "id_mailbox"),
+                new RelationInfo("mail_mailbox", "id", "mail_server_address", "id_mailbox"),
+                new RelationInfo("mail_mailbox", "id", "mail_mailbox_signature", "id_mailbox"),
+
+                new RelationInfo("mail_mailbox_server", "id", "mail_mailbox", "id_smtp_server"),
+                new RelationInfo("mail_mailbox_server", "id", "mail_mailbox", "id_in_server"),
+
+                new RelationInfo("mail_mailbox_provider", "id", "mail_mailbox_server", "id_provider"),
+                new RelationInfo("mail_mailbox_provider", "id", "mail_mailbox_domain", "id_provider"),
+
+                new RelationInfo("mail_server_domain", "id", "mail_server_dns", "id_domain"),
+                new RelationInfo("mail_server_domain", "id", "mail_server_address", "id_domain"),
+                new RelationInfo("mail_server_address", "id", "mail_server_mail_group", "id_address"),
+
+                //new RelationInfo("mail_user_folder", "id", "mail_user_folder_tree", "folder_id"),
+                //new RelationInfo("mail_user_folder", "id", "mail_user_folder_tree", "parent_id"),
+
                 new RelationInfo("mail_tag", "id", "mail_chain", "tags"),
                 new RelationInfo("crm_tag", "id", "mail_chain", "tags", typeof(CrmModuleSpecifics)),
-                new RelationInfo("mail_mailbox", "id", "mail_mail", "id_mailbox"),
+                
                 new RelationInfo("crm_tag", "id", "mail_tag", "crm_id", typeof(CrmModuleSpecifics)),
                 new RelationInfo("mail_tag", "id", "mail_tag_addresses", "id_tag", x => Convert.ToInt32(x["id_tag"]) > 0),
                 new RelationInfo("crm_tag", "id", "mail_tag_addresses", "id_tag", typeof(CrmModuleSpecifics), x => Convert.ToInt32(x["id_tag"]) < 0),
-                new RelationInfo("mail_mail", "id", "mail_tag_mail", "id_mail"),
                 new RelationInfo("mail_tag", "id", "mail_tag_mail", "id_tag", x => Convert.ToInt32(x["id_tag"]) > 0),
                 new RelationInfo("crm_tag", "id", "mail_tag_mail", "id_tag", typeof(CrmModuleSpecifics), x => Convert.ToInt32(x["id_tag"]) < 0),
-                new RelationInfo("mail_mailbox", "id", "mail_chain_x_crm_entity", "id_mailbox"),
                 new RelationInfo("crm_contact", "id", "mail_chain_x_crm_entity", "entity_id", typeof(CrmModuleSpecifics), x => Convert.ToInt32(x["entity_type"]) == 1),
                 new RelationInfo("crm_case", "id", "mail_chain_x_crm_entity", "entity_id", typeof(CrmModuleSpecifics), x => Convert.ToInt32(x["entity_type"]) == 2),
                 new RelationInfo("crm_deal", "id", "mail_chain_x_crm_entity", "entity_id", typeof(CrmModuleSpecifics), x => Convert.ToInt32(x["entity_type"]) == 3),
-                new RelationInfo("mail_mailbox", "id", "mail_mailbox_signature", "id_mailbox"),
+                
                 new RelationInfo("files_folder", "id", "mail_mailbox", "email_in_folder", typeof(FilesModuleSpecifics)),
-                new RelationInfo("mail_mailbox", "id", "mail_mailbox_autoreply", "id_mailbox"),
-                new RelationInfo("mail_mailbox", "id", "mail_mailbox_autoreply_history", "id_mailbox"),
+
                 new RelationInfo("mail_contacts", "id", "mail_contact_info", "id_contact"),
-                new RelationInfo("mail_mailbox_provider", "id", "mail_mailbox_domain", "id_provider"),
-                new RelationInfo("mail_mailbox_server", "id", "mail_mailbox", "id_smtp_server"),
-                new RelationInfo("mail_mailbox_server", "id", "mail_mailbox", "id_in_server")
+
+                new RelationInfo("mail_user_folder", "id", "mail_user_folder_x_mail", "id_folder")
             };
 
         public override ModuleName ModuleName
@@ -113,20 +143,20 @@ namespace ASC.Data.Backup.Tasks.Modules
                 case "mail_mailbox_provider":
                     return string.Format("where t.id in " +
                                             "(select distinct t2.id_provider from mail_mailbox t1 " +
-                                            "inner join mail_mailbox_server t2 on t2.id in (t1.id_in_server, t1.id_smtp_server) and t2.is_user_data = 1 " +
+                                            "inner join mail_mailbox_server t2 on t2.id in (t1.id_in_server, t1.id_smtp_server)  " +
                                             "where t1.tenant = {0} and t1.is_removed = 0)", tenantId);
 
                 // mail_mailbox_domain.id_provider not in index
                 case "mail_mailbox_domain":
                     return string.Format("where t.id_provider in " +
                                             "(select distinct t2.id_provider from mail_mailbox t1 " +
-                                            "inner join mail_mailbox_server t2 on t2.id in (t1.id_in_server, t1.id_smtp_server) and t2.is_user_data = 1 " +
+                                            "inner join mail_mailbox_server t2 on t2.id in (t1.id_in_server, t1.id_smtp_server)  " +
                                             "where t1.tenant = {0} and t1.is_removed = 0)", tenantId);
 
                 case "mail_mailbox_server":
                     return string.Format("where t.id in " +
                                             "(select distinct t2.id from mail_mailbox t1 " +
-                                            "inner join mail_mailbox_server t2 on t2.id in (t1.id_in_server, t1.id_smtp_server) and t2.is_user_data = 1 " +
+                                            "inner join mail_mailbox_server t2 on t2.id in (t1.id_in_server, t1.id_smtp_server) " +
                                             "where t1.tenant = {0} and t1.is_removed = 0)", tenantId);
 
                 case "mail_mailbox":
@@ -172,15 +202,15 @@ namespace ASC.Data.Backup.Tasks.Modules
 
         protected override bool TryPrepareRow(bool dump, DbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row, out Dictionary<string, object> preparedRow)
         {
-            if (table.Name == "mail_mailbox")
-            {
-                var boxType = row["is_server_mailbox"];
-                if (boxType != null && Convert.ToBoolean(int.Parse(boxType.ToString())))
-                {
-                    preparedRow = null;
-                    return false;
-                }
-            }
+            //if (table.Name == "mail_mailbox")
+            //{
+            //    var boxType = row["is_server_mailbox"];
+            //    if (boxType != null && !Convert.ToBoolean(int.Parse(boxType.ToString())))
+            //    {
+            //        preparedRow = null;
+            //        return false;
+            //    }
+            //}
             return base.TryPrepareRow(dump, connection, columnMapper, table, row, out preparedRow);
         }
 

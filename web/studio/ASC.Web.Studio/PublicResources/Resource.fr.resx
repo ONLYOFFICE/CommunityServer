@@ -1032,12 +1032,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Jeton d'accès</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Jeton d'accès secret</value>
-  </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Clé de Twitter dans CRM</value>
   </data>

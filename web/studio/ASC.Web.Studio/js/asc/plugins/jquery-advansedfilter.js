@@ -1041,12 +1041,12 @@
         $toDateContainer = $filteritem.find('span.to-daterange-selector:first span.datepicker-container:first')
 
         $datepicker = createDatepicker($fromDateContainer, $container, $filteritem, filtervalue, defaultFromDate);
-        $datepicker.datepicker("option", "yearRange", "-30:+0");
+        $datepicker.datepicker("option", "yearRange", "-30:+10");
         $datepicker.datepicker("option", "maxDate", defaultToDate);
         $filteritem.find('span.from-daterange-selector:first span.btn-show-datepicker-title:first').text($.datepicker.formatDate($datepicker.datepicker("option", "dateFormat"), $datepicker.datepicker("getDate")));
 
         $datepicker = createDatepicker($toDateContainer, $container, $filteritem, filtervalue, defaultToDate);
-        $datepicker.datepicker("option", "yearRange", "-30:+0");
+        $datepicker.datepicker("option", "yearRange", "-30:+10");
         $datepicker.datepicker("option", "minDate", defaultFromDate);
         $filteritem.find('span.to-daterange-selector:first span.btn-show-datepicker-title:first').text($.datepicker.formatDate($datepicker.datepicker("option", "dateFormat"), $datepicker.datepicker("getDate")));
 
@@ -2211,6 +2211,7 @@
                 changeOptions = true;
             }
             $container[opts.hasButton === false ? 'addClass' : 'removeClass']('no-button');
+            $container[opts.disableSorter === true ? 'addClass' : 'removeClass']('disable-sorter-block');
         }
 
         // d'ohhh

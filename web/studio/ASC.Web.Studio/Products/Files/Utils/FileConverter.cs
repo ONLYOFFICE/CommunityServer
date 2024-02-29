@@ -128,7 +128,7 @@ namespace ASC.Web.Files.Utils
             var docKey = DocumentServiceHelper.GetDocKey(file);
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri, out _);
 
             if (WorkContext.IsMono && ServicePointManager.ServerCertificateValidationCallback == null)
             {
@@ -158,14 +158,15 @@ namespace ASC.Web.Files.Utils
 
             var fileUri = PathProvider.GetFileStreamUrl(file);
             var fileExtension = file.ConvertedExtension;
-            var toExtension = FileUtility.GetInternalExtension(file.Title);
+            var toExtension = FileUtility.GetInternalConvertExtension(file.Title);
             var docKey = DocumentServiceHelper.GetDocKey(file);
 
             string convertUri;
+            string convertedType;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri, out convertedType);
 
-            return SaveConvertedFile(file, convertUri);
+            return SaveConvertedFile(file, convertUri, convertedType);
         }
 
         public static void ExecAsync(File file, bool deleteAfter, string password = null)
@@ -316,6 +317,7 @@ namespace ASC.Web.Files.Utils
                     {
                         var fileUri = file.ID.ToString();
                         string convertedFileUrl;
+                        string convertedFileType;
                         int operationResultProgress;
 
                         try
@@ -376,12 +378,12 @@ namespace ASC.Web.Files.Utils
 
                             fileUri = PathProvider.GetFileStreamUrl(file);
 
-                            var toExtension = FileUtility.GetInternalExtension(file.Title);
+                            var toExtension = FileUtility.GetInternalConvertExtension(file.Title);
                             var fileExtension = file.ConvertedExtension;
                             var docKey = DocumentServiceHelper.GetDocKey(file);
 
                             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, CultureInfo.CurrentUICulture.Name, null, null, true, out convertedFileUrl);
+                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, CultureInfo.CurrentUICulture.Name, null, null, true, out convertedFileUrl, out convertedFileType);
                         }
                         catch (Exception exception)
                         {
@@ -447,7 +449,7 @@ namespace ASC.Web.Files.Utils
 
                         try
                         {
-                            newFile = SaveConvertedFile(file, convertedFileUrl);
+                            newFile = SaveConvertedFile(file, convertedFileUrl, convertedFileType);
                         }
                         catch (Exception e)
                         {
@@ -516,7 +518,7 @@ namespace ASC.Web.Files.Utils
             }
         }
 
-        private static File SaveConvertedFile(File file, string convertedFileUrl)
+        private static File SaveConvertedFile(File file, string convertedFileUrl, string convertedFileType)
         {
             var fileSecurity = Global.GetFilesSecurity();
             using (var fileDao = Global.DaoFactory.GetFileDao())
@@ -524,7 +526,7 @@ namespace ASC.Web.Files.Utils
             {
                 File newFile = null;
                 var markAsTemplate = false;
-                var newFileTitle = FileUtility.ReplaceFileExtension(file.Title, FileUtility.GetInternalExtension(file.Title));
+                var newFileTitle = FileUtility.ReplaceFileExtension(file.Title, convertedFileType);
 
                 if (!FilesSettings.StoreOriginalFiles && fileSecurity.CanEdit(file))
                 {

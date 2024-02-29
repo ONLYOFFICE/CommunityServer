@@ -46,21 +46,6 @@ namespace ASC.Web.CRM.Classes
 {
     public static class RegisterClientScriptHelper
     {
-        private static bool IsTwitterSearchEnabled
-        {
-            get
-            {
-                return TwitterLoginProvider.Instance.IsEnabled
-                && !string.IsNullOrEmpty(TwitterLoginProvider.TwitterDefaultAccessToken)
-                && !string.IsNullOrEmpty(TwitterLoginProvider.TwitterAccessTokenSecret);
-            }
-        }
-
-
-        public static void DataCommon(Page page)
-        {
-        }
-
         public static void DataUserSelectorListView(BasePage page, String ObjId, Dictionary<Guid, String> SelectedUsers)
         {
             var ids = SelectedUsers != null && SelectedUsers.Count > 0 ? SelectedUsers.Select(i => i.Key).ToArray() : new List<Guid>().ToArray();
@@ -233,8 +218,7 @@ namespace ASC.Web.CRM.Classes
                                 var contactAvailableTypes = {4};
                                 var presetCompanyForPersonJson = '{5}';
                                 var presetPersonsForCompanyJson = '{6}';
-                                var twitterSearchEnabled = {7};
-                                var contactActionCurrencies = {8};",
+                                var contactActionCurrencies = {7};",
                               json,
                               JsonConvert.SerializeObject(networks),
                               JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
@@ -247,7 +231,6 @@ namespace ASC.Web.CRM.Classes
                                     })),
                               presetCompanyForPersonJson,
                               presetPersonsForCompanyJson,
-                              IsTwitterSearchEnabled.ToString().ToLower(),
                               JsonConvert.SerializeObject(CurrencyProvider.GetAll())
                               );
 

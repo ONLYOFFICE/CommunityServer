@@ -24,6 +24,8 @@ namespace ASC.Core.Billing
     {
         Tariff GetTariff(int tenantId, bool withRequestToPaymentSystem = true);
 
+        IEnumerable<Tariff> GetAdditionalTariffs(int tenantId);
+
         void SetTariff(int tenantId, Tariff tariff);
 
         void DeleteDefaultBillingInfo();

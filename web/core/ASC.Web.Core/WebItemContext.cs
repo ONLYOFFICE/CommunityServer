@@ -41,6 +41,7 @@ namespace ASC.Web.Core
         public string IconFileName { get; set; }
 
         public string LargeIconFileName { get; set; }
+        public string LargeIconFileNameDark { get; set; }
 
         public int DefaultSortOrder { get; set; }
 

@@ -98,6 +98,16 @@ namespace ASC.Files.Core
             return new Tag("template", TagType.Template, owner, entry, 0);
         }
 
+        public bool IsForSame(FileEntry fileEntry)
+        {
+            return IsForSame(fileEntry.FileEntryType, fileEntry.ID);
+        }
+
+        public bool IsForSame(FileEntryType entryType, object entryID)
+        {
+            return EntryType == entryType && EntryId.Equals(entryID);
+        }
+
         public override bool Equals(object obj)
         {
             var f = obj as Tag;

@@ -50,7 +50,8 @@
             <div class="profile-role <%= Role.Class %>" title="<%= Role.Title%>"></div>
             <% } %>
         </div>
-
+        <% if (UserInfo.IsMe() || IsAdmin)
+   { %>
         <div class="user-quota-info <% if (Int32.Parse(QuotaLimit.Split(' ')[0]) <= 0)
             { %> no-quota <% } %> ">
             <span><%= Resource.QuotaUsed %></span>
@@ -97,6 +98,7 @@
                 </div>
             </div>
         </div>
+        <% } %>
     </div>
 
     <div class="userInfo">

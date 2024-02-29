@@ -36,9 +36,9 @@ div.advansed-filter-container div.advansed-filter-button div.inner-text:after,
 div.advansed-filter-container div.advansed-filter-button div.inner-text:before{top: 50%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute;}
 
 div.advansed-filter-container div.advansed-filter-button div.inner-text:after{border-color: transparent; border-left-color: @advfilter-add-btn-bkgd; border-width: 9px; margin-top: -9px; right: -8px;}
-div.advansed-filter-container div.advansed-filter-button div.inner-text:before{border-color: transparent; border-left-color: @border-button-default; border-width: 10px; margin-top: -10px; right: -10px;}
+div.advansed-filter-container div.advansed-filter-button div.inner-text:before{border-color: transparent; border-left-color: @adv-filter-button-bor-col; border-width: 10px; margin-top: -10px; right: -10px;}
 
-div.advansed-filter-container div.advansed-filter-button div.inner-text span.text{background-color:@advfilter-add-btn-bkgd; color:@advfilter-add-btn-plus;border: 1px solid @border-button-default; border-right: 0 none;.borderRadius(2px);}
+div.advansed-filter-container div.advansed-filter-button div.inner-text span.text{background-color:@advfilter-add-btn-bkgd; color:@advfilter-add-btn-plus;border: 1px solid @adv-filter-button-bor-col; border-right: 0 none;.borderRadius(2px);}
 
 div.advansed-filter-container span.custom-combobox span.combobox-title:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid @advfilter-combobox-btns; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -1px;}
 
@@ -51,3 +51,14 @@ div.advansed-filter-container div.advansed-filter-input input {color: @advfilter
 
 div.advansed-filter div.advansed-item-list ul.item-list {background: @advfilter-combobox-bkgd !important; border-color:  @advansed-filter-container-bor !important;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-item.selected { color: @linkColor !important;}
+
+div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter {
+    -webkit-mask-image: url('images/svg/projects/descending.svg');
+    mask-image: url('images/svg/projects/descending.svg');
+    background: @advansed-filter-hint-after !important;
+}
+div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter {
+    -webkit-mask-image: url('images/svg/projects/ascending.svg');
+    mask-image: url('images/svg/projects/ascending.svg');
+    background: @advansed-filter-hint-after !important;
+}

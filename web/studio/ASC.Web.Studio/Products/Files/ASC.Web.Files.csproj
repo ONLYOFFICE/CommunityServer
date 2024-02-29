@@ -291,6 +291,7 @@
     <Content Include="App_Themes\default\images\empty_screen_forme.svg" />
     <Content Include="App_Themes\default\images\empty_screen_my.svg" />
     <Content Include="App_Themes\default\images\empty_screen_privacy.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_project.svg" />
     <Content Include="App_Themes\default\images\empty_screen_recent.svg" />
     <Content Include="App_Themes\default\images\empty_screen_templates.svg" />
     <Content Include="App_Themes\default\images\empty_screen_trash.svg" />
@@ -298,6 +299,8 @@
     <Content Include="App_Themes\default\images\file_pptx.png" />
     <Content Include="App_Themes\default\images\file_xlsx.png" />
     <Content Include="App_Themes\default\images\personal_convert.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="App_Themes\default\params.less" />
     <Content Include="App_Themes\deep-blue\params.less" />
     <Content Include="App_Themes\dark-wild-pink\params.less" />
@@ -348,7 +351,7 @@
     <Content Include="Controls\ContentList\images\retina\encrypted.png" />
     <Content Include="Controls\ContentList\images\throbber-dark-16.svg" />
     <Content Include="Controls\ContentList\images\throbber.gif" />
-    <Content Include="Controls\ContentList\images\version_operation.png" />
+    <Content Include="Controls\ContentList\images\version_operation.svg" />
     <Content Include="Controls\ConvertFile\ConfirmConvert.ascx" />
     <Content Include="Controls\ConvertFile\confirmconvert.js" />
     <Content Include="Controls\ContentList\dark-contentlist.less" />
@@ -373,9 +376,13 @@
     <Content Include="Controls\Desktop\desktop.less" />
     <Content Include="Controls\Desktop\desktop.js" />
     <Content Include="Controls\Desktop\images\logo.png" />
+    <Content Include="Controls\SharingDialog\images\folder_link.svg" />
+    <Content Include="Controls\SharingDialog\images\link-dark.svg" />
     <Content Include="Controls\SharingDialog\images\link.svg" />
     <Content Include="Controls\SharingDialog\images\link_via.png" />
+    <Content Include="Controls\SharingDialog\images\settings-dark.svg" />
     <Content Include="Controls\SharingDialog\images\settings.svg" />
+    <Content Include="Controls\SharingDialog\images\user-dark.svg" />
     <Content Include="Controls\SharingDialog\images\user.svg" />
     <Content Include="Controls\Tree\images\loader-dark-12.svg" />
     <Content Include="Controls\UnsubscribeDialog\unsubscribedialog.js" />

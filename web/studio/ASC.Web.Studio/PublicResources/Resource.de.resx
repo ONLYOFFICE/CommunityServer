@@ -1036,12 +1036,6 @@ Anmeldeseite und füllen Sie das Formular aus, um die Integration mit ONLYOFFICE
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Zugriffstoken</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Geheimer Zugriffstoken</value>
-  </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter Schlüßel in CRM</value>
   </data>

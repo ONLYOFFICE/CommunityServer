@@ -87,6 +87,7 @@ namespace ASC.Web.CRM.Configuration
                 DisabledIconFileName = "product_disabled_logo.png",
                 IconFileName = "product_logo.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 DefaultSortOrder = 30,
                 SubscriptionManager = new ProductSubscriptionManager(),
                 SpaceUsageStatManager = new CRMSpaceUsageStatManager(),

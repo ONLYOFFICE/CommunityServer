@@ -223,24 +223,8 @@ namespace ASC.Web.Studio
 
                 case ConfirmType.PasswordChange:
                     var userInfo = CoreContext.UserManager.GetUserByEmail(_email);
-                    var auditEvent = AuditEventsRepository.GetByFilter(action: MessageAction.UserSentPasswordChangeInstructions, entry: EntryType.User, target: MessageTarget.Create(userInfo.ID).ToString(), limit: 1).FirstOrDefault();
-                    var passwordStamp = CoreContext.Authentication.GetUserPasswordStamp(userInfo.ID);
-
-                    string hash;
-
-                    if (auditEvent != null)
-                    {
-                        var auditEventDate = TenantUtil.DateTimeToUtc(auditEvent.Date);
-
-                        hash = (auditEventDate.CompareTo(passwordStamp) > 0 ? auditEventDate : passwordStamp).ToString("s");
-                    }
-                    else
-                    {
-                        hash = passwordStamp.ToString("s");
-                    }
-
+                    var hash = CoreContext.Authentication.GetUserPasswordStamp(userInfo.ID).ToString("s");
                     checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + hash, key, validInterval);
-
                     break;
 
                 case ConfirmType.ShareLinkPassword:

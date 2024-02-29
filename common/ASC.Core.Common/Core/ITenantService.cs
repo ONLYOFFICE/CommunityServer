@@ -47,5 +47,7 @@ namespace ASC.Core
         void SetTenantSettings(int tenant, string key, byte[] data);
 
         IEnumerable<TenantVersion> GetTenantVersions();
+
+        bool IsDocspace { get; }
     }
 }

@@ -550,13 +550,13 @@
     <value>LDAP/SSO</value>
   </data>
   <data name="SaasTariffBusinessFeature6" xml:space="preserve">
-    <value>Data backups &amp; recovery</value>
+    <value>Automatic data backup &amp; recovery</value>
   </data>
   <data name="SaasTariffBusinessFeature7" xml:space="preserve">
     <value>Tracking users logins &amp; actions</value>
   </data>
   <data name="SaasTariffBusinessFeature8" xml:space="preserve">
-    <value>Pro integrations: Twilio, DocuSign</value>
+    <value>Pro integrations: Twilio, DocuSign, etc.</value>
   </data>
   <data name="SaasTariffBusinessFeature9" xml:space="preserve">
     <value>Mail Server</value>

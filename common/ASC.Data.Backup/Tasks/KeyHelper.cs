@@ -68,5 +68,10 @@ namespace ASC.Data.Backup.Tasks
         {
             return string.Format("{0}/restore_info", GetStorage());
         }
+
+        public static string GetMailTableZipKey(string tableName)
+        {
+            return string.Format("mailtable/{0}", tableName);
+        }
     }
 }

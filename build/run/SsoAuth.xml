@@ -1,0 +1,10 @@
+<service>
+  <id>OnlyofficeSsoAuth</id>
+  <name>OnlyOfficeSsoAuth</name>
+  <startmode>Automatic</startmode>
+  <executable>node</executable>
+  <arguments>../ASC.SSoAuth/app.js</arguments>
+  <log mode="none"/>
+  <delayedAutoStart>true</delayedAutoStart>
+  <onfailure action="restart" delay="5 sec" />
+</service>

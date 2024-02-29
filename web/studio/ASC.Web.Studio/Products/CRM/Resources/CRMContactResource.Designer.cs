@@ -1172,15 +1172,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select from social networks.
-        /// </summary>
-        public static string LoadPhotoFromSocialMedia {
-            get {
-                return ResourceManager.GetString("LoadPhotoFromSocialMedia", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Allow access to the company for all CRM users.
         /// </summary>
         public static string MakePublicPanelCheckBoxLabelForCompany {
@@ -1339,15 +1330,6 @@ namespace ASC.Web.CRM.Resources {
         public static string NoMatchSelect {
             get {
                 return ResourceManager.GetString("NoMatchSelect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There are no available photos corresponding to the profile.
-        /// </summary>
-        public static string NoPhotoFromSocialMedia {
-            get {
-                return ResourceManager.GetString("NoPhotoFromSocialMedia", resourceCulture);
             }
         }
         

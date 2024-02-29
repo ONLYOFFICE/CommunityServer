@@ -26,6 +26,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Windows.Controls;
 
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
@@ -102,6 +103,7 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <param type="System.Boolean, System" name="withoutTrash">Specifies whether to return sections with or without trash folder</param>
         /// <param type="System.Boolean, System" name="withoutAdditionalFolder">Specifies whether to return sections with or without additional folders</param>
@@ -111,7 +113,7 @@ namespace ASC.Api.Documents
         /// <httpMethod>GET</httpMethod>
         /// <collection>list</collection>
         [Read("@root")]
-        public IEnumerable<FolderContentWrapper> GetRootFolders(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders, bool withoutTrash, bool withoutAdditionalFolder)
+        public IEnumerable<FolderContentWrapper> GetRootFolders(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders, bool withoutTrash, bool withoutAdditionalFolder)
         {
             var IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor();
             var IsOutsider = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOutsider();
@@ -174,7 +176,7 @@ namespace ASC.Api.Documents
                 result.Add((int)Global.FolderTrash);
             }
 
-            return result.Select(r => ToFolderContentWrapper(r, userIdOrGroupId, filterType, searchInContent, withSubfolders));
+            return result.Select(r => ToFolderContentWrapper(r, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders));
         }
 
         /// <summary>
@@ -185,14 +187,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "My documents" section contents</returns>
         /// <path>api/2.0/files/@my</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@my")]
-        public FolderContentWrapper GetMyFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetMyFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderMy, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderMy, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -203,14 +206,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "In projects" section contents</returns>
         /// <path>api/2.0/files/@projects</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@projects")]
-        public FolderContentWrapper GetProjectsFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetProjectsFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderProjects, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderProjects, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
 
@@ -222,14 +226,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "Common" section contents</returns>
         /// <path>api/2.0/files/@common</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@common")]
-        public FolderContentWrapper GetCommonFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetCommonFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderCommon, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderCommon, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -240,14 +245,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "Shared with me" section contents</returns>
         /// <path>api/2.0/files/@share</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@share")]
-        public FolderContentWrapper GetShareFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetShareFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderShare, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderShare, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -258,14 +264,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "Recent" section contents</returns>
         /// <path>api/2.0/files/@recent</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@recent")]
-        public FolderContentWrapper GetRecentFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetRecentFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderRecent, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderRecent, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -276,14 +283,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "Favorites" section contents</returns>
         /// <path>api/2.0/files/@favorites</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@favorites")]
-        public FolderContentWrapper GetFavoritesFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetFavoritesFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderFavorites, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderFavorites, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -294,14 +302,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "Templates" section contents</returns>
         /// <path>api/2.0/files/@templates</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@templates")]
-        public FolderContentWrapper GetTemplatesFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetTemplatesFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderTemplates, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderTemplates, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -312,14 +321,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" name="filterType" optional="true">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">The "Trash" section contents</returns>
         /// <path>api/2.0/files/@trash</path>
         /// <httpMethod>GET</httpMethod>
         [Read("@trash")]
-        public FolderContentWrapper GetTrashFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetTrashFolder(Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(Global.FolderTrash, userIdOrGroupId, filterType, searchInContent, withSubfolders);
+            return ToFolderContentWrapper(Global.FolderTrash, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders);
         }
 
         /// <summary>
@@ -333,14 +343,15 @@ namespace ASC.Api.Documents
         /// <param type="System.Guid, System" method="url" name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param type="ASC.Files.Core.FilterType, ASC.Files.Core" method="url" name="filterType" optional="true" remark="Allowed values: None (0), FilesOnly (1), FoldersOnly (2), DocumentsOnly (3), PresentationsOnly (4), SpreadsheetsOnly (5) or ImagesOnly (7)">Filter type</param>
         /// <param type="System.Boolean, System" name="searchInContent">Specifies whether to search within the section contents or not</param>
+        /// <param type="System.String, System" name="extension">File extension by which files will be searched for if the FilterType.ByExtension parameter is passed</param>
         /// <param type="System.Boolean, System" name="withSubfolders">Specifies whether to return sections with or without subfolders</param>
         /// <returns type="ASC.Api.Documents.FolderContentWrapper, ASC.Api.Documents">Folder contents</returns>
         /// <path>api/2.0/files/{folderId}</path>
         /// <httpMethod>GET</httpMethod>
         [Read("{folderId}")]
-        public FolderContentWrapper GetFolder(String folderId, Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        public FolderContentWrapper GetFolder(String folderId, Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
-            return ToFolderContentWrapper(folderId, userIdOrGroupId, filterType, searchInContent, withSubfolders).NotFoundIfNull();
+            return ToFolderContentWrapper(folderId, userIdOrGroupId, filterType, searchInContent, extension, withSubfolders).NotFoundIfNull();
 
         }
 
@@ -1228,7 +1239,7 @@ namespace ASC.Api.Documents
 
             var ids = _fileStorageService.MoveOrCopyFilesCheck(itemList, destFolderId).Keys.Select(id => "file_" + id);
 
-            var entries = _fileStorageService.GetItems(new Web.Files.Services.WCFService.ItemList<string>(ids), FilterType.FilesOnly, false, "", "");
+            var entries = _fileStorageService.GetItems(new Web.Files.Services.WCFService.ItemList<string>(ids), FilterType.FilesOnly, false, "", "", null);
             return entries.Select(x => new FileWrapper((Files.Core.File)x)).ToSmartList();
         }
 
@@ -2326,13 +2337,19 @@ namespace ASC.Api.Documents
         }
 
 
-        private FolderContentWrapper ToFolderContentWrapper(object folderId, Guid userIdOrGroupId, FilterType filterType, bool searchInContent, bool withSubfolders)
+        private FolderContentWrapper ToFolderContentWrapper(object folderId, Guid userIdOrGroupId, FilterType filterType, bool searchInContent, string extension, bool withSubfolders)
         {
             if (folderId == null)
             {
                 throw new ItemNotFoundException(Web.Files.Resources.FilesCommonResource.ErrorMassage_FolderNotFound);
             }
 
+            var subjectGroup = false;
+            var groupInfo = CoreContext.UserManager.GetGroupInfo(userIdOrGroupId);
+            if(groupInfo.ID != Core.Users.Constants.LostGroupInfo.ID)
+            {
+                subjectGroup = true;
+            }
             OrderBy orderBy = null;
             SortedByType sortBy;
             if (Enum.TryParse(_context.SortBy, true, out sortBy))
@@ -2344,10 +2361,11 @@ namespace ASC.Api.Documents
                                                                                startIndex,
                                                                                Convert.ToInt32(_context.Count) - 1, //NOTE: in ApiContext +1
                                                                                filterType,
-                                                                               filterType == FilterType.ByDepartment,
+                                                                               subjectGroup,
                                                                                userIdOrGroupId.ToString(),
                                                                                _context.FilterValue,
                                                                                searchInContent,
+                                                                               extension,
                                                                                withSubfolders,
                                                                                orderBy),
                                             startIndex);

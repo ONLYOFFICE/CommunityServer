@@ -425,9 +425,6 @@ Apakah Anda juga ingin menghapus tag ini dari perusahaan tersebut dan semua oran
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Unggah foto dari komputer PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Pilih dari jejaring sosial</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Ijinkan akses ke perusahaan untuk semua pengguna CRM</value>
   </data>
@@ -481,9 +478,6 @@ Apakah Anda juga ingin menghapus tag ini dari perusahaan tersebut dan semua oran
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Tidak ditemukan dalam ONLYOFFICE™ CRM, pilihlah dari daftar</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Tidak ada foto yang sesuai dengan profil</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Beritahukan pengelola kontak melalui email</value>

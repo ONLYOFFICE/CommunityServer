@@ -147,7 +147,7 @@
                         <a id="setPassword" class="link dotline"><%= Resource.SetPassword %></a>
                         <p class="gray-text" style="margin-top: 2px;"><%= Resource.TemporaryPasswordToAccess %></p>
                     </div>
-                    <div class="validationBlock">
+                    <div class="validationBlock requiredField">
                         <input id="password" autocomplete="new-password" class="textEdit" type="password" maxlength="<%= TenantPasswordSettings.MaxLength %> " size="10" title="<%= Resource.Password %>"/>
                         <a class="infoChecking" id="passwordGen">&nbsp;</a>
                         <div id="bubleBlock">

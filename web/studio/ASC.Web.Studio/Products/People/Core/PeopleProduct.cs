@@ -94,6 +94,7 @@ namespace ASC.Web.People.Core
                 DisabledIconFileName = "product_disabled_logo.png",
                 IconFileName = "product_logo.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 DefaultSortOrder = 50,
                 AdminOpportunities = () => PeopleResource.ProductAdminOpportunities.Split('|').ToList(),
                 UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList(),

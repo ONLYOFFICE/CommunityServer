@@ -126,6 +126,7 @@ window.ASC.Files.Unsubscribe = (function () {
                 list: list
             },
             { stringList: data });
+
     };
 
     var onUnSubscribeMe = function (jsonData, params, errorMessage) {
@@ -136,6 +137,7 @@ window.ASC.Files.Unsubscribe = (function () {
 
         var list = params.list;
         var foldersCountChange = false;
+        var fromParent = false;
 
         jq(list).each(function (i, item) {
             if (!foldersCountChange && item.entryType == "folder") {
@@ -144,11 +146,24 @@ window.ASC.Files.Unsubscribe = (function () {
 
             ASC.Files.Marker.removeNewIcon(item.entryType, item.entryId);
             var entryObject = ASC.Files.UI.getEntryObject(item.entryType, item.entryId);
-            ASC.Files.UI.removeEntryObject(entryObject);
+
+            if (item.entryId == params.parentFolderID) {
+                fromParent = true;
+                ASC.Files.UI.blockObject(entryObject);
+            } else {
+                ASC.Files.UI.removeEntryObject(entryObject);
+            }
         });
 
         if (foldersCountChange && ASC.Files.Tree) {
-            ASC.Files.Tree.reloadFolder(params.parentFolderID);
+            if (fromParent) {
+                ASC.Files.ServiceManager.removeFromCache(ASC.Files.ServiceManager.events.GetFolderItems);
+                var parent = ASC.Files.Tree.getParentId(params.parentFolderID);
+                ASC.Files.Tree.reloadFolder(parent);
+                ASC.Files.Folders.clickOnFolder(parent);
+            } else {
+                ASC.Files.Tree.reloadFolder(params.parentFolderID);
+            }
         }
 
         ASC.Files.UI.checkEmptyContent();

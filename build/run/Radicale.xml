@@ -1,0 +1,11 @@
+<service>
+  <id>OnlyofficeRadicale</id>
+  <name>OnlyofficeRadicale</name>
+  <startmode>Automatic</startmode>
+  <workingdirectory>%BASE%\..\TeamLabSvc</workingdirectory>
+  <executable>python</executable>
+  <arguments>-m radicale --config radicale.config</arguments>
+  <log mode="none"/>
+  <delayedAutoStart>true</delayedAutoStart>
+  <onfailure action="restart" delay="5 sec" />
+</service>

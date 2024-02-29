@@ -148,9 +148,6 @@
   <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
     <value>Всички въведени данни ще бъдат загубени. Наистина ли искате да продължите?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Моля, въведете името на профила си в Twitter. Например, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Държава</value>
   </data>
@@ -280,9 +277,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Приблизителна дата на сделката</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Намерете профил в Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Списъкът с получатели е генериран. {0} Кликнете върху връзките по-долу, за да препратите имейл адресите си към програмата за електронна поща.</value>
   </data>
@@ -393,9 +387,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Моля Изчакай...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Възможни профили за {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Предишен</value>

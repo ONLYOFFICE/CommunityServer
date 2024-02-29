@@ -36,7 +36,7 @@
     .access-rights-container {
         margin-top: 12px;
         padding-top: 12px;
-        border-top: 1px solid #ECECEC;
+        border-top: 1px solid @access-rights-container;
         position: relative;
 
         .access-rights-link {
@@ -221,7 +221,7 @@
 
         &.us-groupname {
             .us-avatar {
-                background-image: url(./images/svg/share/group_avatar.svg);
+                background-image: url("./images/svg/share/@{group-avatar}");
             }
         }
     }
@@ -280,7 +280,7 @@
 }
 
 .us-access {
-    background-image: url(./images/svg/share/access_owner.svg);
+    background-image: url("./images/svg/share/@{access-owner}");
     background-position: left center;
     background-repeat: no-repeat;
 
@@ -289,39 +289,39 @@
     }
 
     &.access-1 {
-        background-image: url(./images/svg/share/access_full.svg);
+        background-image: url("./images/svg/share/@{access-full}");
     }
 
     &.access-2 {
-        background-image: url(./images/svg/share/access_read.svg);
+        background-image: url("./images/svg/share/@{access-read}");
     }
 
     &.access-3 {
-        background-image: url(./images/svg/share/access_deny.svg);
+        background-image: url("./images/svg/share/@{access-deny}");
     }
 
     &.access-4 {
-        background-image: url(./images/svg/share/access_varies.svg);
+        background-image: url("./images/svg/share/@{access-varies}");
     }
 
     &.access-5 {
-        background-image: url(./images/svg/share/access_review.svg);
+        background-image: url("./images/svg/share/@{access-review}");
     }
 
     &.access-6 {
-        background-image: url(./images/svg/share/access_comment.svg);
+        background-image: url("./images/svg/share/@{access-comment}");
     }
 
     &.access-7 {
-        background-image: url(./images/svg/share/access_form.svg);
+        background-image: url("./images/svg/share/@{access-form}");
     }
 
     &.access-8 {
-        background-image: url(./images/svg/share/access_filter.svg);
+        background-image: url("./images/svg/share/@{access-filter}");
     }
 
     &.access-remove {
-        background-image: url(./images/svg/share/trash.svg);
+        background-image: url("./images/svg/share/@{trash-svg}");
     }
 }
 

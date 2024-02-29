@@ -159,16 +159,19 @@ namespace ASC.Files.Core.Data
             return fromDb.ConvertAll(ToFile);
         }
 
-        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             if (fileIds == null || !fileIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
             var q = GetFileQuery(Exp.In("id", fileIds) & Exp.Eq("current_version", true), false);
 
-            if (!string.IsNullOrEmpty(searchText))
+            var searchByText = !string.IsNullOrEmpty(searchText);
+            var searchByExtension = (filterType == FilterType.ByExtension || filterType == FilterType.ByExtensionIncludeFolders) && !string.IsNullOrEmpty(extension);
+
+            if (searchByText || searchByExtension)
             {
                 List<int> searchIds;
-                var func = GetFuncForSearch(null, null, filterType, subjectGroup, subjectID, searchText, searchInContent, false);
+                var func = GetFuncForSearch(null, null, filterType, subjectGroup, subjectID, searchText, searchInContent, extension, false);
 
                 if (FactoryIndexer<FilesWrapper>.TrySelectIds(s => func(s).In(r => r.Id, fileIds.ToArray()), out searchIds))
                 {
@@ -176,7 +179,14 @@ namespace ASC.Files.Core.Data
                 }
                 else
                 {
-                    q.Where(BuildSearch("title", searchText));
+                    if (searchByText)
+                    {
+                        q.Where(BuildSearch("title", searchText));
+                    }
+                    if (searchByExtension)
+                    {
+                        q.Where(BuildSearch("title", extension, SqlLike.EndWith));
+                    }
                 }
             }
 
@@ -202,10 +212,6 @@ namespace ASC.Files.Core.Data
                 case FilterType.ArchiveOnly:
                 case FilterType.MediaOnly:
                     q.Where("category", (int)filterType);
-                    break;
-                case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
-                        q.Where(BuildSearch("title", searchText, SqlLike.EndWith));
                     break;
             }
 
@@ -236,7 +242,7 @@ namespace ASC.Files.Core.Data
             return fromDb.ConvertAll(r => r[0]);
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -250,11 +256,14 @@ namespace ASC.Files.Core.Data
                     .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
             }
 
-            if (!string.IsNullOrEmpty(searchText))
+            var searchByText = !string.IsNullOrEmpty(searchText);
+            var searchByExtension = (filterType == FilterType.ByExtension || filterType == FilterType.ByExtensionIncludeFolders) && !string.IsNullOrEmpty(extension);
+
+            if (searchByText || searchByExtension)
             {
                 List<int> searchIds;
 
-                var func = GetFuncForSearch(parentId, orderBy, filterType, subjectGroup, subjectID, searchText, searchInContent, withSubfolders);
+                var func = GetFuncForSearch(parentId, orderBy, filterType, subjectGroup, subjectID, searchText, searchInContent, extension, withSubfolders);
 
                 Expression<Func<Selector<FilesWrapper>, Selector<FilesWrapper>>> expression = s => func(s);
 
@@ -264,7 +273,14 @@ namespace ASC.Files.Core.Data
                 }
                 else
                 {
-                    q.Where(BuildSearch("title", searchText));
+                    if (searchByText)
+                    {
+                        q.Where(BuildSearch("title", searchText));
+                    }
+                    if (searchByExtension)
+                    {
+                        q.Where(BuildSearch("title", extension, SqlLike.EndWith));
+                    }
                 }
             }
 
@@ -312,10 +328,6 @@ namespace ASC.Files.Core.Data
                 case FilterType.ArchiveOnly:
                 case FilterType.MediaOnly:
                     q.Where("category", (int)filterType);
-                    break;
-                case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
-                        q.Where(BuildSearch("title", searchText, SqlLike.EndWith));
                     break;
             }
 
@@ -950,7 +962,7 @@ namespace ASC.Files.Core.Data
 
             var file = GetFileForCommit(uploadSession);
             SaveFile(file, null, uploadSession.CheckQuota);
-            ChunkedUploadSessionHolder.Move(uploadSession, GetUniqFilePath(file));
+            ChunkedUploadSessionHolder.Move(uploadSession, GetUniqFilePath(file), file.GetFileQuotaOwner());
 
             return file;
         }
@@ -1008,18 +1020,21 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             if (parentIds == null || !parentIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
             var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.In("fft.parent_id", parentIds))
                         .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
 
-            if (!string.IsNullOrEmpty(searchText))
+            var searchByText = !string.IsNullOrEmpty(searchText);
+            var searchByExtension = (filterType == FilterType.ByExtension || filterType == FilterType.ByExtensionIncludeFolders) && !string.IsNullOrEmpty(extension);
+
+            if (searchByText || searchByExtension)
             {
                 List<int> searchIds;
 
-                var func = GetFuncForSearch(null, null, filterType, subjectGroup, subjectID, searchText, searchInContent, false);
+                var func = GetFuncForSearch(null, null, filterType, subjectGroup, subjectID, searchText, searchInContent, extension, false);
 
                 if (FactoryIndexer<FilesWrapper>.TrySelectIds(s => func(s), out searchIds))
                 {
@@ -1027,7 +1042,14 @@ namespace ASC.Files.Core.Data
                 }
                 else
                 {
-                    q.Where(BuildSearch("title", searchText));
+                    if (searchByText)
+                    {
+                        q.Where(BuildSearch("title", searchText));
+                    }
+                    if (searchByExtension)
+                    {
+                        q.Where(BuildSearch("title", extension, SqlLike.EndWith));
+                    }
                 }
             }
 
@@ -1053,10 +1075,6 @@ namespace ASC.Files.Core.Data
                 case FilterType.ArchiveOnly:
                 case FilterType.MediaOnly:
                     q.Where("category", (int)filterType);
-                    break;
-                case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
-                        q.Where(BuildSearch("title", searchText, SqlLike.EndWith));
                     break;
             }
 
@@ -1336,13 +1354,24 @@ namespace ASC.Files.Core.Data
             return Global.DaoFactory.GetFolderDao();
         }
 
-        private Func<Selector<FilesWrapper>, Selector<FilesWrapper>> GetFuncForSearch(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        private Func<Selector<FilesWrapper>, Selector<FilesWrapper>> GetFuncForSearch(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension, bool withSubfolders = false)
         {
             return s =>
            {
-               var result = !searchInContent || filterType == FilterType.ByExtension
-                   ? s.Match(r => r.Title, searchText)
-                   : s.MatchAll(searchText);
+               Selector<FilesWrapper> result = null;
+
+               if (!string.IsNullOrEmpty(searchText))
+               {
+                   result = searchInContent ? s.MatchAll(searchText) : s.Match(r => r.Title, searchText);
+               }
+
+               if ((filterType == FilterType.ByExtension || filterType == FilterType.ByExtensionIncludeFolders) && !string.IsNullOrEmpty(extension))
+               {
+                   if (result != null)
+                       result.Match(r => r.Title, "*" + extension);
+                   else
+                       result = s.Match(r => r.Title, "*" + extension);
+               }
 
                if (parentId != null)
                {

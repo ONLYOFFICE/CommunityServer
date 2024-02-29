@@ -434,9 +434,6 @@ Chcete tuto značku smazat také od společnosti a od všech jejích osob?</valu
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Nahrát foto z Počítače </value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Vyberte ze sociálních sítí</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Povolit přístup ke společnosti pro všechny uživatele CRM</value>
   </data>
@@ -491,9 +488,6 @@ Chcete tuto značku smazat také od společnosti a od všech jejích osob?</valu
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>V ONLYOFFICE™ CRM nejsou žádné shody, vyberte ze seznamu</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Nejsou k dispozici žádné fotky odpovídající profilu</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Upozorněte správce kontaktů e-mailem</value>

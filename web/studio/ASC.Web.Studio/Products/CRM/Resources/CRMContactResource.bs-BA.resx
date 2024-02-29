@@ -431,9 +431,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Pošaljite fotografiju sa računara</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Odaberite s društvenih mreža</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Omogućite pristup kompaniji svim CRM korisnicima</value>
   </data>
@@ -487,9 +484,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Nema podudaranja u CRM, odaberite s popisa</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Nema dostupnih fotografija koje odgovaraju profilu</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Obavijestite menadžera kontakata putem e-pošte</value>

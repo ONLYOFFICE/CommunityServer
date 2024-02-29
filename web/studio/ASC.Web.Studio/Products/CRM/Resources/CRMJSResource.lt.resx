@@ -149,9 +149,6 @@
     <value>Visa įvesta informacija bus prarasta.
 Ar tikrai norite tęsti?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Nurodykite savo Twitter paskyros pavadinimą. Pavyzdžiui, teamlabdotcom</value>
-  </data>
   <data name="CurrentMonth" xml:space="preserve">
     <value>Einamasis mėnuo</value>
   </data>
@@ -278,9 +275,6 @@ Ar tikrai norite tęsti?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Numatoma sandorio užbaigimo data</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Rasti Twitter paskyrą</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Adresatų sąrašas sugeneruotas. {0} Spauskite žemiau esančias nuorodas adresų persiuntimui į el. pašto programą.</value>
   </data>
@@ -391,9 +385,6 @@ Ar tikrai norite tęsti?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Prašome palaukti</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>galimi profiliai {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Ankstesnis</value>

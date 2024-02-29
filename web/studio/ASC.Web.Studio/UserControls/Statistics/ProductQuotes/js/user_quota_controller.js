@@ -491,16 +491,16 @@ ASC.UserQuotaController = (function () {
             addTop: 2,
             addLeft: -2,
             fixWinSize: true,
-            showFunction: function (switcherObj, dropdownItem) {
+            beforeShowFunction: function (switcherObj, dropdownItem) {
                 var personId = switcherObj.attr("id").split('_')[1];
                 if (!personId) {
                     return;
                 }
                 showUserActionMenu(personId);
-                
+            },
+            showFunction: function (switcherObj, dropdownItem) {
             },
             hideFunction: function () {
-               
             }
         });
     };

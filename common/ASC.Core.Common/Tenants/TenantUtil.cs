@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Text.RegularExpressions;
 
 namespace ASC.Core.Tenants
 {
@@ -30,7 +31,7 @@ namespace ASC.Core.Tenants
                 return baseHost;
             }
             var subdomain = baseHost.Remove(baseHost.IndexOf('.') + 1);
-            return hostedRegion.StartsWith(subdomain) ? hostedRegion : (subdomain + hostedRegion.TrimStart('.'));
+            return hostedRegion.StartsWith(subdomain) ? hostedRegion : (subdomain + Regex.Replace(hostedRegion.TrimStart('.'), @"\d", ""));
         }
 
 

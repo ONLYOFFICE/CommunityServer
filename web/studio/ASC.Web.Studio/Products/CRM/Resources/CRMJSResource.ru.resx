@@ -149,9 +149,6 @@
     <value>Вся введенная информация будет потеряна.
 Вы уверены, что хотите продолжить?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Введите название вашего Twitter аккаунта. Например, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Страна</value>
   </data>
@@ -281,9 +278,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Предполагаемая дата закрытия</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Найти аккаунт в Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Список получателей был сгенерирован. {0} Щелкните по ссылкам ниже, чтобы перенести адреса email в почтовую программу.</value>
   </data>
@@ -397,9 +391,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Пожалуйста, подождите...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Возможные профили для {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Назад</value>

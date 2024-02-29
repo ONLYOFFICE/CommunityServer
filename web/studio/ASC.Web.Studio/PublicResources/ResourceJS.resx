@@ -1015,4 +1015,10 @@
   <data name="OperationStartedMsg" xml:space="preserve">
     <value>Operation has been successfully started.</value>
   </data>
+	<data name="OperationCompletedMsg" xml:space="preserve">
+    <value>Operation has been successfully completed.</value>
+  </data>
+  <data name="EmailCopyToClipboard" xml:space="preserve">
+    <value>Email copied to clipboard</value>
+  </data>
 </root>

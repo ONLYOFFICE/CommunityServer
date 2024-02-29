@@ -429,9 +429,6 @@ Möchten Sie dieses Tag auch aus dem Unternehmen und allen darauf bezogenen Pers
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Foto vom PC hochladen </value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Aus den sozialen Netzwerken wählen</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Den Zugriff auf das Unternehmen für alle CRM-Benutzer erteilen</value>
   </data>
@@ -485,9 +482,6 @@ Möchten Sie dieses Tag auch aus dem Unternehmen und allen darauf bezogenen Pers
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Keine Treffer in ONLYOFFICE™-CRM. Wählen Sie aus der Liste</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Keine verfügbaren Bilder, die diesem Profil entsprechen</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>den Kontaktleiter per E-Mail benachrichtigen</value>

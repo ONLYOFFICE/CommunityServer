@@ -139,9 +139,6 @@
   <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
     <value>모든 입력 된 정보가 손실됩니다. 당신은 어쨌든 계속 하시겠습니까?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>귀하의 트위터 계정의 이름을 입력하십시오. 예를 들어, teamlabdotcom</value>
-  </data>
   <data name="Deal" xml:space="preserve">
     <value>영업기회</value>
   </data>
@@ -247,9 +244,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>예상 거래 기한</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>트위터에 계정을 찾기</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>받는 사람 목록이 생성되었습니다. {0} 이메일 이메일 프로그램으로 주소를 전달하려면 아래의 링크를 클릭하십시오.</value>
   </data>
@@ -351,9 +345,6 @@
   </data>
   <data name="PleaseRefreshThePage" xml:space="preserve">
     <value>페이지를 새로 고침하세요</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>에 대한 가능성이 프로필 {0}</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>예비 선거</value>

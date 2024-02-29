@@ -16,9 +16,10 @@
 
 
 using System;
-using System.Configuration;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Web.Studio.Core;
 
 namespace ASC.Web.Studio.UserControls.Common.Support
 {
@@ -29,18 +30,10 @@ namespace ASC.Web.Studio.UserControls.Common.Support
             get { return "~/UserControls/Common/Support/SupportChat.ascx"; }
         }
 
-        protected string SupportKey
-        {
-            get
-            {
-                return ConfigurationManagerExtension.AppSettings["web.zendesk-key"];
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/UserControls/Common/Support/livechat.js"));
-            Page.RegisterInlineScript(string.Format("ASC.ZopimLiveChat.init('{0}');", SupportKey));
+            Page.RegisterInlineScript(string.Format("ASC.ZopimLiveChat.init('{0}');", SetupInfo.ZendeskKey));
         }
     }
 }

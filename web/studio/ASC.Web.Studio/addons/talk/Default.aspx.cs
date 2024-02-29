@@ -19,6 +19,7 @@ using System;
 using System.Configuration;
 using System.Web;
 
+using ASC.Web.Core.Utility;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Talk.Resources;
@@ -38,8 +39,14 @@ namespace ASC.Web.Talk
             {
                 Response.Redirect(CommonLinkUtility.GetDefault());
             }
-
-            Page.RegisterStyle("~/addons/talk/css/default/talk.overview.less");
+            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/addons/talk/css/dark/dark-talk.overview.less");
+            }
+            else
+            {
+                Page.RegisterStyle("~/addons/talk/css/default/talk.overview.less");
+            }
 
             Title = HeaderStringHelper.GetPageTitle(TalkResource.ProductName);
             Master.DisabledSidePanel = true;

@@ -34,6 +34,8 @@ namespace ASC.Data.Backup.Service
 
         public BackupProgress StartBackup(StartBackupRequest request)
         {
+            BackupStorageFactory.CheckBackupStorage(request);
+
             var progress = BackupWorker.StartBackup(request);
             if (!string.IsNullOrEmpty(progress.Error))
             {
@@ -199,6 +201,8 @@ namespace ASC.Data.Backup.Service
 
         public void CreateSchedule(CreateScheduleRequest request)
         {
+            BackupStorageFactory.CheckBackupStorage(request);
+
             BackupStorageFactory.GetBackupRepository().SaveBackupSchedule(
                 new Schedule(request.TenantId)
                 {

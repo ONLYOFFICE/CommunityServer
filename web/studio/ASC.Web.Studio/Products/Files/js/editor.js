@@ -38,6 +38,7 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetDiffUrl, completeGetDiffUrl);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.RestoreVersion, completeGetEditHistory);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetReferenceData, completeGetReferenceData);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetReferenceLink, completeGetReferenceLink);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetMails, completeGetMails);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FileRename, completeRename);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetUsers, completeGetUsers);
@@ -107,15 +108,18 @@ window.ASC.Files.Editor = (function () {
                 && !ASC.Files.Editor.docServiceParams.editByUrl
                 && !ASC.Files.Editor.docServiceParams.thirdPartyApp) {
 
-                ASC.Files.Editor.canShowHistory = true;
-                eventsConfig.onRequestHistory = ASC.Files.Editor.requestHistory;
-                eventsConfig.onRequestHistoryData = ASC.Files.Editor.getDiffUrl;
-                eventsConfig.onRequestHistoryClose = ASC.Files.Editor.historyClose;
-                if (!!documentConfig.permissions.changeHistory) {
-                    eventsConfig.onRequestRestore = ASC.Files.Editor.restoreVersion;
+                if (ASC.Files.Editor.docServiceParams.isAuthenticated) {
+                    ASC.Files.Editor.canShowHistory = true;
+                    eventsConfig.onRequestHistory = ASC.Files.Editor.requestHistory;
+                    eventsConfig.onRequestHistoryData = ASC.Files.Editor.getDiffUrl;
+                    eventsConfig.onRequestHistoryClose = ASC.Files.Editor.historyClose;
+                    if (!!documentConfig.permissions.changeHistory) {
+                        eventsConfig.onRequestRestore = ASC.Files.Editor.restoreVersion;
+                    }
                 }
 
                 eventsConfig.onRequestReferenceData = ASC.Files.Editor.requestReferenceData;
+                eventsConfig.onRequestOpen = ASC.Files.Editor.requestOpen;
             }
 
             if (ASC.Files.Editor.docServiceParams.canGetUsers) {
@@ -276,14 +280,42 @@ window.ASC.Files.Editor = (function () {
             });
     };
 
+    var requestOpen = function (event) {
+        var windowName = event.data.windowName;
+        var reference = event.data;
+
+        ASC.Files.ServiceManager.getReferenceData(ASC.Files.ServiceManager.events.GetReferenceLink,
+            {
+                fileKey: reference.referenceData ? reference.referenceData.fileKey : "",
+                instanceId: reference.referenceData ? reference.referenceData.instanceId : "",
+                sourceFileId: ASC.Files.Editor.docServiceParams.fileId,
+                path: reference.path || "",
+                windowName: windowName,
+            });
+    };
+
     var getMails = function () {
         ASC.Files.ServiceManager.getMailAccounts(ASC.Files.ServiceManager.events.GetMails);
     };
 
-    var requestUsers = function () {
-        ASC.Files.ServiceManager.getUsers(ASC.Files.ServiceManager.events.GetUsers, {
-            fileId: ASC.Files.Editor.docServiceParams.fileId
-        });
+    var requestUsers = function (event) {
+        if (event && event.data) {
+            var c = event.data.c;
+        }
+
+        switch (c) {
+            case "protect":
+                ASC.Files.ServiceManager.getProtectUsers(ASC.Files.ServiceManager.events.GetUsers, {
+                    c: c,
+                    fileId: ASC.Files.Editor.docServiceParams.fileId
+                });
+                break;
+            default:
+                ASC.Files.ServiceManager.getSharedUsers(ASC.Files.ServiceManager.events.GetUsers, {
+                    c: c,
+                    fileId: ASC.Files.Editor.docServiceParams.fileId
+                });
+        }
     };
 
     var requestSendNotify = function (event) {
@@ -507,6 +539,20 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.Editor.docEditor.setReferenceData(jsonData);
     };
 
+    var completeGetReferenceLink = function (jsonData, params, errorMessage) {
+        var windowName = params.windowName;
+
+        if (typeof errorMessage != "undefined" || jsonData.error) {
+            var winEditor = window.open("", windowName);
+            winEditor.close();
+            ASC.Files.Editor.docEditor.showMessage(errorMessage || jsonData.error || "Connection is lost");
+            return;
+        }
+
+        var link = jsonData.link;
+        window.open(link, windowName);
+    };
+
     var completeGetMails = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.setEmailAddresses != "function") {
             if (typeof errorMessage != "undefined") {
@@ -550,7 +596,10 @@ window.ASC.Files.Editor = (function () {
             ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
         }
 
-        ASC.Files.Editor.docEditor.setUsers({users: jsonData});
+        ASC.Files.Editor.docEditor.setUsers({
+            c: params.c,
+            users: jsonData
+        });
     };
 
     var completeSendEditorNotify = function (jsonData, params, errorMessage) {
@@ -595,6 +644,7 @@ window.ASC.Files.Editor = (function () {
         getDiffUrl: getDiffUrl,
         restoreVersion: restoreVersion,
         requestReferenceData: requestReferenceData,
+        requestOpen: requestOpen,
         getMails: getMails,
         requestStartMailMerge: requestStartMailMerge,
         rename: rename,

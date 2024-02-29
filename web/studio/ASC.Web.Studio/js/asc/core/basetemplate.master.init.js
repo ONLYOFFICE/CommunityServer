@@ -164,26 +164,23 @@ var defineBodyMediaClass = function () {
 
     var isDesktop = jq("body").hasClass("desktop");
 
-    if (ASC.Resources.Master.ModeThemeSettings.AutoDetect == true) {
-        var window_theme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (window_theme == true && ASC.Resources.Master.ModeThemeSettings.ModeThemeName != 1) {
-            SetThemeMode("dark");
-            return;
-        }
-        if (window_theme == false && ASC.Resources.Master.ModeThemeSettings.ModeThemeName != 0) {
-            SetThemeMode("light");
-            return;
-        }
+    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    var systemTheme = systemDark ? "dark" : "light";
+
+    if (jq.cookies.get("mode_theme_key") != systemTheme) {
+        jq.cookies.set("mode_theme_key", systemTheme, { path: '/' });
     }
 
-    function SetThemeMode(theme) {
-        Teamlab.setModeTheme(null, theme, true, {
-            success: function (params, response) {
-                jq.cookies.set("mode_theme_key", theme, { path: '/' });
+    if (ASC.Resources.Master.IsAuthenticated &&
+        ASC.Resources.Master.ModeThemeSettings.AutoDetect &&
+        ASC.Resources.Master.ModeThemeSettings.ModeThemeName != systemDark) {
+        Teamlab.setModeTheme(null, systemTheme, true, {
+            success: function () {
                 window.location.reload(true);
             }
         });
-    };
+    }
 
     // init RenderPromoBar
     if (ASC.Resources.Master.SetupInfoNotifyAddress &&

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -30,7 +31,6 @@ namespace ASC.Core.Data
     {
         private const string tenants_quota = "tenants_quota";
         public const string tenants_quotarow = "tenants_quotarow";
-
 
         public DbQuotaService(ConnectionStringSettings connectionString)
             : base(connectionString, "tenant")
@@ -51,6 +51,8 @@ namespace ASC.Core.Data
 
         private IEnumerable<TenantQuota> GetTenantQuotas(Exp where)
         {
+            if (IsDocspace) return GetDocspaceTenantQuotas(where);
+
             var q = new SqlQuery(tenants_quota)
                 .Select("tenant", "name", "max_file_size", "max_total_size", "active_users", "features", "price", "avangate_id", "visible")
                 .Where(where);
@@ -69,9 +71,45 @@ namespace ASC.Core.Data
                 });
         }
 
+        private IEnumerable<TenantQuota> GetDocspaceTenantQuotas(Exp where)
+        {
+            var q = new SqlQuery(tenants_quota)
+                .Select("tenant", "name", "features", "price", "product_id", "visible")
+                .Where(where);
+
+            return ExecList(q)
+                .ConvertAll(r =>
+                {
+                    var features = (string)r[2];
+                    var featuresArray = features.Split(',');
+                    var fileSize = GetQuotaFeatureValue(featuresArray, "file_size");
+                    var totalSize = GetQuotaFeatureValue(featuresArray, "total_size");
+                    var managers = GetQuotaFeatureValue(featuresArray, "manager");
+
+                    return new TenantQuota(Convert.ToInt32(r[0]))
+                    {
+                        Name = (string)r[1],
+                        MaxFileSize = fileSize == null ? 0 : GetInBytes(Convert.ToInt64(fileSize)),
+                        MaxTotalSize = totalSize == null ? 0 : GetInBytes(Convert.ToInt64(totalSize)),
+                        ActiveUsers = managers == null ? 0 : Convert.ToInt32(managers),
+                        Features = features,
+                        Price = Convert.ToDecimal(r[3]),
+                        AvangateId = (string)r[4],
+                        Visible = Convert.ToBoolean(r[5]),
+                    };
+                });
+        }
+
+        private string GetQuotaFeatureValue(string[] featuresArray, string featureName)
+        {
+            var featureStr = featuresArray.FirstOrDefault(f => f.StartsWith(featureName + ":"));
+            return featureStr == null ? null : Regex.Match(featureStr, @"\d+").Value;
+        }
 
         public TenantQuota SaveTenantQuota(TenantQuota quota)
         {
+            if (IsDocspace) throw new NotImplementedException();
+
             if (quota == null) throw new ArgumentNullException("quota");
 
             var i = Insert(tenants_quota, quota.Id)
@@ -90,6 +128,8 @@ namespace ASC.Core.Data
 
         public void RemoveTenantQuota(int id)
         {
+            if (IsDocspace) throw new NotImplementedException();
+
             var d = Delete(tenants_quota, id);
             ExecNonQuery(d);
         }

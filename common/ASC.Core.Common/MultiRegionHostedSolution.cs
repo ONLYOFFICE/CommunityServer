@@ -43,24 +43,24 @@ namespace ASC.Core
             this.dbid = dbid;
         }
 
-        public List<Tenant> GetTenants(DateTime from)
+        public List<Tenant> GetTenants(DateTime from, bool? docspace = null)
         {
-            return GetRegionServices()
+            return GetRegionServices(docspace)
                 .SelectMany(r => r.GetTenants(from))
                 .ToList();
         }
 
-        public List<Tenant> FindTenants(string login)
+        public List<Tenant> FindTenants(string login, bool? docspace = null)
         {
-            return FindTenants(login, null);
+            return FindTenants(login, null, null, docspace);
         }
 
-        public List<Tenant> FindTenants(string login, string password, string passwordHash = null)
+        public List<Tenant> FindTenants(string login, string password, string passwordHash = null, bool? docspace = null)
         {
             var result = new List<Tenant>();
             Exception error = null;
 
-            foreach (var service in GetRegionServices())
+            foreach (var service in GetRegionServices(docspace))
             {
                 try
                 {
@@ -88,9 +88,9 @@ namespace ASC.Core
             GetRegionService(region).RegisterTenant(ri, out tenant);
         }
 
-        public Tenant GetTenant(string domain)
+        public Tenant GetTenant(string domain, bool? docspace = null)
         {
-            foreach (var service in GetRegionServices())
+            foreach (var service in GetRegionServices(docspace))
             {
                 var tenant = service.GetTenant(domain);
                 if (tenant != null)
@@ -143,41 +143,46 @@ namespace ASC.Core
             return GetRegionService(region).GetTenantQuota(tenant);
         }
 
-        public void CheckTenantAddress(string address)
+        public void CheckTenantAddress(string address, bool? docspace = null)
         {
-            foreach (var service in GetRegionServices())
+            foreach (var service in GetRegionServices(docspace))
             {
                 service.CheckTenantAddress(address);
             }
         }
 
-        public IEnumerable<string> GetRegions()
+        public IEnumerable<string> GetRegions(bool? docspace = null)
         {
-            return GetRegionServices().Select(s => s.Region).ToList();
+            return GetRegionServices(docspace).Select(s => s.Region).ToList();
         }
 
-        public IDbManager GetRegionDb(string region)
+        public IDbManager GetRegionDb(string region, out bool docspace)
         {
-            return new DbManager(GetRegionService(region).DbId);
+            var hostedSolution = GetRegionService(region);
+            docspace = hostedSolution.IsDocspace;
+            return new DbManager(hostedSolution.DbId);
         }
 
-        public IDbManager GetMultiRegionDb()
+        public IDbManager GetMultiRegionDb(bool? docspace = null)
         {
-            return new MultiRegionalDbManager(GetRegions().Select(r => new DbManager(GetRegionService(r).DbId)));
+            return new MultiRegionalDbManager(GetRegions(docspace).Select(r => new DbManager(GetRegionService(r).DbId)));
         }
 
-        public ConnectionStringSettings GetRegionConnectionString(string region)
+        public ConnectionStringSettings GetRegionConnectionString(string region, out bool docspace)
         {
-            return DbRegistry.GetConnectionString(GetRegionService(region).DbId);
+            var hostedSolution = GetRegionService(region);
+            docspace = hostedSolution.IsDocspace;
+            return DbRegistry.GetConnectionString(hostedSolution.DbId);
         }
 
 
-        private IEnumerable<HostedSolution> GetRegionServices()
+        private IEnumerable<HostedSolution> GetRegionServices(bool? docspace = null)
         {
             Initialize();
 
             return regions.Where(x => !String.IsNullOrEmpty(x.Key))
-                   .Select(x => x.Value);
+                   .Select(x => x.Value)
+                   .Where(r => docspace.HasValue ? r.IsDocspace == docspace : true);
         }
 
         private HostedSolution GetRegionService(string region)

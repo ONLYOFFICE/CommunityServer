@@ -149,9 +149,6 @@
     <value>All angett data kommer förloras.
 Är du säker på att du vill fortsätta ändå?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Vänligen ange namen på ditt TWitter-konto. Till exempel, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Land</value>
   </data>
@@ -281,9 +278,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Beräknad förfallodatum för avtalet</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Hitta konto på Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Din mottagareslista har genereras. {0} Klicka länkarna nedan för att skicka dina mejladresser över till mejlprogrammet.</value>
   </data>
@@ -394,9 +388,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Vänligen vänta...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Möjliga profiler för {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Föregående</value>

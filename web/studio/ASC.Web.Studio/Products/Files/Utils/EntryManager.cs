@@ -57,7 +57,7 @@ namespace ASC.Web.Files.Utils
         private static readonly ICache cache = AscCache.Default;
 
 
-        public static IEnumerable<FileEntry> GetEntries(IFolderDao folderDao, IFileDao fileDao, Folder parent, int from, int count, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy, out int total)
+        public static IEnumerable<FileEntry> GetEntries(IFolderDao folderDao, IFileDao fileDao, Folder parent, int from, int count, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, string extension, bool withSubfolders, OrderBy orderBy, out int total)
         {
             total = 0;
 
@@ -68,7 +68,7 @@ namespace ASC.Web.Files.Utils
             var fileSecurity = Global.GetFilesSecurity();
             var entries = Enumerable.Empty<FileEntry>();
 
-            searchInContent = searchInContent && filter != FilterType.ByExtension && !Equals(parent.ID, Global.FolderTrash);
+            searchInContent = searchInContent && !string.IsNullOrEmpty(searchText) && !Equals(parent.ID, Global.FolderTrash);
 
             if (parent.FolderType == FolderType.Projects && parent.ID.Equals(Global.FolderProjects))
             {
@@ -175,7 +175,7 @@ namespace ASC.Web.Files.Utils
 
                     if (filter != FilterType.FoldersOnly && withSubfolders)
                     {
-                        var files = fileDao.GetFiles(rootKeys, filter, subjectGroup, subjectId, searchText, searchInContent);
+                        var files = fileDao.GetFiles(rootKeys, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                         files = fileSecurity.FilterRead(files);
                         entries = entries.Concat(files);
                     }
@@ -187,7 +187,7 @@ namespace ASC.Web.Files.Utils
             else if (parent.FolderType == FolderType.SHARE)
             {
                 //share
-                var shared = (IEnumerable<FileEntry>)fileSecurity.GetSharesForMe(filter, subjectGroup, subjectId, searchText, searchInContent, withSubfolders);
+                var shared = (IEnumerable<FileEntry>)fileSecurity.GetSharesForMe(filter, subjectGroup, subjectId, searchText, searchInContent, extension, withSubfolders);
 
                 entries = entries.Concat(shared);
 
@@ -196,7 +196,7 @@ namespace ASC.Web.Files.Utils
             }
             else if (parent.FolderType == FolderType.Recent)
             {
-                var files = GetRecent(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent);
+                var files = GetRecent(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                 entries = entries.Concat(files);
 
                 parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalFiles : 1));
@@ -205,7 +205,7 @@ namespace ASC.Web.Files.Utils
             {
                 List<Folder> folders;
                 List<File> files;
-                GetFavorites(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent, out folders, out files);
+                GetFavorites(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent, extension, out folders, out files);
 
                 entries = entries.Concat(folders);
                 entries = entries.Concat(files);
@@ -215,7 +215,7 @@ namespace ASC.Web.Files.Utils
             }
             else if (parent.FolderType == FolderType.Templates)
             {
-                var files = GetTemplates(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent);
+                var files = GetTemplates(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                 entries = entries.Concat(files);
 
                 parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalFiles : 1));
@@ -227,12 +227,12 @@ namespace ASC.Web.Files.Utils
                 folders = fileSecurity.FilterRead(folders);
                 entries = entries.Concat(folders);
 
-                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectGroup, subjectId, searchText, searchInContent, withSubfolders);
+                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectGroup, subjectId, searchText, searchInContent, extension, withSubfolders);
                 files = fileSecurity.FilterRead(files);
                 entries = entries.Concat(files);
 
                 //share
-                var shared = (IEnumerable<FileEntry>)fileSecurity.GetPrivacyForMe(filter, subjectGroup, subjectId, searchText, searchInContent, withSubfolders);
+                var shared = (IEnumerable<FileEntry>)fileSecurity.GetPrivacyForMe(filter, subjectGroup, subjectId, searchText, searchInContent, extension, withSubfolders);
 
                 entries = entries.Concat(shared);
 
@@ -248,7 +248,7 @@ namespace ASC.Web.Files.Utils
                 folders = fileSecurity.FilterRead(folders);
                 entries = entries.Concat(folders);
 
-                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectGroup, subjectId, searchText, searchInContent, withSubfolders);
+                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectGroup, subjectId, searchText, searchInContent, extension, withSubfolders);
                 files = fileSecurity.FilterRead(files);
                 entries = entries.Concat(files);
 
@@ -256,7 +256,7 @@ namespace ASC.Web.Files.Utils
                 {
                     var folderList = GetThirpartyFolders(parent, searchText);
 
-                    var thirdPartyFolder = FilterEntries(folderList, filter, subjectGroup, subjectId, searchText, searchInContent);
+                    var thirdPartyFolder = FilterEntries(folderList, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                     entries = entries.Concat(thirdPartyFolder);
                 }
             }
@@ -291,7 +291,7 @@ namespace ASC.Web.Files.Utils
             return entries;
         }
 
-        public static IEnumerable<File> GetTemplates(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
+        public static IEnumerable<File> GetTemplates(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, string extension)
         {
             using (var tagDao = Global.DaoFactory.GetTagDao())
             {
@@ -299,7 +299,7 @@ namespace ASC.Web.Files.Utils
 
                 var fileIds = tags.Where(tag => tag.EntryType == FileEntryType.File).Select(tag => tag.EntryId).ToList();
 
-                var files = fileDao.GetFilesFiltered(fileIds, filter, subjectGroup, subjectId, searchText, searchInContent);
+                var files = fileDao.GetFilesFiltered(fileIds, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                 files = files.Where(file => file.RootFolderType != FolderType.TRASH).ToList();
 
                 files = Global.GetFilesSecurity().FilterRead(files);
@@ -347,14 +347,14 @@ namespace ASC.Web.Files.Utils
             return folderList;
         }
 
-        public static IEnumerable<File> GetRecent(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
+        public static IEnumerable<File> GetRecent(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, string extension)
         {
             using (var tagDao = Global.DaoFactory.GetTagDao())
             {
                 var tags = tagDao.GetTags(SecurityContext.CurrentAccount.ID, TagType.Recent).ToList();
 
                 var fileIds = tags.Where(tag => tag.EntryType == FileEntryType.File).Select(tag => tag.EntryId).ToList();
-                var files = fileDao.GetFilesFiltered(fileIds, filter, subjectGroup, subjectId, searchText, searchInContent);
+                var files = fileDao.GetFilesFiltered(fileIds, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                 files = files.Where(file => file.RootFolderType != FolderType.TRASH).ToList();
 
                 files = Global.GetFilesSecurity().FilterRead(files);
@@ -368,7 +368,7 @@ namespace ASC.Web.Files.Utils
             }
         }
 
-        public static void GetFavorites(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, out List<Folder> folders, out List<File> files)
+        public static void GetFavorites(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, string extension, out List<Folder> folders, out List<File> files)
         {
             folders = new List<Folder>();
             files = new List<File>();
@@ -391,7 +391,7 @@ namespace ASC.Web.Files.Utils
                 if (filter != FilterType.FoldersOnly)
                 {
                     var fileIds = tags.Where(tag => tag.EntryType == FileEntryType.File).Select(tag => tag.EntryId).ToList();
-                    files = fileDao.GetFilesFiltered(fileIds, filter, subjectGroup, subjectId, searchText, searchInContent);
+                    files = fileDao.GetFilesFiltered(fileIds, filter, subjectGroup, subjectId, searchText, searchInContent, extension);
                     files = files.Where(file => file.RootFolderType != FolderType.TRASH).ToList();
 
                     files = fileSecurity.FilterRead(files);
@@ -401,7 +401,7 @@ namespace ASC.Web.Files.Utils
             }
         }
 
-        public static IEnumerable<FileEntry> FilterEntries(IEnumerable<FileEntry> entries, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
+        public static IEnumerable<FileEntry> FilterEntries(IEnumerable<FileEntry> entries, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent, string extension)
         {
             if (entries == null || !entries.Any()) return entries;
 
@@ -416,6 +416,7 @@ namespace ASC.Web.Files.Utils
             }
 
             Func<FileEntry, bool> where = null;
+            var filterExt = (extension ?? string.Empty).ToLower().Trim();
 
             switch (filter)
             {
@@ -432,8 +433,10 @@ namespace ASC.Web.Files.Utils
                     where = f => f.FileEntryType == FileEntryType.Folder;
                     break;
                 case FilterType.ByExtension:
-                    var filterExt = (searchText ?? string.Empty).ToLower().Trim();
                     where = f => !string.IsNullOrEmpty(filterExt) && f.FileEntryType == FileEntryType.File && FileUtility.GetFileExtension(f.Title).Equals(filterExt);
+                    break;
+                case FilterType.ByExtensionIncludeFolders:
+                    where = f => f.FileEntryType == FileEntryType.Folder || (!string.IsNullOrEmpty(filterExt) && FileUtility.GetFileExtension(f.Title).Equals(filterExt));
                     break;
             }
 
@@ -442,7 +445,7 @@ namespace ASC.Web.Files.Utils
                 entries = entries.Where(where).ToList();
             }
 
-            if ((!searchInContent || filter == FilterType.ByExtension) && !string.IsNullOrEmpty(searchText = (searchText ?? string.Empty).ToLower().Trim()))
+            if (!searchInContent && !string.IsNullOrEmpty(searchText = (searchText ?? string.Empty).ToLower().Trim()))
             {
                 entries = entries.Where(f => f.Title.ToLower().Contains(searchText)).ToList();
             }
@@ -1009,7 +1012,7 @@ namespace ASC.Web.Files.Utils
                         }
 
                         var key = DocumentServiceConnector.GenerateRevisionId(downloadUri);
-                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUri);
+                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUri, out _);
 
                         stream = null;
                     }
@@ -1328,7 +1331,7 @@ namespace ASC.Web.Files.Utils
                 folderDao.DeleteFolder(folder.ID);
             }
 
-            var files = fileDao.GetFiles(parentId, null, FilterType.None, false, Guid.Empty, string.Empty, true);
+            var files = fileDao.GetFiles(parentId, null, FilterType.None, false, Guid.Empty, string.Empty, true, null);
             foreach (var file in files)
             {
                 Global.Logger.InfoFormat("Delete file {0} in {1}", file.ID, parentId);
@@ -1359,7 +1362,7 @@ namespace ASC.Web.Files.Utils
                 }
             }
 
-            var files = fileDao.GetFiles(parentId, null, FilterType.None, false, Guid.Empty, string.Empty, true);
+            var files = fileDao.GetFiles(parentId, null, FilterType.None, false, Guid.Empty, string.Empty, true, null);
             foreach (var file
                 in files.Where(file =>
                                file.Shared
@@ -1375,7 +1378,7 @@ namespace ASC.Web.Files.Utils
 
         public static void ReassignItems(object parentId, Guid fromUserId, Guid toUserId, IFolderDao folderDao, IFileDao fileDao)
         {
-            var fileIds = fileDao.GetFiles(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, false, fromUserId, null, true, true)
+            var fileIds = fileDao.GetFiles(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, false, fromUserId, null, true, null, true)
                                  .Where(file => file.CreateBy == fromUserId)
                                  .Select(file => file.ID);
 

@@ -24,10 +24,14 @@ window.ASC.Controls.TfaAppResetApp = (function () {
         jq("#resetAppButton").on("click", function () {
             $errorBox.hide();
             Teamlab.tfaAppNewApp(jq("#tfaHiddenUserInfoId")[0].value, {
-                success: function () {
+                success: function (params, response) {
                     toastr.success(ASC.Resources.Master.ResourceJS.SavedTitle);
                     PopupKeyUpActionProvider.CloseDialog();
-                    window.location.reload(true);
+                    if (response) {
+                        window.location.href = response;
+                    } else {
+                        window.location.reload(true);
+                    }
                     return false;
                 },
                 error: function (params, error) {

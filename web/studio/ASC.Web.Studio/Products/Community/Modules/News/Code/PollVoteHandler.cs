@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ASC.Core;
 using ASC.Web.Community.Modules.News.Resources;
@@ -36,20 +37,43 @@ namespace ASC.Web.Community.News.Code
             selectedVariantIDs.ForEach(strId => { if (!string.IsNullOrEmpty(strId)) userAnswersIDs.Add(Convert.ToInt64(strId)); });
             long pollId = Convert.ToInt64(additionalParams);
             var storage = FeedStorageFactory.Create();
+            var feed = storage.GetFeed(pollId);
 
-            return VoteForPoll(userAnswersIDs, storage, pollId, out errorMessage);
+            return VoteForPoll(userAnswersIDs, storage, feed, out errorMessage);
         }
 
-        public static bool VoteForPoll(List<long> userAnswersIDs, IFeedStorage storage, long pollId, out string errorMessage)
+        public static bool VoteForPoll(List<long> userAnswersIDs, IFeedStorage storage, Feed feed, out string errorMessage)
         {
             errorMessage = string.Empty;
-            storage.PollVote(SecurityContext.CurrentAccount.ID.ToString(), userAnswersIDs);
-            var pollFeed = storage.GetFeed(pollId);
-            if (pollFeed == null)
+
+            if (feed == null)
             {
-                errorMessage = NewsResource.ErrorAccessDenied;
+                errorMessage = "Item not found";
                 return false;
             }
+
+            if (feed.FeedType != FeedType.Poll)
+            {
+                errorMessage = "Feed is not a poll";
+                return false;
+            }
+
+            var poll = feed as FeedPoll;
+            var currentAccountId = SecurityContext.CurrentAccount.ID.ToString();
+
+            if (poll.IsUserVote(currentAccountId))
+            {
+                errorMessage = "User already voted";
+                return false;
+            }
+
+            if (!userAnswersIDs.Any() || (poll.PollType == FeedPollType.SimpleAnswer && userAnswersIDs.Count > 1))
+            {
+                errorMessage = "Invalid number of answers";
+                return false;
+            }
+
+            storage.PollVote(currentAccountId, userAnswersIDs);
             return true;
         }
 

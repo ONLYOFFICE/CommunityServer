@@ -28,6 +28,8 @@ namespace ASC.Core.Data
 {
     public abstract class DbBaseService
     {
+        public readonly bool IsDocspace;
+
         private readonly string dbid;
 
         protected string TenantColumn
@@ -40,6 +42,7 @@ namespace ASC.Core.Data
         {
             dbid = connectionString.Name;
             TenantColumn = tenantColumn;
+            IsDocspace = connectionString.ConnectionString.Contains("docspace");
         }
 
         protected T ExecScalar<T>(ISqlInstruction sql)

@@ -129,5 +129,12 @@ namespace ASC.Data.Storage.Configuration
             get { return (bool)this[Schema.CACHE]; }
             set { this[Schema.CACHE] = value; }
         }
+
+        [ConfigurationProperty(Schema.ATTACHMENT)]
+        public bool Attachment
+        {
+            get { return (bool)this[Schema.ATTACHMENT]; }
+            set { this[Schema.ATTACHMENT] = value; }
+        }
     }
 }

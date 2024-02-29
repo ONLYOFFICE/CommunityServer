@@ -47,7 +47,7 @@ namespace ASC.Files.ThumbnailBuilder
             get { return (string)this["connectionStringName"]; }
         }
 
-        [ConfigurationProperty("formats", DefaultValue = ".pptx|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.gslides|.xlsx|.xlsm|.xls|.xltx|.xltm|.xlt|.ods|.fods|.ots|.gsheet|.csv|.docx|.docxf|.oform|.docm|.doc|.dotx|.dotm|.dot|.odt|.fodt|.ott|.gdoc|.txt|.rtf|.mht|.html|.htm|.fb2|.epub|.pdf|.djvu|.xps|.oxps|.bmp|.jpeg|.jpg|.png|.gif|.tiff|.tif|.ico")]
+        [ConfigurationProperty("formats", DefaultValue = ".dps|.dpt|.fodp|.odp|.otp|.pot|.potm|.potx|.pps|.ppsm|.ppsx|.ppt|.pptm|.pptx|.sxi|.csv|.et|.ett|.fods|.ods|.ots|.sxc|.xls|.xlsb|.xlsm|.xlsx|.xlt|.xltm|.xltx|.xml|.djvu|.doc|.docm|.docx|.docxf|.oform|.dot|.dotm|.dotx|.epub|.fb2|.fodt|.htm|.html|.mht|.mhtml|.odt|.ott|.oxps|.pdf|.rtf|.stw|.sxw|.txt|.wps|.wpt|.xml|.xps|.bmp|.jpeg|.jpg|.png|.gif|.tiff|.tif|.ico")]
         public string Formats
         {
             get { return (string)this["formats"]; }

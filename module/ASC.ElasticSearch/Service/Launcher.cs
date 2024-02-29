@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -41,12 +42,12 @@ namespace ASC.ElasticSearch
 
         internal static ServiceHost Searcher { get; private set; }
         internal static bool IsStarted { get; private set; }
-        internal static List<string> Indexing { get; private set; }
+        internal static ConcurrentDictionary<string, string> Indexing { get; private set; }
         internal static DateTime? LastIndexed { get; private set; }
 
         static Launcher()
         {
-            Indexing = new List<string>();
+            Indexing = new ConcurrentDictionary<string, string>();
         }
 
         public void Start()
@@ -106,9 +107,9 @@ namespace ASC.ElasticSearch
                     if (!IsStarted) return;
 
                     logger.DebugFormat("Product check {0}", product.IndexName);
-                    Indexing.Add(product.IndexName);
+                    Indexing.TryAdd(product.IndexName, null);
                     product.Check();
-                    Indexing.Remove(product.IndexName);
+                    Indexing.TryRemove(product.IndexName, out _);
                 }
                 catch (Exception e)
                 {
@@ -161,9 +162,9 @@ namespace ASC.ElasticSearch
                         if (!IsStarted) return;
 
                         logger.DebugFormat("Product {0}", product.IndexName);
-                        Indexing.Add(product.IndexName);
+                        Indexing.TryAdd(product.IndexName, null);
                         product.IndexAll();
-                        Indexing.Remove(product.IndexName);
+                        Indexing.TryRemove(product.IndexName, out _);
                     }
                     catch (Exception e)
                     {

@@ -2380,6 +2380,8 @@
     <Content Include="App_Themes\default\images\icon-helpcenter.svg" />
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="Controls\ButtonSidePanel.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

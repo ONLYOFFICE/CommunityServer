@@ -142,7 +142,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         }
                         else
                         {
-                            var files = FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, true);
+                            var files = FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, null, true);
                             string tmpError;
                             if (!_ignoreException && WithError(files, true, out tmpError))
                             {

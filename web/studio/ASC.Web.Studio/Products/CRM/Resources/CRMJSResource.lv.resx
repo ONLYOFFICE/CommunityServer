@@ -149,9 +149,6 @@
     <value>Ievadītā informācija būs zaudēta.
 Vai tiešām vēlaties turpināt?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Lūdzu, ievadiet jūsu Twitter konta nosaukumu. Piemēram, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Valsts</value>
   </data>
@@ -281,9 +278,6 @@ Vai tiešām vēlaties turpināt?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Paredzams darījuma izpildes datums</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Atrast Twitter kontu</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Jūsu adresātu saraksts ir ģenerēts. {0}Noklikšķiniet uz saites zemāk, lai pāriet jūsu e-pasta adreses e-pasta programmu.</value>
   </data>
@@ -394,9 +388,6 @@ Vai tiešām vēlaties turpināt?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Lūdzu, uzgaidiet...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Iespējamie profili {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Atpakaļ</value>

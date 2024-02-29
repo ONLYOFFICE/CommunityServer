@@ -145,9 +145,6 @@
   <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
     <value>Semua informasi yang dimasukkan akan hilang. Apakah Anda yakin ingin melanjutkan?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Silakan masukkan nama akun Twitter Anda. Sebagai contoh, teamlabdotcom</value>
-  </data>
   <data name="Deal" xml:space="preserve">
     <value>Kesempatan</value>
   </data>
@@ -262,9 +259,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Perkiraan kesepakatan tanggal jatuh tempo</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Temukan akun di Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Daftar penerima Anda telah dihasilkan. {0} Klik tautan di bawah untuk melewati alamat email Anda ke program email.</value>
   </data>
@@ -375,9 +369,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Silakan tunggu...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Kemungkinan profil untuk {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Sebelumnya</value>

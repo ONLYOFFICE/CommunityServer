@@ -425,9 +425,6 @@ Ali želite izbrisati to oznako tudi pri podjetju in vseh osebah?</value>
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Naloži sliko iz PC-ja</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Izberi iz družbenih omrežij</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Dovoli dostop k podjetju za vse CRM uporabnike</value>
   </data>
@@ -481,9 +478,6 @@ Ali želite izbrisati to oznako tudi pri podjetju in vseh osebah?</value>
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Ni ujemanj v ONLYOFFICE™ CRM, izberite s seznama</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Slik, ki ustrezajo tem profilu, ni na voljo</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Vodjo kontakta obvesti preko emaila</value>

@@ -105,7 +105,7 @@ ASC.ProductQuotes = (function () {
         teamlab.recalculateUserQuota({}, {
             success: function (params, data) {
                 toastr.success(ASC.Resources.Master.ResourceJS.OperationStartedMsg);
-
+                LoadingBanner.showLoaderBtn(".quotaSettingBlock");
                 onUserQuotaRecalculate();
             }
         });
@@ -211,6 +211,8 @@ ASC.ProductQuotes = (function () {
                 window.location.reload();
             } else {
                 $recalculateUserQuotaButton.removeClass(disableClass);
+                LoadingBanner.hideLoaderBtn(".quotaSettingBlock");
+                toastr.success(ASC.Resources.Master.ResourceJS.OperationCompletedMsg);
                 return;
             }
 

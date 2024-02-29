@@ -406,7 +406,7 @@ window.ASC.Files.MediaPlayer = (function () {
         } else {
             if (playerRef.children("video, audio").length) {
                 var media = formMedia(url, supply, fileTitle);
-                if (mapSupplied[ext].type == audio) media.poster = "/UserControls/Common/MediaViewer/Images/volume.svg";
+                if (mapSupplied[ext].type == audio) media.poster = "/UserControls/Common/MediaViewer/images/volume.svg";
                 playerRef.jPlayer('setMedia', media);
             } else {
                 playerRef.jPlayer({
@@ -459,7 +459,7 @@ window.ASC.Files.MediaPlayer = (function () {
                         var media = formMedia(url, supply, fileTitle);
 
                         if (mapSupplied[ext].type == audio) {
-                            media.poster = "/UserControls/Common/MediaViewer/Images/volume.svg";
+                            media.poster = "/UserControls/Common/MediaViewer/images/volume.svg";
                         } else {
                             playerRef.on("dblclick", function () {
                                 playerRef.jPlayer("option", "fullScreen", !playerRef.jPlayer("option", "fullScreen"));

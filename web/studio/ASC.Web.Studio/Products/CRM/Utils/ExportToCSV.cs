@@ -115,8 +115,10 @@ namespace ASC.Web.CRM.Classes
             FileUrl = null;
         }
 
+        /// <summary>
+        /// Constructor for serialization/deserialization public properties (redis cache)
+        /// </summary>
         public ExportDataOperation()
-            : this(null, null)
         {
         }
 

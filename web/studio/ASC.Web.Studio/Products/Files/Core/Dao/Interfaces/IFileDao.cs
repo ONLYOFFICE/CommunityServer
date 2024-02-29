@@ -88,8 +88,9 @@ namespace ASC.Files.Core
         /// <param name="subjectID"></param>
         /// <param name="searchText"></param>
         /// <param name="searchInContent"></param>
+        /// <param name="extension"></param>
         /// <returns></returns>
-        List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent);
+        List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension);
 
         /// <summary>
         /// 
@@ -108,12 +109,13 @@ namespace ASC.Files.Core
         /// <param name="subjectID"></param>
         /// <param name="searchText"> </param>
         /// <param name="searchInContent"></param>
+        /// <param name="extension"></param>
         /// <param name="withSubfolders"> </param>
         /// <returns>list of files</returns>
         /// <remarks>
         ///    Return only the latest versions of files of a folder
         /// </remarks>
-        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false);
+        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension, bool withSubfolders = false);
 
         /// <summary>
         /// Get stream of file
@@ -272,8 +274,9 @@ namespace ASC.Files.Core
         /// <param name="subjectID"></param>
         /// <param name="searchText"></param>
         /// <param name="searchInContent"></param>
+        /// <param name="extension"></param>
         /// <returns></returns>
-        List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent);
+        List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension);
 
         /// <summary>
         /// Search the list of files containing text

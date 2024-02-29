@@ -427,9 +427,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Lisää valokuva tietokoneelta</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Valitse sosiaalisista palveluista</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Salli Pääsyoikeudet yritykseen kaikille Asiakkuudenhallinnan käyttäjille</value>
   </data>
@@ -483,9 +480,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Ei vastaavia tuloksia ONLYOFFICE™ Asiakkuudenhallinnassa, valitse luettelosta</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Ei käytettävissä olevia valokuvia tälle profiilille.</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Ilmoita kontaktin hallintaan sähköpostilla.</value>

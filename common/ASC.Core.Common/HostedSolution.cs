@@ -50,6 +50,10 @@ namespace ASC.Core
             private set;
         }
 
+        public bool IsDocspace
+        {
+            get { return tenantService.IsDocspace; }
+        }
 
         public HostedSolution(ConnectionStringSettings connectionString)
             : this(connectionString, null)
@@ -216,7 +220,7 @@ namespace ASC.Core
             var quota = quotaService.GetTenantQuotas().FirstOrDefault(q => paid ? q.NonProfit : q.Trial);
             if (quota != null)
             {
-                tariffService.SetTariff(tenant, new Tariff { QuotaId = quota.Id, DueDate = DateTime.MaxValue, });
+                tariffService.SetTariff(tenant, new Tariff { QuotaId = quota.Id, DueDate = DateTime.MaxValue, Quantity = 1 });
             }
         }
 
@@ -233,6 +237,16 @@ namespace ASC.Core
         public IEnumerable<UserInfo> FindUsers(IEnumerable<string> userIds)
         {
             return userService.GetUsersAllTenants(userIds);
+        }
+
+        public UserInfo GetUser(int tenant, string email)
+        {
+            return userService.GetUser(tenant, email);
+        }
+
+        public DateTime GetUserPasswordStamp(int tenant, Guid userId)
+        {
+            return userService.GetUserPasswordStamp(tenant, userId);
         }
 
         private Tenant AddRegion(Tenant tenant)

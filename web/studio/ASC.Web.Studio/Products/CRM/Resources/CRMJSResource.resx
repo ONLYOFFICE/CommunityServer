@@ -149,9 +149,6 @@
     <value>All the entered information will be lost.
 Are you sure you want to continue anyway?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Please enter the name of your Twitter account. For example, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Country</value>
   </data>
@@ -284,9 +281,6 @@ Are you sure you want to continue anyway?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Estimated deal due date</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Find account in Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Your recipient list has been generated. {0} Click the links below to pass your email addresses over to the email program.</value>
   </data>
@@ -400,9 +394,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Please wait...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Possible profiles for {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>

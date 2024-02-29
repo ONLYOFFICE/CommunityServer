@@ -232,7 +232,7 @@
     <value>Create Document</value>
   </data>
   <data name="ButtonCreateFormTemplate" xml:space="preserve">
-    <value>Form template</value>
+    <value>PDF Form</value>
   </data>
   <data name="ButtonCreateFolder" xml:space="preserve">
     <value>Folder</value>
@@ -1077,14 +1077,11 @@
   <data name="ButtonCreateMasterFormFromBlank" xml:space="preserve">
     <value>Blank</value>
   </data>
-  <data name="ButtonCreateMasterFormFromFile" xml:space="preserve">
-    <value>From text document</value>
-  </data>
   <data name="CreateFormTemplateFromFile" xml:space="preserve">
-    <value>Create Form Template from file</value>
+    <value>Create PDF Form from file</value>
   </data>
   <data name="ButtonMakeForm" xml:space="preserve">
-    <value>Save as oform</value>
+    <value>Save as PDF Form</value>
   </data>
   <data name="DefaultSharingAccessRightsSetting" xml:space="preserve">
     <value>Default access rights in sharing settings</value>
@@ -1157,5 +1154,14 @@
   </data>
   <data name="ButtonCreateNewExternalLink" xml:space="preserve">
     <value>Create new external link</value>
+  </data>
+  <data name="ButtonCreateMasterFormFromLocalFile" xml:space="preserve">
+    <value>From local file</value>
+  </data>
+  <data name="ButtonCreateMasterFormFromPortalFile" xml:space="preserve">
+    <value>From portal file</value>
+  </data>
+  <data name="ButtonComeBack" xml:space="preserve">
+    <value>Come back</value>
   </data>
 </root>

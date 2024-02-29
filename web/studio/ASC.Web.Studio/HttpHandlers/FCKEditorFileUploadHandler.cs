@@ -16,10 +16,10 @@
 
 
 using System;
-using System.Text.RegularExpressions;
 using System.Web;
 
 using ASC.Common.Web;
+using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.Core;
@@ -34,6 +34,11 @@ namespace ASC.Web.Studio.HttpHandlers
         {
             try
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+
                 var storeDomain = context.Request["esid"];
                 var itemID = context.Request["iid"] ?? "";
                 var file = context.Request.Files["upload"];

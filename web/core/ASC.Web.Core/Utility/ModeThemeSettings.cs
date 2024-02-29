@@ -44,7 +44,7 @@ namespace ASC.Web.Core.Utility
             return new ModeThemeSettings
             {
                 ModeThemeName = ModeTheme.light,
-                AutoDetect = false
+                AutoDetect = true
             };
         }
 

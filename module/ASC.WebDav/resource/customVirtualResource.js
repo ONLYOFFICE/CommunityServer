@@ -39,14 +39,12 @@ const {
 const {
     method,
     maxChunkSize,
+    maxExecutionTime,
     virtualPath
 } = require('../server/config.js');
 const streamWrite = require('../helper/writable.js');
 const SimpleStruct = require('./simpleStruct.js');
 const parse = require('../helper/propertyParser.js');
-const {
-    maxExecutionTime
-} = require('../server/config');
 const { logMessage } = require('../helper/helper.js');
 
 class CustomVirtualResources {

@@ -66,8 +66,6 @@ namespace ASC.Data.Backup.Service
             configPaths = config.WebConfigs.Cast<WebConfigElement>().ToDictionary(el => el.Region, el => PathHelper.ToRootedConfigPath(el.Path));
             configPaths[currentRegion] = PathHelper.ToRootedConfigPath(config.WebConfigs.CurrentPath);
 
-            SetupInfo.ChunkUploadSize = config.ChunkSize;
-
             var invalidConfigPath = configPaths.Values.FirstOrDefault(path => !File.Exists(path));
             if (invalidConfigPath != null)
             {
@@ -431,6 +429,9 @@ namespace ASC.Data.Backup.Service
                     Percentage = 10;
 
                     tenant = CoreContext.TenantManager.GetTenant(TenantId);
+
+                    Log.Debug($"RestoreProgressItem, RunJob for Tenant={tenant?.TenantId} ");
+
                     tenant.SetStatus(TenantStatus.Restoring);
                     CoreContext.TenantManager.SaveTenant(tenant);
 
@@ -484,7 +485,7 @@ namespace ASC.Data.Backup.Service
                 }
                 catch (Exception error)
                 {
-                    Log.Error(error);
+                    Log.Error(error.Message);
                     Error = error;
 
                     if (tenant != null)

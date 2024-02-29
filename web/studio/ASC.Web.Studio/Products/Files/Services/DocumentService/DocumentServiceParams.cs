@@ -25,6 +25,9 @@ namespace ASC.Web.Files.Services.DocumentService
     [DataContract(Name = "docServiceParams", Namespace = "")]
     public class DocumentServiceParams
     {
+        [DataMember(Name = "isAuthenticated")]
+        public bool IsAuthenticated;
+        
         [DataMember(Name = "displayName")]
         public string DisplayName;
 

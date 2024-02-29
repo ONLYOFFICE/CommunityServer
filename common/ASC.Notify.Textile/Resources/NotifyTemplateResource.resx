@@ -119,7 +119,7 @@
         &lt;/tr&gt;</value>
   </data>
   <data name="HtmlMaster" xml:space="preserve">
-    <value>&lt;body style="margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;"&gt;
+    <value>&lt;body style="background: linear-gradient(#ffffff, #ffffff); background-color: #ffffff; margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;"&gt;
 &lt;div style="background-color: #fff; width: 600px; margin: 0 auto; text-align: left;"&gt;
     &lt;table cellspacing="0" cellpadding="0" style="font-family: Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;"&gt;
       &lt;tbody&gt;

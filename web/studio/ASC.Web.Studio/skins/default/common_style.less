@@ -112,7 +112,7 @@ span.addUserLink {
 
 .popupContainerClass, .mainContainerClass .popupContainerClass {
     background: none repeat scroll 0 0 @body-color;
-    border: 1px solid @borderColor;
+    border: 1px solid @border-popup-color;
 }
 
 .popupContainerClass .containerHeaderBlock,
@@ -203,23 +203,26 @@ span.addUserLink {
 }
 
 .error-container {
-    background: url("imagescss/toast_icon01.png") no-repeat scroll 5px 0px #f5e1a2;
-    color: @textColor;
+    background: url('@{img-toastr}toast_icon01.png') no-repeat scroll 5px 0px @toastr-error-container-bg;
+    color: @toastr-error-container-col;
     position: absolute;
     padding: 4px 0;
-    top:-29px;
+    top: -29px;
     left: 0;
-    width:100%;
+    width: 100%;
+    border: @toastr-error-container-bor;
 }
 
 .success-container {
-    background: url("imagescss/toast_icon02.png") no-repeat scroll 5px 0px #cbea95;
-    color: @textColor;
+    background: url('@{img-toastr}toast_icon02.png') no-repeat scroll 5px 0px @toastr-success-container-bg;
+    color: @toastr-success-container-col;
     position: absolute;
     padding: 4px 0;
     top:-29px;
     left: 0;
     width:100%;
+    border: @toastr-success-container-bor;
+
 }
 .error-container span,
 .success-container span {
@@ -503,42 +506,29 @@ table.tableBase {
 }
 
 /*--------------Forum Quote-------------------------*/
-
-#quote {
-    background: #FDFCE5;
-    margin-left: 3px;
-
-    .bord {
-        background: #FDFCE5;
-
-        .t {
-            background-image: url('imagescss/quotebord-t.gif');
-        }
-
-        .r {
-            background-image: url('imagescss/quotebord-r.gif');
-        }
-
-        .b {
-            background-image: url('imagescss/quotebord-b.gif');
-        }
-
-        .l {
-            background-image: url('imagescss/quotebord-l.gif');
-        }
-
-        .reducer {
-            padding: 14px 25px;
-        }
-    }
-}
-
 .mainQuote {
     padding: 0 24px 0 0;
     font-size: 12px;
 
     .quoteCaption {
         padding: 0px 0px 12px 0px;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .bord {
+        border: 1px solid #C7C7C7;
+        background: none repeat scroll 0 0 #FDFCE5;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        color: #333;
+    }
+
+    .reducer {
+        padding: 14px 25px;
     }
 }
 
@@ -863,15 +853,15 @@ progress {
 *************************************************************/
 span.requiredErrorText {
     display: none;
-    color: #CC0000;
+    color: @requiredField-col;
     float: right;
     font-size: 11px;
     font-style: normal;
 }
 
-.requiredField .headerPanel:after{
+.requiredField .headerPanel:after {
     content: " *";
-    color: #c00;
+    color: @requiredField-col;
     font-size: 12px;
     vertical-align: text-top;
 }
@@ -880,9 +870,9 @@ span.requiredErrorText {
     margin: 0 0 4px;
 }
 
-.requiredField .headerPanelSmall:after{
+.requiredField .headerPanelSmall:after {
     content: " *";
-    color: #c00;
+    color: @requiredField-col;
     font-size: 12px;
     vertical-align: text-top;
 }
@@ -895,21 +885,21 @@ span.requiredErrorText {
 
 .requiredFieldError .headerPanel,
 .requiredFieldError .headerPanelSmall {
-    color: #c00;
+    color: @requiredField-col;
 }
 
 .requiredFieldError input,
 .requiredFieldError input[type="text"]:focus,
 .requiredFieldError div#userSelector .adv-userselector-selector-container,
-.requiredInputError  {
-    border-color: #c00;
+.requiredInputError {
+    border-color: @requiredField-col;
 }
 .requiredFieldError span.requiredErrorText {
     display: block;
 }
 
 .requiredTitle:after {
-    color: #CC0000;
+    color: @requiredField-col;
     content: " *";
     font-size: 12px;
     vertical-align: text-top;
@@ -1208,7 +1198,7 @@ body.media-width-0-1200 .settings-help-block {
         a:visited,
         a:hover,
         a:active {
-            color: #116d9d;
+            color: @linkColor;
         }
     }
 
@@ -1572,15 +1562,15 @@ welcome popup for Collaborator
 
 ::-webkit-scrollbar { background: transparent; width: 16px; height: 16px; }
 ::-webkit-scrollbar-button { display: none; }
-::-webkit-scrollbar-track { background: #F5F5F5; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
-::-webkit-scrollbar-thumb { background: #BFBFBF; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
+::-webkit-scrollbar-track { background: @webkit-scrollbar-track; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
+::-webkit-scrollbar-thumb { background: @webkit-scrollbar-thumb; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
 ::-webkit-scrollbar-thumb:hover { background: #A7A7A7; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
 ::-webkit-scrollbar-corner { background: inherit; }
 
 .webkit-scrollbar::-webkit-scrollbar { background: transparent; width: 16px; height: 16px; }
 .webkit-scrollbar::-webkit-scrollbar-button { display: none; }
-.webkit-scrollbar::-webkit-scrollbar-track { background: #F5F5F5; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
-.webkit-scrollbar::-webkit-scrollbar-thumb { background: #BFBFBF; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
+.webkit-scrollbar::-webkit-scrollbar-track { background: @webkit-scrollbar-track; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
+.webkit-scrollbar::-webkit-scrollbar-thumb { background: @webkit-scrollbar-thumb; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
 .webkit-scrollbar::-webkit-scrollbar-thumb:hover { background: #A7A7A7; border-style: solid; border-color: transparent; border-width: 4px; border-radius: 6px; background-clip: content-box; }
 .webkit-scrollbar::-webkit-scrollbar-corner { background: inherit; }
 
@@ -1715,4 +1705,13 @@ body.media-width-0-1250 {
     font-size: 12px;
     vertical-align: top;
     padding: 2px 5px;
+}
+.talk-overview-bor-td-3 {
+    border-bottom: 1px solid @talk-overview-bor-col;
+    padding: 0 35px 15px 0;
+}
+.talk-overview-bor-td-2 {
+    border-bottom: 1px solid @talk-overview-bor-col;
+    padding-bottom: 15px;
+    vertical-align: middle
 }

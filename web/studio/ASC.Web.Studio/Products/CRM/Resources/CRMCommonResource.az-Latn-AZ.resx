@@ -742,9 +742,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Sonrakı qeyd</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Qeyd yoxdur</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Poçt hesabı mövcud deyil</value>
   </data>

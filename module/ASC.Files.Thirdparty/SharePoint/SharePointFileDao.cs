@@ -76,7 +76,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return fileIds.Select(fileId => ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId))).ToList();
         }
 
-        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             if (fileIds == null || !fileIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -117,10 +117,11 @@ namespace ASC.Files.Thirdparty.SharePoint
                         });
                     break;
                 case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
+                case FilterType.ByExtensionIncludeFolders:
+                    if (!string.IsNullOrEmpty(extension))
                     {
-                        searchText = searchText.Trim().ToLower();
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                        extension = extension.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(extension));
                     }
                     break;
             }
@@ -136,7 +137,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r).ID).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -178,10 +179,11 @@ namespace ASC.Files.Thirdparty.SharePoint
                     });
                     break;
                 case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
+                case FilterType.ByExtensionIncludeFolders:
+                    if (!string.IsNullOrEmpty(extension))
                     {
-                        searchText = searchText.Trim().ToLower();
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                        extension = extension.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(extension));
                     }
                     break;
             }
@@ -373,7 +375,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
         }
 
-        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             return new List<File>();
         }

@@ -751,12 +751,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Token truy cập</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Bí mật Token truy cập</value>
-  </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter trong CRM Key</value>
   </data>

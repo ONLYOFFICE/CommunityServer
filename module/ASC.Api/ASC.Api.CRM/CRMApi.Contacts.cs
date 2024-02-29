@@ -32,13 +32,9 @@ using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
 using ASC.Projects.Engine;
 using ASC.Specific;
-using ASC.Thrdparty;
-using ASC.Thrdparty.Twitter;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Classes.SocialMedia;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
-using ASC.Web.CRM.SocialMedia;
 using ASC.Web.Projects.Core;
 using ASC.Web.Studio.Core;
 
@@ -272,6 +268,7 @@ namespace ASC.Api.CRM
 
             var opportunity = DaoFactory.DealDao.GetByID(opportunityid);
             if (opportunity == null || !CRMSecurity.CanAccessTo(opportunity)) throw new ItemNotFoundException();
+            if(opportunity.ContactID == contactid) throw new SecurityException("Can't unlink base contact");
 
             DaoFactory.DealDao.RemoveMember(opportunityid, contactid);
 
@@ -1694,106 +1691,6 @@ namespace ASC.Api.CRM
             return result;
         }
 
-        /// <summary>
-        /// Returns a certain number of tweets created by a user with the ID specified in the request.
-        /// </summary>
-        /// <param type="System.Int32, System" method="url" name="contactid">Contact ID</param>
-        /// <param type="System.Int32, System" method="url" name="count">Number of tweets</param>
-        /// <short>Get user tweets</short>
-        /// <category>Contacts</category>
-        /// <returns type="ASC.Thrdparty.Message, ASC.Thrdparty">List of tweets</returns>
-        /// <path>api/2.0/crm/contact/{contactid}/tweets</path>
-        /// <httpMethod>GET</httpMethod>
-        /// <collection>list</collection>
-        [Read(@"contact/{contactid:[0-9]+}/tweets")]
-        public List<Message> GetUserTweets(int contactid, int count)
-        {
-            var MessageCount = 10;
-            var twitterAccounts = DaoFactory.ContactInfoDao.GetList(contactid, ContactInfoType.Twitter, null, null);
-
-            if (twitterAccounts.Count == 0)
-                throw new ResourceNotFoundException(
-                    Newtonsoft.Json.JsonConvert.SerializeObject(
-                                        new
-                                        {
-                                            message = "",
-                                            description = CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter
-                                        }
-                    ));
-
-            var apiInfo = TwitterApiHelper.GetTwitterApiInfoForCurrentUser();
-            TwitterDataProvider twitterProvider = new TwitterDataProvider(apiInfo);
-
-            List<Message> messages = new List<Message>();
-
-            foreach (var twitterAccount in twitterAccounts)
-            {
-                try
-                {
-                    messages.AddRange(twitterProvider.GetUserTweets(twitterAccount.Data, MessageCount));
-                }
-                catch (ResourceNotFoundException ex)
-                {
-                    throw new ResourceNotFoundException(
-                        Newtonsoft.Json.JsonConvert.SerializeObject(
-                                            new
-                                            {
-                                                message = ex.Message,
-                                                description = String.Format("{0}: {1}", CRMSocialMediaResource.ErrorUnknownTwitterAccount, twitterAccount.Data)
-                                            }
-                        ));
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(
-                        Newtonsoft.Json.JsonConvert.SerializeObject(
-                                            new
-                                            {
-                                                message = ex.Message,
-                                                description = String.Format("{0}: {1}", CRMSocialMediaResource.ErrorUnknownTwitterAccount, twitterAccount.Data)
-                                            }
-                        ));
-                }
-            }
-
-
-            return messages.OrderByDescending(m => m.PostedOn).Take(MessageCount).ToList();
-
-        }
-
-
-        /// <summary>
-        /// Returns a list of twitter profiles by the search text specified in the request.
-        /// </summary>
-        /// <param type="System.String, System" method="url" name="searchText">Search text</param>
-        /// <short>Get twitter profiles</short>
-        /// <category>Contacts</category>
-        /// <returns type="ASC.Thrdparty.Twitter.TwitterUserInfo, ASC.Thrdparty">List of twitter profiles</returns>
-        /// <path>api/2.0/crm/contact/twitterprofile</path>
-        /// <httpMethod>GET</httpMethod>
-        /// <collection>list</collection>
-        [Read(@"contact/twitterprofile")]
-        public List<TwitterUserInfo> FindTwitterProfiles(string searchText)
-        {
-            try
-            {
-                TwitterApiInfo apiInfo = TwitterApiHelper.GetTwitterApiInfoForCurrentUser();
-                if (apiInfo == null)
-                    throw new SocialMediaAccountNotFound(CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter);
-
-                TwitterDataProvider provider = new TwitterDataProvider(apiInfo);
-                List<TwitterUserInfo> users = provider.FindUsers(searchText);
-                /*List<TwitterUserInfo> users = new List<TwitterUserInfo>();
-                users.Add(new TwitterUserInfo { Description = "I'm a cool user", SmallImageUrl = "http://localhost/TeamLab/products/crm/data/0/photos/00/00/10/contact_10_50_50.jpg", UserName = "User", ScreenName = "user", UserID = 1 });
-                users.Add(new TwitterUserInfo { Description = "I'm a cool user", SmallImageUrl = "http://localhost/TeamLab/products/crm/data/0/photos/00/00/10/contact_10_50_50.jpg", UserName = "User", ScreenName = "user", UserID = 1 });
-                users.Add(new TwitterUserInfo { Description = "I'm a cool user", SmallImageUrl = "http://localhost/TeamLab/products/crm/data/0/photos/00/00/10/contact_10_50_50.jpg", UserName = "User", ScreenName = "user", UserID = 1 });*/
-                return users;
-            }
-            catch (Exception ex)
-            {
-                throw new SocialMediaUI(DaoFactory).ProcessError(ex, "ASC.Api.CRM.CRMApi.FindTwitterProfiles");
-            }
-        }
 
         /// <summary>
         /// Deletes an avatar of the contact with the ID specified in the request.
@@ -1833,85 +1730,6 @@ namespace ASC.Api.CRM
             return "";
         }
 
-        /// <summary>
-        /// Returns a list of the social media images for the contact with the ID specified in the request.
-        /// </summary>
-        /// <param type="System.Int32, System" method="url" name="contactId">Contact ID</param>
-        /// <short>Get contact social media images by contact ID</short>
-        /// <category>Contacts</category>
-        /// <returns type="ASC.Web.CRM.Classes.SocialMedia.SocialMediaImageDescription, ASC.Web.CRM">List of social media images</returns>
-        /// <path>api/2.0/crm/contact/{contactid}/socialmediaavatar</path>
-        /// <httpMethod>GET</httpMethod>
-        /// <collection>list</collection>
-        [Read(@"contact/{contactid:[0-9]+}/socialmediaavatar")]
-        public List<SocialMediaImageDescription> GetContactSMImages(int contactId)
-        {
-            return new SocialMediaUI(DaoFactory).GetContactSMImages(contactId);
-        }
-
-        /// <summary>
-        /// Returns a list of the contact social media images from the social networks specified in the request.
-        /// </summary>
-        /// <param type="System.Collections.Generic.List{ASC.Api.CRM.Wrappers.ContactInfoWrapper}, System.Collections.Generic" name="socialNetworks">List of contact social networks</param>
-        /// <short>Get contact social media images by networks</short>
-        /// <category>Contacts</category>
-        /// <returns type="ASC.Web.CRM.Classes.SocialMedia.SocialMediaImageDescription, ASC.Web.CRM">List of social media images</returns>
-        /// <path>api/2.0/crm/contact/socialmediaavatar</path>
-        /// <httpMethod>POST</httpMethod>
-        /// <collection>list</collection>
-        [Create(@"contact/socialmediaavatar")]
-        public List<SocialMediaImageDescription> GetContactSMImagesByNetworks(List<ContactInfoWrapper> socialNetworks)
-        {
-            if (socialNetworks == null || socialNetworks.Count == 0)
-            {
-                return new List<SocialMediaImageDescription>();
-            }
-            var twitter = new List<String>();
-
-            foreach (var sn in socialNetworks)
-            {
-                if (sn.InfoType == ContactInfoType.Twitter) twitter.Add(sn.Data);
-            }
-
-            return new SocialMediaUI(DaoFactory).GetContactSMImages(twitter);
-        }
-
-        /// <summary>
-        /// Uploads an avatar of the contact with the ID specified in the request from the social network.
-        /// </summary>
-        /// <param type="System.Int32, System" method="url" name="contactId">Contact ID</param>
-        /// <param type="ASC.Thrdparty.SocialNetworks, ASC.Thrdparty" name="socialNetwork">Contact social network</param>
-        /// <param type="System.String, System" name="userIdentity">User identity</param>
-        /// <param type="System.Boolean, System" name="uploadOnly">Defines whether to upload an avatar only or also save it to a folder</param>
-        /// <param type="System.String, System" name="tmpDirName" visible="false">Temporary directory name</param>
-        /// <short>Upload an avatar from social network</short>
-        /// <category>Contacts</category>
-        /// <returns type="ASC.Web.CRM.Classes.ContactPhotoManager.PhotoData, ASC.Web.CRM">Avatar</returns>
-        /// <path>api/2.0/crm/contact/{contactid}/avatar</path>
-        /// <httpMethod>PUT</httpMethod>
-        [Update(@"contact/{contactid:[0-9]+}/avatar")]
-        public ContactPhotoManager.PhotoData UploadUserAvatarFromSocialNetwork(int contactId, SocialNetworks socialNetwork, string userIdentity, bool uploadOnly, string tmpDirName)
-        {
-            if (socialNetwork != SocialNetworks.Twitter)
-                throw new ArgumentException();
-
-            if (contactId != 0)
-            {
-                var contact = DaoFactory.ContactDao.GetByID(contactId);
-                if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
-
-                if (!CRMSecurity.CanEdit(contact)) throw CRMSecurity.CreateSecurityException();
-            }
-
-            if (socialNetwork == SocialNetworks.Twitter)
-            {
-                var provider = new TwitterDataProvider(TwitterApiHelper.GetTwitterApiInfoForCurrentUser());
-                var imageUrl = provider.GetUrlOfUserImage(userIdentity, TwitterDataProvider.ImageSize.Original);
-                return UploadAvatar(contactId, imageUrl, uploadOnly, tmpDirName, false);
-            }
-
-            return null;
-        }
 
         /// <summary>
         /// Sends a mail through SMTP to the contacts with the IDs specified in the request.
@@ -2035,17 +1853,6 @@ namespace ASC.Api.CRM
             dao.SetContactLastModifedDate(contactId, lastModifedDate);
         }
 
-
-        private static ContactPhotoManager.PhotoData UploadAvatar(int contactID, string imageUrl, bool uploadOnly, string tmpDirName, bool checkFormat = true)
-        {
-            if (contactID != 0)
-            {
-                return ContactPhotoManager.UploadPhoto(imageUrl, contactID, uploadOnly, checkFormat);
-            }
-
-            if (string.IsNullOrEmpty(tmpDirName) || tmpDirName == "null") tmpDirName = null;
-            return ContactPhotoManager.UploadPhotoToTemp(imageUrl, tmpDirName, checkFormat);
-        }
 
         private IEnumerable<ContactWithTaskWrapper> ToSimpleListContactWrapper(IReadOnlyList<Contact> itemList)
         {

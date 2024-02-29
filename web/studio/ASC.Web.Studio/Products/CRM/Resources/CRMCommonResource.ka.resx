@@ -199,9 +199,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>შემდეგი ჩანაწერი</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>ჩანაწერები არ არის</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>დამთხვევები არ არის</value>
   </data>

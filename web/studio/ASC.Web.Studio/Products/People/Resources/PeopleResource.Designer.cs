@@ -764,6 +764,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy email.
+        /// </summary>
+        public static string LblCopyEmail {
+            get {
+                return ResourceManager.GetString("LblCopyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string LblCreateNew {

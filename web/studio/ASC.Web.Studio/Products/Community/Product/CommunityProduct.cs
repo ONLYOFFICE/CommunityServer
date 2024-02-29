@@ -91,6 +91,7 @@ namespace ASC.Web.Community.Product
                 DisabledIconFileName = "product_disabled_logo.png",
                 IconFileName = "product_logo.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 DefaultSortOrder = 40,
 
                 SubscriptionManager = new CommunitySubscriptionManager(),

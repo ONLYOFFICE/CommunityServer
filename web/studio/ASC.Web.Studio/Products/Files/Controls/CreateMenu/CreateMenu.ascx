@@ -23,10 +23,13 @@
     <div id="createMasterFormPanel" class="studio-action-panel">
         <ul class="dropdown-content">
             <li>
-                <a id="createMasterFormFromFile" class="dropdown-item"><%= FilesUCResource.ButtonCreateMasterFormFromFile %></a>
+                <a id="createMasterForm" class="dropdown-item"><%= FilesUCResource.ButtonCreateMasterFormFromBlank %></a>
             </li>
             <li>
-                <a id="createMasterForm" class="dropdown-item"><%= FilesUCResource.ButtonCreateMasterFormFromBlank %></a>
+                <a id="createMasterFormFromFile" class="dropdown-item"><%= FilesUCResource.ButtonCreateMasterFormFromPortalFile %></a>
+            </li>
+            <li>
+                <a id="createMesterFormFromLocalFile" class="dropdown-item"><%= FilesUCResource.ButtonCreateMasterFormFromLocalFile %></a>
             </li>
         </ul>
     </div>

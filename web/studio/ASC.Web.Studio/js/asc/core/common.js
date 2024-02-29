@@ -496,9 +496,9 @@ StudioBlockUIManager = {
                 },
 
                 overlayCSS: {
-                    backgroundColor: "#aaa",
+                    backgroundColor: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "#aaa" : "#141414",
                     cursor: "default",
-                    opacity: "0.3"
+                    opacity: ASC.Resources.Master.ModeThemeSettings.ModeThemeName == 0 ? "0.3" : "0.8"
                 },
 
                 focusInput: true,
@@ -949,6 +949,7 @@ if (typeof (ASC) === 'undefined') {
 }
 
 ASC.EmailOperationManager = (function () {
+    var clipEmail = null;
     function sendInstructionsHelper(emailOperationServiceSendInstruction, responseAction, reload) {
         AjaxPro.onLoading = function (b) {
             if (b) {
@@ -980,6 +981,16 @@ ASC.EmailOperationManager = (function () {
 
     function sendEmailChangeInstructions(userEmail, userID, responseAction) {
         sendInstructionsHelper(EmailOperationService.SendEmailChangeInstructions.bind(EmailOperationService, userID, userEmail), responseAction, Teamlab.profile.isAdmin);
+    };
+
+    function copyEmailToClipboard(userEmail, id) {
+        ASC.EmailOperationManager.clipEmail = ASC.Clipboard.destroy(ASC.EmailOperationManager.clipEmail);
+
+        ASC.EmailOperationManager.clipEmail = ASC.Clipboard.create(userEmail, id, {
+            onComplete: function () {
+                toastr.success(ASC.Resources.Master.ResourceJS.EmailCopyToClipboard);
+            }
+        });
     };
 
     function showEmailChangeWindow (userEmail, userID, responseAction) {
@@ -1120,6 +1131,7 @@ ASC.EmailOperationManager = (function () {
         sendInstructions: sendInstructions,
         sendEmailActivationInstructions: sendEmailActivationInstructions,
         showResendInviteWindow: showResendInviteWindow,
+        copyEmailToClipboard: copyEmailToClipboard,
         showEmailChangeWindow: showEmailChangeWindow,
         closeEmailOperationWindow: closeEmailOperationWindow,
         closeActivateEmailPanel: closeActivateEmailPanel

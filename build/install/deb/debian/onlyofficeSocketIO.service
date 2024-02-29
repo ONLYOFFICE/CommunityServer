@@ -8,6 +8,7 @@ Type=simple
 WorkingDirectory=/var/www/onlyoffice/Services/ASC.Socket.IO/
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeSocketIO'
 ExecStart=/usr/bin/node /var/www/onlyoffice/Services/ASC.Socket.IO/app.js UNIX.SERVER
+Environment=NODE_OPTIONS=--dns-result-order=ipv4first
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer

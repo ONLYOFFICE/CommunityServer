@@ -96,11 +96,6 @@
       <Name>ASC.FederatedLogin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
-      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
-      <Name>ASC.Thrdparty</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>

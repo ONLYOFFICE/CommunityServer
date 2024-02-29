@@ -38,6 +38,7 @@ namespace ASC.Web.Mail
         {
             try
             {
+                Response.Redirect("~/404.aspx", true);
                 var error = Request["error"];
                 if (!string.IsNullOrEmpty(error))
                 {
@@ -52,12 +53,12 @@ namespace ASC.Web.Mail
                 if (string.IsNullOrEmpty(code))
                 {
                     OAuth20TokenHelper.RequestCode<GoogleLoginProvider>(HttpContext.Current,
-                                                                        string.Concat(GoogleLoginProvider.GoogleScopeMail, " ", GoogleLoginProvider.Instance.Scopes),
-                                                                        new Dictionary<string, string>
-                                                                            {
+                                                                       string.Concat(GoogleLoginProvider.GoogleScopeMail, " ", GoogleLoginProvider.Instance.Scopes),
+                                                                       new Dictionary<string, string>
+                                                                           {
                                                                                 { "access_type", "offline" },
                                                                                 { "prompt", "consent" }
-                                                                            });
+                                                                           });
                 }
                 else
                 {

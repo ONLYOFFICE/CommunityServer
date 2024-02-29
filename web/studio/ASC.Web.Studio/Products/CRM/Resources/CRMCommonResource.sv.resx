@@ -478,9 +478,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Nästa register</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Inga register</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Inga mejlkonto tillgängliga</value>
   </data>

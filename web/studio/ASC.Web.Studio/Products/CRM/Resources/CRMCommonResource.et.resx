@@ -289,9 +289,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Järgmine kirje</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Kirjeid pole</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>vastet ei leitud</value>
   </data>

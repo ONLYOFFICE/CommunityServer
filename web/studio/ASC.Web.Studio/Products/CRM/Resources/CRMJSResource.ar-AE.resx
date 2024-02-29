@@ -140,9 +140,6 @@
     <value>جميع البيانات المدخله سيتم فقدها.
 هل انت متأكد من انك تريد الإكمال على ايه حال؟</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>الرجاء ادخال اسم المستخدم الخاص بك على تويتر</value>
-  </data>
   <data name="Deal" xml:space="preserve">
     <value>فرصه</value>
   </data>
@@ -248,9 +245,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>الموعد النهائي المتوقع لإتمام الصفقه</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>ابحث عن الحساب في تويتر</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>تم انشاء قائمه المستلمين. {0} اضغط الرابط ادناه لترحيل عناوين المستلمين الى برنامج البريد.</value>
   </data>
@@ -352,9 +346,6 @@
   </data>
   <data name="PleaseRefreshThePage" xml:space="preserve">
     <value>الرجاء اعاده تحميل هذه الصفحه</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>ملفات شخصيه متوقعه لـ {0}</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>رئيسي</value>

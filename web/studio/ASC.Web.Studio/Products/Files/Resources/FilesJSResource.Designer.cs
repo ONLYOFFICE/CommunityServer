@@ -798,6 +798,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File extension must be .docx.
+        /// </summary>
+        public static string ErrorMessage_WrongExtension {
+            get {
+                return ResourceManager.GetString("ErrorMessage_WrongExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to External link.
         /// </summary>
         public static string ExternalLink {

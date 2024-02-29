@@ -995,12 +995,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>アクセストークン</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>秘密なアクセストークン</value>
-  </data>
   <data name="ConsumersTwitterCrmKey" xml:space="preserve">
     <value>Twitter ID</value>
   </data>

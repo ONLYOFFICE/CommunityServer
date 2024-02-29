@@ -431,9 +431,6 @@ Siz etiketi bu şirkətdən və onunla əlaqəli bütün şəxslərdən silmək 
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Kompüterdən fotoşəkil yüklə</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>və ya sosial şəbəkələrdən seçin:</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Bütün CRM istifadəçiləri üçün şirkətə giriş icazəsi verin</value>
   </data>
@@ -487,9 +484,6 @@ Siz etiketi bu şirkətdən və onunla əlaqəli bütün şəxslərdən silmək 
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>ONLYOFFICE™ CRM ilə üst-üstə düşən heç nə yoxdur, siyahıdan seçim edin</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Bu profilə uyğun fotolar yoxdur.</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Kontakt menecerini e-poçt vasitəsilə xəbərdar edin</value>

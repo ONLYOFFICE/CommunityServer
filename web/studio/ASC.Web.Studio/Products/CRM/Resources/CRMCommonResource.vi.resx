@@ -470,9 +470,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Hồ sơ tiếp theo</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Không có hồ sơ</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Không có tài khoản mail khả dụng</value>
   </data>

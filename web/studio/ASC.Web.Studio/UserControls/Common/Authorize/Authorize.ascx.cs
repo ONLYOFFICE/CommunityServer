@@ -202,7 +202,7 @@ namespace ASC.Web.Studio.UserControls.Common
             if (RecaptchaEnable)
             {
                 Page
-                    .RegisterBodyScripts("~/usercontrols/common/authorize/js/recaptchacontroller.js");
+                    .RegisterBodyScripts("~/UserControls/Common/Authorize/js/recaptchacontroller.js");
             }
 
             ThirdpartyEnable = SetupInfo.ThirdPartyAuthEnabled && AccountLinkControl.IsNotEmpty;
@@ -443,6 +443,7 @@ namespace ASC.Web.Studio.UserControls.Common
             }
             catch (Exception ex)
             {
+                Log.Error("AuthProcess", ex);
                 MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFail);
                 Auth.ProcessLogout();
                 ErrorMessage = ex.Message;

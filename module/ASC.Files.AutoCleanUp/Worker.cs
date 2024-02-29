@@ -140,7 +140,7 @@ namespace ASC.Files.AutoCleanUp
                     itemList.AddRange(folderDao.GetFolders(trashId)
                         .Where(x => FileDateTime.GetModifiedOnWithAutoCleanUp(x.ModifiedOn, tenantUser.Setting, true) < now)
                         .Select(f => "folder_" + f.ID));
-                    itemList.AddRange(fileDao.GetFiles(trashId, null, default(FilterType), false, Guid.Empty, string.Empty, false)
+                    itemList.AddRange(fileDao.GetFiles(trashId, null, default(FilterType), false, Guid.Empty, string.Empty, false, null)
                         .Where(x => FileDateTime.GetModifiedOnWithAutoCleanUp(x.ModifiedOn, tenantUser.Setting, true) < now)
                         .Select(y => "file_" + y.ID));
 

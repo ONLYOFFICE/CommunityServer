@@ -28,7 +28,6 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Utils;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using ASC.Security.Cryptography;
 
 namespace ASC.Core.Data
 {
@@ -37,6 +36,13 @@ namespace ASC.Core.Data
         private static TimeZoneInfo defaultTimeZone;
         private List<string> forbiddenDomains;
 
+        public new bool IsDocspace
+        {
+            get
+            {
+                return base.IsDocspace;
+            }
+        }
 
         public DbTenantService(ConnectionStringSettings connectionString)
             : base(connectionString, null)
@@ -227,19 +233,22 @@ namespace ASC.Core.Data
                     db.ExecuteNonQuery(u);
                 }
 
-                if (string.IsNullOrEmpty(t.PartnerId) && string.IsNullOrEmpty(t.AffiliateId) && string.IsNullOrEmpty(t.Campaign))
+                if (!IsDocspace)
                 {
-                    var d = new SqlDelete("tenants_partners").Where("tenant_id", t.TenantId);
-                    db.ExecuteNonQuery(d);
-                }
-                else
-                {
-                    var i = new SqlInsert("tenants_partners", true)
-                        .InColumnValue("tenant_id", t.TenantId)
-                        .InColumnValue("partner_id", t.PartnerId)
-                        .InColumnValue("affiliate_id", t.AffiliateId)
-                        .InColumnValue("campaign", t.Campaign);
-                    db.ExecuteNonQuery(i);
+                    if (string.IsNullOrEmpty(t.PartnerId) && string.IsNullOrEmpty(t.AffiliateId) && string.IsNullOrEmpty(t.Campaign))
+                    {
+                        var d = new SqlDelete("tenants_partners").Where("tenant_id", t.TenantId);
+                        db.ExecuteNonQuery(d);
+                    }
+                    else
+                    {
+                        var i = new SqlInsert("tenants_partners", true)
+                            .InColumnValue("tenant_id", t.TenantId)
+                            .InColumnValue("partner_id", t.PartnerId)
+                            .InColumnValue("affiliate_id", t.AffiliateId)
+                            .InColumnValue("campaign", t.Campaign);
+                        db.ExecuteNonQuery(i);
+                    }
                 }
 
                 tx.Commit();
@@ -278,7 +287,6 @@ namespace ASC.Core.Data
                 .ConvertAll(r => new TenantVersion(Convert.ToInt32(r[0]), (string)r[1]));
         }
 
-
         public byte[] GetTenantSettings(int tenant, string key)
         {
             return ExecScalar<byte[]>(new SqlQuery("core_settings").Select("value").Where("tenant", tenant).Where("id", key));
@@ -298,8 +306,18 @@ namespace ASC.Core.Data
             return ExecList(q).ConvertAll(ToTenant);
         }
 
-        private static SqlQuery TenantsQuery(Exp where)
+        private SqlQuery TenantsQuery(Exp where)
         {
+            if (IsDocspace)
+            {
+                return new SqlQuery("tenants_tenants t")
+                .Select("t.id", "t.alias", "t.mappeddomain", "t.version", "t.version_changed", "t.name", "t.language", "t.timezone", "t.owner_id")
+                .Select("t.trusteddomains", "t.trusteddomainsenabled", "t.creationdatetime", "t.status", "t.statuschanged", "t.payment_id", "t.last_modified")
+                .Select("NULL", "NULL", "NULL")
+                .Select("t.industry", "t.spam", "t.calls")
+                .Where(where);
+            }
+
             return new SqlQuery("tenants_tenants t")
                 .Select("t.id", "t.alias", "t.mappeddomain", "t.version", "t.version_changed", "t.name", "t.language", "t.timezone", "t.owner_id")
                 .Select("t.trusteddomains", "t.trusteddomainsenabled", "t.creationdatetime", "t.status", "t.statuschanged", "t.payment_id", "t.last_modified")

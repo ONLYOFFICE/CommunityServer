@@ -150,9 +150,6 @@
 所有輸入的信息將丟失。
 您確定要繼續嗎？</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>請輸入您的Twitter帳戶的名稱。例如，teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>國家</value>
   </data>
@@ -282,9 +279,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>預計交易截止日期</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>在Twitter中查找帳戶</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>您的收件人列表已生成。 {0}單擊下面的連結將您的電子郵件地址傳遞到電子郵件程序。</value>
   </data>
@@ -398,9 +392,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>請稍候...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>{0}的可能配置總則</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>前一個</value>

@@ -176,7 +176,7 @@
     }
 
     .baseLinkAction {
-        background: url('../../../../skins/default/images/svg/people/pencilgray.svg') no-repeat 0 0 transparent;
+        background: url('../../../../skins/default/images/svg/people/@{pencil-gray}') no-repeat 0 0 transparent;
         border: 0;
         display: inline-block;
         width: 16px;
@@ -188,6 +188,25 @@
 
         &:hover {
             background: url('../../../../skins/default/images/svg/people/pencilblue.svg') no-repeat 0 0 transparent;
+        }
+    }
+
+    .copyEmailAction {
+        mask-image: url('../../../../skins/default/images/svg/people/copy.svg');
+        -webkit-mask-image: url('../../../../skins/default/images/svg/people/copy.svg');
+        background-repeat: no-repeat;
+        border: 0;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin: -8px 0 -3px 8px;
+        overflow: hidden;
+        text-decoration: none;
+        color: @body-color !important;
+        background-color: #CECECE;
+
+        &:hover {
+            background-color: #3B72A7;
         }
     }
 }

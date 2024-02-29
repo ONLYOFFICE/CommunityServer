@@ -72,6 +72,7 @@ namespace ASC.Web.Mail
                 DisabledIconFileName = "mail_disabled.png",
                 IconFileName = "mail.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 SpaceUsageStatManager = new Configuration.MailSpaceUsageStatManager(),
                 AdminOpportunities = () => MailResource.AddonAdminOpportunities.Split('|').ToList(),
                 UserOpportunities = () => MailResource.AddonUserOpportunities.Split('|').ToList(),

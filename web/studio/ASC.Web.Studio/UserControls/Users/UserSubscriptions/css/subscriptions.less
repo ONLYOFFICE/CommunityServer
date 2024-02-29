@@ -36,18 +36,24 @@
             width:24px;
             height:24px;
             margin: 0 auto 4px;
-            background:url("img/icons_titles.png") no-repeat 0 0 transparent; 
+            -webkit-mask-image: url("img/icons_titles.svg");
+            mask-image: url("img/icons_titles.svg");
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: 0 0;
+            mask-position: 0 0;
+            background-color: @link-plus-after;
                
-            &.news { background-position: 0 -135px; }
-            &.tips { background-position: 0 -373px; }
-            &.admin { background-position: 0 -543px; }
-            &.documents { background-position: 0 -237px; }
-            &.projects { background-position: 0 -101px; }
-            &.crm { background-position: 0 -680px; }
-            &.community { background-position: 0 -203px; }
-            &.tools { background-position: 0 -543px; }
-            &.calendar { background-position: 0 -304px; }
-            &.people { background-position: 0 -33px; }
+            &.news { -webkit-mask-position: 0 -135px; mask-position: 0 -135px; }
+            &.tips { -webkit-mask-position: 0 -373px; mask-position: 0 -373px; }
+            &.admin { -webkit-mask-position: 0 -543px; mask-position: 0 -543px; }
+            &.documents { -webkit-mask-position: 0 -237px; mask-position: 0 -237px; }
+            &.projects { -webkit-mask-position: 0 -101px; mask-position: 0 -101px; }
+            &.crm { -webkit-mask-position: 0 -680px; mask-position: 0 -680px; }
+            &.community { -webkit-mask-position: 0 -203px; mask-position: 0 -203px; }
+            &.tools { -webkit-mask-position: 0 -543px; mask-position: 0 -543px; }
+            &.calendar { -webkit-mask-position: 0 -304px; mask-position: 0 -304px; }
+            &.people { -webkit-mask-position: 0 -33px; mask-position: 0 -33px; }
         }
     }
     .subs-selector {

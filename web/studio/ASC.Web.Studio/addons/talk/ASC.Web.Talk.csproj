@@ -45,6 +45,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
+    <Content Include="App_Themes\default\images\screenshot01.png" />
+    <Content Include="App_Themes\default\images\screenshot02.png" />
+    <Content Include="App_Themes\default\images\screenshot03.png" />
+    <Content Include="App_Themes\default\images\screenshot04.png" />
+    <Content Include="App_Themes\default\images\talk-new.ico" />
     <Content Include="App_Themes\default\images\talk128.svg" />
     <Content Include="App_Themes\default\images\talk16.svg" />
     <Content Include="App_Themes\default\images\talk32.svg" />
@@ -448,6 +455,7 @@
   <ItemGroup>
     <Content Include="web.config" />
     <Content Include="css\dark\dark-talk.messagearea.less" />
+    <Content Include="css\dark\dark-talk.overview.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

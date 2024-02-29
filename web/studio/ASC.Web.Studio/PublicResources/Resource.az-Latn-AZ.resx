@@ -931,12 +931,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Giriş nişanı</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Giriş nişanı sirri</value>
-  </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
     <value>Twitter hesabından istifadə edərək portala daxil olmaq və kontaktları axtarmaq üçün tətbiqi aktivləşdirin.</value>
   </data>

@@ -136,7 +136,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result.ToList();
         }
 
-        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             var result = Enumerable.Empty<File>();
 
@@ -153,7 +153,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                             using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                             {
                                                 return fileDao.GetFilesFiltered(matchedId.Select(selectorLocal.ConvertId).ToList(),
-                                                    filterType, subjectGroup, subjectID, searchText, searchInContent);
+                                                    filterType, subjectGroup, subjectID, searchText, searchInContent, extension);
                                             }
                                         })
                                         .Where(r => r != null));
@@ -171,13 +171,13 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
 
             using (var fileDao = selector.GetFileDao(parentId))
             {
-                var result = fileDao.GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectGroup, subjectID, searchText, searchInContent, withSubfolders)
+                var result = fileDao.GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectGroup, subjectID, searchText, searchInContent, extension, withSubfolders)
                         .Where(r => r != null).ToList();
 
                 if (!result.Any()) return new List<File>();
@@ -479,7 +479,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             var result = Enumerable.Empty<File>();
 
@@ -496,7 +496,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                     using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                                     {
                                                         return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToList(),
-                                                            filterType, subjectGroup, subjectID, searchText, searchInContent);
+                                                            filterType, subjectGroup, subjectID, searchText, searchInContent, extension);
                                                     }
                                                 }));
             }

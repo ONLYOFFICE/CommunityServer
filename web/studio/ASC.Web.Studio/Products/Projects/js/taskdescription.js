@@ -753,10 +753,10 @@ ASC.Projects.TaskDescriptionPage = (function() {
         $taskSelector.find("option[value=" + linkTaskId + "]").addClass(displayNoneClass);
     }
 
-    function displayTaskDescription(task) {
+    function displayTaskDescription(task, rewriteComments) {
         displayTotalInfo(task);
         displaySubtasks(task);
-        initCommentsBlock(task);
+        rewriteComments && initCommentsBlock(task);
     }
 
     function showQuestionWindow() {
@@ -1007,7 +1007,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         tasks = [currentTask];
         baseObject.SubtasksManager.setTasks(tasks);
 
-        displayTaskDescription(task);
+        displayTaskDescription(task, true);
 
         document.title = jq.format("{0} - {1}", task.title, ASC.Projects.Resources.ProjectsJSResource.ProductName);
     };
@@ -1019,7 +1019,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         }
 
         baseObject.InfoContainer.updateTitle(task.title);
-        displayTaskDescription(task);
+        displayTaskDescription(task, false);
 
         jq.unblockUI();
         common.displayInfoPanel(projectsJsResource.TaskUpdated);
@@ -1056,7 +1056,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         tasks[0].subtasks = currentTask.subtasks;
         subtaskTab.rewrite();
 
-        displayTaskDescription(task);
+        displayTaskDescription(task, false);
 
         jq("body").css("cursor", "default");
         disableCreateLinkButton();

@@ -93,6 +93,7 @@ namespace ASC.Web.Sample.Configuration
                 DisabledIconFileName = "product_logo_disabled.png",
                 IconFileName = "product_logo.png",
                 LargeIconFileName = "product_logo_large.svg",
+                LargeIconFileNameDark = "product_logo_large_dark.svg",
                 DefaultSortOrder = 100,
                 SubscriptionManager = null,
                 SpaceUsageStatManager = null,

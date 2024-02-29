@@ -739,9 +739,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Next record</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>No records</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>No mail accounts available</value>
   </data>

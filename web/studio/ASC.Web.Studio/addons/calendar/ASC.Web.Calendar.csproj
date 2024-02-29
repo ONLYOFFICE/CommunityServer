@@ -348,7 +348,8 @@
     <Content Include="App_Themes\default\images\logo.png" />
     <Content Include="App_Themes\default\images\disabledlogo.png" />
     <Content Include="App_Themes\default\images\minilogo.png" />
-    <Content Include="App_Themes\default\images\product_logolarge.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="Controls\DocumentsPopup\css\images\warning.svg" />
     <Content Include="Controls\DocumentsPopup\DocumentsPopup.ascx" />
     <Content Include="Controls\DocumentsPopup\js\documentspopup.js" />

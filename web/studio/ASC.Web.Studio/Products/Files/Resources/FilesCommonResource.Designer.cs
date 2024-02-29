@@ -1294,7 +1294,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The fillable OFORM document is ready. It is saved in the {0}.
+        ///   Looks up a localized string similar to The fillable PDF document is ready. It is saved in the {0}.
         /// </summary>
         public static string MessageFileCreatedForm {
             get {
@@ -1303,7 +1303,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The oform copy is created in the {0} folder. Please fill out the form and download the result as a PDF or DOCX file..
+        ///   Looks up a localized string similar to The PDF copy is created in the {0} folder. Please fill out the form and download the result as a PDF or DOCX file..
         /// </summary>
         public static string MessageFillFormDraftCreated {
             get {

@@ -370,9 +370,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>السجل التالي</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>لا توجد سجلات</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>لا يوجد تطابق</value>
   </data>

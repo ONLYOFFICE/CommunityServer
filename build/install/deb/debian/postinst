@@ -27,6 +27,7 @@ APP_INDEX_DIR="${APP_DATA_DIR}/Index/v${ELASTIC_SEARCH_VERSION}"
 APP_SERVICES_DIR="$DIR/Services";
 OLD_VERSION="$2"
 NGINX_ROOT_DIR="/etc/nginx"
+CONFIG_DIR="/etc/{{package_sysname}}/communityserver"
 
 DB_HOST=""
 DB_USER=""
@@ -51,17 +52,20 @@ apply_connection_string(){
 		-e "s!\(\"database\":\).*!\1 \"${DB_NAME}\"!" {} \;
 
 	fi
-	sed -i "s/Server=.*/Server=$DB_HOST;Port=3306;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=True;ConnectionReset=false\",/g" /etc/{{package_sysname}}/communityserver/appsettings.production.json
+	sed -i "s/Server=.*/Server=$DB_HOST;Port=3306;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=True;ConnectionReset=false\",/g" $CONFIG_DIR/appsettings.production.json
 }
 
 apply_core_machinekey(){
 	db_get {{package_sysname}}-communityserver/machinekey || true
-	CORE_MACHINEKEY="${RET:-$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)}";
+
+	[ ! -z "${OLDER_PACKAGE_VERSION}" ] && CORE_MACHINEKEY="${RET:-$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)}" || \
+		CORE_MACHINEKEY="${RET:-$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 12)}"
+	
 	[ -z "$RET" ] && db_set {{package_sysname}}-communityserver/machinekey "${CORE_MACHINEKEY}" || true
 
 	sed "s^\(machine_key\)\s*=.*^\1 = ${CORE_MACHINEKEY}^g" -i ${APP_SERVICES_DIR}/TeamLabSvc/radicale.config
 
-	binDirs=("$DIR/ApiSystem/" "$DIR/WebStudio" "$DIR/controlpanel/www/config" "$APP_SERVICES_DIR" "/etc/{{package_sysname}}/communityserver")
+	binDirs=("$DIR/ApiSystem/" "$DIR/WebStudio" "$DIR/controlpanel/www/config" "$APP_SERVICES_DIR" "$CONFIG_DIR")
 
 	for i in "${!binDirs[@]}"; do
 		if [ -d "${binDirs[$i]}" ]; then
@@ -133,12 +137,6 @@ install_db(){
 		else
 			sed "s/collation_server.*/collation_server = utf8_general_ci/" -i ${CNF_PATH} || true # ignore errors
 		fi
-
-		if ! grep -q "^default-authentication-plugin"  ${CNF_PATH}; then
-        	sed '/\[mysqld\]/a default-authentication-plugin = mysql_native_password' -i ${CNF_PATH}
-	    else
-			sed "s/default-authentication-plugin.*/default-authentication-plugin = mysql_native_password/" -i ${CNF_PATH} || true # ignore errors
-	    fi
 	
 		if ! grep -q "^interactive_timeout"  ${CNF_PATH}; then
 			sed '/\[mysqld\]/a interactive_timeout = 900' -i ${CNF_PATH}
@@ -172,10 +170,19 @@ install_db(){
 
 	$MYSQL -e ";" >/dev/null 2>&1 || ( service mysql start >/dev/null 2>&1 && $MYSQL -e ";" >/dev/null )
 		
+	MYSQL_AUTHENTICATION_PLUGIN=$($MYSQL -e "SHOW VARIABLES LIKE 'default_authentication_plugin';" -s | awk '{print $2}')
+	MYSQL_AUTHENTICATION_PLUGIN=${MYSQL_AUTHENTICATION_PLUGIN:-caching_sha2_password}
+	
+	if ! grep -q "^default-authentication-plugin" ${CNF_PATH}; then
+		sed "/\[mysqld\]/a default-authentication-plugin = ${MYSQL_AUTHENTICATION_PLUGIN}" -i ${CNF_PATH}
+	else
+		sed "s/default-authentication-plugin.*/default-authentication-plugin = ${MYSQL_AUTHENTICATION_PLUGIN}/" -i ${CNF_PATH} || true # ignore errors
+	fi
+
     if [ "${DB_USER}" = "root" ]; then
-       # allow MySql.Data.dll connect via mysql_native_password with root and empty password
-	   $MYSQL -D "mysql" -e "ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PWD}'" >/dev/null 2>&1 \
-	   || $MYSQL -D "mysql" -e "UPDATE user SET plugin='mysql_native_password', Password = PASSWORD('${DB_PWD}') WHERE user='${DB_USER}' and host='localhost';"
+		# allow MySql.Data.dll connect via $MYSQL_AUTHENTICATION_PLUGIN with root and empty password
+		$MYSQL -D "mysql" -e "ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH ${MYSQL_AUTHENTICATION_PLUGIN} BY '${DB_PWD}'" >/dev/null 2>&1 \
+		|| $MYSQL -D "mysql" -e "UPDATE user SET plugin='${MYSQL_AUTHENTICATION_PLUGIN}', Password = PASSWORD('${DB_PWD}') WHERE user='${DB_USER}' and host='localhost';"
 	fi
 
 	service mysql restart
@@ -225,6 +232,8 @@ case "$1" in
 
 		usermod -aG {{package_sysname}},nginx {{package_sysname}}
 
+		[ ! -z "$2" ] && OLDER_PACKAGE_VERSION=$(awk -F. '{ printf("%d%03d%03d%03d", $1,$2,$3,$4); }' <<< $2)
+
 		install_db
 		apply_connection_string
 		apply_core_machinekey
@@ -244,16 +253,6 @@ case "$1" in
 
 		# needed for signalr service
         mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
-	
-		chown {{package_sysname}}:{{package_sysname}} $DIR
-		chown {{package_sysname}}:{{package_sysname}} $APP_DATA_DIR
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Services/
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/WebStudio/
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Sql/
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Tools/
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/ApiSystem/
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/.config/
-		chown {{package_sysname}}:{{package_sysname}} $LOG_DIR
 		
 		chown nginx:nginx -R /var/cache/nginx/{{package_sysname}}
 		chown {{package_sysname}}:nginx -R /var/run/{{package_sysname}}
@@ -305,6 +304,10 @@ END
 			$MYSQL "$DB_NAME" -e "TRUNCATE webstudio_index";
 		fi
         
+		if [ -d "${APP_DATA_DIR}/Index" ]; then
+			find ${APP_DATA_DIR}/Index -maxdepth 1 \! -name "v${ELASTIC_SEARCH_VERSION}" -type d -regex '.*/v[0-9]+\.[0-9]+\.[0-9]+.*' -exec rm -rf {} \;
+		fi
+
 		mkdir -p "$LOG_DIR/Index"
        	mkdir -p "$APP_INDEX_DIR"
        	chown -R elasticsearch:elasticsearch "$APP_INDEX_DIR"
@@ -345,17 +348,21 @@ END
 		MEMORY_REQUIREMENTS=12228; #RAM ~4*3Gb
 
 		if [ ${TOTAL_MEMORY} -gt ${MEMORY_REQUIREMENTS} ]; then
-			if ! grep -q "[-]Xms1g" /etc/elasticsearch/jvm.options; then
-				echo "-Xms4g" >> /etc/elasticsearch/jvm.options
-			else
-				sed -i "s/-Xms1g/-Xms4g/" /etc/elasticsearch/jvm.options 
-			fi
+			ELASTICSEATCH_MEMORY="4g"
+		else
+			ELASTICSEATCH_MEMORY="1g"
+		fi
 
-			if ! grep -q "[-]Xmx1g" /etc/elasticsearch/jvm.options; then
-				echo "-Xmx4g" >> /etc/elasticsearch/jvm.options
-			else
-				sed -i "s/-Xmx1g/-Xmx4g/" /etc/elasticsearch/jvm.options 
-			fi
+		if grep -qE "^[^#]*-Xms[0-9]g" /etc/elasticsearch/jvm.options; then
+			sed -i "s/-Xms[0-9]g/-Xms${ELASTICSEATCH_MEMORY}/" /etc/elasticsearch/jvm.options
+		else
+			echo "-Xms${ELASTICSEATCH_MEMORY}" >> /etc/elasticsearch/jvm.options
+		fi
+
+		if grep -qE "^[^#]*-Xmx[0-9]g" /etc/elasticsearch/jvm.options; then
+			sed -i "s/-Xmx[0-9]g/-Xmx${ELASTICSEATCH_MEMORY}/" /etc/elasticsearch/jvm.options
+		else
+			echo "-Xmx${ELASTICSEATCH_MEMORY}" >> /etc/elasticsearch/jvm.options
 		fi
 
 		if [ -d /etc/elasticsearch/ ]; then 
@@ -444,6 +451,10 @@ EOF
 			sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/{{package_sysname}}-communityserver-proxy-to-controlpanel.conf;
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_ROOT_DIR}/web.appsettings.config;
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
+
+			if systemctl is-active {{package_sysname}}ControlPanel | grep -q ^active; then
+				service {{package_sysname}}ControlPanel restart >/dev/null 2>&1
+			fi
 		fi
 		# end
 
@@ -451,13 +462,13 @@ EOF
 		db_get {{package_sysname}}-communityserver/imapsync-start-date || true
 		MAIL_IMAPSYNC_START_DATE="${RET:-$(date +"%Y-%m-%dT%H:%M:%S")}";
 		[ -z "$RET" ] && db_set {{package_sysname}}-communityserver/imapsync-start-date ${MAIL_IMAPSYNC_START_DATE} || true
-		sed 's_\(\"ImapSyncStartDate":\).*,_\1 "'${MAIL_IMAPSYNC_START_DATE}'",_' -i /etc/{{package_sysname}}/communityserver/mail.production.json
+		sed 's_\(\"ImapSyncStartDate":\).*,_\1 "'${MAIL_IMAPSYNC_START_DATE}'",_' -i $CONFIG_DIR/mail.production.json
 		sed "/mail\.imap-sync-start-date/s/value=\"\S*\"/value=\"${MAIL_IMAPSYNC_START_DATE}\"/g" -i ${APP_ROOT_DIR}/web.appsettings.config
 
-		sed "s!\"value\":.*!\"value\":\ \"${APP_DATA_DIR}\"!" -i /etc/{{package_sysname}}/communityserver/storage.production.json
-		sed "s!\"folder\":.*,!\"folder\":\ \"${APP_SERVICES_DIR}\",!" -i /etc/{{package_sysname}}/communityserver/appsettings.production.json
+		sed "s!\"value\":.*!\"value\":\ \"${APP_DATA_DIR}\"!" -i $CONFIG_DIR/storage.production.json
+		sed "s!\"folder\":.*,!\"folder\":\ \"${APP_SERVICES_DIR}\",!" -i $CONFIG_DIR/appsettings.production.json
 		
-		OPENSSL_CONF="/etc/{{package_sysname}}/communityserver/openssl.cnf"
+		OPENSSL_CONF="$CONFIG_DIR/openssl.cnf"
 		if [ ! -f $OPENSSL_CONF ]; then
 			cp /etc/ssl/openssl.cnf $OPENSSL_CONF;
 			sed '/new_oids$/a openssl_conf = default_conf' -i $OPENSSL_CONF
@@ -514,6 +525,17 @@ CipherString = $CIPHERSTRING \n" >> $OPENSSL_CONF
 		if systemctl is-active monoserve | grep -q "active"; then
 			curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true
 		fi		
+		
+		chown {{package_sysname}}:{{package_sysname}} $DIR
+		chown {{package_sysname}}:{{package_sysname}} $APP_DATA_DIR
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Services/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/WebStudio/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Sql/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Tools/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/ApiSystem/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/.config/
+		chown {{package_sysname}}:{{package_sysname}} -R $CONFIG_DIR
+		chown {{package_sysname}}:{{package_sysname}} $LOG_DIR	
 	;;
 
 	abort-upgrade|abort-remove|abort-deconfigure)

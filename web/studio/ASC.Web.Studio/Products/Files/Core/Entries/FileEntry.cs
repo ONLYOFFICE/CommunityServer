@@ -175,12 +175,12 @@ namespace ASC.Files.Core
         public override bool Equals(object obj)
         {
             var f = obj as FileEntry;
-            return f != null && Equals(f.ID, ID);
+            return f != null && f.FileEntryType == FileEntryType && Equals(f.ID, ID);
         }
 
         public override int GetHashCode()
         {
-            return ID.GetHashCode();
+            return HashCode.Combine(ID, FileEntryType);
         }
 
         public override string ToString()
@@ -194,12 +194,28 @@ namespace ASC.Files.Core
         }
         public Guid GetFileQuotaOwner()
         {
-            return
-                RootFolderType == FolderType.USER || RootFolderType == FolderType.DEFAULT || RootFolderType == FolderType.TRASH ?
-                    RootFolderCreator :
-                    RootFolderType == FolderType.Privacy && CreateBy == SecurityContext.CurrentAccount.ID ?
-                        CreateBy :
-                        ASC.Core.Configuration.Constants.CoreSystem.ID;
+            if (RootFolderId != null)
+            {
+                return
+                    RootFolderType == FolderType.USER || RootFolderType == FolderType.DEFAULT || RootFolderType == FolderType.TRASH ?
+                        RootFolderCreator :
+                        RootFolderType == FolderType.Privacy && CreateBy == SecurityContext.CurrentAccount.ID ?
+                            CreateBy :
+                            ASC.Core.Configuration.Constants.CoreSystem.ID;
+            }
+            else
+            {
+                using (var folderDao = Global.DaoFactory.GetFolderDao())
+                {
+                    var folderType = folderDao.GetFolder(FolderIdDisplay).FolderType;
+                    return 
+                        folderType == FolderType.USER || folderType == FolderType.DEFAULT || folderType == FolderType.TRASH ?
+                            RootFolderCreator :
+                            folderType == FolderType.Privacy && CreateBy == SecurityContext.CurrentAccount.ID ?
+                                CreateBy :
+                                ASC.Core.Configuration.Constants.CoreSystem.ID;
+                }
+            }
         }
     }
 }

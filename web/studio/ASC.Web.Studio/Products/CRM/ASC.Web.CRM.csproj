@@ -64,7 +64,6 @@
     <Compile Include="Classes\OrganisationLogoManager.cs" />
     <Compile Include="Classes\RegisterClientScriptHelper.cs" />
     <Compile Include="Classes\SignalRHelper.cs" />
-    <Compile Include="Classes\SocialMedia\TwitterApiHelper.cs" />
     <Compile Include="Classes\SubscriptionManager.cs" />
     <Compile Include="Classes\TwilioController.cs" />
     <Compile Include="Classes\VoipEngine.cs" />
@@ -369,9 +368,6 @@
     <Compile Include="Utils\CurrencyProvider.cs" />
     <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
     <Compile Include="Classes\Global.cs" />
-    <Compile Include="Classes\SocialMedia\SocialMediaAccountNotFound.cs" />
-    <Compile Include="Classes\SocialMedia\SocialMediaImageDescription.cs" />
-    <Compile Include="Classes\SocialMedia\SocialMediaUI.cs" />
     <Compile Include="Classes\CRMSettings.cs" />
     <Compile Include="Classes\UrlConstant.cs" />
     <Compile Include="Classes\UrlParameters.cs" />
@@ -597,17 +593,18 @@
     <Content Include="App_Themes\default\images\empty_screen_opportunity_participants.svg" />
     <Content Include="App_Themes\default\images\empty_screen_persons.svg" />
     <Content Include="App_Themes\default\images\empty_screen_phones.svg" />
+    <Content Include="App_Themes\default\images\empty_screen_products_services.svg" />
     <Content Include="App_Themes\default\images\empty_screen_projects.svg" />
     <Content Include="App_Themes\default\images\empty_screen_social.svg" />
     <Content Include="App_Themes\default\images\empty_screen_tags.svg" />
     <Content Include="App_Themes\default\images\empty_screen_tasks.svg" />
     <Content Include="App_Themes\default\images\empty_screen_taxes.svg" />
-    <Content Include="App_Themes\default\images\empty_screen_twitter.svg" />
     <Content Include="App_Themes\default\images\empty_screen_userfields.svg" />
     <Content Include="App_Themes\default\images\empty_screen_voip_settings.svg" />
     <Content Include="App_Themes\default\images\event_categories.png" />
     <Content Include="App_Themes\default\images\export_data.svg" />
     <Content Include="App_Themes\default\images\flags_all.png" />
+    <Content Include="App_Themes\default\images\icons-dark.svg" />
     <Content Include="App_Themes\default\images\icons.png" />
     <Content Include="App_Themes\default\images\edit_small.png" />
     <Content Include="App_Themes\default\images\import-cases.svg" />
@@ -623,9 +620,10 @@
     <Content Include="App_Themes\default\images\loader_24_static.png" />
     <Content Include="App_Themes\default\images\mail_send.svg" />
     <Content Include="App_Themes\default\images\people_widget.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="App_Themes\default\images\sales.svg" />
     <Content Include="App_Themes\default\images\tasks_widget.svg" />
-    <Content Include="App_Themes\default\images\twitter.png" />
     <Content Include="App_Themes\default\images\voip_call_icons_sprite.png" />
     <Content Include="App_Themes\default\images\mail_icons.png" />
     <Content Include="App_Themes\default\images\org_logo_default.png" />
@@ -1232,85 +1230,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMSettingResource.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.de.resx" Condition="$(Cultures.Contains('de'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.el.resx" Condition="$(Cultures.Contains('el'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.es.resx" Condition="$(Cultures.Contains('es'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.it.resx" Condition="$(Cultures.Contains('it'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.resx">
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CRMSocialMediaResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="Resources\CRMSocialMediaResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\CRMTaskResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>CRMTaskResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1667,48 +1586,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CRMDealResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
       <DependentUpon>CRMDealResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.da.resx" Condition="$(Cultures.Contains('da'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.et.resx" Condition="$(Cultures.Contains('et'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.hr.resx" Condition="$(Cultures.Contains('hr'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.id.resx" Condition="$(Cultures.Contains('id'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSocialMediaResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
-      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CRMSettingResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
       <DependentUpon>CRMSettingResource.resx</DependentUpon>
@@ -2245,7 +2122,6 @@
     <Content Include="js\deals.js" />
     <Content Include="js\reports.js" />
     <Content Include="js\settings.js" />
-    <Content Include="js\socialmedia.js" />
     <Content Include="js\tasks.js" />
   </ItemGroup>
   <ItemGroup>
@@ -2271,9 +2147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\css\contacts.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Themes\default\css\socialmedia.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\css\settings.less" />
@@ -2321,10 +2194,6 @@
     <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
-      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
-      <Name>ASC.Thrdparty</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>

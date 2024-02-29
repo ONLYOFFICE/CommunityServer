@@ -431,9 +431,6 @@ Vai vēlaties dzēst šo birku arī no uzņēmuma un visām tā personām?</valu
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Augšupielādēt foto no datora</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Izvēlēties no sociālajiem tīkliem</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Atļaut piekļuvi uzņēmumam visiem CRM lietotājiem</value>
   </data>
@@ -487,9 +484,6 @@ Vai vēlaties dzēst šo birku arī no uzņēmuma un visām tā personām?</valu
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Nav atbilstības ONLYOFFICE™ CRM, izvēlieties no saraksta</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Nav pieejamu foto, kas atbilstu profilam</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Paziņot kontaktu pārvaldniekam pa e-pastu</value>

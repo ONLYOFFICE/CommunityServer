@@ -431,9 +431,6 @@ Voulez-vous aussi supprimer ce tag de cette entreprise et toutes ses personnes l
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Chargez la photo à partir de l'ordinateur</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Choisissez parmi les réseaux sociaux</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Autoriser l'accès à l'entreprise à tous les utilisateurs</value>
   </data>
@@ -487,9 +484,6 @@ Voulez-vous aussi supprimer ce tag de cette entreprise et toutes ses personnes l
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Rien n'a été trouvé pour CRM ONLYOFFICE™, sélectionnez dans la liste</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Pas de photos disponibles qui correspondent à ce profil</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Informer le responsable du contact par courrier électronique </value>

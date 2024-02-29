@@ -109,32 +109,6 @@
     </table>
 </div>
 
-<div id="socialMediaTab" class="display-none">
-
-    <div id="divSocialMediaContent">
-
-    </div>
-
-    <div id="divSMProfilesWindow" class="borderBase">
-        <div class="header-base-medium divHeader">
-            <span></span>
-            <label class="cancel_cross" title="<%= CRMCommonResource.CloseWindow%>" onclick="jq('#divSMProfilesWindow').hide();"></label>
-        </div>
-        <div class="divSMProfilesWindowBody mobile-overflow">
-            <table id="sm_tbl_UserList">
-            </table>
-            <div class="divWait">
-                <span class="loader-text-block">
-                    <%= CRMSocialMediaResource.PleaseWait%></span>                
-            </div>
-            <div class="divNoProfiles">
-                <%= TargetContact is Person ? CRMSocialMediaResource.NoAccountsHasBeenFound
-                                            : CRMSocialMediaResource.NoCompaniesHasBeenFound%>
-            </div>
-        </div>
-    </div>
-</div>
-
 <% if (CRMSecurity.CanEdit(TargetContact)) %>
 <% { %>
 <div id="contactDetailsMenuPanel" class="studio-action-panel">

@@ -42,6 +42,11 @@ namespace ASC.Web.People
             var result = new FileUploadResult();
             try
             {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    throw new HttpException(403, "Access denied.");
+                }
+
                 if (context.Request.Files.Count != 0)
                 {
                     Guid userId;

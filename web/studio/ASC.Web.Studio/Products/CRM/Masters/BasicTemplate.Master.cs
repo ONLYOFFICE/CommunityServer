@@ -83,7 +83,6 @@ namespace ASC.Web.CRM
                         "cases.js",
                         "deals.js",
                         "invoices.js",
-                        "socialmedia.js",
                         "sender.js",
                         "reports.js")
                     .AddSource(ResolveUrl,

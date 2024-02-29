@@ -152,7 +152,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 MessageService.Send(HttpContext.Current.Request, MessageAction.UserConnectedTfaApp, MessageTarget.Create(user.ID));
 
-                refererUrl = CommonLinkUtility.GetUserProfile(user.ID) + "#codes";
+                refererUrl = CommonLinkUtility.GetUserProfile(user.ID) + "&codes=true";
             }
 
             if (query.Contains("desktop=true"))

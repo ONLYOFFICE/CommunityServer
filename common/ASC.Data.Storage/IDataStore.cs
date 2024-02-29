@@ -177,6 +177,8 @@ namespace ASC.Data.Storage
 
         bool IsSupportedPreSignedUri { get; }
 
+        bool IsContentDispositionAsAttachment { get; }
+
         ///<summary>
         /// Deletes file
         ///</summary>
@@ -228,6 +230,18 @@ namespace ASC.Data.Storage
         ///<param name="quotaCheckFileSize"></param>
         ///<returns></returns>
         Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true);
+
+        ///<summary>
+        /// Moves file
+        ///</summary>
+        ///<param name="srcdomain"></param>
+        ///<param name="srcpath"></param>
+        ///<param name="newdomain"></param>
+        ///<param name="newpath"></param>
+        ///<param name="ownerId"></param>
+        ///<param name="quotaCheckFileSize"></param>
+        ///<returns></returns>
+        Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true);
 
         ///<summary>
         /// Saves the file in the temp. In fact, almost no different from the usual Save except that generates the file name itself. An inconvenient thing.

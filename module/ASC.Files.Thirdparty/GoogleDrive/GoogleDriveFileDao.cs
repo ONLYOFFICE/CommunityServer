@@ -81,7 +81,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return fileIds.Select(GetDriveEntry).Select(ToFile).ToList();
         }
 
-        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             if (fileIds == null || !fileIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -122,10 +122,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                         });
                     break;
                 case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
+                case FilterType.ByExtensionIncludeFolders:
+                    if (!string.IsNullOrEmpty(extension))
                     {
-                        searchText = searchText.Trim().ToLower();
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                        extension = extension.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(extension));
                     }
                     break;
             }
@@ -141,7 +142,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return GetDriveEntries(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -183,10 +184,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     });
                     break;
                 case FilterType.ByExtension:
-                    if (!string.IsNullOrEmpty(searchText))
+                case FilterType.ByExtensionIncludeFolders:
+                    if (!string.IsNullOrEmpty(extension))
                     {
-                        searchText = searchText.Trim().ToLower();
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                        extension = extension.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(extension));
                     }
                     break;
             }
@@ -535,7 +537,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
         }
 
-        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent, string extension)
         {
             return new List<File>();
         }

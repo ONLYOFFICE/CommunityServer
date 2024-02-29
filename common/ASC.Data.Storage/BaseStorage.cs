@@ -37,6 +37,7 @@ namespace ASC.Data.Storage
 
         internal string _modulename;
         internal bool _cache;
+        internal bool _attachment;
         internal DataList _dataList;
         internal string _tenant;
         internal Dictionary<string, TimeSpan> _domainsExpires = new Dictionary<string, TimeSpan>();
@@ -132,6 +133,11 @@ namespace ASC.Data.Storage
             get { return true; }
         }
 
+        public virtual bool IsContentDispositionAsAttachment
+        {
+            get { return _attachment; }
+        }
+
         public virtual Uri GetInternalUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
         {
             return null;
@@ -221,6 +227,7 @@ namespace ASC.Data.Storage
         public abstract void DeleteFiles(string domain, string folderPath, DateTime fromDate, DateTime toDate);
         public abstract void MoveDirectory(string srcdomain, string srcdir, string newdomain, string newdir);
         public abstract Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true);
+        public abstract Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true);
         public abstract Uri SaveTemp(string domain, out string assignedPath, Stream stream);
         public abstract string[] ListDirectoriesRelative(string domain, string path, bool recursive);
         public abstract string[] ListFilesRelative(string domain, string path, string pattern, bool recursive);

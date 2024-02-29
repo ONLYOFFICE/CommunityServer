@@ -431,9 +431,6 @@ Ar norite šią žymą taip pat panaikinti nuo bendrovės ir kitų jos asmenų?<
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Įkelti nuotrauką iš kompiuterio</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Pasirinkite iš socialinių tinklų:</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Suteikti prieigą prie bendrovės visiems CRM naudotojams</value>
   </data>
@@ -487,9 +484,6 @@ Ar norite šią žymą taip pat panaikinti nuo bendrovės ir kitų jos asmenų?<
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Nėra atitikmenų ONLYOFFICE™ CRM. Pasirinkite iš sąrašo.</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Nėra šiam profiliui nurodytų paveikslėlių</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Informuoti kontakto vadovą el.paštu</value>

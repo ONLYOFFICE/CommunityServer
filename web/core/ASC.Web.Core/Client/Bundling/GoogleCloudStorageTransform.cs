@@ -206,7 +206,7 @@ namespace ASC.Web.Core.Client.Bundling
 
                                 UploadObjectOptions uploadObjectOptions = new UploadObjectOptions
                                 {
-                                    PredefinedAcl = PredefinedObjectAcl.PublicRead
+                                    PredefinedAcl = PredefinedObjectAcl.BucketOwnerFullControl
                                 };
 
                                 inputStream.Position = 0;

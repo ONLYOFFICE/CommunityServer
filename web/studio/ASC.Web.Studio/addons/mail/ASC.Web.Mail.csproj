@@ -51,6 +51,9 @@
     <Content Include="App_Themes\default\images\dashboard\communicate-easily.svg" />
     <Content Include="App_Themes\default\images\dashboard\structure-correspondence.svg" />
     <Content Include="App_Themes\default\images\dashboard\use-mail-server.svg" />
+    <Content Include="App_Themes\default\images\empty_people_logo_200_200.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_40_40.png" />
+    <Content Include="App_Themes\default\images\empty_people_logo_82_82.png" />
     <Content Include="App_Themes\default\images\google.png" />
     <Content Include="App_Themes\default\images\background_sprite.png" />
     <Content Include="App_Themes\default\images\base_sprite.png" />
@@ -78,6 +81,8 @@
     <Content Include="App_Themes\default\images\mail_warning.svg" />
     <Content Include="App_Themes\default\images\mark_sprite.png" />
     <Content Include="App_Themes\default\images\ms-exchange.png" />
+    <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="App_Themes\default\images\write_letter.svg" />
     <Content Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx" />
     <Content Include="Controls\DocumentsPopup\css\images\warning.svg" />

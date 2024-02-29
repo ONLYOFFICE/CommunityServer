@@ -122,7 +122,8 @@ a {
         vertical-align: middle;
 
         &:after {
-            background-image: url('images/svg/documents/up.svg');
+            -webkit-mask-image: url('images/svg/documents/up.svg');
+            mask-image: url('images/svg/documents/up.svg');
             content: " ";
             cursor: pointer;
             display: block; /* reduce the damage in FF3.0 */
@@ -132,6 +133,7 @@ a {
             position: absolute;
             top: 50%;
             width: 16px;
+            background-color: @clearFilterButton;
         }
     }
 

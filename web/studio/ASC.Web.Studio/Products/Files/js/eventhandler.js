@@ -389,6 +389,7 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         ASC.Files.UI.checkButtonBack(".to-parent-folder", "#filesBreadCrumbs");
+        ASC.Files.UI.checkButtonBack(".to-parent-folder-dropdown", "#filesBreadCrumbs");
 
         return true;
     };
@@ -532,12 +533,12 @@ window.ASC.Files.EventHandler = (function () {
         var folderId = params.folderId;
         var folderObj = ASC.Files.UI.getEntryObject("folder", folderId);
 
-        folderObj = insertFolderItems(htmlXML, folderObj);
-
-        folderObj.yellowFade().removeClass("new-folder");
-
-        ASC.Files.UI.selectRow(folderObj, true);
-        ASC.Files.UI.updateMainContentHeader();
+        if (!folderObj.is(".to-parent-folder-dropdown")) {
+            folderObj = insertFolderItems(htmlXML, folderObj);
+            folderObj.yellowFade().removeClass("new-folder");
+            ASC.Files.UI.selectRow(folderObj, true);
+            ASC.Files.UI.updateMainContentHeader();
+        }
 
         var folderNewTitle = ASC.Files.UI.getObjectData(folderObj).title;
 

@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesUCResource {
@@ -340,6 +340,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Come back.
+        /// </summary>
+        public static string ButtonComeBack {
+            get {
+                return ResourceManager.GetString("ButtonComeBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create a copy.
         /// </summary>
         public static string ButtonCopy {
@@ -448,7 +457,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Form template.
+        ///   Looks up a localized string similar to PDF Form.
         /// </summary>
         public static string ButtonCreateFormTemplate {
             get {
@@ -466,11 +475,20 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From text document.
+        ///   Looks up a localized string similar to From local file.
         /// </summary>
-        public static string ButtonCreateMasterFormFromFile {
+        public static string ButtonCreateMasterFormFromLocalFile {
             get {
-                return ResourceManager.GetString("ButtonCreateMasterFormFromFile", resourceCulture);
+                return ResourceManager.GetString("ButtonCreateMasterFormFromLocalFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From portal file.
+        /// </summary>
+        public static string ButtonCreateMasterFormFromPortalFile {
+            get {
+                return ResourceManager.GetString("ButtonCreateMasterFormFromPortalFile", resourceCulture);
             }
         }
         
@@ -727,7 +745,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save as oform.
+        ///   Looks up a localized string similar to Save as PDF Form.
         /// </summary>
         public static string ButtonMakeForm {
             get {
@@ -1465,7 +1483,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Form Template from file.
+        ///   Looks up a localized string similar to Create PDF Form from file.
         /// </summary>
         public static string CreateFormTemplateFromFile {
             get {

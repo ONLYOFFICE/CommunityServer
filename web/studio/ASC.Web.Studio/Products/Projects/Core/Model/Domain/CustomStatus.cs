@@ -22,6 +22,7 @@ using System.Text;
 using System.Web;
 
 using ASC.Projects.Core.Domain;
+using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Resources;
 
 namespace ASC.Web.Projects
@@ -83,12 +84,13 @@ namespace ASC.Web.Projects
 
         public static CustomTaskStatus GetDefault(TaskStatus status)
         {
+            var theme = ModeThemeSettings.GetModeThemesSettings().ModeThemeName;
             switch (status)
             {
                 case TaskStatus.Open:
-                    return GetDefault(status, TaskResource.Open, "inbox.svg");
+                    return GetDefault(status, TaskResource.Open, theme == ModeTheme.light ? "inbox.svg" : "inbox-dark.svg");
                 case TaskStatus.Closed:
-                    return GetDefault(status, TaskResource.Closed, "check_tick.svg");
+                    return GetDefault(status, TaskResource.Closed, theme == ModeTheme.light ? "check_tick.svg" : "check_tick-dark.svg");
             }
             return null;
         }

@@ -817,12 +817,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>访问令牌</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>访问令牌秘钥</value>
-  </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>CRM密钥中的Twitter</value>
   </data>

@@ -42,9 +42,11 @@
 
 #sharingDialog .dialog-content-container .top-button-container .user-button {
     padding: 4px 10px 5px 32px;
-    background-image: url(./images/user.svg);
+    background-image: url("./images/@{user-svg}");
     background-position: 10px center;
     background-repeat: no-repeat;
+    height: 24px;
+    box-sizing: border-box;
 }
 
 #sharingDialog .dialog-content-container .top-button-container .user-button.disable {
@@ -54,9 +56,11 @@
 
 #sharingDialog .dialog-content-container .top-button-container .link-button {
     padding: 4px 10px 5px 32px;
-    background-image: url(./images/link.svg);
+    background-image: url("./images/@{link-svg}");
     background-position: 10px center;
     background-repeat: no-repeat;
+    height: 24px;
+    box-sizing: border-box;
 }
 
 #sharingDialog .dialog-content-container .top-button-container .link-button.disable {
@@ -154,7 +158,7 @@
 
 
 #sharingDialog .dialog-content-container .content-list .us-linkname .us-avatar {
-    background-image: url(./images/link.svg);
+    background-image: url("./images/@{link-svg}");
     background-size: 18px 18px;
     background-position: 3px center;
 }
@@ -389,7 +393,7 @@
     width: 24px;
     height: 24px;
     border-radius: 0 3px 3px 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid @sharingDialogButtonArrowPart;
     box-sizing: border-box;
 }
 
@@ -412,7 +416,7 @@
 #sharingDialog .bottom-button-container .settings-link:not(.button) {
     float: right;
     padding: 3px 0 4px 20px;
-    background-image: url(./images/settings.svg);
+    background-image: url("./images/@{settings-svg}");
     background-position: 4px center;
     background-repeat: no-repeat;
     text-decoration: none;
@@ -430,7 +434,7 @@
 #sharingDialog .bottom-button-container .settings-link.button {
     float: right;
     padding: 4px 24px 5px 12px;
-    background-image: url(./images/settings.svg);
+    background-image: url("./images/@{settings-svg}");
     background-position: 12px center;
     background-repeat: no-repeat;
     font-size: 0;

@@ -325,9 +325,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Neste</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Ingen elementer</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>Ingen treff</value>
   </data>

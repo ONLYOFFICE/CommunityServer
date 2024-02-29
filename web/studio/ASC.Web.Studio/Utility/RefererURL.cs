@@ -15,6 +15,7 @@
 */
 
 
+using System;
 using System.Web;
 
 namespace ASC.Web.Studio.Utility
@@ -24,7 +25,8 @@ namespace ASC.Web.Studio.Utility
         private const string refererurl = "refererurl";
         public static string GetRefererURL(this HttpContext context)
         {
-            var refURL = HttpUtility.UrlDecode(context.Request.QueryString[refererurl]);
+            var relativePath = context.Request.QueryString[refererurl];
+            var refURL = HttpUtility.UrlDecode(Uri.IsWellFormedUriString(relativePath, UriKind.Absolute) ? null: relativePath);
             return string.IsNullOrEmpty(refURL)
                 ? CommonLinkUtility.GetDefault()
                 : refURL;
@@ -32,12 +34,12 @@ namespace ASC.Web.Studio.Utility
 
         public static string AppendRefererURL(this HttpRequest request, string redirectPage)
         {
-            var absoluteUri = request.GetUrlRewriter().AbsoluteUri;
+            var relativePath = request.GetUrlRewriter().PathAndQuery;
             return string.Format("{0}{1}{2}={3}",
                                     redirectPage,
                                     redirectPage != null && redirectPage.Contains("?") ? "&" : "?",
                                     refererurl,
-                                    HttpUtility.UrlEncode(absoluteUri)
+                                    HttpUtility.UrlEncode(relativePath)
                                 );
         }
     }

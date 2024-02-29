@@ -46,6 +46,7 @@ namespace ASC.Data.Storage.DiscStorage
             _modulename = moduleConfig.Name;
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
+            _attachment = moduleConfig.Attachment;
             foreach (DomainConfigurationElement domain in moduleConfig.Domains)
             {
                 _mappedPaths.Add(domain.Name, new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, handlerConfig.GetProperties()));
@@ -381,6 +382,10 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
         {
+            return Move(srcdomain, srcpath, newdomain, newpath, Guid.Empty, quotaCheckFileSize);
+        }
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true)
+        {
             if (srcpath == null) throw new ArgumentNullException("srcpath");
             if (newpath == null) throw new ArgumentNullException("srcpath");
             var target = GetTarget(srcdomain, srcpath);
@@ -403,7 +408,7 @@ namespace ASC.Data.Storage.DiscStorage
                 File.Move(target, newtarget);
 
                 QuotaUsedDelete(srcdomain, flength);
-                QuotaUsedAdd(newdomain, flength, quotaCheckFileSize);
+                QuotaUsedAdd(newdomain, flength, ownerId, quotaCheckFileSize);
             }
             else
             {

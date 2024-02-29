@@ -148,9 +148,6 @@
   <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
     <value>Tất cả các thông tin đã nhập sẽ bị mất. Bạn có chắc là muốn tiếp tục?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Vui lòng nhập tên tài khoản Twitter của bạn. Ví dụ, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Quốc gia</value>
   </data>
@@ -280,9 +277,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Ngày kết thúc dự kiến</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Tìm tài khoản trong Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Danh sách người nhận đã được tạo. {0} Nhấp vào liên kết dưới đây để chuyển các địa chỉ email của bạn qua chương trình email.</value>
   </data>
@@ -393,9 +387,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Vui lòng chờ...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Hồ sơ có thể có cho {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Trước</value>

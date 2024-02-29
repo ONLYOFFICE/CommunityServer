@@ -271,9 +271,6 @@ window.ServiceFactory = (function() {
             apiHandler('crm-contact', /crm\/[case|opportunity]+\/[\w\d-]+\/contact\/[\w\d-]+\.json/),
             apiHandler('crm-contacts', /crm\/contact\/bycontactinfo\.json/, get),
             apiHandler('crm-contact', /crm\/contact\/merge\.json/),
-            apiHandler('crm-socialmediaavatars', /crm\/contact\/socialmediaavatar\.json/),
-            apiHandler('crm-tweets', /crm\/contact\/[\w\d-]+\/tweets\.json/),
-            apiHandler('crm-twitterprofiles', /crm\/contact\/twitterprofile\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/mailsmtp\/send\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/mailsmtp\/status\.json/),
             apiHandler('crm-progressitem', /crm\/contact\/mailsmtp\/cancel\.json/),
@@ -2432,59 +2429,6 @@ window.ServiceFactory = (function() {
                 mediumFotoUrl: response.mediumFotoUrl,
                 canEdit: response.canEdit,
                 canDelete: response.canDelete
-            });
-        },
-
-        socialmediaavatar: function(response) {
-            return {
-                type: "socialmediaavatar",
-                socialNetwork: response.socialNetwork,
-                imageUrl: response.imageUrl,
-                identity: response.identity
-            };
-        },
-
-        socialmediaavatars: function(response) {
-            return collection(response, null, function(response) {
-                return factories.crm.socialmediaavatar(response);
-            });
-        },
-
-        tweet: function(response) {
-            var postedOn = serializeDate(response.postedOn);
-            return {
-                type: "tweet",
-                userImageUrl: response.userImageUrl,
-                userName: response.userName,
-                userId: response.userId,
-                text: response.text,
-                postedOn: postedOn,
-                postedOnDisplay: getDisplayDatetime(postedOn),
-                source: response.source
-            };
-        },
-
-        tweets: function(response) {
-            return collection(response, null, function(response) {
-                return factories.crm.tweet(response);
-            });
-        },
-
-        twitterprofile: function(response) {
-            var postedOn = serializeDate(response.postedOn);
-            return {
-                type: "twitterprofile",
-                userID: response.userID,
-                screenName: response.screenName,
-                userName: response.userName,
-                smallImageUrl: response.smallImageUrl,
-                description: response.description
-            };
-        },
-
-        twitterprofiles: function(response) {
-            return collection(response, null, function(response) {
-                return factories.crm.twitterprofile(response);
             });
         },
 

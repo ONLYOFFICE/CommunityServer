@@ -434,9 +434,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>从电脑上传图片</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>或从社交网中选择：</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>允许所有CRM用户访问公司</value>
   </data>
@@ -490,9 +487,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>在ONLYOFFICE™中找不到与此项对应的联系人格式，请从列表中选择</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>没有与档案对应的可用照片</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>通过电子邮件通知联系人经理</value>

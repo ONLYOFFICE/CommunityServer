@@ -446,10 +446,10 @@
     <value>"{0}" qovluğunda fayl yaradıldı</value>
   </data>
   <data name="MessageFileCreatedForm" xml:space="preserve">
-    <value>Doldurula bilən OFORM sənədi hazırdır. {0} qovluğunda yadda saxlanıldı </value>
+    <value>Doldurula bilən PDF sənədi hazırdır. {0} qovluğunda yadda saxlanıldı </value>
   </data>
   <data name="MessageFillFormDraftCreated" xml:space="preserve">
-    <value>OFORM-un kopyası {0} qovluğunda yaradıldı. Formanı doldurun və nəticəni PDF və ya DOCX formatında yükləyin.</value>
+    <value>PDF-un kopyası {0} qovluğunda yaradıldı. Formanı doldurun və nəticəni PDF və ya DOCX formatında yükləyin.</value>
   </data>
   <data name="MessageFillFormDraftDiscard" xml:space="preserve">
     <value>Fayl artıq formanı doldurmaq üçün qaralama deyil.</value>

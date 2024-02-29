@@ -2131,15 +2131,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No records.
-        /// </summary>
-        public static string NoLoadedMessages {
-            get {
-                return ResourceManager.GetString("NoLoadedMessages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No mail accounts available.
         /// </summary>
         public static string NoMailAccountsAvailableError {

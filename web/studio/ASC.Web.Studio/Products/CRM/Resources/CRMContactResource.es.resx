@@ -431,9 +431,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Subir fotos de la PC</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Seleccione de las redes sociales</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Permitir a todos los usuarios de CRM el acceso a la empresa</value>
   </data>
@@ -487,9 +484,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>No hay coincidencias en ONLYOFFICE™ CRM, seleccione de la lista</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>No hay fotos disponibles que corresponden al perfil</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Notificar gerente de contacto por correo electrónico</value>

@@ -149,9 +149,6 @@
     <value>Všechny zadané informace budou ztraceny.
 Opravdu chcete pokračovat?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Zadejte název účtu Twitter. Například teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>země</value>
   </data>
@@ -282,9 +279,6 @@ Opravdu chcete pokračovat?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Předpokládaný termín realizace</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Najít účet na Twitteru</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Seznam příjemců byl vygenerován. {0} Klepnutím na níže uvedené odkazy předáte e-mailové adresy do e-mailového programu.</value>
   </data>
@@ -397,9 +391,6 @@ Opravdu chcete pokračovat?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Čekejte prosím ...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Možné profily pro {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Předchozí</value>

@@ -97,8 +97,10 @@ namespace ASC.Web.CRM.Classes
     {
         #region Constructor
 
+        /// <summary>
+        /// Constructor for serialization/deserialization public properties (redis cache)
+        /// </summary>
         public ImportDataOperation()
-            : this(EntityType.Contact, String.Empty, String.Empty)
         {
         }
 

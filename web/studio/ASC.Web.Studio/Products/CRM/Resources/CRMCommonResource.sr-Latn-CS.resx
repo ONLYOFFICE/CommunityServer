@@ -313,9 +313,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Sledeći zapis</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Nema zapisa</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>Nema podudaranja</value>
   </data>

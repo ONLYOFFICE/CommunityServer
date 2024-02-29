@@ -20,7 +20,7 @@ const { format } = require("winston");
 require("winston-daily-rotate-file");
 
 const path = require("path");
-const config = require(`../server/config.${process.argv[2]}.js`);
+const config = require(`../server/config.js`);
 const fs = require("fs");
 const logLevel = process.env.logLevel || config.logLevel || "info";
 const fileName = config.logPath || path.join(__dirname, "..", "logs", "web.webdav.%DATE%.log");

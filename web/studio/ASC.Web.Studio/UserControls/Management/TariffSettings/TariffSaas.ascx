@@ -83,7 +83,7 @@
             </div>
             <div class="available-tariff active">
                 <h2 class="header-2"><%= UserControlsCommonResource.SaasTariffBusiness %></h2>
-                <h4 class="header-4"><%= string.Format(UserControlsCommonResource.SaasTariffBusinessCost, "<span class=\"tariff-price-cur\">" + GetPricePerMonthString(ThreeYearsQuota) + "</span>") %></h4>
+                <h4 class="header-4"><%= string.Format(UserControlsCommonResource.SaasTariffBusinessCost, "<span class=\"tariff-price-cur\">" + GetPricePerMonthString(ThreeYearsQuota ?? YearQuota ?? MonthQuota) + "</span>") %></h4>
                 <div class="line"></div>
                 <ul class="available-tariff-features">
                     <li class="tariff-feature"><%= UserControlsCommonResource.SaasTariffBusinessFeature1 %></li>
@@ -146,7 +146,7 @@
                 { %>
             <h1 class="header-1"><%: UserControlsCommonResource.SaasTariffBuyBusinessSubscriptionHeaderBusiness %></h1>
             <% } %>
-            <h4 class="header-4"><%= string.Format(UserControlsCommonResource.SaasTariffBuyBusinessSubscriptionSubHeader, "<span class=\"tariff-price-cur\">" + GetPricePerMonthString(ThreeYearsQuota) + "</span>") %></h4>
+            <h4 class="header-4"><%= string.Format(UserControlsCommonResource.SaasTariffBuyBusinessSubscriptionSubHeader, "<span class=\"tariff-price-cur\">" + GetPricePerMonthString(ThreeYearsQuota ?? YearQuota ?? MonthQuota) + "</span>") %></h4>
             <div class="line"></div>
             <h3 class="header-3"><%= UserControlsCommonResource.SaasTariffBenefits %></h3>
             <ul class="subscription-dscr-items">
@@ -162,18 +162,24 @@
             </ul>
         </div>
         <div class="subscription-calc requiredField">
-            <div class="subscription-period">
-                <div class="subscription-period-item" data-quotaid="<%= MonthQuota.Id %>">
+            <div class="subscription-period <%= YearQuota == null && ThreeYearsQuota == null ? "display-none" : "" %>">
+                <div class="subscription-period-item <%= YearQuota == null && ThreeYearsQuota == null ? "active" : "" %>" data-quotaid="<%= MonthQuota.Id %>">
                     <span><%= UserControlsCommonResource.SaasTariffOneMonth %></span>
                 </div>
+                <% if (YearQuota != null)
+                    { %>
                 <div class="subscription-period-item center active" data-quotaid="<%= YearQuota.Id %>">
                     <span><%= UserControlsCommonResource.SaasTariffOneYear %></span>
                     <div class="sale"><%= string.Format(UserControlsCommonResource.SaasTariffSale,  (int)(100 - (100 * YearQuota.Price / 12) / MonthQuota.Price)) %></div>
                 </div>
-                <div class="subscription-period-item" data-quotaid="<%= ThreeYearsQuota.Id %>">
+                <% } %>
+                <% if (ThreeYearsQuota != null)
+                    { %>
+                <div class="subscription-period-item <%= YearQuota == null ? "active" : "" %>" data-quotaid="<%= ThreeYearsQuota.Id %>">
                     <span><%= UserControlsCommonResource.SaasTariffThreeYears %></span>
                     <div class="sale"><%= string.Format(UserControlsCommonResource.SaasTariffSale,  (int)(100 - (100 * ThreeYearsQuota.Price / 36) / MonthQuota.Price)) %></div>
                 </div>
+                <% } %>
             </div>
             <label><%= UserControlsCommonResource.SaasTariffSelectNumberOfUsers %></label>
             <input id="tariffSelector" type="number" min="<%= MinUsersCount %>" max="<%= MaxUsersCount %>" step="1" value="<%= Math.Min(Math.Max(CurrentUsersCount, MinUsersCount), MaxUsersCount) %>" class="textEdit" />

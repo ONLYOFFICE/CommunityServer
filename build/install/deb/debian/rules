@@ -7,74 +7,33 @@
 %:
 	dh $@ --with=systemd
 
-override_dh_systemd_enable:
-	dh_systemd_enable --name=monoserve
-	dh_systemd_enable --name=monoserveApiSystem
-	dh_systemd_enable --name={{package_sysname}}Feed
-	dh_systemd_enable --name={{package_sysname}}SocketIO
-	dh_systemd_enable --name={{package_sysname}}Telegram
-	dh_systemd_enable --name={{package_sysname}}Thumb
-	dh_systemd_enable --name={{package_sysname}}UrlShortener
-	dh_systemd_enable --name={{package_sysname}}FilesTrashCleaner
-	dh_systemd_enable --name={{package_sysname}}WebDav
-	dh_systemd_enable --name={{package_sysname}}Radicale
-	dh_systemd_enable --name={{package_sysname}}Index
-	dh_systemd_enable --name={{package_sysname}}Notify
-	dh_systemd_enable --name={{package_sysname}}Backup
-	dh_systemd_enable --name={{package_sysname}}StorageMigrate
-	dh_systemd_enable --name={{package_sysname}}StorageEncryption
-	dh_systemd_enable --name={{package_sysname}}MailAggregator
-	dh_systemd_enable --name={{package_sysname}}MailWatchdog
-	dh_systemd_enable --name={{package_sysname}}MailCleaner
-	dh_systemd_enable --name={{package_sysname}}MailImap
-	dh_systemd_enable --name={{package_sysname}}ThumbnailBuilder
-	dh_systemd_enable --name={{package_sysname}}SsoAuth
-	dh_systemd_enable --name=god
+override_dh_auto_install:
+	dh_auto_install
+	dh_installsystemd --name=monoserve
+	dh_installsystemd --name=monoserveApiSystem
+	dh_installsystemd --name={{package_sysname}}Feed
+	dh_installsystemd --name={{package_sysname}}SocketIO
+	dh_installsystemd --name={{package_sysname}}Telegram
+	dh_installsystemd --name={{package_sysname}}Thumb
+	dh_installsystemd --name={{package_sysname}}UrlShortener
+	dh_installsystemd --name={{package_sysname}}FilesTrashCleaner
+	dh_installsystemd --name={{package_sysname}}WebDav
+	dh_installsystemd --name={{package_sysname}}Radicale
+	dh_installsystemd --name={{package_sysname}}Index
+	dh_installsystemd --name={{package_sysname}}Notify
+	dh_installsystemd --name={{package_sysname}}Backup
+	dh_installsystemd --name={{package_sysname}}StorageMigrate
+	dh_installsystemd --name={{package_sysname}}StorageEncryption
+	dh_installsystemd --name={{package_sysname}}MailAggregator
+	dh_installsystemd --name={{package_sysname}}MailWatchdog
+	dh_installsystemd --name={{package_sysname}}MailCleaner
+	dh_installsystemd --name={{package_sysname}}MailImap
+	dh_installsystemd --name={{package_sysname}}ThumbnailBuilder
+	dh_installsystemd --name={{package_sysname}}SsoAuth
+	dh_installsystemd --name=god
 
-override_dh_installinit:
-	dh_installinit --name=monoserve
-	dh_installinit --name=monoserveApiSystem
-	dh_installinit --name={{package_sysname}}Feed
-	dh_installinit --name={{package_sysname}}SocketIO
-	dh_installinit --name={{package_sysname}}Telegram
-	dh_installinit --name={{package_sysname}}Thumb
-	dh_installinit --name={{package_sysname}}UrlShortener
-	dh_installinit --name={{package_sysname}}FilesTrashCleaner
-	dh_installinit --name={{package_sysname}}WebDav
-	dh_installinit --name={{package_sysname}}Radicale
-	dh_installinit --name={{package_sysname}}Index
-	dh_installinit --name={{package_sysname}}Notify
-	dh_installinit --name={{package_sysname}}Backup
-	dh_installinit --name={{package_sysname}}StorageMigrate
-	dh_installinit --name={{package_sysname}}StorageEncryption
-	dh_installinit --name={{package_sysname}}MailAggregator
-	dh_installinit --name={{package_sysname}}MailWatchdog
-	dh_installinit --name={{package_sysname}}MailCleaner
-	dh_installinit --name={{package_sysname}}MailImap
-	dh_installinit --name={{package_sysname}}ThumbnailBuilder
-	dh_installinit --name={{package_sysname}}SsoAuth
-	dh_installinit --name=god
-
-override_dh_systemd_start:
-	dh_systemd_start --name=monoserve
-	dh_systemd_start --name=monoserveApiSystem
-	dh_systemd_start --name={{package_sysname}}Feed
-	dh_systemd_start --name={{package_sysname}}SocketIO
-	dh_systemd_start --name={{package_sysname}}Telegram
-	dh_systemd_start --name={{package_sysname}}Thumb
-	dh_systemd_start --name={{package_sysname}}UrlShortener
-	dh_systemd_start --name={{package_sysname}}FilesTrashCleaner
-	dh_systemd_start --name={{package_sysname}}WebDav
-	dh_systemd_start --name={{package_sysname}}Radicale
-	dh_systemd_start --name={{package_sysname}}Index
-	dh_systemd_start --name={{package_sysname}}Notify
-	dh_systemd_start --name={{package_sysname}}Backup
-	dh_systemd_start --name={{package_sysname}}StorageMigrate
-	dh_systemd_start --name={{package_sysname}}StorageEncryption
-	dh_systemd_start --name={{package_sysname}}MailAggregator
-	dh_systemd_start --name={{package_sysname}}MailWatchdog
-	dh_systemd_start --name={{package_sysname}}MailCleaner
-	dh_systemd_start --name={{package_sysname}}MailImap
-	dh_systemd_start --name={{package_sysname}}ThumbnailBuilder
-	dh_systemd_start --name={{package_sysname}}SsoAuth
-	dh_systemd_start --name=god
+execute_after_dh_fixperms:
+	find \
+	"debian/{{package_sysname}}-communityserver/etc/{{package_sysname}}/communityserver/" \
+	"debian/{{package_sysname}}-communityserver/var/www/{{package_sysname}}/" \
+	-type f  -regex '.*\(json\|config\)' ! -path '*node_modules*' -exec chmod o-rwx {} \;

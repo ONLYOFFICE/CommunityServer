@@ -3314,18 +3314,6 @@ window.Teamlab = (function () {
         return true;
     };
 
-    var addCrmContactTwitter = function (params, contactid, data, options) {
-        addRequest(
-            null,
-            params,
-            ADD,
-            'crm/contact/' + contactid + '/data.json',
-            data,
-            options
-        );
-        return true;
-    };
-
     var addCrmEntityNote = function (params, type, id, data, options) {
         addRequest(
             null,
@@ -5320,28 +5308,6 @@ window.Teamlab = (function () {
         return true;
     };
 
-    var getCrmContactTweets = function (params, contactid, count, options) {
-        return addRequest(
-            null,
-            params,
-            GET,
-            'crm/contact/' + contactid + '/tweets.json',
-            { contactid: contactid, count: count },
-            options
-        );
-    };
-
-    var getCrmContactTwitterProfiles = function (params, searchText, options) {
-        return addRequest(
-            null,
-            params,
-            GET,
-            'crm/contact/twitterprofile.json',
-            { searchText: searchText },
-            options
-        );
-    };
-
     var removeCrmContactAvatar = function (params, contactid, data, options) {
         return addRequest(
             null,
@@ -5349,28 +5315,6 @@ window.Teamlab = (function () {
             REMOVE,
             'crm/contact/' + contactid + '/avatar.json',
             data,
-            options
-        );
-    };
-
-    var updateCrmContactAvatar = function (params, contactid, data, options) {
-        return addRequest(
-            null,
-            params,
-            UPDATE,
-            'crm/contact/' + contactid + '/avatar.json',
-            data,
-            options
-        );
-    };
-
-    var getCrmContactSocialMediaAvatar = function (params, data, options) {
-        return addRequest(
-            null,
-            params,
-            ADD,
-            'crm/contact/socialmediaavatar.json',
-            { socialNetworks: data },
             options
         );
     };
@@ -8949,7 +8893,6 @@ window.Teamlab = (function () {
         deleteCrmContactInfo: deleteCrmContactInfo,
         addCrmContactData: addCrmContactData,
         updateCrmContactData: updateCrmContactData,
-        addCrmContactTwitter: addCrmContactTwitter,
         addCrmEntityNote: addCrmEntityNote,
 
         addCrmContact: addCrmContact,
@@ -9103,11 +9046,7 @@ window.Teamlab = (function () {
         addCrmCurrencyRate: addCrmCurrencyRate,
         updateCrmCurrencyRate: updateCrmCurrencyRate,
         removeCrmCurrencyRate: removeCrmCurrencyRate,
-        getCrmContactTweets: getCrmContactTweets,
-        getCrmContactTwitterProfiles: getCrmContactTwitterProfiles,
         removeCrmContactAvatar: removeCrmContactAvatar,
-        updateCrmContactAvatar: updateCrmContactAvatar,
-        getCrmContactSocialMediaAvatar: getCrmContactSocialMediaAvatar,
         startCrmImportFromCSV: startCrmImportFromCSV,
         getStatusCrmImportFromCSV: getStatusCrmImportFromCSV,
         getCrmImportFromCSVSampleRow: getCrmImportFromCSVSampleRow,

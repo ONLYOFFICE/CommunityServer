@@ -225,7 +225,7 @@ namespace ASC.Mail.Utils
         {
             try
             {
-                var serializer = new Ical.Net.Serialization.CalendarSerializer(calendar);
+                var serializer = new Ical.Net.Serialization.ComponentSerializer();
                 return serializer.SerializeToString(calendar);
             }
             catch (Exception)

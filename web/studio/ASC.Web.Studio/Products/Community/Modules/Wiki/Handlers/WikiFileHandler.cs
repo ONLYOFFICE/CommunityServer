@@ -41,10 +41,26 @@ namespace ASC.Web.UserControls.Wiki.Handlers
             {
                 if (!SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey)))
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     context.Response.End();
                     return;
                 }
+            }
+
+            var product = WebItemManager.Instance[WebItemManager.CommunityProductID];
+            if (product == null || product.IsDisabled())
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                context.Response.End();
+                return;
+            }
+
+            var module = WebItemManager.Instance[WikiManager.ModuleId];
+            if (module == null || module.IsDisabled())
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                context.Response.End();
+                return;
             }
 
             context.Response.Clear();

@@ -227,7 +227,7 @@ namespace ASC.Web.Studio.UserControls.Users
                 }
             }
 
-            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.TfaEnabledForUser(UserInfo.ID) && TfaAppUserSettings.EnableForUser(UserInfo.ID) && (UserInfo.IsMe() || IsAdmin))
+            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable && TfaAppUserSettings.EnableForUser(UserInfo.ID) && (UserInfo.IsMe() || IsAdmin))
             {
                 ShowTfaAppSettings = true;
 

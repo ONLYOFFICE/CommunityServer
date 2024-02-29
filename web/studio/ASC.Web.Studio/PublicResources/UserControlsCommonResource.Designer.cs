@@ -1366,7 +1366,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data backups &amp; recovery.
+        ///   Looks up a localized string similar to Automatic data backup &amp; recovery.
         /// </summary>
         public static string SaasTariffBusinessFeature6 {
             get {
@@ -1384,7 +1384,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pro integrations: Twilio, DocuSign.
+        ///   Looks up a localized string similar to Pro integrations: Twilio, DocuSign, etc..
         /// </summary>
         public static string SaasTariffBusinessFeature8 {
             get {

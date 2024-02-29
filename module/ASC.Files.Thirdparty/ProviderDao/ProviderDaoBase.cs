@@ -236,7 +236,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                         }
 
                         //Delete source file if needed
-                        fromFileDao.DeleteFile(fromSelector.ConvertId(fromFileId));
+                        fromFileDao.DeleteFile(fromSelector.ConvertId(fromFileId), fromFile.GetFileQuotaOwner());
                     }
                     return toFile;
                 }

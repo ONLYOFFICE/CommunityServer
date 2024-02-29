@@ -43,6 +43,13 @@ namespace ASC.Core.Caching
             set;
         }
 
+        public bool IsDocspace
+        {
+            get
+            {
+                return service.IsDocspace;
+            }
+        }
 
         public CachedTenantService(ITenantService service)
         {

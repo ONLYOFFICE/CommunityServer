@@ -63,10 +63,11 @@ namespace ASC.Data.Storage.GoogleCloud
             _modulename = string.Empty;
             _cache = false;
             _dataList = null;
+            _attachment = false;
 
             _domainsExpires = new Dictionary<string, TimeSpan> { { string.Empty, TimeSpan.Zero } };
             _domainsAcl = new Dictionary<string, PredefinedObjectAcl>();
-            _moduleAcl = PredefinedObjectAcl.PublicRead;
+            _moduleAcl = PredefinedObjectAcl.BucketOwnerFullControl;
 
         }
 
@@ -77,7 +78,7 @@ namespace ASC.Data.Storage.GoogleCloud
             _modulename = moduleConfig.Name;
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
-
+            _attachment = moduleConfig.Attachment;
             _domainsExpires =
                 moduleConfig.Domains.Cast<DomainConfigurationElement>().Where(x => x.Expires != TimeSpan.Zero).
                     ToDictionary(x => x.Name,
@@ -346,9 +347,9 @@ namespace ASC.Data.Storage.GoogleCloud
             switch (acl)
             {
                 case ACL.Read:
-                    return PredefinedObjectAcl.PublicRead;
+                    return PredefinedObjectAcl.BucketOwnerFullControl;
                 default:
-                    return PredefinedObjectAcl.PublicRead;
+                    return PredefinedObjectAcl.BucketOwnerFullControl;
             }
         }
 
@@ -477,8 +478,11 @@ namespace ASC.Data.Storage.GoogleCloud
 
             }
         }
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true) {
+            return Move(srcdomain, srcpath, newdomain, newpath, Guid.Empty, quotaCheckFileSize);
+        }
 
-        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true)
         {
             var storage = GetStorage();
 
@@ -494,7 +498,7 @@ namespace ASC.Data.Storage.GoogleCloud
             Delete(srcdomain, srcpath);
 
             QuotaUsedDelete(srcdomain, size);
-            QuotaUsedAdd(newdomain, size, quotaCheckFileSize);
+            QuotaUsedAdd(newdomain, size, ownerId, quotaCheckFileSize);
 
             return GetUri(newdomain, newpath);
 

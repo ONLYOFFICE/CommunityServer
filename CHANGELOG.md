@@ -1,5 +1,155 @@
 # Change log
 
+## Version 12.6.0
+
+### General portal changes
+
+* Edited sources build.
+* Removed mail services transferred to a separate repository (#1378).
+* Hidden tariff for 1 and 3 years in SaaS.
+* Fixed issue when the ‘With opportunities’ filter does not display contacts that are specified as primary ones in Opportunities but are not specified on the Participants tab (Bug 61833).
+* Fixed issue when the drop-down menu in the counter of the space occupied by a user goes out of the browser frame (Bug 61911).
+* Added the ‘Copy email’ button for actions with user’s email (Bug 60814).
+* Fixed issue when some GUI elements are displayed incorrectly when increasing the font in the browser settings (Bug 62342).
+* Fixed issue when the ‘Color’ caption in the calendar editing window from the ‘Other Calendars’ list is formatted in bold (Bug 58850).
+* Fixed issue when the uploaded contact logo does not displayed in the contact list (Bug 62378).
+* Fixed issue with using the system theme by default for new users (Bug 62067).
+* Fixed issue when the filter by group does not work (Bug 58230).
+* Fixed issue when the request to upload an image to the server can be performed without cookie (Bug 62933).
+* Fixed issue when the ‘Folder title’ field is missing in the ‘Change connection settings’ window for some third-party storages (Bug 62617).
+* Fixed issue with an excess dividing line in the menu for a deactivated external link (Bug 62620).
+* Fixed issue when the ‘Advanced settings’ menu differs in the Sharing Settings window of the manager and in the editor in the Common documents (Bug 62666).
+* Added the ability to restrict access rights to the application files for the Others group (Bug 61602).
+* Fixed issue with redirect to the portal main page when opening Control Panel after a day on Ubuntu 22.10 (Bug 62076).
+* Fixed the Server-Side Request Forgery (SSRF) vulnerability (Bug 55994).
+* Fixed the 'Could not resolve current tenant' error when exporting a large number of contacts (Bug 62984).
+* Fixed issue when the password recovery link does not work in EU and SG regions (Bug 62126).
+* Replaced the mysql_native_password authorization plugin with a modern one (Bug 62854).
+* Fixed issue with the ability to send requests to ApiSystem when expanding the default machinekey (Bug 62489)
+* Implemented the recalculation progress bar (Bug 60900).
+* Fixed issue when the “To” time is set incorrectly when selecting an area for an event in the Day, Week viewing mode (Bug 62118).
+* Fixed issue with the direct link to connect Gmail Gmail via oauth (addons/mail/oauth.aspx) (Bug 62813).
+* Fixed issue with the XSS in the “Your subscription has expired” banner (Bug 63457).
+* Fixed issue with the XSS sent in the attachment file is triggered (Bug 62497).
+* Fixed issue when the page scrolls down when clicking Home/End in the search field (toolbar) (Bug 63526).
+* Fixed issue when Open Redirect is possible for an authentication link (refererurl) on the portal (Bug 63328).
+* Fixed issue when the quick external link is available for administrators only (Bug 63550).
+* Fixed issue with the 'Account' error when trying to log in as a blocked user (Bug 63629).
+* Fixed issue when there is an ability to send the Change Email message to any participant under the user (Bug 63538).
+* Fixed issue when logout from the portal occurs for the administrator logged in as a user when performing the ‘Log out from all active connections’ action (Bug 63630).
+* Fixed issue when old indexes are not removed when upgrading the Elasticsearch version (Bug 63584).
+* Fixed issue when the onlyofficeAutoCleanUp service is not removed after updating to v.12.5 (Bug 63684)
+* Fixed the "/uploadComplete 500" error when uploading an archive (Bug 64024).
+* Fixed issue when the large backup file is not removed from S3 (Bug 63838).
+* Fixed issue when the PUT /api/2.0/settings/modetheme.json 401 (Unauthorized) error appears in the console when opening a folder via the external link if the dark theme is set in the system (Bug 64285).
+* Fixed issue when the size of the created file is added to the statistics of the administrator who performed the backup after performing backup (Bug 63783).
+* Fixed issue when the XSS is triggered by a direct link to a malicious SVG file (Bug 64203).
+* Updated versions of all related components to the actual ones (nodejs, python, PostgreSQL) (Bug 62063)
+* Fixed issue when the VC++ 2015 additional packages are not updated for older versions (Windows) (Bug 63771).
+* Fixed issue with the HTML injection in the Recover Access message (Administrator Message Settings) (Bug 64685).
+* Reduced the number of characters displayed in the action button title for the parent folder (Bug 64462).
+* Fixed the "undefined (reading 'response')" error in the console when opening the Controls section (Bug 64592).
+* Fixed issue when the page title does not return to the default value from Common Settings (Bug 64641).
+* Fixed issue when the text in the URL bar blends into the background if the portal dark theme is set (Bug 64589).
+* Fixed the "/imagescss/quotebord-b.gif 404 (Not Found)" error when quoting a message (Bug 64577).
+* Fixed issue when closing / opening a task fails with the following error "Uncaught TypeError: Cannot read properties of null (reading 'unselectable')" onChrome (Bug 64562).
+* Fixed the "ASC.Api.Exceptions.ItemNotFoundException (0x80004005): Item not found" error in logs after removing a project (Bug 64569).
+* Fixed issue with the XSS via a direct link to the uploaded malicious file on the Wiki page (Bug 64580).
+* Fixed issue with the XSS uploaded files in the forum topic (Bug 64571).
+* Fixed the "/Images/volume.svg 404 (Not Found" error when opening an audio file (Bug 64551).
+* Fixed issue when the Actions button for the parent folder no longer appears after deleting a subfolder via the Actions menu for the parent folder in the ‘Shared with me’ section (Bug 64465).
+* Fixed issue with the ‘Sharing settings’ option in the drop-down menu for the parent folder with external access (Bug 64434).
+* Fixed issue with the ‘Sharing settings’ option in the drop-down menu for the parent folder for a Guest in the ‘Shared with me’ section (Bug 64468).
+* Fixed issue when the Actions menu button on the Participants tab of the main contact disappears after clicking (Bug 63888).
+* Fixed issue when the function to reset the application is not displayed in the user profile if his IP address is listed in exceptions (Bug 64487).
+* Fixed issue when the .sxc, .et, .ett, .sxi, .dps, .dpt, .sxw, .stw, .wps, .wpt formats are not converted via the manager (Bug 64705).
+* Fixed issue when the .sxi format is not supported (Bug 64708).
+* Fixed issue when there are no icons for the .sxc, .et, .ett, .sxi, .dps, .dpt, .sxw, .stw, .wps, .wpt formats (Bug 64706).
+* Fixed issue when search by folder contents cannot be performed in the ‘Create form template from file’ window (Bug 64687).
+* Fixed issue when the ‘Create form template from file’ window does not correspond to layouts (Bug 64647).
+* Fixed issue when the authorization page uses the system theme, regardless of the one selected in the profile (Bug 64588).
+* Fixed issue with the ‘Delete’ button in the menu of the parent folder for a third-party storage folder (Bug 64758).
+* Fixed issue when the files moved from ‘My Documents’ to Google Drive are displayed in the ‘Common’ section in the statistics (Bug 64393).
+* Fixed issue when the ‘No files in this folder’ placeholder does not appear after moving all files from a subfolder with external access (Bug 64644).
+* Fixed issue when the folder deleted via the parent folder menu appears again on the ‘Shared with me’ page (Bug 64620).
+* Fixed issue with the ‘Back’ button in a subfolder with external access via an inherited link (Bug 64643).
+* Edited the Twitter functionality description (Bug 64858).
+* Fixed the ‘An item with the same key has already been added.’ error when clicking the ‘Common’ folder counter on the user’s portal (Bug 64862).
+* Fixed issue when an empty folder with the same name is duplicated when uploading from the local disk using the drag’n’drop method (Bug 62858).
+* Fixed the "Index was out of range. Must be non-negative and less than the size of the collection." error in svcIndexer.data.log (Bug 64630).
+* Fixed issue when all sessions are not logged out when changing an email by the portal administrator (Bug 61574).
+* Fixed issue when the Mail Server data (connected domains and mailboxes) is not saved in the backup (Bug 33720).
+* Fixed issue when the disk space quota is displayed in the profile under the user without rights (Bug 64909).
+* Fixed issue when it’s possible to create a user on a custom mail domain without setting a password (Bug 65083).
+* Fixed issue when the Imap Sync icon wraps to a new line when reducing the browser window (or setting Zoom to 200%) (Bug 65266).
+* Fixed issue with an incoming event less than 30 minutes long from Google or Outlook comes with the wrong time (-1 hour) (Bug 65387).
+* Fixed issue when emails from the custom domain are not sent after restoring the portal from SaaS to the server version (Bug 65462).
+* Fixed issue when the MX record is not updated after restoring the portal (Bug 65460).
+* Updated incorrect links (Bug 65278)
+* Fixed issue when the date in the CRM filter is limited to December 2023 (Bug 65683).
+* Fixed issue when creating a document in a task is performed with the following error: "Uncaught TypeError: Cannot read properties of null (reading 'document')" (Bug 65737).
+* Fixed issue when the ICS file contains an incorrect PRODID attribute (Bug 65571).
+* Fixed issue when backup to Google Cloud fails when enabling Public Access Prevention (Bug 65678).
+* Fixed issue with endless loading Portal memory quota (Bug 66134).
+* Fixed issue when the user who does not have access to the Community module can download any file from the Wiki (Bug 66298).
+* Fixed issue with the black portal logo in the PDF Editor with the light theme (Bug 66304).
+* Fixed issue when the /api/2.0/portal/startbackup method allows creating backup in My Documents (Bug 66307).
+* Fixed issue when the POST /ajaxpro/ASC.Web.UserControls.Bookmarking.BookmarkingUserControl,ASC.Web.Community.ashx method allows a user who does not have access to the Community module to create a bookmark (Bug 66347).
+* Fixed issue when the /api/2.0/security/activeconnections/logout/{loginEventId} method is available to users who do not have administrator rights (Bug 66390).
+* Removed/replaced ONLYOFFICE Sample Form (.oform) on the portal (Bug 66407).
+* Fixed error when converting XML (Bug 66491).
+* Fixed issue with the loader when hovering over the Actions button of the parent folder again after deleting a subfolder via the same menu (Bug 66436).
+* Added a new icon for the PDF Editor.
+* Filling out PDF instead of OFORM is now used.
+* Conversion DOCXF to OFORM is no longer supported.
+* Added templates for empty files in ar-SA and sr-Latn-RS.
+* The history when sharing for external users is now available only to authorized users.
+* Closed the functionality for copying text from the editor when the DenyDownload option is set for a file.
+* Fixed the ability to enable recaptcha for the login page. Added the description to the Help Center.
+* Added display of an error in the title of the landing page for an external link to a file when access to it is closed.
+* Edited the birthday page for several birthdays on the same day with long titles.
+* Fixed bugs related to the dark theme (#1324, #1336, #1364, #1381, #1383, #1387, #1394, #1409)
+* Fixed the bug with the ability to select several answers when voting in a poll with only one choice.
+* Completely removed Twitter from CRM (#1371)
+* Fixed the GetByFilter method (the target parameter was not passed into the request).
+* Fixes for compatibility with DocSpace (#1358 ,#1359 ,#1363)
+* Fixed the “ArgumentOutOfRangeException: The absolute expiration value must be in the future” error when specified zero blocking time.
+* Added the .mhtml format icon.
+* Added setting focus to the password field.
+
+### Documents module
+
+* File formats of the OOXML group (docm dotm dotx potm potx ppsm pptm xlsm xltm xltx) are opened for editing without conversion to docx, xlsx, pptx. They will be available for encryption in Private rooms (#1301). Now it’s also possible to share files for commenting – docm dotm dotx potm potx ppsm pptm xlsm xltm xltx, for reviewing – docm dotm dotx, for a custom filter – xlsm xltm xltx. (#1302)
+* Added opening for new formats: sxc, et, ett, sxi, dps, dpt, sxw, stw, wps, wpt (Docs v7.4 required). (#1305)
+* Conversion when loading and before opening a non-OOXML format is now performed to the ooxml format (not to docx, xlsx, pptx depending on the type). This way the files will be converted to the format selected by DS. For example, if the doc file contains a macros, it will be converted to docm, not to docx. (#1304)
+* Users with access for reading are transferred to the editor to be able to specify full access to the protected region in the spreadsheet (Docs v7.4 required). (#1354)
+* When adding data to a spreadsheet via an external link to another spreadsheet, the update is available from the edited file (Docs v7.5 required).
+* Added the ability to open the editor for an external data source spreadsheet in a new tab if the data is inserted to the spreadsheet via an external link (Docs v7.5 required).
+* Added templates for empty files for si-LK, ar-SA and sr-Latn-RS cultures.
+* Added new formats for generating thumbnails (#1366)
+* Added uiTheme in Desktop v7.5 when portal:login (For Bug 57821 - The color of the connected portal tab does not correspond to the interface theme).
+* Generating a form template from a local DOCX file (#1362)
+* Added a drop-down list with actions for a parent folder (#1367)
+* Added a filter to the fileselector (#1385)
+* The pdf format is now considered as fillable one instead of oform.
+* Removed docxf to oform conversion.
+
+### Mail module
+
+* Fixed an error in recording auto-reply parameters in email services. Due to this error, a user accidentally did not receive emails if there was an overdue auto-reply.
+* Fixed SQL requests for calculating counters of read messages in folders.
+* Fixed SQL requests for working with emails in custom folders (moving/removing/adding tags).
+* Fixed issue when the Mail Server data (connected domains and mailboxes) is not saved in the backup (Bug 33720).
+
+### Control Panel
+
+* Added the ability to restrict access rights to the application files for the Others group (Bug 61602).
+* Fixed issue with redirect to the portal main page when opening Control Panel after a day on Ubuntu 22.10 (Bug 62076).
+* Fixed retrieving data error when opening the backup page (Bug 63163).
+* Fixed issue when backup with Mail is not performed after disabling and enabling encryption (added text about stopping services and the instruction to the Help Center) (Bug 64223).
+* Fixed issue when features are not saved to the new tariff when setting a quota for the portal (Bug 65324).
+* Edited sources build.
+
 ## Version 12.5.2
 
 ### General portal changes

@@ -511,8 +511,7 @@ namespace ASC.Api.Security
         [Update("/activeconnections/logoutall/{userId}")]
         public void LogOutAllActiveConnectionsForUser(Guid userId)
         {
-            if (!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin()
-                && !WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID))
+            if (!WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID))
                 throw new SecurityException("Method not available");
 
             LogOutAllActiveConnections(userId);
@@ -566,6 +565,19 @@ namespace ASC.Api.Security
             try
             {
                 var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                var loginEvent = DbLoginEventsManager.GetLoginEvent(user.Tenant, loginEventId);
+
+                if (loginEvent == null)
+                {
+                    return false;
+                }
+
+                if (loginEvent.UserId != user.ID && !WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, user.ID))
+                {
+                    throw new SecurityException("Method not available");
+                }
+
                 var userName = user.DisplayUserName(false);
 
                 DbLoginEventsManager.LogOutEvent(loginEventId);
@@ -606,7 +618,7 @@ namespace ASC.Api.Security
             {
                 throw new ArgumentOutOfRangeException("checkPeriod");
             }
-            if (blockTime < 0)
+            if (blockTime < 1)
             {
                 throw new ArgumentOutOfRangeException("blockTime");
             }

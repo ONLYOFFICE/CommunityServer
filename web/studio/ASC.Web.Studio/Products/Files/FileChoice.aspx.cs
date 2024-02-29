@@ -155,8 +155,9 @@ namespace ASC.Web.Files
 
             if (!string.IsNullOrEmpty(RequestExt))
             {
-                script.AppendFormat(";ASC.Files.FileSelector.filesFilter = ASC.Files.Constants.FilterType.ByExtension;"
-                                    + "ASC.Files.FileSelector.filesFilterText = \"{0}\";",
+                script.AppendFormat(";ASC.Files.FileSelector.filesFilter = {0};"
+                                    + "ASC.Files.FileSelector.filesFilterExtension = \"{1}\";",
+                                    (int)FilterType.ByExtensionIncludeFolders,
                                     RequestExt.Replace("\"", "\\\""));
             }
 

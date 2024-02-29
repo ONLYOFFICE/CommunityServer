@@ -334,9 +334,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>PC에서 사진을 업로드</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>또는 소셜 네트워크에서 선택 :</value>
-  </data>
   <data name="MassSendAlreadySent" xml:space="preserve">
     <value>이미 전송</value>
   </data>

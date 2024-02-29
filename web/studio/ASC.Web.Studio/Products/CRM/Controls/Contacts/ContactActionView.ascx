@@ -329,7 +329,7 @@
                         </div>
 
                         <div class="under_logo">
-                            <a onclick="ASC.CRM.ContactActionView.prepareSocialNetworks(); ASC.CRM.SocialMedia.OpenLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
+                            <a onclick="ASC.CRM.ContactPhotoUploader.openLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
                                  <span class="bold"><%= CRMContactResource.ChangePhoto %></span>
                             </a>
                         </div>
@@ -394,21 +394,4 @@
         </li>
     <% } %>
     </ul>
-</div>
-
-<div id="divSMProfilesWindow" class="borderBase">
-    <div class="header-base-medium divHeader">
-        <span></span>
-        <label class="cancel_cross" title="<%= CRMCommonResource.CloseWindow%>" onclick="jq('#divSMProfilesWindow').hide();"></label>
-    </div>
-    <div class="divSMProfilesWindowBody mobile-overflow">
-        <table id="sm_tbl_UserList">
-        </table>
-        <div class="divWait">
-            <span class="loader-text-block"><%= CRMSocialMediaResource.PleaseWait%></span>            
-        </div>
-        <div class="divNoProfiles">
-            <%= UrlParameters.Type == "people" ? CRMSocialMediaResource.NoAccountsHasBeenFound : CRMSocialMediaResource.NoCompaniesHasBeenFound%>
-        </div>
-    </div>
 </div>

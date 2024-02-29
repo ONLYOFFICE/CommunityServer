@@ -47,6 +47,7 @@ namespace ASC.Web.Files.Utils
         private static void ExecMarkFileAsNew(AsyncTaskData obj)
         {
             CoreContext.TenantManager.SetCurrentTenant(Convert.ToInt32(obj.TenantID));
+            SecurityContext.AuthenticateMe(obj.CurrentAccountId);
 
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
@@ -211,7 +212,7 @@ namespace ASC.Web.Files.Utils
 
                         entries.ForEach(entry =>
                                             {
-                                                if (entry != null && exist.All(tag => tag != null && !tag.EntryId.Equals(entry.ID)))
+                                                if (entry != null && exist.All(tag => tag != null && !tag.IsForSame(entry)))
                                                 {
                                                     newTags.Add(Tag.New(userID, entry));
                                                 }
@@ -256,15 +257,15 @@ namespace ASC.Web.Files.Utils
 
                 taskData.UserIDs = projectTeam;
             }
-
+           
             lock (locker)
             {
                 tasks.Add(taskData);
 
                 if (!tasks.IsStarted)
                     tasks.Start(ExecMarkFileAsNew);
+                }
             }
-        }
 
         public static void RemoveMarkAsNew(FileEntry fileEntry, Guid userID = default(Guid))
         {
@@ -298,7 +299,7 @@ namespace ASC.Web.Files.Utils
                     folderID = fileEntry.ID;
 
                     var listTags = tagDao.GetNewTags(userID, (Folder)fileEntry, true).ToList();
-                    valueNew = listTags.FirstOrDefault(tag => tag.EntryId.Equals(fileEntry.ID)).Count;
+                    valueNew = listTags.FirstOrDefault(tag => tag.IsForSame(fileEntry)).Count;
 
                     if (Equals(fileEntry.ID, userFolderId) || Equals(fileEntry.ID, Global.FolderCommon) || Equals(fileEntry.ID, Global.FolderShare))
                     {
@@ -454,7 +455,7 @@ namespace ASC.Web.Files.Utils
 
                 requestIds.ForEach(requestId =>
                                        {
-                                           var requestTag = requestTags.FirstOrDefault(tag => tag.EntryId.Equals(requestId));
+                                           var requestTag = requestTags.FirstOrDefault(tag => tag.IsForSame(FileEntryType.Folder, requestId));
                                            InsertToCahce(requestId, requestTag == null ? 0 : requestTag.Count);
                                        });
 
@@ -495,7 +496,7 @@ namespace ASC.Web.Files.Utils
                 }
 
                 tags = tags.Distinct().ToList();
-                tags.RemoveAll(tag => Equals(tag.EntryId, folder.ID));
+                tags.RemoveAll(tag => tag.IsForSame(folder));
                 tags = tags.Where(t => t.EntryType == FileEntryType.Folder)
                            .Concat(tags.Where(t => t.EntryType == FileEntryType.File)).ToList();
 
@@ -524,7 +525,7 @@ namespace ASC.Web.Files.Utils
                         ? ((File)entry).FolderID
                         : ((Folder)entry).ParentFolderID;
 
-                var parentEntry = entryTags.Keys.FirstOrDefault(entryCountTag => Equals(entryCountTag.ID, parentId));
+                var parentEntry = entryTags.Keys.FirstOrDefault(entryCountTag => entryCountTag.FileEntryType == FileEntryType.Folder && Equals(entryCountTag.ID, parentId));
                 if (parentEntry != null)
                     entryTags[parentEntry].Count -= entryTag.Value.Count;
             }
@@ -557,7 +558,7 @@ namespace ASC.Web.Files.Utils
                 {
                     var parentFolderTag = Equals(Global.FolderShare, parent.ID)
                                               ? tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, folderDao.GetFolder(Global.FolderShare)).FirstOrDefault()
-                                              : totalTags.FirstOrDefault(tag => tag.EntryType == FileEntryType.Folder && Equals(tag.EntryId, parent.ID));
+                                              : totalTags.FirstOrDefault(tag => tag.IsForSame(parent));
 
                     totalTags.Remove(parentFolderTag);
                     var countSubNew = 0;
@@ -640,7 +641,7 @@ namespace ASC.Web.Files.Utils
                     entries.ToList().ForEach(
                         entry =>
                         {
-                            var curTag = totalTags.FirstOrDefault(tag => tag.EntryType == entry.FileEntryType && tag.EntryId.Equals(entry.ID));
+                            var curTag = totalTags.FirstOrDefault(tag => tag.IsForSame(entry));
 
                             if (entry.FileEntryType == FileEntryType.Folder)
                             {

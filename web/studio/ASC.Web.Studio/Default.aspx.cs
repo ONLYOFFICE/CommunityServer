@@ -25,6 +25,8 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.EmptyScreens;
@@ -56,13 +58,23 @@ namespace ASC.Web.Studio
         protected int ProductsCount { get; set; }
 
         protected string ResetCacheKey;
+        protected string ControlPanelImg;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             CurrentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            Page.RegisterStyle("~/skins/page_default.less");
-
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            {
+                Page.RegisterStyle("~/skins/page_default_dark.less");
+                ControlPanelImg = WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel-dark.svg");
+            }
+            else
+            {
+                Page.RegisterStyle("~/skins/page_default.less");
+                ControlPanelImg = WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.svg");
+            }
+            
             var defaultPageSettings = StudioDefaultPageSettings.Load() ?? (StudioDefaultPageSettings)new StudioDefaultPageSettings().GetDefault();
             var isDesktop = Request.DesktopApp();
             var defaultProductID = isDesktop ? WebItemManager.DocumentsProductID : defaultPageSettings.DefaultProductID;

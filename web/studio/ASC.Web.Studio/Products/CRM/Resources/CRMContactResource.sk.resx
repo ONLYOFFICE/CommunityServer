@@ -562,11 +562,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Nahrať fotografiu z počítača</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Vybrať zo sociálnych sietí
-
-</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Umožniť prístup k spoločnosti všetkým používateľom CRM
 
@@ -649,11 +644,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Žiadne zhody v ONLYOFFICE™ CRM, vyberte zo zoznamu
-
-</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Nie sú k dispozícii žiadne fotografie zodpovedajúce profilu
 
 </value>
   </data>

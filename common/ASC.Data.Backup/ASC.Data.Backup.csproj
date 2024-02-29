@@ -75,6 +75,7 @@
     <Compile Include="Service\BackupCleanerService.cs" />
     <Compile Include="Service\BackupConfiguration.cs" />
     <Compile Include="Service\BackupCleanerTempFileService.cs" />
+    <Compile Include="Service\BackupMailServerFilesService.cs" />
     <Compile Include="Service\BackupService.cs" />
     <Compile Include="Service\BackupServiceLauncher.cs" />
     <Compile Include="Service\BackupWorker.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Tasks\DbFactory.cs" />
     <Compile Include="Tasks\Modules\AuditModuleSpecifics.cs" />
     <Compile Include="Tasks\Modules\Helpers.cs" />
+    <Compile Include="Tasks\Modules\MailTableSpecifics.cs" />
     <Compile Include="Tasks\PortalTaskBase.cs" />
     <Compile Include="Tasks\ColumnMapper.cs">
       <SubType>Code</SubType>
@@ -108,6 +110,7 @@
     <Compile Include="Tasks\BackupFileInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tasks\RestoreMailTableTask.cs" />
     <Compile Include="Tasks\RestorePortalTask.cs" />
     <Compile Include="Tasks\Modules\CalendarModuleSpecifics.cs" />
     <Compile Include="Tasks\Modules\CoreModuleSpecifics.cs" />
@@ -196,6 +199,9 @@
     </PackageReference>
     <PackageReference Include="MySql.Data">
       <Version>8.0.32.1</Version>
+    </PackageReference>
+    <PackageReference Include="SSH.NET">
+      <Version>2020.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

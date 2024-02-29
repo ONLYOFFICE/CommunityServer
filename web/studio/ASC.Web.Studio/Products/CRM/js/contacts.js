@@ -1009,7 +1009,19 @@ ASC.CRM.ListContactView = (function() {
         if (typeof (ASC.CRM.ListContactView.basePathMail) == "undefined") {
             ASC.CRM.ListContactView.basePathMail = ASC.CRM.Common.getMailModuleBasePath();
         }
-
+        if (window.contactForInitTaskActionPanel != null && contactID == window.contactForInitTaskActionPanel.id) {
+            if (email == "") {
+                jq("#simpleContactActionMenu").addClass("display-none");
+                jq("#simpleContactMenu_" + contactID).hide();
+            }
+            else {
+                jq("#simpleContactActionMenu .unlinkContact").addClass("display-none");
+            }
+        }
+        else {
+            jq("#simpleContactActionMenu").removeClass("display-none");
+            jq("#simpleContactActionMenu .unlinkContact").removeClass("display-none");
+        }
         if (email != "") {
             var pathCreateEmail = [
                 ASC.CRM.ListContactView.basePathMail,
@@ -1025,7 +1037,7 @@ ASC.CRM.ListContactView = (function() {
                 "/sortorder=descending/"
             ].join('');
 
-            jq("#simpleContactActionMenu .writeEmail").attr("href", pathCreateEmail);
+            jq("#simpleContactActionMenu .writeEmail").attr("href", pathCreateEmail).removeClass("display-none");
             jq("#simpleContactActionMenu .viewMailingHistory").attr("href", pathSortEmails).removeClass("display-none");
         } else {
             jq("#simpleContactActionMenu .writeEmail").addClass("display-none");
@@ -1640,8 +1652,10 @@ ASC.CRM.ListContactView = (function() {
             },
 
             render_simple_content: function(params, contacts) {
+                var parentContactId = window.contactForInitTaskActionPanel && window.contactForInitTaskActionPanel.id;
                 for (var i = 0, n = contacts.length; i < n; i++) {
                     ASC.CRM.Common.contactItemFactory(contacts[i], params);
+                    contacts[i].showActionMenu = contacts[i].showActionMenu && (contacts[i].primaryEmail != null || contacts[i].id != parentContactId)
                 }
                 jq(window).trigger("getContactsFromApi", [contacts]);
                 jq.tmpl("simpleContactTmpl", contacts).prependTo("#contactTable tbody");
@@ -2350,6 +2364,10 @@ ASC.CRM.ListContactView = (function() {
 
 ASC.CRM.ContactPhotoUploader = (function() {
     return {
+        init: function (defaultAvatarSrc) {
+            ASC.CRM.ContactPhotoUploader.defaultAvatarSrc = defaultAvatarSrc;
+        },
+
         initPhotoUploader: function(parentDialog, photoImg, data) {
             var a = new AjaxUpload('changeLogo', {
                 action: 'ajaxupload.ashx?type=ASC.Web.CRM.Classes.ContactPhotoHandler,ASC.Web.CRM',
@@ -2400,6 +2418,63 @@ ASC.CRM.ContactPhotoUploader = (function() {
                 parentDialog: parentDialog,
                 isInPopup: true,
                 name: "changeLogo"
+            });
+        },
+
+        openLoadPhotoWindow: function () {
+
+            var $link = jq(".linkChangePhoto");
+
+            if (!$link.length || $link.hasClass("disable")) {
+                return;
+            }
+
+            var curAvatarSrc = jq("img.contact_photo").attr("src");
+
+            var isDefaultAvatar = curAvatarSrc.indexOf(ASC.CRM.ContactPhotoUploader.defaultAvatarSrc + '?') == 0;
+
+            jq("#divLoadPhotoDefault").toggleClass("display-none", isDefaultAvatar);
+
+            PopupKeyUpActionProvider.EnableEsc = false;
+
+            StudioBlockUIManager.blockUI("#divLoadPhotoWindow", 520);
+        },
+
+        deleteContactAvatar: function () {
+            LoadingBanner.displayLoading();
+            jq(".under_logo .linkChangePhoto").addClass("disable");
+            var contactId = jq("[id$='_ctrlContactID']").val();
+            if (contactId == "") {
+                contactId = 0;
+            }
+            var contactType = jq.getURLParam("type"),
+                uploadOnly = jq("#divDefaultImagesHolder").attr("data-uploadOnly") == "true",
+                data = { contactId: contactId, uploadOnly: uploadOnly, contactType: contactType };
+
+            Teamlab.removeCrmContactAvatar({}, contactId, data, {
+                success: function (params, response) {
+                    PopupKeyUpActionProvider.CloseDialog();
+                    jq(".under_logo .linkChangePhoto").removeClass("disable");
+                    LoadingBanner.hideLoading();
+
+                    var now = new Date();
+                    jq("img.contact_photo").attr("src",
+                        [
+                            ASC.CRM.ContactPhotoUploader.defaultAvatarSrc,
+                            '?',
+                            now.getTime()]
+                            .join(''));
+                    if (jq("#uploadPhotoPath").length == 1) {
+                        jq("#uploadPhotoPath").val("");
+                    }
+                },
+                error: function (params, errors) {
+                    PopupKeyUpActionProvider.CloseDialog();
+                    jq(".under_logo .linkChangePhoto").removeClass("disable");
+                    LoadingBanner.hideLoading();
+
+                    toastr.error(ASC.CRM.Resources.CRMJSResource.ErrorMessage_SaveImageError);
+                }
             });
         }
     };
@@ -2758,21 +2833,10 @@ ASC.CRM.ContactFullCardView = (function () {
                     ASC.CRM.Resources.CRMContactResource.ChangePhotoToDefault,
                 "</h4>",
                 "<div id=\"divDefaultImagesHolder\" data-uploadOnly=\"false\">",
-                    "<div class=\"ImageHolderOuter\" onclick=\"ASC.CRM.SocialMedia.DeleteContactAvatar();\">",
+                    "<div class=\"ImageHolderOuter\" onclick=\"ASC.CRM.ContactPhotoUploader.deleteContactAvatar();\">",
                         "<img class=\"AvatarImage\" src=",
                         contactPhotoMedium,
                         " alt=\"\" />",
-                    "</div>",
-                "</div>",
-            "</div>",
-            "<div id=\"divLoadPhotoFromSocialMedia\">",
-                "<h4>",
-                    ASC.CRM.Resources.CRMContactResource.LoadPhotoFromSocialMedia,
-                "</h4>",
-                "<div id=\"divImagesHolder\" data-uploadOnly=\"false\">",
-                "</div>",
-                "<div style=\"clear: both;\">",
-                    "<div id=\"divAjaxImageContainerPhotoLoad\">",
                     "</div>",
                 "</div>",
             "</div>"].join(''),
@@ -2846,7 +2910,6 @@ ASC.CRM.ContactFullCardView = (function () {
             } else {
                 item.href = item.data;
             }
-            ASC.CRM.SocialMedia.socialNetworks.push(item);
         }
         if (item.infoType == 5) { //LinkedIn
             if (item.data.indexOf("://") == -1) {
@@ -2854,13 +2917,11 @@ ASC.CRM.ContactFullCardView = (function () {
             } else {
                 item.href = item.data;
             }
-            ASC.CRM.SocialMedia.socialNetworks.push(item);
         }
         if (item.infoType == 6) { //Facebook
             if (item.data.indexOf("://") == -1) {
                 item.href = "http://facebook.com/" + item.data;
             }
-            ASC.CRM.SocialMedia.socialNetworks.push(item);
         }
         if (item.infoType == 8) { //LiveJournal
             if (item.data.indexOf("://") == -1) {
@@ -3402,7 +3463,7 @@ ASC.CRM.ContactDetailsView = (function() {
         return anch;
     };
 
-    var _initTabs = function (contactID, contactsTabVisible, currentTabAnch, projectsTabVisible, socialMediaTabVisible) {
+    var _initTabs = function (contactID, contactsTabVisible, currentTabAnch, projectsTabVisible) {
         window.ASC.Controls.ClientTabsNavigator.init("ContactTabs", {
             tabs: [
             {
@@ -3455,14 +3516,6 @@ ASC.CRM.ContactDetailsView = (function() {
                 divID: "projectsTab",
                 visible: projectsTabVisible,
                 onclick: "ASC.CRM.ContactDetailsView.activateCurrentTab('" + contactID + "','projects');"
-            },
-            {
-                title: "Twitter",
-                selected: currentTabAnch == "twitter",
-                anchor: "twitter",
-                divID: "socialMediaTab",
-                visible: socialMediaTabVisible,
-                onclick: "ASC.CRM.ContactDetailsView.activateCurrentTab('" + contactID + "','twitter');"
             }
             ]
         });
@@ -3809,7 +3862,6 @@ ASC.CRM.ContactDetailsView = (function() {
         init: function (contactID,
                         isCompany,
                         projectsTabVisible,
-                        socialMediaTabVisible,
                         shareType,
                         canEdit) {
             _canCreateProjects = ASC.CRM.Data.CanCreateProjects;
@@ -3817,16 +3869,14 @@ ASC.CRM.ContactDetailsView = (function() {
             _availableTabs = ["profile", "tasks", "deals", "invoices", "files"];
             if (isCompany === true) { _availableTabs.push("contacts"); }
             if (projectsTabVisible) { _availableTabs.push("projects"); }
-            if (socialMediaTabVisible) { _availableTabs.push("twitter"); }
 
             var currentTabAnch = _getCurrentTabAnch();
-            _initTabs(contactID, isCompany === true, currentTabAnch, projectsTabVisible, socialMediaTabVisible);
+            _initTabs(contactID, isCompany === true, currentTabAnch, projectsTabVisible);
             
             ASC.CRM.HistoryView.init(contactID, "contact", 0);
             ASC.CRM.DealTabView.initTab(contactID);
             ASC.CRM.ListTaskView.initTab(contactID, "contact", 0);
             ASC.CRM.ListInvoiceView.initTab(contactID, "contact");
-            ASC.CRM.SocialMedia.initTab(isCompany, canEdit);
 
             ASC.CRM.ListContactView.isContentRendered = false;
             ASC.CRM.ListInvoiceView.isContentRendered = false;
@@ -3842,8 +3892,7 @@ ASC.CRM.ContactDetailsView = (function() {
             initContactDetailsMenuPanel();
             initOtherActionMenu(shareType);
 
-            ASC.CRM.SocialMedia.init(ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyBigSizePhoto" : "PersonBigSizePhoto"]);
-            ASC.CRM.ContactDetailsView.checkSocialMediaError();
+            ASC.CRM.ContactPhotoUploader.init(ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyBigSizePhoto" : "PersonBigSizePhoto"]);
 
             ASC.CRM.ContactDetailsView.activateCurrentTab(contactID, currentTabAnch);
         },
@@ -3858,18 +3907,6 @@ ASC.CRM.ContactDetailsView = (function() {
                     ASC.CRM.ListContactView.isContentRendered = true;
                     ASC.CRM.ListContactView.renderSimpleContent(false, true);
                 }
-            }
-            if (anchor == "twitter") {
-                var hasTwitter = false
-                if (typeof (window.contactNetworks) !== "undefined" && window.contactNetworks.length != 0) {
-                    for (var i = 0, n = window.contactNetworks.length; i < n; i++) {
-                        if (window.contactNetworks[i].infoType == 4) {
-                            hasTwitter = true;
-                            break;
-                        }
-                    }
-                }
-                ASC.CRM.SocialMedia.activate(hasTwitter);
             }
             if (anchor == "deals") {
                 ASC.CRM.DealTabView.activate();
@@ -3949,13 +3986,6 @@ ASC.CRM.ContactDetailsView = (function() {
                     ASC.CRM.HistoryView.isTabActive = false;
                 }
             });
-        },
-
-        checkSocialMediaError: function () {
-            var smErrorMessage = jq("input[id$='_ctrlSMErrorMessage']").val();
-            if (smErrorMessage != "" && smErrorMessage !== undefined) {
-                ASC.CRM.SocialMedia.ShowErrorMessage(smErrorMessage);
-            }
         }
     };
 })();
@@ -4226,28 +4256,17 @@ ASC.CRM.ContactActionView = (function () {
                     ASC.CRM.Resources.CRMContactResource.ChangePhotoToDefault,
                 "</h4>",
                 "<div id=\"divDefaultImagesHolder\" data-uploadOnly=\"true\">",
-                    "<div class=\"ImageHolderOuter\" onclick=\"ASC.CRM.SocialMedia.DeleteContactAvatar();\">",
+                    "<div class=\"ImageHolderOuter\" onclick=\"ASC.CRM.ContactPhotoUploader.deleteContactAvatar();\">",
                         "<img class=\"AvatarImage\" src=",
                         contactPhotoMedium,
                         " alt=\"\" />",
-                    "</div>",
-                "</div>",
-            "</div>",
-            "<div id=\"divLoadPhotoFromSocialMedia\">",
-                "<h4>",
-                    ASC.CRM.Resources.CRMContactResource.LoadPhotoFromSocialMedia,
-                "</h4>",
-                "<div id=\"divImagesHolder\" data-uploadOnly=\"true\">",
-                "</div>",
-                "<div style=\"clear: both;\">",
-                    "<div id=\"divAjaxImageContainerPhotoLoad\">",
                     "</div>",
                 "</div>",
             "</div>"].join(''),
             OKBtn: "",
             CancelBtn: "",
             progressText: ""
-        }).insertAfter("#divSMProfilesWindow");
+        }).insertAfter("#socialProfileCategoriesPanel");
     };
 
     var createNewAddress = function($contact, is_primary, category, street, city, state, zip, country) {
@@ -4370,9 +4389,9 @@ ASC.CRM.ContactActionView = (function () {
             }
             ASC.CRM.ContactSelector.Cache = {};
         } else {
-            for (var i = 0, n = ASC.CRM.SocialMedia.selectedPersons.length; i < n; i++) {
-                if (ASC.CRM.SocialMedia.selectedPersons[i].id == id) {
-                    ASC.CRM.SocialMedia.selectedPersons.splice(i, 1);
+            for (var i = 0, n = ASC.CRM.ContactActionView.selectedPersons.length; i < n; i++) {
+                if (ASC.CRM.ContactActionView.selectedPersons[i].id == id) {
+                    ASC.CRM.ContactActionView.selectedPersons.splice(i, 1);
                     break;
                 }
             }
@@ -4409,7 +4428,7 @@ ASC.CRM.ContactActionView = (function () {
             jq("#contactListBox").parent().removeClass('hiddenFields');
             ASC.CRM.Common.RegisterContactInfoCard();
 
-            ASC.CRM.SocialMedia.selectedPersons.push(person);
+            ASC.CRM.ContactActionView.selectedPersons.push(person);
         } else {
 
             Teamlab.getCrmContact({}, obj.id, {
@@ -4765,7 +4784,9 @@ ASC.CRM.ContactActionView = (function () {
                     });
                 }
 
-                ASC.CRM.SocialMedia.init(ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyBigSizePhoto" : "PersonBigSizePhoto"]);
+                ASC.CRM.ContactPhotoUploader.init(ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyBigSizePhoto" : "PersonBigSizePhoto"]);
+
+                ASC.CRM.ContactActionView.selectedPersons = new Array();
 
                 jq(".cancelSbmtFormBtn:first").on("click", function () {
                     ASC.CRM.Common.unbindOnbeforeUnloadEvent();
@@ -4883,35 +4904,12 @@ ASC.CRM.ContactActionView = (function () {
         },
 
         changeSocialProfileCategory: function(Obj, category, text, categoryName) {
-            var $divObj = jq(Obj).parents('table:first').parent();
-            jq(Obj).text(text);
-            $inputObj = jq(Obj).parents('tr:first').find('input');
+            var $divObj = jq(Obj).text(text).parents('table:first').parent();
+            var $inputObj = jq(Obj).parents('tr:first').find('input');
             var parts = $inputObj.attr('name').split('_');
             parts[1] = categoryName;
             $inputObj.attr('name', parts.join('_'));
-
-            var $findProfileObj = $divObj.find('.find_profile'),
-                isShown = false,
-                func = "",
-                title = "",
-                description = " ";
-            switch (category) { // Enum ContactInfoType
-                case 4: // twitter
-                    isShown = window.twitterSearchEnabled;
-                    title = ASC.CRM.Resources.CRMJSResource.FindTwitter;
-                    description = ASC.CRM.Resources.CRMJSResource.ContactTwitterDescription;
-                    func = (function(p1, p2) { return function() { ASC.CRM.SocialMedia.FindTwitterProfiles(jq(this), jq("#typeAddedContact").val(), p1, p2); } })(-3, 5)
-                    break;
-            }
-
-            if (isShown) {
-                $findProfileObj.off('click').on("click", func);
-                $findProfileObj.attr('title', title).show();
-            } else {
-                $findProfileObj.hide();
-            }
-
-            $divObj.children(".text-medium-describe").text(description);
+            $divObj.find('.find_profile').hide();
             jq("#socialProfileCategoriesPanel").hide();
         },
 
@@ -4986,16 +4984,16 @@ ASC.CRM.ContactActionView = (function () {
                     if (jq("#typeAddedContact").val() == "people") {
                         ASC.CRM.Common.unbindOnbeforeUnloadEvent();
                         return true;
-                    } else if (ASC.CRM.SocialMedia.selectedPersons.length == 0) {
+                    } else if (ASC.CRM.ContactActionView.selectedPersons.length == 0) {
                         jq("#assignedContactsListEdit input[name='baseInfo_assignedContactsIDs']").val(window.assignedContactSelector.SelectedContacts);
                         ASC.CRM.Common.unbindOnbeforeUnloadEvent();
                         return true;
                     } else {
                         var data = [];
-                        for (var i = 0, n = ASC.CRM.SocialMedia.selectedPersons.length; i < n; i++) {
+                        for (var i = 0, n = ASC.CRM.ContactActionView.selectedPersons.length; i < n; i++) {
                             data.push({
-                                FirstName: ASC.CRM.SocialMedia.selectedPersons[i].Key,
-                                LastName: ASC.CRM.SocialMedia.selectedPersons[i].Value
+                                FirstName: ASC.CRM.ContactActionView.selectedPersons[i].Key,
+                                LastName: ASC.CRM.ContactActionView.selectedPersons[i].Value
                             });
                         }
 
@@ -5053,37 +5051,6 @@ ASC.CRM.ContactActionView = (function () {
                 PopupKeyUpActionProvider.EnableEsc = false;
                 StudioBlockUIManager.blockUI("#confirmationGotoSettingsPanel", 500);
             }
-        },
-
-        prepareSocialNetworks: function () {
-
-            jq("#divImagesHolder").html("");
-            var $networks = jq("#websiteAndSocialProfilesContainer").find("input");
-
-            ASC.CRM.SocialMedia.socialNetworks = [];
-            for (var i = 0, n = $networks.length; i < n; i++) {
-                var $el = jq($networks[i]),
-                    text = $el.val().trim();
-
-                if (text == "") continue;
-                if ($el.attr("name").indexOf("contactInfo_Twitter_") == 0) {
-                    ASC.CRM.SocialMedia.socialNetworks.push({
-                        data: text,
-                        infoType: 4
-                    });
-                } else if ($el.attr("name").indexOf("contactInfo_LinkedIn_") == 0) {
-                    ASC.CRM.SocialMedia.socialNetworks.push({
-                        data: text,
-                        infoType: 5
-                    });
-                } else if ($el.attr("name").indexOf("contactInfo_Facebook_") == 0) {
-                    ASC.CRM.SocialMedia.socialNetworks.push({
-                        data: text,
-                        infoType: 6
-                    });
-                }
-            }
-            ASC.CRM.SocialMedia.ContactImageListLoaded = false;
         }
     };
 })();

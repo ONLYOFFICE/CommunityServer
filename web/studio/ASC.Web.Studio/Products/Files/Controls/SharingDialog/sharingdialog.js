@@ -81,7 +81,7 @@ window.ASC.Files.Share = (function () {
 
         asFlat: false,
         showTooltop: false,
-        rootFolderType: false,
+        rootFolderTypeCommon: false,
         originForPost: "*",
 
         displaySettings: false,
@@ -321,7 +321,7 @@ window.ASC.Files.Share = (function () {
             that.$saveBtnArrow.removeAttr("style");
         }
 
-        var headerTitle = (that.viewSettings.rootFolderType || ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate")
+        var headerTitle = (that.viewSettings.rootFolderTypeCommon || ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate")
             ? ASC.Files.FilesJSResource.AccessSettingsHeader.format(that.viewSettings.title)
             : ASC.Files.FilesJSResource.SharingSettingsHeader.format(that.viewSettings.title);
 
@@ -1638,7 +1638,7 @@ window.ASC.Files.Share = (function () {
         that.$advancedSettingsDialogDenySharingCbx.prop("disabled", false);
         that.$advancedSettingsDialogDenySharingLabel.removeClass("gray-text").show();
 
-        if (ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate") {
+        if (that.viewSettings.rootFolderTypeCommon || ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate") {
             that.viewSettings.denySharing = false;
             that.$advancedSettingsDialogDenySharingCbx.prop("disabled", true);
             that.$advancedSettingsDialogDenySharingLabel.addClass("gray-text").hide();
@@ -1660,7 +1660,7 @@ window.ASC.Files.Share = (function () {
         checkIsShortenedLink(false);
         checkIsSettingsEnabled();
         checkIsDeletionEnabled();
-        return true;
+        return checkVisibleElements();
     }
 
     function onBeforeShowLinkShareDialog() {
@@ -1918,12 +1918,18 @@ window.ASC.Files.Share = (function () {
         that.$linkActionDialogLifetime.toggle(hasSettings);
         that.$linkActionDialogRename.toggle(hasSettings);
     }
-    
+
     function checkIsDeletionEnabled() {
         var currentElement = that.selected[that.currentElement.id];
 
-        that.$linkActionDialog.find(".dropdown-item-seporator:last").toggle(!currentElement.inherited);
-        that.$linkActionDialogDelete.toggle(!currentElement.inherited);
+        that.$linkActionDialog.find(".dropdown-item-seporator:last").toggle(!currentElement.inherited && that.viewSettings.externalLinksAvailable);
+        that.$linkActionDialogDelete.parent().toggle(!currentElement.inherited);
+    }
+
+    function checkVisibleElements() {
+        return that.$linkActionDialog.find("li").filter(function (_, li) {
+            return li.style.display !== "none";
+        }).length > 0;
     }
 
     function mousedownOnReadonlyInput() {
@@ -2205,7 +2211,7 @@ window.ASC.Files.Share = (function () {
         }
     }
 
-    function initViewSettings(ids, titles, asFlat, rootFolderType, origin, denyDownload, denySharing) {
+    function initViewSettings(ids, titles, asFlat, rootFolderTypeCommon, origin, denyDownload, denySharing) {
         var isArray = Array.isArray(ids);
 
         that.viewSettings.title = that.targetData.multiple
@@ -2214,9 +2220,9 @@ window.ASC.Files.Share = (function () {
 
         that.viewSettings.asFlat = asFlat;
         that.viewSettings.showTooltop = !asFlat && !ASC.Desktop;
-        that.viewSettings.rootFolderType = rootFolderType;
+        that.viewSettings.rootFolderTypeCommon = rootFolderTypeCommon;
 
-        that.viewSettings.notifyAvailable = !rootFolderType
+        that.viewSettings.notifyAvailable = !rootFolderTypeCommon
             && (!ASC.Files.Folders || ASC.Files.Folders.folderContainer == "my" || ASC.Files.Folders.folderContainer == "forme" || ASC.Files.Folders.folderContainer == "privacy");
 
         that.viewSettings.externalLinksAvailable = false;
@@ -2288,11 +2294,11 @@ window.ASC.Files.Share = (function () {
         }
     }
 
-    function getSharedInfo(ids, titles, asFlat, rootFolderType, origin, denyDownload, denySharing, providerEntry, defaultAccessRights) {
+    function getSharedInfo(ids, titles, asFlat, rootFolderTypeCommon, origin, denyDownload, denySharing, providerEntry, defaultAccessRights) {
 
         initTargetData(ids, titles, asFlat, providerEntry);
 
-        initViewSettings(ids, titles, asFlat, rootFolderType, origin, denyDownload, denySharing);
+        initViewSettings(ids, titles, asFlat, rootFolderTypeCommon, origin, denyDownload, denySharing);
 
         var data = {
             entry: (that.targetData.multiple ? ids : [ids])

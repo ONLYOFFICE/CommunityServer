@@ -432,9 +432,6 @@ Czy chcesz usunąć ten tag również ze spółki i ze wszystkich jej osób?</va
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Załaduj zdjęcie z komputera</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Wybierz z sieci społecznościowych</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Zezwalaj na dostęp do firmy wszystkim użytkownikom CRM</value>
   </data>
@@ -488,9 +485,6 @@ Czy chcesz usunąć ten tag również ze spółki i ze wszystkich jej osób?</va
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>Brak dopasowań z ONLYOFFICE™ CRM, wybierz z listy</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Brak zdjęć odpowiadających profilowi</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Powiadom menedżera kontaktów e-mailem</value>

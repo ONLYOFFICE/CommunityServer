@@ -123,11 +123,21 @@ namespace ASC.Web.Core
 
                     if (ClientSettings.SameSiteCookieEnabled)
                     {
+                        // SameSite is not support by Mono yet (https://github.com/mono/mono/issues/18711)
+                        // HttpContext.Current.Response.Cookies[cookieName].SameSite = SameSiteMode.None;
+
                         var cookies = HttpContext.Current.Response.Cookies[cookieName];
 
-                        cookies.GetType()
-                               .GetProperty("SameSite")
-                               .SetValue(cookies, 0);
+                        var property = cookies.GetType().GetProperty("SameSite");
+
+                        if (property != null)
+                        {
+                            property.SetValue(cookies, 0);
+                        }
+                        else
+                        {
+                            cookies.Path = "/; SameSite=None";
+                        }
                     }
                 }
             }
@@ -236,17 +246,17 @@ namespace ASC.Web.Core
 
         public static void ResetUserCookie(Guid? userId = null)
         {
-            var currentUserId = SecurityContext.CurrentAccount.ID;
+            var targetUserId = userId ?? SecurityContext.CurrentAccount.ID;
             var tenant = TenantProvider.CurrentTenantID;
-            var settings = TenantCookieSettings.GetForUser(userId ?? currentUserId);
+            var settings = TenantCookieSettings.GetForUser(targetUserId);
             settings.Index = settings.Index + 1;
-            TenantCookieSettings.SetForUser(userId ?? currentUserId, settings);
+            TenantCookieSettings.SetForUser(targetUserId, settings);
 
-            DbLoginEventsManager.LogOutAllActiveConnections(tenant, userId ?? currentUserId);
+            DbLoginEventsManager.LogOutAllActiveConnections(tenant, targetUserId);
 
-            if (!userId.HasValue)
+            if (targetUserId == SecurityContext.CurrentAccount.ID)
             {
-                AuthenticateMeAndSetCookies(tenant, currentUserId, MessageAction.LoginSuccess);
+                AuthenticateMeAndSetCookies(tenant, targetUserId, MessageAction.LoginSuccess);
             }
         }
 

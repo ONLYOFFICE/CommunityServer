@@ -32,6 +32,7 @@ namespace ASC.Web.Files.Controls
         public object FolderIDCurrentRoot { get; set; }
 
         public bool HideAddActions { get; set; }
+        public bool AddFilterContainer { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

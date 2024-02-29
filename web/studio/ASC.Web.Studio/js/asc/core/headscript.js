@@ -27,7 +27,7 @@ function setContentFocus(e) {
     if (e.target == content) return;
     if (e.target instanceof HTMLTextAreaElement) return;
     if (e.target instanceof HTMLInputElement) {
-        var inputTypes = ['text', 'password', 'number', 'email'];
+        var inputTypes = ['text', 'password', 'search', 'number', 'email', 'tel'];
         if (inputTypes.indexOf(e.target.type) >= 0) return;
     }
     if (jq && jq('.popupContainerClass:visible, .advanced-selector-container:visible').length) return;

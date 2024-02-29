@@ -156,6 +156,8 @@ namespace ASC.Common.Web
             AddMimeMapping(".dotm", "application/vnd.ms-word.template.macroEnabled.12");
             AddMimeMapping(".dotx", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
             AddMimeMapping(".dp", "application/commonground");
+            AddMimeMapping(".dps", "application/presentation");
+            AddMimeMapping(".dpt", "application/presentation");
             AddMimeMapping(".drw", "application/drafting");
             AddMimeMapping(".dump", "application/octet-stream");
             AddMimeMapping(".dv", "video/x-dv");
@@ -177,6 +179,8 @@ namespace ASC.Common.Web
             AddMimeMapping(".eps", "application/postscript");
             AddMimeMapping(".epub", "application/epub+zip");
             AddMimeMapping(".es", "application/x-esrehber");
+            AddMimeMapping(".et", "application/spreadsheet");
+            AddMimeMapping(".ett", "application/spreadsheet");
             AddMimeMapping(".etx", "text/x-setext");
             AddMimeMapping(".evy", "application/envoy");
             AddMimeMapping(".evy", "application/x-envoy");
@@ -612,6 +616,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".stl", "application/vndms-pkistl");
             AddMimeMapping(".stm", "text/html");
             AddMimeMapping(".stp", "application/step");
+            AddMimeMapping(".stw", "application/vnd.sun.xml.writer.template");
             AddMimeMapping(".sv4cpio", "application/x-sv4cpio");
             AddMimeMapping(".sv4crc", "application/x-sv4crc");
             AddMimeMapping(".svf", "image/vnd.dwg");
@@ -621,6 +626,9 @@ namespace ASC.Common.Web
             AddMimeMapping(".svg", "image/svg+xml");
             AddMimeMapping(".svgt", "image/svg+xml");
             AddMimeMapping(".swf", "application/x-shockwave-flash");
+            AddMimeMapping(".sxi", "application/presentation");
+            AddMimeMapping(".sxc", "application/vnd.sun.xml.calc");
+            AddMimeMapping(".sxw", "application/vnd.sun.xml.writer");
             AddMimeMapping(".t", "application/x-troff");
             AddMimeMapping(".talk", "text/x-speech");
             AddMimeMapping(".tar", "application/x-tar");
@@ -715,7 +723,8 @@ namespace ASC.Common.Web
             AddMimeMapping(".wp6", "application/wordperfect");
             AddMimeMapping(".wpd", "application/wordperfect");
             AddMimeMapping(".wpd", "application/x-wpwin");
-            AddMimeMapping(".wps", "application/vnd.ms-works");
+            AddMimeMapping(".wps", "application/document");
+            AddMimeMapping(".wpt", "application/document");
             AddMimeMapping(".wq1", "application/x-lotus");
             AddMimeMapping(".wri", "application/mswrite");
             AddMimeMapping(".wri", "application/x-wri");

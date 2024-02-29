@@ -666,4 +666,7 @@
   <data name="shareFolderLinkMailSubject" xml:space="preserve">
     <value>You have been granted access to the {0} folder</value>
   </data>
+  <data name="ErrorMessage_WrongExtension" xml:space="preserve">
+    <value>File extension must be .docx</value>
+  </data>
 </root>

@@ -191,8 +191,19 @@ namespace ASC.Web.Studio
 
                         if (!authenticated)
                         {
-                            Auth.ProcessLogout();
-                            return false;
+                            var comebackAuthCookies = CookiesManager.GetCookies(CookiesType.ComebackAuthKey);
+
+                            if (!string.IsNullOrEmpty(comebackAuthCookies) && SecurityContext.AuthenticateMe(comebackAuthCookies))
+                            {
+                                CookiesManager.SetCookies(CookiesType.AuthKey, comebackAuthCookies);
+                                CookiesManager.ClearCookies(CookiesType.ComebackAuthKey);
+                                authenticated = true;
+                            }
+                            else
+                            {
+                                Auth.ProcessLogout();
+                                return false;
+                            }
                         }
                     }
                 }

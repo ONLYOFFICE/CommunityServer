@@ -226,7 +226,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 if (folder == null || !FilesSecurity.CanDownload(folder)) continue;
                 var folderPath = path + folder.Title + "/";
 
-                var files = FileDao.GetFiles(folder.ID, null, FilterType.None, false, Guid.Empty, string.Empty, true);
+                var files = FileDao.GetFiles(folder.ID, null, FilterType.None, false, Guid.Empty, string.Empty, true, null);
                 files = FilesSecurity.FilterDownload(files);
                 files.ForEach(file => entriesPathId.Add(ExecPathFromFile(file, folderPath)));
 

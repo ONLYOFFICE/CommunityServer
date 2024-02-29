@@ -195,7 +195,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     {
                                         Error = FilesCommonResource.ErrorMassage_SecurityException_MoveFolder;
                                     }
-                                    else if (WithError(FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, true), out tmpError))
+                                    else if (WithError(FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, null, true), out tmpError))
                                     {
                                         Error = tmpError;
                                     }
@@ -225,7 +225,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             {
                                 Error = FilesCommonResource.ErrorMassage_SecurityException_MoveFolder;
                             }
-                            else if (WithError(FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, true), out tmpError))
+                            else if (WithError(FileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, string.Empty, false, null, true), out tmpError))
                             {
                                 Error = tmpError;
                             }

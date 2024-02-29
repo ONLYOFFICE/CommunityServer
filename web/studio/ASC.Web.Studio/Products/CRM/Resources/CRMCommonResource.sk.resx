@@ -548,9 +548,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Ďalší záznam</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Žiadne záznamy</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Nie sú k dispozícii žiadne poštové účty
 

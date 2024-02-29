@@ -208,7 +208,11 @@ namespace ASC.Web.Files
 
             if (_configuration != null && !string.IsNullOrEmpty(_configuration.DocumentType))
             {
-                Favicon = WebImageSupplier.GetAbsoluteWebPath("logo/" + _configuration.DocumentType + ".ico");
+                var ext = FileUtility.GetFileExtension(_configuration.Document.Info.File.Title);
+
+                var filename = Services.DocumentService.Configuration.PdfType.Contains(ext) ? "pdf" : _configuration.DocumentType;
+
+                Favicon = WebImageSupplier.GetAbsoluteWebPath("logo/" + filename + ".ico");
             }
         }
 
@@ -508,7 +512,8 @@ namespace ASC.Web.Files
                 TabId = _tabId.ToString(),
                 ThirdPartyApp = _thirdPartyApp,
                 CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal && WebItemSecurity.IsAvailableForMe(WebItemManager.PeopleProductID),
-                PageTitlePostfix = GetPageTitlePostfix()
+                PageTitlePostfix = GetPageTitlePostfix(),
+                IsAuthenticated = SecurityContext.IsAuthenticated,
             };
 
             if (!string.IsNullOrEmpty(RequestFolderShareLinkKey))

@@ -105,7 +105,11 @@ namespace ASC.Core.ChunkedUploader
 
         public void Move(CommonChunkedUploadSession chunkedUploadSession, string newPath, bool quotaCheckFileSize = true)
         {
-            DataStore.Move(Domain, chunkedUploadSession.TempPath, string.Empty, newPath, quotaCheckFileSize);
+            Move(chunkedUploadSession, newPath, Guid.Empty, quotaCheckFileSize);
+        }
+        public void Move(CommonChunkedUploadSession chunkedUploadSession, string newPath, Guid ownerId, bool quotaCheckFileSize = true)
+        {
+            DataStore.Move(Domain, chunkedUploadSession.TempPath, string.Empty, newPath, ownerId, quotaCheckFileSize);
         }
 
         public void Abort(CommonChunkedUploadSession uploadSession)

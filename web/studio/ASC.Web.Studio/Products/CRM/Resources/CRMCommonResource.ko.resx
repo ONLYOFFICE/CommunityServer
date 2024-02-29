@@ -370,9 +370,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>다음 레코드</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>레코드 없음</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>일치 하는 항목 없음</value>
   </data>

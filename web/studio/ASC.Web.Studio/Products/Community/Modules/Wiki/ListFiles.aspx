@@ -72,7 +72,7 @@
                 <td class="borderBase <%# GetFileTypeClass(Container.DataItem as File)%>" style="padding-left:35px;">
                     <asp:HyperLink ToolTip='<%#string.Format("{0} - {1}", GetFileName(Container.DataItem as File), GetFileLengthToString((Container.DataItem as File).FileSize)) %>'
                         runat="server" ID="hlFileLink" CssClass = "linkHeaderMedium" Text='<%#GetFileName(Container.DataItem as File)%>'
-                        NavigateUrl='<%#GetFileViewLink(Container.DataItem as File)%>' OnClick='<%#GetFileViewLinkPopUp(Container.DataItem as File)%>' />
+                        NavigateUrl='<%#GetFileViewLink(Container.DataItem as File)%>' Target="_blank" />
                 </td>
                 <td class="borderBase">
                     <%#GetAuthor(Container.DataItem as File)%>

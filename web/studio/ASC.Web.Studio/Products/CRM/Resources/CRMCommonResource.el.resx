@@ -283,9 +283,6 @@
   <data name="MyEventsFilter" xml:space="preserve">
     <value>Τα συμβάντα μου</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Καμία εγγραφή</value>
-  </data>
   <data name="Notify" xml:space="preserve">
     <value>Ειδοποίηση</value>
   </data>

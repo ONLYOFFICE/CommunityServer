@@ -99,7 +99,7 @@ namespace ASC.Web.Files.Services.WCFService
                 try
                 {
                     int total;
-                    var folders = EntryManager.GetEntries(folderDao, fileDao, folderDao.GetFolder(parentId), 0, 0, FilterType.FoldersOnly, false, Guid.Empty, string.Empty, false, false, new OrderBy(SortedByType.AZ, true), out total);
+                    var folders = EntryManager.GetEntries(folderDao, fileDao, folderDao.GetFolder(parentId), 0, 0, FilterType.FoldersOnly, false, Guid.Empty, string.Empty, false, null, false, new OrderBy(SortedByType.AZ, true), out total);
                     return new ItemList<Folder>(folders.OfType<Folder>());
                 }
                 catch (Exception e)
@@ -123,7 +123,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        public DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, bool subjectGroup, String ssubject, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy)
+        public DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, bool subjectGroup, String ssubject, String searchText, bool searchInContent, string extension, bool withSubfolders, OrderBy orderBy)
         {
             var subjectId = string.IsNullOrEmpty(ssubject) ? Guid.Empty : new Guid(ssubject);
 
@@ -164,7 +164,7 @@ namespace ASC.Web.Files.Services.WCFService
                 IEnumerable<FileEntry> entries;
                 try
                 {
-                    entries = EntryManager.GetEntries(folderDao, fileDao, parent, from, count, filter, subjectGroup, subjectId, searchText, searchInContent, withSubfolders, orderBy, out total);
+                    entries = EntryManager.GetEntries(folderDao, fileDao, parent, from, count, filter, subjectGroup, subjectId, searchText, searchInContent, extension, withSubfolders, orderBy, out total);
                 }
                 catch (Exception e)
                 {
@@ -203,9 +203,9 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("folders"), HttpPost, AllowAnonymous]
-        public object GetFolderItemsXml(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String search, bool searchInContent, bool withSubfolders, [FromBody] OrderBy orderBy)
+        public object GetFolderItemsXml(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String search, bool searchInContent, string extension, bool withSubfolders, [FromBody] OrderBy orderBy)
         {
-            var folderItems = GetFolderItems(parentId, from, count, filter, subjectGroup, subjectID, search, searchInContent, withSubfolders, orderBy);
+            var folderItems = GetFolderItems(parentId, from, count, filter, subjectGroup, subjectID, search, searchInContent, extension, withSubfolders, orderBy);
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StreamContent(serializer.ToXml(folderItems))
@@ -215,7 +215,7 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("folders-entries"), HttpPost, AllowAnonymous]
-        public ItemList<FileEntry> GetItems([FromBody] ItemList<String> items, FilterType filter, bool subjectGroup, String subjectID, String search)
+        public ItemList<FileEntry> GetItems([FromBody] ItemList<String> items, FilterType filter, bool subjectGroup, String subjectID, String search, string extension)
         {
             List<object> filesId;
             List<object> foldersId;
@@ -236,7 +236,7 @@ namespace ASC.Web.Files.Services.WCFService
                 files = FileSecurity.FilterRead(files);
                 entries = entries.Concat(files);
 
-                entries = EntryManager.FilterEntries(entries, filter, subjectGroup, subjectId, search, true);
+                entries = EntryManager.FilterEntries(entries, filter, subjectGroup, subjectId, search, true, extension);
 
                 foreach (var fileEntry in entries)
                 {
@@ -392,7 +392,7 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("folders-files-siblings"), HttpPost, AllowAnonymous]
-        public ItemList<File> GetSiblingsFile(String fileId, String parentId, FilterType filter, bool subjectGroup, String subjectID, String search, bool searchInContent, bool withSubfolders, [FromBody] OrderBy orderBy)
+        public ItemList<File> GetSiblingsFile(String fileId, String parentId, FilterType filter, bool subjectGroup, String subjectID, String search, bool searchInContent, string extension, bool withSubfolders, [FromBody] OrderBy orderBy)
         {
             var subjectId = string.IsNullOrEmpty(subjectID) ? Guid.Empty : new Guid(subjectID);
 
@@ -437,7 +437,7 @@ namespace ASC.Web.Files.Services.WCFService
                     try
                     {
                         int total;
-                        entries = EntryManager.GetEntries(folderDao, fileDao, parent, 0, 0, filter, subjectGroup, subjectId, search, searchInContent, withSubfolders, orderBy, out total).ToList();
+                        entries = EntryManager.GetEntries(folderDao, fileDao, parent, 0, 0, filter, subjectGroup, subjectId, search, searchInContent, extension, withSubfolders, orderBy, out total).ToList();
                     }
                     catch (Exception e)
                     {
@@ -945,7 +945,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("edit-history"), HttpGet, AllowAnonymous]
+        [ActionName("edit-history"), HttpGet]
         public ItemList<EditHistory> GetEditHistory(String fileId, String doc = null)
         {
             using (var fileDao = GetFileDao())
@@ -962,7 +962,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("edit-diff-url"), HttpGet, AllowAnonymous]
+        [ActionName("edit-diff-url"), HttpGet]
         public EditHistoryData GetEditDiffUrl(String fileId, int version = 0, String doc = null)
         {
             using (var fileDao = GetFileDao())
@@ -1046,7 +1046,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("restore-version"), HttpPut, AllowAnonymous]
+        [ActionName("restore-version"), HttpPut]
         public ItemList<EditHistory> RestoreVersion(String fileId, int version, String url = null, String doc = null)
         {
             File file;
@@ -1222,7 +1222,7 @@ namespace ASC.Web.Files.Services.WCFService
                             };
                         }
 
-                        var list = fileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, path, false, false);
+                        var list = fileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, path, false, null, false);
                         file = list.FirstOrDefault(fileItem => fileItem.Title == path);
                     }
                 }
@@ -1244,9 +1244,21 @@ namespace ASC.Web.Files.Services.WCFService
                 };
             }
 
+            var fileStable = file;
+            if (file.Forcesave != ForcesaveType.None)
+            {
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    fileStable = fileDao.GetFileStable(file.ID, file.Version);
+                }
+            }
+            var docKey = DocumentServiceHelper.GetDocKey(fileStable);
+
             var fileReference = new FileReference
             {
                 FileType = file.ConvertedExtension.Trim('.'),
+                Key = docKey,
+                Link = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID)),
                 Path = file.Title,
                 ReferenceData = new FileReference.FileReferenceData
                 {
@@ -1977,7 +1989,7 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("gettemplates"), HttpGet]
-        public object GetTemplates(FilterType filter, int from, int count, bool subjectGroup, String subjectID, String search, bool searchInContent)
+        public object GetTemplates(FilterType filter, int from, int count, bool subjectGroup, String subjectID, String search, bool searchInContent, string extension)
         {
             try
             {
@@ -1987,7 +1999,7 @@ namespace ASC.Web.Files.Services.WCFService
                 using (var folderDao = GetFolderDao())
                 using (var fileDao = GetFileDao())
                 {
-                    result = EntryManager.GetTemplates(folderDao, fileDao, filter, subjectGroup, subjectId, search, searchInContent);
+                    result = EntryManager.GetTemplates(folderDao, fileDao, filter, subjectGroup, subjectId, search, searchInContent, extension);
                 }
 
                 if (result.Count() <= from)
@@ -2408,6 +2420,58 @@ namespace ASC.Web.Files.Services.WCFService
             users = users
                 .OrderBy(user => !user.HasAccess)
                 .ThenBy(user => user.User, UserInfoComparer.Default)
+                .ToList();
+
+            return new ItemList<MentionWrapper>(users);
+        }
+
+        [ActionName("protectusers"), HttpGet]
+        public ItemList<MentionWrapper> ProtectUsers(String fileId)
+        {
+            if (!SecurityContext.IsAuthenticated || CoreContext.Configuration.Personal)
+                return null;
+
+            FileEntry file;
+            using (var fileDao = GetFileDao())
+            {
+                file = fileDao.GetFile(fileId);
+            }
+
+            ErrorIf(file == null, FilesCommonResource.ErrorMassage_FileNotFound);
+
+            List<MentionWrapper> users = new List<MentionWrapper>();
+            if (file.RootFolderType == FolderType.BUNCH)
+            {
+                //todo: request project team
+                return new ItemList<MentionWrapper>(users);
+            }
+
+            var acesForObject = FileSharing.GetSharedInfo(file);
+
+            var usersInfo = new List<UserInfo>();
+            foreach (var ace in acesForObject)
+            {
+                if (ace.Share == FileShare.Restrict
+                    || ace.IsLink) continue;
+
+                if (ace.SubjectGroup)
+                {
+                    usersInfo.AddRange(CoreContext.UserManager.GetUsersByGroup(ace.SubjectId));
+                }
+                else
+                {
+                    usersInfo.Add(CoreContext.UserManager.GetUsers(ace.SubjectId));
+                }
+            }
+
+            users = usersInfo.Distinct()
+                                   .Where(user => !user.ID.Equals(SecurityContext.CurrentAccount.ID)
+                                                  && !user.ID.Equals(Constants.LostUser.ID))
+                                   .Select(user => new MentionWrapper(user))
+                                   .ToList();
+
+            users = users
+                .OrderBy(user => user.User, UserInfoComparer.Default)
                 .ToList();
 
             return new ItemList<MentionWrapper>(users);

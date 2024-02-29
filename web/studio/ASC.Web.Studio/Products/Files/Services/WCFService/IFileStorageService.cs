@@ -48,11 +48,11 @@ namespace ASC.Web.Files.Services.WCFService
 
         Folder FolderRename(String folderId, String title);
 
-        DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
+        DataWrapper GetFolderItems(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, string extension, bool withSubfolders, OrderBy orderBy);
 
-        object GetFolderItemsXml(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
+        object GetFolderItemsXml(String parentId, int from, int count, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, string extension, bool withSubfolders, OrderBy orderBy);
 
-        ItemList<FileEntry> GetItems(ItemList<String> items, FilterType filter, bool subjectGroup, String subjectID, String searchText);
+        ItemList<FileEntry> GetItems(ItemList<String> items, FilterType filter, bool subjectGroup, String subjectID, String searchText, string extension);
 
         ItemDictionary<String, String> MoveOrCopyFilesCheck(ItemList<String> items, String destFolderId);
 
@@ -82,7 +82,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<File> GetFileHistory(String fileId);
 
-        ItemList<File> GetSiblingsFile(String fileId, String folderId, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, bool withSubfolders, OrderBy orderBy);
+        ItemList<File> GetSiblingsFile(String fileId, String folderId, FilterType filter, bool subjectGroup, String subjectID, String searchText, bool searchInContent, string extension, bool withSubfolders, OrderBy orderBy);
 
         KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String doc, bool isFinish);
 
@@ -132,7 +132,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<FileEntry> DeleteTemplates(ItemList<object> filesId);
 
-        object GetTemplates(FilterType filter, int from, int count, bool subjectGroup, String ssubject, String searchText, bool searchInContent);
+        object GetTemplates(FilterType filter, int from, int count, bool subjectGroup, String ssubject, String searchText, bool searchInContent, string extension);
 
         #endregion
 
@@ -203,6 +203,7 @@ namespace ASC.Web.Files.Services.WCFService
         Tuple<Folder, FileShareRecord> GetFolderShareLink(string folderId, Guid shareLinkId);
 
         ItemList<MentionWrapper> SharedUsers(String fileId);
+        ItemList<MentionWrapper> ProtectUsers(String fileId);
 
         ItemList<AceShortWrapper> SendEditorNotify(String fileId, MentionMessageWrapper mentionMessage);
 

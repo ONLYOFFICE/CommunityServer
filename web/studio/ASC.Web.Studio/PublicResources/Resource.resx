@@ -977,14 +977,8 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Access Token</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Access Token Secret</value>
-  </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Enable the application to sign in to the portal using a Twitter account and search for contacts.</value>
+    <value>Enable the application to sign in to the portal using a Twitter account.</value>
   </data>
   <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
     <value>Enable this app to allow your users to sign in to ONLYOFFICE using their Twitter and link their customers’ Twitter accounts to the CRM module. {0}Go to Twitter Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:</value>

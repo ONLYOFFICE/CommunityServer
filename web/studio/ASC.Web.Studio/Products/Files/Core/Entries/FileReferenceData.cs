@@ -24,6 +24,8 @@ namespace ASC.Web.Files.Core
     {
         [DataMember(Name = "error")] public string Error;
         [DataMember(Name = "fileType")] public string FileType;
+        [DataMember(Name = "key")] public string Key;
+        [DataMember(Name = "link")] public string Link;
         [DataMember(Name = "path")] public string Path;
         [DataMember(Name = "referenceData")] public FileReferenceData ReferenceData;
         [DataMember(Name = "token", EmitDefaultValue = false)] public string Token;

@@ -235,9 +235,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>სურათის კომპიუტერიდან ატვირთვა</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>ან აირჩიეთ სოციალური ქსელიდან</value>
-  </data>
   <data name="MergeButtonText" xml:space="preserve">
     <value>ეს ასლია</value>
   </data>

@@ -373,9 +373,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Següent</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>No hi ha registres</value>
-  </data>
   <data name="NoMatches" xml:space="preserve">
     <value>No hi ha cap coincidència</value>
   </data>

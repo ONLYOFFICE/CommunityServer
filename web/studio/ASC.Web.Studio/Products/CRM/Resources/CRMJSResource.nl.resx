@@ -149,9 +149,6 @@
     <value>Alle ingevoerde informatie zal verloren gaan. 
 Weet u zeker dat u toch wilt doorgaan?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Geef de naam van je Twitter-account. Bijvoorbeeld, teamlabdotcom</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>Land</value>
   </data>
@@ -281,9 +278,6 @@ Weet u zeker dat u toch wilt doorgaan?</value>
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>Geschatte vervaldatum deal</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>Account zoeken in Twitter</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>Uw ontvangerslijst is gegenereerd. {0} Klik op de links hieronder om uw e-mailadres in het e-mailprogramma te zetten.</value>
   </data>
@@ -394,9 +388,6 @@ Weet u zeker dat u toch wilt doorgaan?</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Een ogenblik geduld...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>Mogelijke profielen voor {0}</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Vorige</value>

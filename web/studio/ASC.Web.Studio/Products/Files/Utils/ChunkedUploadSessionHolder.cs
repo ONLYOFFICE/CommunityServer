@@ -86,10 +86,13 @@ namespace ASC.Web.Files.Utils
         {
             CommonSessionHolder().Finalize(uploadSession);
         }
-
+        public static void Move(ChunkedUploadSession chunkedUploadSession, string newPath, Guid ownerId)
+        {
+            CommonSessionHolder().Move(chunkedUploadSession, newPath, ownerId, chunkedUploadSession.CheckQuota);
+        }
         public static void Move(ChunkedUploadSession chunkedUploadSession, string newPath)
         {
-            CommonSessionHolder().Move(chunkedUploadSession, newPath, chunkedUploadSession.CheckQuota);
+            Move(chunkedUploadSession, newPath, Guid.Empty);
         }
 
         public static void AbortUploadSession(ChunkedUploadSession uploadSession)

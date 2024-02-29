@@ -107,6 +107,7 @@ namespace ASC.Web.Projects.Configuration
                 DisabledIconFileName = "product_disabled_logo.png",
                 IconFileName = "product_logo.png",
                 LargeIconFileName = "product_logolarge.svg",
+                LargeIconFileNameDark = "product_logolarge_dark.svg",
                 SubscriptionManager = new ProductSubscriptionManager(),
                 DefaultSortOrder = 20,
                 SpaceUsageStatManager = new ProjectsSpaceUsageStatManager(),

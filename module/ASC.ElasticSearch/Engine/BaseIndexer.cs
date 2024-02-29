@@ -411,7 +411,7 @@ namespace ASC.ElasticSearch
 
         async Task IIndexer.ReIndex()
         {
-            while (Launcher.IsStarted && Launcher.Indexing.Contains(Wrapper.IndexName))
+            while (Launcher.IsStarted && Launcher.Indexing.ContainsKey(Wrapper.IndexName))
             {
                 await Task.Delay(10000);
             }

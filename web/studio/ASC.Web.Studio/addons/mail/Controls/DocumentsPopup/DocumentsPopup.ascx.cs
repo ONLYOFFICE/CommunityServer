@@ -46,7 +46,7 @@ namespace ASC.Web.Mail.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            FrameUrl = FileChoice.GetUrl(filterType: FilterType.FilesOnly, multiple: true, successButton: UserControlsCommonResource.AttachFiles);
+            FrameUrl = FileChoice.GetUrl(filterType: FilterType.None, multiple: true, successButton: UserControlsCommonResource.AttachFiles);
 
             ExternalLinksAvailable = FilesSettings.ExternalShare;
 

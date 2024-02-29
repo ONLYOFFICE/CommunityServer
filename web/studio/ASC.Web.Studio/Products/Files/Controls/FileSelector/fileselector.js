@@ -18,9 +18,11 @@
 window.ASC.Files.FileSelector = (function () {
     var isInit = false;
     var fileSelectorTree = {};
+    var advansedFilter = null;
     var isFolderSelector = false;
     var filesFilter = ASC.Files.Constants.FilterType.None;
     var filesFilterText = "";
+    var filesFilterExtension = "";
 
     var onInit = function () {
     };
@@ -45,6 +47,19 @@ window.ASC.Files.FileSelector = (function () {
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetFolderItemsTree, onGetFolderItemsTree);
 
             ASC.Files.FileSelector.fileSelectorTree = new ASC.Files.TreePrototype("#fileSelectorTree");
+            var filterOptions = {
+                anykey: true,
+                anykeytimeout: 800,
+                colcount: 3,
+                hintDefaultDisable: true,
+                hasButton: false,
+                disableSorter: true,
+                maxlength: ASC.Files.Constants.MAX_NAME_LENGTH
+            };
+
+            ASC.Files.FileSelector.advansedFilter = jq(".files-folder-filter")
+                .advansedFilter(filterOptions).on("setfilter", setFilter)
+                .on("resetfilter", setFilter);
 
             jq("#filesMainContent").addClass("compact");
 
@@ -108,6 +123,12 @@ window.ASC.Files.FileSelector = (function () {
         }
     };
 
+    var setFilter = function (evt, $container, filter, params, selectedfilters) {
+        ASC.Files.FileSelector.advansedFilter.advansedFilter("resize");
+        ASC.Files.FileSelector.filesFilterText = filter.params ? filter.params.value : "";
+        selectFolder(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId, false);
+    };
+
     var selectFolder = function (folderId, isAppend, expandTree) {
         if ((folderId || 0) == 0) {
             return;
@@ -119,6 +140,14 @@ window.ASC.Files.FileSelector = (function () {
             return;
         }
 
+        if (ASC.Files.FileSelector.fileSelectorTree.selectedFolderId && folderId != ASC.Files.FileSelector.fileSelectorTree.selectedFolderId) {
+            ASC.Files.FileSelector.fileSelectorTree.setCurrent(folderId);
+            if (ASC.Files.FileSelector.filesFilterText) {
+                ASC.Files.FileSelector.clearFilter();
+                return;
+            }
+        }
+
         jq("#pageNavigatorHolder a").text(ASC.Files.FilesJSResource.ButtonShowMoreLoad);
 
         jq("#submitFileSelector").addClass("disable");
@@ -128,11 +157,12 @@ window.ASC.Files.FileSelector = (function () {
                     is_asc: false,
                     property: "DateAndTime"
                 },
-                text: ASC.Files.FileSelector.filesFilterText,
                 filter: ASC.Files.FileSelector.filesFilter,
+                text: ASC.Files.FileSelector.filesFilterText,
+                extension: ASC.Files.FileSelector.filesFilterExtension,
                 subject: ""
-            };
-
+        };
+        
         ASC.Files.ServiceManager.getFolderItems(ASC.Files.ServiceManager.events.GetFolderItemsTree,
             {
                 folderId: folderId,
@@ -145,10 +175,11 @@ window.ASC.Files.FileSelector = (function () {
                 search: filterSettings.text,
                 orderBy: filterSettings.sorter,
                 searchInContent: false,
-                withSubfolders: false,
+                extension: filterSettings.extension,
+                withSubfolders: filterSettings.text != "",
                 currentFolderId: ASC.Files.Folders && ASC.Files.Folders.currentFolder ? ASC.Files.Folders.currentFolder.id : null,
                 expandTree: expandTree
-            }, { orderBy: filterSettings.sorter });
+            } , { orderBy: filterSettings.sorter });
     };
 
     var selectFile = function () {
@@ -191,16 +222,18 @@ window.ASC.Files.FileSelector = (function () {
         ASC.Files.FileSelector.fileSelectorTree.rollUp();
 
         var folderId = data.folderId || ASC.Files.FileSelector.fileSelectorTree.getDefaultFolderId();
-        ASC.Files.FileSelector.fileSelectorTree.setCurrent(folderId);
 
-        ASC.Files.FileSelector.fileSelectorTree.clickOnFolder(folderId);
-
-        if (!isFolderSelector) {
+        if (isFolderSelector) {
+            ASC.Files.FileSelector.fileSelectorTree.setCurrent(folderId);
+            ASC.Files.FileSelector.fileSelectorTree.clickOnFolder(folderId);
+        } else {
+            ASC.Files.FileSelector.fileSelectorTree.clickOnFolder(folderId, false, true);
             ASC.Files.UI.filesSelectedHandler = selectFile;
-
-            jq("#submitFileSelector").toggleClass("disable",
-                !isFolderSelector || !ASC.Files.Common.isCorrectId(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId));
+            jq("#submitFileSelector").addClass("disable");
         }
+    };
+    var clearFilter = function () {
+        ASC.Files.FileSelector.advansedFilter.advansedFilter(null);
     };
 
     var setTitle = function (newTitle) {
@@ -251,6 +284,7 @@ window.ASC.Files.FileSelector = (function () {
             ASC.Files.FileSelector.fileSelectorTree.expandFolder(params.currentFolderId, true, true);
         }
         ASC.Files.FileSelector.fileSelectorTree.setCurrent(ASC.Files.Folders.currentFolder.id);
+        jq(".folder-row input[type='checkbox'], .folder-row input[type='radio']").prop('disabled', true);
     };
 
     return {
@@ -264,8 +298,11 @@ window.ASC.Files.FileSelector = (function () {
         showThirdPartyOnly: showThirdPartyOnly,
 
         fileSelectorTree: fileSelectorTree,
+        advansedFilter: advansedFilter,
         filesFilter: filesFilter,
         filesFilterText: filesFilterText,
+        filesFilterExtension: filesFilterExtension,
+        clearFilter: clearFilter,
 
         onInit: onInit,
         onSubmit: onSubmit,
@@ -278,6 +315,11 @@ window.ASC.Files.FileSelector = (function () {
     $(function () {
         if (jq("#fileSelectorDialog").length == 0)
             return;
+
+        jq(".files-clear-filter").on("click", function () {
+            ASC.Files.FileSelector.clearFilter();
+            return false;
+        });
 
         ASC.Files.FileSelector.init();
     });

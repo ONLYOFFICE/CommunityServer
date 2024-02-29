@@ -27,16 +27,20 @@ using System.Net;
 using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
+using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Resources;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.CRM.Classes
 {
     public class ResizeWorkerItem
     {
+        public int TenantId { get; set; }
+
         public int ContactID { get; set; }
 
         public bool UploadOnly { get; set; }
@@ -281,6 +285,8 @@ namespace ASC.Web.CRM.Classes
 
         private static void ExecResizeImage(ResizeWorkerItem resizeWorkerItem)
         {
+            CoreContext.TenantManager.SetCurrentTenant(resizeWorkerItem.TenantId);
+
             foreach (var fotoSize in resizeWorkerItem.RequireFotoSize)
             {
                 var data = resizeWorkerItem.ImageData;
@@ -417,7 +423,7 @@ namespace ASC.Web.CRM.Classes
                 foreach (var photoSize in new[] { _bigSize, _mediumSize, _smallSize })
                 {
                     var photoTmpPath = FromDataStoreRelative(isNewContact ? 0 : contactID, photoSize, true, tmpDirName);
-                    if (string.IsNullOrEmpty(photoTmpPath)) throw new Exception("Temp phono not found");
+                    if (string.IsNullOrEmpty(photoTmpPath)) throw new Exception("Temp photo not found");
 
                     var imageExtension = Path.GetExtension(photoTmpPath);
 
@@ -481,6 +487,7 @@ namespace ASC.Web.CRM.Classes
         {
             var resizeWorkerItem = new ResizeWorkerItem
             {
+                TenantId = TenantProvider.CurrentTenantID,
                 ContactID = contactID,
                 UploadOnly = uploadOnly,
                 RequireFotoSize = new[] { _bigSize },
@@ -520,6 +527,7 @@ namespace ASC.Web.CRM.Classes
         {
             var resizeWorkerItem = new ResizeWorkerItem
             {
+                TenantId = TenantProvider.CurrentTenantID,
                 ContactID = contactID,
                 UploadOnly = uploadOnly,
                 RequireFotoSize = new[] { _mediumSize, _smallSize },

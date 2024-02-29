@@ -149,9 +149,6 @@
     <value>所有已输入的信息将会丢失。
 您确定要继续吗?</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>请输入你的Twitter帐户。例如“teamlabdotcom”</value>
-  </data>
   <data name="CountryWatermark" xml:space="preserve">
     <value>国家</value>
   </data>
@@ -281,9 +278,6 @@
   <data name="ExpectedCloseDate" xml:space="preserve">
     <value>预计成交日期</value>
   </data>
-  <data name="FindTwitter" xml:space="preserve">
-    <value>在Twitter上搜索帐户</value>
-  </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
     <value>已为您的收件人列表。{0}请单击下面的链接以传送到您的电邮软件。</value>
   </data>
@@ -394,9 +388,6 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>请稍候...</value>
-  </data>
-  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
-    <value>最接近 {0} 的账户</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>上一个</value>

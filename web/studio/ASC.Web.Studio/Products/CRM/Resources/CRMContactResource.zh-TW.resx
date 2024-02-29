@@ -433,9 +433,6 @@
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>從PC上傳照片</value>
   </data>
-  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>從社交網絡中選擇</value>
-  </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>允許所有CRM用戶存取公司</value>
   </data>
@@ -489,9 +486,6 @@
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
     <value>在ONLYOFFICE™CRM中沒有匹配項，請從列表中選擇</value>
-  </data>
-  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>沒有與該個人資料相對應的照片</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>通過電子郵件通知聯繫人經理</value>

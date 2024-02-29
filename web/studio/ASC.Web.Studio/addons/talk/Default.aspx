@@ -18,7 +18,7 @@
 				  </td>
 			  </tr>
 			  <tr valign="top">
-				  <td colspan="3" style="border-bottom: 1px solid #d1d1d1; padding: 0 35px 15px 0;">
+				  <td colspan="3" class="talk-overview-bor-td-3">
 					  <div><%=TalkOverviewResource.OverviewContent%></div>                     
 					  <div style="padding-top: 10px;padding-top: 0px;"><%=TalkOverviewResource.OverviewContentDescription%></div>
 					  <div style="padding-top: 10px;padding-top: 0px;"><%=TalkOverviewResource.AutoupdateContactListDescription%></div>
@@ -30,7 +30,7 @@
                       <div><%=string.Format(TalkOverviewResource.MoreInformation, "<a href='" + HelpLink + "/gettingstarted/talk.aspx#SchedulingWorkflow_block'>" + TalkOverviewResource.Here + "</a>") %></div>
                       <% } %>
 				  </td>
-				  <td colspan="2" style="border-bottom: 1px solid #d1d1d1; padding-bottom: 15px; vertical-align:middle">
+				  <td colspan="2" class="talk-overview-bor-td-2">
 					  <div class="tintMedium" style=" width: 200px;">
 						  <span class="button blue huge open-client" onclick="ASC.Controls.JabberClient.open()"><%=TalkOverviewResource.StartWebClientLink%></span>
 						  <div class="text-medium-describe" style="margin: 12px 0px; width: 200px;"><%=TalkOverviewResource.StartWebClientLinkDescription%></div>

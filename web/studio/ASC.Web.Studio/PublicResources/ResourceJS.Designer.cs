@@ -754,6 +754,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email copied to clipboard.
+        /// </summary>
+        public static string EmailCopyToClipboard {
+            get {
+                return ResourceManager.GetString("EmailCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment cannot be empty.
         /// </summary>
         public static string EmptyCommentErrorMessage {
@@ -2001,6 +2010,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string OpenTalk {
             get {
                 return ResourceManager.GetString("OpenTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation has been successfully completed..
+        /// </summary>
+        public static string OperationCompletedMsg {
+            get {
+                return ResourceManager.GetString("OperationCompletedMsg", resourceCulture);
             }
         }
         

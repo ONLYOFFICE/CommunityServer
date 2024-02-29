@@ -478,9 +478,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>Slijedeći zapis</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>Nema zapisa</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>Nisu dostupni računi pošte</value>
   </data>

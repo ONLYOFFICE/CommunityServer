@@ -39,8 +39,19 @@ namespace ASC.Core.Notify.Senders
 <html>
 <head>
 <meta content=""text/html;charset=UTF-8"" http-equiv=""Content-Type"">
+<meta name=""color-scheme"" content=""light"">
+<meta name=""supported-color-schemes"" content=""light only"">
+<style type=""text/css"">
+    :root {{
+    color-scheme: light;
+    supported-color-schemes: light;
+    }}
+    [data-ogsc] body {{
+    background-color: #ffffff !important;
+    }}
+</style>
 </head>
-<body>{0}</body>
+{0}
 </html>";
 
         protected ILog Log { get; private set; }
@@ -279,6 +290,10 @@ namespace ASC.Core.Notify.Senders
 
         protected string GetHtmlView(string body)
         {
+            body = body.StartsWith("<body")
+                ? body
+                : string.Format("<body style=\"background: linear-gradient(#ffffff, #ffffff); background-color: #ffffff;\">{0}</body>", body);
+
             return string.Format(HTML_FORMAT, body);
         }
 

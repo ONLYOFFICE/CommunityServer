@@ -150,10 +150,6 @@
       <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
-      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
-      <Name>ASC.Thrdparty</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
       <Name>ASC.VoipService</Name>

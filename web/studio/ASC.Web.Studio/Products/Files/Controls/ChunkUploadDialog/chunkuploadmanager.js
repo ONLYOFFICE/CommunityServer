@@ -50,7 +50,6 @@ window.ASC.Files.ChunkUploads = (function () {
         WAITCONFIRM: 5
     };
 
-
     //init chunk upload dialog
     var init = function (quota) {
         if (isInit === false) {
@@ -146,12 +145,18 @@ window.ASC.Files.ChunkUploads = (function () {
 
         inputObj.appendTo(jq("#buttonUpload").parent());
 
-        jq("#buttonUpload").on("click", function (e) {
+        jq("#buttonUpload, #createMesterFormFromLocalFile").on("click", function (e) {
             e.preventDefault();
-            jq("#" + id)
+            var input = jq("#" + id)
                 .removeAttr("webkitdirectory")
                 .removeAttr("mozdirectory")
-                .removeAttr("directory");
+                .removeAttr("directory")
+                .removeAttr("accept")
+                .removeAttr("createform");
+
+            if (e.target.id == "createMesterFormFromLocalFile") {
+                input.attr("accept", ASC.Files.Utility.Resource.InternalFormats.Document).attr("createform", true);
+            }
 
             if (ASC.Files.Folders.folderContainer == "privacy"
                 && ASC.Desktop && ASC.Desktop.encryptionUploadDialog) {
@@ -162,7 +167,7 @@ window.ASC.Files.ChunkUploads = (function () {
 
                 ASC.Desktop.encryptionUploadDialog(uploadEncryptedFile);
             } else {
-                jq("#" + id).trigger("click");
+                input.trigger("click");
             }
         });
 
@@ -171,8 +176,10 @@ window.ASC.Files.ChunkUploads = (function () {
             jq("#" + id)
                 .attr("webkitdirectory", true)
                 .attr("mozdirectory", true)
-                .attr("directory", true);
-            jq("#" + id).trigger("click");
+                .attr("directory", true)
+                .removeAttr("accept")
+                .removeAttr("createform")
+                .trigger("click");
         });
     };
 
@@ -290,6 +297,7 @@ window.ASC.Files.ChunkUploads = (function () {
             file.id = createNewGuid();
             file.percent = 0;
             file.loaded = 0;
+            file.createform = e.target.hasAttribute("createform");
 
             var errorMessage;
             if ((errorMessage = correctFile(file, folderId)) === true) {
@@ -434,6 +442,9 @@ window.ASC.Files.ChunkUploads = (function () {
                 }
             } else {
                 updateFileRow(file);
+                if (file.createform) {
+                    checkConvertToDocxf(file);
+                }
             }
 
         } else {
@@ -534,24 +545,25 @@ window.ASC.Files.ChunkUploads = (function () {
 
     function createFolders(relativePaths) {
         if (relativePaths && relativePaths.length) {
-            var folderId = ASC.Files.Folders.currentFolder.id;
+            var folderId = uploadFolderId == null ? ASC.Files.Folders.currentFolder.id : uploadFolderId;
 
             window.Teamlab.createFolders({}, folderId, relativePaths, {
                 success: function (params, data) {
-                    var folderJsonData = { folder: data };
-                    var stringData = ASC.Files.Common.jsonToXml(folderJsonData);
-                    var htmlXML = ASC.Files.TemplateManager.translateFromString(stringData);
+                    if (folderId == ASC.Files.Folders.currentFolder.id) {
+                        var folderJsonData = { folder: data };
+                        var stringData = ASC.Files.Common.jsonToXml(folderJsonData);
+                        var htmlXML = ASC.Files.TemplateManager.translateFromString(stringData);
 
-                    var folderNewObj = ASC.Files.UI.getEntryObject("folder", "0");
-                    var folderObj = ASC.Files.EventHandler.insertFolderItems(htmlXML, folderNewObj);
+                        var folderNewObj = ASC.Files.UI.getEntryObject("folder", "0");
+                        var folderObj = ASC.Files.EventHandler.insertFolderItems(htmlXML, folderNewObj);
 
-                    folderObj.yellowFade().removeClass("new-folder");
+                        folderObj.yellowFade().removeClass("new-folder");
 
-                    if (ASC.Files.Tree) {
-                        ASC.Files.Tree.reloadFolder(folderId);
+                        if (ASC.Files.Tree) {
+                            ASC.Files.Tree.reloadFolder(folderId);
+                        }
                     }
-
-                    var folderTitle = ASC.Files.UI.getObjectData(folderObj).title;
+                    var folderTitle = data.title;
                     ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoCrateFolder.format(folderTitle));
                 },
                 processUrl: function (url) {
@@ -583,6 +595,11 @@ window.ASC.Files.ChunkUploads = (function () {
         var posExt = ASC.Files.Utility.GetFileExtension(file.name);
         var errorMessage;
 
+        if (file.createform && posExt != ASC.Files.Utility.Resource.InternalFormats.Document) {
+            errorMessage = ASC.Files.FilesJSResource.ErrorMessage_WrongExtension;
+            ASC.Files.UI.displayInfoPanel(errorMessage, true);
+            return errorMessage;
+        }
         if (ASC.Files.Constants.UPLOAD_FILTER && jq.inArray(posExt, ASC.Files.Utility.Resource.ExtsUploadable) == -1) {
             errorMessage = ASC.Files.FilesJSResource.ErrorMassage_NotSupportedFormat;
             ASC.Files.UI.displayInfoPanel(errorMessage, true);
@@ -1192,6 +1209,53 @@ window.ASC.Files.ChunkUploads = (function () {
         } else {
             ASC.Files.ChunkUploads.converterBusy = false;
         }
+    };
+
+    var checkConvertToDocxf = function (file) {
+        var title = file.name;
+        var lenExt = ASC.Files.Utility.GetFileExtension(title).length;
+        title = title.substring(0, title.length - lenExt);
+
+        ASC.Files.Folders.createNewDoc({
+            title: title + ASC.Files.Utility.Resource.MasterFormExtension,
+            entryId: file.data.id
+        }, false, copyFileAs);
+    }
+    var copyFileAs = function (params) {
+        Teamlab.copyDocFileAs(null, params.templateId,
+            {
+                destFolderId: params.folderID,
+                destTitle: params.fileTitle
+            },
+            {
+                success: function (_, data) {
+                    ASC.Files.ServiceManager.getFile(ASC.Files.ServiceManager.events.CreateNewFile,
+                        {
+                            fileId: data.id,
+                            show: true,
+                            isStringXml: false,
+                            folderID: params.folderID,
+                            winEditor: params.winEditor
+                        });
+                },
+                error: function (_, error) {
+                    var fileNewObj = ASC.Files.UI.getEntryObject("file", "0");
+                    ASC.Files.UI.blockObject(fileNewObj);
+                    ASC.Files.UI.removeEntryObject(fileNewObj);
+                    if (jq("#filesMainContent .file-row").length == 0) {
+                        ASC.Files.EmptyScreen.displayEmptyScreen();
+                    }
+
+                    if (params.winEditor) {
+                        params.winEditor.close();
+                    }
+
+                    ASC.Files.UI.displayInfoPanel(error[0], true);
+                },
+                processUrl: function (url) {
+                    return ASC.Files.Utility.AddExternalShareKey(url);
+                }
+            });
     };
 
     var onCheckConvertStatus = function (obj, params, errorMessage) {

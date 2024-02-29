@@ -655,7 +655,7 @@ window.ASC.Files.Folders = (function () {
     var createNewForm = function (fileData) {
         var title = fileData.title;
         var ext = ASC.Files.Utility.GetFileExtension(title);
-        var newTitle = title.substring(0, title.length - ext.length) + ASC.Files.Utility.FileExtensionLibrary.OformExts[0];
+        var newTitle = title.substring(0, title.length - ext.length) + ASC.Files.Utility.FileExtensionLibrary.PdfExts[0];
 
         Teamlab.copyDocFileAs(null, fileData.id,
             {
@@ -717,6 +717,53 @@ window.ASC.Files.Folders = (function () {
                 }
             }
         );
+    };
+
+    var renameParent = function (entry) {
+        var filesBreadCrumbs = jq("#filesBreadCrumbs");
+        var onRenameKeydown = function (e) {
+            switch (e.keyCode || e.which) {
+                case ASC.Files.Common.keyCode.esc:
+                    cancelRename();
+                    break;
+                case ASC.Files.Common.keyCode.enter:
+                    saveRename();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        var saveRename = function () {
+            var entryRenameData = ASC.Files.UI.getObjectData(jq("#promptRenameParentFolder"));
+            var entryRenameObj = entryRenameData.entryObject;
+            var entryRenameId = entryRenameData.entryId;
+            var oldName = ASC.Files.UI.getObjectTitle(entryRenameObj);
+
+            cancelRename();
+
+            var newName = ASC.Files.Common.replaceSpecCharacter(jq("#promptRenameParentFolder").val().trim());
+            if (newName == "" || newName == null || newName == oldName || ASC.Resources.Master.CustomMode && newName === "...") {
+                return;
+            }
+
+            filesBreadCrumbs.find(".to-parent-folder-link").show().find(".inner-ellipsis").text(newName);
+            filesBreadCrumbs.find('input[name="entry_data"]').attr("data-title", newName);
+
+            ASC.Files.ServiceManager.renameFolder(ASC.Files.ServiceManager.events.FolderRename, { parentFolderID: entryRenameData.parent_folder_id, folderId: entryRenameId, name: oldName, newname: newName });
+        }
+        var cancelRename = function () {
+            filesBreadCrumbs.find(".rename-action").remove();
+            filesBreadCrumbs.find("#promptRenameParentFolder").hide();
+            filesBreadCrumbs.find(".to-parent-folder-link").show();
+        }
+
+        filesBreadCrumbs.find(".to-parent-folder-link").hide();
+        filesBreadCrumbs.find("#promptRenameParentFolder").off("keydown").on("keydown", onRenameKeydown).val(entry.title).show().trigger("focus");
+
+        filesBreadCrumbs.append(getActionHtml());
+        filesBreadCrumbs.find(".name-aplly").on("click", saveRename);
+        filesBreadCrumbs.find(".name-cancel").on("click", cancelRename);
     };
 
     var rename = function (entryType, entryId) {
@@ -1476,9 +1523,15 @@ window.ASC.Files.Folders = (function () {
             }).toArray();
 
             ASC.Files.UI.updateMainContentHeader();
+
             ASC.Files.ServiceManager.deleteItem(ASC.Files.ServiceManager.events.DeleteItem, { list: data.entry, doNow: true }, { stringList: data });
             if (typeof successfulDeletion == "function") {
                 successfulDeletion();
+            }
+
+            var entryObjData = ASC.Files.UI.getObjectData(".to-parent-folder-dropdown");
+            if (entryObjData != null && data.entry.indexOf(entryObjData.entryType + "_" + entryObjData.entryId) !== -1) {
+                ASC.Files.Folders.clickOnFolder(entryObjData.parent_folder_id);
             }
         };
 
@@ -1562,6 +1615,7 @@ window.ASC.Files.Folders = (function () {
         changeOwner: changeOwner,
 
         rename: rename,
+        renameParent: renameParent,
         deleteItem: deleteItem,
         emptyTrash: emptyTrash,
 

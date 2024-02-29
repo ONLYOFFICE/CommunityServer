@@ -57,6 +57,11 @@ namespace ASC.Web.Core.Files
                        : extension;
         }
 
+        public static string GetInternalConvertExtension(string fileName)
+        {
+            return "ooxml";
+        }
+
         public static string GetGoogleDownloadableExtension(string googleExtension)
         {
             googleExtension = GetFileExtension(googleExtension);
@@ -67,7 +72,8 @@ namespace ASC.Web.Core.Files
         public static string ReplaceFileExtension(string fileName, string newExtension)
         {
             newExtension = string.IsNullOrEmpty(newExtension) ? string.Empty : newExtension;
-            return Path.GetFileNameWithoutExtension(fileName) + newExtension;
+            return Path.GetFileNameWithoutExtension(fileName)
+                + "." + newExtension.TrimStart('.');
         }
 
         public static FileType GetFileTypeByFileName(string fileName)
@@ -315,6 +321,7 @@ namespace ASC.Web.Core.Files
                 ".xls", ".xlsx", ".xlsm",
                 ".xlt", ".xltx", ".xltm",
                 ".ods", ".fods", ".ots", ".csv",
+                ".sxc", ".et", ".ett",
                 ".xlst", ".xlsy", ".xlsb",
                 ".gsheet"
             };
@@ -325,6 +332,7 @@ namespace ASC.Web.Core.Files
                 ".ppt", ".pptx", ".pptm",
                 ".pot", ".potx", ".potm",
                 ".odp", ".fodp", ".otp",
+                ".dps", ".dpt", ".sxi",
                 ".pptt", ".ppty",
                 ".gslides"
             };
@@ -334,8 +342,9 @@ namespace ASC.Web.Core.Files
                 ".doc", ".docx", ".docm",
                 ".dot", ".dotx", ".dotm",
                 ".odt", ".fodt", ".ott", ".rtf", ".txt",
-                ".html", ".htm", ".mht", ".xml",
+                ".html", ".htm", ".mht", ".mhtml", ".xml",
                 ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".oxps",
+                ".sxw", ".stw", ".wps", ".wpt",
                 ".doct", ".docy",
                 ".gdoc",
                 ".docxf", ".oform"

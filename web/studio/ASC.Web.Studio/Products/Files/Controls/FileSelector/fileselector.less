@@ -49,6 +49,10 @@
     border-right: none;
     border-bottom: none;
     padding-left: 24px;
+
+    .noContentBlock.emptyScrCtrl {
+        width: 660px;
+    }
 }
 
 .file-selector-tree,
@@ -93,4 +97,12 @@
 
 #fileSelectorDialog #emptyContainer .emptyScrCtrl > table {
     margin: 0 auto;
+}
+
+.folder-row .checkbox {
+    visibility: visible;
+
+    &:hover {
+        background-color: transparent !important;
+    }
 }

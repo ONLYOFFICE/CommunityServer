@@ -61,7 +61,7 @@ namespace ASC.ElasticSearch.Service
         {
             return new State
             {
-                Indexing = Launcher.Indexing,
+                Indexing = Launcher.Indexing.Keys.ToList(),
                 LastIndexed = Launcher.LastIndexed
             };
         }

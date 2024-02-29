@@ -38,7 +38,7 @@ namespace ASC.Data.Backup.Tasks
         private ConnectionStringSettings connectionStringSettings;
         private DbProviderFactory dbProviderFactory;
 
-        internal ConnectionStringSettings ConnectionStringSettings
+        public ConnectionStringSettings ConnectionStringSettings
         {
             get
             {
@@ -48,6 +48,10 @@ namespace ASC.Data.Backup.Tasks
                     connectionStringSettings = configuration.ConnectionStrings.ConnectionStrings[connectionStringName];
                 }
                 return connectionStringSettings;
+            }
+            set
+            {
+                connectionStringSettings = value;
             }
         }
 

@@ -133,6 +133,11 @@ window.Attachments = (function () {
         ASC.Controls.AnchorController.bind(/files/, initUploader);
 
         jq(document).on("keypress", "#newDocTitle", function(evt) {
+            if (!evt.target.isConnected) {
+                console.log("event target is not connected");
+                return;
+            }
+
             if (evt.keyCode == 13) {
                 createFile();
             } else {
@@ -318,8 +323,12 @@ window.Attachments = (function () {
     };
     var createFile = function() {
         var hWindow = window.open("");
-        hWindow.document.write(ASC.Resources.Master.ResourceJS.LoadingPleaseWait);
-        hWindow.document.close();
+
+        if (hWindow && hWindow.document) {
+            hWindow.document.open();
+            hWindow.document.write(ASC.Resources.Master.ResourceJS.LoadingPleaseWait);
+            hWindow.document.close();
+        }
 
         var title = jq("#newDocTitle").val();
         if (title.trim() == "") {

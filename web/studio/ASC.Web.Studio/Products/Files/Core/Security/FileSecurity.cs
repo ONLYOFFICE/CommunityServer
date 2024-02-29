@@ -767,7 +767,7 @@ namespace ASC.Files.Core.Security
             }
         }
 
-        public List<FileEntry> GetSharesForMe(FilterType filterType, bool subjectGroup, Guid subjectID, string searchText = "", bool searchInContent = false, bool withSubfolders = false)
+        public List<FileEntry> GetSharesForMe(FilterType filterType, bool subjectGroup, Guid subjectID, string searchText = "", bool searchInContent = false, string extension = null, bool withSubfolders = false)
         {
             using (var folderDao = daoFactory.GetFolderDao())
             using (var fileDao = daoFactory.GetFileDao())
@@ -805,7 +805,7 @@ namespace ASC.Files.Core.Security
 
                 if (filterType != FilterType.FoldersOnly)
                 {
-                    var files = fileDao.GetFilesFiltered(fileIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent);
+                    var files = fileDao.GetFilesFiltered(fileIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent, extension);
 
                     files.ForEach(x =>
                         {
@@ -841,7 +841,7 @@ namespace ASC.Files.Core.Security
 
                 if (filterType != FilterType.FoldersOnly && withSubfolders)
                 {
-                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent);
+                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent, extension);
                     filesInSharedFolders = FilterRead(filesInSharedFolders);
                     entries.AddRange(filesInSharedFolders);
                     entries = entries.Distinct().ToList();
@@ -881,7 +881,7 @@ namespace ASC.Files.Core.Security
             }
         }
 
-        public List<FileEntry> GetPrivacyForMe(FilterType filterType, bool subjectGroup, Guid subjectID, string searchText = "", bool searchInContent = false, bool withSubfolders = false)
+        public List<FileEntry> GetPrivacyForMe(FilterType filterType, bool subjectGroup, Guid subjectID, string searchText = "", bool searchInContent = false, string extension = null, bool withSubfolders = false)
         {
             using (var folderDao = daoFactory.GetFolderDao())
             using (var fileDao = daoFactory.GetFileDao())
@@ -919,7 +919,7 @@ namespace ASC.Files.Core.Security
 
                 if (filterType != FilterType.FoldersOnly)
                 {
-                    var files = fileDao.GetFilesFiltered(fileIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent);
+                    var files = fileDao.GetFilesFiltered(fileIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent, extension);
 
                     files.ForEach(x =>
                         {
@@ -955,7 +955,7 @@ namespace ASC.Files.Core.Security
 
                 if (filterType != FilterType.FoldersOnly && withSubfolders)
                 {
-                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent);
+                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToList(), filterType, subjectGroup, subjectID, searchText, searchInContent, extension);
                     filesInSharedFolders = FilterRead(filesInSharedFolders);
                     entries.AddRange(filesInSharedFolders);
                     entries = entries.Distinct().ToList();

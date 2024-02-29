@@ -16,7 +16,11 @@
             <a class="mail" <%= RenderMailLinkAttribute() %> title="<%= User.Email.HtmlEncode() %>">
                 <%= User.Email.HtmlEncode() %>
             </a>
-            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()) && !User.IsLDAP() && !User.IsSSO())
+           <% if (Viewer.ID != User.ID)
+               { %>
+            <a class="copyEmailAction" onclick="ASC.EmailOperationManager.copyEmailToClipboard('<%= User.Email.Replace("'", "\\'").HtmlEncode() %>', 'emailUserProfile');">&nbsp;</a>
+            <% } %>
+             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()) && !User.IsLDAP() && !User.IsSSO())
                { %>
             <a class="linkAction baseLinkAction" onclick="ASC.EmailOperationManager.showEmailChangeWindow('<%= User.Email.Replace("'", "\\'").HtmlEncode() %>', '<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>
@@ -83,6 +87,9 @@
             <a class="mail" <%= RenderMailLinkAttribute() %> title="<%= User.Email.HtmlEncode() %>">
                 <%= User.Email.HtmlEncode() %>
             </a>
+            <% if (User.ActivationStatus == EmployeeActivationStatus.Activated) { %>
+            <a class="copyEmailAction" onclick="ASC.EmailOperationManager.copyEmailToClipboard('<%= User.Email.Replace("'", "\\'").HtmlEncode() %>', 'emailUserProfile');">&nbsp;</a>
+            <% } %>
         </div>
     <% } %>
     </div>

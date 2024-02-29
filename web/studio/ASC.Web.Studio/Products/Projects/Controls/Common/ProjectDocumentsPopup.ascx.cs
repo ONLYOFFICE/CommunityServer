@@ -44,7 +44,7 @@ namespace ASC.Web.Projects.Controls.Common
 
         private void InitScripts()
         {
-            FrameUrl = FileChoice.GetUrl(filterType: FilterType.FilesOnly, root: FolderType.Projects, multiple: true, successButton: UserControlsCommonResource.AttachFiles);
+            FrameUrl = FileChoice.GetUrl(filterType: FilterType.None, root: FolderType.Projects, multiple: true, successButton: UserControlsCommonResource.AttachFiles);
 
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
 

@@ -478,9 +478,6 @@
   <data name="NextSample" xml:space="preserve">
     <value>下一条纪录</value>
   </data>
-  <data name="NoLoadedMessages" xml:space="preserve">
-    <value>暂无纪录</value>
-  </data>
   <data name="NoMailAccountsAvailableError" xml:space="preserve">
     <value>无可用邮件账户</value>
   </data>

@@ -34,6 +34,7 @@ using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Data.Backup.Exceptions;
 using ASC.Data.Backup.Extensions;
+using ASC.Data.Backup.Service;
 using ASC.Data.Backup.Tasks.Data;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
@@ -47,6 +48,7 @@ namespace ASC.Data.Backup.Tasks
     {
         private const int MaxLength = 250;
         private const int BatchLimit = 5000;
+        private readonly BackupMailServerFilesService backupMailServerFilesService;
         public string BackupFilePath { get; private set; }
         public int Limit { get; private set; }
         private bool Dump { get; set; }
@@ -60,6 +62,8 @@ namespace ASC.Data.Backup.Tasks
             BackupFilePath = toFilePath;
             Limit = limit;
             Dump = CoreContext.Configuration.Standalone;
+
+            backupMailServerFilesService = new BackupMailServerFilesService(Logger);
         }
 
         public override void RunJob()
@@ -84,6 +88,15 @@ namespace ASC.Data.Backup.Tasks
                     {
                         DoBackupModule(WriteOperator, dbFactory, module);
                     }
+                    if (!IgnoredModules.Contains(ModuleName.Mail))
+                    {
+                        var paths = DoBackupMailTable(WriteOperator);
+
+                        if (paths.Count != 0)
+                        {
+                            DoBackupMailFiles(WriteOperator, paths);
+                        }
+                    }
                     if (ProcessStorage)
                     {
                         DoBackupStorage(WriteOperator, fileGroups);
@@ -96,27 +109,29 @@ namespace ASC.Data.Backup.Tasks
         private void DoDump(IDataWriteOperator writer)
         {
             Dictionary<string, List<string>> databases = new Dictionary<string, List<string>>();
-            using (var dbManager = new DbManager("default", 100000))
+            if (!IgnoredModules.Contains(ModuleName.Mail)) 
             {
-                dbManager.ExecuteList("select id, connection_string from mail_server_server").ForEach(r =>
+                using (var dbManager = new DbManager("default", 100000))
                 {
-                    var dbName = GetDbName((int)r[0], JsonConvert.DeserializeObject<Dictionary<string, object>>(Convert.ToString(r[1]))["DbConnection"].ToString());
-                    using (var dbManager1 = new DbManager(dbName, 100000))
+                    dbManager.ExecuteList("select id, connection_string from mail_server_server").ForEach(r =>
                     {
-                        try
+                        var dbName = GetDbName((int)r[0], JsonConvert.DeserializeObject<Dictionary<string, object>>(Convert.ToString(r[1]))["DbConnection"].ToString());
+                        using (var dbManager1 = new DbManager(dbName, 100000))
                         {
-                            var tables = dbManager1.ExecuteList("show tables;").Select(res => Convert.ToString(res[0])).ToList();
-                            databases.Add(dbName, tables);
+                            try
+                            {
+                                var tables = dbManager1.ExecuteList("show tables;").Select(res => Convert.ToString(res[0])).ToList();
+                                databases.Add(dbName, tables);
+                            }
+                            catch (Exception e)
+                            {
+                                Logger.Error(e);
+                                DbRegistry.UnRegisterDatabase(dbName);
+                            }
                         }
-                        catch (Exception e)
-                        {
-                            Logger.Error(e);
-                            DbRegistry.UnRegisterDatabase(dbName);
-                        }
-                    }
-                });
+                    });
+                }
             }
-
             using (var dbManager = new DbManager("default", 100000))
             {
                 var tables = dbManager.ExecuteList("show tables;").Select(res => Convert.ToString(res[0])).ToList();
@@ -684,6 +699,164 @@ namespace ASC.Data.Backup.Tasks
             Logger.DebugFormat("end saving data for module {0}", module.ModuleName);
         }
 
+        private List<string> DoBackupMailTable(IDataWriteOperator writer)
+        {
+            Logger.DebugFormat("begin saving data for MailTable");
+
+            List<string> result = new List<string>();
+
+            string dbconnection = null;
+            var module = new MailTableSpecifics();
+
+            using (var dbManager = new DbManager("default", 100000))
+            {
+                dbManager.ExecuteList("select connection_string from mail_server_server").ForEach(r =>
+                {
+                    dbconnection = JsonConvert.DeserializeObject<Dictionary<string, object>>(Convert.ToString(r[0]))["DbConnection"].ToString() + "; convert zero datetime=True";
+
+                    Logger.Debug($"DoBackupMailTable: dbconnection: {dbconnection}.");
+                });
+
+                dbManager.ExecuteList($"SELECT name FROM mail_server_domain WHERE tenant={TenantId} AND is_verified=1").ForEach(r =>
+                {
+                    var findedDomain = Convert.ToString(r[0]);
+
+                    var findedReverseDomain = string.Join(".", findedDomain.Split('.').Reverse().ToArray());
+
+                    module.findValues["domain"].Add($"'{findedDomain}'");
+
+                    module.findValues["reversedomain"].Add($"'{findedReverseDomain}'");
+
+                    Logger.Debug($"DoBackupMailTable: find domain: {findedDomain}, findedReverseDomain: {findedReverseDomain}.");
+                });
+            }
+
+            if (dbconnection == null)
+            {
+                Logger.Debug("DoBackupMailTable: mail_server_server have not connection_string.");
+                return result;
+            }
+
+            if (module.findValues["domain"].Count == 0)
+            {
+                Logger.Debug($"DoBackupMailTable: TenantId {TenantId} hasn`t any custom domain.");
+                return result;
+            }
+
+            var dbFactory = new DbFactory(ConfigPath) { ConnectionStringSettings = new ConnectionStringSettings("mailTable", dbconnection, "MySql.Data.MySqlClient") };
+
+            using (var connection = dbFactory.OpenConnection())
+            {
+                foreach (var table in module.Tables)
+                {
+                    Logger.DebugFormat("begin load table {0}", table.Name);
+                    using (var data = new DataTable(table.Name))
+                    {
+                        ActionInvoker.Try(
+                            state =>
+                            {
+                                data.Clear();
+                                int counts;
+                                var offset = 0;
+                                do
+                                {
+                                    var t = (MailTableInfo)state;
+                                    var dataAdapter = dbFactory.CreateDataAdapter();
+                                    dataAdapter.SelectCommand = module.CreateSelectCommand(connection.Fix(), t, Limit, offset).WithTimeout(600);
+                                    Logger.Debug($"DoBackupMailTable SelectCommand is {dataAdapter.SelectCommand.CommandText}");
+                                    counts = ((DbDataAdapter)dataAdapter).Fill(data);
+                                    offset += Limit;
+                                } while (counts == Limit);
+
+                            },
+                            table,
+                            maxAttempts: 5,
+                            onFailure: error => { throw ThrowHelper.CantBackupTable(table.Name, error); },
+                            onAttemptFailure: error => Logger.Warn("backup attempt failure: {0}", error));
+
+                        foreach (var col in data.Columns.Cast<DataColumn>().Where(col => col.DataType == typeof(DateTime)))
+                        {
+                            col.DateTimeMode = DataSetDateTime.Unspecified;
+                        }
+
+                        Logger.DebugFormat("end load table {0}", table.Name);
+
+                        Logger.DebugFormat("begin saving table {0}", table.Name);
+
+                        if (data.TableName == "maddr")
+                        {
+                            foreach (DataRow row in data.Rows)
+                            {
+                                module.findValues["id"].Add(row["id"]);
+
+                                var bytes = row["email"] as byte[];
+
+                                var sb = new StringBuilder();
+                                sb.Append("0x");
+                                foreach (var b in bytes)
+                                    sb.AppendFormat("{0:x2}", b);
+
+                                module.findValues["email"].Add(sb.ToString());
+
+                                Logger.Debug($"DoBackupMailTable: In maddr finded email: {sb}.");
+                            }
+                        }
+
+                        if (data.TableName == "mailbox")
+                        {
+                            foreach (DataRow row in data.Rows)
+                            {
+                                var storagenode = Convert.ToString(row["storagenode"]);
+                                var maildir = Convert.ToString(row["maildir"]);
+
+                                var sb = new StringBuilder();
+                                sb.Append(backupMailServerFilesService.pathToMailFilesOnHost);
+
+                                sb.Append('/');
+
+                                sb.AppendFormat(storagenode);
+
+                                sb.Append('/');
+
+                                sb.AppendFormat(maildir);
+
+                                result.Add(sb.ToString());
+
+                                Logger.Debug($"DoBackupMailTable: In mailbox finded path: {sb}.");
+                            }
+                        }
+
+                        using (var file = TempStream.Create())
+                        {
+                            data.WriteXml(file, XmlWriteMode.WriteSchema);
+                            data.Clear();
+
+                            writer.WriteEntry(KeyHelper.GetMailTableZipKey(data.TableName), file);
+                        }
+
+                        Logger.DebugFormat("end saving table {0}", table.Name);
+                    }
+                }
+            }
+            Logger.DebugFormat("end saving data for MailTable");
+
+            return result;
+        }
+
+        private void DoBackupMailFiles(IDataWriteOperator writer, List<String> paths)
+        {
+            Logger.DebugFormat("begin saving files for Mail Server");
+
+            int filesCount = 0;
+
+            foreach (string path in paths)
+            {
+                filesCount += backupMailServerFilesService.SaveDirectory(path, writer.WriteEntry);
+            }
+
+            Logger.DebugFormat($"end saving {filesCount} files for Mail Server");
+        }
+
         private void DoBackupStorage(IDataWriteOperator writer, List<IGrouping<string, BackupFileInfo>> fileGroups)
         {
             Logger.Debug("begin backup storage");
@@ -703,7 +876,7 @@ namespace ASC.Data.Backup.Tasks
                         var f = (BackupFileInfo)state;
                         fileStream = storage.GetReadStream(f.Domain, f.Path);
                     }, file, 5, error => Logger.WarnFormat("can't backup file ({0}:{1}): {2}", file1.Module, file1.Path, error));
-                    if (fileStream != null) 
+                    if (fileStream != null)
                     {
                         writer.WriteEntry(file1.GetZipKey(), fileStream);
                         fileStream.Dispose();

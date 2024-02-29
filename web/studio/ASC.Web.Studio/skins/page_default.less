@@ -14,6 +14,7 @@
  *
 */
 
+@import "default/params.less";
 
 .greating-modules-block {
 
@@ -22,7 +23,10 @@
         width: 600px;
 
         .docs-default-logo {
-            background: no-repeat url('/Products/Files/App_Themes/default/images/product_logolarge.svg') 60px 40px transparent;
+            background: url('/Products/Files/App_Themes/default/images/@{default-documents-image}');
+            background-position: 60px 40px;
+            background-color: transparent;
+            background-repeat: no-repeat;
             background-size: 200px;
             height: 280px;
             display: flex;

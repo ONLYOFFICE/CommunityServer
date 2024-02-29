@@ -24,6 +24,7 @@
             domain: domain,
             email: Teamlab.profile.email,
             provider: "onlyoffice",
+            uiTheme: ASC.Resources.Master.ModeThemeSettings.ModeThemeName === 1 ? "default-dark" : "default-light",
         };
 
         window.AscDesktopEditor.execCommand("portal:login", JSON.stringify(data));

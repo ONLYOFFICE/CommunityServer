@@ -56,6 +56,7 @@ namespace ASC.Web.Files.Controls
             if (!OnlyFolder)
             {
                 var contentList = (ContentList)LoadControl(ContentList.Location);
+                contentList.AddFilterContainer = true;
                 contentList.HideAddActions = true;
                 ContentHolder.Controls.Add(contentList);
             }

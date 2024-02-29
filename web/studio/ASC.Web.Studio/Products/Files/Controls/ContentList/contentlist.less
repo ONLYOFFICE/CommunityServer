@@ -32,19 +32,30 @@
     height: 33px;
 }
 .to-parent-folder {
-    display: inline-block;
+    float: left;
     cursor: pointer;
-    margin: 0 4px 0 0;
+    margin: 0px 8px 0 0;
     outline: none;
     padding-left: 6px;
-    width: 70px;
 }
 .to-parent-folder .up {
     line-height: 32px;
     text-decoration: none;
+    user-select: none;
 }
-.to-parent-folder .link-blank,
-.with-search-crumbs .to-parent-folder .link-dots {
+#promptRenameParentFolder {
+    margin-top: 3px;
+    display: none;
+}
+#filesBreadCrumbs .rename-action {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -6px;
+    margin-left: 8px;
+}
+.linkCurrentFolder,
+#filesBreadCrumbs.with-search-crumbs .to-parent-folder-dropdown,
+#filesBreadCrumbs.with-search-crumbs .rename-action {
     display: none;
 }
 #searchBreadCrumbs {
@@ -63,9 +74,6 @@
     width: 22px;
 }
 .with-search-crumbs .search-bread-crumbs {
-    display: inline-block;
-}
-.with-search-crumbs .to-parent-folder .link-blank {
     display: inline-block;
 }
 /*************************************************************
@@ -353,6 +361,38 @@
     margin: 8px 10px 0 16px;
 }
 
+.to-parent-folder-link {
+    cursor: pointer;
+    position: relative;
+    font-weight: 600;
+    line-height: 30px;
+    text-decoration: none;
+    user-select: none;
+
+    .inner-ellipsis {
+        display: inline-block;
+        max-width: 236px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        height: 24px;
+        border-bottom: 1px dotted @dropdown-folder-parent-col;
+        color: @dropdown-folder-parent-col;
+    }
+
+    &:after {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid @dropdown-folder-parent;
+        content: "";
+        height: 0;
+        position: absolute;
+        right: -12px;
+        top: 2px;
+        width: 0;
+    }
+}
+
 .file-row .pencil {
     float: left;
     margin: 2px 0 0 8px;
@@ -579,6 +619,7 @@ ul.without-share li:not(.can-share) .btn-row {
     min-width: 204px;
     max-width: 300px;
     margin: 0 0 20px 0;
+    background: linear-gradient(to bottom, @thumbnails-bc-not-selected 156px, @body-color 48px);
 }
 
 #filesMainContent.thumbnails .file-row.min {
@@ -586,7 +627,7 @@ ul.without-share li:not(.can-share) .btn-row {
 }
 
 #filesMainContent.thumbnails .file-row.row-hover:not(.row-rename):hover {
-    background: linear-gradient(to bottom, @body-color-hover-another 156px, @body-color-selected 48px) !important;
+    background: linear-gradient(to bottom, @thumbnails-bc-selected 156px, @body-color-selected 48px) !important;
 }
 
 #filesMainContent.thumbnails .file-row.min.row-hover:not(.row-rename):hover {
@@ -594,7 +635,7 @@ ul.without-share li:not(.can-share) .btn-row {
 }
 
 #filesMainContent.thumbnails .file-row.row-selected {
-    border-color: #0075ff;
+    border-color: @thumbnails-row-selected-bor;
     background: linear-gradient(to bottom, @body-color-hover-another 156px, @body-color 48px);
 }
 
@@ -603,7 +644,7 @@ ul.without-share li:not(.can-share) .btn-row {
 }
 
 #filesMainContent.thumbnails .file-row.display-versions {
-    border-color: #0075ff;
+    border-color: @thumbnails-row-selected-bor;
 }
 
 #filesMainContent.thumbnails .file-row.row-selected .version {
@@ -926,12 +967,18 @@ ul.without-share li:not(.can-share) .btn-row {
     text-align: left;
 }
 .version-close {
-    background: url("images/version_operation.png") no-repeat scroll 3px -97px transparent;
+    -webkit-mask-image: url("images/version_operation.svg");
+    mask-image: url("images/version_operation.svg");
     cursor: pointer;
     float: right;
     height: 16px;
     margin: 2px 8px 0 0;
     width: 16px;
+    background-color: @version-operations-col-close;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 3px -97px;
+    mask-position: 3px -97px;
 }
 .version-row {
     border-bottom: 1px solid @border-color;
@@ -964,14 +1011,21 @@ ul.without-share li:not(.can-share) .btn-row {
 }
 .version-row .version-continue,
 .version-row .version-complete {
-    background: url("images/version_operation.png") no-repeat scroll center -80px transparent;
+    -webkit-mask-image: url("images/version_operation.svg");
+    mask-image: url("images/version_operation.svg");
     cursor: pointer;
     display: none;
     height: 16px;
     width: 16px;
+    background-color: @version-operations-col;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center -80px;
+    mask-position: center -80px;
 }
 .version-row .version-complete {
-    background-position: center -60px;
+    -webkit-mask-position: center -60px;
+    mask-position: center -60px;
 }
 .version-highlight .version-row:hover .version-complete,
 .version-highlight .version-row:hover .version-continue,
@@ -1051,7 +1105,8 @@ ul.without-share li:not(.can-share) .btn-row {
 .version-operation .version-download,
 .version-operation .version-preview,
 .version-operation .version-comment-edit {
-    background: url("images/version_operation.png") no-repeat center 0 transparent;
+    -webkit-mask-image: url("images/version_operation.svg");
+    mask-image: url("images/version_operation.svg");
     cursor: pointer;
     display: none;
     float: right;
@@ -1059,12 +1114,19 @@ ul.without-share li:not(.can-share) .btn-row {
     margin-left: 8px;
     padding: 0;
     width: 16px;
+    background-color: @version-operations-col;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center 0;
+    mask-position: center 0;
 }
 .version-operation .version-preview {
-    background-position: center -20px;
+    -webkit-mask-position: center -20px;
+    mask-position: center -20px;
 }
 .version-operation .version-comment-edit {
-    background-position: center -40px;
+    -webkit-mask-position: center -40px;
+    mask-position: center -40px;
 }
 .version-highlight .version-row:hover .version-download,
 .version-highlight .version-row:hover .version-preview,

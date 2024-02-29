@@ -1,0 +1,14 @@
+DELIMITER DLM00
+
+DROP PROCEDURE IF EXISTS upgrade126 DLM00
+
+CREATE PROCEDURE upgrade126()
+BEGIN
+
+    DELETE FROM `files_converts` WHERE `output`='.oform';
+
+END DLM00
+
+CALL upgrade126() DLM00
+
+DELIMITER ;

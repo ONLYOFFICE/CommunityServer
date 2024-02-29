@@ -1031,12 +1031,6 @@
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
-    <value>Токен доступа</value>
-  </data>
-  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
-    <value>Секретный токен доступа</value>
-  </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Ключ Twitter в CRM</value>
   </data>
@@ -1047,7 +1041,7 @@
     <value>Ключ Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Подключите приложение для входа на портал по учетной записи Twitter и поиска контактов.</value>
+    <value>Подключите приложение для входа на портал по учетной записи Twitter.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Добавив приложение сервиса Twitter, Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ с помощью аккаунта Twitter. Также Вы сможете на странице персоны или компании CRM привязывать аккаунт и читать новости Twitter.</value>

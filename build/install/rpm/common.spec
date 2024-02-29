@@ -76,6 +76,11 @@ find "$RPM_BUILD_ROOT/usr/bin/" \
 
 find "$RPM_BUILD_ROOT/var/www/%{package_sysname}/Sql" -depth -type f -exec rename -f -v 's/onlyoffice([^\/]*)$/%{package_sysname}$1/g' {} \;
 
+find \
+"$RPM_BUILD_ROOT/var/www/%{package_sysname}/" \
+"$RPM_BUILD_ROOT/etc/%{package_sysname}/communityserver/" \
+-type f -regex '.*\(json\|config\)'  ! -path '*node_modules*' -exec chmod o-rwx {} \;
+
 #list files
 OLD_IFS="$IFS"
 IFS="
@@ -90,7 +95,7 @@ for FILE in `find "$RPM_BUILD_ROOT/var/www/%{package_sysname}/"`; do
 				echo "%%attr(-, %{package_sysname}, %{package_sysname}) %%config(noreplace) \"$RELFILE\"" >>onlyoffice.list
 			;;
 
-			*/WebStudio/[Ww]eb*.config | */ApiSystem/[Ww]eb*.config | */TeamLabSvc.exe.config | */ASC.Mail.EmlDownloader.exe.config )
+			*/WebStudio/[Ww]eb*.config | */ApiSystem/[Ww]eb*.config | */TeamLabSvc.exe.config )
 				echo "%%attr(-, %{package_sysname}, %{package_sysname}) %%config \"$RELFILE\"" >>onlyoffice.list
 			;;
 
@@ -116,6 +121,13 @@ rm -rf "$RPM_BUILD_ROOT"
 %attr(-, %{package_sysname}, %{package_sysname}) %config /etc/%{package_sysname}/communityserver/*
 
 %pre
+
+node_version=$(rpm -q --qf '%%{version}' nodejs | awk -F. '{ printf("%%d%%03d%%03d%%03d", $1,$2,$3,$4); }';)
+if [[ "$node_version" -lt "14018000000" ]]; then
+  echo -e "\033[31mFor the %{package_sysname}-communityserver package to work properly, you need to install nodejs version 14.18.0 or higher\033[0m"
+  exit 1
+fi
+
 getent group %{package_sysname} >/dev/null || groupadd -r %{package_sysname}
 getent passwd %{package_sysname} >/dev/null || useradd -r -g %{package_sysname} -d /var/www/%{package_sysname}/ -s /sbin/nologin %{package_sysname}
 
@@ -145,9 +157,13 @@ sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/'
 CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)";
 find "$DIR/controlpanel/www/config" -type f -name "*.json" -exec sed -i "s_\(\"core.machinekey\":\).*,_\1 \"${CORE_MACHINEKEY}\",_" {} \;
 
-if systemctl is-active monoserve | grep -q "active"; then
-	systemctl restart monoserve
-fi
+package_services=("monoserve" "%{package_sysname}ControlPanel")
+
+for SVC in "${package_services[@]}"; do
+    if systemctl is-active "$SVC" | grep -q ^active; then
+        systemctl restart "$SVC"
+    fi
+done
 
 %triggerin -- python3, python36
 
@@ -259,7 +275,7 @@ binDirs=("$DIR/ApiSystem/" "$DIR/WebStudio" "$DIR/controlpanel/www/config" "$SER
 if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
 	CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";
 else
-	CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config)";
+	CORE_MACHINEKEY="$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 12)";
 fi
 
 sed "s^\(machine_key\)\s*=.*^\1 = ${CORE_MACHINEKEY}^g" -i ${SERVICES_DIR}/TeamLabSvc/radicale.config
@@ -369,6 +385,10 @@ if [ -f ${ELASTIC_SEARCH_JAVA_CONF_PATH}.rpmnew ]; then
    cp -rf ${ELASTIC_SEARCH_JAVA_CONF_PATH}.rpmnew ${ELASTIC_SEARCH_JAVA_CONF_PATH};   
 fi
 
+if [ -d "${APP_DATA_DIR}/Index" ]; then
+	find ${APP_DATA_DIR}/Index -maxdepth 1 \! -name "v${ELASTIC_SEARCH_VERSION}" -type d -regex '.*/v[0-9]+\.[0-9]+\.[0-9]+.*' -exec rm -rf {} \;
+fi
+
 mkdir -p "$LOG_DIR/Index"
 mkdir -p "$APP_INDEX_DIR"
 
@@ -413,17 +433,21 @@ TOTAL_MEMORY=$(free -m | grep -oP '\d+' | head -n 1);
 MEMORY_REQUIREMENTS=12228; #RAM ~4*3Gb
 
 if [ ${TOTAL_MEMORY} -gt ${MEMORY_REQUIREMENTS} ]; then
-	if ! grep -q "[-]Xms1g" ${ELASTIC_SEARCH_JAVA_CONF_PATH}; then
-		echo "-Xms4g" >> ${ELASTIC_SEARCH_JAVA_CONF_PATH}
-	else
-		sed -i "s/-Xms1g/-Xms4g/" ${ELASTIC_SEARCH_JAVA_CONF_PATH} 
-	fi
+	ELASTICSEATCH_MEMORY="4g"
+else
+	ELASTICSEATCH_MEMORY="1g"
+fi
 
-	if ! grep -q "[-]Xmx1g" ${ELASTIC_SEARCH_JAVA_CONF_PATH}; then
-		echo "-Xmx4g" >> ${ELASTIC_SEARCH_JAVA_CONF_PATH}
-	else
-		sed -i "s/-Xmx1g/-Xmx4g/" ${ELASTIC_SEARCH_JAVA_CONF_PATH} 
-	fi
+if grep -qE "^[^#]*-Xms[0-9]g" "${ELASTIC_SEARCH_JAVA_CONF_PATH}"; then
+	sed -i "s/-Xms[0-9]g/-Xms${ELASTICSEATCH_MEMORY}/" "${ELASTIC_SEARCH_JAVA_CONF_PATH}"
+else
+	echo "-Xms${ELASTICSEATCH_MEMORY}" >> "${ELASTIC_SEARCH_JAVA_CONF_PATH}"
+fi
+
+if grep -qE "^[^#]*-Xmx[0-9]g" "${ELASTIC_SEARCH_JAVA_CONF_PATH}"; then
+	sed -i "s/-Xmx[0-9]g/-Xmx${ELASTICSEATCH_MEMORY}/" "${ELASTIC_SEARCH_JAVA_CONF_PATH}"
+else
+	echo "-Xmx${ELASTICSEATCH_MEMORY}" >> "${ELASTIC_SEARCH_JAVA_CONF_PATH}"
 fi
 
 if [ -d /etc/elasticsearch/ ]; then 
@@ -482,6 +506,10 @@ if [ $1 -ge 2 ]; then
 			systemctl restart $SVC
 		fi
 	done
+	if systemctl is-active %{package_sysname}AutoCleanUp | grep -q "active"; then
+		systemctl disable %{package_sysname}AutoCleanUp
+		systemctl stop %{package_sysname}AutoCleanUp
+	fi
 fi
 
 if systemctl is-active monoserve | grep -q "active"; then

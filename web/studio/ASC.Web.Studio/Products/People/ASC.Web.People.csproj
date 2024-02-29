@@ -165,6 +165,7 @@
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
     <Content Include="App_Themes\default\images\product_logolarge.svg" />
+    <Content Include="App_Themes\default\images\product_logolarge_dark.svg" />
     <Content Include="App_Themes\default\images\product_logomiddle.svg" />
     <Content Include="App_Themes\default\images\product_search_icon.png" />
     <Content Include="App_Themes\default\images\svg\birthday-orange.svg" />

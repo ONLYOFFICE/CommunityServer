@@ -87,15 +87,15 @@
         background-size: 16px 16px;
 
         &.open {
-            background-image: url('../../../../../skins/default/images/svg/projects/inbox.svg');
+            background-image: url("../../../../../skins/default/images/svg/projects/@{inbox-svg}");
         }
 
         &.closed {
-            background-image: url('../../../../../skins/default/images/svg/projects/check_tick.svg');
+            background-image: url("../../../../../skins/default/images/svg/projects/@{check_tick-svg}");
         }
 
         &.paused {
-            background-image: url('../../../../../skins/default/images/svg/projects/pause.svg');
+            background-image: url("../../../../../skins/default/images/svg/projects/@{pause-svg}");
         }
 
         &.not-chargeable {
@@ -478,7 +478,7 @@ body.media-width-0-1150 .project-info-container .project-title {
     }
 
     .requiredFieldError > input {
-        border: 1px solid #CC0000;
+        border: 1px solid @requiredField-col;
     }
 
     .tl-combobox .combobox-title .inner-text {
@@ -638,7 +638,7 @@ body.media-width-0-1150 .project-info-container .project-title {
     }
 
     .requiredFieldError input {
-        border: 1px solid #cc0000;
+        border: 1px solid @requiredField-col;
     }
 
     .pm-headerLeft {
@@ -817,16 +817,16 @@ table.table-list {
                 .overdue,
                 .paused,
                 .closed {
-                    background: url('../../../../../skins/default/images/svg/projects/inbox.svg') no-repeat;
+                    background: url("../../../../../skins/default/images/svg/projects/@{inbox-svg}") no-repeat;
                     //background-position: 0 -60px;
                 }
 
                 .closed {
-                    background: url('../../../../../skins/default/images/svg/projects/check_tick.svg') no-repeat;
+                    background: url("../../../../../skins/default/images/svg/projects/@{check_tick-svg}") no-repeat;
                 }
 
                 .paused {
-                    background: url('../../../../../skins/default/images/svg/projects/pause.svg') no-repeat;
+                    background: url("../../../../../skins/default/images/svg/projects/@{pause-svg}") no-repeat;
                 }
             }
         }

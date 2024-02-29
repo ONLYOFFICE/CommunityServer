@@ -270,6 +270,38 @@
         <% } %>
     </ul>
 </div>
+<div id="folderParentActionPanel" class="studio-action-panel">
+    <ul id="actionPanelFolderParent" class="dropdown-content">
+        <li id="folderParentComeBack"><a class="dropdown-item with-icon come-back first-section">
+            <%= FilesUCResource.ButtonComeBack %></a></li>
+        <li class="dropdown-item-seporator first-section"></li>
+        <% if (!Global.IsOutsider)
+           { %>
+        <li id="folderParentShareAccess"><a class="dropdown-item with-icon access second-section">
+            <%= FilesUCResource.ButtonShareAccess %></a></li>
+        <% } %>
+        <% if (!CoreContext.Configuration.Personal)
+           { %>
+        <li id="folderParentGetLink"><a class="dropdown-item second-section with-icon link second-section">
+            <%= UserControlsCommonResource.GetPortalLink %></a></li>
+        <% } %>
+        <li class="dropdown-item-seporator second-section"></li>
+         <li id="folderParentDownload"><a class="dropdown-item with-icon download third-section">
+            <%= FilesUCResource.DownloadFolder %></a></li>
+         <% if (!Global.IsOutsider)
+           { %>
+        <li id="folderParentRename"><a class="dropdown-item with-icon rename third-section">
+            <%= FilesUCResource.ButtonRename %></a></li>
+        <li class="dropdown-item-seporator third-section"></li>
+        <li id="folderParentRemoveThirdparty"><a class="dropdown-item with-icon delete fourth-section">
+            <%= FilesUCResource.ButtonDeleteThirdParty %></a></li>
+        <li id="folderParentUnsubscribe"><a class="dropdown-item with-icon unlink fourth-section">
+            <%= FilesUCResource.Unsubscribe %></a></li>
+        <li id="folderParentRemove"><a class="dropdown-item with-icon delete fourth-section">
+            <%= FilesUCResource.ButtonDelete %></a></li>
+        <% } %>
+    </ul>
+</div>
 <div id="filesVersionPanel" class="studio-action-panel">
     <ul class="dropdown-content">
         <li id="filesVersions"><a class="dropdown-item">

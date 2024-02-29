@@ -134,7 +134,13 @@ window.ASC.Files.UI = (function () {
             if (!ASC.Files.Common.isCorrectId(entryId)) {
                 return null;
             }
-            return jq("#filesMainContent .file-row" + ASC.Files.UI.getSelectorId(entryType + "_" + entryId));
+            var entryDataParent = ASC.Files.UI.getObjectData(".to-parent-folder-dropdown");
+            if (entryDataParent != null && entryDataParent.entryId == entryId && entryDataParent.entryType == entryType) {
+                return jq(".to-parent-folder-dropdown");
+            }
+            else {
+                return jq("#filesMainContent .file-row" + ASC.Files.UI.getSelectorId(entryType + "_" + entryId));
+            }
         }
         return null;
     };
@@ -146,8 +152,11 @@ window.ASC.Files.UI = (function () {
     var getObjectData = function (entryObject) {
         entryObject = jq(entryObject);
         var selectorData = "input:hidden[name=\"entry_data\"]";
-
-        if (!entryObject.is(".file-row")) {
+        var entryObjectParent = entryObject.parent();
+        if (entryObject.is(".to-parent-folder-link") || entryObjectParent.is(".to-parent-folder-dropdown") || entryObjectParent.is("#filesBreadCrumbs")) {
+            entryObject = entryObjectParent;
+        }
+        else if (!entryObject.is(".file-row")) {
             var selectorObject = ".file-row";
             if (entryObject.is(".jstree *")) {
                 selectorObject = ".tree-node";
@@ -202,6 +211,7 @@ window.ASC.Files.UI = (function () {
         result.encrypted = dataObject.attr("data-encrypted") === "true";
         result.thumbnail_status = dataObject.attr("data-thumbnail_status");
         result.deleted_permanently_date = dataObject.attr("data-deleted_permanently_date");
+        result.parent_folder_id = dataObject.attr("data-parent_folder_id");
 
         return result;
     };
@@ -245,7 +255,7 @@ window.ASC.Files.UI = (function () {
 
     var getObjectTitle = function (entryObject) {
         entryObject = jq(entryObject);
-        if (!entryObject.is(".file-row")) {
+        if (!entryObject.is(".file-row") && !entryObject.is(".to-parent-folder-dropdown") ){
             entryObject = entryObject.closest(".file-row");
         }
         if (entryObject.length == 0) {
@@ -448,6 +458,7 @@ window.ASC.Files.UI = (function () {
         value = value === true;
         entryObj = jq(entryObj);
         if (!entryObj.length
+            || entryObj.hasClass("to-parent-folder-dropdown")
             || entryObj.hasClass("checkloading") == value) {
             return;
         }
@@ -723,6 +734,8 @@ window.ASC.Files.UI = (function () {
 
         var select = !jq(entryObj).hasClass("row-selected") || jq(entryObj).find(".checkbox input:visible").is("[type=radio]");
 
+        var canCheck = !jq(entryObj).find(".checkbox input:visible").prop('disabled');
+
         if (e.shiftKey){
             if (!ASC.Files.UI.lastSelectedEntry) {
                 ASC.Files.UI.lastSelectedEntry = entryObj;
@@ -744,8 +757,10 @@ window.ASC.Files.UI = (function () {
             ASC.Files.UI.checkSelectAll(false);
         }
 
-        ASC.Files.UI.selectRow(entryObj, select);
-        ASC.Files.UI.updateMainContentHeader();
+        if (canCheck) {
+            ASC.Files.UI.selectRow(entryObj, select);
+            ASC.Files.UI.updateMainContentHeader();
+        }
 
         ASC.Files.UI.lastSelectedEntry = select ? {entryObj: entryObj} : null;
 
@@ -1127,7 +1142,7 @@ window.ASC.Files.UI = (function () {
             if (ASC.Files.UI.currentPage < ASC.Files.UI.amountPage) {
                 ASC.Files.Folders.getFolderItems(true, countAppend);
             } else {
-                if (ASC.Files.Folders.folderContainer && countAppend >= ASC.Files.Constants.COUNT_ON_PAGE) {
+                if ((ASC.Files.Folders.folderContainer || !ASC.Resources.Master.IsAuthenticated) && countAppend >= ASC.Files.Constants.COUNT_ON_PAGE) {
                     ASC.Files.EmptyScreen.displayEmptyScreen();
                 }
             }
@@ -1135,20 +1150,64 @@ window.ASC.Files.UI = (function () {
     };
 
     var checkButtonBack = function (buttonSelector, panelSelector) {
-        if (ASC.Files.Tree && ASC.Files.Tree.pathParts.length > 1) {
-            var parentFolderId = ASC.Files.Tree.pathParts[ASC.Files.Tree.pathParts.length - 2];
+        var parentFolderId = ASC.Files.Tree &&
+            ASC.Files.Tree.pathParts.length > 1 &&
+            ASC.Files.Tree.getParentId(ASC.Files.Tree.pathParts[ASC.Files.Tree.pathParts.length - 1]);
+
+        if (parentFolderId) {
             var parentFolderTitle = ASC.Files.Tree.getFolderTitle(parentFolderId);
 
             jq(buttonSelector)
                 .attr("data-id", parentFolderId)
                 .attr("href", ASC.Files.UI.getEntryLink("folder", parentFolderId))
-                .attr("title", parentFolderTitle)
-                .show();
+                .attr("title", parentFolderTitle);
 
+            if (buttonSelector == ".to-parent-folder-dropdown") {
+                var folderIdIn = ASC.Files.Tree.pathParts[ASC.Files.Tree.pathParts.length - 1];
+                var folderTitleIn = ASC.Files.Tree.getFolderTitle(folderIdIn);
+
+                var filesBreadCrumbs = jq("#filesBreadCrumbs");
+                filesBreadCrumbs.find(".rename-action").remove();
+                filesBreadCrumbs.find("#promptRenameParentFolder").hide();
+                filesBreadCrumbs.find(".to-parent-folder-link").show().find(".inner-ellipsis").text(folderTitleIn);
+                filesBreadCrumbs.find("#linkCurrentFolder").attr("href", ASC.Files.UI.getEntryLink("folder", folderIdIn));
+
+                var dataParentFolder = ASC.Files.Tree.getFolderData(folderIdIn);
+                jq(buttonSelector).attr("title", folderTitleIn)
+                    .children('input[name="entry_data"]')
+                    .attr("data-deny_download", dataParentFolder.deny_download)
+                    .attr("data-deny_sharing", dataParentFolder.deny_sharing)
+                    .attr("data-access", dataParentFolder.access)
+                    .attr("data-shared", dataParentFolder.shared)
+                    .attr("data-id", dataParentFolder.id)
+                    .attr("data-create_by_id", dataParentFolder.create_by_id)
+                    .attr("data-title", dataParentFolder.title)
+                    .attr("data-folder_id", dataParentFolder.folder_id)
+                    .attr("data-provider_key", dataParentFolder.provider_key)
+                    .attr("data-provider_id", dataParentFolder.provider_id)
+                    .attr("data-parent_folder_id", parentFolderId);
+            }
             jq(panelSelector || buttonSelector).show();
         } else {
             jq(panelSelector || buttonSelector).hide();
+            ASC.Files.UI.removeDataFromButtonBack();
         }
+    };
+
+    var removeDataFromButtonBack = function () {
+        jq(".to-parent-folder-dropdown").children('input[name="entry_data"]')
+            .attr("data-deny_download", "")
+            .attr("data-deny_sharing", "")
+            .attr("data-access", "")
+            .attr("data-shared", "")
+            .attr("data-id", "")
+            .attr("data-create_by_id", "")
+            .attr("data-title", "")
+            .attr("data-folder_id", "")
+            .attr("data-provider_key", "")
+            .attr("data-provider_id", "")
+            .attr("data-parent_folder_id", "");
+        jq(".to-parent-folder-link .inner-ellipsis").text("");
     };
 
     var checkCharacter = function (input) {
@@ -1397,6 +1456,7 @@ window.ASC.Files.UI = (function () {
         hideEntryTooltip: hideEntryTooltip,
         timeTooltip: timeTooltip,
 
+        removeDataFromButtonBack: removeDataFromButtonBack,
         checkEmptyContent: checkEmptyContent,
         checkButtonBack: checkButtonBack,
 

@@ -17,7 +17,12 @@
 
 /* Config */
 
-module.exports = {
+const fs = require("fs");
+const path = require("path");
+const fileName = `config.${process.argv[2]}.js`;
+const config = fs.existsSync(path.join(__dirname, fileName))
+  ? require(`./${fileName}`)
+  : {
   // Port listener WebDav Server
   port: 1900,
   // Path to pfx key
@@ -82,3 +87,5 @@ module.exports = {
     editSession: "/edit_session"
   }
 };
+
+module.exports = config;
