@@ -209,7 +209,7 @@
     <value>了解更多…</value>
   </data>
   <data name="ButtonLock" xml:space="preserve">
-    <value>文本块</value>
+    <value>锁定协作编辑</value>
   </data>
   <data name="ButtonMoveCopy" xml:space="preserve">
     <value>移动或复制</value>
