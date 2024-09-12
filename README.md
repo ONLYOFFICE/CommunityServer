@@ -52,6 +52,10 @@ Community Server (distributed as ONLYOFFICE Groups) is a part of **ONLYOFFICE Wo
 
 Control Panel for administrating **ONLYOFFICE Workspace** can be found in [this repo](https://github.com/ONLYOFFICE/ControlPanel). 
 
+## Self-Hosting ONLYOFFICE
+
+[![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/onlyoffice)
+
 ## Compiling
 
 To compile the source code, follow this [instruction](https://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
