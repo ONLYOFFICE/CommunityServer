@@ -70,6 +70,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             FilesLinkUtility.FileDownloadUrlString,
                             FilesLinkUtility.FileViewUrlString,
                             FilesLinkUtility.FileWebViewerUrlString,
+                            FilesLinkUtility.FileWebFillingUrlString,
                             FilesLinkUtility.FileWebViewerExternalUrlString,
                             FilesLinkUtility.FileWebEditorUrlString,
                             FilesLinkUtility.FileWebEditorExternalUrlString,

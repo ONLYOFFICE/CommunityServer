@@ -71,21 +71,28 @@ namespace ASC.Data.Storage.RackspaceCloud
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
             _attachment = moduleConfig.Attachment;
-            _domains.AddRange(
-                moduleConfig.Domains.Cast<DomainConfigurationElement>().Select(x => string.Format("{0}/", x.Name)));
 
-            //Make acl
-            _domainsExpires =
-                moduleConfig.Domains.Cast<DomainConfigurationElement>().Where(x => x.Expires != TimeSpan.Zero).
-                    ToDictionary(x => x.Name,
-                                 y => y.Expires);
-
-            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
-
-            _domainsAcl = moduleConfig.Domains.Cast<DomainConfigurationElement>().ToDictionary(x => x.Name,
-                                                                                               y => y.Acl);
             _moduleAcl = moduleConfig.Acl;
+            _domainsAcl = new Dictionary<string, ACL>();
+            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
+            _domainsValidators.Add(string.Empty, CreateValidator(moduleConfig.ValidatorType, moduleConfig.ValidatorParams));
 
+            foreach (DomainConfigurationElement domain in moduleConfig.Domains)
+            {
+                _domains.Add(string.Format("{0}/", domain.Name));
+
+                _domainsAcl.Add(domain.Name, domain.Acl);
+
+                if (domain.Expires != TimeSpan.Zero)
+                {
+                    _domainsExpires.Add(domain.Name, domain.Expires);
+                }
+
+                if (!string.IsNullOrEmpty(domain.ValidatorType))
+                {
+                    _domainsValidators.Add(domain.Name, CreateValidator(domain.ValidatorType, domain.ValidatorParams));
+                }
+            }
         }
 
         private string MakePath(string domain, string path)
@@ -534,13 +541,11 @@ namespace ASC.Data.Storage.RackspaceCloud
                   .Select(x => x.Name.Substring(MakePath(domain, path + "/").Length)).ToArray();
         }
 
-        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
+        public override IEnumerable<string> ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
-            var paths = new List<String>();
-
             var client = GetClient();
 
-            paths = client.ListObjects(_private_container, null, null, null, MakePath(domain, path), _region).Select(x => x.Name).ToList();
+            var paths = client.ListObjects(_private_container, null, null, null, MakePath(domain, path), _region).Select(x => x.Name);
 
             return paths
                 .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x)))

@@ -610,15 +610,15 @@ namespace ASC.Api.Security
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (attemptsCount < 1)
+            if (attemptsCount < 1 || attemptsCount > 9999)
             {
                 throw new ArgumentOutOfRangeException("attemptsCount");
             }
-            if (checkPeriod < 1)
+            if (checkPeriod < 1 || checkPeriod > 9999)
             {
                 throw new ArgumentOutOfRangeException("checkPeriod");
             }
-            if (blockTime < 1)
+            if (blockTime < 1 || blockTime > 9999)
             {
                 throw new ArgumentOutOfRangeException("blockTime");
             }

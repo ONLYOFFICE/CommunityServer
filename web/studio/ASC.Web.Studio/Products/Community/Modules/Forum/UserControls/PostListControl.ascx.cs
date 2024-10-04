@@ -28,6 +28,7 @@ using AjaxPro;
 using ASC.Core;
 using ASC.Forum;
 using ASC.Web.Community.Modules.Forum.UserControls.Resources;
+using ASC.Web.Core;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.UserControls.Common.PollForm;
 using ASC.Web.Studio.Utility;
@@ -41,6 +42,20 @@ namespace ASC.Web.UserControls.Forum
 
         public bool VoteCallback(string pollID, List<string> selectedVariantIDs, string additionalParams, out string errorMessage)
         {
+            var product = WebItemManager.Instance[WebItemManager.CommunityProductID];
+            if (product == null || product.IsDisabled())
+            {
+                errorMessage = ForumUCResource.ErrorAccessDenied;
+                return false;
+            }
+
+            var module = WebItemManager.Instance[Community.Forum.ForumManager.ModuleID];
+            if (module == null || module.IsDisabled())
+            {
+                errorMessage = ForumUCResource.ErrorAccessDenied;
+                return false;
+            }
+
             errorMessage = "";
             int idQuestion = Convert.ToInt32(additionalParams.Split(',')[1]);
             var _forumManager = Community.Forum.ForumManager.Settings.ForumManager;

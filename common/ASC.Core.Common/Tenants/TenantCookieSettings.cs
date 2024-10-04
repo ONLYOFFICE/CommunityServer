@@ -103,7 +103,9 @@ namespace ASC.Core.Tenants
         public static DateTime GetExpiresTime(int tenantId)
         {
             var settingsTenant = GetForTenant(tenantId);
-            var expires = settingsTenant.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(settingsTenant.LifeTime);
+            var expires = settingsTenant.IsDefault() ?
+                DateTime.UtcNow.AddYears(1) :
+                settingsTenant.LifeTime == 0 ? DateTime.MaxValue : DateTime.UtcNow.AddMinutes(settingsTenant.LifeTime);
             return expires;
         }
     }

@@ -41,12 +41,30 @@ namespace ASC.Data.Storage
         internal DataList _dataList;
         internal string _tenant;
         internal Dictionary<string, TimeSpan> _domainsExpires = new Dictionary<string, TimeSpan>();
+        internal Dictionary<string, IDataStoreValidator> _domainsValidators = new Dictionary<string, IDataStoreValidator>();
 
         public IQuotaController QuotaController { get; set; }
 
         public TimeSpan GetExpire(string domain)
         {
             return _domainsExpires.ContainsKey(domain) ? _domainsExpires[domain] : _domainsExpires[string.Empty];
+        }
+
+        public IDataStoreValidator GetValidator(string domain)
+        {
+            return _domainsValidators.ContainsKey(domain) ? _domainsValidators[domain] : _domainsValidators[string.Empty];
+        }
+
+        protected IDataStoreValidator CreateValidator(string type, string param)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                return null;
+            }
+
+            var validatorType = Type.GetType(type, false);
+
+            return validatorType == null ? null : (IDataStoreValidator)Activator.CreateInstance(validatorType, param);
         }
 
         public Uri GetUri(string path)
@@ -230,7 +248,7 @@ namespace ASC.Data.Storage
         public abstract Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, Guid ownerId, bool quotaCheckFileSize = true);
         public abstract Uri SaveTemp(string domain, out string assignedPath, Stream stream);
         public abstract string[] ListDirectoriesRelative(string domain, string path, bool recursive);
-        public abstract string[] ListFilesRelative(string domain, string path, string pattern, bool recursive);
+        public abstract IEnumerable<string> ListFilesRelative(string domain, string path, string pattern, bool recursive);
         public abstract bool IsFile(string domain, string path);
         public abstract Task<bool> IsFileAsync(string domain, string path);
         public abstract bool IsDirectory(string domain, string path);
@@ -292,7 +310,7 @@ namespace ASC.Data.Storage
 
         public Uri[] ListFiles(string domain, string path, string pattern, bool recursive)
         {
-            var filePaths = ListFilesRelative(domain, path, pattern, recursive);
+            var filePaths = ListFilesRelative(domain, path, pattern, recursive).ToArray();
             return Array.ConvertAll(
                 filePaths,
                 x => GetUri(domain, Path.Combine(PathUtils.Normalize(path), x)));

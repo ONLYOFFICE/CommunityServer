@@ -88,5 +88,19 @@ namespace ASC.Data.Storage.Configuration
             get { return (bool)this[Schema.PUBLIC]; }
             set { this[Schema.PUBLIC] = value; }
         }
+
+        [ConfigurationProperty(Schema.VALIDATORTYPE)]
+        public string ValidatorType
+        {
+            get { return (string)this[Schema.VALIDATORTYPE]; }
+            set { this[Schema.VALIDATORTYPE] = value; }
+        }
+
+        [ConfigurationProperty(Schema.VALIDATORPARAMS)]
+        public string ValidatorParams
+        {
+            get { return (string)this[Schema.VALIDATORPARAMS]; }
+            set { this[Schema.VALIDATORPARAMS] = value; }
+        }
     }
 }

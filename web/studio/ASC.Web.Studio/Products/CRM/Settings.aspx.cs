@@ -240,7 +240,7 @@ namespace ASC.Web.CRM
                     CommonContainerHolder.Controls.Add(LoadControl(InvoiceTaxesView.Location));
                     break;
 
-                case "organisation_profile":
+                case "organization_profile":
                     PageTitle = CRMCommonResource.OrganisationProfile;
 
                     CommonContainerHolder.Controls.Add(LoadControl(OrganisationProfile.Location));

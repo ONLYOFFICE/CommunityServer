@@ -220,8 +220,8 @@ namespace ASC.Web.Core
 
             if (lifeTime > 0)
             {
-                settings.Index = settings.Index + 1;
-                settings.LifeTime = lifeTime;
+                settings.Index++;
+                settings.LifeTime = lifeTime > 9999 ? 9999 : lifeTime;
             }
             else
             {

@@ -52,7 +52,8 @@ namespace ASC.Mail.Core.Dao
         {
             var query = Query()
                 .Where(MailboxServerTable.Columns.ProviderId, providerId)
-                .Where(MailboxServerTable.Columns.IsUserData, isUserData);
+                .Where(MailboxServerTable.Columns.IsUserData, isUserData)
+                .GroupBy(MailboxServerTable.Columns.Type, MailboxServerTable.Columns.Port);
 
             return Db.ExecuteList(query)
                 .ConvertAll(ToMailboxServer);

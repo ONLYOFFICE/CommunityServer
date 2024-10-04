@@ -58,6 +58,8 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
 
+using Flurl;
+
 using Newtonsoft.Json.Linq;
 
 using File = ASC.Files.Core.File;
@@ -736,13 +738,13 @@ namespace ASC.Web.Files.Services.WCFService
                 app = ThirdPartySelector.GetAppByFileId(fileId);
                 if (app == null)
                 {
-                    DocumentServiceHelper.GetParams(fileId, -1, doc, true, true, false, out configuration);
+                    DocumentServiceHelper.GetParams(fileId, -1, doc, true, true, true, false, out configuration);
                 }
                 else
                 {
                     bool editable;
                     var file = app.GetFile(fileId, out editable);
-                    DocumentServiceHelper.GetParams(file, true, editable ? FileShare.ReadWrite : FileShare.Read, false, editable, editable, editable, false, out configuration);
+                    DocumentServiceHelper.GetParams(file, true, editable ? FileShare.ReadWrite : FileShare.Read, false, editable, editable, editable, editable, false, out configuration);
                 }
 
                 ErrorIf(!configuration.EditorConfig.ModeWrite
@@ -1187,7 +1189,7 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("reference-data"), HttpGet]
-        public FileReference GetReferenceData(string fileKey, string instanceId, string sourceFileId, string path)
+        public FileReference GetReferenceData(string fileKey, string instanceId, string sourceFileId, string path, string link)
         {
             File file = null;
             using (var fileDao = GetFileDao())
@@ -1224,6 +1226,28 @@ namespace ASC.Web.Files.Services.WCFService
 
                         var list = fileDao.GetFiles(folder.ID, new OrderBy(SortedByType.AZ, true), FilterType.FilesOnly, false, Guid.Empty, path, false, null, false);
                         file = list.FirstOrDefault(fileItem => fileItem.Title == path);
+                    }
+                }
+
+                if (file == null && !string.IsNullOrEmpty(link))
+                {
+                    if (!link.StartsWith(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FilesBaseAbsolutePath)))
+                    {
+                        return new FileReference { Url = link };
+                    }
+
+                    var url = new Url(link);
+                    var fileId = HttpUtility.ParseQueryString(url.Query)[FilesLinkUtility.FileId];
+                    if (!string.IsNullOrEmpty(fileId))
+                    {
+                        file = fileDao.GetFile(fileId);
+                        if (!FileSecurity.CanRead(file))
+                        {
+                            return new FileReference
+                            {
+                                Error = FilesCommonResource.ErrorMassage_SecurityException_ReadFile
+                            };
+                        }
                     }
                 }
             }
@@ -2473,6 +2497,27 @@ namespace ASC.Web.Files.Services.WCFService
             users = users
                 .OrderBy(user => user.User, UserInfoComparer.Default)
                 .ToList();
+
+            return new ItemList<MentionWrapper>(users);
+        }
+
+        [ActionName("infousers"), HttpPost]
+        public ItemList<MentionWrapper> InfoUsers([FromBody] ItemList<String> userIds)
+        {
+            if (!SecurityContext.IsAuthenticated || CoreContext.Configuration.Personal)
+                return null;
+
+            List<MentionWrapper> users = new List<MentionWrapper>();
+
+            foreach (var uid in userIds)
+            {
+                Guid id;
+                if (!Guid.TryParse(uid, out id)) continue;
+
+                var user = CoreContext.UserManager.GetUsers(id);
+                if (user.ID.Equals(Constants.LostUser.ID)) continue;
+                users.Add(new MentionWrapper(user));
+            }
 
             return new ItemList<MentionWrapper>(users);
         }

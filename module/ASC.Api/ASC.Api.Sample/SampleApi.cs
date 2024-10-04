@@ -26,6 +26,8 @@ namespace ASC.Api.Sample
     /// <summary>
     /// Sample CRUD API.
     /// </summary>
+    /// <name>sample</name>
+    /// <visible>false</visible>
     public class SampleApi : IApiEntryPoint
     {
         /// <summary>

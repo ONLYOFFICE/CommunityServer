@@ -275,7 +275,7 @@
     <value>Ota käyttöön</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Valtuutusavaimien avulla voit kytkeä sivustosi palveluihin kuten Twitter, Facebook tai Dropbox. Yhdistä portaalisi Facebookiin, Twitteriin DropBoxiin jne, niin sinun ei tarvitse aina syöttää sivustosi käyttäjätunnusta ja salasanaa kun kirjaudut sisään. Linkitä palveluihin kuten Dropbox, OneDrive, Zohoon tms, niin voit siirtää asiakirjoja Asiakirjat moduuliin.</value>
+    <value>Valtuutusavaimien avulla voit kytkeä sivustosi palveluihin kuten X (Twitter), Facebook tai Dropbox. Yhdistä portaalisi Facebookiin, X (Twitter)iin DropBoxiin jne, niin sinun ei tarvitse aina syöttää sivustosi käyttäjätunnusta ja salasanaa kun kirjaudut sisään. Linkitä palveluihin kuten Dropbox, OneDrive, Zohoon tms, niin voit siirtää asiakirjoja Asiakirjat moduuliin.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Palvelun Käyttöehdot</value>
@@ -650,7 +650,7 @@
     <value>Valtuutuksen merkkijono</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter Asiakkuudenhallinnan avaimessa</value>
@@ -662,19 +662,19 @@
     <value>Twitter avain</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Yhdistä sovellus jotta voit kirjautua sisään käyttämällä Twitter tiliä ja etsiä kontakteja.</value>
+    <value>Yhdistä sovellus jotta voit kirjautua sisään käyttämällä X (Twitter) tiliä ja etsiä kontakteja.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Jos lisää Twitter palvelun sovelluksen, niin voit yhdistää Twitter tilisi profiilisivullesi, jotta voit kirjautua sisään ONLYOFFICE  portaaliin sitä käyttämällä. Voit myös löytää henkilön Twitter tilin Asiakkuudenhallinnan moduulissa ja linkittää sen  'Muokkaa henkilöä/yritystä' sivulla ja sitten selailla Twitterin uutisten syötteitä.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Pääsyn merkkijono</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter avain</value>
+    <value>X (Twitter) avain</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Pääsyn merkkijonon salainen tunnus</value>
@@ -2476,7 +2476,7 @@ Puhdista lista{1}.</value>
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!</value>

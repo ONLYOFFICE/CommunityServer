@@ -287,7 +287,7 @@
     <value>启用</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>授权密钥可让您将ONLYOFFICE™门户与Twitter，Facebook，DropBox等第三方服务连接。若您不想在每次使用门户时输入网站身份信息，请将您的门户与Facebook，Twitter或Linkedin连接。将其与DropBox，OneDrive等服务相关联，以将文档从所有这些存储传输到ONLYOFFICE™文档模块。</value>
+    <value>授权密钥可让您将ONLYOFFICE™门户与X (Twitter)，Facebook，DropBox等第三方服务连接。若您不想在每次使用门户时输入网站身份信息，请将您的门户与Facebook，X (Twitter)或Linkedin连接。将其与DropBox，OneDrive等服务相关联，以将文档从所有这些存储传输到ONLYOFFICE™文档模块。</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>服务条款</value>
@@ -815,7 +815,7 @@
     <value>来自Twilio的电话号码（需短信授权）</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>CRM密钥中的Twitter</value>
@@ -827,19 +827,19 @@
     <value>Twitter秘钥</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>连接应用程序，以使用Twitter账户登录门户并搜索联系人。</value>
+    <value>连接应用程序，以使用X (Twitter)账户登录门户并搜索联系人。</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>如果您添加Twitter服务应用程序，您将能够在您的个人资料页面上连接您的Twitter账户，以便您可以使用它登录ONLYOFFICE™门户。您还可以在CRM模块中找到某个人的Twitter帐户，并将其关联到“编辑人员/公司”页面，然后查看Twitter新闻推送。</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>访问令牌</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter秘钥</value>
+    <value>X (Twitter)秘钥</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>访问令牌秘钥</value>
@@ -3073,7 +3073,7 @@
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

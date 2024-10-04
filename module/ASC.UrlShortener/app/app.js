@@ -67,17 +67,25 @@ function make(req, res) {
                 res.end();
                 return;
             }
-            key = shortUrl.encode(result[0].id);
+            key = result[0].short;
             log.info("already created shortlink (" + key + ") for " + link);
         } else {
             if (urls.find(r => r === link)) {
                 processError(new Error('Link is already being made'), res, 500);
                 return;
             }
-            result = yield query(queryConsts.insert, [link]);
-            key = shortUrl.encode(result.insertId);
-            log.info("creted new shortlink (" + key + ") for " + link);
-            yield query(queryConsts.update, [key, result.insertId]);
+            
+            while(true)
+            {
+                var key = shortUrl.GenerateRandomKey();
+                var id = shortUrl.decode(key);
+                var result = yield query(queryConsts.find, [id]);
+                if(!result.length){
+                    result = yield query(queryConsts.insert, [id, key, link]);
+                    log.info("creted new shortlink (" + key + ") for " + link);
+                    break;
+                }
+            }
         }
 
         urls = urls.filter((item) => item !== link);

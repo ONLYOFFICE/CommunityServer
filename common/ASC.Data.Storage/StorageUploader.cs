@@ -137,12 +137,12 @@ namespace ASC.Data.Storage
 
                     var crossModuleTransferUtility = new CrossModuleTransferUtility(oldStore, store);
 
-                    string[] files;
+                    IEnumerable<string> files;
                     foreach (var domain in domains)
                     {
                         Status = module + domain;
                         Log.DebugFormat("Domain: {0}", domain);
-                        files = oldStore.ListFilesRelative(domain, "\\", "*.*", true);
+                        files = oldStore.ListFilesRelative(domain, "\\", "*", true);
 
                         foreach (var file in files)
                         {
@@ -153,7 +153,7 @@ namespace ASC.Data.Storage
 
                     Log.DebugFormat("Module:{0},Domain:", module);
 
-                    files = oldStore.ListFilesRelative(string.Empty, "\\", "*.*", true)
+                    files = oldStore.ListFilesRelative(string.Empty, "\\", "*", true)
                         .Where(path => domains.All(domain => !path.Contains(domain + "/")))
                         .ToArray();
 

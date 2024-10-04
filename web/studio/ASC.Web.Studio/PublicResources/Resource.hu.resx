@@ -242,7 +242,7 @@
     <value>Engedélyez</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Az Azonosítási kulcsok segítségével csatlakoztathatja ONLYOFFICE™ portálját harmadik fél által üzemeltetett szolgáltatásokhoz, ilyen például a Twitter, a Facebook, a DropBox, stb. Csatlakoztassa portálját az előbbiek valamelyikéhez, ha nem akarja megadni a portál-hozzáférési adatokat minden belépéskor. Csatlakoztasson szolgáltatásokat, mint például DropBox, vagy OneDrive, stb., hogy az ott tárolt dokumentumokat az ONLYOFFICE™ Dokumentum moduljába illessze. </value>
+    <value>Az Azonosítási kulcsok segítségével csatlakoztathatja ONLYOFFICE™ portálját harmadik fél által üzemeltetett szolgáltatásokhoz, ilyen például a X (Twitter), a Facebook, a DropBox, stb. Csatlakoztassa portálját az előbbiek valamelyikéhez, ha nem akarja megadni a portál-hozzáférési adatokat minden belépéskor. Csatlakoztasson szolgáltatásokat, mint például DropBox, vagy OneDrive, stb., hogy az ott tárolt dokumentumokat az ONLYOFFICE™ Dokumentum moduljába illessze. </value>
   </data>
   <data name="AutoBackupOff" xml:space="preserve">
     <value>Tilt</value>
@@ -1398,7 +1398,7 @@ Biztonsági mentési lista</value>
     <value>ICQ</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TransferPortalButton" xml:space="preserve">
     <value>Szerverrégió megváltoztatása</value>

@@ -287,7 +287,7 @@
     <value>Aktifkan</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Sandi otorisasi adalah pilihan untuk menghubungkan portal ONLYOFFICE™ dengan layanan pihak ketiga seperti Twitter, Facebook, Dropbox, dll. Hubungkan portal Anda dengan Facebook, Twitter atau LinkedIn jika Anda tidak ingin menuliskan kata sandi setiap kali ingin masuk ke portal. Tautkan portal dengan layanan semacam Dropbox, OneDrive, Zoho, dll. untuk mentransfer dokumen dari seluruh penyimpanan dalam modul ONLYOFFICE™ Document.</value>
+    <value>Sandi otorisasi adalah pilihan untuk menghubungkan portal ONLYOFFICE™ dengan layanan pihak ketiga seperti X (Twitter), Facebook, Dropbox, dll. Hubungkan portal Anda dengan Facebook, X (Twitter) atau LinkedIn jika Anda tidak ingin menuliskan kata sandi setiap kali ingin masuk ke portal. Tautkan portal dengan layanan semacam Dropbox, OneDrive, Zoho, dll. untuk mentransfer dokumen dari seluruh penyimpanan dalam modul ONLYOFFICE™ Document.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Ketentuan Layanan</value>
@@ -2746,7 +2746,7 @@ Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email beris
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

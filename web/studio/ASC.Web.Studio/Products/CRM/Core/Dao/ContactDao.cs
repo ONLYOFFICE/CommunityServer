@@ -190,8 +190,13 @@ namespace ASC.CRM.Core.Dao
 
         public List<Contact> GetAllContacts()
         {
-            return GetContacts(String.Empty, new List<string>(), -1, -1, ContactListViewType.All, DateTime.MinValue, DateTime.MinValue, 0, 0,
-                new OrderBy(ContactSortedByType.DisplayName, true));
+            return GetAllContacts(0 ,0);
+        }
+
+        public List<Contact> GetAllContacts(int from, int count)
+        {
+            return GetContacts(string.Empty, new List<string>(), -1, -1, ContactListViewType.All, DateTime.MinValue, DateTime.MinValue, from, count,
+                new OrderBy(ContactSortedByType.Id, true));
         }
 
         public int GetContactsCount(String searchText,
@@ -856,6 +861,9 @@ namespace ASC.CRM.Core.Dao
                         sqlQuery.LeftOuterJoin(subSqlQuery, "evt", Exp.EqColumns("id", "evt.contact_id"));
                         sqlQuery.OrderBy("last_event_modifed_on", orderBy.IsAsc);
                         sqlQuery.OrderBy("create_on", orderBy.IsAsc);
+                        break;
+                    case ContactSortedByType.Id:
+                        sqlQuery.OrderBy("id", orderBy.IsAsc);
                         break;
                     default:
                         sqlQuery.OrderBy("display_name", orderBy.IsAsc);

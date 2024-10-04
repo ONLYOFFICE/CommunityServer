@@ -39,6 +39,8 @@ namespace ASC.Data.Storage
 
         TimeSpan GetExpire(string domain);
 
+        IDataStoreValidator GetValidator(string domain);
+
         ///<summary>
         /// Get absolute Uri for html links to handler
         ///</summary>
@@ -279,7 +281,7 @@ namespace ASC.Data.Storage
         ///<param name="pattern">Wildcard mask (*. jpg for example)</param>
         ///<param name="recursive">iterate subdirectories or not</param>
         ///<returns></returns>
-        string[] ListFilesRelative(string domain, string path, string pattern, bool recursive);
+        IEnumerable<string> ListFilesRelative(string domain, string path, string pattern, bool recursive);
 
         ///<summary>
         /// Checks whether a file exists. On s3 it took long time.

@@ -641,6 +641,7 @@ window.ASC.Files.Actions = (function () {
                 #filesRemove").show().removeClass("display-none");
 
             var entryTitle = entryData.title;
+            var fileExt = ASC.Files.Utility.GetFileExtension(entryTitle);
 
             if (ASC.Files.UI.denyDownload(entryData)) {
                 jq("#filesDownload, #filesConvert, #filesSendInEmail, #filesMoveto, #filesCopyto, #filesCopy").hide().addClass("display-none");
@@ -657,7 +658,7 @@ window.ASC.Files.Actions = (function () {
             }
 
             if (!ASC.Files.ThirdParty || !ASC.Files.ThirdParty.thirdpartyAvailable()
-                || jq.inArray(ASC.Files.Utility.GetFileExtension(entryTitle), ASC.Files.Constants.DocuSignFormats) == -1
+                || jq.inArray(fileExt, ASC.Files.Constants.DocuSignFormats) == -1
                 || entryData.encrypted
                 || (jq("#thirdpartyToDocuSign").length + jq("#thirdpartyToDocuSignHelper").length == 0)) {
                 jq("#filesDocuSign").hide();
@@ -715,15 +716,13 @@ window.ASC.Files.Actions = (function () {
                 || editingFile && (!ASC.Files.Utility.CanCoAuhtoring(entryTitle) || entryObj.hasClass("on-edit-alone"))
                 || lockedForMe) {
                 jq("#filesEdit,\
-                    #filesFillForm,\
-                    #filesCreateForm").hide().addClass("display-none");
-            } else if (ASC.Files.Utility.CanWebRestrictedEditing(entryTitle) && !entryData.encrypted) {
-                jq("#filesEdit, #filesCreateForm").hide().addClass("display-none");
-            } else {
+                    #filesFillForm").hide().addClass("display-none");
+            } else if (!ASC.Files.Utility.CanWebRestrictedEditing(entryTitle) || entryData.encrypted) {
                 jq("#filesFillForm").hide().addClass("display-none");
-                if (!ASC.Files.Utility.FileIsMasterForm(entryTitle)) {
-                    jq("#filesCreateForm").hide().addClass("display-none");
-                }
+            }
+
+            if (fileExt !== ".docxf" && fileExt !== ".oform") {
+                jq("#filesCreateForm").hide().addClass("display-none");
             }
 
             if (entryData.encrypted) {
@@ -1126,8 +1125,8 @@ window.ASC.Files.Actions = (function () {
         iframe.contentWindow.location.href = uri;
     };
 
-    var openDocumentPrivacyCheck = function (fileId, winEditor, fileObj) {
-        var urlForFileOpenWebEditor = ASC.Files.Utility.GetFileWebEditorUrl(fileId);
+    var openDocumentPrivacyCheck = function (fileId, winEditor, fileObj, forFill) {
+        var urlForFileOpenWebEditor = forFill ? ASC.Files.Utility.GetFileWebFillUrl(fileId) : ASC.Files.Utility.GetFileWebEditorUrl(fileId);
         var customUrlForFileOpenDesktopEditor = ASC.Files.Utility.GetFileCustomProtocolEditorUrl(fileId);
         var urlForOpenPrivate = ASC.Files.Utility.GetOpenPrivate(fileId);
         if (!fileObj.length) {
@@ -1153,10 +1152,10 @@ window.ASC.Files.Actions = (function () {
         }
     };
 
-    var checkEditFile = function (fileId, winEditor) {
+    var checkEditFile = function (fileId, winEditor, forFill) {
         var fileObj = ASC.Files.UI.getEntryObject("file", fileId);
         ASC.Files.UI.lockEditFile(fileObj, true);
-        openDocumentPrivacyCheck(fileId, winEditor, fileObj);
+        openDocumentPrivacyCheck(fileId, winEditor, fileObj, forFill);
     
         var onloadFunction = function () {
             var fileIdLocal = fileId;
@@ -1426,7 +1425,7 @@ window.ASC.Files.Actions = (function () {
 
         jq("#filesOpen").on("click", function () {
             ASC.Files.Actions.hideAllActionPanels();
-            ASC.Files.Folders.clickOnFile(ASC.Files.Actions.currentEntryData, false);
+            ASC.Files.Folders.clickOnFile(ASC.Files.Actions.currentEntryData, false, false);
             return false;
         });
 
@@ -1451,9 +1450,14 @@ window.ASC.Files.Actions = (function () {
             ASC.Files.Folders.showVersions(ASC.Files.Actions.currentEntryData.entryObject, ASC.Files.Actions.currentEntryData.id);
         });
 
-        jq("#filesEdit, #filesFillForm").on("click", function () {
+        jq("#filesEdit").on("click", function () {
             ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Folders.clickOnFile(ASC.Files.Actions.currentEntryData, true);
+        });
+
+        jq("#filesFillForm").on("click", function () {
+            ASC.Files.Actions.hideAllActionPanels();
+            ASC.Files.Folders.clickOnFile(ASC.Files.Actions.currentEntryData, false, true);
         });
 
         jq("#filesCreateForm").on("click", function () {

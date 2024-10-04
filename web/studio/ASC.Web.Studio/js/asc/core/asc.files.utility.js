@@ -455,6 +455,14 @@ ASC.Files.Utility.GetFileWebEditorUrl = function (fileId) {
     return url;
 };
 
+ASC.Files.Utility.GetFileWebFillUrl = function (fileId) {
+    var url = ASC.Files.Utility.Resource.FileWebFillingUrlString.format(encodeURIComponent(fileId));
+
+    url = ASC.Files.Utility.AddExternalShareKey(url);
+
+    return url;
+};
+
 ASC.Files.Utility.GetFileCustomProtocolEditorUrl = function (fileId) {
     return ASC.Files.Utility.Resource.FileCustomProtocolEditorUrlString.format(encodeURIComponent(fileId));
 };

@@ -58,7 +58,7 @@ namespace ASC.Api.Settings
 
         private static string GetCommunityVersion()
         {
-            return ConfigurationManagerExtension.AppSettings["version.number"] ?? "12.5.0";
+            return ConfigurationManagerExtension.AppSettings["version.number"] ?? "12.7.0";
         }
 
         private static string GetDocumentVersion()

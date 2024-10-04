@@ -229,7 +229,11 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendEmailChangeInstructions(UserInfo user, string email)
         {
-            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailChange, SecurityContext.CurrentAccount.ID);
+            var auditEventDate = DateTime.UtcNow;
+
+            var hash = auditEventDate.ToString("s");
+
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailChange, hash);
 
             Func<string> greenButtonText = () => WebstudioNotifyPatternResource.ButtonChangeEmail;
 
@@ -244,6 +248,10 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { EMailSenderName },
                         TagValues.GreenButton(greenButtonText, confirmationUrl),
                         new TagValue(CommonTags.Culture, user.GetCulture().Name));
+
+            var displayUserName = user.DisplayUserName(false);
+
+            MessageService.Send(HttpContext.Current.Request, auditEventDate, MessageAction.UserSentEmailChangeInstructions, MessageTarget.Create(user.ID), displayUserName);
         }
 
         public void SendEmailActivationInstructions(UserInfo user, string email)

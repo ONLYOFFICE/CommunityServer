@@ -151,6 +151,14 @@ namespace ASC.Specific.GlobalFilters
                     return products[module];
                 }
             }
+            if (method.Name == "mailserver")
+            {
+                var module = "mail";
+                if (products.ContainsKey(module))
+                {
+                    return products[module];
+                }
+            }
             if (products.ContainsKey(method.Name))
             {
                 return products[method.Name];

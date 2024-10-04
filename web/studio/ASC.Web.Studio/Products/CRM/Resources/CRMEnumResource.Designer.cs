@@ -313,7 +313,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter.
+        ///   Looks up a localized string similar to X (Twitter).
         /// </summary>
         public static string ContactInfoType_Twitter {
             get {

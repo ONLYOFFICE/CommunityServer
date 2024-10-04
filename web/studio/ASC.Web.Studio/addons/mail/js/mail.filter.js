@@ -464,7 +464,8 @@ window.MailFilter = (function($) {
         setPage(pageParam ? pageParam : 1);
 
         if (pageSizeParam) {
-            setPageSize(pageSizeParam);
+            pageSizeParam = parseInt(pageSizeParam);
+            setPageSize([25, 50, 75, 100].includes(pageSizeParam) ? pageSizeParam : TMMail.option('MessagesPageSize'));
         } else {
             setPageSize(TMMail.option('MessagesPageSize'));
         }

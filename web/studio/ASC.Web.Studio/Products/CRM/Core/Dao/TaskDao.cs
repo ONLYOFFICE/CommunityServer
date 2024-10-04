@@ -150,11 +150,24 @@ namespace ASC.CRM.Core.Dao
 
         public List<Task> GetAllTasks()
         {
-            return Db.ExecuteList(
-                GetTaskQuery(null)
-                .OrderBy("deadline", true)
-                .OrderBy("title", true))
-                .ConvertAll(row => ToTask(row)).FindAll(CRMSecurity.CanAccessTo);
+            return GetAllTasks(0, 0);
+        }
+
+        public List<Task> GetAllTasks(int from, int count)
+        {
+            var sqlQuery = GetTaskQuery(null);
+
+            if (0 < from && from < int.MaxValue)
+                sqlQuery.SetFirstResult(from);
+
+            if (0 < count && count < int.MaxValue)
+                sqlQuery.SetMaxResults(count);
+
+            sqlQuery.OrderBy("id", true);
+
+            return Db.ExecuteList(sqlQuery)
+                .ConvertAll(row => ToTask(row))
+                .FindAll(CRMSecurity.CanAccessTo);
         }
 
         public void ExecAlert(IEnumerable<int> ids)
@@ -646,6 +659,9 @@ namespace ASC.CRM.Core.Dao
                                 .OrderBy("case when c_tbl.display_name is null then 1 else 0 end, c_tbl.display_name", orderBy.IsAsc)
                                 .OrderBy(aliasPrefix + "deadline", true)
                                 .OrderBy(aliasPrefix + "title", true);
+                        break;
+                    case TaskSortedByType.Id:
+                        sqlQuery.OrderBy(aliasPrefix + "id", orderBy.IsAsc);
                         break;
                 }
             }

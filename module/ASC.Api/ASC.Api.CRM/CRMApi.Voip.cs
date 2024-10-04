@@ -159,7 +159,7 @@ namespace ASC.Api.CRM
         {
             var storage = StorageFactory.GetStorage("", "crm");
             const string path = "default/";
-            var files = storage.ListFilesRelative("voip", path, "*.*", true)
+            var files = storage.ListFilesRelative("voip", path, "*", true)
                                .Select(filePath => new
                                {
                                    path = CommonLinkUtility.GetFullAbsolutePath(storage.GetUri("voip", Path.Combine(path, filePath)).ToString()),
@@ -415,7 +415,7 @@ namespace ASC.Api.CRM
 
                 path = "default/" + audioType.ToLower();
                 store = StorageFactory.GetStorage("", "crm");
-                filePaths = store.ListFilesRelative("voip", path, "*.*", true);
+                filePaths = store.ListFilesRelative("voip", path, "*", true);
                 result.AddRange(
                     filePaths.Select(filePath =>
                                      GetVoipUpload(store.GetUri("voip", Path.Combine(path, filePath)), Path.GetFileName(filePath), type, true)));

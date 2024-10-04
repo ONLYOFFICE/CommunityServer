@@ -263,7 +263,7 @@ case "$1" in
 		rm -f /etc/nginx/sites-enabled/{{package_sysname}}-apisystem
 
 		# disable apparmor mysql. need for best perfomance mysql
-		if which apparmor_parser && [ ! -f /etc/apparmor.d/disable/usr.sbin.mysqld ]; then
+		if which apparmor_parser && [ ! -f /etc/apparmor.d/disable/usr.sbin.mysqld ] && [ -f /etc/apparmor.d/disable/ ]; then
 			ln -sf /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
 			apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld || true
 		fi
@@ -283,13 +283,13 @@ END
 		[ -f /usr/lib/python3.$(python3 -c 'import sys; print(sys.version_info.minor)')/EXTERNALLY-MANAGED ] && \
 		rm /usr/lib/python3.$(python3 -c 'import sys; print(sys.version_info.minor)')/EXTERNALLY-MANAGED
 		
-		python3 -m pip install --upgrade pip
-		python3 -m pip install --upgrade requests
-		python3 -m pip install --upgrade setuptools 
-		python3 -m pip install --upgrade radicale==3.0.5
-		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
-		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
-		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
+		for pkg in radicale==3.0.5 requests setuptools importlib_metadata; do
+			dpkg -l python3-"${pkg%%=*}" &>/dev/null || pip_packages+=("$pkg")
+		done
+
+		export PIP_ROOT_USER_ACTION=ignore
+		python3 -m pip install --upgrade "${pip_packages[@]}" \
+			"$DIR/Tools/radicale/plugins/"{app_auth_plugin,app_store_plugin,app_rights_plugin}/. || true
 		
         #configure elasticsearch
         service elasticsearch stop
@@ -452,7 +452,7 @@ EOF
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${APP_ROOT_DIR}/web.appsettings.config;
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 
-			if systemctl is-active {{package_sysname}}ControlPanel | grep -q ^active; then
+			if systemctl is-active {{package_sysname}}ControlPanel &>/dev/null; then
 				service {{package_sysname}}ControlPanel restart >/dev/null 2>&1
 			fi
 		fi
@@ -522,7 +522,7 @@ CipherString = $CIPHERSTRING \n" >> $OPENSSL_CONF
 		service nginx restart >/dev/null 2>&1
 		service mysql restart >/dev/null 2>&1 || true # ignore errors
 		
-		if systemctl is-active monoserve | grep -q "active"; then
+		if systemctl is-active monoserve &>/dev/null; then
 			curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true
 		fi		
 		

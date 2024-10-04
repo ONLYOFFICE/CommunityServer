@@ -284,7 +284,7 @@
     <value>Povolit</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Možnost Autorizační klíče, která Vám umožňuje připojit Váš ONLYOFFICE™ portál se službami třetích stran jako jsou Twitter, Facebook, DropBox atd. Připojte Váš portál k Facebooku, Twitteru nebo Linkedin, pokud nechcete zadávat Vaše portálové pověření pokaždé, když do něj vstoupíte. Připojit portál se službami jako DropBox, OneDriv atd. pro přesun dokumentů ze všech těchto úložišť do ONLYOFFICE™ modulu Dokumenty.</value>
+    <value>Možnost Autorizační klíče, která Vám umožňuje připojit Váš ONLYOFFICE™ portál se službami třetích stran jako jsou X (Twitter), Facebook, DropBox atd. Připojte Váš portál k Facebooku, X (Twitter)u nebo Linkedin, pokud nechcete zadávat Vaše portálové pověření pokaždé, když do něj vstoupíte. Připojit portál se službami jako DropBox, OneDriv atd. pro přesun dokumentů ze všech těchto úložišť do ONLYOFFICE™ modulu Dokumenty.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Podmínky použití</value>
@@ -751,7 +751,7 @@
     <value>Telefonní číslo od společnosti Twilio (vyžadováno pro autorizaci SMS)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter v CRM Klíči</value>
@@ -763,19 +763,19 @@
     <value>Twitter klíč</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Připojte aplikaci k přihlášení do portálu pomocí Twitteru a vyhledejte kontakty.</value>
+    <value>Připojte aplikaci k přihlášení do portálu pomocí X (Twitter) a vyhledejte kontakty.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Pokud přidáte aplikaci služby Twitter, budete moci připojit svůj Twitter účet k Vaší profilové stránce, takže se touto službou budete moci přihlásit k Vašemu ONLYOFFICE™. Budete moci také nalézt svůj Twitter účet v CRM modulu a spojit ho na stránce "Upravit osobu/společnost" a sledovat Twitter novinky.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Přístupový Token</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter klíč</value>
+    <value>X (Twitter) klíč</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Přístupový tajný Token</value>
@@ -2756,7 +2756,7 @@ pokud chce změnit uzamčené pole profilu</value>
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Hurá!!</value>

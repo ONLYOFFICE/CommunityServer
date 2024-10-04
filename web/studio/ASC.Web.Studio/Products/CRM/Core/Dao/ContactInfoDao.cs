@@ -198,7 +198,12 @@ namespace ASC.CRM.Core.Dao
 
         public List<ContactInfo> GetAll()
         {
-            return GetList(0, null, null, null);
+            return GetAll(0, 0);
+        }
+
+        public List<ContactInfo> GetAll(int from, int count)
+        {
+            return GetList(0, null, null, null, from, count);
         }
 
         public List<ContactInfo> GetAll(int[] contactID)
@@ -213,7 +218,7 @@ namespace ASC.CRM.Core.Dao
             return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContactInfo(row));
         }
 
-        public virtual List<ContactInfo> GetList(int contactID, ContactInfoType? infoType, int? categoryID, bool? isPrimary)
+        public virtual List<ContactInfo> GetList(int contactID, ContactInfoType? infoType, int? categoryID, bool? isPrimary, int? from = null, int? count = null)
         {
             SqlQuery sqlQuery = GetSqlQuery(null);
 
@@ -229,10 +234,13 @@ namespace ASC.CRM.Core.Dao
             if (isPrimary.HasValue)
                 sqlQuery.Where(Exp.Eq("is_primary", isPrimary.Value));
 
-            sqlQuery.OrderBy("type", true);
-            // sqlQuery.OrderBy("category", true);
-            //  sqlQuery.OrderBy("is_primary", true);
+            if (from.HasValue && 0 < from && from < int.MaxValue)
+                sqlQuery.SetFirstResult(from.Value);
 
+            if (count.HasValue && 0 < count && count < int.MaxValue)
+                sqlQuery.SetMaxResults(count.Value);
+
+            sqlQuery.OrderBy(from.HasValue || count.HasValue ? "id" : "type", true);
 
             return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContactInfo(row));
         }

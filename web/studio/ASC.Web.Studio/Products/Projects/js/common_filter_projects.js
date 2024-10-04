@@ -376,12 +376,12 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             switch (filterid) {
                 case meTeamMemberFilter:
                 case teamMemberFilter:
-                    data.participant = id;
+                    data.participant = getIdOrValue(params);
                     anchor = changeParamValue(anchor, teamMemberFilter, data.participant);
                     break;
                 case meProjectManagerFilter:
                 case projectManagerFilter:
-                    data.manager = id;
+                    data.manager = getIdOrValue(params);
                     anchor = changeParamValue(anchor, projectManagerFilter, data.manager);
                     break;
                 case meResponsibleForMilestoneFilter:

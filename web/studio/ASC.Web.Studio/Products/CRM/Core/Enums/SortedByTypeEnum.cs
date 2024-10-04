@@ -24,7 +24,8 @@ namespace ASC.CRM.Core
         Category,
         DeadLine,
         Contact,
-        ContactManager
+        ContactManager,
+        Id
     }
 
     public enum DealSortedByType
@@ -33,7 +34,8 @@ namespace ASC.CRM.Core
         Responsible,
         Stage,
         BidValue,
-        DateAndTime
+        DateAndTime,
+        Id
     }
 
     public enum RelationshipEventByType
@@ -41,7 +43,8 @@ namespace ASC.CRM.Core
         Created,
         CreateBy,
         Category,
-        Content
+        Content,
+        Id
     }
 
     public enum ContactSortedByType
@@ -51,14 +54,16 @@ namespace ASC.CRM.Core
         Created,
         FirstName,
         LastName,
-        History
+        History,
+        Id
     }
 
     public enum SortedByType
     {
         DateAndTime,
         Title,
-        CreateBy
+        CreateBy,
+        Id
     }
 
     public enum InvoiceSortedByType
@@ -67,7 +72,8 @@ namespace ASC.CRM.Core
         IssueDate,
         Contact,
         DueDate,
-        Status
+        Status,
+        Id
     }
 
     public enum InvoiceItemSortedByType
@@ -76,7 +82,7 @@ namespace ASC.CRM.Core
         Price,
         Quantity,
         SKU,
-        Created
+        Created,
+        Id
     }
-
 }

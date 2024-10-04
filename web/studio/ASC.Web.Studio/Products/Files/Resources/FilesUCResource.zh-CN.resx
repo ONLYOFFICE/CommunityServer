@@ -266,8 +266,7 @@
     <value>回到父资料夹</value>
   </data>
   <data name="ButtonUnlock" xml:space="preserve">
-    <value>
-释</value>
+    <value>解锁协作编辑</value>
   </data>
   <data name="ButtonUp" xml:space="preserve">
     <value>顶部</value>

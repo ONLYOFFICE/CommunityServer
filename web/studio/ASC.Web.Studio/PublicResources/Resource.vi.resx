@@ -284,7 +284,7 @@
     <value>Bật</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Key ủy quyền là tùy chọn cho phép bạn kết nối hệ thống ONLYOFFICE™ với các dịch vụ của bên thứ ba như Twitter, Facebook, DropBox, v.v. Kết nối cổng thông tin của bạn với Facebook, Twitter hoặc Linkedin nếu bạn không muốn khai các thông tin xác thực hệ thống cho mỗi lần đăng nhập. Liên kết nó với các dịch vụ như DropBox, OneDrive, v.v để chuyển các tài liệu từ tất cả các bộ nhớ lưu trữ đó tới mô-đun Tài liệu của ONLYOFFICE.</value>
+    <value>Key ủy quyền là tùy chọn cho phép bạn kết nối hệ thống ONLYOFFICE™ với các dịch vụ của bên thứ ba như X (Twitter), Facebook, DropBox, v.v. Kết nối cổng thông tin của bạn với Facebook, X (Twitter) hoặc Linkedin nếu bạn không muốn khai các thông tin xác thực hệ thống cho mỗi lần đăng nhập. Liên kết nó với các dịch vụ như DropBox, OneDrive, v.v để chuyển các tài liệu từ tất cả các bộ nhớ lưu trữ đó tới mô-đun Tài liệu của ONLYOFFICE.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Điều khoản dịch vụ</value>
@@ -749,7 +749,7 @@
     <value>Số điện thoại từ Twilio (được yêu cầu để cho phép gửi SMS)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter trong CRM Key</value>
@@ -761,19 +761,19 @@
     <value>Twitter Key</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Kết nối ứng dụng để đăng nhập vào hệ thống bằng tài khoản Twitter và tìm kiếm địa chỉ liên hệ.</value>
+    <value>Kết nối ứng dụng để đăng nhập vào hệ thống bằng tài khoản X (Twitter) và tìm kiếm địa chỉ liên hệ.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Nếu bạn thêm một ứng dụng của dịch vụ Twitter, bạn sẽ có thể kết nối tài khoản Twitter trên trang hồ sơ của bạn và dùng nó để đăng nhập vào cổng thông tin ONLYOFFICE™. Bạn cũng sẽ có thể tìm thấy tài khoản Twitter của một người trong mô-đun CRM và liên kết nó lên trang 'Chỉnh sửa cá nhân/công ty' và sau đó xem news feed trên Twitter.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Token truy cập</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter Key</value>
+    <value>X (Twitter) Key</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Bí mật Token truy cập</value>
@@ -2745,7 +2745,7 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

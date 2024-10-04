@@ -290,7 +290,7 @@
     <value>Активиране</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Ключовете за оторизация са опцията, която ви позволява да свържете своя ONLYOFFICE™ портал с услуги на трети страни като Twitter, Facebook, DropBox и т.н. Свържете портала си с Facebook, Twitter или Linkedin, ако не искате да въвеждате вашите портала. Вие го въвеждате. Свържете го с такива услуги като DropBox, OneDrive и др., За да прехвърлите документите от всички тези хранилища в модула ONLYOFFICE™ Documents.</value>
+    <value>Ключовете за оторизация са опцията, която ви позволява да свържете своя ONLYOFFICE™ портал с услуги на трети страни като X (Twitter), Facebook, DropBox и т.н. Свържете портала си с Facebook, X (Twitter) или Linkedin, ако не искате да въвеждате вашите портала. Вие го въвеждате. Свържете го с такива услуги като DropBox, OneDrive и др., За да прехвърлите документите от всички тези хранилища в модула ONLYOFFICE™ Documents.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Условия за ползване</value>
@@ -872,7 +872,7 @@
     <value>Телефонен номер от Twilio (изисква се за SMS разрешение)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter в CRM ключа</value>
@@ -884,19 +884,19 @@
     <value>Ключ за Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Свържете приложението, за да влезете в портала, като използвате профил в Twitter и потърсете контакти.</value>
+    <value>Свържете приложението, за да влезете в портала, като използвате профил в X (Twitter) и потърсете контакти.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Ако добавите приложение на услугата Twitter, ще можете да свържете профила си в Twitter в страницата на профила си, така че да можете да влезете в портала ONLYOFFICE™, като го използвате. Също така ще можете да намерите профил в Twitter на човек в модула CRM и да го свържете на страницата 'Редактиране на човек/фирма' и след това да прегледате емисия на новини в Twitter.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>ID на Twitter</value>
+    <value>ID на X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Жетон за достъп</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Ключ за Twitter</value>
+    <value>Ключ за X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Достъп до Token Secret</value>
@@ -3236,7 +3236,7 @@
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo !!</value>

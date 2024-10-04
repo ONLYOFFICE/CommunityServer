@@ -22,6 +22,7 @@ using System.Linq;
 
 using ASC.Common.Data;
 using ASC.Common.Logging;
+using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Data.Backup.Extensions;
 using ASC.Data.Backup.Tasks.Modules;
@@ -64,7 +65,7 @@ namespace ASC.Data.Backup.Tasks
             Logger.DebugFormat("begin transfer {0}", TenantId);
             var fromDbFactory = new DbFactory(ConfigPath);
             var toDbFactory = new DbFactory(ToConfigPath);
-            string tenantAlias = GetTenantAlias(fromDbFactory);
+            string tenantAlias = GetTenantAlias(fromDbFactory, TenantId);
             string backupFilePath = GetBackupFilePath(tenantAlias);
             var columnMapper = new ColumnMapper();
             try
@@ -80,7 +81,7 @@ namespace ASC.Data.Backup.Tasks
                 SetStepsCount(ProcessStorage ? 3 : 2);
 
                 //save db data to temporary file
-                var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath, Limit) { ProcessStorage = false };
+                var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath, Limit, CoreContext.Configuration.Standalone) { ProcessStorage = false };
                 backupTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
                 backupTask.WriteOperator = ZipWriteOperatorFactory.GetDefaultWriteOperator(backupFilePath);
 
@@ -102,7 +103,7 @@ namespace ASC.Data.Backup.Tasks
                 //transfer files
                 if (ProcessStorage)
                 {
-                    DoTransferStorage(columnMapper);
+                    DoTransferStorage(columnMapper, TenantId);
                 }
 
                 SaveTenant(toDbFactory, tenantAlias, TenantStatus.Active);
@@ -136,14 +137,14 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
-        private void DoTransferStorage(ColumnMapper columnMapper)
+        private void DoTransferStorage(ColumnMapper columnMapper, int tenantId)
         {
             Logger.Debug("begin transfer storage");
-            var fileGroups = GetFilesToProcess(TenantId).GroupBy(file => file.Module).ToList();
+            var fileGroups = GetFilesToProcess(tenantId).GroupBy(file => file.Module).ToList();
             int groupsProcessed = 0;
             foreach (var group in fileGroups)
             {
-                var baseStorage = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), group.Key);
+                var baseStorage = StorageFactory.GetStorage(ConfigPath, tenantId.ToString(), group.Key);
                 var destStorage = StorageFactory.GetStorage(ToConfigPath, columnMapper.GetTenantMapping().ToString(), group.Key);
                 var utility = new CrossModuleTransferUtility(baseStorage, destStorage);
 
@@ -210,11 +211,11 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
-        private string GetTenantAlias(DbFactory dbFactory)
+        private string GetTenantAlias(DbFactory dbFactory, int tenantId)
         {
             using (var connection = dbFactory.OpenConnection())
             {
-                var commandText = "select alias from tenants_tenants where id = " + TenantId;
+                var commandText = "select alias from tenants_tenants where id = " + tenantId;
                 return connection.CreateCommand(commandText).WithTimeout(120).ExecuteScalar<string>();
             }
         }

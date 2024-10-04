@@ -41,7 +41,8 @@ window.messagePage = (function ($) {
         crmContactsInfo = [],
         lastSendMessageId,
         progressBarIntervalId,
-        tmplItems = [];
+        tmplItems = [],
+        observer = null;
 
     function setHasLinked(val) {
         if (hasLinked !== val) {
@@ -60,6 +61,12 @@ window.messagePage = (function ($) {
             window.Teamlab.bind(window.Teamlab.events.saveMailTemplate, onSaveTemplate);
             window.Teamlab.bind(window.Teamlab.events.markChainAsCrmLinked, onMarkChainAsCrmLinked);
             window.Teamlab.bind(window.Teamlab.events.createMailContact, onCreateMailContact);
+
+            observer = new MutationObserver(function (mutationList) {
+                mutationList.forEach(function (mutation) {
+                    onMessageChanged.call(mutation.target);
+                })
+            });
         }
 
         attachmentMenuItems = [
@@ -2103,10 +2110,14 @@ window.messagePage = (function ($) {
         $('#newmessageSubject').on('textchange', function () {
             // Subject has changed, then it's a new chain;
             updateReplyTo("");
-            onMessageChanged();
+            onMessageChanged.call(this);
         });
+
         $('#newmessageImportance').on('click', onMessageChanged);
-        $('div.itemTags').on('DOMNodeInserted DOMNodeRemoved', onMessageChanged);
+
+        document.querySelectorAll('div.itemTags').forEach(function (target) {
+            observer.observe(target, { childList: true });
+        })
     }
 
     function onMessageChanged() {
@@ -2176,7 +2187,7 @@ window.messagePage = (function ($) {
 
         $('#newmessageImportance').off('click');
 
-        $('div.itemTags').off('DOMNodeInserted DOMNodeRemoved');
+        observer.disconnect();
 
         $('#pageActionContainer').empty();
         $('#editMessagePageFooter').empty();

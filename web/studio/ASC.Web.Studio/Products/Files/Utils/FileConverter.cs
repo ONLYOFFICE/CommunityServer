@@ -104,7 +104,7 @@ namespace ASC.Web.Files.Utils
             return Exec(file, FileUtility.GetInternalExtension(file.Title));
         }
 
-        public static Stream Exec(File file, string toExtension)
+        public static Stream Exec(File file, string toExtension, bool toForm = false)
         {
             if ((toExtension == FileUtility.MasterFormExtension || FileUtility.ExtsWebRestrictedEditing.Contains(toExtension)) && CoreContext.Configuration.CustomMode)
             {
@@ -128,7 +128,7 @@ namespace ASC.Web.Files.Utils
             var docKey = DocumentServiceHelper.GetDocKey(file);
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri, out _);
+            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, toForm, false, out convertUri, out _);
 
             if (WorkContext.IsMono && ServicePointManager.ServerCertificateValidationCallback == null)
             {
@@ -164,7 +164,7 @@ namespace ASC.Web.Files.Utils
             string convertUri;
             string convertedType;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri, out convertedType);
+            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, false, out convertUri, out convertedType);
 
             return SaveConvertedFile(file, convertUri, convertedType);
         }
@@ -383,7 +383,7 @@ namespace ASC.Web.Files.Utils
                             var docKey = DocumentServiceHelper.GetDocKey(file);
 
                             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, CultureInfo.CurrentUICulture.Name, null, null, true, out convertedFileUrl, out convertedFileType);
+                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, CultureInfo.CurrentUICulture.Name, null, null, false, true, out convertedFileUrl, out convertedFileType);
                         }
                         catch (Exception exception)
                         {

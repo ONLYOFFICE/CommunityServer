@@ -85,6 +85,7 @@ namespace ASC.Web.Core.Files
         /// <param name="region">Four letter language codes</param>
         /// <param name="thumbnail">Thumbnail settings</param>
         /// <param name="spreadsheetLayout"></param>
+        /// <param name="toForm">To form</param>
         /// <param name="isAsync">Perform conversions asynchronously</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="convertedDocumentUri">Uri to the converted document</param>
@@ -106,6 +107,7 @@ namespace ASC.Web.Core.Files
             string region,
             ThumbnailData thumbnail,
             SpreadsheetLayout spreadsheetLayout,
+            bool toForm,
             bool isAsync,
             string signatureSecret,
             out string convertedDocumentUri,
@@ -121,7 +123,12 @@ namespace ASC.Web.Core.Files
             documentRevisionId = string.IsNullOrEmpty(documentRevisionId)
                                      ? documentUri
                                      : documentRevisionId;
+
             documentRevisionId = GenerateRevisionId(documentRevisionId);
+
+            documentConverterUrl = FilesLinkUtility.AddQueryString(documentConverterUrl, new Dictionary<string, string>() {
+                { FilesLinkUtility.ShardKey, documentRevisionId }
+            });
 
             var request = (HttpWebRequest)WebRequest.Create(documentConverterUrl);
             request.Method = "POST";
@@ -145,6 +152,11 @@ namespace ASC.Web.Core.Files
             if (!string.IsNullOrEmpty(password))
             {
                 body.Password = password;
+            }
+
+            if (toForm)
+            {
+                body.Pdf = new ConvertionPdf { form = true };
             }
 
             if (!string.IsNullOrEmpty(signatureSecret))
@@ -247,6 +259,10 @@ namespace ASC.Web.Core.Files
             MetaData meta,
             string signatureSecret)
         {
+            documentTrackerUrl = FilesLinkUtility.AddQueryString(documentTrackerUrl, new Dictionary<string, string>() {
+                { FilesLinkUtility.ShardKey, documentRevisionId }
+            });
+
             var request = (HttpWebRequest)WebRequest.Create(documentTrackerUrl);
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -337,6 +353,10 @@ namespace ASC.Web.Core.Files
 
             if (string.IsNullOrEmpty(requestKey) && string.IsNullOrEmpty(scriptUrl))
                 throw new ArgumentException("requestKey or inputScript is empty");
+
+            docbuilderUrl = FilesLinkUtility.AddQueryString(docbuilderUrl, new Dictionary<string, string>() {
+                { FilesLinkUtility.ShardKey, requestKey }
+            });
 
             var request = (HttpWebRequest)WebRequest.Create(docbuilderUrl);
             request.Method = "POST";
@@ -679,6 +699,15 @@ namespace ASC.Web.Core.Files
         }
 
         [Serializable]
+        [DataContract(Name = "pdf", Namespace = "")]
+        [DebuggerDisplay("form {form}")]
+        public class ConvertionPdf
+        {
+            [DataMember(Name = "form")]
+            public bool form;
+        }
+
+        [Serializable]
         [DataContract(Name = "Converion", Namespace = "")]
         [DebuggerDisplay("{Title} from {FileType} to {OutputType} ({Key})")]
         private class ConvertionBody
@@ -712,6 +741,9 @@ namespace ASC.Web.Core.Files
 
             [DataMember(Name = "region", IsRequired = true)]
             public string Region { get; set; }
+
+            [DataMember(Name = "pdf", EmitDefaultValue = false)]
+            public ConvertionPdf Pdf { get; set; }
 
             [DataMember(Name = "token", EmitDefaultValue = false)]
             public string Token { get; set; }
@@ -790,23 +822,11 @@ namespace ASC.Web.Core.Files
                 string errorMessage;
                 switch (code)
                 {
-                    case ErrorCode.VkeyUserCountExceed:
-                        errorMessage = "user count exceed";
+                    case ErrorCode.SizeLimit:
+                        errorMessage = "size limit exceeded";
                         break;
-                    case ErrorCode.VkeyKeyExpire:
-                        errorMessage = "signature expire";
-                        break;
-                    case ErrorCode.VkeyEncrypt:
-                        errorMessage = "encrypt signature";
-                        break;
-                    case ErrorCode.UploadCountFiles:
-                        errorMessage = "count files";
-                        break;
-                    case ErrorCode.UploadExtension:
-                        errorMessage = "extension";
-                        break;
-                    case ErrorCode.UploadContentLength:
-                        errorMessage = "upload length";
+                    case ErrorCode.OutputType:
+                        errorMessage = "output format not defined";
                         break;
                     case ErrorCode.Vkey:
                         errorMessage = "document signature";
@@ -839,12 +859,8 @@ namespace ASC.Web.Core.Files
 
             public enum ErrorCode
             {
-                VkeyUserCountExceed = -22,
-                VkeyKeyExpire = -21,
-                VkeyEncrypt = -20,
-                UploadCountFiles = -11,
-                UploadExtension = -10,
-                UploadContentLength = -9,
+                SizeLimit = -10,
+                OutputType = -9,
                 Vkey = -8,
                 TaskQueue = -6,
                 ConvertPassword = -5,

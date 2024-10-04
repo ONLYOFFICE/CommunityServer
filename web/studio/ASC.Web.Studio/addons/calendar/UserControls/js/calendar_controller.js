@@ -340,44 +340,39 @@ ASC.CalendarController = new function() {
 
     //==================================================
     
-    var getTodoData = function (calendarId, name, description, sDate, priority, completed) {
-
-        var startDate = sDate ? sDate.getTime() != new Date(1, 0, 1, 23, 59, 59).getTime() ? new Date(sDate.getTime()) : null : null;
-        
-        var comp = new ICAL.Component(['vcalendar', [], []]);
-        var vtodo = new ICAL.Component('vtodo');
-        
-        var todo = new ICAL.Event(vtodo);
-        
-        todo.summary = name;
-        todo.description = description ? description : "";
-       
-        var dtstart = ICAL.Time.fromJSDate(new Date());
-        dtstart.zone = ICAL.Timezone.utcTimezone;
+    var getTodoData = function (calendarId, name, description, sDate, priority, completed, timeZone, offset) {
 
         var now = new Date();
-        var dtcompleted = ICAL.Time.fromJSDate(new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000)));
-        dtcompleted.zone = ICAL.Timezone.utcTimezone;
-        
-        if (startDate != null) {
-            startDate = new Date(startDate.getTime() + (startDate.getTimezoneOffset() * 60 * 1000));
-            dtstart = ICAL.Time.fromJSDate(startDate, false);
-            dtstart.zone = ICAL.Timezone.utcTimezone;
-            todo.startDate = dtstart;
+        var startDate = sDate ? sDate.getTime() != new Date(1, 0, 1, 23, 59, 59).getTime() ? new Date(sDate.getTime()) : now : now;
+
+        var comp = new ICAL.Component(['vcalendar', [], []]);
+        var vtodo = new ICAL.Component('vtodo');
+
+        var todo = new ICAL.Event(vtodo);
+
+        todo.summary = name;
+        todo.description = description ? description : "";
+
+        startDate = new Date(startDate.getTime() + ((-1) * offset.startOffset * 60 * 1000));
+        dtstart = ICAL.Time.fromJSDate(startDate, false);
+        dtstart.zone = ICAL.Timezone.utcTimezone;
+        todo.startDate = dtstart;
+
+        if (completed) {
+            var endDate = new Date(now.getTime() + ((-1) * offset.endOffset * 60 * 1000));
+            var dtcompleted = ICAL.Time.fromJSDate(endDate, false);
+            dtcompleted.zone = ICAL.Timezone.utcTimezone;
+            todo._setProp('completed', dtcompleted);
         }
-        
-        if (completed) todo._setProp('completed', dtcompleted);
-       
+
         comp.addSubcomponent(vtodo);
 
         var ics = comp.toString();
-        
-        
+
         return {
             calendarId: calendarId,
             ics: ics
         };
-        
     }
 
     this.init = function (timeZones, editorUrl) {
@@ -872,23 +867,28 @@ ASC.CalendarController = new function() {
         
         switch (params.action) {
             case 1:
-                _controller.CreateTodo(
-                    params.sourceId,
-                    params.title,
-                    params.description,
-                    params.start,
-                    params.priority,
-                    params.completed
-                );
-                break;
-            case 2:
-                _controller.UpdateTodo(
+                _controller.GetOffsetAndExecuteTodo(
+                    _controller.CreateTodo,
                     params.sourceId,
                     params.title,
                     params.description,
                     params.start,
                     params.priority,
                     params.completed,
+                    params.timeZone,
+                    params.objectId
+                );
+                break;
+            case 2:
+                _controller.GetOffsetAndExecuteTodo(
+                    _controller.UpdateTodo,
+                    params.sourceId,
+                    params.title,
+                    params.description,
+                    params.start,
+                    params.priority,
+                    params.completed,
+                    params.timeZone,
                     params.objectId
                 );
                 break;
@@ -900,6 +900,7 @@ ASC.CalendarController = new function() {
                     params.start,
                     params.priority,
                     params.completed,
+                    params.timeZone,
                     params.objectId
                 );
                 break;
@@ -1146,14 +1147,30 @@ ASC.CalendarController = new function() {
         });
     }
 
-    this.CreateTodo = function (calendarId, name, description, startDate, endDate, priority) {
-        
+    this.GetOffsetAndExecuteTodo = function (method, calendarId, name, description, startDate, priority, completed, timeZone, todoId) {
+        jq.ajax({
+            type: 'post',
+            url: _controller.ApiUrl + "/utcoffset.json",
+            data: {
+                timeZone: timeZone.id,
+                startDate: ASC.Api.TypeConverter.ClientTimeToServer(startDate, 0),
+                endDate: ASC.Api.TypeConverter.ClientTimeToServer(new Date(), 0)
+            },
+            complete: function (result) {
+                var offset = result.responseJSON.response;
+                method(calendarId, name, description, startDate, priority, completed, timeZone, todoId, offset);
+            }
+        });
+    }
+
+    this.CreateTodo = function (calendarId, name, description, startDate, priority, completed, timeZone, todoId, offset) {
+
         var url = _controller.ApiUrl + "/icstodo.json";
 
         startDate = startDate ? new Date(startDate) : startDate;
-    
-        var postData = getTodoData(calendarId, name, description, startDate, priority, false);
-        
+
+        var postData = getTodoData(calendarId, name, description, startDate, priority, completed, timeZone, offset);
+
         jq.ajax({ type: 'post',
             url: url,
             data: postData,
@@ -1169,12 +1186,12 @@ ASC.CalendarController = new function() {
             }
         });
     }
-    
-    this.UpdateTodo = function (calendarId, name, description, startDate, priority, completed, todoId) {
+
+    this.UpdateTodo = function (calendarId, name, description, startDate, priority, completed, timeZone, todoId, offset) {
 
         var url = _controller.ApiUrl + "/icstodo.json";
 
-        var putData = getTodoData(calendarId, name, description, startDate, priority, completed);
+        var putData = getTodoData(calendarId, name, description, startDate, priority, completed, timeZone, offset);
         putData.todoId = todoId;
 
         jq.ajax({
@@ -1194,7 +1211,7 @@ ASC.CalendarController = new function() {
         });
     }
 
-    this.DeleteTodo = function(calendarId, name, description, startDate, priority, completed, todoId) {
+    this.DeleteTodo = function (calendarId, name, description, startDate, priority, completed, timeZone, todoId) {
         jq.ajax({
             type: 'delete',
             url: _controller.ApiUrl + "/todos/" + todoId + ".json",

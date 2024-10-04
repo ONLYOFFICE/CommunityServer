@@ -23,21 +23,34 @@ namespace ASC.Core.Tenants
 {
     public class TenantDomainValidator
     {
-        private static readonly Regex ValidDomain = new Regex("^[a-z0-9]([a-z0-9-]){1,98}[a-z0-9]$",
-                                                              RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-
+        private static readonly Regex ValidDomain;
         public static readonly int MinLength;
-        private const int MaxLength = 100;
+        public static readonly int MaxLength;
 
         static TenantDomainValidator()
         {
+            MaxLength = 63;
+
+            if (int.TryParse(ConfigurationManagerExtension.AppSettings["web.alias.max"], out var defaultMaxLength))
+            {
+                MaxLength = Math.Max(3, Math.Min(MaxLength, defaultMaxLength));
+            }
+
             MinLength = 6;
 
-            int defaultMinLength;
-            if (int.TryParse(ConfigurationManagerExtension.AppSettings["web.alias.min"], out defaultMinLength))
+            if (int.TryParse(ConfigurationManagerExtension.AppSettings["web.alias.min"], out var defaultMinLength))
             {
                 MinLength = Math.Max(1, Math.Min(MaxLength, defaultMinLength));
             }
+
+            var defaultRegexPattern = ConfigurationManagerExtension.AppSettings["web.alias.regex"];
+
+            if (string.IsNullOrEmpty(defaultRegexPattern))
+            {
+                defaultRegexPattern = $"^[a-z0-9]([a-z0-9-]){{1,{MaxLength - 2}}}[a-z0-9]$";
+            }
+
+            ValidDomain = new Regex(defaultRegexPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
         }
 
         public static void ValidateDomainLength(string domain)
@@ -51,7 +64,7 @@ namespace ASC.Core.Tenants
 
         public static void ValidateDomainCharacters(string domain)
         {
-            if (!ValidDomain.IsMatch(domain))
+            if (!ValidDomain.IsMatch(domain) || domain.TestPunyCode())
             {
                 throw new TenantIncorrectCharsException("Domain contains invalid characters.");
             }

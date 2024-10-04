@@ -55,6 +55,14 @@ namespace ASC.Core
             get { return tenantService.IsDocspace; }
         }
 
+        public int DocspaceDefaultQuota
+        {
+            get
+            {
+                return int.TryParse(ConfigurationManagerExtension.AppSettings["docspace.default.quota"], out var quota) ? quota : -3;
+            }
+        }
+
         public HostedSolution(ConnectionStringSettings connectionString)
             : this(connectionString, null)
         {
@@ -217,7 +225,7 @@ namespace ASC.Core
 
         public void SetTariff(int tenant, bool paid)
         {
-            var quota = quotaService.GetTenantQuotas().FirstOrDefault(q => paid ? q.NonProfit : q.Trial);
+            var quota = quotaService.GetTenantQuotas().FirstOrDefault(q => paid ? q.NonProfit : IsDocspace ? q.Id == DocspaceDefaultQuota : q.Trial);
             if (quota != null)
             {
                 tariffService.SetTariff(tenant, new Tariff { QuotaId = quota.Id, DueDate = DateTime.MaxValue, Quantity = 1 });

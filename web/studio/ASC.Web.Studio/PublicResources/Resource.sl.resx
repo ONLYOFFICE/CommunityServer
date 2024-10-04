@@ -266,7 +266,7 @@
     <value>Ključi za avtorizacijo</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Avtorizacijski ključi so možnost, ki dovoljuje, da svoj ONLYOFFICE™ portal povežete z tujimi storitvami, kot je Twitter, Facebook, Dropbox itd. Če svojih poverilnic ob vsakem vstopu ne želite vnašati, svoj portal povežite s Facebook-om, Twitter-jom, ali Linkedin-om. Storitve, kot je Dropbox, OneDrive, Zoho itd. povežite za prenos dokumentov na ONLYOFFICE™ modul dokumentov.</value>
+    <value>Avtorizacijski ključi so možnost, ki dovoljuje, da svoj ONLYOFFICE™ portal povežete z tujimi storitvami, kot je X (Twitter), Facebook, Dropbox itd. Če svojih poverilnic ob vsakem vstopu ne želite vnašati, svoj portal povežite s Facebook-om, X (Twitter)-jom, ali Linkedin-om. Storitve, kot je Dropbox, OneDrive, Zoho itd. povežite za prenos dokumentov na ONLYOFFICE™ modul dokumentov.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Pogoji uporabe</value>
@@ -510,13 +510,13 @@
     <value>OneDrive Ključ</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter ključ</value>
+    <value>X (Twitter) ključ</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Informacija kontakta</value>
@@ -2137,7 +2137,7 @@ Za registracijo vnesite e-naslov in pritisnite na Pošlji vabilo. E-sporočilo s
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

@@ -43,7 +43,7 @@ namespace ASC.Web.Files.Services.DocumentService
 {
     public static class DocumentServiceHelper
     {
-        public static File GetParams(object fileId, int version, string doc, bool editPossible, bool tryEdit, bool tryCoauth, out Configuration configuration)
+        public static File GetParams(object fileId, int version, string doc, bool editPossible, bool tryEdit, bool tryFill, bool tryCoauth, out Configuration configuration)
         {
             File file;
 
@@ -76,19 +76,24 @@ namespace ASC.Web.Files.Services.DocumentService
                     linkRight = FileShare.Read;
                 }
             }
-            return GetParams(file, lastVersion, linkRight, true, true, editPossible, tryEdit, tryCoauth, out configuration);
+            return GetParams(file, lastVersion, linkRight, true, true, editPossible, tryEdit, tryFill, tryCoauth, out configuration);
         }
 
-        public static File GetParams(File file, bool lastVersion, FileShare linkRight, bool rightToRename, bool rightToEdit, bool editPossible, bool tryEdit, bool tryCoauth, out Configuration configuration)
+        public static File GetParams(File file, bool lastVersion, FileShare linkRight, bool rightToRename, bool rightToEdit, bool editPossible, bool tryEdit, bool tryFill, bool tryCoauth, out Configuration configuration)
         {
             if (file == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
             if (!string.IsNullOrEmpty(file.Error)) throw new Exception(file.Error);
 
-            var rightToReview = rightToEdit;
-            var reviewPossible = editPossible;
-
             var rightToFillForms = rightToEdit;
             var fillFormsPossible = editPossible;
+
+            if (tryFill)
+            {
+                rightToEdit = false;
+            }
+
+            var rightToReview = rightToEdit;
+            var reviewPossible = editPossible;
 
             var rightToComment = rightToEdit;
             var commentPossible = editPossible;
@@ -154,7 +159,7 @@ namespace ASC.Web.Files.Services.DocumentService
             if ((editPossible || reviewPossible || fillFormsPossible || commentPossible)
                 && EntryManager.FileLockedForMe(file.ID))
             {
-                if (tryEdit)
+                if (tryEdit || tryFill)
                 {
                     strError = FilesCommonResource.ErrorMassage_LockedFile;
                 }
@@ -211,7 +216,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     && tryCoauth
                     && (!(coauth = FileUtility.CanCoAuhtoring(file.Title)) || FileTracker.IsEditingAlone(file.ID)))
                 {
-                    if (tryEdit)
+                    if (tryEdit || tryFill)
                     {
                         var editingBy = FileTracker.GetEditingBy(file.ID).FirstOrDefault();
                         strError = string.Format(!coauth
@@ -224,7 +229,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             var fileStable = file;
-            if (lastVersion && file.Forcesave != ForcesaveType.None && tryEdit)
+            if (lastVersion && file.Forcesave != ForcesaveType.None && (tryEdit || tryFill))
             {
                 using (var fileDao = Global.DaoFactory.GetFileDao())
                 {
@@ -233,7 +238,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             var docKey = GetDocKey(fileStable);
-            var modeWrite = (editPossible || reviewPossible || fillFormsPossible || commentPossible) && tryEdit;
+            var modeWrite = (editPossible || reviewPossible || fillFormsPossible || commentPossible) && (tryEdit || tryFill);
 
             if (file.FolderID != null)
             {
@@ -258,7 +263,9 @@ namespace ASC.Web.Files.Services.DocumentService
                                     ModifyFilter = rightModifyFilter,
                                     Print = rightToDownload,
                                     Download = rightToDownload,
-                                    Copy = rightToDownload
+                                    Copy = rightToDownload,
+                                    Chat = linkRight != FileShare.Read,
+                                    Protect = SecurityContext.IsAuthenticated
                                 }
                         },
                 EditorConfig =

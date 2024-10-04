@@ -731,6 +731,9 @@ namespace ASC.Api.Employee
             if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
+            if (user.Status != EmployeeStatus.Active)
+                throw new Exception("The user is suspended");
+
             var self = SecurityContext.CurrentAccount.ID.Equals(user.ID);
             var resetDate = new DateTime(1900, 01, 01);
 

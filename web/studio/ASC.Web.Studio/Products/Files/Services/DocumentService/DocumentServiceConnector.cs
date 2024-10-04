@@ -50,6 +50,7 @@ namespace ASC.Web.Files.Services.DocumentService
                                           string region,
                                           ThumbnailData thumbnail,
                                           SpreadsheetLayout spreadsheetLayout,
+                                          bool toForm,
                                           bool isAsync,
                                           out string convertedDocumentUri,
                                           out string convertedFileType)
@@ -67,6 +68,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     region,
                     thumbnail,
                     spreadsheetLayout,
+                    toForm,
                     isAsync,
                     FileUtility.SignatureSecret,
                     out convertedDocumentUri,
@@ -213,7 +215,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
                     var key = GenerateRevisionId(Guid.NewGuid().ToString());
                     string convertedType;
-                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, null, null, null, null, false, FileUtility.SignatureSecret, out convertedFileUri, out convertedType);
+                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, null, null, null, null, false, false, FileUtility.SignatureSecret, out convertedFileUri, out convertedType);
                 }
                 catch (Exception ex)
                 {

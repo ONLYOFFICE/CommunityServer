@@ -57,12 +57,14 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             try
             {
-                if (lifeTime > 0)
+                if (lifeTime < 1 || lifeTime > 9999)
                 {
-                    CookiesManager.SetLifeTime(lifeTime);
-
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.CookieSettingsUpdated);
+                    throw new ArgumentOutOfRangeException("lifeTime");
                 }
+
+                CookiesManager.SetLifeTime(lifeTime);
+
+                MessageService.Send(HttpContext.Current.Request, MessageAction.CookieSettingsUpdated);
 
                 return new
                 {

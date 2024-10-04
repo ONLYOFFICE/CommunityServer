@@ -324,14 +324,17 @@ namespace ASC.Api.Employee
         public GroupWrapperFull SetManager(Guid groupid, Guid userid)
         {
             var group = GetGroupInfo(groupid);
-            if (CoreContext.UserManager.UserExists(userid))
-            {
-                CoreContext.UserManager.SetDepartmentManager(group.ID, userid);
-            }
-            else
-            {
+
+            var user = CoreContext.UserManager.GetUsers(userid);
+
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new ItemNotFoundException("user not found");
-            }
+
+            if (user.Status != EmployeeStatus.Active)
+                throw new Exception("The user is suspended");
+
+            CoreContext.UserManager.SetDepartmentManager(group.ID, userid);
+
             return GetById(groupid);
         }
 

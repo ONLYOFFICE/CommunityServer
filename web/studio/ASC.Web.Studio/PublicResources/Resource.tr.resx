@@ -285,7 +285,7 @@
     <value>Etkinleştir</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Yetkilendirme anahtarları ONLYOFFICE™ portalınızı Twitter, Facebook, Dropbox, vs. gibi üçüncü kişi hizmetlerine bağlamanıza izin veren bir seçenektir. Portal ehliyetinizi her defasında tanıtmak istemiyorsanız portalınızı Facebook,Twitter yada Linkedin'le bağlayın. Dropbox,OneDrive,Zoho,vs. gibi servislere bağlayarak, tüm bu depolardan ONLYOFFICE™ Döküman modülüne transfer yapabilirsiniz.</value>
+    <value>Yetkilendirme anahtarları ONLYOFFICE™ portalınızı X (Twitter), Facebook, Dropbox, vs. gibi üçüncü kişi hizmetlerine bağlamanıza izin veren bir seçenektir. Portal ehliyetinizi her defasında tanıtmak istemiyorsanız portalınızı Facebook,X (Twitter) yada Linkedin'le bağlayın. Dropbox,OneDrive,Zoho,vs. gibi servislere bağlayarak, tüm bu depolardan ONLYOFFICE™ Döküman modülüne transfer yapabilirsiniz.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Hizmet Şartları</value>
@@ -751,7 +751,7 @@
     <value>Twilio telefon numarası (SMS yetkilendirme için gereklidir)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>CRM Anahtarında Twitter</value>
@@ -763,19 +763,19 @@
     <value>Twitter Anahtarı</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Twitter hesabı kullanarak uygulamaya bağlan ve kişileri ara.</value>
+    <value>X (Twitter) hesabı kullanarak uygulamaya bağlan ve kişileri ara.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Twitter hizmeti uygulamasını eklerseniz, ONLYOFFICE™ portalına Twitter hesabınızı kullanarak giriş yapabileceksiniz. Böylelikle CRM modülündeki bir kişinin Twitter hesabını bulabilecek ve 'Kişi/şirket düzenle' sayfasına link vererek Twitter haberler beslemesini görüntüleyebileceksiniz.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Erişim Dizgeciği</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter Anahtar</value>
+    <value>X (Twitter) Anahtar</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Erişim Dizgeciği Gizle</value>
@@ -2749,7 +2749,7 @@ silinecektir. Bu işlem geri alınamaz. Belgelerin tamamını silmek için linki
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

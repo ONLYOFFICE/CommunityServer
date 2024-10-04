@@ -107,6 +107,7 @@
     <Compile Include="Helpers\ApiSystemHelper.cs" />
     <Compile Include="Jabber\FireBase.cs" />
     <Compile Include="Mail\MailServiceHelper.cs" />
+    <Compile Include="WebItemStoreValidator.cs" />
     <Compile Include="Sms\SmsKeyStorage.cs" />
     <Compile Include="Sms\SmsProvider.cs" />
     <Compile Include="Sms\SmsSender.cs" />
@@ -150,7 +151,6 @@
     <Compile Include="IAddon.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Extensions\ProductModuleExtension.cs" />
-    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Extensions\UserInfoExtension.cs" />
     <Compile Include="Helpers\GrammaticalHelper.cs" />
     <Compile Include="Helpers\ImageHelpers.cs" />

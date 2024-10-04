@@ -82,6 +82,7 @@
     <Compile Include="DiscStorage\MappedPath.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GoogleCloud\GoogleCloudStorage.cs" />
+    <Compile Include="IDataStoreValidator.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="IQuotaController.cs" />
     <Compile Include="Migration\IService.cs" />

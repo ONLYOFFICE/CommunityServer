@@ -302,7 +302,7 @@
     <value>Avez-vous rencontré des problèmes ? Contactez notre {0}équipe d'assistance{1}.</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Clés d'autorisation vous permettent de connecter votre portail ONLYOFFICE™ aux services tiers tels que Twitter, Facebook, Dropbox etc. Connectez votre portail à Facebook, Twitter ou Linkedin si vous n'avez pas envie de taper vos données lors de chaque accès au portail. Liez-le aux services tels que Dropbox, OneDrive, etc. pour transférer les documents de tous ces stockages au module Documents ONLYOFFICE™.</value>
+    <value>Clés d'autorisation vous permettent de connecter votre portail ONLYOFFICE™ aux services tiers tels que X (Twitter), Facebook, Dropbox etc. Connectez votre portail à Facebook, X (Twitter) ou Linkedin si vous n'avez pas envie de taper vos données lors de chaque accès au portail. Liez-le aux services tels que Dropbox, OneDrive, etc. pour transférer les documents de tous ces stockages au module Documents ONLYOFFICE™.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Conditions d'utilisation</value>
@@ -1030,7 +1030,7 @@
     <value>Numéro de téléphone de Twilio (requis pour l'autorisation SMS)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Clé de Twitter dans CRM</value>
@@ -1042,22 +1042,22 @@
     <value>Clé de Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Se connecter à l'application pour accéder au portail en utilisant le compte Twitter et rechercher des contacts.</value>
+    <value>Se connecter à l'application pour accéder au portail en utilisant le compte X (Twitter) et rechercher des contacts.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Si vous ajoutez une application du service Twitter, vous pouvez connecter votre compte Twitter sur la page de votre profil en vue de l'utiliser pour la connexion au portail ONLYOFFICE™. Cela vous permet également de trouver un compte Twitter d’une personne dans le module CRM et le lier sur la page « Modifier personne/entreprise », et ensuite afficher le fil d'actualités sur Twitter.</value>
   </data>
   <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
-    <value>Activez cette application pour permettre aux utilisateurs de se connecter à ONLYOFFICE via leur Twitter et reliez les comptes Twitter de vos clients à votre module CRM. {0}Passez au portail des développeurs Twitter et créez une nouvelle application d'intégration ONLYOFFICE. Collez ci-dessous les données que vous venez de recevoir :</value>
+    <value>Activez cette application pour permettre aux utilisateurs de se connecter à ONLYOFFICE via leur X (Twitter) et reliez les comptes X (Twitter) de vos clients à votre module CRM. {0}Passez au portail des développeurs X (Twitter) et créez une nouvelle application d'intégration ONLYOFFICE. Collez ci-dessous les données que vous venez de recevoir :</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>ID de Twitter</value>
+    <value>ID de X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Jeton d'accès</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Clé de Twitter</value>
+    <value>Clé de X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Jeton d'accès secret</value>
@@ -3921,7 +3921,7 @@ utilisez le lien: {0}Effacer la liste{1}.</value>
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

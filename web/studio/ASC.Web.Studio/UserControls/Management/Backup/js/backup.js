@@ -493,6 +493,10 @@ window.BackupManager = new function() {
 
     function processBackupResponseContinue(response) {
         if (typeof(response.isCompleted) === "undefined" || response.isCompleted) {
+            if (response.link) {
+                $backupResultLink.attr('href', response.link);
+                $backupResultLinkBox.show();
+            }
             return;
         }
 

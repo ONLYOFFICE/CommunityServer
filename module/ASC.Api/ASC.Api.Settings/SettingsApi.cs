@@ -444,6 +444,8 @@ namespace ASC.Api.Settings
         [Read("security")]
         public IEnumerable<SecurityWrapper> GetWebItemSecurityInfo(IEnumerable<string> ids)
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             if (ids == null || !ids.Any())
             {
                 ids = WebItemManager.Instance.GetItemsAll().Select(i => i.ID.ToString());
@@ -687,6 +689,8 @@ namespace ASC.Api.Settings
         [Read("security/administrator/{productid}")]
         public IEnumerable<EmployeeWraper> GetProductAdministrators(Guid productid)
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             return WebItemSecurity.GetProductAdministrators(productid)
                                   .Select(EmployeeWraper.Get)
                                   .ToList();
@@ -707,6 +711,8 @@ namespace ASC.Api.Settings
         [Read("security/administrator")]
         public object IsProductAdministrator(Guid productid, Guid userid)
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             var result = WebItemSecurity.IsProductAdministrator(productid, userid);
             return new { ProductId = productid, UserId = userid, Administrator = result, };
         }
@@ -1367,7 +1373,7 @@ namespace ASC.Api.Settings
         {
             var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppUserSettings.EnableForUser(currentUser.ID))
+            if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppAuthSettings.Enable || !TfaAppUserSettings.EnableForUser(currentUser.ID))
                 throw new Exception(Resource.TfaAppNotAvailable);
 
             if (currentUser.IsOutsider())
@@ -1784,6 +1790,8 @@ namespace ASC.Api.Settings
         [Read("customnavigation/getall")]
         public List<CustomNavigationItem> GetCustomNavigationItems()
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             return CustomNavigationSettings.Load().Items;
         }
 
@@ -1798,6 +1806,8 @@ namespace ASC.Api.Settings
         [Read("customnavigation/getsample")]
         public CustomNavigationItem GetCustomNavigationItemSample()
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             return CustomNavigationItem.GetSample();
         }
 
@@ -1813,6 +1823,8 @@ namespace ASC.Api.Settings
         [Read("customnavigation/get/{id}")]
         public CustomNavigationItem GetCustomNavigationItem(Guid id)
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             return CustomNavigationSettings.Load().Items.FirstOrDefault(item => item.Id == id);
         }
 
@@ -2367,6 +2379,16 @@ namespace ASC.Api.Settings
             if (settings == null) throw new ArgumentNullException("settings");
 
             DemandRebrandingPermission();
+
+            if (!settings.Email.TestEmailRegex() || settings.Email.TestEmailPunyCode())
+            {
+                throw new ArgumentException("invalid email");
+            }
+
+            if (!Uri.TryCreate(settings.Site, UriKind.Absolute, out var uri) || uri.DnsSafeHost.TestPunyCode())
+            {
+                throw new ArgumentException("invalid url");
+            }
 
             settings.IsLicensor = false; //TODO: CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Branding && settings.IsLicensor
 

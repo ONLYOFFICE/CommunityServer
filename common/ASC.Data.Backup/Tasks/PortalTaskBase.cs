@@ -103,26 +103,31 @@ namespace ASC.Data.Backup.Tasks
 
         protected IEnumerable<BackupFileInfo> GetFilesToProcess(int tenantId)
         {
-            var files = new List<BackupFileInfo>();
             foreach (var module in StorageFactory.GetModuleList(ConfigPath).Where(IsStorageModuleAllowed))
             {
                 var store = StorageFactory.GetStorage(ConfigPath, tenantId.ToString(), module);
-                var domains = StorageFactory.GetDomainList(ConfigPath, module).ToArray();
+                var domains = StorageFactory.GetDomainList(ConfigPath, module, false);
 
-                foreach (var domain in domains)
+                var files = store.ListFilesRelative(string.Empty, "\\", "*", true)
+                              .Where(path => domains.All(domain => !path.Contains(domain + "/")))
+                             .Select(path => new BackupFileInfo(string.Empty, module, path, tenantId));
+
+                foreach (var file in files)
                 {
-                    files.AddRange(
-                        store.ListFilesRelative(domain, "\\", "*.*", true)
-                        .Select(path => new BackupFileInfo(domain, module, path, tenantId)));
+                    yield return file;
                 }
 
-                files.AddRange(
-                    store.ListFilesRelative(string.Empty, "\\", "*.*", true)
-                         .Where(path => domains.All(domain => !path.Contains(domain + "/")))
-                         .Select(path => new BackupFileInfo(string.Empty, module, path, tenantId)));
-            }
+                foreach (var domain in StorageFactory.GetDomainList(ConfigPath, module))
+                {
+                    files = store.ListFilesRelative(domain, "\\", "*", true)
+                        .Select(path => new BackupFileInfo(domain, module, path, tenantId));
 
-            return files.Distinct();
+                    foreach (var file in files)
+                    {
+                        yield return file;
+                    }
+                }
+            }
         }
 
         protected bool IsStorageModuleAllowed(string storageModuleName)

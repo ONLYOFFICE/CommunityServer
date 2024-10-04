@@ -282,7 +282,12 @@ namespace ASC.CRM.Core.Dao
 
         public List<Cases> GetAllCases()
         {
-            return GetCases(String.Empty, 0, null, null, 0, 0, new OrderBy(SortedByType.Title, true));
+            return GetAllCases(0, 0);
+        }
+
+        public List<Cases> GetAllCases(int from, int count)
+        {
+            return GetCases(String.Empty, 0, null, null, from, count, new OrderBy(SortedByType.Id, true));
         }
 
         public int GetCasesCount()
@@ -472,22 +477,31 @@ namespace ASC.CRM.Core.Dao
             if (0 < from && from < int.MaxValue) sqlQuery.SetFirstResult(from);
             if (0 < count && count < int.MaxValue) sqlQuery.SetMaxResults(count);
 
-            sqlQuery.OrderBy("is_closed", true);
-
             if (orderBy != null && Enum.IsDefined(typeof(SortedByType), orderBy.SortedBy))
+            {
                 switch ((SortedByType)orderBy.SortedBy)
                 {
                     case SortedByType.Title:
+                        sqlQuery.OrderBy("is_closed", true);
                         sqlQuery.OrderBy("title", orderBy.IsAsc);
                         break;
                     case SortedByType.CreateBy:
+                        sqlQuery.OrderBy("is_closed", true);
                         sqlQuery.OrderBy("create_by", orderBy.IsAsc);
                         break;
                     case SortedByType.DateAndTime:
+                        sqlQuery.OrderBy("is_closed", true);
                         sqlQuery.OrderBy("create_on", orderBy.IsAsc);
                         break;
+                    case SortedByType.Id:
+                        sqlQuery.OrderBy("id", orderBy.IsAsc);
+                        break;
                 }
-
+            }
+            else
+            {
+                sqlQuery.OrderBy("is_closed", true);
+            }
 
             return Db.ExecuteList(sqlQuery).ConvertAll(ToCases);
         }

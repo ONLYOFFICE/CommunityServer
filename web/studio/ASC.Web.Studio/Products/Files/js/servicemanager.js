@@ -654,6 +654,10 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "protectusers?fileId=" + encodeURIComponent(params.fileId));
     };
 
+    var getInfoUsers = function (eventType, params, data) {
+        request("post", "json", eventType, params, data, "infousers");
+    };
+
     var sendEditorNotify = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "sendeditornotify?fileId=" + encodeURIComponent(params.fileId));
     };
@@ -755,7 +759,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getReferenceData = function (eventType, params) {
-        request("get", "json", eventType, params, "reference-data?fileKey=" + encodeURIComponent(params.fileKey) + "&instanceId=" + encodeURIComponent(params.instanceId) + "&sourceFileId=" + encodeURIComponent(params.sourceFileId) + "&path=" + encodeURIComponent(params.path));
+        request("get", "json", eventType, params, "reference-data?fileKey=" + encodeURIComponent(params.fileKey) + "&instanceId=" + encodeURIComponent(params.instanceId) + "&sourceFileId=" + encodeURIComponent(params.sourceFileId) + "&path=" + encodeURIComponent(params.path) + "&link=" + encodeURIComponent(params.link));
     };
 
     var getMailAccounts = function (eventType, params) {
@@ -822,6 +826,7 @@ window.ASC.Files.ServiceManager = (function () {
 
         getSharedUsers: getSharedUsers,
         getProtectUsers: getProtectUsers,
+        getInfoUsers: getInfoUsers,
         sendEditorNotify: sendEditorNotify,
 
         checkConversion: checkConversion,

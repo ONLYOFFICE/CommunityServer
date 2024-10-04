@@ -19,6 +19,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 
 using ASC.Common.Logging;
 using ASC.CRM.Core.Dao;
@@ -140,12 +141,12 @@ namespace ASC.Web.CRM.Classes
 
             try
             {
-                var photoPaths = Global.GetStore().ListFilesRelative("", directoryPath, OrganisationLogoImgName + "*", false);
-                if (photoPaths.Length == 0)
+                var photoPaths = Global.GetStore().ListFilesRelative("", directoryPath, OrganisationLogoImgName + "*", false).ToList();
+                if (!photoPaths.Any())
                     return 0;
 
                 byte[] bytes;
-                using (var photoTmpStream = dataStore.GetReadStream(Path.Combine(directoryPath, photoPaths[0])))
+                using (var photoTmpStream = dataStore.GetReadStream(Path.Combine(directoryPath, photoPaths.First())))
                 {
                     bytes = Global.ToByteArray(photoTmpStream);
                 }

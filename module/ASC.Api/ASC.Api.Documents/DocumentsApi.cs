@@ -631,10 +631,10 @@ namespace ASC.Api.Documents
         public Configuration OpenEdit(String fileId, int version, String doc)
         {
             Configuration configuration;
-            var file = DocumentServiceHelper.GetParams(fileId, version, doc, true, true, true, out configuration);
+            var file = DocumentServiceHelper.GetParams(fileId, version, doc, true, true, false, true, out configuration);
             if (configuration.EditorConfig.ModeWrite && FileConverter.MustConvert(file))
             {
-                file = DocumentServiceHelper.GetParams(file.ID, file.Version, doc, false, false, false, out configuration);
+                file = DocumentServiceHelper.GetParams(file.ID, file.Version, doc, false, false, false, false, out configuration);
             }
 
             configuration.Type = Configuration.EditorType.External;
@@ -1066,12 +1066,13 @@ namespace ASC.Api.Documents
         /// <param type="System.String, System" method="url" name="fileId">File ID</param>
         /// <param type="System.String, System" name="destFolderId">Destination folder ID</param>
         /// <param type="System.String, System" name="destTitle">Destination file title</param>
+        /// <param type="System.Boolean, System" name="toForm">Convert to form</param>
         /// <returns>Copied file</returns>
         /// <path>api/2.0/files/file/{fileId}/copyas</path>
         /// <httpMethod>POST</httpMethod>
         /// <requiresAuthorization>false</requiresAuthorization>
         [Create("file/{fileId}/copyas", false)] // NOTE: This method doesn't require auth!!!
-        public FileWrapper CopyFileAs(string fileId, string destFolderId, string destTitle)
+        public FileWrapper CopyFileAs(string fileId, string destFolderId, string destTitle, bool toForm)
         {
             var file = _fileStorageService.GetFile(fileId, -1);
             var ext = FileUtility.GetFileExtension(file.Title);
@@ -1082,7 +1083,7 @@ namespace ASC.Api.Documents
                 return CreateFile(destFolderId, destTitle, fileId, true);
             }
 
-            using (var fileStream = FileConverter.Exec(file, destExt))
+            using (var fileStream = FileConverter.Exec(file, destExt, toForm))
             {
                 return InsertFile(destFolderId, fileStream, destTitle, true);
             }
@@ -1189,13 +1190,14 @@ namespace ASC.Api.Documents
         /// <short>Get file download link</short>
         /// <category>Files</category>
         /// <param type="System.String, System" name="fileId">File ID</param>
+        /// <param type="System.Int32, System" method="url" name="version">File version</param>
         /// <returns>File download link</returns>
         /// <path>api/2.0/files/file/{fileId}/presigneduri</path>
         /// <httpMethod>GET</httpMethod>
         [Read("file/{fileId}/presigneduri")]
-        public string GetPresignedUri(String fileId)
+        public string GetPresignedUri(String fileId, int version)
         {
-            var file = _fileStorageService.GetFile(fileId, -1);
+            var file = _fileStorageService.GetFile(fileId, version);
             return PathProvider.GetFileStreamUrl(file);
         }
 

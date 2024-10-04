@@ -87,6 +87,7 @@
     <Compile Include="LoginProviders\EncryptionLoginProvider.cs" />
     <Compile Include="LoginProviders\BoxLoginProvider.cs" />
     <Compile Include="LoginProviders\AppleIdLoginProvider.cs" />
+    <Compile Include="LoginProviders\ZoomLoginProvider.cs" />
     <Compile Include="LoginProviders\MicrosoftLoginProvider.cs" />
     <Compile Include="LoginProviders\TelegramLoginProvider.cs" />
     <Compile Include="LoginProviders\GosUslugiLoginProvider.cs" />

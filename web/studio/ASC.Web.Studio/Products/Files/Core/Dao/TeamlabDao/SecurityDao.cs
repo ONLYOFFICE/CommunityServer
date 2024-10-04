@@ -247,6 +247,8 @@ namespace ASC.Files.Core.Data
 
         private void SelectFilesAndFoldersForShare(FileEntry entry, ICollection<string> files, ICollection<string> folders, ICollection<int> foldersInt)
         {
+            if (!string.IsNullOrEmpty(entry.Error)) return;
+
             object folderId;
             if (entry.FileEntryType == FileEntryType.File)
             {

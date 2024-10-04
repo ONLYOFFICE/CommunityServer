@@ -204,7 +204,7 @@ namespace ASC.Files.ThumbnailBuilder
             var thumbnailAspect = config.ThumbnailAspect;
             var thumbnail = GetThumbnailData(thumbnailAspect);
             var spreadsheetLayout = GetSpreadsheetLayout(thumbnailAspect);
-            var operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, null, thumbnail, spreadsheetLayout, false, out url, out _);
+            var operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, null, thumbnail, spreadsheetLayout, false, false, out url, out _);
 
             operationResultProgress = Math.Min(operationResultProgress, 100);
             return operationResultProgress == 100;

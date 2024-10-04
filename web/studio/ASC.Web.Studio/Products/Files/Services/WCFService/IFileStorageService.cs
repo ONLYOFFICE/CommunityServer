@@ -110,7 +110,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         EntryProperties SetFileProperties(String fileId, EntryProperties fileProperties);
 
-        FileReference GetReferenceData(string fileKey, string instanceId, string sourceFileId, string path);
+        FileReference GetReferenceData(string fileKey, string instanceId, string sourceFileId, string path, string link);
 
         IEnumerable<FileEntry> GetFilterReadFiles(IEnumerable<string> fileIds);
 
@@ -204,6 +204,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<MentionWrapper> SharedUsers(String fileId);
         ItemList<MentionWrapper> ProtectUsers(String fileId);
+        ItemList<MentionWrapper> InfoUsers(ItemList<String> userIds);
 
         ItemList<AceShortWrapper> SendEditorNotify(String fileId, MentionMessageWrapper mentionMessage);
 

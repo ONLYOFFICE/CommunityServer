@@ -111,7 +111,7 @@ IFS="$OLD_IFS"
 rm -rf "$RPM_BUILD_ROOT"
 
 %files -f onlyoffice.list
-%attr(-, root, root) /usr/bin/*.sh
+%attr(744, root, root) /usr/bin/*.sh
 %attr(-, %{package_sysname}, %{package_sysname}) %dir /var/log/%{package_sysname}/
 %attr(-, root, root) /usr/lib/systemd/system/*.service
 %attr(-, root, root) %{nginx_conf_d}/%{package_sysname}.conf
@@ -160,7 +160,7 @@ find "$DIR/controlpanel/www/config" -type f -name "*.json" -exec sed -i "s_\(\"c
 package_services=("monoserve" "%{package_sysname}ControlPanel")
 
 for SVC in "${package_services[@]}"; do
-    if systemctl is-active "$SVC" | grep -q ^active; then
+    if systemctl is-active "$SVC" &>/dev/null; then
         systemctl restart "$SVC"
     fi
 done
@@ -175,12 +175,13 @@ fi
 
 DIR="/var/www/%{package_sysname}"
 
-python3 -m pip install --upgrade pip
-python3 -m pip install --upgrade requests
-python3 -m pip install --upgrade radicale==3.0.5
-python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
-python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
-python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
+for pkg in radicale==3.0.5 requests setuptools importlib_metadata; do
+    rpm -q python3-"${pkg%%=*}" &>/dev/null || pip_packages+=("$pkg")
+done
+
+export PIP_ROOT_USER_ACTION=ignore
+python3 -m pip install --upgrade "${pip_packages[@]}" \
+    "$DIR/Tools/radicale/plugins/"{app_auth_plugin,app_store_plugin,app_rights_plugin}/. || true
 
 systemctl restart %{package_sysname}Radicale
 
@@ -191,7 +192,7 @@ APP_ROOT_DIR="$DIR/WebStudio";
 
 sed '/web\.talk/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
 
-if systemctl is-active monoserve | grep -q "active"; then
+if systemctl is-active monoserve &>/dev/null; then
 	systemctl restart monoserve
 fi
 
@@ -256,7 +257,7 @@ fi
 
 for SVC in monoserve %{package_sysname}Thumb %{package_sysname}ThumbnailBuilder
 do
-	if systemctl is-active $SVC | grep -q "active"; then
+	if systemctl is-active $SVC &>/dev/null; then
 		systemctl restart $SVC
 	fi
 done
@@ -310,7 +311,7 @@ APP_INDEX_DIR="${APP_DATA_DIR}/Index/v${ELASTIC_SEARCH_VERSION}"
 LOG_DIR="/var/log/%{package_sysname}"
 
 #import common ssl certificates
-mozroots --import --sync --machine --quiet
+mozroots --import --sync --machine --quiet || cert-sync /etc/pki/tls/certs/ca-bundle.crt || true
 mkdir -p /etc/mono/registry/LocalMachine
 mkdir -p /usr/share/.mono/keypairs
 mkdir -p /var/cache/nginx/%{package_sysname}
@@ -368,14 +369,11 @@ if [ $1 -ge 2 ]; then
 	fi
 fi
 
-if [ $1 -eq 1 ]; then
-
-	if /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
-		/usr/share/elasticsearch/bin/elasticsearch-plugin remove ingest-attachment
-	fi
-
-	/usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b ingest-attachment	
+if /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
+	/usr/share/elasticsearch/bin/elasticsearch-plugin remove ingest-attachment
 fi
+
+/usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b ingest-attachment
 
 if [ -f ${ELASTIC_SEARCH_CONF_PATH}.rpmnew ]; then
    cp -rf ${ELASTIC_SEARCH_CONF_PATH}.rpmnew ${ELASTIC_SEARCH_CONF_PATH};   
@@ -454,7 +452,7 @@ if [ -d /etc/elasticsearch/ ]; then
 	chmod g+ws /etc/elasticsearch/
 fi
 
-if systemctl is-active elasticsearch | grep -q "active"; then
+if systemctl is-active elasticsearch &>/dev/null; then
 	#Checking that the elastic is not currently being updated
 	if [[ $(find /usr/share/elasticsearch/lib/ -name "elasticsearch-[0-9]*.jar" | wc -l) -eq 1 ]]; then
 		systemctl restart elasticsearch.service
@@ -506,13 +504,13 @@ if [ $1 -ge 2 ]; then
 			systemctl restart $SVC
 		fi
 	done
-	if systemctl is-active %{package_sysname}AutoCleanUp | grep -q "active"; then
+	if systemctl is-active %{package_sysname}AutoCleanUp &>/dev/null; then
 		systemctl disable %{package_sysname}AutoCleanUp
 		systemctl stop %{package_sysname}AutoCleanUp
 	fi
 fi
 
-if systemctl is-active monoserve | grep -q "active"; then
+if systemctl is-active monoserve &>/dev/null; then
 	curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true
 fi		
 
@@ -549,11 +547,11 @@ if [ ! -z $ELASTIC_SEARCH_VERSION ]; then
 
 	$DIR/elasticsearch-plugin install -s -b ingest-attachment	
 	
-	if ! systemctl is-active elasticsearch | grep -q "inactive"; then
+	if systemctl is-active elasticsearch &>/dev/null; then
 		systemctl restart elasticsearch 
 	fi
 	
-	if ! systemctl is-active %{package_sysname}Index | grep -q "inactive"; then
+	if systemctl is-active %{package_sysname}Index &>/dev/null; then
 		systemctl restart %{package_sysname}Index 
 	fi
 fi

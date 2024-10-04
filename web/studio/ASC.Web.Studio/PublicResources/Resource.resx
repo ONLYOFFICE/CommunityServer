@@ -364,7 +364,7 @@
     <value>Got any problems? Contact our {0}support team{1}.</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third-party services like Twitter, Facebook, DropBox etc. Connect your portal with Facebook, Twitter or Linkedin if you don't want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module.</value>
+    <value>Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third-party services like X (Twitter), Facebook, DropBox etc. Connect your portal with Facebook, X (Twitter) or Linkedin if you don't want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Terms of Service</value>
@@ -975,19 +975,19 @@
     <value>Phone number from Twilio (required for SMS authorization)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Enable the application to sign in to the portal using a Twitter account.</value>
+    <value>Enable the application to sign in to the portal using a X (Twitter) account.</value>
   </data>
   <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
-    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their Twitter and link their customers’ Twitter accounts to the CRM module. {0}Go to Twitter Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using their X (Twitter) and link their customers’ X (Twitter) accounts to the CRM module. {0}Go to X (Twitter) Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter Key</value>
+    <value>X (Twitter) Key</value>
   </data>
   <data name="Consumersusername" xml:space="preserve">
     <value>Rackspace username</value>
@@ -3847,7 +3847,7 @@ To register, enter your email and click Send Invitation.  An email message with 
     <value>Telegram</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

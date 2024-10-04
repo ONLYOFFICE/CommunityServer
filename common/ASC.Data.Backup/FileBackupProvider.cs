@@ -109,12 +109,12 @@ namespace ASC.Data.Backup
                     foreach (var domain in domainList)
                     {
                         files.AddRange(store
-                            .ListFilesRelative(domain, "\\", "*.*", true)
+                            .ListFilesRelative(domain, "\\", "*", true)
                             .Select(x => new FileBackupInfo(domain, module, x)));
                     }
 
                     files.AddRange(store
-                        .ListFilesRelative(string.Empty, "\\", "*.*", true)
+                        .ListFilesRelative(string.Empty, "\\", "*", true)
                         .Where(x => domainList.All(domain => x.IndexOf(string.Format("{0}/", domain)) == -1))
                         .Select(x => new FileBackupInfo(string.Empty, module, x)));
                 }

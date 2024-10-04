@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 using ASC.Common;
 using ASC.Common.Data;
@@ -52,8 +51,9 @@ namespace ASC.Data.Backup.Tasks
         public string BackupFilePath { get; private set; }
         public int Limit { get; private set; }
         private bool Dump { get; set; }
+        private bool ForMigration { get; set; }
 
-        public BackupPortalTask(ILog logger, int tenantId, string fromConfigPath, string toFilePath, int limit)
+        public BackupPortalTask(ILog logger, int tenantId, string fromConfigPath, string toFilePath, int limit, bool dump)
             : base(logger, tenantId, fromConfigPath)
         {
             if (string.IsNullOrEmpty(toFilePath))
@@ -61,49 +61,65 @@ namespace ASC.Data.Backup.Tasks
 
             BackupFilePath = toFilePath;
             Limit = limit;
-            Dump = CoreContext.Configuration.Standalone;
+            Dump = dump && CoreContext.Configuration.Standalone;
+            ForMigration = !dump && CoreContext.Configuration.Standalone;
 
             backupMailServerFilesService = new BackupMailServerFilesService(Logger);
         }
 
         public override void RunJob()
         {
-            Logger.DebugFormat("begin backup {0}", TenantId);
             using (WriteOperator)
             {
-                if (Dump)
+                if (ForMigration)
                 {
-                    DoDump(WriteOperator);
+                    var ids = CoreContext.TenantManager.GetTenants().Select(t => t.TenantId);
+                    SetStepsCount(ids.Count());
+                    foreach (var id in ids)
+                    {
+                        Backup(id, $"{id}/");
+                    }
                 }
                 else
                 {
-                    var dbFactory = new DbFactory(ConfigPath);
-                    var modulesToProcess = GetModulesToProcess().ToList();
-                    var fileGroups = GetFilesGroup(dbFactory);
-
-                    var stepscount = ProcessStorage ? fileGroups.Count : 0;
-                    SetStepsCount(modulesToProcess.Count + stepscount);
-
-                    foreach (var module in modulesToProcess)
-                    {
-                        DoBackupModule(WriteOperator, dbFactory, module);
-                    }
-                    if (!IgnoredModules.Contains(ModuleName.Mail))
-                    {
-                        var paths = DoBackupMailTable(WriteOperator);
-
-                        if (paths.Count != 0)
-                        {
-                            DoBackupMailFiles(WriteOperator, paths);
-                        }
-                    }
-                    if (ProcessStorage)
-                    {
-                        DoBackupStorage(WriteOperator, fileGroups);
-                    }
+                    SetStepsCount(1);
+                    Backup(TenantId);
                 }
             }
-            Logger.DebugFormat("end backup {0}", TenantId);
+        }
+
+        public void Backup(int tenantId, string prefix = "")
+        {
+            Logger.DebugFormat("begin backup {0}", tenantId);
+
+            if (Dump)
+            {
+                DoDump(WriteOperator);
+            }
+            else
+            {
+                var modulesToProcess = GetModulesToProcess().ToList();
+                var count = modulesToProcess.Select(m => m.Tables.Count(t => !IgnoredTables.Contains(t.Name) && t.InsertMethod != InsertMethod.None)).Sum();
+                IEnumerable<BackupFileInfo> files = null;
+                if (ProcessStorage)
+                {
+                    files = GetFiles(tenantId);
+                    count += files.Count();
+                }
+
+                var completedCount = 0;
+                var dbFactory = new DbFactory(ConfigPath);
+                foreach (var module in modulesToProcess)
+                {
+                    completedCount = DoBackupModule(WriteOperator, dbFactory, module, completedCount, count, tenantId, prefix);
+                }
+                if (ProcessStorage)
+                {
+                    DoBackupStorage(WriteOperator, files, completedCount, count, prefix: prefix);
+                }
+            }
+
+            Logger.DebugFormat("end backup {0}", tenantId);
         }
 
         private void DoDump(IDataWriteOperator writer)
@@ -143,25 +159,20 @@ namespace ASC.Data.Backup.Tasks
                 writer.WriteEntry(KeyHelper.GetDumpKey(), stream);
             }
 
-            var files = new List<BackupFileInfo>();
+            IEnumerable<BackupFileInfo> files = null;
 
-            var stepscount = 0;
-            foreach (var db in databases)
-            {
-                stepscount += db.Value.Count * 4;// (schema + data) * (dump + zip)
-            }
+            var count = databases.Select(d => d.Value.Count * 4).Sum(); // (schema + data) * (dump + zip)
+            var completedCount = count;
+
             if (ProcessStorage)
             {
                 var tenants = CoreContext.TenantManager.GetTenants(false).Select(r => r.TenantId);
-                foreach (var t in tenants)
-                {
-                    files.AddRange(GetFiles(t));
-                }
-                stepscount += files.Count * 2 + 1;
-                Logger.Debug("files:" + files.Count);
+                files = GetFilesTenants(tenants);
+                Logger.Debug("files:" + files.Count());
+                count += files.Count();
             }
 
-            SetStepsCount(stepscount);
+            SetStepsCount(1);
 
             foreach (var db in databases)
             {
@@ -175,7 +186,7 @@ namespace ASC.Data.Backup.Tasks
 
             if (ProcessStorage)
             {
-                DoDumpStorage(writer, files);
+                DoBackupStorage(writer, files, completedCount, count, true);
             }
         }
 
@@ -239,9 +250,20 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
+        private IEnumerable<BackupFileInfo> GetFilesTenants(IEnumerable<int> tenantIds)
+        {
+            foreach (var tenantId in tenantIds)
+            {
+                var files = GetFiles(tenantId);
+                foreach (var file in files)
+                {
+                    yield return file;
+                }
+            }
+        }
         private IEnumerable<BackupFileInfo> GetFiles(int tenantId)
         {
-            var files = GetFilesToProcess(tenantId).ToList();
+            var files = GetFilesToProcess(tenantId);
             var exclude = new List<string>();
 
             using (var db = new DbManager("default"))
@@ -255,7 +277,8 @@ namespace ASC.Data.Backup.Tasks
                 exclude.AddRange(db.ExecuteList(query).Select(r => Convert.ToString(r[0])));
             }
 
-            files = files.Where(f => !exclude.Any(e => f.Path.Replace('\\', '/').Contains(string.Format("/file_{0}/", e)))).ToList();
+            files = files.Where(f => !exclude.Any(e => f.Path.Replace('\\', '/').Contains(string.Format("/file_{0}/", e))));
+            files = files.Where(f => !f.Path.Contains("temp"));
             return files;
         }
 
@@ -506,81 +529,6 @@ namespace ASC.Data.Backup.Tasks
             }
         }
 
-        private void DoDumpStorage(IDataWriteOperator writer, IReadOnlyList<BackupFileInfo> files)
-        {
-            Logger.Debug("begin backup storage");
-
-            var dir = Path.GetDirectoryName(BackupFilePath);
-            var subDir = Path.Combine(dir, Path.GetFileNameWithoutExtension(BackupFilePath));
-
-            for (var i = 0; i < files.Count; i += TasksLimit)
-            {
-                var storageDir = Path.Combine(subDir, KeyHelper.GetStorage());
-
-                if (!Directory.Exists(storageDir))
-                {
-                    Directory.CreateDirectory(storageDir);
-                }
-
-                var tasks = new List<Task>(TasksLimit);
-                for (var j = 0; j < TasksLimit && i + j < files.Count; j++)
-                {
-                    var t = files[i + j];
-                    tasks.Add(Task.Run(() => DoDumpFile(t, storageDir)));
-                }
-
-                Task.WaitAll(tasks.ToArray());
-
-                ArchiveDir(writer, subDir);
-
-                Directory.Delete(storageDir, true);
-            }
-
-            var restoreInfoXml = new XElement("storage_restore", files.Select(file => (object)file.ToXElement()).ToArray());
-
-            var tmpPath = Path.Combine(subDir, KeyHelper.GetStorageRestoreInfoZipKey());
-            Directory.CreateDirectory(Path.GetDirectoryName(tmpPath));
-
-            using (var tmpFile = new FileStream(tmpPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 4096, FileOptions.DeleteOnClose))
-            {
-                restoreInfoXml.WriteTo(tmpFile);
-                writer.WriteEntry(KeyHelper.GetStorageRestoreInfoZipKey(), tmpFile);
-            }
-
-            SetStepCompleted();
-
-            Directory.Delete(subDir, true);
-
-            Logger.Debug("end backup storage");
-        }
-
-        private async Task DoDumpFile(BackupFileInfo file, string dir)
-        {
-            var storage = StorageFactory.GetStorage(ConfigPath, file.Tenant.ToString(), file.Module);
-            var filePath = Path.Combine(dir, file.GetZipKey());
-            var dirName = Path.GetDirectoryName(filePath);
-
-            Logger.DebugFormat("backup file {0}", filePath);
-
-            if (!Directory.Exists(dirName) && !string.IsNullOrEmpty(dirName))
-            {
-                Directory.CreateDirectory(dirName);
-            }
-
-            if (!WorkContext.IsMono && filePath.Length > MaxLength)
-            {
-                filePath = @"\\?\" + filePath;
-            }
-
-            using (var fileStream = storage.GetReadStream(file.Domain, file.Path))
-            using (var tmpFile = File.OpenWrite(filePath))
-            {
-                await fileStream.CopyToAsync(tmpFile);
-            }
-
-            SetStepCompleted();
-        }
-
         private void ArchiveDir(IDataWriteOperator writer, string subDir)
         {
             Logger.DebugFormat("archive dir start {0}", subDir);
@@ -600,48 +548,11 @@ namespace ASC.Data.Backup.Tasks
             Logger.DebugFormat("archive dir end {0}", subDir);
         }
 
-        private List<IGrouping<string, BackupFileInfo>> GetFilesGroup(DbFactory dbFactory)
-        {
-            var files = GetFilesToProcess(TenantId).ToList();
-            var exclude = new List<string>();
-
-            using (var db = dbFactory.OpenConnection())
-            {
-                using (var command = db.CreateCommand())
-                {
-                    command.CommandText = "select storage_path from backup_backup where tenant_id = " + TenantId + " and storage_type = 0 and storage_path is not null and removed = 0";
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            exclude.Add(reader.GetString(0));
-                        }
-                    }
-                }
-
-                using (var command = db.CreateCommand())
-                {
-                    command.CommandText = "select id from files_file where tenant_id = " + TenantId + " and title like '%tar.gz' and content_length > 1073741824";
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            exclude.Add(reader.GetString(0));
-                        }
-                    }
-                }
-            }
-            files = files.Where(f => !exclude.Any(e => f.Path.Replace('\\', '/').Contains(string.Format("/file_{0}/", e)))).ToList();
-
-            return files.GroupBy(file => file.Module).ToList();
-        }
-
-        private void DoBackupModule(IDataWriteOperator writer, DbFactory dbFactory, IModuleSpecifics module)
+        private int DoBackupModule(IDataWriteOperator writer, DbFactory dbFactory, IModuleSpecifics module, int completedCount, int count, int tenantId, string prefix = "")
         {
             Logger.DebugFormat("begin saving data for module {0}", module.ModuleName);
             var tablesToProcess = module.Tables.Where(t => !IgnoredTables.Contains(t.Name) && t.InsertMethod != InsertMethod.None).ToList();
-            var tablesCount = tablesToProcess.Count;
-            var tablesProcessed = 0;
+            var tablesProcessed = completedCount;
 
             using (var connection = dbFactory.OpenConnection())
             {
@@ -660,7 +571,7 @@ namespace ASC.Data.Backup.Tasks
                                 {
                                     var t = (TableInfo)state;
                                     var dataAdapter = dbFactory.CreateDataAdapter();
-                                    dataAdapter.SelectCommand = module.CreateSelectCommand(connection.Fix(), TenantId, t, Limit, offset).WithTimeout(600);
+                                    dataAdapter.SelectCommand = module.CreateSelectCommand(connection.Fix(), tenantId, t, Limit, offset).WithTimeout(600);
                                     counts = ((DbDataAdapter)dataAdapter).Fill(data);
                                     offset += Limit;
                                 } while (counts == Limit);
@@ -687,19 +598,20 @@ namespace ASC.Data.Backup.Tasks
                             data.WriteXml(file, XmlWriteMode.WriteSchema);
                             data.Clear();
 
-                            writer.WriteEntry(KeyHelper.GetTableZipKey(module, data.TableName), file);
+                            writer.WriteEntry(prefix + KeyHelper.GetTableZipKey(module, data.TableName), file);
                         }
 
                         Logger.DebugFormat("end saving table {0}", table.Name);
                     }
 
-                    SetCurrentStepProgress((int)((++tablesProcessed * 100) / (double)tablesCount));
+                    SetCurrentStepProgress((int)((++tablesProcessed * 100) / (double)count));
                 }
             }
             Logger.DebugFormat("end saving data for module {0}", module.ModuleName);
+            return tablesProcessed;
         }
 
-        private List<string> DoBackupMailTable(IDataWriteOperator writer)
+        private List<string> DoBackupMailTable(IDataWriteOperator writer, int tenantId)
         {
             Logger.DebugFormat("begin saving data for MailTable");
 
@@ -717,7 +629,7 @@ namespace ASC.Data.Backup.Tasks
                     Logger.Debug($"DoBackupMailTable: dbconnection: {dbconnection}.");
                 });
 
-                dbManager.ExecuteList($"SELECT name FROM mail_server_domain WHERE tenant={TenantId} AND is_verified=1").ForEach(r =>
+                dbManager.ExecuteList($"SELECT name FROM mail_server_domain WHERE tenant={tenantId} AND is_verified=1").ForEach(r =>
                 {
                     var findedDomain = Convert.ToString(r[0]);
 
@@ -739,7 +651,7 @@ namespace ASC.Data.Backup.Tasks
 
             if (module.findValues["domain"].Count == 0)
             {
-                Logger.Debug($"DoBackupMailTable: TenantId {TenantId} hasn`t any custom domain.");
+                Logger.Debug($"DoBackupMailTable: TenantId {tenantId} hasn`t any custom domain.");
                 return result;
             }
 
@@ -857,18 +769,34 @@ namespace ASC.Data.Backup.Tasks
             Logger.DebugFormat($"end saving {filesCount} files for Mail Server");
         }
 
-        private void DoBackupStorage(IDataWriteOperator writer, List<IGrouping<string, BackupFileInfo>> fileGroups)
+        private void DoBackupStorage(IDataWriteOperator writer, IEnumerable<BackupFileInfo> files, int completedCount, int count, bool dump = false, string prefix = "")
         {
             Logger.Debug("begin backup storage");
 
-            foreach (var group in fileGroups)
-            {
-                var filesProcessed = 0;
-                var filesCount = group.Count();
+            var filesProcessed = completedCount;
 
-                foreach (var file in group)
+            using (var tmpFile = TempStream.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes("<storage_restore>");
+                tmpFile.Write(bytes, 0, bytes.Length);
+                var storages = new Dictionary<string, IDataStore>();
+                foreach (var file in files)
                 {
-                    var storage = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), group.Key);
+                    if (!storages.TryGetValue(file.Module + file.Tenant.ToString(), out var storage))
+                    {
+                        storage = StorageFactory.GetStorage(ConfigPath, file.Tenant.ToString(), file.Module);
+                        storages.Add(file.Module + file.Tenant.ToString(), storage);
+                    }
+                    var path = file.GetZipKey();
+                    if (dump)
+                    {
+                        path = Path.Combine(prefix, Path.DirectorySeparatorChar + "storage", path);
+                    }
+                    else
+                    {
+                        path = Path.Combine(prefix, path).Replace("\\", "/");
+                    }
+
                     var file1 = file;
                     Stream fileStream = null;
                     ActionInvoker.Try(state =>
@@ -878,25 +806,20 @@ namespace ASC.Data.Backup.Tasks
                     }, file, 5, error => Logger.WarnFormat("can't backup file ({0}:{1}): {2}", file1.Module, file1.Path, error));
                     if (fileStream != null)
                     {
-                        writer.WriteEntry(file1.GetZipKey(), fileStream);
+                        writer.WriteEntry(path, fileStream);
                         fileStream.Dispose();
                     }
-                    SetCurrentStepProgress((int)(++filesProcessed * 100 / (double)filesCount));
+                    SetCurrentStepProgress((int)(++filesProcessed * 100 / (double)count));
+
+                    var restoreInfoXml = file.ToXElement();
+                    restoreInfoXml.WriteTo(tmpFile);
                 }
+
+                bytes = Encoding.UTF8.GetBytes("</storage_restore>");
+                tmpFile.Write(bytes, 0, bytes.Length);
+                writer.WriteEntry(prefix + KeyHelper.GetStorageRestoreInfoZipKey(), tmpFile);
+
             }
-
-            var restoreInfoXml = new XElement(
-                "storage_restore",
-                fileGroups
-                    .SelectMany(group => group.Select(file => (object)file.ToXElement()))
-                    .ToArray());
-
-            using (var tmpFile = TempStream.Create())
-            {
-                restoreInfoXml.WriteTo(tmpFile);
-                writer.WriteEntry(KeyHelper.GetStorageRestoreInfoZipKey(), tmpFile);
-            }
-
             Logger.Debug("end backup storage");
         }
     }
