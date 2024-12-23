@@ -113,7 +113,7 @@ Nové údaje sa naimportovali správne.
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Boli ste pridaný do projektového tímu:  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" Vás pridal do projektového tímu:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vás pridal do projektového tímu: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
   </data>

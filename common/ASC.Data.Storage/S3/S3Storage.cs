@@ -92,19 +92,28 @@ namespace ASC.Data.Storage.S3
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
             _attachment = moduleConfig.Attachment;
-            _domains.AddRange(
-                moduleConfig.Domains.Cast<DomainConfigurationElement>().Select(x => string.Format("{0}/", x.Name)));
 
-            //Make expires
-            _domainsExpires =
-                moduleConfig.Domains.Cast<DomainConfigurationElement>().Where(x => x.Expires != TimeSpan.Zero).
-                    ToDictionary(x => x.Name,
-                                 y => y.Expires);
-            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
-
-            _domainsAcl = moduleConfig.Domains.Cast<DomainConfigurationElement>().ToDictionary(x => x.Name,
-                                                                                               y => GetS3Acl(y.Acl));
             _moduleAcl = GetS3Acl(moduleConfig.Acl);
+            _domainsAcl = new Dictionary<string, S3CannedACL>();
+            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
+            _domainsValidators.Add(string.Empty, CreateValidator(moduleConfig.ValidatorType, moduleConfig.ValidatorParams));
+
+            foreach (DomainConfigurationElement domain in moduleConfig.Domains)
+            {
+                _domains.Add(string.Format("{0}/", domain.Name));
+
+                _domainsAcl.Add(domain.Name, GetS3Acl(domain.Acl));
+
+                if (domain.Expires != TimeSpan.Zero)
+                {
+                    _domainsExpires.Add(domain.Name, domain.Expires);
+                }
+
+                if (!string.IsNullOrEmpty(domain.ValidatorType))
+                {
+                    _domainsValidators.Add(domain.Name, CreateValidator(domain.ValidatorType, domain.ValidatorParams));
+                }
+            }
         }
 
         private S3CannedACL GetDomainACL(string domain)
@@ -745,6 +754,7 @@ namespace ASC.Data.Storage.S3
         public override string[] ListDirectoriesRelative(string domain, string path, bool recursive)
         {
             return GetS3Objects(domain, path)
+                .Where(x => x.Key.EndsWith("/"))
                 .Select(x => x.Key.Substring((MakePath(domain, path) + "/").Length))
                 .ToArray();
         }
@@ -936,12 +946,12 @@ namespace ASC.Data.Storage.S3
             return policyBase64;
         }
 
-        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
+        public override IEnumerable<string> ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
             return GetS3Objects(domain, path)
+                .Where(x => !x.Key.EndsWith("/"))
                 .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
-                .Select(x => x.Key.Substring((MakePath(domain, path) + "/").Length).TrimStart('/'))
-                .ToArray();
+                .Select(x => x.Key.Substring((MakePath(domain, path) + "/").Length).TrimStart('/'));
         }
 
         private bool CheckKey(string domain, string key)

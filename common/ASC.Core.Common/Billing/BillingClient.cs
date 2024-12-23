@@ -219,6 +219,10 @@ namespace ASC.Core.Billing
             return new Dictionary<string, Dictionary<string, decimal>>();
         }
 
+        public string ChangeDocspaceNonProfitTariff(string portalId, bool isActive)
+        {
+           return Request("ChangeNonProfit", portalId, new Tuple<string, string>("IsActive", isActive.ToString().ToLowerInvariant()));
+        }
 
         private string CreateAuthToken(string pkey, string machinekey)
         {

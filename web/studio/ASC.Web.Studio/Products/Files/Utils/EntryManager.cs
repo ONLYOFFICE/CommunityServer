@@ -973,7 +973,7 @@ namespace ASC.Web.Files.Utils
                         var path = FileConstant.NewDocPath + Thread.CurrentThread.CurrentCulture + "/";
                         if (!storeTemplate.IsDirectory(path))
                         {
-                            path = FileConstant.NewDocPath + "en-US/";
+                            path = FileConstant.NewDocPath + "default/";
                         }
                         var fileExt = currentExt != FileUtility.MasterFormExtension
                             ? FileUtility.GetInternalExtension(file.Title)
@@ -1012,7 +1012,7 @@ namespace ASC.Web.Files.Utils
                         }
 
                         var key = DocumentServiceConnector.GenerateRevisionId(downloadUri);
-                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUri, out _);
+                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, false, out downloadUri, out _);
 
                         stream = null;
                     }

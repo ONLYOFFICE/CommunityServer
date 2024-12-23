@@ -614,51 +614,49 @@ namespace ASC.Mail.Utils
             return json;
         }
 
+        public bool IsModuleAvailable(Guid moduleId)
+        {
+            var request = new RestRequest($"settings/security/{moduleId}.json", Method.GET);
+
+            var response = Execute(request);
+
+            if (response.ResponseStatus != ResponseStatus.Completed ||
+                (response.StatusCode != HttpStatusCode.Created &&
+                 response.StatusCode != HttpStatusCode.OK))
+            {
+                throw new ApiHelperException("IsModuleAvailable failed.", response.StatusCode, response.Content);
+            }
+
+            try
+            {
+                var json = JObject.Parse(response.Content);
+
+                if (json != null)
+                {
+                    return Convert.ToBoolean(json["response"]);
+                }
+            }
+            catch (Exception e)
+            {
+                _log.Error(e.Message, e);
+            }
+
+            return false;
+        }
+
         public bool IsCalendarModuleAvailable()
         {
-            var json = GetPortalSettings();
-
-            var jWebItem = json["response"].Children<JObject>()
-                .FirstOrDefault(
-                    o =>
-                        o["webItemId"] != null &&
-                        o["webItemId"].ToString() == WebItemManager.CalendarProductID.ToString());
-
-            var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
-
-            return isAvailable;
+            return IsModuleAvailable(WebItemManager.CalendarProductID);
         }
 
         public bool IsMailModuleAvailable()
         {
-            var json = GetPortalSettings();
-
-            var jWebItem = json["response"].Children<JObject>()
-                .FirstOrDefault(
-                    o =>
-                        o["webItemId"] != null &&
-                        o["webItemId"].ToString() == WebItemManager.MailProductID.ToString());
-
-            var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
-
-            return isAvailable;
+            return IsModuleAvailable(WebItemManager.MailProductID);
         }
 
         public bool IsCrmModuleAvailable()
         {
-            var json = GetPortalSettings();
-
-            var crmId = WebItemManager.CRMProductID.ToString();
-
-            var jWebItem = json["response"].Children<JObject>()
-                .FirstOrDefault(
-                    o =>
-                        o["webItemId"] != null &&
-                        o["webItemId"].ToString() == crmId);
-
-            var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
-
-            return isAvailable;
+            return IsModuleAvailable(WebItemManager.CRMProductID);
         }
     }
 }

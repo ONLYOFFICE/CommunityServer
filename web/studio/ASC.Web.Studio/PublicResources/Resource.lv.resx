@@ -284,7 +284,7 @@
     <value>Iespējot</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Autorizācijas atslēgas ir iespēja, kas ļauj jums pieslēgties ONLYOFFICE™ portālam ar trešās puses pakalpojumiem, piemēram, Twitter, Facebook, DropBox u.c. Pieslēdzieties savam portālam ar Facebook, Twitter vai LinkedIn, ja nevēlaties katrreiz vadīt sava portāla pieejas datus. Sasaistiet to ar tādiem pakalpojumiem kā DropBox, OneDrive u.c., lai pārnestu dokumentus no visām tām glabātuvēm uz ONLYOFFICE™ Dokumentu moduli.</value>
+    <value>Autorizācijas atslēgas ir iespēja, kas ļauj jums pieslēgties ONLYOFFICE™ portālam ar trešās puses pakalpojumiem, piemēram, X (Twitter), Facebook, DropBox u.c. Pieslēdzieties savam portālam ar Facebook, X (Twitter) vai LinkedIn, ja nevēlaties katrreiz vadīt sava portāla pieejas datus. Sasaistiet to ar tādiem pakalpojumiem kā DropBox, OneDrive u.c., lai pārnestu dokumentus no visām tām glabātuvēm uz ONLYOFFICE™ Dokumentu moduli.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Lietošanas nosacījumi</value>
@@ -750,7 +750,7 @@
     <value>Tālruņa numurs no Twilio (nepieciešams SMS autorizācijai)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter CRM atslēga</value>
@@ -762,19 +762,19 @@
     <value>Twitter atslēga</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Pievienojiet lietotni, lai ieietu portālā ar Twitter kontu un meklētu lietotājus.</value>
+    <value>Pievienojiet lietotni, lai ieietu portālā ar X (Twitter) kontu un meklētu lietotājus.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Pievienojot Twitter lietotni, jūs varēsit pieslēgt savu Twitter kontu savai profila lapai un ieiet ONLYOFFICE™ portālā ar to. Jūs varēsit arī uzmeklēt personas Twitter kontu CRM modulī un to piesaistīt lapai "Rediģēt personu / uzņēmumu" un tad to aplūkot Twitter ziņu lentā.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Marķiera piekļuve</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter atslēga</value>
+    <value>X (Twitter) atslēga</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Slepenā marķiera piekļuve</value>
@@ -2821,7 +2821,7 @@ Attīrīt sarakstu{1}</value>
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

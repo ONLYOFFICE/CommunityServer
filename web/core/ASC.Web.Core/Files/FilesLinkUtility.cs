@@ -16,7 +16,9 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
@@ -53,6 +55,8 @@ namespace ASC.Web.Core.Files
         public const string Anchor = "anchor";
         public const string LinkId = "linkid";
         public const string FolderShareKey = "share";
+        public const string VersionShort = "ver";
+        public const string ShardKey = "shardkey";
 
         public static string FileHandlerPath
         {
@@ -260,6 +264,11 @@ namespace ASC.Web.Core.Files
             get { return FileWebEditorUrlString + "&" + Action + "=view"; }
         }
 
+        public static string FileWebFillingUrlString
+        {
+            get { return FileWebEditorUrlString + "&" + Action + "=fill"; }
+        }
+
         public static string GetFileWebViewerUrlForMobile(object fileId, int fileVersion)
         {
             var viewerUrl = CommonLinkUtility.ToAbsolute("~/../Products/Files/") + EditorPage + "?" + FileId + "={0}";
@@ -286,6 +295,11 @@ namespace ASC.Web.Core.Files
         public static string GetFileWebEditorUrl(object fileId)
         {
             return string.Format(FileWebEditorUrlString, HttpUtility.UrlEncode(fileId.ToString()));
+        }
+
+        public static string GetFileWebFillUrl(object fileId)
+        {
+            return string.Format(FileWebFillingUrlString, HttpUtility.UrlEncode(fileId.ToString()));
         }
 
         public static string FileCustomProtocolEditorUrlString
@@ -445,6 +459,41 @@ namespace ASC.Web.Core.Files
         private static string GetSettingsKey(string key)
         {
             return "DocKey_" + key;
+        }
+
+        public static string AddQueryString(string uri, Dictionary<string, string> queryString)
+        {
+            var uriToBeAppended = uri;
+            var anchorText = string.Empty;
+
+            var anchorIndex = uri.IndexOf('#');
+            if (anchorIndex != -1)
+            {
+                anchorText = uriToBeAppended.Substring(anchorIndex);
+                uriToBeAppended = uriToBeAppended.Substring(0, anchorIndex);
+            }
+
+            var queryIndex = uriToBeAppended.IndexOf('?');
+            var hasQuery = queryIndex != -1;
+
+            var sb = new StringBuilder();
+            sb.Append(uriToBeAppended);
+            foreach (var parameter in queryString)
+            {
+                if (parameter.Value == null)
+                {
+                    continue;
+                }
+
+                sb.Append(hasQuery ? '&' : '?');
+                sb.Append(HttpUtility.UrlEncode(parameter.Key));
+                sb.Append('=');
+                sb.Append(HttpUtility.UrlEncode(parameter.Value));
+                hasQuery = true;
+            }
+
+            sb.Append(anchorText);
+            return sb.ToString();
         }
     }
 }

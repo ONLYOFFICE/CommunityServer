@@ -568,7 +568,7 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
-            return base.BuildDocbuilderReport(filter).Where(r => r.Count() != 2 && (int)r[3] == 0);
+            return base.BuildDocbuilderReport(filter).Where(r => r.Count() != 3 && (int)r[3] == 0);
         }
 
         public override ReportInfo ReportInfo
@@ -595,7 +595,7 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildDocbuilderReport(TaskFilter filter)
         {
-            return base.BuildDocbuilderReport(filter).Where(r => r.Count() != 2 && (int)r[4] == 0);
+            return base.BuildDocbuilderReport(filter).Where(r => r.Count() != 3 && (int)r[4] == 0);
         }
 
         public override ReportInfo ReportInfo

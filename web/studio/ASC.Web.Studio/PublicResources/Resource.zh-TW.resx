@@ -302,7 +302,7 @@
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
     <value>
-授權密鑰是一個選項，允許您將ONLYOFFICE™門戶與Twitter，Facebook，DropBox等第三方服務連接。如果不想每次都引入門戶憑據，則將門戶與Facebook，Twitter或Linkedin連接您輸入它。將其與諸如DropBox，OneDrive等之類的服務連接起來，以將文檔從所有這些存儲區傳輸到ONLYOFFICE™文檔模塊。</value>
+授權密鑰是一個選項，允許您將ONLYOFFICE™門戶與X (Twitter)，Facebook，DropBox等第三方服務連接。如果不想每次都引入門戶憑據，則將門戶與Facebook，X (Twitter)或Linkedin連接您輸入它。將其與諸如DropBox，OneDrive等之類的服務連接起來，以將文檔從所有這些存儲區傳輸到ONLYOFFICE™文檔模塊。</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>服務條款</value>
@@ -2978,7 +2978,7 @@ Authenticator應用程序配置將被重置。</value>
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

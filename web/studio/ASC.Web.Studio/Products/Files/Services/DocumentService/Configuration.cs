@@ -57,7 +57,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static readonly List<string> PdfType = new List<string>
             {
-                ".djvu", ".oxps", ".pdf", ".xps"
+                ".djvu", ".docxf", ".oform", ".oxps", ".pdf", ".xps"
             };
 
         public enum EditorType
@@ -94,6 +94,9 @@ namespace ASC.Web.Files.Services.DocumentService
             set { }
             get
             {
+                var ext = FileUtility.GetFileExtension(Document.Info.File.Title);
+                if (PdfType.Contains(ext)) return "pdf";
+
                 string documentType;
 
                 DocType.TryGetValue(GetFileType, out documentType);
@@ -322,6 +325,10 @@ namespace ASC.Web.Files.Services.DocumentService
                 [DataMember(Name = "changeHistory")]
                 public bool ChangeHistory = false;
 
+                ///<example name="changeHistory">true</example>
+                [DataMember(Name = "chat")]
+                public bool Chat = true;
+
                 ///<example name="comment">true</example>
                 [DataMember(Name = "comment")]
                 public bool Comment = true;
@@ -341,6 +348,10 @@ namespace ASC.Web.Files.Services.DocumentService
                 ///<example name="print">true</example>
                 [DataMember(Name = "print")]
                 public bool Print = true;
+
+                ///<example name="print">true</example>
+                [DataMember(Name = "protect")]
+                public bool Protect = true;
 
                 ///<example name="modifyFilter">true</example>
                 [DataMember(Name = "modifyFilter")]
@@ -382,6 +393,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     {
                         Id = _userInfo.ID.ToString(),
                         Name = _userInfo.DisplayUserName(false),
+                        Image = CommonLinkUtility.GetFullAbsolutePath(_userInfo.GetMediumPhotoURL())
                     };
                 }
                 else if (!SecurityContext.IsAuthenticated && FileShareLink.TryGetSessionId(out var sessionId))
@@ -778,12 +790,19 @@ namespace ASC.Web.Files.Services.DocumentService
                     if (CoreContext.Configuration.Standalone)
                         Customer = new CustomerConfig(_configuration);
 
+                    if (!SecurityContext.IsAuthenticated)
+                        Anonymous = new AnonymousConfig(_configuration);
+
                     Logo = new LogoConfig(_configuration);
                 }
 
                 private readonly Configuration _configuration;
                 public string GobackUrl;
                 public bool IsRetina = false;
+
+                ///<type name="anonymous">ASC.Web.Files.Services.DocumentService.Configuration.EditorConfiguration.CustomizationConfig.AnonymousConfig, ASC.Web.Files</type>
+                [DataMember(Name = "anonymous", EmitDefaultValue = false)]
+                public AnonymousConfig Anonymous;
 
                 ///<example name="about">true</example>
                 [DataMember(Name = "about")]
@@ -949,6 +968,24 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 #region Nested Classes
 
+                [DataContract(Name = "anonymous", Namespace = "")]
+                public class AnonymousConfig
+                {
+                    public AnonymousConfig(Configuration configuration)
+                    {
+                        _configuration = configuration;
+                    }
+
+                    private readonly Configuration _configuration;
+
+                    [DataMember(Name = "request")]
+                    public bool Request
+                    {
+                        get { return _configuration.Document.Permissions.Chat; }
+                        set { }
+                    }
+                }
+
                 [DataContract(Name = "customer", Namespace = "")]
                 public class CustomerConfig
                 {
@@ -977,7 +1014,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         }
                     }
 
-                    [DataMember(Name = "logoDark ")]
+                    [DataMember(Name = "logoDark")]
                     public string LogoDark
                     {
                         set { }
@@ -1090,6 +1127,13 @@ namespace ASC.Web.Files.Services.DocumentService
                         set { }
                         get { return SecurityContext.IsAuthenticated ? CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetDefault()) : null; }
                     }
+
+                    [DataMember(Name = "visible")]
+                    public bool Visible
+                    {
+                        set { }
+                        get { return _configuration.Type != EditorType.Mobile; }
+                    }
                 }
 
                 #endregion
@@ -1137,6 +1181,10 @@ namespace ASC.Web.Files.Services.DocumentService
                 ///<example name="name">name</example>
                 [DataMember(Name = "name", EmitDefaultValue = false)]
                 public string Name;
+
+                ///<example name="image">image</example>
+                [DataMember(Name = "image", EmitDefaultValue = false)]
+                public string Image;
             }
 
             #endregion

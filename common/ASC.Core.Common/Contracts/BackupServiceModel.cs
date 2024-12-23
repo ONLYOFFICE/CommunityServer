@@ -57,6 +57,9 @@ namespace ASC.Core.Common.Contracts
 
         [DataMember]
         public Dictionary<string, string> StorageParams { get; set; }
+
+        [DataMember]
+        public bool Dump { get; set; }
     }
 
     [DataContract]

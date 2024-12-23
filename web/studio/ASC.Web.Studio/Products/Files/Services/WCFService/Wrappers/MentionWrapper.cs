@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 using ASC.Core.Users;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files.Services.WCFService
 {
@@ -36,6 +37,13 @@ namespace ASC.Web.Files.Services.WCFService
         public string Id
         {
             get { return User.ID.ToString(); }
+            set { }
+        }
+
+        [DataMember(Name = "image", EmitDefaultValue = false)]
+        public string Image
+        {
+            get { return CommonLinkUtility.GetFullAbsolutePath(User.GetMediumPhotoURL()); }
             set { }
         }
 

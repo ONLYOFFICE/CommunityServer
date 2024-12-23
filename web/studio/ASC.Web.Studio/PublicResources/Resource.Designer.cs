@@ -817,7 +817,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third-party services like Twitter, Facebook, DropBox etc. Connect your portal with Facebook, Twitter or Linkedin if you don&apos;t want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module..
+        ///   Looks up a localized string similar to Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third-party services like X (Twitter), Facebook, DropBox etc. Connect your portal with Facebook, X (Twitter) or Linkedin if you don&apos;t want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module..
         /// </summary>
         public static string AuthorizationKeysText {
             get {
@@ -2808,7 +2808,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter.
+        ///   Looks up a localized string similar to X (Twitter).
         /// </summary>
         public static string ConsumersTwitter {
             get {
@@ -2817,7 +2817,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a Twitter account..
+        ///   Looks up a localized string similar to Enable the application to sign in to the portal using a X (Twitter) account..
         /// </summary>
         public static string ConsumersTwitterDescription {
             get {
@@ -2826,7 +2826,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their Twitter and link their customers’ Twitter accounts to the CRM module. {0}Go to Twitter Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:.
+        ///   Looks up a localized string similar to Enable this app to allow your users to sign in to ONLYOFFICE using their X (Twitter) and link their customers’ X (Twitter) accounts to the CRM module. {0}Go to X (Twitter) Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:.
         /// </summary>
         public static string ConsumersTwitterInstructionV11 {
             get {
@@ -2835,7 +2835,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter ID.
+        ///   Looks up a localized string similar to X (Twitter) ID.
         /// </summary>
         public static string ConsumersTwitterKey {
             get {
@@ -2844,7 +2844,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter Key.
+        ///   Looks up a localized string similar to X (Twitter) Key.
         /// </summary>
         public static string ConsumersTwitterSecret {
             get {
@@ -12064,7 +12064,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter.
+        ///   Looks up a localized string similar to X (Twitter).
         /// </summary>
         public static string TitleTwitter {
             get {

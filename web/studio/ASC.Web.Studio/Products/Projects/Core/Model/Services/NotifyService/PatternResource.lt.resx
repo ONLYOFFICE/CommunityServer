@@ -113,7 +113,7 @@ Nauji duomenys sėkmingai importuoti.
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Jūs įtrauktas į komandą projekte: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" įtraukė Jus į komandą projekte:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" įtraukė Jus į komandą projekte: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
   </data>

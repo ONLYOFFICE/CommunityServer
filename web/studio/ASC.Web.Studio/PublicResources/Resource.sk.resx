@@ -286,7 +286,7 @@
     <value>Zapnúť</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Autorizačné kľúče sú možnosťou, ktorá Vám umožňuje pripojiť Váš portál ONLYOFFICE ™ k službám tretích strán, ako je Twitter, Facebook, DropBox atď. Prepojte svoj portál s Facebookom, Twitterom alebo Linkedom, ak nechcete, aby ste svoje portálové poverenia zadávali zakaždým keď do neho vstúpite. Prepojte ho s takými službami, ako je DropBox, OneDrive atď., pre presun dokumentov zo všetkých týchto úložisk do ONLYOFFICE™  modulu Dokumenty.</value>
+    <value>Autorizačné kľúče sú možnosťou, ktorá Vám umožňuje pripojiť Váš portál ONLYOFFICE ™ k službám tretích strán, ako je X (Twitter), Facebook, DropBox atď. Prepojte svoj portál s Facebookom, X (Twitter)om alebo Linkedom, ak nechcete, aby ste svoje portálové poverenia zadávali zakaždým keď do neho vstúpite. Prepojte ho s takými službami, ako je DropBox, OneDrive atď., pre presun dokumentov zo všetkých týchto úložisk do ONLYOFFICE™  modulu Dokumenty.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Podmienky používania</value>
@@ -786,7 +786,7 @@
 </value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter v CRM Kľúči</value>
@@ -798,19 +798,19 @@
     <value>Twitter kľúč</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Pripojte aplikáciu a prihláste sa na portál pomocou účtu Twitter a vyhľadajte kontakty.</value>
+    <value>Pripojte aplikáciu a prihláste sa na portál pomocou účtu X (Twitter) a vyhľadajte kontakty.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Ak pridáte aplikáciu Twitter, budete môcť Váš Twitter účet prepojiť s Vaším profilom a prihlasovať sa s ním do ONLYOFFICE™. Taktiež budete môcť vyhľadať svoj kontakt z Twitter-u v module CRM, pripojiť ho na stránke 'Upraviť osobu / spoločnosť' a sledovať Twitter novinky.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Prístupový token</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter kľúč</value>
+    <value>X (Twitter) kľúč</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Tajný prístupový token</value>
@@ -2815,7 +2815,7 @@ Ak sa chcete zaregistrovať, zadajte svoj e-mail a kliknite na Poslať pozvánku
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

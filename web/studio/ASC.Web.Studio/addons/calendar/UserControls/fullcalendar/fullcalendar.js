@@ -5323,6 +5323,7 @@ function TodoList(calendar) {
 	        mark_btn: _todo_viewer.find(".buttons .mark-btn")[0]
 	    };
 		var elem = $(_curTodoElem);
+		var todoCalendar = _getTodoCalendar();
 		var sources = calendar.getEventSources();
 		var src = sources[elem.data("sourceIndex")];
 		var newSource;
@@ -5344,7 +5345,8 @@ function TodoList(calendar) {
 		    
 		    if (!validateDateResult && !date.data.date.isEmpty) { return false; }
 
-		    curTodo.start = parseDate(date.data.date.value + "T23:59:59");
+			curTodo.start = parseDate(date.data.date.value + "T23:59:59");
+			curTodo.timeZone = todoCalendar ? todoCalendar.timeZone : ASC.Resources.Master.CurrentTenantTimeZone;
 
 			var cal = todo.cal.val();
 			if (cal != src.title) {
@@ -5739,6 +5741,7 @@ function TodoList(calendar) {
 	    var sources = calendar.getEventSources();
 	    var src = sources[elem.data("sourceIndex")];
 	    var curTodo = src.todos[elem.data("todoId")];
+	    var todoCalendar = _getTodoCalendar();
 
 	    var $lbl = $(this), text = $lbl.text(),
 	    $txt = $('<input type="text" class="editable-label-text" maxlength="150" />');
@@ -5756,6 +5759,7 @@ function TodoList(calendar) {
 	        if (false != fcUtil.validateInput($(this), fcUtil.validateNonemptyString)) {
 	            $lbl.text(newText);
 	            curTodo.title = newText;
+	            curTodo.timeZone = todoCalendar ? todoCalendar.timeZone : ASC.Resources.Master.CurrentTenantTimeZone;
 	            _updateTodo(curTodo);
 	            elem.removeClass('edit');
 	            $txt.replaceWith($lbl);
@@ -5775,6 +5779,7 @@ function TodoList(calendar) {
                 if (false != fcUtil.validateInput($(this), fcUtil.validateNonemptyString)) {
                     $lbl.text(newText);
                     curTodo.title = newText;
+                    curTodo.timeZone = todoCalendar ? todoCalendar.timeZone : ASC.Resources.Master.CurrentTenantTimeZone;
 
                     _updateTodo(curTodo, { resolve: true, containerDate: containerDate });
 
@@ -6301,20 +6306,15 @@ function TodoList(calendar) {
 
 	function _completeTodo(todoElem) {
 		var elem = $(todoElem);
-		var source = calendar.getEventSources()[elem.data("sourceIndex")];
+		var sources = calendar.getEventSources();
+		var todoCalendar = _getTodoCalendar();
+		var source = sources[elem.data("sourceIndex")];
 		var todo = source.todos[elem.data("todoId")];
 		todo.completed = !todo.completed;
-
-		var _elem = $(todoElem);
-		var sources = calendar.getEventSources();
-		var src = sources[_elem.data("sourceIndex")];
-		
-		var curTodo = src.todos[elem.data("todoId")];
-		_updateTodo(curTodo);
+		todo.timeZone = todoCalendar ? todoCalendar.timeZone : ASC.Resources.Master.CurrentTenantTimeZone;
+		_updateTodo(todo);
 		_curTodoElem = undefined;
-		if (todo.completed) _elem.addClass("completed");
-		else _elem.removeClass("completed");
-		//_renderList.call(_this);
+		elem.toggleClass("completed", todo.completed);
 	}
 
 	function _deleteTodo(todoElem) {
@@ -6417,6 +6417,8 @@ function TodoList(calendar) {
 	};
 
 	this.createTodo = function (todo) {
+		var todoCalendar = _getTodoCalendar();
+		todo.timeZone = todoCalendar ? todoCalendar.timeZone : ASC.Resources.Master.CurrentTenantTimeZone;
 	    _updateTodo(todo);
 	    _curTodoElem = undefined;
 	    _renderList.call(_this);

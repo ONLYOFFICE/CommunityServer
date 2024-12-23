@@ -1,5 +1,131 @@
 # Change log
 
+## Version 12.7.1
+
+### General portal changes
+
+* Fixed the issue with receiving an instance-id for AMI.
+* Made changes for requests to docbuilder using the shardkey parameter.
+* Fixed the critical issue in the AutoCleanUp service (Bug 71281).
+* Fixed the issue with missing the Comment tab in PDF files (Bug 70867).
+* Hidden buttons for creating a PDF form in the Private room.
+* Enabled SharePoint connection on UNIX systems.
+* Fixed the issue with the JWT secret during update (Bug 71036).
+* Fixed the issue with single-component installation updates (Bug 70862).
+* Fixed the issue when the POST /api/2.0/settings/customnavigation/create method allows passing an unlimited number of characters in the "label" parameter (Bug 71805).
+* Fixed passing of the logoDark parameter to the editor.
+* Fixed the ability to specify an unlimited number of characters in all SMTP parameters (Bug 71859).
+* Fixed the ability to set port to "999999999" in Workspace SMTP parameters (Bug 71860).
+* Fixed the issue when the POST /api/2.0/settings/whitelabel/save method allows passing an unlimited number of characters to the "logoText" string in Workspace (Bug 71857).
+* Fixed the issue with the unlimited length of the share link name and password (Bug 71862).
+* Fixed the error from log ( ERROR ASC.Api.ApiSetup - method error: http://127.0.0.1/api/2.0/project/securityinfo.json - Server error System.Web.HttpException (0x80004005): Forbidden ).
+* Fixed the error from log ( ERROR ASC.Api.ApiSetup - method error: https://127.0.0.1/api/2.0/settings/security.json - Server error ASC.Common.Security.Authorizing.AuthorizingException: "[username]" access denied "Edit Portal Settings" ) (Bug 71913).
+* Added deletion of the synchronization client in case of a critical error in ImapSync (to allow reconnection).
+* Fixed the issue when the bottom part of the title in the event and task viewing window is cut off (Bug 47353).
+* Fixed the issue with configuring Windows feature (Bug 71923).
+* Fixed duplicate Downloading text in the prerequisites installation UI.
+* Fixed the issue when Google connection as a Storage is not available on Linux distributions (Bug 72205).
+
+### Documents module
+
+* When creating a new document, a template with the Letter page format will be taken for the en-US language. For languages ​​without templates, a document with the A4 page format will be taken.
+* Added empty file templates for creation in the following languages: fi-FI, he-IL, nb-NO, sl-SI.
+* Starting documents now have titles in the corresponding language.
+
+### Control Panel
+
+* Fixed the issue when the /controlpanel/https page crashes with the 502 error after restarting the container. (Bug 71794).
+
+## Version 12.7.0
+
+### General portal changes
+
+* Using the latest version of the Facebook API without specifying a version number. Previously, version 2.7 was used, which is outdated.
+* Added Zoom login provider.
+* Added the mysql port setting in the UrlShortener service config.
+* Added methods for getting entities in parts and sorting by id.
+* Fixed the dark theme issues: the deeplink dialog window for opening a file on mobile devices; the "On top" button in entity lists on a narrow screen; the letter container in the Mail module; the dialog window for mentioning a user via @ in ckeditor.
+* Removed font styles when pasting text from MS Word to ckeditor.
+* Disabled Facebook until the application is validated.
+* Disabled Google Drive until the application is validated.
+* Increased the length of the short link.
+* Fixed the issue with indicating an incorrect maximum number of characters in the hint. TenantDomainValidator: A subdomain can be up to 255 characters long, but if you have multiple levels in your subdomain, each level can only be 63 characters long (Bug 66512).
+* Fixed the issue when the /ajaxpro/ASC.Web.Studio.UserControls.Common.PollForm.PollForm,ASC.Web.Studio.ashx method allows voting through BS Turbo Intruder multiple times (Bug 66500).
+* Fixed the issue when the api/2.0/settings/customnavigation/getall method is available to users without administrator rights (Bug 66647).
+* Fixed errors in the Favorites folder after changing the settings for connecting a third-party storage, if its file was added to Favorites. (Bug 66624).
+* Fixed issue when the /api/2.0/settings/security method is available to users without administrator rights. (Bug 66663).
+* Fixed the issue with missing backend validation for the Success probability. (Bug 66667).
+* Fixed the typo in the link to the Organization profile page (?type=organisation_profile). (Bug 66715).
+* Fixed the issue when the /api/2.0/settings/security/loginSettings method allows seting values ​​of more than 4 characters for Brute Force Protection in Workspace. (Bug 66756).
+* Fixed the issue when the /ajaxpro/ASP.usercontrols_management_cookiesettings_cookiesettings_ascx,ASC.ashx method allows setting a value of more than 4 characters for Session Lifetime in Workspace. (Bug 66709).
+* Fixed the "Could not resolve current tenant" error when exporting a large number of contacts. (Bug 62984).
+* Fixed the issue when contact avatars are available via direct link when access is closed for the user. (Bug 66708).
+* Fixed the issue when the /fckuploader method allows users without access to the Community module to upload images. (Bug 66710).
+* Fixed the issue when a user without access to the mail server can use the mailserver/domains/common method. (Bug 67100).
+* Fixed the translation of the Unblock/Check-in button in Chinese. (Bug 67464).
+* Fixed the issue when the /ajaxpro/ASC.Web.Studio.UserControls.Common.PollForm.PollForm,ASC.Web.Studio.ashx method allows a user with limited access to the Community module to vote. (Bug 67465).
+* Fixed the issue with the white background of a document title on the Deeplink page with the dark interface theme. (Bug 67529).
+* Fixed the issue with the "index was outside the bounds of the array" error when generating reports. (Bug 67986).
+* Added a loader in the manager when saving .docxf via Save as PDF form. (Bug 66529).
+* Fixed the issue when a user without administrator rights can download the backup file via a direct link. (Bug 68162).
+* Switched FFmpeg-installer to use pre-downloaded file. (Bug 67421).
+* Updated MySQL to v8.0.37. (Bug 68348).
+* Fixed the issue with missing the Save as PDF form button in the context menu of the .oform file. (Bug 68646).
+* Fixed the issue when the /app/onlyoffice/CommunityServer/data/Products/Files/00/00/01/temp/ folder is added to the backup file. (Bug 68392).
+* Fixed the issue when the value "undefined" appears in the URL after selecting yourself as a responsible for a project. (Bug 68942).
+* Fixed the issue when the /api/2.0/portal/usedspace method is available to users without administrator rights in Worksapce. (Bug 68990).
+* Fixed the issue with the advanced sorting list button in the Recent folder. (Bug 68707).
+* Fixed the issue with missing the link to download the temporary Backup file after refreshing the page. (Bug 67877).
+* Fixed the issue with upgrading Workspace to Enterprise Edition (Bug 68561).
+* Fixed the issue with null values ​​of imported data in a link to a third-party resource instead of a warning. (Bug 69914).
+* Fixed the issue when the link to change email remains active after sending a message to change email to another address. (Bug 68836).
+* Fixed the issue when the file list does not scroll when selecting with the left mouse button held down. (Bug 68654).
+* Replaced Twitter icon with actual X icon. (Bug 70255).
+* Fixed the issue when files without an extension are not included in the backup archive. (Bug 70294).
+* Fixed the "DOMNodeInserted" error while creating message. (Bug 70295).
+* Fixed hanging the Mail module when changing the number of displayed letters /page_size=1000/. (Bug 68786).
+* Fixed the issue when documents are not available after performing restore. (Bug 70348).
+* Fixed the issue when the POST /api/2.0/settings/rebranding/company method allows passing to the About window the email and website addresses using punycode. (Bug 70257).
+* Fixed the issue when the /api/2.0/settings/tfaappcodes method allows viewing Backup codes after disabling two-factor authentication in Workspace. (Bug 70390).
+* Fixed the issue when the PUT /api/2.0/portal/portalrename method allows renaming a portal with a space before the name. (Bug 70391).
+* Fixed the issue with the Enterprise Edition license. (Bug 70051).
+* Fixed the issue when the /api/2.0/portal/getshortenlink method allows substituting a malicious site into the shortlink. (Bug 70392).
+* Fixed the issue when the PUT /api/2.0/people/{ID} method allows allows changing a type of a deactivated user. (Bug 70395).
+* Fixed the issue when the api/2.0/group/{groupid}/manager method allows assigning a blocked user as a group manager. (Bug 70418).
+* Fixed the issue with a timeout expected when entering an incorrect login/password for the mail/gmail mailbox. (Bug 68740).
+* Fixed the issue when marking a To-do task as completed or uncompleted changes its start time (DTSTART label). (Bug 68970).
+* Fixed the issue with missing logos of the social network (X) Twitter in the dark theme of the portal. (Bug 70457).
+* Fixed the issue when the backup file created in the server version for Windows is not supported for importing to DocSpace (Bug 70558).
+* Fixed the issue when there is no possibility to connect Google as a storage in the server version for Windows (Bug 70557).
+* Fixed the issue when most of the ONLYOFFICE services do not start after updating RPM packages. (Bug 70583).
+* Fixed the issue when the installation on Ubuntu 20.04 / Debian 11 fails with the error "error: metadata-generation-failed" (Bug 70596).
+* Fixed the issue when the Full-text Search section content is not loaded  with the error "500 (Internal Server Error)" (Bug 70556).
+
+### Documents module
+
+* Updated the list of the editors error codes.
+* The djvu, oxps, pdf, xps formats will be sent to the editor with the documentType=pdf  indication (editor 8.0 or higher is required). The docxf and oform formats will be sent to the editor with the documentType=pdf indication (editor 8.1 or higher is required).
+* The Protected panel is hidden for the anonymous so that he cannot set a password for the file.
+* When sharing via an external link for viewing, the chat is not available and the username is not requested.
+* User avatars are transferred to the editor for authorized users if there is access to the People module.
+* In a mobile browser, when opening the editor, the ONLYOFFICE logo will not be displayed if the license allows (editor 8.1 or higher is required).
+* Files in djvu and oform formats can be converted to pdf (editor 7.1 or higher is required).
+* When creating a form, an empty PDF form file will be opened for editing. In the context menu of any PDF file there are the following buttons: edit (the mode as for docxf with changing all contents and saving), fill in (the mode as for oform with filling in fields and saving) and view (the mode of opening for viewing with the ability to fill in without saving) (editor 8.1 or higher is required). The document manager does not distinguish a PDF file from our PDF form.
+* For the docxf file, the "Save as PDF form" button is kept in the context menu. A similar button is added to the context menu of the oform file.
+* Creating a PDF form from docx works through conversion, editor 8.1 or higher is required.
+* Support for referencing a portal file in a spreadsheet in the IMPORTRANGE formula (editor 8.1 or higher is required).
+* Added the sr-Cyrl-RS empty file.
+* Updated empty file templates in English.
+* Added the version parameter to GetPresignedUri.
+* Added the shardkey parameter for requests to editors.
+
+### Control Panel
+
+* Fixed the issue with missing the link to download the temporary Backup file after refreshing the page. (Bug 70341).
+* Fixed the issue when a curl request to the Control Panel stops the service on Windows. (Bug 70049).
+* Fixed the issue when the description of the dark theme logo indicates that the logo is for the light theme. (Bug 68858).
+* Added a checkbox when creating a backup for migration to DocSpace. 
+
 ## Version 12.6.0
 
 ### General portal changes

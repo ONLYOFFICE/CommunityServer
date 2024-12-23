@@ -43,5 +43,7 @@ namespace ASC.Core.Billing
         string GetButton(int tariffId, string partnerId);
 
         void SaveButton(int tariffId, string partnerId, string buttonUrl);
+
+        void ChangeDocspaceNonProfitTariff(int tenantId, bool isActive);
     }
 }

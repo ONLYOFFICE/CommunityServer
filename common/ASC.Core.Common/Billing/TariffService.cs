@@ -48,6 +48,7 @@ namespace ASC.Core.Billing
         private readonly CoreConfiguration config;
         private readonly bool test;
         private readonly int paymentDelay;
+        private readonly string dsregion;
 
         public readonly static int ACTIVE_USERS_MIN;
         public readonly static int ACTIVE_USERS_MAX;
@@ -89,6 +90,7 @@ namespace ASC.Core.Billing
             CacheExpiration = DEFAULT_CACHE_EXPIRATION;
             test = ConfigurationManagerExtension.AppSettings["core.payment-test"] == "true";
             int.TryParse(ConfigurationManagerExtension.AppSettings["core.payment-delay"], out paymentDelay);
+            dsregion = IsDocspace ? ConfigurationManagerExtension.AppSettings[$"core.payment-dsregion.{connectionString.Name}"] : null;
         }
 
 
@@ -436,6 +438,28 @@ namespace ASC.Core.Billing
                 .InColumnValue("button_url", buttonUrl);
 
             ExecNonQuery(q);
+        }
+
+        public void ChangeDocspaceNonProfitTariff(int tenantId, bool isActive)
+        {
+            if (!IsDocspace || !BillingClient.Configured)
+            {
+                return;
+            }
+
+            var portalId = dsregion + tenantId;
+
+            try
+            {
+                var client = GetBillingClient();
+                var result = client.ChangeDocspaceNonProfitTariff(portalId, isActive);
+
+                log.Debug($"ChangeDocspaceNonProfitTariff portal {portalId} isActive: {isActive} result {result}");
+            }
+            catch (Exception error)
+            {
+                LogError(error, portalId);
+            }
         }
 
 

@@ -69,7 +69,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new TableInfo("mail_contact_info", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
                
                 new TableInfo("mail_filter", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
-                new TableInfo("mail_folder", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_folder", "tenant") {UserIDColumns = new[] {"id_user"}},
                 new TableInfo("mail_user_folder", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
                 new TableInfo("mail_user_folder_x_mail", "tenant") {UserIDColumns = new[] {"id_user"}}               
             };

@@ -1194,6 +1194,10 @@ window.ASC.Files.UI = (function () {
         }
     };
 
+    var checkButtonMasterForm = function (buttonSelector, panelSelector) {
+        jq(panelSelector + " " + buttonSelector).toggleClass("display-none", ASC.Files.Folders.folderContainer == "privacy");
+    }
+
     var removeDataFromButtonBack = function () {
         jq(".to-parent-folder-dropdown").children('input[name="entry_data"]')
             .attr("data-deny_download", "")
@@ -1459,6 +1463,7 @@ window.ASC.Files.UI = (function () {
         removeDataFromButtonBack: removeDataFromButtonBack,
         checkEmptyContent: checkEmptyContent,
         checkButtonBack: checkButtonBack,
+        checkButtonMasterForm: checkButtonMasterForm,
 
         hideAllContent: hideAllContent,
         displayHelp: displayHelp,

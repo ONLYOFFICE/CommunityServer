@@ -305,7 +305,7 @@
     <value>Probleminiz var? {0}Dəstək komandamızla{1} əlaqə saxlayın.</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Avtorizasiya açarları ONLYOFFICE™ portalınızı Twitter, Facebook, DropBox və s. kimi üçüncü tərəf xidmətləri ilə birləşdirməyə imkan verən seçimdir. Hər dəfə daxil olanda portal mandatını təqdim etmək istəmirsinizsə, portalınızı Facebook, Twitter və ya Linkedin ilə birləşdirin. Sənədləri bütün bu yaddaşlardan ONLYOFFICE™ Sənədlər moduluna köçürmək üçün onu DropBox, OneDrive və s. kimi xidmətlərlə əlaqələndirin.</value>
+    <value>Avtorizasiya açarları ONLYOFFICE™ portalınızı X (Twitter), Facebook, DropBox və s. kimi üçüncü tərəf xidmətləri ilə birləşdirməyə imkan verən seçimdir. Hər dəfə daxil olanda portal mandatını təqdim etmək istəmirsinizsə, portalınızı Facebook, X (Twitter) və ya Linkedin ilə birləşdirin. Sənədləri bütün bu yaddaşlardan ONLYOFFICE™ Sənədlər moduluna köçürmək üçün onu DropBox, OneDrive və s. kimi xidmətlərlə əlaqələndirin.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Xidmət Şərtləri</value>
@@ -929,19 +929,19 @@
     <value>Twilio-dan telefon nömrəsi (SMS icazəsi üçün tələb olunur)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Twitter hesabından istifadə edərək portala daxil olmaq və kontaktları axtarmaq üçün tətbiqi aktivləşdirin.</value>
+    <value>X (Twitter) hesabından istifadə edərək portala daxil olmaq və kontaktları axtarmaq üçün tətbiqi aktivləşdirin.</value>
   </data>
   <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
-    <value>İstifadəçilərinizə Twitter-dən istifadə edərək ONLYOFFICE-a daxil olmaq və müştərilərinin Twitter hesablarını CRM modulu ilə əlaqələndirmək üçün bu proqramı işə salın. {0}Twitter Developers Portalına keçin və yeni tətbiq ONLYOFFICE inteqrasiyası yaradın. Aldığınız məlumatları aşağıya daxil edin:</value>
+    <value>İstifadəçilərinizə X (Twitter)-dən istifadə edərək ONLYOFFICE-a daxil olmaq və müştərilərinin X (Twitter) hesablarını CRM modulu ilə əlaqələndirmək üçün bu proqramı işə salın. {0}X (Twitter) Developers Portalına keçin və yeni tətbiq ONLYOFFICE inteqrasiyası yaradın. Aldığınız məlumatları aşağıya daxil edin:</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter İD</value>
+    <value>X (Twitter) İD</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter Açarı</value>
+    <value>X (Twitter) Açarı</value>
   </data>
   <data name="Consumersusername" xml:space="preserve">
     <value>Rackspace istifadəçi adı</value>
@@ -3890,7 +3890,7 @@ Daha təhlükəsiz olduğu üçün SAML protokolundan istifadə etməyi tövsiy�
     <value>Telegram</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

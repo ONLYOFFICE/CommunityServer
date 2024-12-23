@@ -93,7 +93,7 @@ $AdditionalData.get_item("MessagePreview")
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.당신은 프로젝트 팀에 추가되었습니다: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^당신이 포털의 등록 된 사용자이기 때문에이 이메일을 수신"${__VirtualRootPath}":"${__VirtualRootPath}" 알림 유형을 변경하려면 구독 설정을 관리하시기 바랍니다 "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>

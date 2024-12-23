@@ -88,7 +88,7 @@ window.ASC.Files.Folders = (function () {
         ASC.Files.Anchor.navigationSet(folderId);
     };
 
-    var clickOnFile = function (fileData, forEdit, version) {
+    var clickOnFile = function (fileData, forEdit, forFill, version) {
         var fileObj = fileData.entryObject;
         if (ASC.Files.Folders.folderContainer == "trash"
             && jq("#filesMainContent").find(fileObj).is(":visible")) {
@@ -105,7 +105,7 @@ window.ASC.Files.Folders = (function () {
             if (ASC.Files.Utility.MustConvert(fileTitle) && (fileData.encrypted || ASC.Files.UI.denyDownload(fileData))) {
                 forEdit = false;
             }
-            return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false);
+            return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false, forFill);
         }
 
         if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(fileTitle)) {
@@ -277,7 +277,7 @@ window.ASC.Files.Folders = (function () {
     var download = function (entryType, entryId, version) {
         var list = new Array();
         if (!ASC.Files.Common.isCorrectId(entryId)) {
-            list = jq("#filesMainContent .file-row:has(.checkbox input:checked)");
+            list = jq("#filesMainContent .file-row:not(.error-entry):has(.checkbox input:checked)");
             if (list.length == 0) {
                 ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.EmptyListSelectedForDownload, true);
                 return;
@@ -660,9 +660,13 @@ window.ASC.Files.Folders = (function () {
         Teamlab.copyDocFileAs(null, fileData.id,
             {
                 destFolderId: fileData.folder_id,
-                destTitle: newTitle
+                destTitle: newTitle,
+                toForm: true
             },
             {
+                before: function () {
+                    ASC.Files.UI.blockObject(fileData.entryObject, true);
+                },
                 success: function (_, data) {
                     ASC.Files.ServiceManager.getFile(ASC.Files.ServiceManager.events.CreateNewFile,
                         {
@@ -678,6 +682,9 @@ window.ASC.Files.Folders = (function () {
                 },
                 processUrl: function (url) {
                     return ASC.Files.Utility.AddExternalShareKey(url);
+                },
+                after: function () {
+                    ASC.Files.UI.blockObject(fileData.entryObject, false);
                 }
             });
     };
@@ -1828,7 +1835,7 @@ window.ASC.Files.Folders = (function () {
             var entryObject = jq(".display-versions");
             var fileData = ASC.Files.UI.getObjectData(entryObject);
             var version = jq(this).closest(".version-row").attr("data-version") || 0;
-            ASC.Files.Folders.clickOnFile(fileData, false, version);
+            ASC.Files.Folders.clickOnFile(fileData, false, false, version);
             return false;
         });
 

@@ -27,9 +27,9 @@ window.ASC.Files.Converter = (function () {
 
     /* Methods*/
 
-    var checkCanOpenEditor = function (fileId, fileTitle, version, forEdit) {
-        if (!ASC.Files.Utility.MustConvert(fileTitle) || forEdit == false) {
-            if (forEdit == false || !ASC.Files.Utility.CanWebEdit(fileTitle)) {
+    var checkCanOpenEditor = function (fileId, fileTitle, version, forEdit, forFill) {
+        if (!ASC.Files.Utility.MustConvert(fileTitle) || (forEdit || forFill) == false) {
+            if ((forEdit || forFill) == false || !ASC.Files.Utility.CanWebEdit(fileTitle)) {
                 var result = ASC.Files.Actions.checkViewFile(fileId, forEdit ? null : version);
 
                 ASC.Files.UI.updateMainContentHeader();
@@ -43,7 +43,7 @@ window.ASC.Files.Converter = (function () {
                 ASC.Files.Folders.showVersions(fileObj);
             }
 
-            result = ASC.Files.Actions.checkEditFile(fileId);
+            result = ASC.Files.Actions.checkEditFile(fileId, undefined, forFill);
 
             ASC.Files.UI.updateMainContentHeader();
             return result;
@@ -200,7 +200,7 @@ window.ASC.Files.Converter = (function () {
     };
 
     var showToConvert = function (selectedElements) {
-        selectedElements = selectedElements || jq("#filesMainContent .file-row:has(.checkbox input:checked)");
+        selectedElements = selectedElements || jq("#filesMainContent .file-row:not(.error-entry):has(.checkbox input:checked)");
 
         var selectedFiles = {
             documents: [],

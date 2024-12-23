@@ -113,7 +113,7 @@ Az új adatok importja sikeres volt.
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Hozzáadták Önt a(z): "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektcsapathoz
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" hozzáadta Önt a(z):["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] projekt csapatához
+$__DateTime "$__AuthorName":"$__AuthorUrl" hozzáadta Önt a(z): ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] projekt csapatához
 
 ^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
   </data>

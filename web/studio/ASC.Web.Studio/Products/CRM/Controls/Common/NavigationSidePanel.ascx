@@ -172,7 +172,7 @@
                         </ul>
                     </li>
 
-                    <li class="menu-sub-item menu-item<% if (CurrentPage == "settings_invoice_items" || CurrentPage == "settings_invoice_tax" || CurrentPage == "settings_organisation_profile")
+                    <li class="menu-sub-item menu-item<% if (CurrentPage == "settings_invoice_items" || CurrentPage == "settings_invoice_tax" || CurrentPage == "settings_organization_profile")
                                                          { %> open<% } %>">
                         <div class="sub-list">
                             <span class="expander"></span>
@@ -191,9 +191,9 @@
                                     <span class="menu-item-label inner-text"><%= CRMCommonResource.InvoiceTaxes %></span>
                                 </a>
                             </li>
-                            <li class="menu-sub-item<% if (CurrentPage == "settings_organisation_profile")
+                            <li class="menu-sub-item<% if (CurrentPage == "settings_organization_profile")
                                                        { %> active<% } %>">
-                                <a class="menu-item-label outer-text text-overflow" href="Settings.aspx?type=organisation_profile" title="<%= CRMCommonResource.OrganisationProfile %>">
+                                <a class="menu-item-label outer-text text-overflow" href="Settings.aspx?type=organization_profile" title="<%= CRMCommonResource.OrganisationProfile %>">
                                     <span class="menu-item-label inner-text"><%= CRMCommonResource.OrganisationProfile %></span>
                                 </a>
                             </li>

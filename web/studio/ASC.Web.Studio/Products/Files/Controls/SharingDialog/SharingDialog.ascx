@@ -138,7 +138,7 @@
                         <input type="checkbox" id="cbxLinkPasswordEnabled" class="on-off-checkbox">
                         <label for="cbxLinkPasswordEnabled"><%= FilesUCResource.EnablePassword %></label>
                         <div class="password-container">
-                            <input class="textEdit" type="password" autocomplete="new-password" placeholder="<%= FilesUCResource.Password %>" />
+                            <input class="textEdit" maxlength="255" type="password" autocomplete="new-password" placeholder="<%= FilesUCResource.Password %>" />
                             <span class="img-btn random" title="<%= FilesUCResource.RandomPassword %>"></span>
                             <span class="img-btn show"></span>
                         </div>

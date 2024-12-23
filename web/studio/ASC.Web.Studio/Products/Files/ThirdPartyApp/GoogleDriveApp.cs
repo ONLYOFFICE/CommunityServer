@@ -207,7 +207,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     Global.Logger.Debug("GoogleDriveApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
 
                     var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUrl, out _);
+                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, false, out downloadUrl, out _);
                     stream = null;
                 }
                 catch (Exception e)
@@ -486,7 +486,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             var path = FileConstant.NewDocPath + culture + "/";
             if (!storeTemplate.IsDirectory(path))
             {
-                path = FileConstant.NewDocPath + "en-US/";
+                path = FileConstant.NewDocPath + "default/";
             }
             var ext = FileUtility.InternalExtension[FileUtility.GetFileTypeByFileName(fileName)];
             path += "new" + ext;
@@ -727,7 +727,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 Global.Logger.Debug("GoogleDriveApp: GetConvertedUri- " + downloadUrl);
 
                 var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                DocumentServiceConnector.GetConvertedUri(downloadUrl, fromExt, toExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUrl, out _);
+                DocumentServiceConnector.GetConvertedUri(downloadUrl, fromExt, toExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, false, out downloadUrl, out _);
             }
             catch (Exception e)
             {

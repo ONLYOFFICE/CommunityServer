@@ -415,15 +415,21 @@ namespace ASC.CRM.Core.Dao
 
         public List<RelationshipEvent> GetAllItems()
         {
-            return GetItems(String.Empty,
+            return GetAllItems(0, 0);
+        }
+
+        public List<RelationshipEvent> GetAllItems(int from, int count)
+        {
+            return GetItems(string.Empty,
                 EntityType.Any,
                 0,
                 Guid.Empty,
                 0,
                 DateTime.MinValue,
                 DateTime.MinValue,
-                0,
-                0, null);
+                from,
+                count,
+                new OrderBy(RelationshipEventByType.Id, true));
         }
 
         public List<RelationshipEvent> GetItems(
@@ -528,6 +534,9 @@ namespace ASC.CRM.Core.Dao
                         break;
                     case RelationshipEventByType.Created:
                         sqlQuery.OrderBy("create_on", orderBy.IsAsc);
+                        break;
+                    case RelationshipEventByType.Id:
+                        sqlQuery.OrderBy("id", orderBy.IsAsc);
                         break;
                 }
             else

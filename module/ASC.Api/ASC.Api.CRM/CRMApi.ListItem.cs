@@ -55,11 +55,9 @@ namespace ASC.Api.CRM
             int successProbability,
             DealMilestoneStatus stageType)
         {
-            if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
+            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
 
-            if (string.IsNullOrEmpty(title)) throw new ArgumentException();
-
-            if (successProbability < 0) successProbability = 0;
+            if (string.IsNullOrEmpty(title) || successProbability < 0 || successProbability > 100) throw new ArgumentException();
 
             var dealMilestone = new DealMilestone
             {
@@ -103,11 +101,9 @@ namespace ASC.Api.CRM
             int successProbability,
             DealMilestoneStatus stageType)
         {
-            if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
+            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
 
-            if (id <= 0 || string.IsNullOrEmpty(title)) throw new ArgumentException();
-
-            if (successProbability < 0) successProbability = 0;
+            if (id <= 0 || string.IsNullOrEmpty(title) || successProbability < 0 || successProbability > 100) throw new ArgumentException();
 
             var curDealMilestoneExist = DaoFactory.DealMilestoneDao.IsExist(id);
             if (!curDealMilestoneExist) throw new ItemNotFoundException();

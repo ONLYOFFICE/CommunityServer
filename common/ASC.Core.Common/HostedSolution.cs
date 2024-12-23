@@ -217,10 +217,17 @@ namespace ASC.Core
 
         public void SetTariff(int tenant, bool paid)
         {
-            var quota = quotaService.GetTenantQuotas().FirstOrDefault(q => paid ? q.NonProfit : q.Trial);
-            if (quota != null)
+            if (IsDocspace)
             {
-                tariffService.SetTariff(tenant, new Tariff { QuotaId = quota.Id, DueDate = DateTime.MaxValue, Quantity = 1 });
+                tariffService.ChangeDocspaceNonProfitTariff(tenant, paid);
+            }
+            else
+            {
+                var quota = quotaService.GetTenantQuotas().FirstOrDefault(q => paid ? q.NonProfit : q.Trial);
+                if (quota != null)
+                {
+                    tariffService.SetTariff(tenant, new Tariff { QuotaId = quota.Id, DueDate = DateTime.MaxValue, Quantity = 1 });
+                }
             }
         }
 

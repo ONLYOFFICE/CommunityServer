@@ -127,6 +127,8 @@ namespace ASC.Forum
 
     public class ForumDataProvider
     {
+        private static readonly object syncRoot = new object();
+
         internal static IDbManager DbManager
         {
             get
@@ -526,23 +528,33 @@ namespace ASC.Forum
 
         public static void PollVote(int tenantID, int pollID, List<int> variantIDs)
         {
-            using (var tr = DbManager.Connection.BeginTransaction())
+            lock (syncRoot)
             {
-                var answerID = DbManager.ExecuteScalar<int>(new SqlInsert("forum_answer")
-                                                  .InColumnValue("id", 0)
-                                                  .InColumnValue("TenantID", tenantID)
-                                                  .InColumnValue("user_id", SecurityContext.CurrentAccount.ID)
-                                                  .InColumnValue("create_date", DateTime.UtcNow)
-                                                  .InColumnValue("question_id", pollID)
-                                                  .Identity(0, 0, true));
-
-                foreach (var vid in variantIDs)
+                using (var tr = DbManager.Connection.BeginTransaction())
                 {
-                    DbManager.ExecuteNonQuery(new SqlInsert("forum_answer_variant").InColumns("answer_id", "variant_id")
-                                                            .Values(answerID, vid));
-                }
+                    var answerID = DbManager.ExecuteScalar<int>(new SqlQuery("forum_answer").Select("id")
+                                    .Where("TenantID", tenantID)
+                                    .Where("user_id", SecurityContext.CurrentAccount.ID)
+                                    .Where("question_id", pollID));
 
-                tr.Commit();
+                    if (answerID > 0) return;
+
+                    answerID = DbManager.ExecuteScalar<int>(new SqlInsert("forum_answer")
+                                                      .InColumnValue("id", 0)
+                                                      .InColumnValue("TenantID", tenantID)
+                                                      .InColumnValue("user_id", SecurityContext.CurrentAccount.ID)
+                                                      .InColumnValue("create_date", DateTime.UtcNow)
+                                                      .InColumnValue("question_id", pollID)
+                                                      .Identity(0, 0, true));
+
+                    foreach (var vid in variantIDs)
+                    {
+                        DbManager.ExecuteNonQuery(new SqlInsert("forum_answer_variant").InColumns("answer_id", "variant_id")
+                                                                .Values(answerID, vid));
+                    }
+
+                    tr.Commit();
+                }
             }
         }
 

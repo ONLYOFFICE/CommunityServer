@@ -38,6 +38,7 @@ namespace ASC.Api.Migration
     /// <summary>
     /// Migration API.
     /// </summary>
+    /// <name>migration</name>
     public class MigrationApi : Interfaces.IApiEntryPoint
     {
         /// <summary>

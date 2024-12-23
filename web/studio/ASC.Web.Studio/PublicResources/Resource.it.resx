@@ -293,7 +293,7 @@
     <value>Attiva</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Le chiavi di autorizzazione ti permettono di collegare il tuo portale ONLYOFFICE® ai servizi di terzi tra i quali Twitter, Facebook, Dropbox ecc. Collega il tuo portale a Facebook, Twitter o Linkedin se non desideri inserire i tuoi dati ogni volta quando accedi al portale. Collegalo ai servizi Dropbox, OneDrive, Zoho ecc. per trasferire i documenti da queste risorse di archiviazione al modulo Documenti ONLYOFFICE®.</value>
+    <value>Le chiavi di autorizzazione ti permettono di collegare il tuo portale ONLYOFFICE® ai servizi di terzi tra i quali X (Twitter), Facebook, Dropbox ecc. Collega il tuo portale a Facebook, X (Twitter) o Linkedin se non desideri inserire i tuoi dati ogni volta quando accedi al portale. Collegalo ai servizi Dropbox, OneDrive, Zoho ecc. per trasferire i documenti da queste risorse di archiviazione al modulo Documenti ONLYOFFICE®.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Termini di servizio</value>
@@ -967,7 +967,7 @@
     <value>Numero di telefono da Twilio (richiesto per l'autorizzazione SMS)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter in chiave CRM</value>
@@ -979,19 +979,19 @@
     <value>Chiave di Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Collega l'applicazione per registrarsi al portale utilizzando l'account Twitter e cercare contatti.</value>
+    <value>Collega l'applicazione per registrarsi al portale utilizzando l'account X (Twitter) e cercare contatti.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Aggiungendo un'applicazione del servizio Twitter potrai collegare il tuo account Twitter alla pagina del profilo, così facendo potrai usarlo per entrare nel portale ONLYOFFICE®. Inoltre sarai in grado di trovare un account Twitter di una persona nel modulo CRM e collegarla nella pagina 'Modifica persona/azienda' e visualizzare i suoi Tweet</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>ID di Twitter</value>
+    <value>ID di X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Gettone d'accesso</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Chiave di Twitter</value>
+    <value>Chiave di X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Gettone d'accesso segreto</value>
@@ -3488,7 +3488,7 @@ Contattare l'amministratore SSO nel caso vogliate modificare i campi profilo blo
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

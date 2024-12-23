@@ -28,13 +28,13 @@ namespace ASC.FederatedLogin.LoginProviders
 {
     public class FacebookLoginProvider : BaseLoginProvider<FacebookLoginProvider>
     {
-        private const string FacebookProfileUrl = "https://graph.facebook.com/v2.7/me?fields=email,id,birthday,link,first_name,last_name,gender,timezone,locale";
+        private const string FacebookProfileUrl = "https://graph.facebook.com/me?fields=email,id,birthday,link,first_name,last_name,gender";
 
-        public override string AccessTokenUrl { get { return "https://graph.facebook.com/v2.7/oauth/access_token"; } }
+        public override string AccessTokenUrl { get { return "https://graph.facebook.com/oauth/access_token"; } }
         public override string RedirectUri { get { return this["facebookRedirectUrl"]; } }
         public override string ClientID { get { return this["facebookClientId"]; } }
         public override string ClientSecret { get { return this["facebookClientSecret"]; } }
-        public override string CodeUrl { get { return "https://www.facebook.com/v2.7/dialog/oauth/"; } }
+        public override string CodeUrl { get { return "https://www.facebook.com/dialog/oauth/"; } }
         public override string Scopes { get { return "email,public_profile"; } }
 
         public FacebookLoginProvider() { }
@@ -69,8 +69,6 @@ namespace ASC.FederatedLogin.LoginProviders
                 Gender = jProfile.Value<string>("gender"),
                 EMail = jProfile.Value<string>("email"),
                 Id = jProfile.Value<string>("id"),
-                TimeZone = jProfile.Value<string>("timezone"),
-                Locale = jProfile.Value<string>("locale"),
                 Provider = ProviderConstants.Facebook,
                 Avatar = string.Format("http://graph.facebook.com/{0}/picture?type=large", jProfile.Value<string>("id"))
             };

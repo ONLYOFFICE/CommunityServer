@@ -277,6 +277,7 @@ window.ASC.Files.Editor = (function () {
                 instanceId: reference.referenceData ? reference.referenceData.instanceId : "",
                 sourceFileId: ASC.Files.Editor.docServiceParams.fileId,
                 path: reference.path || "",
+                link: reference.link || "",
             });
     };
 
@@ -290,6 +291,7 @@ window.ASC.Files.Editor = (function () {
                 instanceId: reference.referenceData ? reference.referenceData.instanceId : "",
                 sourceFileId: ASC.Files.Editor.docServiceParams.fileId,
                 path: reference.path || "",
+                link: reference.link || "",
                 windowName: windowName,
             });
     };
@@ -308,6 +310,14 @@ window.ASC.Files.Editor = (function () {
                 ASC.Files.ServiceManager.getProtectUsers(ASC.Files.ServiceManager.events.GetUsers, {
                     c: c,
                     fileId: ASC.Files.Editor.docServiceParams.fileId
+                });
+                break;
+            case "info":
+                ASC.Files.ServiceManager.getInfoUsers(ASC.Files.ServiceManager.events.GetUsers, {
+                    c: c
+                },
+                {
+                    stringList: { entry: event.data.id }
                 });
                 break;
             default:

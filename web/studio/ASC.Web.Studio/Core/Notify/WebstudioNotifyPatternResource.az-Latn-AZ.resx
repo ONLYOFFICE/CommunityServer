@@ -241,19 +241,6 @@ Link 7 gün ərzində etibarlıdır.
 
 E-poçtunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı üçün parol dəyişikliyi sorğusu: 
-
-"${__VirtualRootPath}":"${__VirtualRootPath}" portalına daxil olmaq üçün istifadə edilən parolunuzu dəyişdirmək üçün sorğu olub.
-
-Şifrənizi dəyişmək üçün aşağıdakı linkə daxil olun:
-
-$GreenButton
-
-*Qeyd*: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində parol dəyişdirmə prosesini tamamlayın.
-
-Əgər parolunuzu dəyişmək və ya bu mesajı səhvən almaq istəmirsinizsə, zəhmət olmasa, ona məhəl qoymayın və ya əlavə məlumat üçün "${__VirtualRootPath}":"${__VirtualRootPath}" portal administratorunuzla əlaqə saxlayın.</value>
-  </data>
   <data name="pattern_change_password_v115" xml:space="preserve">
     <value>ONLYOFFICE hesabınızdakı parolu dəyişmək istəyirsiniz? Təsdiqləmək üçün aşağıdakı düyməni basın.
 
@@ -734,22 +721,6 @@ Hörmətlə,
 ONLYOFFICE ™ Dəstək Qrupu
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
-  <data name="pattern_migration_success" xml:space="preserve">
-    <value>h1.Portalın başqa regiona miqrasiyası başlandı
-
-$RegionName bölgəsinə portal miqrasiyası başladı. Məlumatınızın miqdarından asılı olaraq bir müddət çəkə bilər.
-
-* Qeyd *: Portal miqrasiya prosesi zamanı mövcud olmayacaq. Miqrasiya tamamlandıqdan sonra portalın URL-i dəyişdiriləcək və paylaşılan sənədlərdəki bütün keçidlər h1 olacaq. Portalın başqa bölgəyə miqrasiyası uğurla tamamlandı.
-
-$RegionName bölgəsinə portal miqrasiyası uğurla tamamlandı.
-Portalınız indi "$PortalUrl":"$PortalUrl" ünvanında mövcuddur
-
-Hər hansı bir sualınız və ya köməyə ehtiyacınız olarsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto:support@onlyoffice.com"
-
-Hörmətlə,
-ONLYOFFICE ™ Dəstək Qrupu
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
-  </data>
   <data name="pattern_migration_success_v115" xml:space="preserve">
     <value>h1. Portal miqrasiyası
 h1."$PortalUrl":"$PortalUrl"
@@ -781,7 +752,7 @@ Bildirişlər göndərmək üçün biz ONLYOFFICE poçt serverinin SMTP parametr
 
 Ümid edirik ki, inteqrasiya olunmuş ONLYOFFICE sənəd redaktorlarından istifadə etməkdən zövq alacaqsınız. Faydalı ola biləcək bəzi məsləhətlər:
 
-*#1. Sənədləri* fərdlərə və qruplara paylaşın. Onların giriş səviyyəsini seçin - Yalnız oxumaq, Şərh etmək, Forma Doldurmaq, Baxış və ya Tam Giriş. Digər istifadəçilərə həmmüəllifləri narahat etmədən öz filtrlərini elektron cədvəllərdə tətbiq etməyə icazə verin. "ONLYOFFICE API":"https://api.onlyoffice.com/editors/config/document/permissions" istifadə edərək endirmə və çapı məhdudlaşdırın.
+*#1. Sənədləri* fərdlərə və qruplara paylaşın. Onların giriş səviyyəsini seçin - Yalnız oxumaq, Şərh etmək, Forma Doldurmaq, Baxış və ya Tam Giriş. Digər istifadəçilərə həmmüəllifləri narahat etmədən öz filtrlərini elektron cədvəllərdə tətbiq etməyə icazə verin. "ONLYOFFICE API":"https://api.onlyoffice.com/docs/docs-api/usage-api/config/document/permissions/" istifadə edərək endirmə və çapı məhdudlaşdırın.
 
 *#2. Sənədin işlərdə necə saxlandığını öyrənin* və onu öz ehtiyaclarınıza uyğunlaşdırın. "Ətraflı məlumat":"https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/"
 
@@ -1048,20 +1019,6 @@ Link 7 gün ərzində etibarlıdır.
 *Bu brauzerdə ONLYOFFICE-a daxil olmamısınızsa, təsdiq üçün köhnə e-poçtunuzdan istifadə etməlisiniz.
 
 E-poçtunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
-  </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>"${__VirtualRootPath}":"${__VirtualRootPath}" portalına daxil olmaq üçün istifadə etdiyiniz parolu dəyişmək üçün sorğu olub.
-
-Şifrənizi dəyişmək üçün aşağıdakı linkə daxil olun:
-
-$GreenButton
-
-*Qeyd*: bu link yalnız 7 gün ərzində etibarlıdır. Zəhmət olmasa, həmin müddət ərzində parol dəyişmə prosesini tamamlayın.
-
-Əgər parolunuzu dəyişmək istəmirsinizsə və ya bu e-poçt səhvən göndərilibsə, ona əhəmiyyə verməyin.
-
-Hörmətlə,
-ONLYOFFICE komandası</value>
   </data>
   <data name="pattern_personal_change_password_v115" xml:space="preserve">
     <value>ONLYOFFICE Şəxsi hesabınızdakı parolu dəyişmək istəyirsiniz? Təsdiqləmək üçün aşağıdakı düyməni basın.
@@ -1339,17 +1296,6 @@ $CompanySize
 
 h3.Sorğu məzmunu
 $Body</value>
-  </data>
-  <data name="pattern_restore_completed" xml:space="preserve">
-    <value>h1. Portalın bərpası başa çatıb
-
-Portalın bərpası prosesi uğurla tamamlandı.
-
-Portalınız yenidən əlçatandır.
-
-Hörmətlə,
-ONLYOFFICE ™ Dəstək Qrupu
-"www.onlyoffice.com": "http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_restore_completed_v115" xml:space="preserve">
     <value>h1 Portalın bərpası
@@ -1801,9 +1747,6 @@ Link yalnız 7 gün üçün keçərli olacaq.</value>
   <data name="subject_change_email_v115" xml:space="preserve">
     <value>E-poçtunuzun dəyişdirilməsini təsdiq edin</value>
   </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText}. Şifrə yardımı</value>
-  </data>
   <data name="subject_change_password_v115" xml:space="preserve">
     <value>Parolun dəyişdirilməsini təsdiq edin</value>
   </data>
@@ -1953,9 +1896,6 @@ Link yalnız 7 gün üçün keçərli olacaq.</value>
   </data>
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>Sevimli bulud yaddaşınızı ONLYOFFICE-ə qoşun</value>
-  </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal parol yardımı</value>
   </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Zəhmət olmasa e-poçt ünvanınızı aktivləşdirin</value>

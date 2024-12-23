@@ -90,9 +90,12 @@ window.ASC.Files.Mouse = (function () {
             return;
         }
 
+        var objScrollTop = jq("#studioPageContent .mainPageContent").scrollTop();
+
         ASC.Files.Mouse.mouseSelector.entryItems = new Array();
         jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file)").each(function () {
             var entryObj = jq(this).offset();
+            entryObj.top += objScrollTop;
             entryObj.right = entryObj.left + this.offsetWidth;
             entryObj.bottom = entryObj.top + this.offsetHeight;
             entryObj.entryObj = jq(this);
@@ -103,6 +106,7 @@ window.ASC.Files.Mouse = (function () {
 
     var updateMainContentArea = function () {
         mainContentArea = jq("#filesMainContent").offset();
+        mainContentArea.top += jq("#studioPageContent .mainPageContent").scrollTop();
         mainContentArea.right = mainContentArea.left + jq("#filesMainContent")[0].offsetWidth;
         mainContentArea.bottom = mainContentArea.top + jq("#filesMainContent")[0].offsetHeight;
         mainContentArea.documentWidth = jq(document).width();
@@ -112,7 +116,7 @@ window.ASC.Files.Mouse = (function () {
         mainContentArea.minX = mainOffset.left;
         mainContentArea.minY = mainOffset.top;
 
-        mainContentArea.minVisibleY = jq(".mainPageContent").offset().top;
+        mainContentArea.minVisibleY = 0;// jq(".mainPageContent").offset().top;
     };
 
     var intersectionLines = function (line1, line2) {
@@ -162,8 +166,12 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
-        ASC.Files.Mouse.mouseSelector.startX = e.pageX;
-        ASC.Files.Mouse.mouseSelector.startY = e.pageY;
+        var obj = jq("#studioPageContent .mainPageContent");
+        var objOffset = obj.offset();
+        var objScrollTop = obj.scrollTop();
+
+        ASC.Files.Mouse.mouseSelector.startX = e.pageX - objOffset.left;
+        ASC.Files.Mouse.mouseSelector.startY = e.pageY - objOffset.top + objScrollTop;
         ASC.Files.Mouse.updateMainContentArea();
 
         var windowFix = (jq.browser.msie && jq.browser.version < 9 ? jq("body") : jq(window));
@@ -187,9 +195,13 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
+        var obj = jq("#studioPageContent .mainPageContent");
+        var objOffset = obj.offset();
+        var objScrollTop = obj.scrollTop();
+
         var selectDelta = 2;
-        var posXnew = Math.max(Math.min(e.pageX, mainContentArea.documentWidth - selectDelta), mainContentArea.minX);
-        var posYnew = Math.max(Math.min(e.pageY, mainContentArea.documentHeight - selectDelta), mainContentArea.minY);
+        var posXnew = Math.max(Math.min(e.pageX, mainContentArea.documentWidth - selectDelta), mainContentArea.minX) - objOffset.left;
+        var posYnew = Math.max(Math.min(e.pageY, mainContentArea.documentHeight - selectDelta), mainContentArea.minY) - objOffset.top + objScrollTop;
 
         var width = Math.abs(posXnew - ASC.Files.Mouse.mouseSelector.startX);
         var height = Math.abs(posYnew - ASC.Files.Mouse.mouseSelector.startY);
@@ -201,7 +213,7 @@ window.ASC.Files.Mouse = (function () {
         if (jq("#filesSelector").length == 0) {
             ASC.Files.Actions.hideAllActionPanels();
 
-            jq("#studioPageContent").append("<div id=\"filesSelector\"></div>");
+            jq("#studioPageContent .mainPageContent").append("<div id=\"filesSelector\"></div>");
             ASC.Files.Mouse.collectEntryItems();
             jq("body").addClass("select-action");
             ASC.Files.Mouse.disableHover = true;
@@ -220,6 +232,11 @@ window.ASC.Files.Mouse = (function () {
             "left": selectObj.left + "px",
             "top": selectObj.top + "px"
         });
+
+        selectObj.left += objOffset.left;
+        selectObj.top += objOffset.top;
+        selectObj.right += objOffset.left;
+        selectObj.bottom += objOffset.top;
 
         var itemObj = mainContentArea;
 
@@ -256,11 +273,15 @@ window.ASC.Files.Mouse = (function () {
     var autoScroll = function (e) {
         var scrollZone = 50;
         var deltaScroll = 15;
+
+        var wideScreen = jq(window).width() >= 1200 || ASC.Desktop;
+        var obj = wideScreen ? document.querySelector("#studioPageContent .mainPageContent") : document.documentElement;
+
         if (scrollZone > Math.abs(e.pageY - document.documentElement.scrollTop)) {
-            window.scrollBy(0, -deltaScroll);
+            obj.scrollBy(0, -deltaScroll);
         }
         if (scrollZone > Math.abs(e.pageY - (document.documentElement.scrollTop + document.documentElement.clientHeight))) {
-            window.scrollBy(0, deltaScroll);
+            obj.scrollBy(0, deltaScroll);
         }
     };
 

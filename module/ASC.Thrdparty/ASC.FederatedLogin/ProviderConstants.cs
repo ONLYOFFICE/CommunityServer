@@ -31,5 +31,6 @@ namespace ASC.FederatedLogin
         public const string Encryption = "e2e";
         public const string AppleId = "appleid";
         public const string Microsoft = "microsoft";
+        public const string Zoom = "zoom";
     }
 }

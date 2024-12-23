@@ -66,8 +66,10 @@ window.ASC.Files.EmptyScreen = (function () {
                 jq("#emptyContainer_subfolder").show();
 
                 ASC.Files.UI.checkButtonBack(".empty-folder-toparent");
+                ASC.Files.UI.checkButtonMasterForm(".empty-folder-create-masterform", "#emptyContainer_subfolder");
             } else {
                 jq("#emptyContainer_" + ASC.Files.Folders.folderContainer).show();
+                ASC.Files.UI.checkButtonMasterForm(".empty-folder-create-masterform", "#emptyContainer_" + ASC.Files.Folders.folderContainer);
             }
         } else {
             jq("#emptyContainer_filter").show();

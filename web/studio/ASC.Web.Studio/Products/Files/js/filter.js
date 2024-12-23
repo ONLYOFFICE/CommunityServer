@@ -275,11 +275,13 @@ window.ASC.Files.Filter = (function () {
     };
 
     var disableFilter = function () {
+        var isRecent = ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_RECENT;
+
         ASC.Files.Filter.advansedFilter.advansedFilter({
-            filters: getFilterItems()
+            filters: getFilterItems(),
+            disableSorter: isRecent
         });
 
-        var isRecent = ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_RECENT;
         ASC.Files.Filter.advansedFilter.advansedFilter("sort", !isRecent);
     };
 

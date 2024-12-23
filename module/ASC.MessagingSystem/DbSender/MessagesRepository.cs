@@ -78,7 +78,8 @@ namespace ASC.MessagingSystem.DbSender
             // messages with action code < 2000 are related to login-history
             if ((int)message.Action < 2000) return true;
 
-            return message.Action == MessageAction.UserSentPasswordChangeInstructions;
+            return message.Action == MessageAction.UserSentPasswordChangeInstructions
+                || message.Action == MessageAction.UserSentEmailChangeInstructions;
         }
 
 

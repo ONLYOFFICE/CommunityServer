@@ -737,7 +737,7 @@ Trouvez plus de détails dans le "Centre d'Aide":"${__HelpLink}".</value>
 
 Nous espérons que les éditeurs des documents ONLYOFFICEvous sont utiles. Vous trouverez ci-dessous les astuces pour en profiter pleinement : 
 
-*#1. Partager les documents* avec les groupes et les utilisateurs. Définissez le niveau de collaboration - Lecture seule, Commentaires, Remplissage de formulaire, Révision ou Accès complet. Permettez aux utilisateurs d'appliquer leurs propres filtres dans les feuilles de calcul sans déranger les co-auteurs. Limitez le téléchargement et l'impression des documents en utilisant les "APIs ONLYOFFICE":"https://api.onlyoffice.com/editors/config/document/permissions". 
+*#1. Partager les documents* avec les groupes et les utilisateurs. Définissez le niveau de collaboration - Lecture seule, Commentaires, Remplissage de formulaire, Révision ou Accès complet. Permettez aux utilisateurs d'appliquer leurs propres filtres dans les feuilles de calcul sans déranger les co-auteurs. Limitez le téléchargement et l'impression des documents en utilisant les "APIs ONLYOFFICE":"https://api.onlyoffice.com/docs/docs-api/usage-api/config/document/permissions/". 
 
 *#2. Apprendre comment enregistrer les modifications dans le document* et les ajuster à vos besoins. "En savoir davantage":"https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/"
 

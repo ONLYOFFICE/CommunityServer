@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
@@ -123,7 +124,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             Page.RegisterBodyScripts(
                 "~/js/uploader/jquery.fileupload.js",
                 "~/UserControls/FirstTime/js/manager.js");
-            if(ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
+            if (ModeThemeSettings.GetModeThemesSettings().ModeThemeName == ModeTheme.dark)
             {
                 Page.RegisterStyle("~/UserControls/FirstTime/css/dark-emailandpassword.less");
             }
@@ -266,34 +267,61 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         }
 
         private static string _amiId;
+        private static string _amiToken;
 
         private static bool IncorrectAmiId(string customAmiId)
         {
             customAmiId = (customAmiId ?? "").Trim();
-            if (string.IsNullOrEmpty(customAmiId)) return true;
+
+            if (string.IsNullOrEmpty(customAmiId))
+            {
+                return true;
+            }
 
             if (string.IsNullOrEmpty(_amiId))
             {
-                var getAmiIdUrl = SetupInfo.AmiMetaUrl + "instance-id";
-                var request = (HttpWebRequest)WebRequest.Create(getAmiIdUrl);
-                try
-                {
-                    using (var response = request.GetResponse())
-                    using (var responseStream = response.GetResponseStream())
-                    using (var reader = new StreamReader(responseStream))
-                    {
-                        _amiId = reader.ReadToEnd();
-                    }
-
-                    LogManager.GetLogger("ASC.Web.FirstTime").Debug("Instance id: " + _amiId);
-                }
-                catch (Exception e)
-                {
-                    LogManager.GetLogger("ASC.Web.FirstTime").Error("Request AMI id", e);
-                }
+                _amiToken = GetResponseString("PUT", SetupInfo.AmiTokenUrl, new Dictionary<string, string> { { "X-aws-ec2-metadata-token-ttl-seconds", "21600" } });
+                _amiId = GetResponseString("GET", SetupInfo.AmiMetaUrl, new Dictionary<string, string> { { "X-aws-ec2-metadata-token", _amiToken } });
             }
 
             return string.IsNullOrEmpty(_amiId) || _amiId != customAmiId;
+        }
+
+        private static string GetResponseString(string method, string requestUrl, Dictionary<string, string> headers)
+        {
+            string responseString = null;
+
+            if (string.IsNullOrEmpty(requestUrl))
+            {
+                return responseString;
+            }
+
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+
+                request.Method = method;
+
+                foreach (var header in headers)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
+
+                using (var response = request.GetResponse())
+                using (var responseStream = response.GetResponseStream())
+                using (var reader = new StreamReader(responseStream))
+                {
+                    responseString = reader.ReadToEnd();
+                }
+
+                LogManager.GetLogger("ASC.Web.FirstTime").Debug($"AMI Request {requestUrl} {responseString}");
+            }
+            catch (Exception e)
+            {
+                LogManager.GetLogger("ASC.Web.FirstTime").Error("AMI Request", e);
+            }
+
+            return responseString;
         }
 
         private static void SubscribeFromSite(UserInfo user)

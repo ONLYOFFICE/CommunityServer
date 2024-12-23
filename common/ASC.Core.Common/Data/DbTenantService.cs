@@ -314,7 +314,7 @@ namespace ASC.Core.Data
                 .Select("t.id", "t.alias", "t.mappeddomain", "t.version", "t.version_changed", "t.name", "t.language", "t.timezone", "t.owner_id")
                 .Select("t.trusteddomains", "t.trusteddomainsenabled", "t.creationdatetime", "t.status", "t.statuschanged", "t.payment_id", "t.last_modified")
                 .Select("NULL", "NULL", "NULL")
-                .Select("t.industry", "t.spam", "t.calls")
+                .Select("t.industry", "0", "t.calls")
                 .Where(where);
             }
 

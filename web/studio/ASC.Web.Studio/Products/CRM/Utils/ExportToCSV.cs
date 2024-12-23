@@ -54,14 +54,14 @@ namespace ASC.Web.CRM.Classes
     {
         public static readonly ICache Cache = AscCache.Default;
 
-        public static String GetStateCacheKey(string key)
+        public static string GetStateCacheKey(string key)
         {
-            return String.Format("{0}:crm:queue:exporttocsv", key);
+            return string.Format("{0}:crm:queue:exporttocsv", key);
         }
 
-        public static String GetCancelCacheKey(string key)
+        public static string GetCancelCacheKey(string key)
         {
-            return String.Format("{0}:crm:queue:exporttocsv:cancel", key);
+            return string.Format("{0}:crm:queue:exporttocsv:cancel", key);
         }
 
         public static ExportDataOperation Get(string key)
@@ -76,9 +76,9 @@ namespace ASC.Web.CRM.Classes
 
         public static bool CheckCancelFlag(string key)
         {
-            var fromCache = Cache.Get<String>(GetCancelCacheKey(key));
+            var fromCache = Cache.Get<string>(GetCancelCacheKey(key));
 
-            return !String.IsNullOrEmpty(fromCache);
+            return !string.IsNullOrEmpty(fromCache);
         }
 
         public static void SetCancelFlag(string key)
@@ -144,13 +144,7 @@ namespace ASC.Web.CRM.Classes
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-
-            var exportDataOperation = obj as ExportDataOperation;
-
-            if (exportDataOperation == null) return false;
-
-            return Id == exportDataOperation.Id;
+            return obj != null && obj is ExportDataOperation exportDataOperation && Id == exportDataOperation.Id;
         }
 
         public override int GetHashCode()
@@ -168,7 +162,8 @@ namespace ASC.Web.CRM.Classes
                 Percentage = Percentage,
                 IsCompleted = IsCompleted,
                 FileName = FileName,
-                FileUrl = FileUrl
+                FileUrl = FileUrl,
+                CurrentPart = CurrentPart
             };
 
             return cloneObj;
@@ -190,16 +185,18 @@ namespace ASC.Web.CRM.Classes
 
         public string FileUrl { get; set; }
 
+        public string CurrentPart { get; set; }
+
         #endregion
 
         #region Private Methods
 
-        private static String WrapDoubleQuote(String value)
+        private static string WrapDoubleQuote(string value)
         {
             return "\"" + value.Trim().Replace("\"", "\"\"") + "\"";
         }
 
-        private static String DataTableToCsv(DataTable dataTable)
+        private static string DataTableToCsv(DataTable dataTable)
         {
             var result = new StringBuilder();
 
@@ -294,10 +291,53 @@ namespace ASC.Web.CRM.Classes
             ExportDataCache.Insert((string)Id, (ExportDataOperation)Clone());
         }
 
-        private void ExportAllData(DaoFactory daoFactory)
+        private void ClearStorage(string pattern)
+        {
+            if (_dataStore.IsDirectory("export", string.Empty))
+            {
+                _dataStore.DeleteFiles("export", string.Empty, pattern, true);
+            }
+        }
+
+        private Uri ZipStorageData()
         {
             using (var stream = TempStream.Create())
             {
+                using (var zipStream = new ZipOutputStream(stream))
+                {
+                    zipStream.IsStreamOwner = false;
+
+                    var files = _dataStore.ListFilesRelative("export", string.Empty, "*.csv", true);
+
+                    foreach (var path in files)
+                    {
+                        var fileName = Path.GetFileName(path);
+
+                        var zipEntry = GetNewZipEntry(fileName);
+
+                        zipStream.PutNextEntry(zipEntry);
+
+                        using (var fileStream = _dataStore.GetReadStream("export", path))
+                        {
+                            fileStream.CopyTo(zipStream);
+                        }
+                    }
+
+                    zipStream.Finish();
+
+                    stream.Position = 0;
+                }
+
+                return _dataStore.Save("export", FileName, stream);
+            }
+        }
+
+        private void ExportAllData(DaoFactory daoFactory)
+        {
+            try
+            {
+                ClearStorage("*");
+
                 var contactDao = daoFactory.ContactDao;
                 var contactInfoDao = daoFactory.ContactInfoDao;
                 var dealDao = daoFactory.DealDao;
@@ -313,80 +353,173 @@ namespace ASC.Web.CRM.Classes
                 _totalCount += historyDao.GetAllItemsCount();
                 _totalCount += invoiceItemDao.GetInvoiceItemsCount();
 
-                using (var zipStream = new ZipOutputStream(stream))
-                {
-                    zipStream.IsStreamOwner = false;
+                var limit = 10000;
+                var offset = 0;
 
-                    zipStream.PutNextEntry(GetNewZipEntry(CRMContactResource.Contacts + ".csv"));
-                    var contactData = contactDao.GetAllContacts();
-                    var contactInfos = new StringDictionary();
-                    contactInfoDao.GetAll()
-                                  .ForEach(item =>
-                                               {
-                                                   var contactInfoKey = String.Format("{0}_{1}_{2}", item.ContactID, (int)item.InfoType, item.Category);
-                                                   if (contactInfos.ContainsKey(contactInfoKey))
-                                                   {
-                                                       contactInfos[contactInfoKey] += "," + item.Data;
-                                                   }
-                                                   else
-                                                   {
-                                                       contactInfos.Add(contactInfoKey, item.Data);
-                                                   }
-                                               });
+                while (true)
+                {
+                    var invoiceItemData = invoiceItemDao.GetAll(offset * limit, limit);
+
+                    if (invoiceItemData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = CRMCommonResource.ProductsAndServices + "_" + offset + ".csv";
+
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCsv(invoiceItemData, daoFactory))))
+                    {
+                        _ = _dataStore.Save("export", CurrentPart, zipEntryData);
+                    }
+
+                    offset++;
+                }
+
+                offset = 0;
+
+                while (true)
+                {
+                    var casesData = casesDao.GetAllCases(offset * limit, limit);
+
+                    if (casesData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = CRMCommonResource.CasesModuleName + "_" + offset + ".csv";
+
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCsv(casesData, daoFactory))))
+                    {
+                        _ = _dataStore.Save("export", CurrentPart, zipEntryData);
+                    }
+
+                    offset++;
+                }
+
+                offset = 0;
+
+                while (true)
+                {
+                    var taskData = taskDao.GetAllTasks(offset * limit, limit);
+
+                    if (taskData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = CRMCommonResource.TaskModuleName + "_" + offset + ".csv";
+
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCsv(taskData, daoFactory))))
+                    {
+                        _ = _dataStore.Save("export", CurrentPart, zipEntryData);
+                    }
+
+                    offset++;
+                }
+
+                offset = 0;
+
+                while (true)
+                {
+                    var dealData = dealDao.GetAllDeals(offset * limit, limit);
+
+                    if (dealData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = CRMCommonResource.DealModuleName + "_" + offset + ".csv";
+
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCsv(dealData, daoFactory))))
+                    {
+                        _ = _dataStore.Save("export", CurrentPart, zipEntryData);
+                    }
+
+                    offset++;
+                }
+
+                offset = 0;
+
+                while (true)
+                {
+                    var historyData = historyDao.GetAllItems(offset * limit, limit);
+
+                    if (historyData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = CRMCommonResource.History + "_" + offset + ".csv";
+
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCsv(historyData, daoFactory))))
+                    {
+                        _ = _dataStore.Save("export", CurrentPart, zipEntryData);
+                    }
+
+                    offset++;
+                }
+
+                var contactInfos = new StringDictionary();
+
+                offset = 0;
+
+                while (true)
+                {
+                    var contactInfoData = contactInfoDao.GetAll(offset * limit, limit);
+
+                    if (contactInfoData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = "ContactInfo_" + offset;
+
+                    contactInfoData.ForEach(item =>
+                    {
+                        var contactInfoKey = string.Format("{0}_{1}_{2}", item.ContactID, (int)item.InfoType, item.Category);
+                        if (contactInfos.ContainsKey(contactInfoKey))
+                        {
+                            contactInfos[contactInfoKey] += "," + item.Data;
+                        }
+                        else
+                        {
+                            contactInfos.Add(contactInfoKey, item.Data);
+                        }
+                    });
+
+                    offset++;
+                }
+
+                offset = 0;
+
+                while (true)
+                {
+                    var contactData = contactDao.GetAllContacts(offset * limit, limit);
+
+                    if (contactData.Count == 0)
+                    {
+                        break;
+                    }
+
+                    CurrentPart = CRMContactResource.Contacts + "_" + offset + ".csv";
 
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportContactsToCsv(contactData, contactInfos, daoFactory))))
                     {
-                        zipEntryData.CopyTo(zipStream);
+                        _ = _dataStore.Save("export", CurrentPart, zipEntryData);
                     }
 
-                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.DealModuleName + ".csv"));
-                    var dealData = dealDao.GetAllDeals();
-                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCsv(dealData, daoFactory))))
-                    {
-                        zipEntryData.CopyTo(zipStream);
-                    }
-
-                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.CasesModuleName + ".csv"));
-                    var casesData = casesDao.GetAllCases();
-                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCsv(casesData, daoFactory))))
-                    {
-                        zipEntryData.CopyTo(zipStream);
-                    }
-
-                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.TaskModuleName + ".csv"));
-                    var taskData = taskDao.GetAllTasks();
-                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCsv(taskData, daoFactory))))
-                    {
-                        zipEntryData.CopyTo(zipStream);
-                    }
-
-                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.History + ".csv"));
-                    var historyData = historyDao.GetAllItems();
-                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCsv(historyData, daoFactory))))
-                    {
-                        zipEntryData.CopyTo(zipStream);
-                    }
-
-                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.ProductsAndServices + ".csv"));
-                    var invoiceItemData = invoiceItemDao.GetAll();
-                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCsv(invoiceItemData, daoFactory))))
-                    {
-                        zipEntryData.CopyTo(zipStream);
-                    }
-
-                    zipStream.Finish();
-
-                    stream.Position = 0;
+                    offset++;
                 }
 
-                if (_dataStore.IsDirectory("export", string.Empty))
-                {
-                    _dataStore.DeleteFiles("export", string.Empty, "*.*", true);
-                }
+                CurrentPart = null;
 
-                FileUrl = CommonLinkUtility.GetFullAbsolutePath(_dataStore.Save("export", FileName, stream).ToString());
+                FileUrl = CommonLinkUtility.GetFullAbsolutePath(ZipStorageData().ToString());
 
                 _notifyClient.SendAboutExportCompleted(_author.ID, FileName, FileUrl);
+            }
+            finally
+            {
+                ClearStorage("*.csv");
             }
         }
 
@@ -401,18 +534,16 @@ namespace ASC.Web.CRM.Classes
             if (_totalCount == 0)
                 throw new ArgumentException(CRMErrorsResource.ExportToCSVDataEmpty);
 
-            if (items is List<Contact>)
+            if (items is List<Contact> contacts)
             {
                 var contactInfoDao = daoFactory.ContactInfoDao;
-
-                var contacts = (List<Contact>)items;
 
                 var contactInfos = new StringDictionary();
 
                 contactInfoDao.GetAll(contacts.Select(item => item.ID).ToArray())
                               .ForEach(item =>
                                   {
-                                      var contactInfoKey = String.Format("{0}_{1}_{2}", item.ContactID,
+                                      var contactInfoKey = string.Format("{0}_{1}_{2}", item.ContactID,
                                                                          (int)item.InfoType,
                                                                          item.Category);
 
@@ -424,33 +555,34 @@ namespace ASC.Web.CRM.Classes
 
                 fileContent = ExportContactsToCsv(contacts, contactInfos, daoFactory);
             }
-            else if (items is List<Deal>)
+            else if (items is List<Deal> deals)
             {
-                fileContent = ExportDealsToCsv((List<Deal>)items, daoFactory);
+                fileContent = ExportDealsToCsv(deals, daoFactory);
             }
-            else if (items is List<ASC.CRM.Core.Entities.Cases>)
+            else if (items is List<ASC.CRM.Core.Entities.Cases> cases)
             {
-                fileContent = ExportCasesToCsv((List<ASC.CRM.Core.Entities.Cases>)items, daoFactory);
+                fileContent = ExportCasesToCsv(cases, daoFactory);
             }
-            else if (items is List<RelationshipEvent>)
+            else if (items is List<RelationshipEvent> events)
             {
-                fileContent = ExportHistoryToCsv((List<RelationshipEvent>)items, daoFactory);
+                fileContent = ExportHistoryToCsv(events, daoFactory);
             }
-            else if (items is List<Task>)
+            else if (items is List<Task> tasks)
             {
-                fileContent = ExportTasksToCsv((List<Task>)items, daoFactory);
+                fileContent = ExportTasksToCsv(tasks, daoFactory);
             }
-            else if (items is List<InvoiceItem>)
+            else if (items is List<InvoiceItem> invoices)
             {
-                fileContent = ExportInvoiceItemsToCsv((List<InvoiceItem>)items, daoFactory);
+                fileContent = ExportInvoiceItemsToCsv(invoices, daoFactory);
             }
             else
+            {
                 throw new ArgumentException();
-
+            }
             FileUrl = SaveCsvFileInMyDocument(FileName, fileContent);
         }
 
-        private String ExportContactsToCsv(IReadOnlyCollection<Contact> contacts, StringDictionary contactInfos, DaoFactory daoFactory)
+        private string ExportContactsToCsv(IReadOnlyCollection<Contact> contacts, StringDictionary contactInfos, DaoFactory daoFactory)
         {
             var key = (string)Id;
             var listItemDao = daoFactory.ListItemDao;
@@ -512,21 +644,21 @@ namespace ASC.Web.CRM.Classes
             foreach (ContactInfoType infoTypeEnum in Enum.GetValues(typeof(ContactInfoType)))
                 foreach (Enum categoryEnum in Enum.GetValues(ContactInfo.GetCategory(infoTypeEnum)))
                 {
-                    var localTitle = String.Format("{1} ({0})", categoryEnum.ToLocalizedString().ToLower(), infoTypeEnum.ToLocalizedString());
+                    var localTitle = string.Format("{1} ({0})", categoryEnum.ToLocalizedString().ToLower(), infoTypeEnum.ToLocalizedString());
 
                     if (infoTypeEnum == ContactInfoType.Address)
                         dataTable.Columns.AddRange((from AddressPart addressPartEnum in Enum.GetValues(typeof(AddressPart))
                                                     select new DataColumn
                                                     {
-                                                        Caption = String.Format(localTitle + " {0}", addressPartEnum.ToLocalizedString().ToLower()),
-                                                        ColumnName = String.Format("contactInfo_{0}_{1}_{2}", (int)infoTypeEnum, categoryEnum, (int)addressPartEnum)
+                                                        Caption = string.Format(localTitle + " {0}", addressPartEnum.ToLocalizedString().ToLower()),
+                                                        ColumnName = string.Format("contactInfo_{0}_{1}_{2}", (int)infoTypeEnum, categoryEnum, (int)addressPartEnum)
                                                     }).ToArray());
 
                     else
                         dataTable.Columns.Add(new DataColumn
                         {
                             Caption = localTitle,
-                            ColumnName = String.Format("contactInfo_{0}_{1}", (int)infoTypeEnum, categoryEnum)
+                            ColumnName = string.Format("contactInfo_{0}_{1}", (int)infoTypeEnum, categoryEnum)
                         });
                 }
 
@@ -581,22 +713,22 @@ namespace ASC.Web.CRM.Classes
 
                 var compPersType = (isCompany) ? CRMContactResource.Company : CRMContactResource.Person;
 
-                var contactTags = String.Empty;
+                var contactTags = string.Empty;
 
                 if (tags.ContainsKey(contact.ID))
-                    contactTags = String.Join(",", tags[contact.ID].OrderBy(x => x));
+                    contactTags = string.Join(",", tags[contact.ID].OrderBy(x => x));
 
-                String firstName;
-                String lastName;
+                string firstName;
+                string lastName;
 
-                String companyName;
-                String title;
+                string companyName;
+                string title;
 
                 if (contact is Company)
                 {
-                    firstName = String.Empty;
-                    lastName = String.Empty;
-                    title = String.Empty;
+                    firstName = string.Empty;
+                    lastName = string.Empty;
+                    title = string.Empty;
                     companyName = ((Company)contact).CompanyName;
                 }
                 else
@@ -607,7 +739,7 @@ namespace ASC.Web.CRM.Classes
                     lastName = people.LastName;
                     title = people.JobTitle;
 
-                    companyName = String.Empty;
+                    companyName = string.Empty;
 
                     if (people.CompanyID > 0)
                     {
@@ -619,7 +751,7 @@ namespace ASC.Web.CRM.Classes
                     }
                 }
 
-                var contactStatus = String.Empty;
+                var contactStatus = string.Empty;
 
                 if (contact.StatusID > 0)
                 {
@@ -630,7 +762,7 @@ namespace ASC.Web.CRM.Classes
                         contactStatus = listItem.Title;
                 }
 
-                var contactType = String.Empty;
+                var contactType = string.Empty;
 
                 if (contact.ContactTypeID > 0)
                 {
@@ -641,7 +773,7 @@ namespace ASC.Web.CRM.Classes
                         contactType = listItem.Title;
                 }
 
-                var dataRowItems = new List<String>
+                var dataRowItems = new List<string>
                     {
                         compPersType,
                         firstName,
@@ -657,7 +789,7 @@ namespace ASC.Web.CRM.Classes
                 foreach (ContactInfoType infoTypeEnum in Enum.GetValues(typeof(ContactInfoType)))
                     foreach (Enum categoryEnum in Enum.GetValues(ContactInfo.GetCategory(infoTypeEnum)))
                     {
-                        var contactInfoKey = String.Format("{0}_{1}_{2}", contact.ID,
+                        var contactInfoKey = string.Format("{0}_{1}_{2}", contact.ID,
                                                            (int)infoTypeEnum,
                                                            Convert.ToInt32(categoryEnum));
 
@@ -668,12 +800,12 @@ namespace ASC.Web.CRM.Classes
 
                         if (infoTypeEnum == ContactInfoType.Address)
                         {
-                            if (!String.IsNullOrEmpty(columnValue))
+                            if (!string.IsNullOrEmpty(columnValue))
                             {
-                                var addresses = JArray.Parse(String.Concat("[", columnValue, "]"));
+                                var addresses = JArray.Parse(string.Concat("[", columnValue, "]"));
 
                                 dataRowItems.AddRange((from AddressPart addressPartEnum in Enum.GetValues(typeof(AddressPart))
-                                                       select String.Join(",", addresses.Select(item => (String)item.SelectToken(addressPartEnum.ToString().ToLower())).ToArray())).ToArray());
+                                                       select string.Join(",", addresses.Select(item => (string)item.SelectToken(addressPartEnum.ToString().ToLower())).ToArray())).ToArray());
                             }
                             else
                             {
@@ -695,7 +827,7 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCsv(dataTable);
         }
 
-        private String ExportDealsToCsv(IEnumerable<Deal> deals, DaoFactory daoFactory)
+        private string ExportDealsToCsv(IEnumerable<Deal> deals, DaoFactory daoFactory)
         {
             var key = (string)Id;
             var tagDao = daoFactory.TagDao;
@@ -815,12 +947,12 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 1.0 * 100 / _totalCount;
 
-                var contactTags = String.Empty;
+                var contactTags = string.Empty;
 
                 if (tags.ContainsKey(deal.ID))
-                    contactTags = String.Join(",", tags[deal.ID].OrderBy(x => x));
+                    contactTags = string.Join(",", tags[deal.ID].OrderBy(x => x));
 
-                String bidType;
+                string bidType;
 
                 switch (deal.BidType)
                 {
@@ -848,7 +980,7 @@ namespace ASC.Web.CRM.Classes
 
                 var currentDealMilestone = dealMilestoneDao.GetByID(deal.DealMilestoneID);
                 var currentDealMilestoneStatus = currentDealMilestone.Status.ToLocalizedString();
-                var contactTitle = String.Empty;
+                var contactTitle = string.Empty;
 
                 if (deal.ContactID != 0)
                     contactTitle = contactDao.GetByID(deal.ContactID).GetTitle();
@@ -887,7 +1019,7 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCsv(dataTable);
         }
 
-        private String ExportCasesToCsv(IEnumerable<ASC.CRM.Core.Entities.Cases> cases, DaoFactory daoFactory)
+        private string ExportCasesToCsv(IEnumerable<ASC.CRM.Core.Entities.Cases> cases, DaoFactory daoFactory)
         {
             var key = (string)Id;
             var tagDao = daoFactory.TagDao;
@@ -941,10 +1073,10 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 1.0 * 100 / _totalCount;
 
-                var contactTags = String.Empty;
+                var contactTags = string.Empty;
 
                 if (tags.ContainsKey(item.ID))
-                    contactTags = String.Join(",", tags[item.ID].OrderBy(x => x));
+                    contactTags = string.Join(",", tags[item.ID].OrderBy(x => x));
 
                 var dataRow = dataTable.Rows.Add(new object[]
                     {
@@ -959,7 +1091,7 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCsv(dataTable);
         }
 
-        private String ExportHistoryToCsv(IEnumerable<RelationshipEvent> events, DaoFactory daoFactory)
+        private string ExportHistoryToCsv(IEnumerable<RelationshipEvent> events, DaoFactory daoFactory)
         {
             var key = (string)Id;
             var listItemDao = daoFactory.ListItemDao;
@@ -1003,6 +1135,8 @@ namespace ASC.Web.CRM.Classes
                         }
                 });
 
+            var categories = new Dictionary<int, string>();
+
             foreach (var item in events)
             {
                 if (ExportDataCache.CheckCancelFlag(key))
@@ -1016,7 +1150,7 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 1.0 * 100 / _totalCount;
 
-                var entityTitle = String.Empty;
+                var entityTitle = string.Empty;
 
                 if (item.EntityID > 0)
                     switch (item.EntityType)
@@ -1025,19 +1159,19 @@ namespace ASC.Web.CRM.Classes
                             var casesObj = casesDao.GetByID(item.EntityID);
 
                             if (casesObj != null)
-                                entityTitle = String.Format("{0}: {1}", CRMCasesResource.Case,
+                                entityTitle = string.Format("{0}: {1}", CRMCasesResource.Case,
                                                             casesObj.Title);
                             break;
                         case EntityType.Opportunity:
                             var dealObj = dealDao.GetByID(item.EntityID);
 
                             if (dealObj != null)
-                                entityTitle = String.Format("{0}: {1}", CRMDealResource.Deal,
+                                entityTitle = string.Format("{0}: {1}", CRMDealResource.Deal,
                                                             dealObj.Title);
                             break;
                     }
 
-                var contactTitle = String.Empty;
+                var contactTitle = string.Empty;
 
                 if (item.ContactID > 0)
                 {
@@ -1047,15 +1181,24 @@ namespace ASC.Web.CRM.Classes
                         contactTitle = contactObj.GetTitle();
                 }
 
-                var categoryTitle = String.Empty;
+                var categoryTitle = string.Empty;
 
                 if (item.CategoryID > 0)
                 {
-                    var categoryObj = listItemDao.GetByID(item.CategoryID);
+                    if (categories.ContainsKey(item.CategoryID))
+                    {
+                        categoryTitle = categories[item.CategoryID];
+                    }
+                    else
+                    {
+                        var categoryObj = listItemDao.GetByID(item.CategoryID);
 
-                    if (categoryObj != null)
-                        categoryTitle = categoryObj.Title;
-
+                        if (categoryObj != null)
+                        {
+                            categories.Add(item.CategoryID, categoryObj.Title);
+                            categoryTitle = categoryObj.Title;
+                        }
+                    }
                 }
                 else if (item.CategoryID == (int)HistoryCategorySystem.TaskClosed)
                     categoryTitle = HistoryCategorySystem.TaskClosed.ToLocalizedString();
@@ -1078,7 +1221,7 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCsv(dataTable);
         }
 
-        private String ExportTasksToCsv(IEnumerable<Task> tasks, DaoFactory daoFactory)
+        private string ExportTasksToCsv(IEnumerable<Task> tasks, DaoFactory daoFactory)
         {
             var key = (string)Id;
             var listItemDao = daoFactory.ListItemDao;
@@ -1137,6 +1280,8 @@ namespace ASC.Web.CRM.Classes
                         }
                 });
 
+            var categories = new Dictionary<int, string>();
+
             foreach (var item in tasks)
             {
                 if (ExportDataCache.CheckCancelFlag(key))
@@ -1150,7 +1295,7 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 1.0 * 100 / _totalCount;
 
-                var entityTitle = String.Empty;
+                var entityTitle = string.Empty;
 
                 if (item.EntityID > 0)
                     switch (item.EntityType)
@@ -1159,17 +1304,17 @@ namespace ASC.Web.CRM.Classes
                             var caseObj = casesDao.GetByID(item.EntityID);
 
                             if (caseObj != null)
-                                entityTitle = String.Format("{0}: {1}", CRMCasesResource.Case, caseObj.Title);
+                                entityTitle = string.Format("{0}: {1}", CRMCasesResource.Case, caseObj.Title);
                             break;
                         case EntityType.Opportunity:
                             var dealObj = dealDao.GetByID(item.EntityID);
 
                             if (dealObj != null)
-                                entityTitle = String.Format("{0}: {1}", CRMDealResource.Deal, dealObj.Title);
+                                entityTitle = string.Format("{0}: {1}", CRMDealResource.Deal, dealObj.Title);
                             break;
                     }
 
-                var contactTitle = String.Empty;
+                var contactTitle = string.Empty;
 
                 if (item.ContactID > 0)
                 {
@@ -1177,6 +1322,23 @@ namespace ASC.Web.CRM.Classes
 
                     if (contact != null)
                         contactTitle = contact.GetTitle();
+                }
+
+                var category = string.Empty;
+
+                if (categories.ContainsKey(item.CategoryID))
+                {
+                    category = categories[item.CategoryID];
+                }
+                else
+                {
+                    var categoryObj = listItemDao.GetByID(item.CategoryID);
+
+                    if (categoryObj != null)
+                    {
+                        categories.Add(item.CategoryID, categoryObj.Title);
+                        category = categoryObj.Title;
+                    }
                 }
 
                 dataTable.Rows.Add(new object[]
@@ -1191,7 +1353,7 @@ namespace ASC.Web.CRM.Classes
                         item.IsClosed
                             ? CRMTaskResource.TaskStatus_Closed
                             : CRMTaskResource.TaskStatus_Open,
-                        listItemDao.GetByID(item.CategoryID).Title,
+                        category,
                         entityTitle,
                         item.AlertValue.ToString(CultureInfo.InvariantCulture)
                     });
@@ -1200,7 +1362,7 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCsv(dataTable);
         }
 
-        private String ExportInvoiceItemsToCsv(IEnumerable<InvoiceItem> invoiceItems, DaoFactory daoFactory)
+        private string ExportInvoiceItemsToCsv(IEnumerable<InvoiceItem> invoiceItems, DaoFactory daoFactory)
         {
             var key = (string)Id;
             var taxes = daoFactory.InvoiceTaxDao.GetAll();
@@ -1303,7 +1465,7 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCsv(dataTable);
         }
 
-        private static String SaveCsvFileInMyDocument(String title, String data)
+        private static string SaveCsvFileInMyDocument(string title, string data)
         {
             string fileUrl;
 
@@ -1407,7 +1569,7 @@ namespace ASC.Web.CRM.Classes
                                  partialDataExport ? SecurityContext.CurrentAccount.ID : Guid.Empty);
         }
 
-        public static String ExportItems(FilterObject filterObject, string fileName)
+        public static string ExportItems(FilterObject filterObject, string fileName)
         {
             var operation = new ExportDataOperation(filterObject, fileName);
 

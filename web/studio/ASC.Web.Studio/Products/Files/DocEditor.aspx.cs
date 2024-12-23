@@ -117,6 +117,11 @@ namespace ASC.Web.Files
             get { return (Request[FilesLinkUtility.Action] ?? "").Equals("view", StringComparison.InvariantCultureIgnoreCase); }
         }
 
+        private bool RequestFill
+        {
+            get { return (Request[FilesLinkUtility.Action] ?? "").Equals("fill", StringComparison.InvariantCultureIgnoreCase); }
+        }
+
         private int RequestVersion
         {
             get { return string.IsNullOrEmpty(Request[FilesLinkUtility.Version]) ? -1 : Convert.ToInt32(Request[FilesLinkUtility.Version]); }
@@ -204,15 +209,14 @@ namespace ASC.Web.Files
             Response.AppendHeader("Pragma", "no-cache");
             Response.AppendHeader("Expires", "0");
 
-            DocServiceApiUrl += (DocServiceApiUrl.Contains("?") ? "&" : "?") + "ver=" + HttpUtility.UrlEncode(ClientSettings.ResetCacheKey + ResetCacheKey);
+            DocServiceApiUrl = FilesLinkUtility.AddQueryString(DocServiceApiUrl, new Dictionary<string, string>() {
+                { FilesLinkUtility.VersionShort, ClientSettings.ResetCacheKey + ResetCacheKey },
+                { FilesLinkUtility.ShardKey, _configuration?.Document?.Key }
+            });
 
             if (_configuration != null && !string.IsNullOrEmpty(_configuration.DocumentType))
             {
-                var ext = FileUtility.GetFileExtension(_configuration.Document.Info.File.Title);
-
-                var filename = Services.DocumentService.Configuration.PdfType.Contains(ext) ? "pdf" : _configuration.DocumentType;
-
-                Favicon = WebImageSupplier.GetAbsoluteWebPath("logo/" + filename + ".ico");
+                Favicon = WebImageSupplier.GetAbsoluteWebPath("logo/" + _configuration.DocumentType + ".ico");
             }
         }
 
@@ -231,7 +235,7 @@ namespace ASC.Web.Files
                     var app = ThirdPartySelector.GetAppByFileId(RequestFileId);
                     if (app == null)
                     {
-                        file = DocumentServiceHelper.GetParams(RequestFileId, RequestVersion, RequestShareLinkKey, editPossible, !RequestView, true, out _configuration);
+                        file = DocumentServiceHelper.GetParams(RequestFileId, RequestVersion, RequestShareLinkKey, editPossible, !RequestView, RequestFill, true, out _configuration);
                         if (_valideShareLink)
                         {
                             _configuration.Document.SharedLinkKey += RequestShareLinkKey;
@@ -253,7 +257,7 @@ namespace ASC.Web.Files
                         bool editable;
                         _thirdPartyApp = true;
                         file = app.GetFile(RequestFileId, out editable);
-                        file = DocumentServiceHelper.GetParams(file, true, editPossible ? FileShare.ReadWrite : FileShare.Read, false, editable, editable, editable, true, out _configuration);
+                        file = DocumentServiceHelper.GetParams(file, true, editPossible ? FileShare.ReadWrite : FileShare.Read, false, editable, editable, editable, editable, true, out _configuration);
 
                         _configuration.Document.Url = app.GetFileStreamUrl(file);
                         _configuration.EditorConfig.Customization.GobackUrl = string.Empty;
@@ -275,7 +279,7 @@ namespace ASC.Web.Files
                         Title = Global.ReplaceInvalidCharsAndTruncate(fileTitle)
                     };
 
-                    file = DocumentServiceHelper.GetParams(file, true, FileShare.Read, false, false, false, false, false, out _configuration);
+                    file = DocumentServiceHelper.GetParams(file, true, FileShare.Read, false, false, false, false, false, false, out _configuration);
                     _configuration.Document.Permissions.Edit = editPossible && !CoreContext.Configuration.Standalone;
                     _configuration.Document.Permissions.Rename = false;
                     _configuration.Document.Permissions.Review = false;
@@ -353,7 +357,7 @@ namespace ASC.Web.Files
                         ? string.Empty
                         : "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.MessageFillFormDraftCreated, folderIfNew.Title));
 
-                    Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(file.ID) + comment);
+                    Response.Redirect(FilesLinkUtility.GetFileWebFillUrl(file.ID) + comment);
                     return;
                 }
                 else if (!EntryManager.CheckFillFormDraft(file))
@@ -463,6 +467,10 @@ namespace ASC.Web.Files
                 if (SecurityContext.IsAuthenticated)
                 {
                     _configuration.EditorConfig.FileChoiceUrl = CommonLinkUtility.GetFullAbsolutePath(FileChoice.GetUrlForEditor);
+                }
+                if (RequestFill)
+                {
+                    _linkToEdit = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID));
                 }
             }
             else

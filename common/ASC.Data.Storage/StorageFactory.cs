@@ -122,7 +122,7 @@ namespace ASC.Data.Storage
                 .Select(x => x.Name);
         }
 
-        public static IEnumerable<string> GetDomainList(string configpath, string modulename)
+        public static IEnumerable<string> GetDomainList(string configpath, string modulename, bool onlyVisible = true)
         {
             var section = GetSection(configpath);
             if (section == null)
@@ -134,7 +134,7 @@ namespace ASC.Data.Storage
                     .Cast<ModuleConfigurationElement>()
                     .Single(x => x.Name.Equals(modulename, StringComparison.OrdinalIgnoreCase))
                     .Domains.Cast<DomainConfigurationElement>()
-                    .Where(x => x.Visible)
+                     .Where(x => !onlyVisible || x.Visible)
                     .Select(x => x.Name);
         }
 

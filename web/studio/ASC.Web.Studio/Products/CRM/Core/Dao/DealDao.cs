@@ -237,7 +237,12 @@ namespace ASC.CRM.Core.Dao
 
         public List<Deal> GetAllDeals()
         {
-            return GetDeals(String.Empty,
+            return GetAllDeals(0, 0);
+        }
+
+        public List<Deal> GetAllDeals(int from, int count)
+        {
+            return GetDeals(string.Empty,
                             Guid.Empty,
                             0,
                             null,
@@ -246,9 +251,9 @@ namespace ASC.CRM.Core.Dao
                             null,
                             DateTime.MinValue,
                             DateTime.MinValue,
-                            0,
-                            0,
-                            new OrderBy(DealSortedByType.Stage, true));
+                            from,
+                            count,
+                            new OrderBy(DealSortedByType.Id, true));
         }
 
         private Exp WhereConditional(
@@ -613,6 +618,9 @@ namespace ASC.CRM.Core.Dao
                         break;
                     case DealSortedByType.DateAndTime:
                         sqlQuery.OrderBy("close_date", orderBy.IsAsc);
+                        break;
+                    case DealSortedByType.Id:
+                        sqlQuery.OrderBy("tblDeal.id", orderBy.IsAsc);
                         break;
                     default:
                         throw new ArgumentException();

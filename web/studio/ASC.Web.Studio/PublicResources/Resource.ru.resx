@@ -302,7 +302,7 @@
     <value>Возникли проблемы? Обратитесь в нашу {0}службу поддержки{1}.</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Ключи авторизации позволяют подключить портал ONLYOFFICE™ к сторонним сервисам, таким как Twitter, Facebook, Dropbox и т.д. Подключите портал к Facebook, Twitter или Linkedin, если Вы не хотите каждый раз при входе вводить свои учетные данные на портале. Привяжите портал к таким сервисам, как Dropbox, OneDrive и т.д. чтобы перенести документы из всех этих хранилищ в модуль Документы ONLYOFFICE™.</value>
+    <value>Ключи авторизации позволяют подключить портал ONLYOFFICE™ к сторонним сервисам, таким как X (Twitter), Facebook, Dropbox и т.д. Подключите портал к Facebook, X (Twitter) или Linkedin, если Вы не хотите каждый раз при входе вводить свои учетные данные на портале. Привяжите портал к таким сервисам, как Dropbox, OneDrive и т.д. чтобы перенести документы из всех этих хранилищ в модуль Документы ONLYOFFICE™.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Условия использования</value>
@@ -1029,7 +1029,7 @@
     <value>Номер телефона из Twilio (требуется для SMS-авторизации)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Ключ Twitter в CRM</value>
@@ -1041,22 +1041,22 @@
     <value>Ключ Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Подключите приложение для входа на портал по учетной записи Twitter.</value>
+    <value>Подключите приложение для входа на портал по учетной записи X (Twitter).</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Добавив приложение сервиса Twitter, Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ с помощью аккаунта Twitter. Также Вы сможете на странице персоны или компании CRM привязывать аккаунт и читать новости Twitter.</value>
   </data>
   <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
-    <value>Подключите это приложение, чтобы пользователи могли входить в ONLYOFFICE, используя Twitter, и привязывать Twitter-аккаунты клиентов в модуле CRM. {0}Перейдите на портал для разработчиков Twitter и создайте новое приложение для интеграции ONLYOFFICE. Вставьте полученные данные ниже:</value>
+    <value>Подключите это приложение, чтобы пользователи могли входить в ONLYOFFICE, используя X (Twitter), и привязывать X (Twitter)-аккаунты клиентов в модуле CRM. {0}Перейдите на портал для разработчиков X (Twitter) и создайте новое приложение для интеграции ONLYOFFICE. Вставьте полученные данные ниже:</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Токен доступа</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Ключ Twitter</value>
+    <value>Ключ X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Секретный токен доступа</value>
@@ -3919,7 +3919,7 @@
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

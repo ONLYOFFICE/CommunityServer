@@ -73,6 +73,13 @@ namespace ASC.Web.CRM.Classes
         {
             try
             {
+                var module = WebItemManager.Instance[WebItemManager.ProjectsProductID];
+
+                if (module == null || module.IsDisabled())
+                {
+                    return false;
+                }
+
                 var apiUrl = String.Format("{0}project/securityinfo.json", SetupInfo.WebApiBaseUrl);
 
                 var cacheKey = String.Format("{0}-{1}", ASC.Core.SecurityContext.CurrentAccount.ID, apiUrl);
@@ -86,7 +93,7 @@ namespace ASC.Web.CRM.Classes
 
                 var responseApi = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(apiServer.GetApiResponse(apiUrl, "GET"))))["response"];
 
-                if (responseApi.HasValues)
+                if (responseApi != null && responseApi.HasValues)
                     canCreateProject = Convert.ToBoolean(responseApi["canCreateProject"].Value<String>());
                 else
                     canCreateProject = false;

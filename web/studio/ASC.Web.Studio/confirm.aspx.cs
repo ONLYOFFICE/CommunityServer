@@ -218,7 +218,15 @@ namespace ASC.Web.Studio
                     break;
 
                 case ConfirmType.EmailChange:
-                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + SecurityContext.CurrentAccount.ID, key, validInterval);
+                    var emailChangeEvent = AuditEventsRepository
+                        .GetByFilter(Guid.Empty, ProductType.None, ModuleType.None, ActionType.None, MessageAction.UserSentEmailChangeInstructions, EntryType.User, MessageTarget.Create(SecurityContext.CurrentAccount.ID).ToString(), DateTime.MinValue, DateTime.MaxValue, 0, 1)
+                        .FirstOrDefault();
+
+                    var postfix = emailChangeEvent == null
+                        ? SecurityContext.CurrentAccount.ID.ToString()
+                        : TenantUtil.DateTimeToUtc(emailChangeEvent.Date).ToString("s");
+
+                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + postfix, key, validInterval);
                     break;
 
                 case ConfirmType.PasswordChange:

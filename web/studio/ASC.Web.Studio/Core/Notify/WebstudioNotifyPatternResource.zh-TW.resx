@@ -196,40 +196,40 @@ CRM機會創建於</value>
   </data>
   <data name="pattern_activate_email" xml:space="preserve">
     <value>
-h1。為“ $ {__ VirtualRootPath}”：“ $ InviteLink”門戶激活電子郵件。
+h1。為"${__ VirtualRootPath}"："$InviteLink"門戶激活電子郵件。
 
 你好！
 
-要開始參與“ $ {__ VirtualRootPath}”：“ $ InviteLink”門戶生活，您需要激活您的電子郵件地址。出於安全原因這樣做。
+要開始參與"${__ VirtualRootPath}"："$InviteLink"門戶生活，您需要激活您的電子郵件地址。出於安全原因這樣做。
 
-$ GreenButton
+$GreenButton
 
 此連結僅有效7天。請在此期間內完成您的電子郵件激活。</value>
   </data>
   <data name="pattern_backup_created" xml:space="preserve">
-    <value>h1。“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站備份已創建
+    <value>h1。"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站備份已創建
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-已創建一個備份文件，其中包含來自“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的數據。
+已創建一個備份文件，其中包含來自"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的數據。
 
-要了解有關備份過程的更多信息，請參閱我們的“數據備份”：“ http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx”用戶指南。
+要了解有關備份過程的更多信息，請參閱我們的"數據備份"："http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx"用戶指南。
 
 
-如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ http://support.onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support.onlyoffice.com"與我們聯繫："http://support.onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”</value>
+"www.onlyoffice.com"："http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_backup_created_tg" xml:space="preserve">
-    <value>已創建[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶網站備份
+    <value>已創建[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶網站備份
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-已創建一個備份文件，其中包含來自[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶的數據。
+已創建一個備份文件，其中包含來自[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶的數據。
 
-要了解有關備份過程的更多信息，請參閱我們的[數據備份]（$ {__ He​​lpLink} /tipstricks/data-backup-restore.aspx）用戶指南。
+要了解有關備份過程的更多信息，請參閱我們的[數據備份]（${__ He​​lpLink} /tipstricks/data-backup-restore.aspx）用戶指南。
 
 如果您有任何疑問或需要幫助，請隨時通過[support.onlyoffice.com]（http://support.onlyoffice.com）與我們聯繫。
 
@@ -240,11 +240,11 @@ ONLYOFFICE™支持團隊
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1。手機更換要求
 
-您已請求更改用於進入$ {LetterLogoText}門戶的手機。
+您已請求更改用於進入${LetterLogoText}門戶的手機。
 
 請點選以下連結更改您的手機：
 
-$ GreenButton
+$GreenButton
 
 如果您不想更換手機或誤收到此電子郵件，請忽略它或與門戶網站管理員聯繫以了解詳細信息。</value>
   </data>
@@ -252,66 +252,66 @@ $ GreenButton
     <value>
 h1。安全通知
 
-您用於進入$ {LetterLogoText}門戶的身份驗證器應用程序的配置已重置。
+您用於進入${LetterLogoText}門戶的身份驗證器應用程序的配置已重置。
 
 請點選下面的按鈕進入門戶網站登錄頁面並配置身份驗證器應用程序：
 
-$ GreenButton</value>
+$GreenButton</value>
   </data>
   <data name="pattern_confirm_owner_change" xml:space="preserve">
     <value>
-h1。更改“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站所有者
+h1。更改"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站所有者
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-有人要求將門戶網站所有者“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”更改為$ UserName。
+有人要求將門戶網站所有者"${__ VirtualRootPath}"："${__ VirtualRootPath}"更改為$UserName。
 
 請點選以下連結確認操作：
 
-$ GreenButton
+$GreenButton
 
 *注意*：此連結僅有效7天。請在此期間內完成門戶網站所有者的更改過程。</value>
   </data>
   <data name="pattern_dns_change" xml:space="preserve">
     <value>h1。門戶地址變更
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-有人要求將門戶網站地址“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”更改為“ $ PortalAddress”：“ $ PortalAddress” #if（$ PortalDns！=“”）（“ $ PortalDns”：“ $ PortalDns“）#end。
+有人要求將門戶網站地址"${__ VirtualRootPath}"："${__ VirtualRootPath}"更改為"$PortalAddress"："$PortalAddress" #if（$PortalDns！=""）（"$PortalDns"："$PortalDns"）#end。
 
 請點選以下連結確認操作：
 
-$ GreenButton
+$GreenButton
 
 *注意*：此連結僅有效7天。請在此期間內完成門戶地址更改過程。</value>
   </data>
   <data name="pattern_enterprise_admin_activation_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您剛剛創建了ONLYOFFICE門戶，這是團隊的雲端辦公室，可以增強內部合作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。
+您剛剛創建了ONLYOFFICE門戶，這是團隊的雲端辦公室，可以增強內部合作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。
 
 請確認你的電子郵件：
 
-$ GreenButton
+$GreenButton
 
-您可以在“個人資料頁面”：“ $ MyStaffLink”中更改電子郵件或密碼。
+您可以在"個人資料頁面"："$MyStaffLink"中更改電子郵件或密碼。
 
-要發送通知，我們使用ONLYOFFICE郵件服務器的SMTP設置。要更改它們，請按照“這裡”的說明：“ $ {__ He​​lpLink} /server/windows/community/smtp-settings.aspx”。
+要發送通知，我們使用ONLYOFFICE郵件服務器的SMTP設置。要更改它們，請按照"這裡"的說明："${__ He​​lpLink} /server/windows/community/smtp-settings.aspx"。
 
-有關更多信息，請訪問ONLYOFFICE“幫助中心”：“ $ {__ He​​lpLink}”。</value>
+有關更多信息，請訪問ONLYOFFICE"幫助中心"："${__ He​​lpLink}"。</value>
   </data>
   <data name="pattern_enterprise_admin_customize_portal_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 您可以根據需要自定義ONLYOFFICE，例如：
 
-$ TableItemsTop $ TableItem1 $ TableItem2 $ TableItem3 $ TableItem4 $ TableItem5 $ TableItemsBtm
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 
-$ GreenButton
+$GreenButton
    
 做完了現在是時候邀請隊友加入您的網絡辦公室了！
 
-有關更多信息，請參見“幫助中心”：“ $ {__ He​​lpLink}”。</value>
+有關更多信息，請參見"幫助中心"："${__ He​​lpLink}"。</value>
   </data>
   <data name="pattern_enterprise_admin_customize_portal_v10_item_3rdparty" xml:space="preserve">
     <value>讓您的團隊成員使用Facebook，Twitter，Google或LinkedIn進行登錄。將您的門戶與Box，Dropbox，OneDrive和Google關聯，以傳輸您的文檔。連接DocuSign以使用電子簽名，Twilio-用於VoIP，Bitly-可以縮短連結，而Firebase可以在離線時獲取通知。</value>
@@ -320,7 +320,7 @@ $ GreenButton
     <value>提示5：連接第三方服務</value>
   </data>
   <data name="pattern_enterprise_admin_customize_portal_v10_item_brand" xml:space="preserve">
-    <value>在控制面板中上載貴公司的徽標。要更改“歡迎”頁面上顯示的默認門戶標題，請轉至設置&gt;&gt;通用&gt;&gt;定制&gt;&gt;歡迎頁面設置。</value>
+    <value>在控制面板中上載貴公司的徽標。要更改"歡迎"頁面上顯示的默認門戶標題，請轉至設置&gt;&gt;通用&gt;&gt;定制&gt;&gt;歡迎頁面設置。</value>
   </data>
   <data name="pattern_enterprise_admin_customize_portal_v10_item_brand_hdr" xml:space="preserve">
     <value>
@@ -345,198 +345,198 @@ $ GreenButton
     <value>提示2：調整區域設置</value>
   </data>
   <data name="pattern_enterprise_admin_invite_teammates_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的雲端辦公室已準備就緒，位於“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。現在該邀請您的隊友了！
+您的雲端辦公室已準備就緒，位於"${__ VirtualRootPath}"："${__ VirtualRootPath}"。現在該邀請您的隊友了！
 
-添加團隊的最簡單方法是從LDAP服務器（例如OpenLDAP服務器或Microsoft Active Directory）導入必要的用戶和組。 LDAP設置在控制面板中可用。可在我們的“幫助中心”中找到說明：“ $ {__ He​​lpLink} /server/windows/community/ldap-settings.aspx”。
+添加團隊的最簡單方法是從LDAP服務器（例如OpenLDAP服務器或Microsoft Active Directory）導入必要的用戶和組。 LDAP設置在控制面板中可用。可在我們的"幫助中心"中找到說明："${__ He​​lpLink} /server/windows/community/ldap-settings.aspx"。
 
-您也可以使用“邀請用戶進入門戶網站”選項來分發邀請連結，也可以使用“人”模塊中的“創建新...”按鈕來逐個手動添加隊友，或者從以下位置導出用戶：
-    “您的Yahoo或Google帳戶”：“ $ {__ He​​lpLink} /administratorguides/import-contacts-from-web.aspx”；
-    “您的郵件客戶端通訊錄”：“ $ {__ He​​lpLink} /administratorguides/import-contacts-from-mail-client.aspx”；
-    “一個CSV文件”：“ $ {__ He​​lpLink} /administratorguides/import-contacts-from-csv.aspx”。</value>
+您也可以使用"邀請用戶進入門戶網站"選項來分發邀請連結，也可以使用"人"模塊中的"創建新..."按鈕來逐個手動添加隊友，或者從以下位置導出用戶：
+    "您的Yahoo或Google帳戶"："${__ He​​lpLink} /administratorguides/import-contacts-from-web.aspx"；
+    "您的郵件客戶端通訊錄"："${__ He​​lpLink} /administratorguides/import-contacts-from-mail-client.aspx"；
+    "一個CSV文件"："${__ He​​lpLink} /administratorguides/import-contacts-from-csv.aspx"。</value>
   </data>
   <data name="pattern_enterprise_admin_payment_warning_before7_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 請注意，您的ONLYOFFICE訂閱將在一周內到期。要擴展您的訂閱，您需要為ONLYOFFICE購買產品續訂。
 
 點選下面的連結以開始續訂過程：
-“定價頁面”：“ $ PricingPage”
+"定價頁面"："$PricingPage"
 
-有關ONLYOFFICE的其他任何安裝，激活和技術支持問題，請通過以下網址與我們的支持團隊聯繫：“ https://support.onlyoffice.com/”：“ https://support.onlyoffice.com/”</value>
+有關ONLYOFFICE的其他任何安裝，激活和技術支持問題，請通過以下網址與我們的支持團隊聯繫："https://support.onlyoffice.com/"："https://support.onlyoffice.com/"</value>
   </data>
   <data name="pattern_enterprise_admin_payment_warning_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 請注意，您的ONLYOFFICE訂閱今天到期。要擴展您的訂閱，您需要為ONLYOFFICE購買產品續訂。
 
 點選下面的連結以開始續訂過程：
-“定價頁面”：“ $ PricingPage”
+"定價頁面"："$PricingPage"
 
-對於任何其他產品安裝，激活和技術支持問題，請通過以下網址與我們的支持團隊聯繫：“ https://support.onlyoffice.com/”：“ https://support.onlyoffice.com/”</value>
+對於任何其他產品安裝，激活和技術支持問題，請通過以下網址與我們的支持團隊聯繫："https://support.onlyoffice.com/"："https://support.onlyoffice.com/"</value>
   </data>
   <data name="pattern_enterprise_admin_trial_warning_before7_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 感謝您選擇ONLYOFFICE。我們只想提醒您，企業版的試用期將在7天內結束。
 
 請檢查企業版所有可用的定價計劃，然後選擇最適合您的業務的計劃。
 
-$ GreenButton
+$GreenButton
 
-$ BlueButton
+$BlueButton
 
-如有任何購買問題，請通過“ sales@onlyoffice.com”與我們聯繫：“ mailto：sales@onlyoffice.com”。要解決任何技術問題，請寫信至“ support@onlyoffice.com”：“ mailto：support@onlyoffice.com”</value>
+如有任何購買問題，請通過"sales@onlyoffice.com"與我們聯繫："mailto：sales@onlyoffice.com"。要解決任何技術問題，請寫信至"support@onlyoffice.com"："mailto：support@onlyoffice.com"</value>
   </data>
   <data name="pattern_enterprise_admin_trial_warning_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 感謝您選擇ONLYOFFICE工作區。您的試用版今天到期。要繼續使用專業功能，請購買完整許可證。
 
-立即購買：“ https://www.onlyoffice.com/workspace-enterprise-prices.aspx”：“ https://www.onlyoffice.com/workspace-enterprise-prices.aspx”
+立即購買："https://www.onlyoffice.com/workspace-enterprise-prices.aspx"："https://www.onlyoffice.com/workspace-enterprise-prices.aspx"
 
-如有任何購買問題，請通過“ sales@onlyoffice.com”與我們聯繫：“ mailto：sales@onlyoffice.com”。要解決任何技術問題，請寫信至“ support@onlyoffice.com”：“ mailto：support@onlyoffice.com”</value>
+如有任何購買問題，請通過"sales@onlyoffice.com"與我們聯繫："mailto：sales@onlyoffice.com"。要解決任何技術問題，請寫信至"support@onlyoffice.com"："mailto：support@onlyoffice.com"</value>
   </data>
   <data name="pattern_enterprise_admin_user_apps_tips_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 獲取免費的ONLYOFFICE應用程序，以通過任何設備處理文檔和項目。
 
-＃要在Windows，Linux和Mac上脫機處理文檔，請下載“ ONLYOFFICE Desktop Editors”：“ https://www.onlyoffice.com/apps.aspx”。
-＃要在移動設備上編輯文檔，請使用適用於“ iOS”的ONLYOFFICE Documents應用程序：“ https://itunes.apple.com/us/app/onlyoffice-documents/id944896972”或“ Android”：“ https://play.google .com / store / apps / details？id = com.onlyoffice.documents”。
-＃要在旅途中管理團隊績效，請獲取“ iOS”的ONLYOFFICE項目：“ https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928”。</value>
+＃要在Windows，Linux和Mac上脫機處理文檔，請下載"ONLYOFFICE Desktop Editors"："https://www.onlyoffice.com/apps.aspx"。
+＃要在移動設備上編輯文檔，請使用適用於"iOS"的ONLYOFFICE Documents應用程序："https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"或"Android"："https://play.google .com / store / apps / details？id = com.onlyoffice.documents"。
+＃要在旅途中管理團隊績效，請獲取"iOS"的ONLYOFFICE項目："https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928"。</value>
   </data>
   <data name="pattern_enterprise_admin_user_docs_tips_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 我們希望您喜歡在辦公室使用可用的文檔編輯器。這裡有一些技巧，使它更有效。
 
-$ TableItemsTop $ TableItem1 $ TableItem2 $ TableItem3 $ TableItem4 $ TableItem5 $ TableItem6 $ TableItem7 $ TableItemsBtm</value>
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm</value>
   </data>
   <data name="pattern_enterprise_admin_welcome_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 您可以採取以下措施使網絡辦公室更加安全：
 
 如果您不僅要為用戶提供本地存取，還需要外部門戶存取，請*獲取SSL證書*。在控制面板中生成一個新簽署的證書，或者從您信任的提供者那裡購買一個證書。
 
-*在控制面板中啟用自動備份*。我們還建議您使用第三方服務，並不時為安裝了ONLYOFFICE的服務器製作備份副本。 “幫助中心”中的說明：“ $ {__ He​​lpLink} /server/controlpanel/enterprise/backup-restore.aspx”。
+*在控制面板中啟用自動備份*。我們還建議您使用第三方服務，並不時為安裝了ONLYOFFICE的服務器製作備份副本。 "幫助中心"中的說明："${__ He​​lpLink} /server/controlpanel/enterprise/backup-restore.aspx"。
 
-*調整門戶網站安全設置*：使用IP白名單限制訪問，指定受信任的郵件域，設置密碼長度等。 “更多信息&gt;&gt;”：“ $ {__ He​​lpLink} /server/enterprise/configure-enterprise.aspx”
+*調整門戶網站安全設置*：使用IP白名單限制訪問，指定受信任的郵件域，設置密碼長度等。 "更多信息&gt;&gt;"："${__ He​​lpLink} /server/enterprise/configure-enterprise.aspx"
 
-*通過短信或身份驗證器應用啟用2要素身份驗證*。說明“這裡”：“ $ {__ He​​lpLink} /guides/two-factor-authentication.aspx”。
+*通過短信或身份驗證器應用啟用2要素身份驗證*。說明"這裡"："${__ He​​lpLink} /guides/two-factor-authentication.aspx"。
 
-*使用LDAP進行訪問集中*。從您的LDAP服務器（例如OpenLDAP服務器或Microsoft Active Directory）輕鬆將必要的用戶和組導入門戶。在“此處”了解更多信息：“ $ {__ He​​lpLink} /server/windows/community/ldap-settings.aspx”。
+*使用LDAP進行訪問集中*。從您的LDAP服務器（例如OpenLDAP服務器或Microsoft Active Directory）輕鬆將必要的用戶和組導入門戶。在"此處"了解更多信息："${__ He​​lpLink} /server/windows/community/ldap-settings.aspx"。
 
-*使用自己的SMPT服務器*。默認情況下，通過標準ONLYOFFICE SMPT服務器提供ONLYOFFICE Workspace用戶的通知（例如，如果授予他們對文檔的訪問權限）。配置您自己的SMTP服務器，以使您的通知不會通過任何第三方服務器。 “說明&gt;&gt;”：“ $ {__ He​​lpLink} /server/enterprise/configure-enterprise.aspx”
+*使用自己的SMPT服務器*。默認情況下，通過標準ONLYOFFICE SMPT服務器提供ONLYOFFICE Workspace用戶的通知（例如，如果授予他們對文檔的訪問權限）。配置您自己的SMTP服務器，以使您的通知不會通過任何第三方服務器。 "說明&gt;&gt;"："${__ He​​lpLink} /server/enterprise/configure-enterprise.aspx"
 
-*關閉所有不必要的端口*。必須為ONLYOFFICE打開的所有端口的列表位於“此處”：“ $ {__ He​​lpLink} /server/docker/community/open-ports.aspx”。
+*關閉所有不必要的端口*。必須為ONLYOFFICE打開的所有端口的列表位於"此處"："${__ He​​lpLink} /server/docker/community/open-ports.aspx"。
 
 現在使您的ONLYOFFICE更安全。
 
-$ GreenButton
+$GreenButton
 
-有關更多信息，請參見“幫助中心”：“ $ {__ He​​lpLink}”。</value>
+有關更多信息，請參見"幫助中心"："${__ He​​lpLink}"。</value>
   </data>
   <data name="pattern_enterprise_admin_without_activity_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 我們希望您喜歡使用ONLYOFFICE。試用期間一切進展如何？非常感謝您的反饋！
 
-如有疑問或想法，請隨時通過“ support.onlyoffice.com”：“ https://support.onlyoffice.com”與我們聯繫。</value>
+如有疑問或想法，請隨時通過"support.onlyoffice.com"："https://support.onlyoffice.com"與我們聯繫。</value>
   </data>
   <data name="pattern_enterprise_guest_activation_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-$ __ AuthorName邀請您作為來賓用戶使用“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。通過點選連結接受邀請：
+$__ AuthorName邀請您作為來賓用戶使用"${__ VirtualRootPath}"："${__ VirtualRootPath}"。通過點選連結接受邀請：
 
-$ GreenButton
+$GreenButton
 
 該連結僅有效7天。
 
-您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在“個人資料”頁面上取消訂閱，然後重新啟用它們。</value>
+您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在"個人資料"頁面上取消訂閱，然後重新啟用它們。</value>
   </data>
   <data name="pattern_enterprise_guest_welcome_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的訪客個人資料已成功添加到“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。現在你可以：
+您的訪客個人資料已成功添加到"${__ VirtualRootPath}"："${__ VirtualRootPath}"。現在你可以：
 
-＃編輯您的“個人資料”：“ $ MyStaffLink”。
-＃查看並註釋“社區”：“ $ {__ VirtualRootPath} / Products /社區/”和“項目”：“ $ {__ VirtualRootPath} / Products / Projects /”中可用的內容。
-＃在“文檔”中添加和下載可供您使用的文件：“ $ {__ VirtualRootPath} / Products / Files /”。
-＃使用內置的“日曆”：“ $ {__ VirtualRootPath} / addons / calendar /”來組織您的日程表。
-＃使用“聊天”：“ $ {__ VirtualRootPath} / addons / talk /”交換即時消息。
+＃編輯您的"個人資料"："$MyStaffLink"。
+＃查看並註釋"社區"："${__ VirtualRootPath} / Products /社區/"和"項目"："${__ VirtualRootPath} / Products / Projects /"中可用的內容。
+＃在"文檔"中添加和下載可供您使用的文件："${__ VirtualRootPath} / Products / Files /"。
+＃使用內置的"日曆"："${__ VirtualRootPath} / addons / calendar /"來組織您的日程表。
+＃使用"聊天"："${__ VirtualRootPath} / addons / talk /"交換即時消息。
 
-$ GreenButton</value>
+$GreenButton</value>
   </data>
   <data name="pattern_enterprise_user_activation_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-$ __ AuthorName邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。
+$__ AuthorName邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。
 
 通點選連結接接受邀請：
 
-$ GreenButton
+$GreenButton
 
 該連結僅有效7天。
 
-您將獲得有關如何使用我們的辦公室的更多提示。您可以隨時在“個人資料”頁面上取消訂閱，然後重新啟用它們。</value>
+您將獲得有關如何使用我們的辦公室的更多提示。您可以隨時在"個人資料"頁面上取消訂閱，然後重新啟用它們。</value>
   </data>
   <data name="pattern_enterprise_user_welcome_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的用戶配置文件已成功添加到門戶中的“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。現在你可以：
+您的用戶配置文件已成功添加到門戶中的"${__ VirtualRootPath}"："${__ VirtualRootPath}"。現在你可以：
 
-＃創建和編輯“文檔”：“ $ {__ VirtualRootPath} / Products / Files /”，與隊友共享並進行實時協作。
-＃添加您的電子郵件帳戶，並通過“ Mail”：“ $ {__ VirtualRootPath} / addons / mail /”在一個位置管理所有通信。
-＃使用“項目”：“ $ {__ VirtualRootPath} / Products / Projects /”管理您的工作流程，並使用“ CRM”：“ $ {__ VirtualRootPath} / Products / CRM /”管理您的客戶關係。
-＃使用“社區”：“ $ {__ VirtualRootPath} / Products / Community /”啟動博客，論壇，添加事件，共享書籤。
-＃使用內置的“日曆”：“ $ {__ VirtualRootPath} / addons / calendar /”來組織工作計劃。
-＃使用“聊天”：“ $ {__ VirtualRootPath} / addons / talk /”交換即時消息。
+＃創建和編輯"文檔"："${__ VirtualRootPath} / Products / Files /"，與隊友共享並進行實時協作。
+＃添加您的電子郵件帳戶，並通過"Mail"："${__ VirtualRootPath} / addons / mail /"在一個位置管理所有通信。
+＃使用"項目"："${__ VirtualRootPath} / Products / Projects /"管理您的工作流程，並使用"CRM"："${__ VirtualRootPath} / Products / CRM /"管理您的客戶關係。
+＃使用"社區"："${__ VirtualRootPath} / Products / Community /"啟動博客，論壇，添加事件，共享書籤。
+＃使用內置的"日曆"："${__ VirtualRootPath} / addons / calendar /"來組織工作計劃。
+＃使用"聊天"："${__ VirtualRootPath} / addons / talk /"交換即時消息。
 
-$ GreenButton</value>
+$GreenButton</value>
   </data>
   <data name="pattern_enterprise_whitelabel_admin_activation_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您剛剛創建了公司的網絡辦公室，這是團隊的雲端辦公室，可以增強內部合作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。
+您剛剛創建了公司的網絡辦公室，這是團隊的雲端辦公室，可以增強內部合作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。
 
 請確認你的電子郵件：
 
-$ GreenButton
+$GreenButton
 
-您可以在“個人資料頁面”：“ $ MyStaffLink”中更改電子郵件或密碼。</value>
+您可以在"個人資料頁面"："$MyStaffLink"中更改電子郵件或密碼。</value>
   </data>
   <data name="pattern_enterprise_whitelabel_admin_customize_portal_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 您可以自定義您的網絡辦公室，例如：
 
-$ TableItemsTop $ TableItem1 $ TableItem2 $ TableItem3 $ TableItem4 $ TableItem5 $ TableItemsBtm
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 
-$ GreenButton
+$GreenButton
 
 做完了現在是時候邀請隊友加入您的網絡辦公室了！</value>
   </data>
   <data name="pattern_enterprise_whitelabel_admin_payment_warning_before7_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 請注意，您的網絡辦公室訂閱將在一周內到期。要擴展您的訂閱，您需要購買產品續訂。
 
 點選下面的連結以開始續訂過程：
-“定價頁面”：“ $ PricingPage”</value>
+"定價頁面"："$PricingPage"</value>
   </data>
   <data name="pattern_enterprise_whitelabel_admin_payment_warning_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 請注意，您的網絡辦公室訂閱今天到期。要擴展您的訂閱，您需要購買產品續訂。
 
 點選下面的連結以開始續訂過程：
-“定價頁面”：“ $ PricingPage”</value>
+"定價頁面"："$PricingPage"</value>
   </data>
   <data name="pattern_enterprise_whitelabel_admin_welcome_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 您可以採取以下措施使網絡辦公室更加安全：
 
@@ -554,121 +554,121 @@ $ GreenButton
 
 讓您的在線辦公室更加安全。
 
-$ GreenButton</value>
+$GreenButton</value>
   </data>
   <data name="pattern_enterprise_whitelabel_guest_activation_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-$ __ AuthorName邀請您作為來賓用戶使用“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。通過點選連結接受邀請：
+$__ AuthorName邀請您作為來賓用戶使用"${__ VirtualRootPath}"："${__ VirtualRootPath}"。通過點選連結接受邀請：
 
-$ GreenButton
+$GreenButton
 
 該連結僅有效7天。
 
-您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在“個人資料”頁面上取消訂閱，然後重新啟用它們。</value>
+您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在"個人資料"頁面上取消訂閱，然後重新啟用它們。</value>
   </data>
   <data name="pattern_enterprise_whitelabel_guest_welcome_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的訪客個人資料已成功添加到“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。現在你可以：
+您的訪客個人資料已成功添加到"${__ VirtualRootPath}"："${__ VirtualRootPath}"。現在你可以：
 
-＃編輯您的“個人資料”：“ $ MyStaffLink”。
-＃查看並註釋“社區”：“ $ {__ VirtualRootPath} / Products /社區/”和“項目”：“ $ {__ VirtualRootPath} / Products / Projects /”中可用的內容。
-＃在“文檔”中添加和下載可供您使用的文件：“ $ {__ VirtualRootPath} / Products / Files /”。
-＃使用內置的“日曆”：“ $ {__ VirtualRootPath} / addons / calendar /”來組織您的日程表。
-＃使用“聊天”：“ $ {__ VirtualRootPath} / addons / talk /”交換即時消息。
+＃編輯您的"個人資料"："$MyStaffLink"。
+＃查看並註釋"社區"："${__ VirtualRootPath} / Products /社區/"和"項目"："${__ VirtualRootPath} / Products / Projects /"中可用的內容。
+＃在"文檔"中添加和下載可供您使用的文件："${__ VirtualRootPath} / Products / Files /"。
+＃使用內置的"日曆"："${__ VirtualRootPath} / addons / calendar /"來組織您的日程表。
+＃使用"聊天"："${__ VirtualRootPath} / addons / talk /"交換即時消息。
 
-$ GreenButton</value>
+$GreenButton</value>
   </data>
   <data name="pattern_enterprise_whitelabel_user_activation_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-$ __ AuthorName邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。
+$__ AuthorName邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。
 
 通點選連結接接受邀請：
 
-$ GreenButton
+$GreenButton
 
 該連結僅有效7天。
 
-您將獲得有關如何使用我們的辦公室的更多提示。您可以隨時在“個人資料”頁面上取消訂閱，然後重新啟用它們。</value>
+您將獲得有關如何使用我們的辦公室的更多提示。您可以隨時在"個人資料"頁面上取消訂閱，然後重新啟用它們。</value>
   </data>
   <data name="pattern_enterprise_whitelabel_user_welcome_v10" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的用戶配置文件已成功添加到門戶中的“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。現在你可以：
+您的用戶配置文件已成功添加到門戶中的"${__ VirtualRootPath}"："${__ VirtualRootPath}"。現在你可以：
 
-＃創建和編輯“文檔”：“ $ {__ VirtualRootPath} / Products / Files /”，與隊友共享並進行實時協作。
-＃添加您的電子郵件帳戶，並通過“ Mail”：“ $ {__ VirtualRootPath} / addons / mail /”在一個位置管理所有通信。
-＃使用“項目”：“ $ {__ VirtualRootPath} / Products / Projects /”管理您的工作流程，並使用“ CRM”：“ $ {__ VirtualRootPath} / Products / CRM /”管理您的客戶關係。
-＃使用“社區”：“ $ {__ VirtualRootPath} / Products / Community /”啟動博客，論壇，添加事件，共享書籤。
-＃使用內置的“日曆”：“ $ {__ VirtualRootPath} / addons / calendar /”來組織工作計劃。
-＃使用“聊天”：“ $ {__ VirtualRootPath} / addons / talk /”交換即時消息。
+＃創建和編輯"文檔"："${__ VirtualRootPath} / Products / Files /"，與隊友共享並進行實時協作。
+＃添加您的電子郵件帳戶，並通過"Mail"："${__ VirtualRootPath} / addons / mail /"在一個位置管理所有通信。
+＃使用"項目"："${__ VirtualRootPath} / Products / Projects /"管理您的工作流程，並使用"CRM"："${__ VirtualRootPath} / Products / CRM /"管理您的客戶關係。
+＃使用"社區"："${__ VirtualRootPath} / Products / Community /"啟動博客，論壇，添加事件，共享書籤。
+＃使用內置的"日曆"："${__ VirtualRootPath} / addons / calendar /"來組織工作計劃。
+＃使用"聊天"："${__ VirtualRootPath} / addons / talk /"交換即時消息。
 
-$ GreenButton</value>
+$GreenButton</value>
   </data>
   <data name="pattern_for_admin_notify" xml:space="preserve">
-    <value>h1。來自“ $ {__ VirtualRootPath}”的消息：“ $ {__ VirtualRootPath}”門戶
+    <value>h1。來自"${__ VirtualRootPath}"的消息："${__ VirtualRootPath}"門戶
 
-電子郵件：$ UserEmail
+電子郵件：$UserEmail
 
 $Body</value>
   </data>
   <data name="pattern_for_admin_notify_tg" xml:space="preserve">
-    <value>來自[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶的消息
+    <value>來自[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶的消息
 
-電子郵件：$ UserEmail
+電子郵件：$UserEmail
 
 $Body</value>
   </data>
   <data name="pattern_join" xml:space="preserve">
     <value>
-h1。邀請加入“ $ {__ VirtualRootPath}”：“ $ InviteLink”門戶
+h1。邀請加入"${__ VirtualRootPath}"："$InviteLink"門戶
 
 你好，
 
-您已請求通過$ {LetterLogoText}（用於文檔和項目管理的平台）加入“ $ {__ VirtualRootPath}”：“ $ InviteLink”門戶。加入門戶並立即與您的同事或朋友開始合作。
+您已請求通過${LetterLogoText}（用於文檔和項目管理的平台）加入"${__ VirtualRootPath}"："$InviteLink"門戶。加入門戶並立即與您的同事或朋友開始合作。
 
 要接受邀請，請在此連結後輸入您的姓名和密碼：
 
-$ GreenButton
+$GreenButton
 
 *注意*：此連結僅在48小時內有效。請在此期間內完成操作。</value>
   </data>
   <data name="pattern_mailbox_created" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-      管理員已在“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站上為您創建了一個新的&lt;b&gt; $ Address &lt;/ b&gt;郵箱。
+      管理員已在"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站上為您創建了一個新的&lt;b&gt; $Address &lt;/ b&gt;郵箱。
 
       對其他電子郵件客戶端使用以下設置：
 
-      登錄名：&lt;b&gt; $ Login &lt;/ b&gt;
-      密碼：“ &lt;b&gt;設置密碼&lt;/ b&gt;”：“ $ MyStaffLink”
+      登錄名：&lt;b&gt; $Login &lt;/ b&gt;
+      密碼："&lt;b&gt;設置密碼&lt;/ b&gt;"："$MyStaffLink"
 
       接收郵件（IMAP）：
-      伺服器：&lt;b&gt; $ Server &lt;/ b&gt;
-      端口：&lt;b&gt; $ ImapPort &lt;/ b&gt;
-      SSL / TLS：&lt;b&gt; $ Encryption &lt;/ b&gt;
+      伺服器：&lt;b&gt; $Server &lt;/ b&gt;
+      端口：&lt;b&gt; $ImapPort &lt;/ b&gt;
+      SSL / TLS：&lt;b&gt; $Encryption &lt;/ b&gt;
 
       外寄郵件（SMTP）：
-      伺服器：&lt;b&gt; $ Server &lt;/ b&gt;
-      端口：&lt;b&gt; $ SmtpPort &lt;/ b&gt;
-      SSL / TLS：&lt;b&gt; $ Encryption &lt;/ b&gt;
+      伺服器：&lt;b&gt; $Server &lt;/ b&gt;
+      端口：&lt;b&gt; $SmtpPort &lt;/ b&gt;
+      SSL / TLS：&lt;b&gt; $Encryption &lt;/ b&gt;
       需要驗證：&lt;b&gt;是&lt;/ b&gt;
 
       如果您誤收到此電子郵件，請忽略它或與門戶網站管理員聯繫以了解詳細信息。</value>
   </data>
   <data name="pattern_mailbox_password_changed" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-      &lt;b&gt; $ Address &lt;/ b&gt;郵箱的密碼已更改。
+      &lt;b&gt; $Address &lt;/ b&gt;郵箱的密碼已更改。
 
       如果您誤收到此電子郵件，請忽略它或與門戶網站管理員聯繫以了解詳細信息。</value>
   </data>
   <data name="pattern_mailbox_without_settings_created" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-      管理員已在“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站上為您創建了一個新的&lt;b&gt; $ Address &lt;/ b&gt;郵箱。
+      管理員已在"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站上為您創建了一個新的&lt;b&gt; $Address &lt;/ b&gt;郵箱。
 
       如果您誤收到此電子郵件，請忽略它或與門戶網站管理員聯繫以了解詳細信息。</value>
   </data>
@@ -676,116 +676,116 @@ $ GreenButton
     <value>
 h1。另一個區域門戶遷移錯誤
 
-遷移到$ RegionName區域時發生錯誤。請稍後再試一次。
-您的門戶現在可以在舊地址“ $ PortalUrl”中使用：“ $ PortalUrl”
+遷移到$RegionName區域時發生錯誤。請稍後再試一次。
+您的門戶現在可以在舊地址"$PortalUrl"中使用："$PortalUrl"
 
-如果您有任何疑問或需要幫助，請隨時通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+"www.onlyoffice.com"："http://onlyoffice.com/"
 
-^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+^您收到此電子郵件的原因是您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。要更改通知類型，請管理您的"訂閱設置"："$RecipientSubscriptionConfigURL"。^</value>
   </data>
   <data name="pattern_migration_server_failure" xml:space="preserve">
     <value>
 h1。另一個區域門戶遷移錯誤
 
 遷移到另一個區域時發生錯誤。請稍後再試一次。
-您的門戶現在可以在舊地址“ $ PortalUrl”中使用：“ $ PortalUrl”
+您的門戶現在可以在舊地址"$PortalUrl"中使用："$PortalUrl"
 
-如果您有任何疑問或需要幫助，請隨時通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+"www.onlyoffice.com"："http://onlyoffice.com/"
 
-^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+^您收到此電子郵件的原因是您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。要更改通知類型，請管理您的"訂閱設置"："$RecipientSubscriptionConfigURL"。^</value>
   </data>
   <data name="pattern_migration_start" xml:space="preserve">
     <value>h1。另一個區域門戶遷移開始
 
-門戶開始向$ RegionName區域遷移。可能需要一些時間，具體取決於您的數據量。
+門戶開始向$RegionName區域遷移。可能需要一些時間，具體取決於您的數據量。
 
 *注意*：門戶在遷移過程中將不可用。遷移完成後，門戶URL將被更改，並且所有共享文檔鏈接將不可存取。
 
-如果您有任何疑問或需要幫助，請隨時通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+"www.onlyoffice.com"："http://onlyoffice.com/"
 
-^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+^您收到此電子郵件是因為您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。^</value>
   </data>
   <data name="pattern_opensource_admin_activation_v11" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您剛剛創建了ONLYOFFICE門戶，這是團隊的雲端辦公室，可以增強內部合作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。
+您剛剛創建了ONLYOFFICE門戶，這是團隊的雲端辦公室，可以增強內部合作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。
 
-請在“連結”：“ $ ActivateUrl”之後確認您的電子郵件。
+請在"連結"："$ActivateUrl"之後確認您的電子郵件。
 
-您可以在“個人資料頁面”：“ $ MyStaffLink”中更改電子郵件或密碼。
+您可以在"個人資料頁面"："$MyStaffLink"中更改電子郵件或密碼。
 
-要發送通知，我們使用ONLYOFFICE郵件服務器的SMTP設置。要對其進行更改，請按照說明“此處”：“ $ {__ He​​lpLink} /server/windows/community/smtp-settings.aspx”。
+要發送通知，我們使用ONLYOFFICE郵件服務器的SMTP設置。要對其進行更改，請按照說明"此處"："${__ He​​lpLink} /server/windows/community/smtp-settings.aspx"。
 
-有關更多信息，請訪問ONLYOFFICE“幫助中心”：“ $ {__ He​​lpLink}”。</value>
+有關更多信息，請訪問ONLYOFFICE"幫助中心"："${__ He​​lpLink}"。</value>
   </data>
   <data name="pattern_opensource_admin_docs_tips_v11" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 我們希望您喜歡使用集成的ONLYOFFICE文檔編輯器。以下是一些有用的提示：
 
-*＃1。與個人和團體共享文檔*。選擇他們的存取級別-只讀，評論，表單填寫，查看或完全存取權限。讓其他用戶在電子表格中應用自己的過濾器，而不會打擾合著者。使用“ ONLYOFFICE API”限制下載和打印：“ https://api.onlyoffice.com/editors/config/document/permissions”。
+*＃1。與個人和團體共享文檔*。選擇他們的存取級別-只讀，評論，表單填寫，查看或完全存取權限。讓其他用戶在電子表格中應用自己的過濾器，而不會打擾合著者。使用"ONLYOFFICE API"限制下載和打印："https://api.onlyoffice.com/docs/docs-api/usage-api/config/document/permissions/"。
 
-*＃2。了解文檔保存的工作方式*，並根據自己的需要進行調整。 “了解更多”：“ https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/”
+*＃2。了解文檔保存的工作方式*，並根據自己的需要進行調整。 "了解更多"："https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/"
 
-*＃3。在“ GitHub”上創建問題以獲取社區的幫助*：“ https://github.com/ONLYOFFICE/DocumentServer/issues”或在“我們的論壇”上提問：“ https://dev.onlyoffice.org/” 。您還可以購買高級支持的訂閱，或者在某些情況下僅要求我們的支持團隊提供幫助。 “了解更多”：“ https://github.com/ONLYOFFICE/DocumentServer/issues”
+*＃3。在"GitHub"上創建問題以獲取社區的幫助*："https://github.com/ONLYOFFICE/DocumentServer/issues"或在"我們的論壇"上提問："https://dev.onlyoffice.org/" 。您還可以購買高級支持的訂閱，或者在某些情況下僅要求我們的支持團隊提供幫助。 "了解更多"："https://github.com/ONLYOFFICE/DocumentServer/issues"
 
-*＃4。獲取免費的應用程序*。要在Windows，Linux和macOS上離線處理文檔，請下載“此免費桌面應用程序”：“ https://www.onlyoffice.com/apps.aspx”。要在移動設備上編輯文檔，請獲取適用於“ iOS”的免費文檔應用程序：“ https://itunes.apple.com/us/app/onlyoffice-documents/id944896972”或“ Android”：“ https://play.google .com / store / apps / details？id = com.onlyoffice.documents”。
+*＃4。獲取免費的應用程序*。要在Windows，Linux和macOS上離線處理文檔，請下載"此免費桌面應用程序"："https://www.onlyoffice.com/apps.aspx"。要在移動設備上編輯文檔，請獲取適用於"iOS"的免費文檔應用程序："https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"或"Android"："https://play.google .com / store / apps / details？id = com.onlyoffice.documents"。
 
-*＃5。激活私人房間以進行加密協作*。使用AES-256加密算法對協作過程中存儲的所有文檔以及進行協作時的數據傳輸進行加密，以防止不必要的存取。 “了解更多”：“ $ {__ He​​lpLink}”。</value>
+*＃5。激活私人房間以進行加密協作*。使用AES-256加密算法對協作過程中存儲的所有文檔以及進行協作時的數據傳輸進行加密，以防止不必要的存取。 "了解更多"："${__ He​​lpLink}"。</value>
   </data>
   <data name="pattern_opensource_admin_welcome_v11" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 您可以採取以下措施使網絡辦公室更加安全：
 
 如果您不僅要為用戶提供內部存取權限，還需要外部門戶們存取權限，請*獲取SSL證書*。在控制面板中生成新的簽名證書，或者從您信任的提供者那裡購買一個證書。
 
-*在控制面板中啟用自動備份*。我們還建議您使用3rd服務，並不時為裝有ONLYOFFICE的服務器製作備份副本。 “幫助中心”中的說明：“ $ {__ He​​lpLink} /server/controlpanel/enterprise/backup-restore.aspx”。
+*在控制面板中啟用自動備份*。我們還建議您使用3rd服務，並不時為裝有ONLYOFFICE的服務器製作備份副本。 "幫助中心"中的說明："${__ He​​lpLink} /server/controlpanel/enterprise/backup-restore.aspx"。
 
-*調整門戶網站安全設置*：使用IP白名單限制存取，指定受信任的郵件域，設置密碼長度等。 “更多信息&gt;&gt;”：“ $ {__ He​​lpLink} /server/enterprise/configure-enterprise.aspx?_ga=2.111477636.160074001.1555312634-699576329.1539952318”
+*調整門戶網站安全設置*：使用IP白名單限制存取，指定受信任的郵件域，設置密碼長度等。 "更多信息&gt;&gt;"："${__ He​​lpLink} /server/enterprise/configure-enterprise.aspx?_ga=2.111477636.160074001.1555312634-699576329.1539952318"
 
-*通過短信或身份驗證器應用啟用2要素身份驗證*。說明“此處”：“ $ {__ He​​lpLink} /guides/two-factor-authentication.aspx?_ga=2.115795846.160074001.1555312634-699576329.1539952318”。
+*通過短信或身份驗證器應用啟用2要素身份驗證*。說明"此處"："${__ He​​lpLink} /guides/two-factor-authentication.aspx?_ga=2.115795846.160074001.1555312634-699576329.1539952318"。
 
-*使用LDAP進行訪問集中*。從您的LDAP服務器（例如OpenLDAP服務器或Microsoft Active Directory）輕鬆將必要的用戶和組導入門戶。在“此處”了解更多信息：“ $ {__ He​​lpLink} /server/windows/community/ldap-settings.aspx”。
+*使用LDAP進行訪問集中*。從您的LDAP服務器（例如OpenLDAP服務器或Microsoft Active Directory）輕鬆將必要的用戶和組導入門戶。在"此處"了解更多信息："${__ He​​lpLink} /server/windows/community/ldap-settings.aspx"。
 
-*使用自己的SMPT服務器*。默認情況下，通過標準ONLYOFFICE SMPT服務器為用戶提供通知（例如，如果授予他們對文檔的存取權限）。配置您自己的SMTP服務器，以使您的通知不會通過任何第三方服務器。 “說明&gt;&gt;”：“ $ {__ He​​lpLink} /server/windows/community/smtp-settings.aspx”
+*使用自己的SMPT服務器*。默認情況下，通過標準ONLYOFFICE SMPT服務器為用戶提供通知（例如，如果授予他們對文檔的存取權限）。配置您自己的SMTP服務器，以使您的通知不會通過任何第三方服務器。 "說明&gt;&gt;"："${__ He​​lpLink} /server/windows/community/smtp-settings.aspx"
 
-*關閉所有不必要的端口*。必須為ONLYOFFICE打開的所有端口的列表位於“此處”：“ $ {__ He​​lpLink} /server/docker/community/open-ports.aspx”。
+*關閉所有不必要的端口*。必須為ONLYOFFICE打開的所有端口的列表位於"此處"："${__ He​​lpLink} /server/docker/community/open-ports.aspx"。
 
-*加密您的靜態數據*。這樣做，請按照“說明”：“ $ {__ He​​lpLink}”。如果要保護協作過程，請激活“私人會議室”。 “了解更多”：“ $ {__ He​​lpLink}”
+*加密您的靜態數據*。這樣做，請按照"說明"："${__ He​​lpLink}"。如果要保護協作過程，請激活"私人會議室"。 "了解更多"："${__ He​​lpLink}"
 
-要保護您的網絡辦公室，請點選“連結”：“ $ ControlPanelUrl”
+要保護您的網絡辦公室，請點選"連結"："$ControlPanelUrl"
 
-有關更多信息，請參見“幫助中心”：“ $ {__ He​​lpLink}”。</value>
+有關更多信息，請參見"幫助中心"："${__ He​​lpLink}"。</value>
   </data>
   <data name="pattern_opensource_guest_activation_v11" xml:space="preserve">
     <value>你好！
 
-邀請您以訪客用戶身份加入“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。通過點選連結接受邀請：
+邀請您以訪客用戶身份加入"${__ VirtualRootPath}"："${__ VirtualRootPath}"。通過點選連結接受邀請：
 
-“ $ ActivateUrl”：“ $ ActivateUrl”
+"$ActivateUrl"："$ActivateUrl"
 
 該連結僅有效7天。
 
-您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在“個人資料”頁面上取消訂閱，然後重新啟用它們。</value>
+您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在"個人資料"頁面上取消訂閱，然後重新啟用它們。</value>
   </data>
   <data name="pattern_opensource_guest_welcome_v11" xml:space="preserve">
     <value>
-您好，$ UserName！
+您好，$UserName！
 
-您現在是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”的訪客用戶。現在你可以：
+您現在是"${__ VirtualRootPath}"："${__ VirtualRootPath}"的訪客用戶。現在你可以：
 
 通過編輯個人資料將自己介紹給團隊。
 
@@ -797,23 +797,23 @@ ONLYOFFICE™支持團隊
 
 *使用個人和共享日曆*來安排會議，設置提醒和創建待辦事項列表！
 
-要存取您的網絡辦公室，請點選“連結”：“ $ {__ VirtualRootPath}”。
+要存取您的網絡辦公室，請點選"連結"："${__ VirtualRootPath}"。
 
-如果要創建自己的網絡辦公室，請訪問“ ONLYOFFICE官方網站”：“ https://www.onlyoffice.com/”。</value>
+如果要創建自己的網絡辦公室，請訪問"ONLYOFFICE官方網站"："https://www.onlyoffice.com/"。</value>
   </data>
   <data name="pattern_opensource_user_activation_v11" xml:space="preserve">
     <value>你好！
 
-邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。
+邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。
 
-通過以下“連結”接受邀請：“ $ ActivateUrl”
+通過以下"連結"接受邀請："$ActivateUrl"
 
 該連結僅有效7天。
 
-您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在“個人資料”頁面上取消訂閱，然後重新啟用它們。</value>
+您將獲得有關如何使用網絡辦公室的更多提示。您可以隨時在"個人資料"頁面上取消訂閱，然後重新啟用它們。</value>
   </data>
   <data name="pattern_opensource_user_docs_tips_v11" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
 我們希望您喜歡使用集成的ONLYOFFICE文檔編輯器。以下是一些有用的提示：
 
@@ -821,44 +821,44 @@ ONLYOFFICE™支持團隊
 
 *＃2。與個人或用戶組共享文檔*。選擇他們的權限級別-只讀，評論，表單填寫，查看或完全存取。
 
-*＃3。選擇共同編輯模式*。與您的團隊實時共同編輯文檔時，請切換至快速模式以查看您的共同作者在輸入時所做的更改，或者切換至嚴格模式以獲取更多隱私。 “觀看視頻”：“ https://youtu.be/8z1iLv32J2M”
+*＃3。選擇共同編輯模式*。與您的團隊實時共同編輯文檔時，請切換至快速模式以查看您的共同作者在輸入時所做的更改，或者切換至嚴格模式以獲取更多隱私。 "觀看視頻"："https://youtu.be/8z1iLv32J2M"
 
-*＃4。評論，評論和聊天*。使用“審閱”：“ https://youtu.be/D1tbffuQeUA”在不修改原始文檔的情況下提出更改建議，添加評論以分享您對特定摘錄的想法，或通過即時消息在文檔內部聊天。
+*＃4。評論，評論和聊天*。使用"審閱"："https://youtu.be/D1tbffuQeUA"在不修改原始文檔的情況下提出更改建議，添加評論以分享您對特定摘錄的想法，或通過即時消息在文檔內部聊天。
 
 *＃5。連接Dropbox或Google雲端硬盤之類的第三方雲*，即可在一處管理文件。
 
-*＃6。獲取應用*。要在Windows，Linux和macOS上離線處理文檔，請下載“此免費桌面應用程序”：“ https://www.onlyoffice.com/apps.aspx”。要在移動設備上編輯文檔，請獲取適用於“ iOS”的免費文檔應用程序：“ https://itunes.apple.com/us/app/onlyoffice-documents/id944896972”或“ Android”：“ https://play.google .com / store / apps / details？id = com.onlyoffice.documents”。</value>
+*＃6。獲取應用*。要在Windows，Linux和macOS上離線處理文檔，請下載"此免費桌面應用程序"："https://www.onlyoffice.com/apps.aspx"。要在移動設備上編輯文檔，請獲取適用於"iOS"的免費文檔應用程序："https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"或"Android"："https://play.google .com / store / apps / details？id = com.onlyoffice.documents"。</value>
   </data>
   <data name="pattern_opensource_user_welcome_v11" xml:space="preserve">
-    <value>恭喜，$ UserName！
+    <value>恭喜，$UserName！
 
-您已通過“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”正式加入團隊的網絡辦公室。現在你可以：
+您已通過"${__ VirtualRootPath}"："${__ VirtualRootPath}"正式加入團隊的網絡辦公室。現在你可以：
 
-*存儲，管理和共享文檔*。查看圖片，播放視頻和音頻。 “了解更多信息”：“ $ {__ He​​lpLink} /gettingstarted/documents.aspx”
+*存儲，管理和共享文檔*。查看圖片，播放視頻和音頻。 "了解更多信息"："${__ He​​lpLink} /gettingstarted/documents.aspx"
 
-*使用集成的ONLYOFFICE編輯器編輯和共同撰寫文檔，電子表格和演示文稿*。使用數百種格式設置工具並有效地進行協作。 “觀看視頻”：“ https://youtu.be/ep1VLGlmsdI”
+*使用集成的ONLYOFFICE編輯器編輯和共同撰寫文檔，電子表格和演示文稿*。使用數百種格式設置工具並有效地進行協作。 "觀看視頻"："https://youtu.be/ep1VLGlmsdI"
 
-*管理您的任務*。使用“ ONLYOFFICE項目”：“ $ {__ He​​lpLink} /projects.aspx”來計劃活動，設置任務和截止日期。
+*管理您的任務*。使用"ONLYOFFICE項目"："${__ He​​lpLink} /projects.aspx"來計劃活動，設置任務和截止日期。
 
-*客戶關係*。使用“ ONLYOFFICE CRM”：“ $ {__ He​​lpLink} /crm.aspx”來構建客戶數據庫，管理業務流程，分析潛在交易成功率並跟踪銷售。
+*客戶關係*。使用"ONLYOFFICE CRM"："${__ He​​lpLink} /crm.aspx"來構建客戶數據庫，管理業務流程，分析潛在交易成功率並跟踪銷售。
 
-*創建個人和共享日曆*。安排會議，設置提醒，創建任務清單！ “了解更多信息”：“ $ {__ He​​lpLink} /calendar.aspx”
+*創建個人和共享日曆*。安排會議，設置提醒，創建任務清單！ "了解更多信息"："${__ He​​lpLink} /calendar.aspx"
 
-*使用內部Wiki和社交網絡*。維護內部知識庫，以幫助新成員快速參與。與博客，論壇和民意調查分享您的想法。 “了解更多信息”：“ $ {__ He​​lpLink} /community.aspx”
+*使用內部Wiki和社交網絡*。維護內部知識庫，以幫助新成員快速參與。與博客，論壇和民意調查分享您的想法。 "了解更多信息"："${__ He​​lpLink} /community.aspx"
 
-*處理所有電子郵件並創建項目郵箱*。在一個工作區中收集來自不同帳戶的通信，或要求管理員創建一個新的公司郵箱。 “了解更多信息”：“ $ {__ He​​lpLink} /mail.aspx”
+*處理所有電子郵件並創建項目郵箱*。在一個工作區中收集來自不同帳戶的通信，或要求管理員創建一個新的公司郵箱。 "了解更多信息"："${__ He​​lpLink} /mail.aspx"
 
-*交換即時消息*，並使用Talk快速共享文件。 “了解更多信息”：“ $ {__ He​​lpLink} /talk.aspx”
+*交換即時消息*，並使用Talk快速共享文件。 "了解更多信息"："${__ He​​lpLink} /talk.aspx"
 
-要訪問您的網絡辦公室，請遵循“鏈接”：“ $ {__ VirtualRootPath}”。</value>
+要訪問您的網絡辦公室，請遵循"鏈接"："${__ VirtualRootPath}"。</value>
   </data>
   <data name="pattern_personal_activate" xml:space="preserve">
-    <value>您好，$ UserName
-您已經在ONLYOFFICE個人“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”處成功註冊。
+    <value>您好，$UserName
+您已經在ONLYOFFICE個人"${__ VirtualRootPath}"："${__ VirtualRootPath}"處成功註冊。
 
 連接您最喜歡的雲存儲：Dropbox，Google Drive，OneDrive或Box，以為可從任何地方訪問的文檔創建一個工作區。
 
-在“我們的博客”：“ $ TagBlogLink”中了解有關ONLYOFFICE Personal的更多信息。
+在"我們的博客"："$TagBlogLink"中了解有關ONLYOFFICE Personal的更多信息。
 
 我們很高興你在這裡。敬請關注！
 
@@ -884,16 +884,16 @@ h3。為了快速入門，您可以在ONLYOFFICE中進行以下操作：
 
 -使用各種插件進行擴展的編輯功能；
 
--通過“ Chrome擴展程序”輕鬆訪問您的個人云：“ https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=zh-CN”。
+-通過"Chrome擴展程序"輕鬆訪問您的個人云："https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=zh-CN"。
 
-您還可以使用我們的免費“桌面編輯器”：“ https://www.onlyoffice.com/download-desktop.aspx”脫機編輯文檔，也可以使用“移動編輯套件”：“ https://www.onlyoffice.com” /mobile.aspx”（適用於iOS或Android設備）。
+您還可以使用我們的免費"桌面編輯器"："https://www.onlyoffice.com/download-desktop.aspx"脫機編輯文檔，也可以使用"移動編輯套件"："https://www.onlyoffice.com" /mobile.aspx"（適用於iOS或Android設備）。
 
 真誠的
 ONLYOFFICE團隊</value>
   </data>
   <data name="pattern_personal_after_registration14" xml:space="preserve">
     <value>
-$ PersonalHeaderStart自由職業者的一些技巧$ PersonalHeaderEnd
+$PersonalHeaderStart自由職業者的一些技巧$PersonalHeaderEnd
 
 h3.ONLYOFFICE為自由職業者社區提供了許多功能，無論您是簽訂合同還是自己租用項目：
 
@@ -913,14 +913,14 @@ h3.ONLYOFFICE為自由職業者社區提供了許多功能，無論您是簽訂�
 
 需要更多的工作儀器嗎？
 
-ONLYOFFICE商業解決方案在30天的試用期內免費提供，為您提供更多自由職業和遠程工作的機會。例如，您可以創建發票並將其提交給客戶，通過電子郵件和VoIP與他們聯繫。要了解有關ONLYOFFICE的更多信息，請訪問我們的“ CRM概述”：“ http://www.onlyoffice.com/crm.aspx”。
+ONLYOFFICE商業解決方案在30天的試用期內免費提供，為您提供更多自由職業和遠程工作的機會。例如，您可以創建發票並將其提交給客戶，通過電子郵件和VoIP與他們聯繫。要了解有關ONLYOFFICE的更多信息，請訪問我們的"CRM概述"："http://www.onlyoffice.com/crm.aspx"。
 
 
 ONOFFOFFICE團隊</value>
   </data>
   <data name="pattern_personal_after_registration21" xml:space="preserve">
     <value>
-$ PersonalHeaderStart需要更多功能和自動化嗎？嘗試為$ PersonalHeaderEnd團隊使用ONLYOFFICE
+$PersonalHeaderStart需要更多功能和自動化嗎？嘗試為$PersonalHeaderEnd團隊使用ONLYOFFICE
 
 h3。如果您與團隊合作或管理項目，建議您嘗試ONLYOFFICE Workspace。除了在線編輯器和文檔管理功能，您還可以：
 
@@ -928,20 +928,20 @@ h3。如果您與團隊合作或管理項目，建議您嘗試ONLYOFFICE Workspa
 
 -在* CRM *中跟踪銷售，與客戶的關係並創建發票；
 
--在電子郵件“聚合器” *中管理所有電子郵件帳戶；
+-在電子郵件"聚合器" *中管理所有電子郵件帳戶；
 
 -與Messenger，博客，論壇和Wiki建立團隊溝通。
 
 為您和您的隊友創建一個協作的工作區。
 
-在“在雲端”中註冊試用版：“ https://www.onlyoffice.com/registration.aspx”或在“在您的服務器上”註冊：“ https://www.onlyoffice.com/download-workspace.aspx?from=企業版”（無任何功能限制）持續30天，並了解您的工作流程將如何立即得到改善！
+在"在雲端"中註冊試用版："https://www.onlyoffice.com/registration.aspx"或在"在您的服務器上"註冊："https://www.onlyoffice.com/download-workspace.aspx?from=企業版"（無任何功能限制）持續30天，並了解您的工作流程將如何立即得到改善！
 
 
 ONLYFOFFICE團隊</value>
   </data>
   <data name="pattern_personal_after_registration28" xml:space="preserve">
     <value>
-$ PersonalHeaderStart如何增強網絡辦公室的安全性$ PersonalHeaderEnd
+$PersonalHeaderStart如何增強網絡辦公室的安全性$PersonalHeaderEnd
 
 尋找保護數據的方法嗎？
 
@@ -949,15 +949,15 @@ h3.Сinsider提供了其他工具來保護您的文檔安全，我們的私有�
 
 -通過自己服務器上的*私有云*完全控制您的數據；
 
--設置“雙重身份驗證”並與第三方服務一起使用“單點登錄”；
+-設置"雙重身份驗證"並與第三方服務一起使用"單點登錄"；
 
 -應用多級*登錄安全設置*；
 
 -在您的網絡辦公室監視*用戶活動*；
 
--手動或自動“備份”數據。
+-手動或自動"備份"數據。
 
-$ GreenButton
+$GreenButton
 
 在我們的安全性概述中了解有關ONLYOFFICE如何確保您的數據安全的更多信息。
 
@@ -966,17 +966,17 @@ ONLYFOFFICE團隊</value>
   </data>
   <data name="pattern_personal_after_registration8" xml:space="preserve">
     <value>
-$ PersonalHeaderStart將您喜歡的雲存儲連接到ONLYOFFICE $ PersonalHeaderEnd
+$PersonalHeaderStart將您喜歡的雲存儲連接到ONLYOFFICE $PersonalHeaderEnd
 
 自您創建雲辦公室以來已經過去了一周，所以我們認為是時候揭開您可能錯過的一些有益功能了。
 
-將* Dropbox *，* Google Drive *，* Box *，* OneDrive *，* Nextcloud *，* ownCloud *，* kDrive *或* Yandex.Disk *連接到ONLYOFFICE，並為所有文檔創建一個文檔管理空間。您將能夠在ONLYOFFICE中編輯外部文件並將其保存到保存文檔的存儲中。在“此處”中閱讀有關將文件存儲連接到ONLYOFFICE的詳細信息：“ $ {__ He​​lpLink} /tipstricks/add-resource.aspx”。
+將* Dropbox *，* Google Drive *，* Box *，* OneDrive *，* Nextcloud *，* ownCloud *，* kDrive *或* Yandex.Disk *連接到ONLYOFFICE，並為所有文檔創建一個文檔管理空間。您將能夠在ONLYOFFICE中編輯外部文件並將其保存到保存文檔的存儲中。在"此處"中閱讀有關將文件存儲連接到ONLYOFFICE的詳細信息："${__ He​​lpLink} /tipstricks/add-resource.aspx"。
 
-您還可以使用我們的“連接器應用”：“ https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn”將ONLYOFFICE編輯器集成到Google雲端硬盤中。
+您還可以使用我們的"連接器應用"："https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn"將ONLYOFFICE編輯器集成到Google雲端硬盤中。
 
 需要更多文件管理嗎？
 
-h3。嘗試“在雲中”進行業務的ONLYOFFICE：“ https://www.onlyoffice.com/cloud-office.aspx”或“在您的服務器上”：“ https://www.onlyoffice.com/server-solutions .aspx”免費使用30天，並查看擴展的文檔管理機會以及一個業務工具集：
+h3。嘗試"在雲中"進行業務的ONLYOFFICE："https://www.onlyoffice.com/cloud-office.aspx"或"在您的服務器上"："https://www.onlyoffice.com/server-solutions .aspx"免費使用30天，並查看擴展的文檔管理機會以及一個業務工具集：
 
 -管理項目中的團隊文檔；
 
@@ -986,7 +986,7 @@ h3。嘗試“在雲中”進行業務的ONLYOFFICE：“ https://www.onlyoffice
 
 -使用團隊溝通工具優化您的工作流程。
 
-有興趣嗎了解有關“ ONLYOFFICE for business”的更多信息：“ http://www.onlyoffice.com/document-management.aspx”。
+有興趣嗎了解有關"ONLYOFFICE for business"的更多信息："http://www.onlyoffice.com/document-management.aspx"。
 
 
 ONLYFOFFICE團隊</value>
@@ -994,9 +994,9 @@ ONLYFOFFICE團隊</value>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>你好，
 
-您剛剛在ONLYOFFICE解決方案中註冊了一個帳戶供個人使用。點選“此處”：“ $ InviteLink”以確認註冊並創建密碼。
+您剛剛在ONLYOFFICE解決方案中註冊了一個帳戶供個人使用。點選"此處"："$InviteLink"以確認註冊並創建密碼。
 
-如果您無法打開連結，請複制以下“ $ InviteLink”：“ $ InviteLink”並將其粘貼到瀏覽器地址欄中。
+如果您無法打開連結，請複制以下"$InviteLink"："$InviteLink"並將其粘貼到瀏覽器地址欄中。
 
 真誠的
 ONLYOFFICE團隊</value>
@@ -1004,50 +1004,50 @@ ONLYOFFICE團隊</value>
   <data name="pattern_personal_profile_delete" xml:space="preserve">
     <value>您已要求終止在personal.onlyoffice.com上的帳戶。按照連結完成請求（該連結有效期為7天）：
 
-$ GreenButton
+$GreenButton
 
-*注意*：刪除後，您的帳戶及其所有相關數據將根據我們的“隱私聲明”被永久刪除：“ https://help.onlyoffice.com/Products/Files/doceditor.aspx?fileid= 5048502＆doc = SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0”。
+*注意*：刪除後，您的帳戶及其所有相關數據將根據我們的"隱私聲明"被永久刪除："https://help.onlyoffice.com/Products/Files/doceditor.aspx?fileid= 5048502＆doc = SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0"。
 
 如果您不想繼續，請忽略此電子郵件。
 
-如有任何疑問，請通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如有任何疑問，請通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 真誠的
 ONLYOFFICE團隊</value>
   </data>
   <data name="pattern_portal_deactivate" xml:space="preserve">
-    <value>h1。停用“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶
+    <value>h1。停用"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-您已請求暫時停用“ $ {__ VirtualRootPath}”門戶：“ $ {__ VirtualRootPath}”門戶。請點選以下連結確認操作：
+您已請求暫時停用"${__ VirtualRootPath}"門戶："${__ VirtualRootPath}"門戶。請點選以下連結確認操作：
 
-$ GreenButton
+$GreenButton
 
 *注意*：此連結僅有效7天。請在此期間內完成門戶網站停用過程。
 
 您可以隨時通過點選以下連結來重新激活門戶：
-p =。 “重新激活門戶”：“ $ ActivateUrl”（此連結沒有時間限制）
+p =。 "重新激活門戶"："$ActivateUrl"（此連結沒有時間限制）
 
-如果您有任何疑問或需要幫助，請隨時通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”</value>
+"www.onlyoffice.com"："http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_portal_deactivate_tg" xml:space="preserve">
-    <value>停用[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶
+    <value>停用[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-您已請求暫時停用[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶。請點選以下連結確認操作：
+您已請求暫時停用[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶。請點選以下連結確認操作：
 
-$ GreenButton
+$GreenButton
 
 _注意_：此連結僅有效7天。請在此期間內完成門戶網站停用過程。
 
 您可以隨時通過點選以下連結來重新激活門戶：
-[重新激活門戶]（$ ActivateUrl）（此鏈接沒有時間限制）
+[重新激活門戶]（$ActivateUrl）（此鏈接沒有時間限制）
 
 如果您有任何疑問或需要幫助，請隨時通過[support@onlyoffice.com]（mailto：support@onlyoffice.com）與我們聯繫。
 
@@ -1056,46 +1056,46 @@ ONLYOFFICE™支持團隊
 [www.onlyoffice.com]（http://onlyoffice.com/）</value>
   </data>
   <data name="pattern_portal_delete" xml:space="preserve">
-    <value>h1。刪除“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶
+    <value>h1。刪除"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-您已請求永久刪除“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶。
+您已請求永久刪除"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶。
 
 *重要！您門戶網站上存儲的所有數據以及您的註冊詳細信息將丟失並且無法恢復。*
 
-#if（$ AutoRenew ==“ True”）
-刪除門戶之前，請確保已關閉自動計費。您可以在“ Avangate帳戶”中檢查自動計費狀態：“ https://secure.avangate.com/myaccount/”。
+#if（$AutoRenew =="True"）
+刪除門戶之前，請確保已關閉自動計費。您可以在"Avangate帳戶"中檢查自動計費狀態："https://secure.avangate.com/myaccount/"。
 ＃結束
 
-如果您仍要刪除“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶，請點選下面的連結確認操作：
+如果您仍要刪除"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶，請點選下面的連結確認操作：
 
-$ GreenButton
+$GreenButton
 
 *注意*：此連結僅有效7天。請在此期間內完成門戶網站刪除過程。
 
-如果您有任何疑問或需要幫助，請隨時通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”</value>
+"www.onlyoffice.com"："http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_portal_delete_tg" xml:space="preserve">
-    <value>刪除[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶
+    <value>刪除[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶
 
-尊敬的$ OwnerName：
+尊敬的$OwnerName：
 
-您已請求永久刪除[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶。
+您已請求永久刪除[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶。
 
 _重要！您門戶網站上存儲的所有數據以及您的註冊詳細信息將丟失並且無法恢復。
 
-#if（$ AutoRenew ==“ True”）
-刪除門戶之前，請確保已關閉自動計費。您可以在[Avangate帳戶]（https://secure.avangate.com/myaccount/“）中檢查自動計費狀態。
+#if（$AutoRenew =="True"）
+刪除門戶之前，請確保已關閉自動計費。您可以在[Avangate帳戶]（https://secure.avangate.com/myaccount/"）中檢查自動計費狀態。
 ＃結束
 
-如果您仍要刪除[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶，請點選下面的連結確認操作：
+如果您仍要刪除[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶，請點選下面的連結確認操作：
 
-$ GreenButton
+$GreenButton
 
 _注意_：此連結僅有效7天。請在此期間內完成門戶網站刪除過程。
 
@@ -1108,109 +1108,109 @@ ONLYOFFICE™支持團隊
   <data name="pattern_portal_rename" xml:space="preserve">
     <value>h1。門戶地址變更
 
-尊敬的$ UserDisplayName：
+尊敬的$UserDisplayName：
 
-您的$ PortalUrl門戶地址已更改為新的“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”地址。
+您的$PortalUrl門戶地址已更改為新的"${__ VirtualRootPath}"："${__ VirtualRootPath}"地址。
 
 *注意*：現在無法訪問所有共享文檔連結，並且DNS設置和單點登錄選項將停止工作，直到您對其進行更改。添加到日曆中的第三方iCal連結也將停止更新，直到您重新加載它們為止。</value>
   </data>
   <data name="pattern_profile_delete" xml:space="preserve">
-    <value>h1。從“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶刪除配置文件
+    <value>h1。從"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶刪除配置文件
 
-您已請求從“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶中永久刪除您的個人資料。
+您已請求從"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶中永久刪除您的個人資料。
 
 如果您仍要刪除個人資料，請點選以下連結以確認操作：
 
-$ GreenButton
+$GreenButton
 
 *注意*：此連結僅有效7天。請在此期間內完成個人資料刪除過程。</value>
   </data>
   <data name="pattern_profile_has_deleted_itself" xml:space="preserve">
-    <value>用戶“ $ FromUserName”：“ $ FromUserLink”已刪除其個人資料，該個人資料現已被阻止。所有用戶的文件仍然分配給他/她並佔用磁碟空間。
+    <value>用戶"$FromUserName"："$FromUserLink"已刪除其個人資料，該個人資料現已被阻止。所有用戶的文件仍然分配給他/她並佔用磁碟空間。
 
 您可以將與他人共享的用戶文檔重新分配給其他活動用戶，也可以將其刪除以釋放門戶磁碟空間。
 
-請使用“此連結”：“ $ FromUserLink”轉到用戶個人資料，以將文檔重新分配給其他用戶或刪除數據。</value>
+請使用"此連結"："$FromUserLink"轉到用戶個人資料，以將文檔重新分配給其他用戶或刪除數據。</value>
   </data>
   <data name="pattern_profile_updated" xml:space="preserve">
     <value>
-h1。您在“ $ __ VirtualRootPath”處的配置文件：“ $ __ VirtualRootPath”已更改
+h1。您在"$__ VirtualRootPath"處的配置文件："$__ VirtualRootPath"已更改
 
-尊敬的$ UserName，
+尊敬的$UserName，
 
-您在“ $ __ VirtualRootPath”：“ $ __ VirtualRootPath”上的用戶個人資料詳細信息已由“ $ __ AuthorName”：“ $ __ AuthorUrl”更改。
+您在"$__ VirtualRootPath"："$__ VirtualRootPath"上的用戶個人資料詳細信息已由"$__ AuthorName"："$__ AuthorUrl"更改。
 
 要查看您的個人資料，請點選以下連結：
-“ $ UserName”：“ $ MyStaffLink”
+"$UserName"："$MyStaffLink"
 
 
-^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+^您收到此電子郵件是因為您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。^</value>
   </data>
   <data name="pattern_profile_updated_tg" xml:space="preserve">
-    <value>您位於[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）的個人資料已更改
+    <value>您位於[${__ VirtualRootPath}]（${__ VirtualRootPath}）的個人資料已更改
 
-尊敬的$ UserName，
+尊敬的$UserName，
 
-您在[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）上的用戶個人資料詳細信息已由[$ __ AuthorName]（$ __ AuthorUrl）更改。
+您在[${__ VirtualRootPath}]（${__ VirtualRootPath}）上的用戶個人資料詳細信息已由[$__ AuthorName]（$__ AuthorUrl）更改。
 
 要查看您的個人資料，請點選以下連結：
-[$ UserName]（$ MyStaffLink）
+[$UserName]（$MyStaffLink）
 
-您收到此電子郵件是因為您是[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶的註冊用戶。</value>
+您收到此電子郵件是因為您是[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶的註冊用戶。</value>
   </data>
   <data name="pattern_reassigns_completed" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-從用戶“ $ FromUserName”：“ $ FromUserLink”到用戶“ $ ToUserName”：“ $ ToUserLink”的數據重新分配過程已成功完成。
+從用戶"$FromUserName"："$FromUserLink"到用戶"$ToUserName"："$ToUserLink"的數據重新分配過程已成功完成。
 
-^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+^您收到此電子郵件是因為您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。^</value>
   </data>
   <data name="pattern_reassigns_failed" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-從用戶“ $ FromUserName”：“ $ FromUserLink”到用戶“ $ ToUserName”：“ $ ToUserLink”的數據重新分配過程失敗。
+從用戶"$FromUserName"："$FromUserLink"到用戶"$ToUserName"："$ToUserLink"的數據重新分配過程失敗。
 
-異常消息：$ Message
+異常消息：$Message
 
-^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+^您收到此電子郵件是因為您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。^</value>
   </data>
   <data name="pattern_remove_user_data_completed" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-從用戶“ $ FromUserName”：“ $ FromUserLink”刪除數據的過程已成功完成。
+從用戶"$FromUserName"："$FromUserLink"刪除數據的過程已成功完成。
 
 刪除個人數據可以免費：
 
-＃文件-$ DocsSpace
-＃CRM-$ CrmSpace
-＃郵件-$ MailSpace
-＃Talk-$ TalkSpace
+＃文件-$DocsSpace
+＃CRM-$CrmSpace
+＃郵件-$MailSpace
+＃Talk-$TalkSpace
 
-^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+^您收到此電子郵件是因為您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。^</value>
   </data>
   <data name="pattern_remove_user_data_failed" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-用戶“ $ FromUserName”：“ $ FromUserLink”的數據刪除過程失敗。
+用戶"$FromUserName"："$FromUserLink"的數據刪除過程失敗。
 
-異常消息：$ Message
+異常消息：$Message
 
-^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+^您收到此電子郵件是因為您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。^</value>
   </data>
   <data name="pattern_request_license" xml:space="preserve">
     <value>h1。企業許可請求
 
 h3。名字
-$ UserName
+$UserName
 
 h3。姓氏
-$ UserLastName
+$UserLastName
 
 h3.Position
 $職位
 
 h3.Email
-“ $ UserEmail”：“ mailto：$ UserEmail”
+"$UserEmail"："mailto：$UserEmail"
 
 h3.Phone
 $電話
@@ -1219,31 +1219,31 @@ h3.公司網站
 $CompanyTitle
 
 h3。公司名稱
-$ CompanyTitle
+$CompanyTitle
 
 h3。公司規模
-$ CompanySize
+$CompanySize
 
 h3。請求內容
 $Body
 
 h3.門戶地址
-“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”</value>
+"${__ VirtualRootPath}"："${__ VirtualRootPath}"</value>
   </data>
   <data name="pattern_request_tariff1" xml:space="preserve">
-    <value>h1.SAAS對“ $ {__ VirtualRootPath}”的關稅請求：“ $ {__ VirtualRootPath}”
+    <value>h1.SAAS對"${__ VirtualRootPath}"的關稅請求："${__ VirtualRootPath}"
 
 h3。名字
-$ UserName
+$UserName
 
 h3。姓氏
-$ UserLastName
+$UserLastName
 
 h3.職位
 $Position
 
 h3.電子郵件
-“ $ UserEmail”：“ mailto：$ UserEmail”
+"$UserEmail"："mailto：$UserEmail"
 
 h3.電話
 $Phone
@@ -1267,38 +1267,38 @@ $Body</value>
 
 *注意*：在恢復過程中門戶將不可用。
 
-如果您有任何疑問或需要幫助，請隨時通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過"support@onlyoffice.com"與我們聯繫："mailto：support@onlyoffice.com"
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+"www.onlyoffice.com"："http://onlyoffice.com/"
 
-^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+^您收到此電子郵件的原因是您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。要更改通知類型，請管理您的"訂閱設置"："$RecipientSubscriptionConfigURL"。^</value>
   </data>
   <data name="pattern_self_profile_updated" xml:space="preserve">
     <value>
-h1。“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站配置文件更改通知
+h1。"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站配置文件更改通知
 
-“ $ __ AuthorName”：“ $ __ AuthorUrl”已在“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶上更改了個人資料詳細信息。
+"$__ AuthorName"："$__ AuthorUrl"已在"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶上更改了個人資料詳細信息。
 
 
-^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站的管理員。如果您不想接收有關配置文件更新的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+^您收到此電子郵件的原因是您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站的管理員。如果您不想接收有關配置文件更新的通知，請管理您的"訂閱設置"："$RecipientSubscriptionConfigURL"。^</value>
   </data>
   <data name="pattern_self_profile_updated_tg" xml:space="preserve">
     <value>
-[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶網站配置文件更改通知</value>
+[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶網站配置文件更改通知</value>
   </data>
   <data name="pattern_send_whats_new" xml:space="preserve">
-    <value>h1。$ Date的“ $ {__ VirtualRootPath}”門戶上的新增功能：“ $ {__ VirtualRootPath}”門戶
+    <value>h1。$Date的"${__ VirtualRootPath}"門戶上的新增功能："${__ VirtualRootPath}"門戶
 
-#foreach（$ Activity中的$ activity）
+#foreach（$Activity中的$activity）
 
-h2。$ activity.Key
+h2。$activity.Key
 
 #foreach（$whatsNewActivity in $activity.Value）
-#foreach（$b in $whatsNewActivity.BreadCrumbs）h3。$ b
-#end“ $ whatsNewActivity.Title”：“ $ whatsNewActivity.URL”
-*作者*：“ $ whatsNewActivity.UserName”：“ $ whatsNewActivity.UserAbsoluteURL”，$ whatsNewActivity.Action：$ whatsNewActivity.Date.ToShortTimeString（）
+#foreach（$b in $whatsNewActivity.BreadCrumbs）h3。$b
+#end"$whatsNewActivity.Title"："$whatsNewActivity.URL"
+*作者*："$whatsNewActivity.UserName"："$whatsNewActivity.UserAbsoluteURL"，$whatsNewActivity.Action：$whatsNewActivity.Date.ToShortTimeString（）
 
 
 ＃end
@@ -1306,7 +1306,7 @@ h2。$ activity.Key
 ＃end
 
 
-^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想在“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶上收到有關新事件的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+^您收到此電子郵件的原因是您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶的註冊用戶。如果您不想在"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶上收到有關新事件的通知，請管理您的"訂閱設置"："$RecipientSubscriptionConfigURL"。^</value>
   </data>
   <data name="pattern_smtp_test" xml:space="preserve">
     <value>
@@ -1319,92 +1319,92 @@ SMTP測試訊息
 ONLYOFFICE團隊</value>
   </data>
   <data name="pattern_storage_decryption_error" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的門戶網站“ $ {PortalUrl}”：“ $ {PortalUrl}”上的文件解密過程已失敗。
+您的門戶網站"${PortalUrl}"："${PortalUrl}"上的文件解密過程已失敗。
 
-某些文件無法解密。在“控制面板”中找到更多詳細信息：“ $ {ControlPanelUrl} / storage”。</value>
+某些文件無法解密。在"控制面板"中找到更多詳細信息："${ControlPanelUrl} / storage"。</value>
   </data>
   <data name="pattern_storage_decryption_start" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-文件解密過程已在門戶網站“ $ {PortalUrl}”：“ $ {PortalUrl}”上啟動。
+文件解密過程已在門戶網站"${PortalUrl}"："${PortalUrl}"上啟動。
 
 解密可能需要一些時間，因此門戶將暫時不可用。解密結束後，您將可以再次使用數據。</value>
   </data>
   <data name="pattern_storage_decryption_success" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的門戶網站“ $ {PortalUrl}”：“ $ {PortalUrl}”上的文件解密過程已成功完成。
+您的門戶網站"${PortalUrl}"："${PortalUrl}"上的文件解密過程已成功完成。
 
 您的門戶再次可用。</value>
   </data>
   <data name="pattern_storage_encryption_error" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-“ $ {PortalUrl}”：“ $ {PortalUrl}”門戶上的文件加密過程已失敗。
+"${PortalUrl}"："${PortalUrl}"門戶上的文件加密過程已失敗。
 
-某些文件無法加密。在“控制面板”中找到更多詳細信息：“ $ {ControlPanelUrl} / storage”。</value>
+某些文件無法加密。在"控制面板"中找到更多詳細信息："${ControlPanelUrl} / storage"。</value>
   </data>
   <data name="pattern_storage_encryption_start" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-文件加密過程已在門戶網站“ $ {PortalUrl}”：“ $ {PortalUrl}”上啟動。
+文件加密過程已在門戶網站"${PortalUrl}"："${PortalUrl}"上啟動。
 
 加密可能需要一些時間，因此門戶將暫時不可用。加密結束後，您將可以再次使用數據。</value>
   </data>
   <data name="pattern_storage_encryption_success" xml:space="preserve">
-    <value>您好，$ UserName！
+    <value>您好，$UserName！
 
-您的門戶網站“ $ {PortalUrl}”：“ $ {PortalUrl}”上的文件加密過程已成功完成。
+您的門戶網站"${PortalUrl}"："${PortalUrl}"上的文件加密過程已成功完成。
 
 您的門戶再次可用。</value>
   </data>
   <data name="pattern_user_has_join" xml:space="preserve">
-    <value>h1。新用戶添加到“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶
+    <value>h1。新用戶添加到"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶
 
-“ $ __ AuthorName”：“ $ __ AuthorUrl”已通過“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”加入您的門戶。
+"$__ AuthorName"："$__ AuthorUrl"已通過"${__ VirtualRootPath}"："${__ VirtualRootPath}"加入您的門戶。
 
 
-^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶網站的管理員用戶。如果您不想接收有關新用戶的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+^您收到此電子郵件的原因是您是"${__ VirtualRootPath}"："${__ VirtualRootPath}"門戶網站的管理員用戶。如果您不想接收有關新用戶的通知，請管理您的"訂閱設置"："$RecipientSubscriptionConfigURL"。^</value>
   </data>
   <data name="pattern_user_has_join_tg" xml:space="preserve">
-    <value>新用戶已添加到[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）門戶
-[$ __ AuthorName]（$ __ AuthorUrl）已通過[$ {__ VirtualRootPath}]（$ {__ VirtualRootPath}）加入您的門戶。</value>
+    <value>新用戶已添加到[${__ VirtualRootPath}]（${__ VirtualRootPath}）門戶
+[$__ AuthorName]（$__ AuthorUrl）已通過[${__ VirtualRootPath}]（${__ VirtualRootPath}）加入您的門戶。</value>
   </data>
   <data name="pattern_user_ldap_activation" xml:space="preserve">
-    <value>尊敬的$ UserName，
+    <value>尊敬的$UserName，
 
-已邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。將此連結添加到書籤是一個好主意，您可能會經常使用它。
+已邀請您加入公司安全可靠的網絡辦公室，以加強協作。它的地址是"${__ VirtualRootPath}"："${__ VirtualRootPath}"。將此連結添加到書籤是一個好主意，您可能會經常使用它。
 
 通過以下連結接受邀請，然後使用公司帳戶的登錄名和密碼登錄。
 
-$ GreenButton
+$GreenButton
 
 該連結僅有效7天。</value>
   </data>
   <data name="subject_activate_email" xml:space="preserve">
     <value>
-$ {LetterLogoText}。請激活您的電子郵件地址</value>
+${LetterLogoText}。請激活您的電子郵件地址</value>
   </data>
   <data name="subject_backup_created" xml:space="preserve">
-    <value>$ {LetterLogoText}。 $ {__ VirtualRootPath}門戶網站備份已創建</value>
+    <value>${LetterLogoText}。 ${__ VirtualRootPath}門戶網站備份已創建</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>
-$ {LetterLogoText}。手機變更要求</value>
+${LetterLogoText}。手機變更要求</value>
   </data>
   <data name="subject_change_tfa" xml:space="preserve">
     <value> 
-$ {LetterLogoText}。安全通知</value>
+${LetterLogoText}。安全通知</value>
   </data>
   <data name="subject_confirm_owner_change" xml:space="preserve">
     <value>
-$ {LetterLogoText}。門戶所有者的變更</value>
+${LetterLogoText}。門戶所有者的變更</value>
   </data>
   <data name="subject_dns_change" xml:space="preserve">
     <value>
-$ {LetterLogoText}。門戶地址變更</value>
+${LetterLogoText}。門戶地址變更</value>
   </data>
   <data name="subject_enterprise_admin_activation_v10" xml:space="preserve">
     <value>確認您的電子郵件</value>
@@ -1441,13 +1441,13 @@ $ {LetterLogoText}。門戶地址變更</value>
 ONLYOFFICE小組的跟進</value>
   </data>
   <data name="subject_enterprise_guest_activation_v10" xml:space="preserve">
-    <value>加入$ {__ VirtualRootPath}</value>
+    <value>加入${__ VirtualRootPath}</value>
   </data>
   <data name="subject_enterprise_guest_welcome_v10" xml:space="preserve">
     <value>歡迎來到您的網絡辦公室</value>
   </data>
   <data name="subject_enterprise_user_activation_v10" xml:space="preserve">
-    <value>加入$ {__ VirtualRootPath}</value>
+    <value>加入${__ VirtualRootPath}</value>
   </data>
   <data name="subject_enterprise_user_welcome_v10" xml:space="preserve">
     <value>歡迎來到您的網絡辦公室</value>
@@ -1468,13 +1468,13 @@ ONLYOFFICE小組的跟進</value>
     <value>讓您的在線辦公室更加安全</value>
   </data>
   <data name="subject_enterprise_whitelabel_guest_activation_v10" xml:space="preserve">
-    <value>加入$ {__ VirtualRootPath}</value>
+    <value>加入${__ VirtualRootPath}</value>
   </data>
   <data name="subject_enterprise_whitelabel_guest_welcome_v10" xml:space="preserve">
     <value>歡迎來到您的網絡辦公室</value>
   </data>
   <data name="subject_enterprise_whitelabel_user_activation_v10" xml:space="preserve">
-    <value>加入$ {__ VirtualRootPath}</value>
+    <value>加入${__ VirtualRootPath}</value>
   </data>
   <data name="subject_enterprise_whitelabel_user_welcome_v10" xml:space="preserve">
     <value>歡迎來到您的網絡辦公室</value>
@@ -1484,27 +1484,27 @@ ONLYOFFICE小組的跟進</value>
 給管理員的用戶信息</value>
   </data>
   <data name="subject_join" xml:space="preserve">
-    <value>邀請加入$ {__ VirtualRootPath}門戶</value>
+    <value>邀請加入${__ VirtualRootPath}門戶</value>
   </data>
   <data name="subject_mailbox_created" xml:space="preserve">
     <value>
-$ {LetterLogoText}。郵箱創建</value>
+${LetterLogoText}。郵箱創建</value>
   </data>
   <data name="subject_mailbox_password_changed" xml:space="preserve">
     <value>
-$ {LetterLogoText}。更改郵箱密碼</value>
+${LetterLogoText}。更改郵箱密碼</value>
   </data>
   <data name="subject_migration_error" xml:space="preserve">
     <value>
-$ {LetterLogoText}。另一個區域門戶遷移錯誤</value>
+${LetterLogoText}。另一個區域門戶遷移錯誤</value>
   </data>
   <data name="subject_migration_start" xml:space="preserve">
     <value>
-$ {LetterLogoText}。另一個區域門戶遷移開始</value>
+${LetterLogoText}。另一個區域門戶遷移開始</value>
   </data>
   <data name="subject_migration_success" xml:space="preserve">
     <value>
-$ {LetterLogoText}。另一個區域門戶遷移成功完成</value>
+${LetterLogoText}。另一個區域門戶遷移成功完成</value>
   </data>
   <data name="subject_opensource_admin_activation_v11" xml:space="preserve">
     <value>確認您的電子郵件</value>
@@ -1516,13 +1516,13 @@ $ {LetterLogoText}。另一個區域門戶遷移成功完成</value>
     <value>讓您的ONLYOFFICE更安全</value>
   </data>
   <data name="subject_opensource_guest_activation_v11" xml:space="preserve">
-    <value>加入$ {__ VirtualRootPath}</value>
+    <value>加入${__ VirtualRootPath}</value>
   </data>
   <data name="subject_opensource_guest_welcome_v11" xml:space="preserve">
     <value>歡迎來到您的網絡辦公室</value>
   </data>
   <data name="subject_opensource_user_activation_v11" xml:space="preserve">
-    <value>加入$ {__ VirtualRootPath}</value>
+    <value>加入${__ VirtualRootPath}</value>
   </data>
   <data name="subject_opensource_user_docs_tips_v11" xml:space="preserve">
     <value>在文檔上進行有效工作的6個技巧</value>
@@ -1556,37 +1556,37 @@ $ {LetterLogoText}。另一個區域門戶遷移成功完成</value>
     <value>ONLYOFFICE個人帳戶終止</value>
   </data>
   <data name="subject_portal_deactivate" xml:space="preserve">
-    <value>停用$ {__ VirtualRootPath}門戶</value>
+    <value>停用${__ VirtualRootPath}門戶</value>
   </data>
   <data name="subject_portal_delete" xml:space="preserve">
-    <value>刪除$ {__ VirtualRootPath}門戶</value>
+    <value>刪除${__ VirtualRootPath}門戶</value>
   </data>
   <data name="subject_portal_rename" xml:space="preserve">
     <value>${LetterLogoText}. Change of portal address</value>
   </data>
   <data name="subject_profile_delete" xml:space="preserve">
-    <value>從$ {__ VirtualRootPath}門戶刪除個人資料</value>
+    <value>從${__ VirtualRootPath}門戶刪除個人資料</value>
   </data>
   <data name="subject_profile_has_deleted_itself" xml:space="preserve">
     <value>用戶已刪除他/她的個人資料</value>
   </data>
   <data name="subject_profile_updated" xml:space="preserve">
-    <value>您位於$ {__ VirtualRootPath}的個人資料已更改</value>
+    <value>您位於${__ VirtualRootPath}的個人資料已更改</value>
   </data>
   <data name="subject_reassigns_completed" xml:space="preserve">
-    <value>$ {LetterLogoText}。用戶數據重新分配完成</value>
+    <value>${LetterLogoText}。用戶數據重新分配完成</value>
   </data>
   <data name="subject_reassigns_failed" xml:space="preserve">
     <value>
-$ {LetterLogoText}。用戶數據重新分配失敗</value>
+${LetterLogoText}。用戶數據重新分配失敗</value>
   </data>
   <data name="subject_remove_user_data_completed" xml:space="preserve">
     <value>
-$ {LetterLogoText}。用戶數據刪除完成</value>
+${LetterLogoText}。用戶數據刪除完成</value>
   </data>
   <data name="subject_remove_user_data_failed" xml:space="preserve">
     <value>
-$ {LetterLogoText}。用戶數據刪除失敗</value>
+${LetterLogoText}。用戶數據刪除失敗</value>
   </data>
   <data name="subject_request_license" xml:space="preserve">
     <value>企業許可證申請</value>
@@ -1596,46 +1596,46 @@ $ {LetterLogoText}。用戶數據刪除失敗</value>
   </data>
   <data name="subject_restore_completed" xml:space="preserve">
     <value>
-$ {LetterLogoText}。恢復完成</value>
+${LetterLogoText}。恢復完成</value>
   </data>
   <data name="subject_restore_started" xml:space="preserve">
-    <value>$ {LetterLogoText}。恢復開始</value>
+    <value>${LetterLogoText}。恢復開始</value>
   </data>
   <data name="subject_self_profile_updated" xml:space="preserve">
-    <value>$ {__ VirtualRootPath}門戶網站配置文件更改通知</value>
+    <value>${__ VirtualRootPath}門戶網站配置文件更改通知</value>
   </data>
   <data name="subject_send_whats_new" xml:space="preserve">
-    <value>$ Date門戶上的新功能</value>
+    <value>$Date門戶上的新功能</value>
   </data>
   <data name="subject_smtp_test" xml:space="preserve">
     <value>SMTP測試訊息</value>
   </data>
   <data name="subject_storage_decryption_error" xml:space="preserve">
     <value>
-$ {LetterLogoText}。解密過程失敗</value>
+${LetterLogoText}。解密過程失敗</value>
   </data>
   <data name="subject_storage_decryption_start" xml:space="preserve">
-    <value>$ {LetterLogoText}。解密過程開始</value>
+    <value>${LetterLogoText}。解密過程開始</value>
   </data>
   <data name="subject_storage_decryption_success" xml:space="preserve">
     <value>
-$ {LetterLogoText}。解密過程完成</value>
+${LetterLogoText}。解密過程完成</value>
   </data>
   <data name="subject_storage_encryption_error" xml:space="preserve">
-    <value>$ {LetterLogoText}。加密過程失敗</value>
+    <value>${LetterLogoText}。加密過程失敗</value>
   </data>
   <data name="subject_storage_encryption_start" xml:space="preserve">
     <value>
-$ {LetterLogoText}。加密過程開始</value>
+${LetterLogoText}。加密過程開始</value>
   </data>
   <data name="subject_storage_encryption_success" xml:space="preserve">
-    <value>$ {LetterLogoText}。加密過程完成</value>
+    <value>${LetterLogoText}。加密過程完成</value>
   </data>
   <data name="subject_user_has_join" xml:space="preserve">
-    <value>新用戶已添加到$ {LetterLogoText}門戶中</value>
+    <value>新用戶已添加到${LetterLogoText}門戶中</value>
   </data>
   <data name="subject_user_ldap_activation" xml:space="preserve">
     <value>
-邀請您加入$ {__ VirtualRootPath}</value>
+邀請您加入${__ VirtualRootPath}</value>
   </data>
 </root>

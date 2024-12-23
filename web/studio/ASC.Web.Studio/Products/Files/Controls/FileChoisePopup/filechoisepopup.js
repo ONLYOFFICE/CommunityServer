@@ -107,7 +107,8 @@ window.FileChoisePopup = (function () {
         Teamlab.copyDocFileAs(null, params.templateId,
             {
                 destFolderId: params.folderID,
-                destTitle: params.fileTitle
+                destTitle: params.fileTitle,
+                toForm: true
             },
             {
                 success: function (_, data) {

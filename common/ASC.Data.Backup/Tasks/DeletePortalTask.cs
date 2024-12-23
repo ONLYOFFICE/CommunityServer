@@ -42,16 +42,16 @@ namespace ASC.Data.Backup.Tasks
             var dbFactory = new DbFactory(ConfigPath);
             foreach (var module in modulesToProcess)
             {
-                DoDeleteModule(dbFactory, module);
+                DoDeleteModule(dbFactory, module, TenantId);
             }
             if (ProcessStorage)
             {
-                DoDeleteStorage();
+                DoDeleteStorage(TenantId);
             }
             Logger.DebugFormat("end delete {0}", TenantId);
         }
 
-        private void DoDeleteModule(DbFactory dbFactory, IModuleSpecifics module)
+        private void DoDeleteModule(DbFactory dbFactory, IModuleSpecifics module, int tenantId)
         {
             Logger.DebugFormat("begin delete data for module ({0})", module.ModuleName);
             int tablesCount = module.Tables.Count();
@@ -63,7 +63,7 @@ namespace ASC.Data.Backup.Tasks
                     ActionInvoker.Try(state =>
                         {
                             var t = (TableInfo)state;
-                            module.CreateDeleteCommand(connection.Fix(), TenantId, t).WithTimeout(120).ExecuteNonQuery();
+                            module.CreateDeleteCommand(connection.Fix(), tenantId, t).WithTimeout(120).ExecuteNonQuery();
                         }, table, 5, onFailure: error => { throw ThrowHelper.CantDeleteTable(table.Name, error); });
                     SetCurrentStepProgress((int)((++tablesProcessed * 100) / (double)tablesCount));
                 }
@@ -71,14 +71,14 @@ namespace ASC.Data.Backup.Tasks
             Logger.DebugFormat("end delete data for module ({0})", module.ModuleName);
         }
 
-        private void DoDeleteStorage()
+        private void DoDeleteStorage(int tenantId)
         {
             Logger.Debug("begin delete storage");
             List<string> storageModules = StorageFactory.GetModuleList(ConfigPath).Where(IsStorageModuleAllowed).ToList();
             int modulesProcessed = 0;
             foreach (string module in storageModules)
             {
-                IDataStore storage = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), module);
+                IDataStore storage = StorageFactory.GetStorage(ConfigPath, tenantId.ToString(), module);
                 List<string> domains = StorageFactory.GetDomainList(ConfigPath, module).ToList();
                 foreach (var domain in domains)
                 {

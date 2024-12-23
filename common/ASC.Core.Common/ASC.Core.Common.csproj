@@ -83,6 +83,7 @@
     <Compile Include="Core\PartnerStatus.cs" />
     <Compile Include="Core\PartnerType.cs" />
     <Compile Include="Core\DBResourceManager.cs" />
+    <Compile Include="Core\StringExtension.cs" />
     <Compile Include="Data\DbLoginEventsManager.cs" />
     <Compile Include="Data\DbSettingsManager.cs" />
     <Compile Include="Encryption\EncryprtionStatus.cs" />

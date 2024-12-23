@@ -49,5 +49,7 @@ namespace ASC.Data.Storage.Configuration
         public const string DISABLEDENCRYPTION = "disableEncryption";
         public const string CACHE = "cache";
         public const string ATTACHMENT = "attachment";
+        public const string VALIDATORTYPE = "validatorType";
+        public const string VALIDATORPARAMS = "validatorParams";
     }
 }

@@ -245,6 +245,15 @@ namespace ASC.Web.Files.Utils
         public static bool SetAceObject(List<AceWrapper> aceWrappers, FileEntry entry, bool notify, string message, AceAdvancedSettingsWrapper advancedSettings)
         {
             if (entry == null) throw new ArgumentNullException(FilesCommonResource.ErrorMassage_BadRequest);
+            foreach (var w in aceWrappers)
+            {
+                if (w.LinkSettings == null)
+                    continue;
+                if (!string.IsNullOrEmpty(w.LinkSettings.Password) && w.LinkSettings.Password.Length > 255)
+                    throw new ArgumentException(FilesCommonResource.ErrorMassage_BadRequest, "link password");
+                if (string.IsNullOrEmpty(w.SubjectName) || w.SubjectName.Length > 255)
+                    throw new ArgumentException(FilesCommonResource.ErrorMassage_BadRequest, "link title");
+            }
             if (!CanSetAccess(entry)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
 
             var fileSecurity = Global.GetFilesSecurity();

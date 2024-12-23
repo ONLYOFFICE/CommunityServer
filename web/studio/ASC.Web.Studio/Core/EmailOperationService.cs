@@ -204,7 +204,6 @@ namespace ASC.Web.Studio.Core
                 if (!viewerIsAdmin)
                 {
                     StudioNotifyService.Instance.SendEmailChangeInstructions(user, email);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentEmailChangeInstructions, user.DisplayUserName(false));
                 }
                 else
                 {

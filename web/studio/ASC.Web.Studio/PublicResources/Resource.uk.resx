@@ -293,7 +293,7 @@
     <value>Разблокувати</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Ключі авторизації - це опція, яка дозволяє підключити портал ONLYOFFICE ™ до сторонніх служб, таких як Twitter, Facebook, DropBox і т. Д. Підключіть свій портал до Facebook, Twitter або Linkedin, якщо ви не хочете вводити свої облікові дані, коли ви заходите на портал.  Зв'яжіть його з такими сервісами, як DropBox, OneDrive тощо, щоб передати документи з усіх цих сховищ у модуль ONLYOFFICE ™ Documents.</value>
+    <value>Ключі авторизації - це опція, яка дозволяє підключити портал ONLYOFFICE ™ до сторонніх служб, таких як X (Twitter), Facebook, DropBox і т. Д. Підключіть свій портал до Facebook, X (Twitter) або Linkedin, якщо ви не хочете вводити свої облікові дані, коли ви заходите на портал.  Зв'яжіть його з такими сервісами, як DropBox, OneDrive тощо, щоб передати документи з усіх цих сховищ у модуль ONLYOFFICE ™ Documents.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Умови обслуговування</value>
@@ -763,7 +763,7 @@
     <value>Номер телефону від Twilio (необхідний для авторизації SMS).</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter в ключі CRM</value>
@@ -775,19 +775,19 @@
     <value>Ключ Twitter </value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Підключіть програму для входу на портал за допомогою облікового запису Twitter та пошуку контактів.</value>
+    <value>Підключіть програму для входу на портал за допомогою облікового запису X (Twitter) та пошуку контактів.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Якщо ви додасте службу Twitter, ви зможете підключити свою обліковий запис на сторінці свого профілю, щоб з його допомогою входити в портал ONLYOFFICE ™. Ви також зможете знайти обліковий запис Twitter користувача в модулі CRM та зв'язати його на сторінці «Редагувати особу / компанію», а потім переглянути новинний канал Twitter.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Маркер доступу</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Ключ Twitter </value>
+    <value>Ключ X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Таємний маркер доступу</value>
@@ -2845,7 +2845,7 @@
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

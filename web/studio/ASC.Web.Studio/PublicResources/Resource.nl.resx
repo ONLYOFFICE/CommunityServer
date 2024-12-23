@@ -275,7 +275,7 @@
     <value>Activeren</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Autorisatiesleutels is de optie waarmee u uw ONLYOFFICE™ portaal kunt verbinden met de services van derden zoals Twitter, Facebook, DropBox, enz. Verbind uw portaal met Facebook, Twitter of Linkedin aan als u uw portaalgegevens niet telkens wilt invoeren als u erheen gaat. Koppel het met dergelijke services zoals DropBox, OneDrive, enz. om de documenten van alle opslagplaatsen over te zetten naar de ONLYOFFICE ™ Documentenmodule.</value>
+    <value>Autorisatiesleutels is de optie waarmee u uw ONLYOFFICE™ portaal kunt verbinden met de services van derden zoals X (Twitter), Facebook, DropBox, enz. Verbind uw portaal met Facebook, X (Twitter) of Linkedin aan als u uw portaalgegevens niet telkens wilt invoeren als u erheen gaat. Koppel het met dergelijke services zoals DropBox, OneDrive, enz. om de documenten van alle opslagplaatsen over te zetten naar de ONLYOFFICE ™ Documentenmodule.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Servicevoorwaarden</value>
@@ -740,7 +740,7 @@
     <value>Telefoonnummer van Twilio (vereist voor SMS autorisatie)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter in CRM-sleutel</value>
@@ -752,19 +752,19 @@
     <value>Twitter Sleutel</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Verbind de applicatie om in te loggen op het portaal met een Twitter-account en zoek naar contacten.</value>
+    <value>Verbind de applicatie om in te loggen op het portaal met een X (Twitter)-account en zoek naar contacten.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Als u een applicatie van Twitter toevoegt, kunt u uw Twitter-account verbinden met uw profielpagina zodat u in kunt loggen op het ONLYOFFICE™ portaal en het kunt gebruiken. U zult ook Twitter-accounts van personen kunnen vinden in de CRM-module en deze koppelen op de pagina 'Bewerk persoon/bedrijf' en dan de Twitter newsfeed kunnen bekijken.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Toegangstoken</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitter Sleutel</value>
+    <value>X (Twitter) Sleutel</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Toegangstoken Geheim</value>
@@ -2723,7 +2723,7 @@ Om te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mail
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

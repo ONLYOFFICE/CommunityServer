@@ -39,19 +39,23 @@
  //'23456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ-_'
 
 var _alphabet = "5XzpDt6wZRdsTrJkSY_cgPyxN4j-fnb9WKBF8vh3GH72QqmLVCM",
-	_base = _alphabet.length,
-	_initial = _base * _base;
+	_base = _alphabet.length;
+
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max) + 1;
+	return Math.floor(Math.random() * (max - min) + min); 
+}
 
 module.exports = {
 
-	encode: function(num) {
-		num += _initial;
-		var str = '';
-		while (num > 0) {
-			str = _alphabet.charAt(num % _base) + str;
-			num = Math.floor(num / _base);
+	GenerateRandomKey: function() {
+		var length = 10;
+	    var result = "";
+		for(var i = 0; i < length; i++){
+			result += _alphabet.charAt(getRandomInt(0,50));
 		}
-		return str;
+		return result;
 	},
 
 	decode: function(str) {
@@ -61,7 +65,7 @@ module.exports = {
             if (index < 0) return null;
 			num = num * _base + index;
 		}
-		return num - _initial;
+		return num;
     }
-
+	
 };

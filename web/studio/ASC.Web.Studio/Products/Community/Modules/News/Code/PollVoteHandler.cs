@@ -20,8 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ASC.Core;
-using ASC.Web.Community.Modules.News.Resources;
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Community.News.Code.DAO;
+using ASC.Web.Core;
 using ASC.Web.Studio.UserControls.Common.PollForm;
 
 namespace ASC.Web.Community.News.Code
@@ -32,6 +33,20 @@ namespace ASC.Web.Community.News.Code
 
         public bool VoteCallback(string pollID, List<string> selectedVariantIDs, string additionalParams, out string errorMessage)
         {
+            var product = WebItemManager.Instance[WebItemManager.CommunityProductID];
+            if (product == null || product.IsDisabled())
+            {
+                errorMessage = ForumUCResource.ErrorAccessDenied;
+                return false;
+            }
+
+            var module = WebItemManager.Instance[NewsModule.ModuleId];
+            if (module == null || module.IsDisabled())
+            {
+                errorMessage = ForumUCResource.ErrorAccessDenied;
+                return false;
+            }
+
             errorMessage = string.Empty;
             var userAnswersIDs = new List<long>();
             selectedVariantIDs.ForEach(strId => { if (!string.IsNullOrEmpty(strId)) userAnswersIDs.Add(Convert.ToInt64(strId)); });

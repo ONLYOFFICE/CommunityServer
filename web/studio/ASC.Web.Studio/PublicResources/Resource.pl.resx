@@ -284,7 +284,7 @@
     <value>Włączyć</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>Klucz autoryzacji to opcja pozwalająca połączyć swój portal ONLYOFFICE ™ z usługami zewnętrznymi, takimi jak Twitter, Facebook, DropBox itp. Jeśli nie chcesz wprowadzać poświadczeń portalu za każdym razem, połącz swój portal z Facebookem, Twitterem lub Linkedin wejdź. Łącz je z takimi usługami jak DropBox, OneDrive itd., Aby przesłać dokumenty z wszystkich tych magazynów do modułu Dokumenty ONLYOFFICE ™.</value>
+    <value>Klucz autoryzacji to opcja pozwalająca połączyć swój portal ONLYOFFICE ™ z usługami zewnętrznymi, takimi jak X (Twitter), Facebook, DropBox itp. Jeśli nie chcesz wprowadzać poświadczeń portalu za każdym razem, połącz swój portal z Facebookem, X (Twitter)em lub Linkedin wejdź. Łącz je z takimi usługami jak DropBox, OneDrive itd., Aby przesłać dokumenty z wszystkich tych magazynów do modułu Dokumenty ONLYOFFICE ™.</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>Warunki usługi</value>
@@ -750,7 +750,7 @@
     <value>Numer telefonu z Twilio (wymagany do autoryzacji SMS)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrm" xml:space="preserve">
     <value>Twitter w kluczu CRM</value>
@@ -762,19 +762,19 @@
     <value>Klucz Twitter</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>Podłącz aplikację do logowania się do portalu za pomocą konta Twitter i wyszukaj kontakty.</value>
+    <value>Podłącz aplikację do logowania się do portalu za pomocą konta X (Twitter) i wyszukaj kontakty.</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Jeśli dodasz aplikację usługi Twitter, będziesz mógł połączyć swoje konto Twitter na swojej stronie profilu, aby móc logować się do portalu ONLYOFFICE ™. Będziesz także mógł znaleźć konto Twittera osoby w module CRM i połączyć ją na stronie "Edytuj osobę / firmę", a następnie wyświetlić kanał RSS.</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>Dostęp Token</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Klucz Twitter</value>
+    <value>Klucz X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Dostęp Token Secret</value>
@@ -2757,7 +2757,7 @@ Ab się zarejestrować, wpisz swój adres e-mail i kliknij na 'Wyślij zaproszen
     <value>Skype</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!</value>

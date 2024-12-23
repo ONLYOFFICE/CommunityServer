@@ -1221,11 +1221,13 @@ window.ASC.Files.ChunkUploads = (function () {
             entryId: file.data.id
         }, false, copyFileAs);
     }
+
     var copyFileAs = function (params) {
         Teamlab.copyDocFileAs(null, params.templateId,
             {
                 destFolderId: params.folderID,
-                destTitle: params.fileTitle
+                destTitle: params.fileTitle,
+                toForm: true
             },
             {
                 success: function (_, data) {

@@ -239,6 +239,7 @@ BEGIN
 	insert into files_converts (input, output) values ('.csv', '.xlsx');
 	insert into files_converts (input, output) values ('.csv', '.xltm');
 	insert into files_converts (input, output) values ('.csv', '.xltx');
+	insert into files_converts (input, output) values ('.djvu', '.pdf');
 	insert into files_converts (input, output) values ('.doc', '.docm');
 	insert into files_converts (input, output) values ('.doc', '.docx');
 	insert into files_converts (input, output) values ('.doc', '.dotm');
@@ -494,6 +495,7 @@ BEGIN
 	insert into files_converts (input, output) values ('.odt', '.pdf');
 	insert into files_converts (input, output) values ('.odt', '.rtf');
 	insert into files_converts (input, output) values ('.odt', '.txt');
+	insert into files_converts (input, output) values ('.oform', '.pdf');
 	insert into files_converts (input, output) values ('.ott', '.docm');
 	insert into files_converts (input, output) values ('.ott', '.docx');
 	insert into files_converts (input, output) values ('.ott', '.dotm');

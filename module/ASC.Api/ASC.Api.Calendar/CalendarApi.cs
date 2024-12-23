@@ -66,10 +66,6 @@ using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Calendar
 {
-    /// <summary>
-    /// Access to the calendars.
-    /// </summary>
-    ///<name>calendar</name>
     public class iCalApiContentResponse : IApiContentResponce
     {
         private readonly Stream _stream;
@@ -135,6 +131,10 @@ namespace ASC.Api.Calendar
         }
     }
 
+    /// <summary>
+    /// Access to the calendars.
+    /// </summary>
+    /// <name>calendar</name>
     public class CalendarApi : IApiEntryPoint, IDisposable
     {
         public static bool IsPersonal

@@ -291,6 +291,9 @@ namespace ASC.CRM.Core.Dao
                                 .OrderBy("case when c_tbl.display_name is null then 1 else 0 end, c_tbl.display_name", orderBy.IsAsc)
                                 .OrderBy(invoicesTableAlias + ".number", true);
                         break;
+                    case InvoiceSortedByType.Id:
+                        sqlQuery.OrderBy(invoicesTableAlias + ".id", orderBy.IsAsc);
+                        break;
                     default:
                         sqlQuery.OrderBy(invoicesTableAlias + ".number", true);
                         break;

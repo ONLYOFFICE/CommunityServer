@@ -95,7 +95,7 @@ Endereço do portal: "$__VirtualRootPath":"$__VirtualRootPath"
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Foi adicionado à equipa de projeto: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" adicionou-o à equipa de projeto:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" adicionou-o à equipa de projeto: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Recebeu este email porque é um utilizador registado do portal "${__VirtualRootPath}":"${__VirtualRootPath}". Para alterar o tipo de notificação, por favor altere as suas configurações de subscrição:"$RecipientSubscriptionConfigURL".^</value>
   </data>

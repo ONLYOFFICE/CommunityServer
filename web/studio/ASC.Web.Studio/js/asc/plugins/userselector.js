@@ -1085,6 +1085,7 @@ function UserDomGenerator() {
         var input = document.createElement("input");
         input.setAttribute("class", "textEdit");
         input.setAttribute("type", "text");
+        input.setAttribute("maxlength", "255");
         block.append(input);
 
         var apply = document.createElement("span");

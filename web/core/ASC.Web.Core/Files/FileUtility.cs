@@ -365,7 +365,7 @@ namespace ASC.Web.Core.Files
                 { FileType.Presentation, ConfigurationManagerExtension.AppSettings["files.docservice.internal-ppt"] ?? ".pptx" }
             };
 
-        public static readonly string MasterFormExtension = ConfigurationManagerExtension.AppSettings["files.docservice.internal-form"] ?? ".docxf";
+        public static readonly string MasterFormExtension = ConfigurationManagerExtension.AppSettings["files.docservice.internal-form"] ?? ".pdf";
 
         public enum CsvDelimiter
         {

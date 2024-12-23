@@ -167,10 +167,15 @@ namespace ASC.Api.Portal
         /// <httpMethod>PUT</httpMethod>
         /// <visible>false</visible>
         [Update("getshortenlink")]
-        public String GetShortenLink(string link)
+        public string GetShortenLink(string link)
         {
             try
             {
+                if (!link.StartsWith(CommonLinkUtility.ServerRootPath))
+                {
+                    throw new ArgumentException("the link should be to this portal");
+                }
+
                 return UrlShortener.Instance.GetShortenLink(link);
             }
             catch (Exception ex)
@@ -194,6 +199,8 @@ namespace ASC.Api.Portal
         [Read("usedspace")]
         public double GetUsedSpace()
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             return Math.Round(
                 CoreContext.TenantManager.FindTenantQuotaRows(CoreContext.TenantManager.GetCurrentTenant().TenantId)
                            .Where(q => !string.IsNullOrEmpty(q.Tag) && new Guid(q.Tag) != Guid.Empty)
@@ -825,19 +832,20 @@ namespace ASC.Api.Portal
         /// <param type="ASC.Core.Common.Contracts.BackupStorageType, ASC.Core.Common.Contracts" name="storageType">Storage type ("Documents", "ThridpartyDocuments", "CustomCloud", "Local", "DataStore", or "ThirdPartyConsumer")</param>
         /// <param type="System.Collections.Generic.IEnumerable{ASC.Api.Collections.ItemKeyValuePair{System.String, System.String}}, System.Collections.Generic" name="storageParams">Storage parameters</param>
         /// <param type="System.Boolean, System" name="backupMail">Specifies if the mails will be included into the backup or not</param>
+        ///  /// <param type="System.Boolean, System" name="dump">Specifies if a dump will be created or not</param>
         /// <category>Backup</category>
         /// <returns type="ASC.Core.Common.Contracts.BackupProgress, ASC.Core.Common">Backup progress</returns>
         /// <path>api/2.0/portal/startbackup</path>
         /// <httpMethod>POST</httpMethod>
         [Create("startbackup")]
-        public BackupProgress StartBackup(BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, bool backupMail)
+        public BackupProgress StartBackup(BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, bool backupMail, bool dump)
         {
             if (CoreContext.Configuration.Standalone)
             {
                 TenantExtra.DemandControlPanelPermission();
             }
 
-            return backupHandler.StartBackup(storageType, storageParams.ToDictionary(r => r.Key, r => r.Value), backupMail);
+            return backupHandler.StartBackup(storageType, storageParams.ToDictionary(r => r.Key, r => r.Value), backupMail, dump);
         }
 
         /// <summary>
@@ -998,6 +1006,13 @@ namespace ASC.Api.Portal
                 throw new Exception(Resource.ErrorAccessDenied);
             }
 
+            var user = CoreContext.UserManager.GetUsers(tenant.OwnerId);
+
+            if (!SetupInfo.IsSecretEmail(user.Email))
+            {
+                throw new Exception(Resource.ErrorAccessDenied);
+            }
+
             CoreContext.TenantManager.RemoveTenant(tenant.TenantId);
 
             if (!string.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
@@ -1040,14 +1055,14 @@ namespace ASC.Api.Portal
 
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (String.IsNullOrEmpty(alias)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(alias) || alias.Any(char.IsWhiteSpace)) throw new ArgumentException();
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
             var localhost = CoreContext.Configuration.BaseDomain == "localhost" || tenant.TenantAlias == "localhost";
 
-            var newAlias = alias.ToLowerInvariant();
+            var newAlias = alias.Trim().ToLowerInvariant();
             var oldAlias = tenant.TenantAlias;
             var oldVirtualRootPath = CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/');
 
@@ -1068,7 +1083,7 @@ namespace ASC.Api.Portal
                     ApiSystemHelper.AddTenantToCache(newAlias);
                 }
 
-                tenant.TenantAlias = alias;
+                tenant.TenantAlias = newAlias;
                 tenant = CoreContext.TenantManager.SaveTenant(tenant);
 
 

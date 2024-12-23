@@ -47,19 +47,26 @@ namespace ASC.Data.Storage.DiscStorage
             _cache = moduleConfig.Cache;
             _dataList = new DataList(moduleConfig);
             _attachment = moduleConfig.Attachment;
+
+            //Add default
+            _mappedPaths.Add(string.Empty, new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), handlerConfig.GetProperties()));
+            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
+            _domainsValidators.Add(string.Empty, CreateValidator(moduleConfig.ValidatorType, moduleConfig.ValidatorParams));
+
             foreach (DomainConfigurationElement domain in moduleConfig.Domains)
             {
                 _mappedPaths.Add(domain.Name, new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, handlerConfig.GetProperties()));
-            }
-            //Add default
-            _mappedPaths.Add(string.Empty, new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), handlerConfig.GetProperties()));
 
-            //Make expires
-            _domainsExpires =
-                moduleConfig.Domains.Cast<DomainConfigurationElement>().Where(x => x.Expires != TimeSpan.Zero).
-                    ToDictionary(x => x.Name,
-                                 y => y.Expires);
-            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
+                if (domain.Expires != TimeSpan.Zero)
+                {
+                    _domainsExpires.Add(domain.Name, domain.Expires);
+                }
+
+                if (!string.IsNullOrEmpty(domain.ValidatorType))
+                {
+                    _domainsValidators.Add(domain.Name, CreateValidator(domain.ValidatorType, domain.ValidatorParams));
+                }
+            }
 
             var settings = moduleConfig.DisabledEncryption ? new EncryptionSettings() : EncryptionSettings.Load();
 
@@ -543,7 +550,6 @@ namespace ASC.Data.Storage.DiscStorage
             throw new NotSupportedException("This operation supported only on s3 storage");
         }
 
-
         public override string[] ListDirectoriesRelative(string domain, string path, bool recursive)
         {
             if (path == null) throw new ArgumentNullException("path");
@@ -561,7 +567,7 @@ namespace ASC.Data.Storage.DiscStorage
             return new string[0];
         }
 
-        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
+        public override IEnumerable<string> ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
             if (path == null) throw new ArgumentNullException("path");
 
@@ -570,10 +576,9 @@ namespace ASC.Data.Storage.DiscStorage
             if (!string.IsNullOrEmpty(targetDir) && !targetDir.EndsWith(Path.DirectorySeparatorChar.ToString())) targetDir += Path.DirectorySeparatorChar;
             if (Directory.Exists(targetDir))
             {
-                var entries = Directory.GetFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-                return Array.ConvertAll(
-                    entries,
-                    x => x.Substring(targetDir.Length));
+                var entries = Directory.EnumerateFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
+                    .Select(e => e.Substring(targetDir.Length));
+                return entries;
             }
             return new string[0];
         }

@@ -113,7 +113,7 @@ $AdditionalData.get_item("MessagePreview")
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Вас добавили в команду проекта: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime пользователь "$__AuthorName":"$__AuthorUrl" добавил Вас в команду проекта:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime пользователь "$__AuthorName":"$__AuthorUrl" добавил Вас в команду проекта: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}". Чтобы изменить тип оповещения, настройте "параметры подписки":"$RecipientSubscriptionConfigURL".^</value>
   </data>

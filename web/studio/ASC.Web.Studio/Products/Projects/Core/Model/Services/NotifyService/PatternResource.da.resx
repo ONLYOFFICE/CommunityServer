@@ -114,7 +114,7 @@ Din portal adresse:"$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_InviteToProject" xml:space="preserve">
-    <value>h1.You have been Added to the Project Team: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+    <value>h1.You have been Added to the Project Team: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_LateMilestone" xml:space="preserve">
     <value>h1.Forfald for milepæl:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=stigende"

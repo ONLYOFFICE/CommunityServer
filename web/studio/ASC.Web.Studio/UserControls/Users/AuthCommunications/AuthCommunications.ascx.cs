@@ -129,7 +129,7 @@ namespace ASC.Web.Studio.UserControls
                 if (!EnabledJoin)
                     throw new MethodAccessException("Method not available");
 
-                if (!email.TestEmailRegex())
+                if (!email.TestEmailRegex() || email.TestEmailPunyCode())
                     throw new Exception(Resource.ErrorNotCorrectEmail);
 
                 var user = CoreContext.UserManager.GetUserByEmail(email);

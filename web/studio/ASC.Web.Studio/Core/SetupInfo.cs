@@ -364,6 +364,12 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
+        public static string AmiTokenUrl
+        {
+            get;
+            private set;
+        }
+
         static SetupInfo()
         {
             Refresh();
@@ -445,6 +451,7 @@ namespace ASC.Web.Studio.Core
             TfaAppSender = GetAppSettings("web.tfaapp.backup.title", "ONLYOFFICE");
 
             AmiMetaUrl = GetAppSettings("web.ami.meta", "");
+            AmiTokenUrl = GetAppSettings("web.ami.token", "");
         }
 
 

@@ -65,7 +65,7 @@ namespace ASC.Data.Backup.Storage
         public BackupRecord GetBackupRecord(Guid id)
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params","hash")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params","hash", "removed")
                 .Where("id", id);
 
             using (var db = GetDbManager())
@@ -77,7 +77,7 @@ namespace ASC.Data.Backup.Storage
         public BackupRecord GetBackupRecord(string hash, int tenant)
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash", "removed")
                 .Where("hash", hash)
                 .Where("tenant_id", tenant);
 
@@ -90,7 +90,7 @@ namespace ASC.Data.Backup.Storage
         public List<BackupRecord> GetExpiredBackupRecords()
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash", "removed")
                 .Where(!Exp.Eq("expires_on", DateTime.MinValue) & Exp.Le("expires_on", DateTime.UtcNow))
                 .Where(Exp.Eq("removed", false));
 
@@ -103,7 +103,7 @@ namespace ASC.Data.Backup.Storage
         public List<BackupRecord> GetScheduledBackupRecords()
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash", "removed")
                 .Where(Exp.Eq("is_scheduled", true))
                 .Where(Exp.Eq("removed", false));
 
@@ -121,7 +121,7 @@ namespace ASC.Data.Backup.Storage
         private List<BackupRecord> GetBackupRecordsByTenantIdInternal(int tenantId, bool? visible = null)
         {
             var select = new SqlQuery("backup_backup")
-                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params", "hash", "removed")
                 .Where("tenant_id", tenantId);
 
             if (visible.HasValue)
@@ -240,7 +240,8 @@ namespace ASC.Data.Backup.Storage
                 CreatedOn = Convert.ToDateTime(row[7]),
                 ExpiresOn = Convert.ToDateTime(row[8]),
                 StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[9])),
-                Hash = Convert.ToString(row[10])
+                Hash = Convert.ToString(row[10]),
+                Removed = Convert.ToBoolean(row[11])
             };
         }
 

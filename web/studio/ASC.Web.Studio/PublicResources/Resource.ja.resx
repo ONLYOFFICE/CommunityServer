@@ -300,7 +300,7 @@
     <value>質問がありますか？{0}サポートチーム{1}を連絡してください。</value>
   </data>
   <data name="AuthorizationKeysText" xml:space="preserve">
-    <value>承認キーはONLYOFFICE™ポータルを第三者サービス（Twitter、 Facebook、 DropBoxなど）と接続するために使えるものです。ポータルに入る度にログインとパスワードを入力する必要がないように、ポータルをFacebook、Twitter 及びLinkedin と接続します。第三者ストレージから文書をONLYOFFICE™文書モジュールへ移動できるように、DropBoxやOneDriveなどのサービスとリンクします。</value>
+    <value>承認キーはONLYOFFICE™ポータルを第三者サービス（X (Twitter)、 Facebook、 DropBoxなど）と接続するために使えるものです。ポータルに入る度にログインとパスワードを入力する必要がないように、ポータルをFacebook、X (Twitter) 及びLinkedin と接続します。第三者ストレージから文書をONLYOFFICE™文書モジュールへ移動できるように、DropBoxやOneDriveなどのサービスとリンクします。</value>
   </data>
   <data name="AuthTermsService" xml:space="preserve">
     <value>利用規約</value>
@@ -993,7 +993,7 @@
     <value>Twilioの電話番号(SMS承認のために必要です)</value>
   </data>
   <data name="ConsumersTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="ConsumersTwitterCrmKey" xml:space="preserve">
     <value>Twitter ID</value>
@@ -1002,22 +1002,22 @@
     <value>Twitterキー</value>
   </data>
   <data name="ConsumersTwitterDescription" xml:space="preserve">
-    <value>アプリをONLYOFFICEに接続すると、Twitterでポータルにサインインし、コンタクトを検索できます。</value>
+    <value>アプリをONLYOFFICEに接続すると、X (Twitter)でポータルにサインインし、コンタクトを検索できます。</value>
   </data>
   <data name="ConsumersTwitterInstruction" xml:space="preserve">
     <value>Twitterサービスのアプリを追加すると、プロフィールページでTwitterアカウントを接続し、 これに介してONLYOFFICE™ポータルにサインインできます。 または顧客のTwitterアカウントを検索し、CRMモジュールの「個人/会社の編集」ページでこのアカウントをリンクし、Twitterニュースフィードを表示できます。</value>
   </data>
   <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
-    <value>このアプリを接続すると、Twitterを使用してONLYOFFICEにサインイン、またはCRMモジュールでお客様のTwitterアカウントをリンクできます。{0} Twitter開発者ポータルでONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+    <value>このアプリを接続すると、X (Twitter)を使用してONLYOFFICEにサインイン、またはCRMモジュールでお客様のX (Twitter)アカウントをリンクできます。{0} X (Twitter)開発者ポータルでONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
   </data>
   <data name="ConsumersTwitterKey" xml:space="preserve">
-    <value>Twitter ID</value>
+    <value>X (Twitter) ID</value>
   </data>
   <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
     <value>アクセストークン</value>
   </data>
   <data name="ConsumersTwitterSecret" xml:space="preserve">
-    <value>Twitterキー</value>
+    <value>X (Twitter)キー</value>
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>秘密なアクセストークン</value>
@@ -3373,7 +3373,7 @@
     <value>スカイプ</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
-    <value>Twitter</value>
+    <value>X (Twitter)</value>
   </data>
   <data name="TitleYahoo" xml:space="preserve">
     <value>Yahoo!!</value>

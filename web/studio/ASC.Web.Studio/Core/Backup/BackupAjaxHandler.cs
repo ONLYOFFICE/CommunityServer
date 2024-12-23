@@ -41,9 +41,14 @@ namespace ASC.Web.Studio.Core.Backup
         #region backup
 
         [AjaxMethod]
-        public BackupProgress StartBackup(BackupStorageType storageType, Dictionary<string, string> storageParams, bool backupMail)
+        public BackupProgress StartBackup(BackupStorageType storageType, Dictionary<string, string> storageParams, bool backupMail, bool dump)
         {
             DemandPermissionsBackup();
+
+            if (!CoreContext.Configuration.Standalone && dump)
+            {
+                throw new ArgumentException("backup can not start as dump");
+            }
 
             var backupRequest = new StartBackupRequest
             {
@@ -51,7 +56,8 @@ namespace ASC.Web.Studio.Core.Backup
                 UserId = SecurityContext.CurrentAccount.ID,
                 BackupMail = backupMail,
                 StorageType = storageType,
-                StorageParams = storageParams
+                StorageParams = storageParams,
+                Dump = dump
             };
 
             switch (storageType)

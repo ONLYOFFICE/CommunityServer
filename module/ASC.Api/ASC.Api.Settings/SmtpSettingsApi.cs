@@ -69,10 +69,29 @@ namespace ASC.Api.Settings
         {
             CheckSmtpPermissions();
 
-            //TODO: Add validation check
-
             if (smtpSettings == null)
                 throw new ArgumentNullException("smtpSettings");
+
+            if (string.IsNullOrEmpty(smtpSettings.Host) || smtpSettings.Host.Length > 255)
+                throw new ArgumentException("invalid host");
+
+            if (smtpSettings.Port < 1 || smtpSettings.Port > 65535)
+                throw new ArgumentException("expected port range 1 - 65535");
+
+            if (string.IsNullOrEmpty(smtpSettings.SenderAddress) || smtpSettings.SenderAddress.Length > 255)
+                throw new ArgumentException("invalid senderAddress");
+
+            if (!string.IsNullOrEmpty(smtpSettings.SenderDisplayName) && smtpSettings.SenderDisplayName.Length > 255)
+                throw new ArgumentException("invalid senderDisplayName");
+
+            if (smtpSettings.EnableAuth)
+            {
+                if (string.IsNullOrEmpty(smtpSettings.CredentialsUserName) || smtpSettings.CredentialsUserName.Length > 255)
+                    throw new ArgumentException("invalid credentialsUserName");
+
+                if (string.IsNullOrEmpty(smtpSettings.CredentialsUserPassword) || smtpSettings.CredentialsUserPassword.Length > 255)
+                    throw new ArgumentException("invalid credentialsUserPassword");
+            }
 
             var settingConfig = ToSmtpSettingsConfig(smtpSettings);
 

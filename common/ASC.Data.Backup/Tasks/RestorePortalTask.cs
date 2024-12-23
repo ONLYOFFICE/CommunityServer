@@ -110,23 +110,7 @@ namespace ASC.Data.Backup.Tasks
                     }
                     RestoreMailTable(dataReader);
 
-                    try
-                    {
-                        using (var dbManager = new DbManager("default", 100000))
-                        {
-                            //set new domain name in dns record
-                            dbManager.ExecuteNonQuery("update mail_server_dns set mx=(select hostname from mail_mailbox_server where id_provider=-1 limit 1)");
-
-                            dbManager.ExecuteNonQuery("update mail_mailbox set id_smtp_server = (select id from mail_mailbox_server where id_provider = -1 and type = 'smtp' limit 1), id_in_server = (select id from mail_mailbox_server where id_provider = -1 and type = 'imap' limit 1) where is_server_mailbox=1");
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
-
-                        var backupRepository = BackupStorageFactory.GetBackupRepository();
+                    var backupRepository = BackupStorageFactory.GetBackupRepository();
                     backupRepository.MigrationBackupRecords(TenantId, _columnMapper.GetTenantMapping(), ConfigPath);
                 }
 
@@ -195,6 +179,14 @@ namespace ASC.Data.Backup.Tasks
                 {
                     var restoreTask = new RestoreMailTableTask(Logger, dataReader, ConfigPath, dbconnection);
                     restoreTask.RunJob();
+                }
+
+                using (var dbManager = new DbManager("default", 100000))
+                {
+                    //set new domain name in dns record
+                    dbManager.ExecuteNonQuery("update mail_server_dns set mx=(select hostname from mail_mailbox_server where id_provider=-1 limit 1)");
+
+                    dbManager.ExecuteNonQuery("update mail_mailbox set id_smtp_server = (select id from mail_mailbox_server where id_provider = -1 and type = 'smtp' limit 1), id_in_server = (select id from mail_mailbox_server where id_provider = -1 and type = 'imap' limit 1) where is_server_mailbox=1");
                 }
             }
             catch (Exception ex)

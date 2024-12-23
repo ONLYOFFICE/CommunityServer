@@ -113,7 +113,7 @@ Novi podatki so bili uspešno uvoženi.
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Dodani ste bili v ekipo projekta: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" vas je dodal v ekipo projekta:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je dodal v ekipo projekta: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
   </data>

@@ -739,7 +739,7 @@ Más información en el "Centro de Ayuda":"${__HelpLink}".</value>
 
 Esperamos que usted disfrute usando los editores integrados de documentos ONLYOFFICE. Aquí hay algunos consejos que pueden ser útiles: 
 
-*#1. Comparta documentos* con individuos y grupos. Elija su nivel de acceso: Sólo lectura, Comentario, Relleno de formulario, Revisión o Acceso completo. Deje que otros usuarios apliquen sus propios filtros en las hojas de cálculo sin molestar a los coautores. Restrinja la descarga e impresión usando "ONLYOFFICE API":"https://api.onlyoffice.com/editors/config/document/permissions". 
+*#1. Comparta documentos* con individuos y grupos. Elija su nivel de acceso: Sólo lectura, Comentario, Relleno de formulario, Revisión o Acceso completo. Deje que otros usuarios apliquen sus propios filtros en las hojas de cálculo sin molestar a los coautores. Restrinja la descarga e impresión usando "ONLYOFFICE API":"https://api.onlyoffice.com/docs/docs-api/usage-api/config/document/permissions/". 
 
 *#2. Conozca cómo funciona el guardado de documentos* y ajústelo a sus propias necesidades. "Más información":"https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/"
 

@@ -190,19 +190,19 @@ namespace ASC.Web.CRM.Classes
                                     ? BuildFileDirectory(contactID)
                                     : (String.IsNullOrEmpty(tmpDirName) ? BuildFileTmpDirectory(contactID) : BuildFileTmpDirectory(tmpDirName));
 
-            var filesPaths = Global.GetStore().ListFilesRelative("", directoryPath, BuildFileName(contactID, photoSize) + "*", false);
+            var filesPaths = Global.GetStore().ListFilesRelative("", directoryPath, BuildFileName(contactID, photoSize) + "*", false).ToList();
 
-            if (filesPaths.Length == 0 && photoSize == _bigSize)
+            if (!filesPaths.Any() && photoSize == _bigSize)
             {
-                filesPaths = Global.GetStore().ListFilesRelative("", directoryPath, BuildFileName(contactID, _oldBigSize) + "*", false);
+                filesPaths = Global.GetStore().ListFilesRelative("", directoryPath, BuildFileName(contactID, _oldBigSize) + "*", false).ToList();
             }
 
-            if (filesPaths.Length == 0)
+            if (!filesPaths.Any())
             {
                 return String.Empty;
             }
 
-            return Path.Combine(directoryPath, filesPaths[0]);
+            return Path.Combine(directoryPath, filesPaths.First());
         }
 
         private static PhotoData FromDataStore(Size photoSize, String tmpDirName)

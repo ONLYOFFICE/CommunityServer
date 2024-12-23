@@ -99,11 +99,26 @@ namespace ASC.CRM.Core.Dao
 
         public virtual List<InvoiceItem> GetAll()
         {
-            return GetAllInDb();
+            return GetAll(0, 0);
         }
-        public virtual List<InvoiceItem> GetAllInDb()
+
+        public virtual List<InvoiceItem> GetAll(int from, int count)
         {
-            return Db.ExecuteList(GetInvoiceItemSqlQuery(null)).ConvertAll(ToInvoiceItem);
+            var sqlQuery = GetInvoiceItemSqlQuery(null);
+
+            if (0 < from && from < int.MaxValue)
+            {
+                sqlQuery.SetFirstResult(from);
+            }
+
+            if (0 < count && count < int.MaxValue)
+            {
+                sqlQuery.SetMaxResults(count);
+            }
+
+            sqlQuery.OrderBy("id", true);
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToInvoiceItem);
         }
 
         public virtual List<InvoiceItem> GetByID(int[] ids)
@@ -170,6 +185,9 @@ namespace ASC.CRM.Core.Dao
                         break;
                     case InvoiceItemSortedByType.Created:
                         sqlQuery.OrderBy("create_on", orderBy.IsAsc);
+                        break;
+                    case InvoiceItemSortedByType.Id:
+                        sqlQuery.OrderBy("id", orderBy.IsAsc);
                         break;
                     default:
                         sqlQuery.OrderBy("title", true);
