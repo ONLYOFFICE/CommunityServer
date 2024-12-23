@@ -113,7 +113,7 @@ Os novos dados foram importados com sucesso
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Você foi adicionado a Equipe do Projeto: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" o adicionou a equipe do projeto:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" o adicionou a equipe do projeto: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Você recebeu este e-mail porque é um usuário registrado do portal "${__VirtualRootPath}":"${__VirtualRootPath}". Para alterar o tipo de notificação, gerencie suas "configurações de subscrição":"$RecipientSubscriptionConfigURL".^</value>
   </data>

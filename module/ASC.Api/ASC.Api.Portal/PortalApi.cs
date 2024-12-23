@@ -1006,6 +1006,13 @@ namespace ASC.Api.Portal
                 throw new Exception(Resource.ErrorAccessDenied);
             }
 
+            var user = CoreContext.UserManager.GetUsers(tenant.OwnerId);
+
+            if (!SetupInfo.IsSecretEmail(user.Email))
+            {
+                throw new Exception(Resource.ErrorAccessDenied);
+            }
+
             CoreContext.TenantManager.RemoveTenant(tenant.TenantId);
 
             if (!string.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))

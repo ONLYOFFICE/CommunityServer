@@ -115,7 +115,7 @@ $AdditionalData.get_item("MessagePreview")
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.您已添加到項目團隊: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" 已將您添加到項目團隊:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已將您添加到項目團隊: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
   </data>

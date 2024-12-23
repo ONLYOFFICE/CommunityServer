@@ -115,7 +115,7 @@ $AdditionalData.get_item("MessagePreview")
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.あなたがプロジェクトチームに追加されました: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
   </data>

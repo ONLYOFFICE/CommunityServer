@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 
 using ASC.Common;
 using ASC.Common.Caching;
+using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
@@ -169,15 +170,27 @@ namespace ASC.Files.Thirdparty.SharePoint
             var file = GetFileById(id);
 
             if (file is SharePointFileErrorEntry) return null;
-            var fileInfo = File.OpenBinaryDirect(clientContext, (string)id);
+
+            Stream stream;
+
+            if (WorkContext.IsMono)
+            {
+                stream = OpenBinaryDirect(clientContext, (string)id);
+            }
+            else
+            {
+                var fileInfo = File.OpenBinaryDirect(clientContext, (string)id);
+                stream = fileInfo.Stream;
+            }
+
             clientContext.ExecuteQuery();
 
             var tempBuffer = TempStream.Create();
-            using (var str = fileInfo.Stream)
+            using (stream)
             {
-                if (str != null)
+                if (stream != null)
                 {
-                    str.CopyTo(tempBuffer);
+                    stream.CopyTo(tempBuffer);
                     tempBuffer.Flush();
                     tempBuffer.Seek(offset, SeekOrigin.Begin);
                 }
@@ -597,6 +610,58 @@ namespace ASC.Files.Thirdparty.SharePoint
             public string FileKey { get; set; }
 
             public string FolderKey { get; set; }
+        }
+
+        /// <summary>
+        /// Hack for Mono: ProtocolViolationException: Cannot send a content-body with this verb-type.
+        /// </summary>
+        private static Stream OpenBinaryDirect(ClientContext context, string serverRelativeUrl)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            if (context.HasPendingRequest)
+            {
+                throw new ClientRequestException(Resources.GetString("NoDirectHttpRequest"));
+            }
+
+            string requestUrl = MakeFullUrl(context, serverRelativeUrl);
+            WebRequestExecutor webRequestExecutor = context.WebRequestExecutorFactory.CreateWebRequestExecutor(context, requestUrl);
+            webRequestExecutor.RequestHeaders[HttpRequestHeader.Translate] = "f";
+            //context.FireExecutingWebRequestEventInternal(new WebRequestEventArgs(webRequestExecutor));
+            webRequestExecutor.GetRequestStream().Write(new byte[0], 0, 0);
+            //webRequestExecutor.RequestMethod = "GET";
+            webRequestExecutor.Execute();
+            if (webRequestExecutor.StatusCode != HttpStatusCode.OK)
+            {
+                throw new ClientRequestException(Resources.GetString("RequestUnexpectedResponseWithContentTypeAndStatus", webRequestExecutor.ResponseContentType, webRequestExecutor.StatusCode));
+            }
+
+            //string etag = webRequestExecutor.ResponseHeaders["ETag"];
+            // return new FileInformation(webRequestExecutor.GetResponseStream(), etag);
+            return webRequestExecutor.GetResponseStream();
+        }
+
+        private static string MakeFullUrl(ClientContext context, string serverRelativeUrl)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            if (serverRelativeUrl == null)
+            {
+                throw new ArgumentNullException("serverRelativeUrl");
+            }
+
+            if (!serverRelativeUrl.StartsWith("/"))
+            {
+                throw new ArgumentOutOfRangeException("serverRelativeUrl");
+            }
+
+            return new Uri(new Uri(context.Url), serverRelativeUrl).AbsoluteUri;
         }
     }
 }

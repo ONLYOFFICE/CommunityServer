@@ -39,11 +39,11 @@
                 <div class="host requiredField">
                     <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                     <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostName %>:</div>
-                    <input type="text" class="smtp-settings-field textEdit" value="${ host }" />
+                    <input type="text" class="smtp-settings-field textEdit" maxlength="255" value="${ host }" />
                 </div>
                 <div class="port requiredField">
                     <div class="smtp-settings-title headerPanelSmall"><%= Resource.Port %>:</div>
-                    <input type="text" class="smtp-settings-field textEdit" value="${ port }" />
+                    <input type="text" class="smtp-settings-field textEdit" maxlength="5" value="${ port }" />
                 </div>
             </div>
             <div class="smtp-settings-item">
@@ -53,14 +53,14 @@
             <div class="smtp-settings-item host-login requiredField">
                 <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                 <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostLogin %>:</div>
-                <input type="text" class="smtp-settings-field textEdit" value="${ credentialsUserName }" 
+                <input type="text" class="smtp-settings-field textEdit" maxlength="255" value="${ credentialsUserName }" 
                     {{if !enableAuth }} disabled="disabled" {{/if}}/>
             </div>
             <div class="smtp-settings-item host-password requiredField">
                 <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                 <div class="smtp-settings-title headerPanelSmall"><%= Resource.HostPassword %>:</div>
                 <input style="display:none" type="password" name="fakepasswordremembered"/>
-                <input autocomplete="off" type="password" class="smtp-settings-field textEdit" value="${ credentialsUserPassword }" 
+                <input autocomplete="off" type="password" class="smtp-settings-field textEdit" maxlength="255" value="${ credentialsUserPassword }" 
                     {{if !enableAuth }} disabled="disabled"{{else}} placeholder="**********"{{/if}} />
             </div>
             <div class="smtp-settings-item">
@@ -69,12 +69,12 @@
             </div>
             <div class="smtp-settings-item display-name">
                 <div class="smtp-settings-title"><%= Resource.SenderName %>:</div>
-                <input type="text" class="smtp-settings-field textEdit" value="${ senderDisplayName }" />
+                <input type="text" class="smtp-settings-field textEdit" maxlength="255" value="${ senderDisplayName }" />
             </div>
             <div class="smtp-settings-item email-address requiredField">
                 <span class="requiredErrorText"><%= Resource.LdapSettingsEmptyField %></span>
                 <div class="smtp-settings-title headerPanelSmall"><%= Resource.SenderEmailAddress %>:</div>
-                <input type="text" class="smtp-settings-field textEdit" value="${ senderAddress }" />
+                <input type="text" class="smtp-settings-field textEdit" maxlength="255" value="${ senderAddress }" />
             </div>
             <div class="smtp-settings-item clearFix enable-ssl">
                 <input id="customSettingsEnableSsl" type="checkbox" {{if enableSSL }} checked="checked" {{/if}} />

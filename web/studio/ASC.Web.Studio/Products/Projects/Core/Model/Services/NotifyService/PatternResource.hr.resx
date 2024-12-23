@@ -107,7 +107,7 @@ Novi podaci su uspješno uvezeni.
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Dodani ste u tim projekta: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" vas je dodao u tim projekta:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je dodao u tim projekta: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
  ^Dobili ste ovaj email jer ste registrirani korisnik "${__VirtualRootPath}":"${__VirtualRootPath}" portala. Ukoliko želite promijeniti način obavještavanja, molim promijenite postavke u "Postavke obavijesti":"$RecipientSubscriptionConfigURL".^</value>
   </data>

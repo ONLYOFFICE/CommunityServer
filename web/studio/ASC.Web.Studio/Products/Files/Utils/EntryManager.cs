@@ -973,7 +973,7 @@ namespace ASC.Web.Files.Utils
                         var path = FileConstant.NewDocPath + Thread.CurrentThread.CurrentCulture + "/";
                         if (!storeTemplate.IsDirectory(path))
                         {
-                            path = FileConstant.NewDocPath + "en-US/";
+                            path = FileConstant.NewDocPath + "default/";
                         }
                         var fileExt = currentExt != FileUtility.MasterFormExtension
                             ? FileUtility.GetInternalExtension(file.Title)

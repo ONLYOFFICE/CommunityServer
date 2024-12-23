@@ -91,7 +91,7 @@ $AdditionalData.get_item("MessagePreview")
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.คุณได้ถูกเพิ่มเข้าไปในทีมโครงการ: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มคุณเข้าทีมโครงการ:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มคุณเข้าทีมโครงการ: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
   </data>

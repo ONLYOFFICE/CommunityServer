@@ -524,7 +524,7 @@ namespace ASC.Web.Files.Services.WCFService
                     var path = FileConstant.NewDocPath + culture + "/";
                     if (!storeTemplate.IsDirectory(path))
                     {
-                        path = FileConstant.NewDocPath + "en-US/";
+                        path = FileConstant.NewDocPath + "default/";
                     }
 
                     try
@@ -1019,7 +1019,7 @@ namespace ASC.Web.Files.Services.WCFService
                         var path = FileConstant.NewDocPath + culture + "/";
                         if (!storeTemplate.IsDirectory(path))
                         {
-                            path = FileConstant.NewDocPath + "en-US/";
+                            path = FileConstant.NewDocPath + "default/";
                         }
 
                         var fileExt = FileUtility.GetFileExtension(file.Title);

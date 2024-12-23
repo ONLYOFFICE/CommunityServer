@@ -1014,7 +1014,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         }
                     }
 
-                    [DataMember(Name = "logoDark ")]
+                    [DataMember(Name = "logoDark")]
                     public string LogoDark
                     {
                         set { }

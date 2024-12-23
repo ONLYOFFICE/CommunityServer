@@ -1,5 +1,41 @@
 # Change log
 
+## Version 12.7.1
+
+### General portal changes
+
+* Fixed the issue with receiving an instance-id for AMI.
+* Made changes for requests to docbuilder using the shardkey parameter.
+* Fixed the critical issue in the AutoCleanUp service (Bug 71281).
+* Fixed the issue with missing the Comment tab in PDF files (Bug 70867).
+* Hidden buttons for creating a PDF form in the Private room.
+* Enabled SharePoint connection on UNIX systems.
+* Fixed the issue with the JWT secret during update (Bug 71036).
+* Fixed the issue with single-component installation updates (Bug 70862).
+* Fixed the issue when the POST /api/2.0/settings/customnavigation/create method allows passing an unlimited number of characters in the "label" parameter (Bug 71805).
+* Fixed passing of the logoDark parameter to the editor.
+* Fixed the ability to specify an unlimited number of characters in all SMTP parameters (Bug 71859).
+* Fixed the ability to set port to "999999999" in Workspace SMTP parameters (Bug 71860).
+* Fixed the issue when the POST /api/2.0/settings/whitelabel/save method allows passing an unlimited number of characters to the "logoText" string in Workspace (Bug 71857).
+* Fixed the issue with the unlimited length of the share link name and password (Bug 71862).
+* Fixed the error from log ( ERROR ASC.Api.ApiSetup - method error: http://127.0.0.1/api/2.0/project/securityinfo.json - Server error System.Web.HttpException (0x80004005): Forbidden ).
+* Fixed the error from log ( ERROR ASC.Api.ApiSetup - method error: https://127.0.0.1/api/2.0/settings/security.json - Server error ASC.Common.Security.Authorizing.AuthorizingException: "[username]" access denied "Edit Portal Settings" ) (Bug 71913).
+* Added deletion of the synchronization client in case of a critical error in ImapSync (to allow reconnection).
+* Fixed the issue when the bottom part of the title in the event and task viewing window is cut off (Bug 47353).
+* Fixed the issue with configuring Windows feature (Bug 71923).
+* Fixed duplicate Downloading text in the prerequisites installation UI.
+* Fixed the issue when Google connection as a Storage is not available on Linux distributions (Bug 72205).
+
+### Documents module
+
+* When creating a new document, a template with the Letter page format will be taken for the en-US language. For languages ​​without templates, a document with the A4 page format will be taken.
+* Added empty file templates for creation in the following languages: fi-FI, he-IL, nb-NO, sl-SI.
+* Starting documents now have titles in the corresponding language.
+
+### Control Panel
+
+* Fixed the issue when the /controlpanel/https page crashes with the 502 error after restarting the container. (Bug 71794).
+
 ## Version 12.7.0
 
 ### General portal changes
@@ -59,6 +95,11 @@
 * Fixed the issue with a timeout expected when entering an incorrect login/password for the mail/gmail mailbox. (Bug 68740).
 * Fixed the issue when marking a To-do task as completed or uncompleted changes its start time (DTSTART label). (Bug 68970).
 * Fixed the issue with missing logos of the social network (X) Twitter in the dark theme of the portal. (Bug 70457).
+* Fixed the issue when the backup file created in the server version for Windows is not supported for importing to DocSpace (Bug 70558).
+* Fixed the issue when there is no possibility to connect Google as a storage in the server version for Windows (Bug 70557).
+* Fixed the issue when most of the ONLYOFFICE services do not start after updating RPM packages. (Bug 70583).
+* Fixed the issue when the installation on Ubuntu 20.04 / Debian 11 fails with the error "error: metadata-generation-failed" (Bug 70596).
+* Fixed the issue when the Full-text Search section content is not loaded  with the error "500 (Internal Server Error)" (Bug 70556).
 
 ### Documents module
 

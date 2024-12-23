@@ -486,7 +486,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             var path = FileConstant.NewDocPath + culture + "/";
             if (!storeTemplate.IsDirectory(path))
             {
-                path = FileConstant.NewDocPath + "en-US/";
+                path = FileConstant.NewDocPath + "default/";
             }
             var ext = FileUtility.InternalExtension[FileUtility.GetFileTypeByFileName(fileName)];
             path += "new" + ext;

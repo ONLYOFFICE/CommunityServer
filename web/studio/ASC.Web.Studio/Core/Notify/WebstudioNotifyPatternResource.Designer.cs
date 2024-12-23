@@ -1304,9 +1304,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///We hope you enjoy using integrated ONLYOFFICE document editors. Here are some tips that might be useful: 
         ///
-        ///*#1. Share documents* to individuals and groups. Choose their access level - Read Only, Comment, Form Filling, Review or Full Access. Let other users apply their own filters in spreadsheets without disturbing co-authors. Restrict downloading and printing using &quot;ONLYOFFICE API&quot;:&quot;https://api.onlyoffice.com/editors/config/document/permissions&quot;. 
+        ///*#1. Share documents* to individuals and groups. Choose their access level - Read Only, Comment, Form Filling, Review or Full Access. Let other users apply their own filters in spreadsheets without disturbing co-authors. Restrict downloading and printing using &quot;ONLYOFFICE API&quot;:&quot;https://api.onlyoffice.com/docs/docs-api/usage-api/config/document/permissions/&quot;. 
         ///
-        ///*#2. Learn how document saving wor [rest of string was truncated]&quot;;.
+        ///*#2. Learn how do [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_opensource_admin_docs_tips_v11 {
             get {

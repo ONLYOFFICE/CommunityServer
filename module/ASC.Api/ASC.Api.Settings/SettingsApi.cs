@@ -797,6 +797,9 @@ namespace ASC.Api.Settings
 
             DemandWhiteLabelPermission();
 
+            if (!string.IsNullOrEmpty(logoText) && logoText.Length > 30)
+                throw new ArgumentException("invalid logoText");
+
             if (isDefault)
             {
                 DemandRebrandingPermission();
@@ -1841,6 +1844,21 @@ namespace ASC.Api.Settings
         public CustomNavigationItem CreateCustomNavigationItem(CustomNavigationItem item)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (item == null)
+                throw new ArgumentNullException();
+
+            if (string.IsNullOrEmpty(item.Label))
+                throw new ArgumentNullException("label");
+
+            if (item.Label.Length > 25)
+                throw new ArgumentException(@"Label exceed limitation of 25 characters.", "label");
+
+            if (string.IsNullOrEmpty(item.Url))
+                throw new ArgumentNullException("url");
+
+            if (item.Url.Length > 255)
+                throw new ArgumentException(@"Url exceed limitation of 255 characters.", "url");
 
             var settings = CustomNavigationSettings.Load();
 

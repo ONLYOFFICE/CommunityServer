@@ -130,7 +130,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     scriptUrl = PathProvider.GetTempUrl(stream, ".docbuilder");
                 }
                 scriptUrl = ReplaceCommunityAdress(scriptUrl);
-                requestKey = null;
+                requestKey = scriptUrl;
             }
 
             Global.Logger.DebugFormat("DocService builder requestKey {0} async {1}", requestKey, isAsync);

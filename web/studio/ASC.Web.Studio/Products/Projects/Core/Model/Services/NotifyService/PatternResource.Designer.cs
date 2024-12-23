@@ -133,9 +133,9 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         /// <summary>
         ///   Looks up a localized string similar to h1.You have been added to the project team: &quot;$ProjectTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&quot; 
         ///
-        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has added you to the team of the project:[&quot;$ProjectTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&quot;] 
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has added you to the team of the project: [&quot;$ProjectTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&quot;] 
         ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscription settings&quot;:&quot;$Recip [rest of string was truncated]&quot;;.
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscription settings&quot;:&quot;$Reci [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_InviteToProject {
             get {

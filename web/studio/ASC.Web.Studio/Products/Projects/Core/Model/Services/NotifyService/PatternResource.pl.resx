@@ -115,7 +115,7 @@ Adres twojego portalu: "$__VirtualRootPath":"$__VirtualRootPath"
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Zostałeś dodany do ekipy projektu: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime: Użytkownik "$__AuthorName":"$__AuthorUrl" dodał cię do ekipy projektu:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime: Użytkownik "$__AuthorName":"$__AuthorUrl" dodał cię do ekipy projektu: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Otrzymujesz tę wiadomość, ponieważ jesteś zarejestrowanym użytkownikiem portalu "${__VirtualRootPath}":"${__VirtualRootPath}". By zmienić rodzaj powiadomienia, przejdź do "ustawień subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
   </data>

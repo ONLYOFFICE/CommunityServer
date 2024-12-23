@@ -758,7 +758,7 @@ Traduzido com a versão gratuita do tradutor - www.DeepL.com/Translator</value>
 
 Esperamos que você goste de utilizar editores integrados de documentos ONLYOFFICE. Aqui estão algumas dicas que podem ser úteis: 
 
-*#1. Compartilhar documentos* para indivíduos e grupos. Escolha seu nível de acesso - Read Only, Comment, Form Filling, Review ou Full Access. Deixe que outros usuários apliquem seus próprios filtros em planilhas sem perturbar os co-autores. Restringir download e impressão usando "ONLYOFFICE API": "https://api.onlyoffice.com/editors/config/document/permissions". 
+*#1. Compartilhar documentos* para indivíduos e grupos. Escolha seu nível de acesso - Read Only, Comment, Form Filling, Review ou Full Access. Deixe que outros usuários apliquem seus próprios filtros em planilhas sem perturbar os co-autores. Restringir download e impressão usando "ONLYOFFICE API": "https://api.onlyoffice.com/docs/docs-api/usage-api/config/document/permissions/". 
 
 *#2. Saiba como funciona a economia de documentos* e ajuste-a às suas próprias necessidades. "Saiba mais": "https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/".
 

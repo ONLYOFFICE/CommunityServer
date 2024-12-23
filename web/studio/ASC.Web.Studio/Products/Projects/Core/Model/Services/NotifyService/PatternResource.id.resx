@@ -105,7 +105,7 @@ Data baru telah berhasil diimpor.
   <data name="pattern_InviteToProject" xml:space="preserve">
     <value>h1.Anda Telah Ditambahkan ke Tim Proyek: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan Anda ke dalam tim proyek:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan Anda ke dalam tim proyek: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
 
 ^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
   </data>

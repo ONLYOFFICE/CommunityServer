@@ -26,6 +26,9 @@ window.ASC.Files.CreateMenu = (function () {
         jq.dropdownToggle({
             switcherSelector: "#menuCreateNewButton:not(.disable)",
             dropdownID: "newDocumentPanel",
+            beforeShowFunction: function () {
+                jq("#createMasterFormPointer").parent().toggleClass("display-none", ASC.Files.Folders.folderContainer == "privacy");
+            },
             inPopup: true,
             addTop: 4
         });

@@ -734,7 +734,7 @@ namespace ASC.Web.Files
                 var fileExtension = FileUtility.GetInternalExtension(toExtension);
                 fileName = "new" + fileExtension;
                 var path = FileConstant.NewDocPath
-                           + (CoreContext.Configuration.CustomMode ? "ru-RU/" : "en-US/")
+                           + (CoreContext.Configuration.CustomMode ? "ru-RU/" : "default/")
                            + fileName;
 
                 var storeTemplate = Global.GetStoreTemplate();
@@ -1090,7 +1090,7 @@ namespace ASC.Web.Files
 
             var templatePath = FileConstant.NewDocPath + lang + "/";
             if (!storeTemplate.IsDirectory(templatePath))
-                templatePath = FileConstant.NewDocPath + "en-US/";
+                templatePath = FileConstant.NewDocPath + "default/";
             templatePath += templateName;
 
             if (string.IsNullOrEmpty(fileTitle))
