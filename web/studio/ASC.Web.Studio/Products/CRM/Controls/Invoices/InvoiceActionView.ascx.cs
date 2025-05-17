@@ -33,6 +33,7 @@ using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 using Autofac;

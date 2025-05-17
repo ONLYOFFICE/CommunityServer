@@ -18,6 +18,7 @@
 using System;
 
 using ASC.Core;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio

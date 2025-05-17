@@ -18,7 +18,6 @@
 using System;
 using System.Globalization;
 using System.Runtime.Serialization;
-
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.UserControls.Management

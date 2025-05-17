@@ -1,23 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D88D20AA-55B4-480B-A320-29A69FB6B150}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Feed.Aggregator</RootNamespace>
-    <AssemblyName>ASC.Feed.Aggregator</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -34,59 +19,16 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.Feed.Aggregator.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Config\FeedConfigurationSection.cs" />
-    <Compile Include="FeedAggregatorService.cs" />
-    <Compile Include="FeedAggregatorLauncher.cs" />
-    <Compile Include="HealthCheckService.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="Modules\Community\BlogsModule.cs" />
-    <Compile Include="Modules\Community\BookmarksModule.cs" />
-    <Compile Include="Modules\Community\ForumTopicsModule.cs" />
-    <Compile Include="Modules\Community\ForumPostsModule.cs" />
-    <Compile Include="Modules\Community\EventsModule.cs" />
-    <Compile Include="Modules\Documents\DocumentsDbHelper.cs" />
-    <Compile Include="Modules\FeedModule.cs" />
-    <Compile Include="Modules\CRM\CasesModule.cs" />
-    <Compile Include="Modules\CRM\ContactsModule.cs" />
-    <Compile Include="Modules\CRM\CrmTasksModule.cs" />
-    <Compile Include="Modules\CRM\DealsModule.cs" />
-    <Compile Include="Modules\Documents\FilesModule.cs" />
-    <Compile Include="Modules\Documents\FoldersModule.cs" />
-    <Compile Include="Modules\ModulesHelper.cs" />
-    <Compile Include="Modules\People\BirthdaysModule.cs" />
-    <Compile Include="Modules\People\NewEmployeeModule.cs" />
-    <Compile Include="Modules\Projects\DiscussionsModule.cs" />
-    <Compile Include="Modules\Projects\MilestonesModule.cs" />
-    <Compile Include="Modules\Projects\TasksModule.cs" />
-    <Compile Include="Modules\Projects\ParticipantsModule.cs" />
-    <Compile Include="Modules\IFeedModule.cs" />
-    <Compile Include="Modules\Projects\ProjectsModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -100,42 +42,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\ASC.Web.Community.csproj">
-      <Project>{11ba9805-752f-4f6f-a876-6ba56f0eb9de}</Project>
-      <Name>ASC.Web.Community</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
-      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
-      <Name>ASC.Web.CRM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
-      <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
-      <Name>ASC.Web.Projects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Feed\ASC.Feed.csproj">
-      <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
-      <Name>ASC.Feed</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\ASC.Web.Community.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj" />
+    <ProjectReference Include="..\ASC.Feed\ASC.Feed.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
@@ -145,5 +60,4 @@
   <ItemGroup>
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

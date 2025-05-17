@@ -27,9 +27,9 @@ using ASC.Web.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility;
 using ASC.Web.People.Resources;
-using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 

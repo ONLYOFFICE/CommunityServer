@@ -19,7 +19,7 @@ using System;
 
 using ASC.Core.Tenants;
 using ASC.Projects.Core.Domain.Reports;
-
+using ASC.Web.Studio.Core;
 using Report = ASC.Web.Projects.Classes.Report;
 
 namespace ASC.Web.Projects.Controls.Reports

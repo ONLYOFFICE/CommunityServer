@@ -17,7 +17,6 @@
 
 using System;
 using System.Text;
-using System.Web;
 
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
@@ -25,8 +24,8 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
-using ASC.Web.Studio;
-
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using Global = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Web.Files

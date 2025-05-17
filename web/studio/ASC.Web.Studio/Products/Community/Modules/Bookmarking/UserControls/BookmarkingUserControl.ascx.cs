@@ -37,6 +37,7 @@ using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common;

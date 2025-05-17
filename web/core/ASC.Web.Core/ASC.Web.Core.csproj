@@ -1,25 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{02C40A64-FE22-41D0-9037-69F0D6F787A9}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.Core</RootNamespace>
-    <AssemblyName>ASC.Web.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -37,172 +20,32 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <WebGreaseLibPath>..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <OutputPath>$(TrunkDir)web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\studio\ASC.Web.Studio\bin\ASC.Web.Core.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
-    <Compile Include="AddonContext.cs" />
-    <Compile Include="BasePage.cs">
+    <Compile Update="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Calendars\BaseCalendar.cs" />
-    <Compile Include="Calendars\BaseEvent.cs" />
-    <Compile Include="Calendars\CalendarColors.cs" />
-    <Compile Include="Calendars\CalendarManager.cs" />
-    <Compile Include="Calendars\BaseTodo.cs" />
-    <Compile Include="Calendars\ITodo.cs" />
-    <Compile Include="Calendars\IEvent.cs" />
-    <Compile Include="Calendars\IExternalCalendar.cs" />
-    <Compile Include="Calendars\IiCalFormatView.cs" />
-    <Compile Include="Calendars\RecurrenceRule.cs" />
-    <Compile Include="Calendars\SharingOptions.cs" />
-    <Compile Include="BruteForceLoginManager.cs" />
-    <Compile Include="Client\Bundling\BundleConfig.cs" />
-    <Compile Include="Client\Bundling\ClientScriptRouteHandler.cs" />
-    <Compile Include="Client\Bundling\CopyrigthTransform.cs" />
-    <Compile Include="Client\Bundling\CloudFrontTransform.cs" />
-    <Compile Include="Client\Bundling\DiscTransform.cs" />
-    <Compile Include="Client\Bundling\GoogleCloudStorageTransform.cs" />
-    <Compile Include="Client\Bundling\IStaticBundle.cs" />
-    <Compile Include="Client\Bundling\NullOrderer.cs" />
-    <Compile Include="Client\Bundling\JsTransform.cs" />
-    <Compile Include="Client\Bundling\CssTransform.cs" />
-    <Compile Include="Client\Bundling\RackspaceCloudStorageTransform.cs" />
-    <Compile Include="Client\Bundling\ResourceBundleControl.cs">
+    <Compile Update="Client\Bundling\ResourceBundleControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Client\Bundling\BundleHelper.cs" />
-    <Compile Include="Client\Bundling\SelectelStorageTransform.cs" />
-    <Compile Include="Client\Bundling\StorageTransform.cs" />
-    <Compile Include="Client\ClientSettings.cs" />
-    <Compile Include="Client\HttpHandlers\ClientScriptLocalization.cs" />
-    <Compile Include="Client\Bundling\ClientScriptReference.cs" />
-    <Compile Include="Client\HttpHandlers\ClientScriptCustom.cs" />
-    <Compile Include="Extensions\TimeZoneExtension.cs" />
-    <Compile Include="Files\DocumentServiceLicense.cs" />
-    <Compile Include="Files\ThumbnailBuilderServiceClient.cs" />
-    <Compile Include="Files\IThumbnailBuilderService.cs" />
-    <Compile Include="Helpers\ApiSystemHelper.cs" />
-    <Compile Include="Jabber\FireBase.cs" />
-    <Compile Include="Mail\MailServiceHelper.cs" />
-    <Compile Include="WebItemStoreValidator.cs" />
-    <Compile Include="Sms\SmsKeyStorage.cs" />
-    <Compile Include="Sms\SmsProvider.cs" />
-    <Compile Include="Sms\SmsSender.cs" />
-    <Compile Include="Users\UserPhotoThumbnailSettings.cs" />
-    <Compile Include="Users\UserPhotoThumbnailManager.cs" />
-    <Compile Include="Utility\ModeThemeSettings.cs" />
-    <Compile Include="Utility\ImpersonationSettings.cs" />
-    <Compile Include="Utility\PasswordSettings.cs" />
-    <Compile Include="Utility\LoginSettings.cs" />
-    <Compile Include="Utility\UrlShortener.cs" />
-    <Compile Include="WarmupPage.cs">
+    <Compile Update="WarmupPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WhiteLabel\AdditionalWhiteLabelSettings.cs" />
-    <Compile Include="WhiteLabel\CompanyWhiteLabelSettings.cs" />
-    <Compile Include="WhiteLabel\MailWhiteLabelSettings.cs" />
-    <Compile Include="Utility\Settings\WizardSettings.cs" />
-    <Compile Include="WhiteLabel\WhiteLabelLogoTypeEnum.cs" />
-    <Compile Include="WhiteLabel\TenantWhiteLabelSettings.cs" />
-    <Compile Include="WhiteLabel\TenantInfoSettings.cs" />
-    <Compile Include="WhiteLabel\TenantLogoManager.cs" />
-    <Compile Include="CookiesManager.cs" />
-    <Compile Include="Client\HttpHandlers\ClientScript.cs" />
-    <Compile Include="Files\ContentDispositionUtil.cs" />
-    <Compile Include="Files\DocumentService.cs" />
-    <Compile Include="Files\FilesLinkUtility.cs" />
-    <Compile Include="Files\FileType.cs" />
-    <Compile Include="Files\FileUtility.cs" />
-    <Compile Include="Jabber\JabberServiceClient.cs" />
-    <Compile Include="Mobile\CachedMobileAppInstallRegistrator.cs" />
-    <Compile Include="Mobile\IMobileAppInstallRegistrator.cs" />
-    <Compile Include="Mobile\MobileAppInstallRegistrator.cs" />
-    <Compile Include="CommonPhotoManager.cs" />
-    <Compile Include="Security\SecurityPassthroughAttribute.cs" />
-    <Compile Include="Users\UserHelpTourSettings.cs">
-    </Compile>
-    <Compile Include="Utility\Settings\TenantAccessSettings.cs" />
-    <Compile Include="WebItemSecurityInfo.cs" />
-    <Compile Include="Extensions\WebItemExtension.cs" />
-    <Compile Include="Helpers\AuthorizationHelper.cs" />
-    <Compile Include="IAddon.cs" />
-    <Compile Include="Extensions\EnumExtension.cs" />
-    <Compile Include="Extensions\ProductModuleExtension.cs" />
-    <Compile Include="Extensions\UserInfoExtension.cs" />
-    <Compile Include="Helpers\GrammaticalHelper.cs" />
-    <Compile Include="Helpers\ImageHelpers.cs" />
-    <Compile Include="Helpers\ResourceEnumConverter.cs" />
-    <Compile Include="IWebItem.cs" />
-    <Compile Include="Mobile\MobileDetector.cs" />
-    <Compile Include="ModuleContext.cs" />
-    <Compile Include="IModule.cs" />
-    <Compile Include="IProduct.cs" />
-    <Compile Include="ModuleManagement\Common\ISearchHandler.cs" />
-    <Compile Include="ModuleManagement\Common\IShortcutProvider.cs" />
-    <Compile Include="ModuleManagement\Module.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="Security\SecurityAttribute.cs" />
-    <Compile Include="SpaceUsageStatManager.cs" />
-    <Compile Include="Subscriptions\IProductSubscriptionManager.cs" />
-    <Compile Include="Subscriptions\ISubscriptionManager.cs" />
-    <Compile Include="Subscriptions\SubscriptionGroup.cs" />
-    <Compile Include="Subscriptions\SubscriptionObject.cs" />
-    <Compile Include="Subscriptions\SubscriptionType.cs" />
-    <Compile Include="Users\DisplayUserSettings.cs" />
-    <Compile Include="Users\Import\IUserImporter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Users\Import\OutlookCSVUserImporter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Users\Import\TextFileUserImporter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Users\UserInfoComparer.cs" />
-    <Compile Include="Users\UserPhotoManager.cs" />
-    <Compile Include="Users\UserSortOrder.cs" />
-    <Compile Include="Utility\CommonLinkUtility.cs" />
-    <Compile Include="Utility\IFileUploadHandler.cs" />
-    <Compile Include="Utility\SearchHandlerManager.cs" />
-    <Compile Include="Utility\Settings\WebItemSettings.cs" />
-    <Compile Include="Utility\Skins\ImageOptions.cs" />
-    <Compile Include="Utility\Skins\WebSkinSettings.cs" />
-    <Compile Include="Utility\Skins\WebImageSupplier.cs" />
-    <Compile Include="Utility\TenantProvider.cs" />
-    <Compile Include="Utility\UrlSwitcher.cs" />
-    <Compile Include="Utility\ColorThemesSettings.cs" />
-    <Compile Include="WebItemContext.cs" />
-    <Compile Include="NavigationWebItem.cs" />
-    <Compile Include="WebItemManager.cs" />
-    <Compile Include="WebItemSecurity.cs" />
-    <Compile Include="ProductAttribute.cs" />
-    <Compile Include="ProductContext.cs" />
-    <Compile Include="WebZones\IRenderCustomNavigation.cs" />
-    <Compile Include="WebZones\WebZoneAttribute.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -217,33 +60,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
-      <Project>{BD8A18A5-60C5-4411-9719-0AA11B4BE0E9}</Project>
-      <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
-      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
-      <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
-      <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
-      <Name>ASC.VoipService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj" />
+    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj" />
+    <ProjectReference Include="..\..\..\module\ASC.VoipService\ASC.VoipService.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AjaxPro.2">
@@ -271,7 +93,9 @@
       <Version>5.69.0</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Remove="Client\ClientCapabilities.cs" />
+  </ItemGroup>
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
       <ReferencePath Condition="'%(FileName)' == 'WebGrease'">

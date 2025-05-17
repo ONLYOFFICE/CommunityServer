@@ -33,6 +33,7 @@ using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Core;
 using ASC.Web.People.Resources;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
 

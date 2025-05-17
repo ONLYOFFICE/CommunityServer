@@ -16,13 +16,13 @@
 
 
 using System;
-using System.Web;
 
 using ASC.Core;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.News.Code.Module;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Community.News
 {

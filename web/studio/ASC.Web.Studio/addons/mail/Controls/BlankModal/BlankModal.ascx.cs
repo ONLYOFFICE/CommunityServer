@@ -16,10 +16,10 @@
 
 
 using System;
-using System.Web;
 
 using ASC.Core;
 using ASC.Web.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Mail.Controls
 {

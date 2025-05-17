@@ -19,7 +19,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Web;
-
 using ASC.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility;
@@ -27,7 +26,7 @@ using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 
-namespace ASC.Web.Studio.UserControls.WhiteLabel
+namespace ASC.Web.Studio.UserControls.Management.WhiteLabel
 {
     internal class LogoUploader : IFileUploadHandler
     {

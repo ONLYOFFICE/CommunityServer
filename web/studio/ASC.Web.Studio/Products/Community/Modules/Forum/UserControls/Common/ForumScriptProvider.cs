@@ -17,10 +17,10 @@
 
 using System;
 using System.Text;
-using System.Web;
 using System.Web.UI;
 
 using ASC.Web.Community.Modules.Forum.UserControls.Resources;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.UserControls.Forum.Common
 {

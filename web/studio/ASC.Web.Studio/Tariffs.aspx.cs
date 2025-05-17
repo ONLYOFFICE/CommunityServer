@@ -22,6 +22,7 @@ using System.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Web.Core.Files;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;

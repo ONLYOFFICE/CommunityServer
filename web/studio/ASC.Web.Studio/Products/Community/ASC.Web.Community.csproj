@@ -1,730 +1,536 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{11BA9805-752F-4F6F-A876-6BA56F0EB9DE}</ProjectGuid>
+	  <TargetFramework>net48</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.Community</RootNamespace>
-    <AssemblyName>ASC.Web.Community</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\..\..\</TrunkDir>
     <OutputPath>$(TrunkDir)\web\studio\ASC.Web.Studio\bin\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkProfile />
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\bin\ASC.Web.Community.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  
   <ItemGroup>
-    <Compile Include="Controls\ButtonSidePanel.ascx.cs">
+    <Compile Update="Controls\ButtonSidePanel.ascx.cs">
       <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ButtonSidePanel.ascx.designer.cs">
+    <Compile Update="Controls\ButtonSidePanel.ascx.designer.cs">
       <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NavigationSidePanel.ascx.cs">
+    <Compile Update="Controls\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\NavigationSidePanel.ascx.designer.cs">
+    <Compile Update="Controls\NavigationSidePanel.ascx.designer.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
+    <Compile Update="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
+    <Compile Update="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Help.aspx.cs">
+    <Compile Update="Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Help.aspx.designer.cs">
+    <Compile Update="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\ThumbHandler.cs" />
-    <Compile Include="Master\ClientScripts\ClientLocalizationResources.cs" />
-    <Compile Include="Master\ClientScripts\ClientTemplateResources.cs" />
-    <Compile Include="Master\Community.Master.cs">
+    <Compile Update="Master\Community.Master.cs">
       <DependentUpon>Community.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Master\Community.Master.designer.cs">
+    <Compile Update="Master\Community.Master.designer.cs">
       <DependentUpon>Community.Master</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Blogs\AddBlog.aspx.cs">
+    <Compile Update="Modules\Blogs\AddBlog.aspx.cs">
       <DependentUpon>AddBlog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\AddBlog.aspx.designer.cs">
+    <Compile Update="Modules\Blogs\AddBlog.aspx.designer.cs">
       <DependentUpon>AddBlog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Blogs\Common\BlogsModule.cs" />
-    <Compile Include="Modules\Blogs\Common\BlogsSearchHandler.cs" />
-    <Compile Include="Modules\Blogs\Common\BlogsShortcutProvider.cs" />
-    <Compile Include="Modules\Blogs\Common\BlogsSubscriptionManager.cs" />
-    <Compile Include="Modules\Blogs\Common\Subscriber.cs" />
-    <Compile Include="Modules\Blogs\Core\BlogsEngine.cs" />
-    <Compile Include="Modules\Blogs\Core\BlogsSettings.cs" />
-    <Compile Include="Modules\Blogs\Core\Constants.cs" />
-    <Compile Include="Modules\Blogs\Core\Data\BlogsStorage.cs" />
-    <Compile Include="Modules\Blogs\Core\Data\DbDao.cs" />
-    <Compile Include="Modules\Blogs\Core\Data\DbPostDao.cs" />
-    <Compile Include="Modules\Blogs\Core\Data\IBlogDao.cs" />
-    <Compile Include="Modules\Blogs\Core\Data\Map.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\Blog.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\BlogInfo.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\Comment.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\Post.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\Rating.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\ReviewPost.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\Settings.cs" />
-    <Compile Include="Modules\Blogs\Core\Domain\Tag.cs" />
-    <Compile Include="Modules\Blogs\Core\Helpers\SubscriptionNotitySenders.cs" />
-    <Compile Include="Modules\Blogs\Core\Security\CorporateBlogSecObject.cs" />
-    <Compile Include="Modules\Blogs\Core\Security\PersonalBlogSecObject.cs" />
-    <Compile Include="Modules\Blogs\Core\Service\BlogNotifySource.cs" />
-    <Compile Include="Modules\Blogs\Default.aspx.cs">
+    <Compile Update="Modules\Blogs\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\Default.aspx.designer.cs">
+    <Compile Update="Modules\Blogs\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Blogs\EditBlog.aspx.cs">
+    <Compile Update="Modules\Blogs\EditBlog.aspx.cs">
       <DependentUpon>EditBlog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\EditBlog.aspx.designer.cs">
+    <Compile Update="Modules\Blogs\EditBlog.aspx.designer.cs">
       <DependentUpon>EditBlog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Blogs\PageControllers\BasePage.cs">
+    <Compile Update="Modules\Blogs\PageControllers\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\PageControllers\BaseUserControl.cs">
+    <Compile Update="Modules\Blogs\PageControllers\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\ViewBlog.aspx.cs">
+    <Compile Update="Modules\Blogs\ViewBlog.aspx.cs">
       <DependentUpon>ViewBlog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\ViewBlog.aspx.designer.cs">
+    <Compile Update="Modules\Blogs\ViewBlog.aspx.designer.cs">
       <DependentUpon>ViewBlog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Blogs\Views\ViewBlogView.ascx.cs">
+    <Compile Update="Modules\Blogs\Views\ViewBlogView.ascx.cs">
       <DependentUpon>ViewBlogView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Blogs\Views\ViewBlogView.ascx.designer.cs">
+    <Compile Update="Modules\Blogs\Views\ViewBlogView.ascx.designer.cs">
       <DependentUpon>ViewBlogView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\BookmarkInfo.aspx.cs">
+    <Compile Update="Modules\Bookmarking\BookmarkInfo.aspx.cs">
       <DependentUpon>BookmarkInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\BookmarkInfo.aspx.designer.cs">
+    <Compile Update="Modules\Bookmarking\BookmarkInfo.aspx.designer.cs">
       <DependentUpon>BookmarkInfo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\BookmarkingCommunityConstants.cs" />
-    <Compile Include="Modules\Bookmarking\BookmarkingModule.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\BookmarkingService.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\IBookmarkingService.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\Permissions\BookmarkingPermissionsCheck.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\Permissions\BookmarkPermissionSecurityObject.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkingNotifyClient.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkingNotifySource.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkingSubscriptionManager.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkSubscriptionConstants.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Common\BookmarkingBusinessConstants.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Common\BookmarkingBusinessFactory.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Common\BookmarkingSessionObject.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Common\Util\BookmarkingBusinessUtil.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Common\Util\Converters.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Dao\BookmarkingHibernateDao.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Dao\BookmarkingHibernateDaoHelper.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Pojo\Bookmark.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Pojo\BookmarkTag.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Pojo\Comment.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Pojo\Tag.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Pojo\UserBookmark.cs" />
-    <Compile Include="Modules\Bookmarking\Core\Pojo\UserBookmarkTag.cs" />
-    <Compile Include="Modules\Bookmarking\CreateBookmark.aspx.cs">
+    <Compile Update="Modules\Bookmarking\CreateBookmark.aspx.cs">
       <DependentUpon>CreateBookmark.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\CreateBookmark.aspx.designer.cs">
+    <Compile Update="Modules\Bookmarking\CreateBookmark.aspx.designer.cs">
       <DependentUpon>CreateBookmark.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\Default.aspx.cs">
+    <Compile Update="Modules\Bookmarking\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\Default.aspx.designer.cs">
+    <Compile Update="Modules\Bookmarking\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\FavouriteBookmarks.aspx.cs">
+    <Compile Update="Modules\Bookmarking\FavouriteBookmarks.aspx.cs">
       <DependentUpon>FavouriteBookmarks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\FavouriteBookmarks.aspx.designer.cs">
+    <Compile Update="Modules\Bookmarking\FavouriteBookmarks.aspx.designer.cs">
       <DependentUpon>FavouriteBookmarks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.Designer.cs">
+    <Compile Update="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookmarkingSubscriptionPatterns.resx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserBookmarks.aspx.cs">
+    <Compile Update="Modules\Bookmarking\UserBookmarks.aspx.cs">
       <DependentUpon>UserBookmarks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserBookmarks.aspx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserBookmarks.aspx.designer.cs">
       <DependentUpon>UserBookmarks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx.cs">
       <DependentUpon>BookmarkAddedByUserContorl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx.designer.cs">
       <DependentUpon>BookmarkAddedByUserContorl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx.cs">
       <DependentUpon>BookmarkHeaderPageControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx.designer.cs">
       <DependentUpon>BookmarkHeaderPageControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx.cs">
       <DependentUpon>BookmarkInfoUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx.designer.cs">
       <DependentUpon>BookmarkInfoUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx.cs">
       <DependentUpon>BookmarkingRemoverFromFavouritePopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx.designer.cs">
       <DependentUpon>BookmarkingRemoverFromFavouritePopup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx.cs">
       <DependentUpon>BookmarkingUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx.designer.cs">
       <DependentUpon>BookmarkingUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx.cs">
       <DependentUpon>BookmarkRaitingUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx.designer.cs">
       <DependentUpon>BookmarkRaitingUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\CommentsUserControl.ascx.cs">
       <DependentUpon>CommentsUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\CommentsUserControl.ascx.designer.cs">
       <DependentUpon>CommentsUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\Common\ActionButton\ActionButton.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\BookmarkingSettings.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\BookmarkUserControlPath.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkDisplayMode.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkInfoBase.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkInfoBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkingRequestConstants.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkingServiceHelper.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\SortParam.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\TagMenuItemControl.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Search\BookmarkingSearchHandler.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\BookmarkingConverter.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\BookmarkingSortUtil.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\BookmarkingThumbnailSize.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\IThumbnailHelper.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\SortByEnum.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\WebSiteThumbnailHelper.cs" />
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx.cs">
       <DependentUpon>BookmarkingPagingUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx.designer.cs">
       <DependentUpon>BookmarkingPagingUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.cs">
       <DependentUpon>CreateBookmarkUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.designer.cs">
       <DependentUpon>CreateBookmarkUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\Default.aspx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\Default.aspx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.cs">
       <DependentUpon>SingleBookmarkUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.designer.cs">
       <DependentUpon>SingleBookmarkUserControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\Util\BookmarkingBasePage.cs">
+    <Compile Update="Modules\Bookmarking\Util\BookmarkingBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Bookmarking\Util\BookmarkingNavigationItem.cs" />
-    <Compile Include="Modules\Forum\Common\ForumManager.cs" />
-    <Compile Include="Modules\Forum\Common\ForumModule.cs" />
-    <Compile Include="Modules\Forum\Common\ForumSearchHandler.cs" />
-    <Compile Include="Modules\Forum\Common\ForumShortcutProvider.cs" />
-    <Compile Include="Modules\Forum\Common\ForumSubscriptionManager.cs" />
-    <Compile Include="Modules\Forum\Common\Subscriber.cs" />
-    <Compile Include="Modules\Forum\Core\Dao\ForumDataProvider.cs" />
-    <Compile Include="Modules\Forum\Core\HelpClasses\ForumPresenterFactory.cs" />
-    <Compile Include="Modules\Forum\Core\HelpClasses\ForumPresenterSettings.cs" />
-    <Compile Include="Modules\Forum\Core\HelpClasses\Interfaces.cs" />
-    <Compile Include="Modules\Forum\Core\HelpClasses\PresenterTemplate.cs" />
-    <Compile Include="Modules\Forum\Core\HelpClasses\UserKeys.cs" />
-    <Compile Include="Modules\Forum\Core\Module\Constants.cs" />
-    <Compile Include="Modules\Forum\Core\Module\ForumNotifySource.cs" />
-    <Compile Include="Modules\Forum\Core\Presenters\NotifierPresenter.cs" />
-    <Compile Include="Modules\Forum\Core\Presenters\SecurityActionPresenter.cs" />
-    <Compile Include="Modules\Forum\Core\Presenters\SubscriberPresenter.cs" />
-    <Compile Include="Modules\Forum\Core\Presenters\SubscriptionGetcherPresenter.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\AnswerVariant.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\Attachment.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\ForumAction.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\NotFoundUser.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\Post.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\Question.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\SubscriptionConstants.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\Tag.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\Thread.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\ThreadCategory.cs" />
-    <Compile Include="Modules\Forum\Core\Shared\Topic.cs" />
-    <Compile Include="Modules\Forum\Core\Views\INotifierView.cs" />
-    <Compile Include="Modules\Forum\Core\Views\ISecurityActionView.cs" />
-    <Compile Include="Modules\Forum\Core\Views\ISubscriberView.cs" />
-    <Compile Include="Modules\Forum\Core\Views\ISubscriptionGetcherView.cs" />
-    <Compile Include="Modules\Forum\Default.aspx.cs">
+    <Compile Update="Modules\Forum\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\Default.aspx.designer.cs">
+    <Compile Update="Modules\Forum\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\EditTopic.aspx.cs">
+    <Compile Update="Modules\Forum\EditTopic.aspx.cs">
       <DependentUpon>EditTopic.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\EditTopic.aspx.designer.cs">
+    <Compile Update="Modules\Forum\EditTopic.aspx.designer.cs">
       <DependentUpon>EditTopic.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\Forum.Master.cs">
+    <Compile Update="Modules\Forum\Forum.Master.cs">
       <DependentUpon>Forum.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\Forum.Master.designer.cs">
+    <Compile Update="Modules\Forum\Forum.Master.designer.cs">
       <DependentUpon>Forum.Master</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\ManagementCenter.aspx.cs">
+    <Compile Update="Modules\Forum\ManagementCenter.aspx.cs">
       <DependentUpon>ManagementCenter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\ManagementCenter.aspx.designer.cs">
+    <Compile Update="Modules\Forum\ManagementCenter.aspx.designer.cs">
       <DependentUpon>ManagementCenter.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\NewForum.aspx.cs">
+    <Compile Update="Modules\Forum\NewForum.aspx.cs">
       <DependentUpon>NewForum.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\NewForum.aspx.designer.cs">
+    <Compile Update="Modules\Forum\NewForum.aspx.designer.cs">
       <DependentUpon>NewForum.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\NewPost.aspx.cs">
+    <Compile Update="Modules\Forum\NewPost.aspx.cs">
       <DependentUpon>NewPost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\NewPost.aspx.designer.cs">
+    <Compile Update="Modules\Forum\NewPost.aspx.designer.cs">
       <DependentUpon>NewPost.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\Posts.aspx.cs">
+    <Compile Update="Modules\Forum\Posts.aspx.cs">
       <DependentUpon>Posts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\Posts.aspx.designer.cs">
+    <Compile Update="Modules\Forum\Posts.aspx.designer.cs">
       <DependentUpon>Posts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\Search.aspx.cs">
+    <Compile Update="Modules\Forum\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\Search.aspx.designer.cs">
+    <Compile Update="Modules\Forum\Search.aspx.designer.cs">
       <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\Topics.aspx.cs">
+    <Compile Update="Modules\Forum\Topics.aspx.cs">
       <DependentUpon>Topics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\Topics.aspx.designer.cs">
+    <Compile Update="Modules\Forum\Topics.aspx.designer.cs">
       <DependentUpon>Topics.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\Common\DateTimeService.cs" />
-    <Compile Include="Modules\Forum\UserControls\Common\ForumManager.cs" />
-    <Compile Include="Modules\Forum\UserControls\Common\ForumScriptProvider.cs" />
-    <Compile Include="Modules\Forum\UserControls\Common\LinkProvider.cs" />
-    <Compile Include="Modules\Forum\UserControls\Common\PageLocation.cs" />
-    <Compile Include="Modules\Forum\UserControls\Common\Settings.cs" />
-    <Compile Include="Modules\Forum\UserControls\Common\TagSuggest.cs" />
-    <Compile Include="Modules\Forum\UserControls\PagingControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\PagingControl.ascx.cs">
       <DependentUpon>PagingControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\PagingControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\PagingControl.ascx.designer.cs">
       <DependentUpon>PagingControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\ForumEditor.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\ForumEditor.ascx.cs">
       <DependentUpon>ForumEditor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\ForumEditor.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\ForumEditor.ascx.designer.cs">
       <DependentUpon>ForumEditor.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\ForumMaker.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\ForumMaker.ascx.cs">
       <DependentUpon>ForumMaker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\ForumMaker.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\ForumMaker.ascx.designer.cs">
       <DependentUpon>ForumMaker.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\NewPostControl.ascx.cs">
       <DependentUpon>NewPostControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\NewPostControl.ascx.designer.cs">
       <DependentUpon>NewPostControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\PostControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\PostControl.ascx.cs">
       <DependentUpon>PostControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\PostControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\PostControl.ascx.designer.cs">
       <DependentUpon>PostControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\PostListControl.ascx.cs">
       <DependentUpon>PostListControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\PostListControl.ascx.designer.cs">
       <DependentUpon>PostListControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\RecentActivityControl.cs" />
-    <Compile Include="Modules\Forum\UserControls\ThreadCategoryListControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\ThreadCategoryListControl.ascx.cs">
       <DependentUpon>ThreadCategoryListControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\ThreadCategoryListControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\ThreadCategoryListControl.ascx.designer.cs">
       <DependentUpon>ThreadCategoryListControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\TopicControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\TopicControl.ascx.cs">
       <DependentUpon>TopicControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\TopicControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\TopicControl.ascx.designer.cs">
       <DependentUpon>TopicControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\TopicEditorControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\TopicEditorControl.ascx.cs">
       <DependentUpon>TopicEditorControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\TopicEditorControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\TopicEditorControl.ascx.designer.cs">
       <DependentUpon>TopicEditorControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\TopicListControl.ascx.cs">
+    <Compile Update="Modules\Forum\UserControls\TopicListControl.ascx.cs">
       <DependentUpon>TopicListControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserControls\TopicListControl.ascx.designer.cs">
+    <Compile Update="Modules\Forum\UserControls\TopicListControl.ascx.designer.cs">
       <DependentUpon>TopicListControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\UserTopics.aspx.cs">
+    <Compile Update="Modules\Forum\UserTopics.aspx.cs">
       <DependentUpon>UserTopics.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Forum\UserTopics.aspx.designer.cs">
+    <Compile Update="Modules\Forum\UserTopics.aspx.designer.cs">
       <DependentUpon>UserTopics.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\Core\Module\Patterns.Designer.cs">
+    <Compile Update="Modules\Forum\Core\Module\Patterns.Designer.cs">
       <DependentUpon>Patterns.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Modules\News\Code\DAO\DbFeedStorage.cs" />
-    <Compile Include="Modules\News\Code\DAO\FeedStorageFactory.cs" />
-    <Compile Include="Modules\News\Code\DAO\IFeedStorage.cs" />
-    <Compile Include="Modules\News\Code\DAO\Mappers.cs" />
-    <Compile Include="Modules\News\Code\Feed.cs" />
-    <Compile Include="Modules\News\Code\FeedComment.cs" />
-    <Compile Include="Modules\News\Code\FeedNews.cs" />
-    <Compile Include="Modules\News\Code\FeedPoll.cs" />
-    <Compile Include="Modules\News\Code\FeedPollAnswer.cs" />
-    <Compile Include="Modules\News\Code\FeedPollType.cs" />
-    <Compile Include="Modules\News\Code\FeedPollVariant.cs" />
-    <Compile Include="Modules\News\Code\FeedType.cs" />
-    <Compile Include="Modules\News\Code\FeedTypeInfo.cs" />
-    <Compile Include="Modules\News\Code\FeedUrls.cs" />
-    <Compile Include="Modules\News\Code\Module\NewsNotifySource.cs" />
-    <Compile Include="Modules\News\Code\Module\SearchHandler.cs" />
-    <Compile Include="Modules\News\Code\Module\ShortcutProvider.cs" />
-    <Compile Include="Modules\News\Code\Module\SubscriptionManager.cs" />
-    <Compile Include="Modules\News\Code\PollVoteHandler.cs" />
-    <Compile Include="Modules\News\Code\RequestInfo.cs" />
-    <Compile Include="Modules\News\Controls\FeedItem.ascx.cs">
+    <Compile Update="Modules\News\Controls\FeedItem.ascx.cs">
       <DependentUpon>FeedItem.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\Controls\FeedItem.ascx.designer.cs">
+    <Compile Update="Modules\News\Controls\FeedItem.ascx.designer.cs">
       <DependentUpon>FeedItem.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\Controls\FeedView.ascx.cs">
+    <Compile Update="Modules\News\Controls\FeedView.ascx.cs">
       <DependentUpon>FeedView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\Controls\FeedView.ascx.designer.cs">
+    <Compile Update="Modules\News\Controls\FeedView.ascx.designer.cs">
       <DependentUpon>FeedView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\Default.aspx.cs">
+    <Compile Update="Modules\News\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\Default.aspx.designer.cs">
+    <Compile Update="Modules\News\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\EditNews.aspx.cs">
+    <Compile Update="Modules\News\EditNews.aspx.cs">
       <DependentUpon>EditNews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\EditNews.aspx.designer.cs">
+    <Compile Update="Modules\News\EditNews.aspx.designer.cs">
       <DependentUpon>EditNews.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\EditPoll.aspx.cs">
+    <Compile Update="Modules\News\EditPoll.aspx.cs">
       <DependentUpon>EditPoll.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\EditPoll.aspx.designer.cs">
+    <Compile Update="Modules\News\EditPoll.aspx.designer.cs">
       <DependentUpon>EditPoll.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\News.aspx.cs">
+    <Compile Update="Modules\News\News.aspx.cs">
       <DependentUpon>News.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\News.aspx.designer.cs">
+    <Compile Update="Modules\News\News.aspx.designer.cs">
       <DependentUpon>News.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\News.Master.cs">
+    <Compile Update="Modules\News\News.Master.cs">
       <DependentUpon>News.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\News\News.Master.designer.cs">
+    <Compile Update="Modules\News\News.Master.designer.cs">
       <DependentUpon>News.Master</DependentUpon>
     </Compile>
-    <Compile Include="Modules\News\NewsConst.cs" />
-    <Compile Include="Modules\News\NewsModule.cs" />
-    <Compile Include="Modules\News\Resources\NewsPatternsResource.Designer.cs">
+    <Compile Update="Modules\News\Resources\NewsPatternsResource.Designer.cs">
       <DependentUpon>NewsPatternsResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Modules\Wiki\Code\ActionHelper.cs" />
-    <Compile Include="Modules\Wiki\Code\BaseDao.cs" />
-    <Compile Include="Modules\Wiki\Code\BaseUserControl.cs" />
-    <Compile Include="Modules\Wiki\Code\Category.cs" />
-    <Compile Include="Modules\Wiki\Code\CategoryDao.cs" />
-    <Compile Include="Modules\Wiki\Code\Comment.cs" />
-    <Compile Include="Modules\Wiki\Code\CommentDao.cs" />
-    <Compile Include="Modules\Wiki\Code\Constants.cs" />
-    <Compile Include="Modules\Wiki\Code\Diff.cs" />
-    <Compile Include="Modules\Wiki\Code\File.cs" />
-    <Compile Include="Modules\Wiki\Code\FileDAO.cs" />
-    <Compile Include="Modules\Wiki\Code\HtmlWikiUtil.cs" />
-    <Compile Include="Modules\Wiki\Code\HtmlWikiUtil_Wiki2Html.cs.cs" />
-    <Compile Include="Modules\Wiki\Code\IVersioned.cs" />
-    <Compile Include="Modules\Wiki\Code\IWikiObjectOwner.cs" />
-    <Compile Include="Modules\Wiki\Code\Page.cs" />
-    <Compile Include="Modules\Wiki\Code\PageDAO.cs" />
-    <Compile Include="Modules\Wiki\Code\PageNameUtil.cs" />
-    <Compile Include="Modules\Wiki\Code\WikiEngine.cs" />
-    <Compile Include="Modules\Wiki\Code\WikiManager.cs" />
-    <Compile Include="Modules\Wiki\Code\WikiNotifySource.cs" />
-    <Compile Include="Modules\Wiki\Code\WikiStrExtentions.cs" />
-    <Compile Include="Modules\Wiki\Code\WikiSubscriptionManager.cs" />
-    <Compile Include="Modules\Wiki\Common\Constants.cs" />
-    <Compile Include="Modules\Wiki\Common\Extentions.cs" />
-    <Compile Include="Modules\Wiki\Common\PageDictionary.cs" />
-    <Compile Include="Modules\Wiki\Common\WikiBasePage.cs">
+    <Compile Update="Modules\Wiki\Common\WikiBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\Common\WikiModuleSettings.cs" />
-    <Compile Include="Modules\Wiki\Common\WikiObjectsSecurityObject.cs" />
-    <Compile Include="Modules\Wiki\Common\WikiSearchHandler.cs" />
-    <Compile Include="Modules\Wiki\Default.aspx.cs">
+    <Compile Update="Modules\Wiki\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\Default.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\Diff.aspx.cs">
+    <Compile Update="Modules\Wiki\Diff.aspx.cs">
       <DependentUpon>Diff.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\Diff.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\Diff.aspx.designer.cs">
       <DependentUpon>Diff.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\Handlers\WikiFileHandler.cs" />
-    <Compile Include="Modules\Wiki\Handlers\WikiSection.cs" />
-    <Compile Include="Modules\Wiki\ListCategories.aspx.cs">
+    <Compile Update="Modules\Wiki\ListCategories.aspx.cs">
       <DependentUpon>ListCategories.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\ListCategories.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\ListCategories.aspx.designer.cs">
       <DependentUpon>ListCategories.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\ListFiles.aspx.cs">
+    <Compile Update="Modules\Wiki\ListFiles.aspx.cs">
       <DependentUpon>ListFiles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\ListFiles.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\ListFiles.aspx.designer.cs">
       <DependentUpon>ListFiles.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\ListPages.aspx.cs">
+    <Compile Update="Modules\Wiki\ListPages.aspx.cs">
       <DependentUpon>ListPages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\ListPages.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\ListPages.aspx.designer.cs">
       <DependentUpon>ListPages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\PageHistoryList.aspx.cs">
+    <Compile Update="Modules\Wiki\PageHistoryList.aspx.cs">
       <DependentUpon>PageHistoryList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\PageHistoryList.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\PageHistoryList.aspx.designer.cs">
       <DependentUpon>PageHistoryList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternsResource.Designer.cs">
+    <Compile Update="Modules\Wiki\Code\Patterns\WikiPatternsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WikiPatternsResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\Wiki.Master.cs">
+    <Compile Update="Modules\Wiki\Wiki.Master.cs">
       <DependentUpon>Wiki.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\Wiki.Master.designer.cs">
+    <Compile Update="Modules\Wiki\Wiki.Master.designer.cs">
       <DependentUpon>Wiki.Master</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiModule.cs" />
-    <Compile Include="Modules\Wiki\WikiUC\EditFile.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\EditFile.ascx.cs">
       <DependentUpon>EditFile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\EditFile.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\EditFile.ascx.designer.cs">
       <DependentUpon>EditFile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\EditPage.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\EditPage.ascx.cs">
       <DependentUpon>EditPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\EditPage.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\EditPage.ascx.designer.cs">
       <DependentUpon>EditPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.cs">
       <DependentUpon>FileUploader.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.designer.cs">
       <DependentUpon>FileUploader.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ListFiles.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ListFiles.ascx.cs">
       <DependentUpon>ListFiles.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ListFiles.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ListFiles.ascx.designer.cs">
       <DependentUpon>ListFiles.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ListPages.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ListPages.ascx.cs">
       <DependentUpon>ListPages.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ListPages.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ListPages.ascx.designer.cs">
       <DependentUpon>ListPages.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\MiniToolbar.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\MiniToolbar.ascx.cs">
       <DependentUpon>MiniToolbar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\MiniToolbar.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\MiniToolbar.ascx.designer.cs">
       <DependentUpon>MiniToolbar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ViewFile.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ViewFile.ascx.cs">
       <DependentUpon>ViewFile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ViewFile.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ViewFile.ascx.designer.cs">
       <DependentUpon>ViewFile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ViewPage.ascx.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ViewPage.ascx.cs">
       <DependentUpon>ViewPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\Wiki\WikiUC\ViewPage.ascx.designer.cs">
+    <Compile Update="Modules\Wiki\WikiUC\ViewPage.ascx.designer.cs">
       <DependentUpon>ViewPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Photos.aspx.cs">
+    <Compile Update="Photos.aspx.cs">
       <DependentUpon>Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Photos.aspx.designer.cs">
+    <Compile Update="Photos.aspx.designer.cs">
       <DependentUpon>Photos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Product\CommunityProduct.cs" />
-    <Compile Include="Product\CommunitySecurity.cs" />
-    <Compile Include="Product\CommunitySubscriptionManager.cs" />
-    <Compile Include="Product\CommunitySpaceUsageStatManager.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>BlogsResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -773,7 +579,7 @@
     <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>BlogsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.resx">
+    <EmbeddedResource Update="Modules\Blogs\Core\Resources\BlogsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BlogsResource.Designer.cs</LastGenOutput>
@@ -799,7 +605,7 @@
     <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>BlogsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Blogs\Core\Resources\BlogsResource.Designer.cs">
+    <Compile Update="Modules\Blogs\Core\Resources\BlogsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BlogsResource.resx</DependentUpon>
@@ -852,7 +658,7 @@
     <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>BlogPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.resx">
+    <EmbeddedResource Update="Modules\Blogs\Core\Service\BlogPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BlogPatternResource.Designer.cs</LastGenOutput>
@@ -878,22 +684,16 @@
     <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>BlogPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Blogs\Core\Service\BlogPatternResource.Designer.cs">
+    <Compile Update="Modules\Blogs\Core\Service\BlogPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BlogPatternResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Blogs\Core\Service\BlogPatternsResource.Designer.cs">
+    <Compile Update="Modules\Blogs\Core\Service\BlogPatternsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BlogPatternsResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Search\BlogsWrapper.cs" />
-    <Compile Include="Search\BookmarksWrapper.cs" />
-    <Compile Include="Search\NewsWrapper.cs" />
-    <Compile Include="Search\PostWrapper.cs" />
-    <Compile Include="Search\TopicWrapper.cs" />
-    <Compile Include="Search\WikiWrapper.cs" />
     <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
       <DependentUpon>BlogsResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -941,7 +741,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternsResource.resx">
+    <EmbeddedResource Update="Modules\Blogs\Core\Service\BlogPatternsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BlogPatternsResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -991,7 +791,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.resx">
+    <EmbeddedResource Update="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingPatternResource.Designer.cs</LastGenOutput>
@@ -1017,7 +817,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.Designer.cs">
+    <Compile Update="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
@@ -1070,7 +870,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.resx">
+    <EmbeddedResource Update="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingBusinessResources.Designer.cs</LastGenOutput>
@@ -1096,12 +896,12 @@
     <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.Designer.cs">
+    <Compile Update="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.resx">
+    <EmbeddedResource Update="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingSubscriptionPatterns.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -1154,7 +954,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>BookmarkingResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.resx">
+    <EmbeddedResource Update="Modules\Bookmarking\Resources\BookmarkingResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -1179,7 +979,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>BookmarkingResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Bookmarking\Resources\BookmarkingResource.Designer.cs">
+    <Compile Update="Modules\Bookmarking\Resources\BookmarkingResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookmarkingResource.resx</DependentUpon>
@@ -1232,7 +1032,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.resx">
+    <EmbeddedResource Update="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingUCResource.Designer.cs</LastGenOutput>
@@ -1258,7 +1058,7 @@
     <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.Designer.cs">
+    <Compile Update="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
@@ -1311,7 +1111,7 @@
     <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ForumPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.resx">
+    <EmbeddedResource Update="Modules\Forum\Core\Module\ForumPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForumPatternResource.Designer.cs</LastGenOutput>
@@ -1337,12 +1137,12 @@
     <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ForumPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Forum\Core\Module\ForumPatternResource.Designer.cs">
+    <Compile Update="Modules\Forum\Core\Module\ForumPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ForumPatternResource.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Modules\Forum\Core\Module\Patterns.resx">
+    <EmbeddedResource Update="Modules\Forum\Core\Module\Patterns.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Patterns.Designer.cs</LastGenOutput>
@@ -1395,7 +1195,7 @@
     <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ForumResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.resx">
+    <EmbeddedResource Update="Modules\Forum\Resources\ForumResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -1420,7 +1220,7 @@
     <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ForumResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Forum\Resources\ForumResource.Designer.cs">
+    <Compile Update="Modules\Forum\Resources\ForumResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ForumResource.resx</DependentUpon>
@@ -1473,7 +1273,7 @@
     <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ForumUCResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.resx">
+    <EmbeddedResource Update="Modules\Forum\UserControls\Resources\ForumUCResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForumUCResource.Designer.cs</LastGenOutput>
@@ -1499,7 +1299,7 @@
     <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ForumUCResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Forum\UserControls\Resources\ForumUCResource.Designer.cs">
+    <Compile Update="Modules\Forum\UserControls\Resources\ForumUCResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ForumUCResource.resx</DependentUpon>
@@ -1552,7 +1352,7 @@
     <EmbeddedResource Include="Modules\News\Resources\NewsResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>NewsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\News\Resources\NewsResource.resx">
+    <EmbeddedResource Update="Modules\News\Resources\NewsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewsResource.Designer.cs</LastGenOutput>
@@ -1578,12 +1378,12 @@
     <EmbeddedResource Include="Modules\News\Resources\NewsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>NewsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\News\Resources\NewsResource.Designer.cs">
+    <Compile Update="Modules\News\Resources\NewsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NewsResource.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Modules\News\Resources\NewsPatternsResource.resx">
+    <EmbeddedResource Update="Modules\News\Resources\NewsPatternsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewsPatternsResource.Designer.cs</LastGenOutput>
@@ -1636,7 +1436,7 @@
     <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>NewsPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.resx">
+    <EmbeddedResource Update="Modules\News\Resources\NewsPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewsPatternResource.Designer.cs</LastGenOutput>
@@ -1662,7 +1462,7 @@
     <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>NewsPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\News\Resources\NewsPatternResource.Designer.cs">
+    <Compile Update="Modules\News\Resources\NewsPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NewsPatternResource.resx</DependentUpon>
@@ -1715,7 +1515,7 @@
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>WikiUCResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.resx">
+    <EmbeddedResource Update="Modules\Wiki\Resources\WikiUCResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiUCResource.Designer.cs</LastGenOutput>
@@ -1741,7 +1541,7 @@
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>WikiUCResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Wiki\Resources\WikiUCResource.Designer.cs">
+    <Compile Update="Modules\Wiki\Resources\WikiUCResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WikiUCResource.resx</DependentUpon>
@@ -1794,7 +1594,7 @@
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>WikiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.resx">
+    <EmbeddedResource Update="Modules\Wiki\Resources\WikiResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiResource.Designer.cs</LastGenOutput>
@@ -1820,12 +1620,12 @@
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>WikiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Wiki\Resources\WikiResource.Designer.cs">
+    <Compile Update="Modules\Wiki\Resources\WikiResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WikiResource.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternsResource.resx">
+    <EmbeddedResource Update="Modules\Wiki\Code\Patterns\WikiPatternsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiPatternsResource.Designer.cs</LastGenOutput>
@@ -1878,7 +1678,7 @@
     <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>WikiPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.resx">
+    <EmbeddedResource Update="Modules\Wiki\Code\Patterns\WikiPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiPatternResource.Designer.cs</LastGenOutput>
@@ -1904,7 +1704,7 @@
     <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>WikiPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternResource.Designer.cs">
+    <Compile Update="Modules\Wiki\Code\Patterns\WikiPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WikiPatternResource.resx</DependentUpon>
@@ -1972,7 +1772,7 @@
     <EmbeddedResource Include="Resources\CommunityResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CommunityResource.resx">
+    <EmbeddedResource Update="Resources\CommunityResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommunityResource.Designer.cs</LastGenOutput>
@@ -2005,7 +1805,7 @@
       <DependentUpon>CommunityResource.resx</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Resources\CommunityResource.Designer.cs">
+    <Compile Update="Resources\CommunityResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommunityResource.resx</DependentUpon>
@@ -3059,34 +2859,13 @@
     <Content Include="Templates\CommonTemplates.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
-      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
-      <Name>ASC.ElasticSearch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj" />
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\Blogs\Data\HtmlEditorFiles\" />
@@ -3138,12 +2917,490 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ItemGroup>
+    <Compile Remove="Modules\Forum\Resources\ForumResource1.Designer.cs" />
+    <Compile Remove="Modules\News\Code\DAO\DbFeedStorageTest.cs" />
+    <Compile Remove="Modules\News\Controls\BreadCumbsControl.cs" />
+    <Compile Remove="Modules\Wiki\Common\WikiActivityPublisher.cs" />
+    <Compile Remove="Modules\Wiki\Handlers\WikiPageHandler.cs" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.hu.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.ka.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.kk.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Resources\BlogsResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Blogs\Core\Service\BlogPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.da.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.et.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.kk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.bg.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.cs.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.da.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.de.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.el.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.es.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.et.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.fi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.fr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.he.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.hi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.id.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.it.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ja.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.kk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ko.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.lv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.nl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pt.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ru.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.sk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.sl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.sv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.tr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.uk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.vi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.da.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.et.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.kk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.lt.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\Resources\BookmarkingResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.da.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.et.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ka.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.kk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.lt.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Core\Module\ForumPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.hu.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.ro.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Forum\Resources\ForumResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.he.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.hu.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.ro.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Forum\UserControls\Resources\ForumUCResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.de.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.el.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.es.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.et.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.he.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.id.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.it.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.de.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.el.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.es.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.et.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.he.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.hu.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.id.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.it.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.ro.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\News\Resources\NewsResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Code\Patterns\WikiPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.ro.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.sw.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.bg.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.cs.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.de.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.el.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.es.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.fa.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.fi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.fr.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.hi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.id.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.it.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.ja.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.ko.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.lv.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.nl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.pl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.pt.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.ro.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.ru.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.sk.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.sl.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.sv.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.tr.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.uk.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.vi.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Modules\Wiki\Resources\WikiUCResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.be.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.da.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.et.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.he.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.th.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CommunityResource.zh-TW.resx" />
+  </ItemGroup>
 </Project>

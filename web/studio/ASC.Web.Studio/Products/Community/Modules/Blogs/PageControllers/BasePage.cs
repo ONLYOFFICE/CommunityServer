@@ -22,7 +22,8 @@ using AjaxPro;
 
 using ASC.Blogs.Core;
 using ASC.Web.Core.Utility;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Blogs

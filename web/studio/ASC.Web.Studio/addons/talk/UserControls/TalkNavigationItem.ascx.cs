@@ -22,6 +22,7 @@ using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Talk.Addon;
 
 namespace ASC.Web.Talk.UserControls

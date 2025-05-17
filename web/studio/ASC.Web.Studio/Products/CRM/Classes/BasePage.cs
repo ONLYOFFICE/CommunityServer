@@ -19,12 +19,11 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Web;
 
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Core;
-using ASC.Web.Studio;
-
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using Autofac;
 
 namespace ASC.Web.CRM

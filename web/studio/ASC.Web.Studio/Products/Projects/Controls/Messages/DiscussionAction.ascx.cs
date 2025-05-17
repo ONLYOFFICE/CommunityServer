@@ -16,10 +16,10 @@
 
 
 using System;
-using System.Web;
 
 using ASC.Projects.Core.Domain;
 using ASC.Web.Projects.Resources;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 
 namespace ASC.Web.Projects.Controls.Messages

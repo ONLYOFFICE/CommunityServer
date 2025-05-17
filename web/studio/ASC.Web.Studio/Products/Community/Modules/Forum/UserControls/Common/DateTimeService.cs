@@ -19,6 +19,7 @@ using System;
 
 using ASC.Core.Tenants;
 using ASC.Web.Community.Modules.Forum.UserControls.Resources;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Web.UserControls.Forum.Common
 {

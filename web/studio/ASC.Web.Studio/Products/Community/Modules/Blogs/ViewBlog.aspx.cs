@@ -26,6 +26,7 @@ using ASC.Core;
 using ASC.Web.Community.Modules.Blogs.Core.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;

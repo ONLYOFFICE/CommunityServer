@@ -27,6 +27,7 @@ using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Projects

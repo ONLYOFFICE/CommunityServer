@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
@@ -29,6 +28,8 @@ using ASC.Web.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
+using ASC.Web.Studio.Masters.MasterManagement;
+using ASC.Web.Studio.UserControls.Common.MediaViewer;
 using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
@@ -97,7 +98,7 @@ namespace ASC.Web.Files.Controls
 
             if (!NoMediaViewers)
             {
-                ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));
+                ControlPlaceHolder.Controls.Add(LoadControl(MediaPlayer.Location));
             }
 
             UploaderPlaceHolder.Controls.Add(LoadControl(ChunkUploadDialog.Location));

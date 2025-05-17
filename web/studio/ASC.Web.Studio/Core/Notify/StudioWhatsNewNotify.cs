@@ -33,6 +33,7 @@ using ASC.Feed.Data;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Web.Core;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 
 using Constants = ASC.Feed.Constants;

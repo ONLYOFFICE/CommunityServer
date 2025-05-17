@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 
 using ASC.Core;
 using ASC.CRM.Core;
@@ -28,6 +27,7 @@ using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.CRM.Controls.Common
 {

@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 
 using AjaxPro;
 
@@ -31,6 +30,7 @@ using ASC.Web.Community.Blogs.Views;
 using ASC.Web.Community.Modules.Blogs.Core.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Blogs

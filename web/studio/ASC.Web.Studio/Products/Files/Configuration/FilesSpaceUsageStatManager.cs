@@ -29,6 +29,7 @@ using ASC.Files.Core;
 using ASC.Web.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files

@@ -20,6 +20,7 @@ using System.Configuration;
 using System.Web;
 
 using ASC.Web.Core.Mobile;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls;
 
 namespace ASC.Web.Studio

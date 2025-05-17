@@ -28,6 +28,7 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Web.Core;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Statistics;
 
 namespace ASC.Web.Talk.Addon

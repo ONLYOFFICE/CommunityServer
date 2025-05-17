@@ -1,47 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <UseGlobalApplicationHostFile />
-  </PropertyGroup>
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1EF9C7D8-F92E-48B3-9A86-78E431ABC306}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.Mail</RootNamespace>
-    <AssemblyName>ASC.Web.Mail</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkProfile />
     <OutputPath>..\..\..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\bin\ASC.Web.Mail.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+	  <TargetFramework>net48</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
@@ -227,118 +201,110 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addon\MailAddon.cs" />
-    <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Configuration\MailSpaceUsageStatManager.cs" />
-    <Compile Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx.cs">
+    <Compile Update="Controls\CommonSettingsPage\CommonSettingsPage.ascx.cs">
       <DependentUpon>CommonSettingsPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx.designer.cs">
+    <Compile Update="Controls\CommonSettingsPage\CommonSettingsPage.ascx.designer.cs">
       <DependentUpon>CommonSettingsPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AccountsPage\AccountsPage.ascx.cs">
+    <Compile Update="Controls\AccountsPage\AccountsPage.ascx.cs">
       <DependentUpon>AccountsPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\AccountsPage\AccountsPage.ascx.designer.cs">
+    <Compile Update="Controls\AccountsPage\AccountsPage.ascx.designer.cs">
       <DependentUpon>AccountsPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AdministrationPage\AdministrationPage.ascx.cs">
+    <Compile Update="Controls\AdministrationPage\AdministrationPage.ascx.cs">
       <DependentUpon>AdministrationPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\AdministrationPage\AdministrationPage.ascx.designer.cs">
+    <Compile Update="Controls\AdministrationPage\AdministrationPage.ascx.designer.cs">
       <DependentUpon>AdministrationPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\BlankModal\BlankModal.ascx.cs">
+    <Compile Update="Controls\BlankModal\BlankModal.ascx.cs">
       <DependentUpon>BlankModal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\BlankModal\BlankModal.ascx.designer.cs">
+    <Compile Update="Controls\BlankModal\BlankModal.ascx.designer.cs">
       <DependentUpon>BlankModal.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ContactsPage\ContactsPage.ascx.cs">
+    <Compile Update="Controls\ContactsPage\ContactsPage.ascx.cs">
       <DependentUpon>ContactsPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ContactsPage\ContactsPage.ascx.designer.cs">
+    <Compile Update="Controls\ContactsPage\ContactsPage.ascx.designer.cs">
       <DependentUpon>ContactsPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FiltersPage\Filters.ascx.cs">
+    <Compile Update="Controls\FiltersPage\Filters.ascx.cs">
       <DependentUpon>Filters.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\FiltersPage\Filters.ascx.designer.cs">
+    <Compile Update="Controls\FiltersPage\Filters.ascx.designer.cs">
       <DependentUpon>Filters.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
+    <Compile Update="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
       <DependentUpon>DocumentsPopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.designer.cs">
+    <Compile Update="Controls\DocumentsPopup\DocumentsPopup.ascx.designer.cs">
       <DependentUpon>DocumentsPopup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MailBox\MailBox.ascx.cs">
+    <Compile Update="Controls\MailBox\MailBox.ascx.cs">
       <DependentUpon>MailBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\MailBox\MailBox.ascx.designer.cs">
+    <Compile Update="Controls\MailBox\MailBox.ascx.designer.cs">
       <DependentUpon>MailBox.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TagBox\TagBox.ascx.cs">
+    <Compile Update="Controls\TagBox\TagBox.ascx.cs">
       <DependentUpon>TagBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\TagBox\TagBox.ascx.designer.cs">
+    <Compile Update="Controls\TagBox\TagBox.ascx.designer.cs">
       <DependentUpon>TagBox.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TagsPage\TagsPage.ascx.cs">
+    <Compile Update="Controls\TagsPage\TagsPage.ascx.cs">
       <DependentUpon>TagsPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\TagsPage\TagsPage.ascx.designer.cs">
+    <Compile Update="Controls\TagsPage\TagsPage.ascx.designer.cs">
       <DependentUpon>TagsPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UserFoldersPage\UserFoldersPage.ascx.cs">
+    <Compile Update="Controls\UserFoldersPage\UserFoldersPage.ascx.cs">
       <DependentUpon>UserFoldersPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\UserFoldersPage\UserFoldersPage.ascx.designer.cs">
+    <Compile Update="Controls\UserFoldersPage\UserFoldersPage.ascx.designer.cs">
       <DependentUpon>UserFoldersPage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
+    <Compile Update="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
+    <Compile Update="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OAuth.aspx.cs">
+    <Compile Update="OAuth.aspx.cs">
       <DependentUpon>OAuth.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OAuth.aspx.designer.cs">
+    <Compile Update="OAuth.aspx.designer.cs">
       <DependentUpon>OAuth.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\Download.ashx.cs">
+    <Compile Update="HttpHandlers\Download.ashx.cs">
       <DependentUpon>Download.ashx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\ContactPhoto.ashx.cs">
+    <Compile Update="HttpHandlers\ContactPhoto.ashx.cs">
       <DependentUpon>ContactPhoto.ashx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\EditDocument.ashx.cs">
+    <Compile Update="HttpHandlers\EditDocument.ashx.cs">
       <DependentUpon>EditDocument.ashx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\FilesUploader.cs" />
-    <Compile Include="HttpHandlers\ViewDocument.ashx.cs">
+    <Compile Update="HttpHandlers\ViewDocument.ashx.cs">
       <DependentUpon>ViewDocument.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientSettingsResources.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\MailScriptResource.Designer.cs">
+    <Compile Update="Resources\MailScriptResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailScriptResource.resx</DependentUpon>
@@ -390,7 +356,7 @@
     <EmbeddedResource Include="Resources\MailAdministrationResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>MailAdministrationResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailAdministrationResource.resx">
+    <EmbeddedResource Update="Resources\MailAdministrationResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailAdministrationResource.Designer.cs</LastGenOutput>
@@ -416,7 +382,7 @@
     <EmbeddedResource Include="Resources\MailAdministrationResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MailAdministrationResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MailAdministrationResource.Designer.cs">
+    <Compile Update="Resources\MailAdministrationResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailAdministrationResource.resx</DependentUpon>
@@ -463,7 +429,7 @@
     <EmbeddedResource Include="Resources\MailActionCompleteResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailActionCompleteResource.resx">
+    <EmbeddedResource Update="Resources\MailActionCompleteResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailActionCompleteResource.Designer.cs</LastGenOutput>
@@ -489,7 +455,7 @@
     <EmbeddedResource Include="Resources\MailActionCompleteResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MailActionCompleteResource.Designer.cs">
+    <Compile Update="Resources\MailActionCompleteResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
@@ -539,7 +505,7 @@
     <EmbeddedResource Include="Resources\MailApiErrorsResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailApiErrorsResource.resx">
+    <EmbeddedResource Update="Resources\MailApiErrorsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailApiErrorsResource.Designer.cs</LastGenOutput>
@@ -565,7 +531,7 @@
     <EmbeddedResource Include="Resources\MailApiErrorsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MailApiErrorsResource.Designer.cs">
+    <Compile Update="Resources\MailApiErrorsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
@@ -615,7 +581,7 @@
     <EmbeddedResource Include="Resources\MailApiResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>MailApiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailApiResource.resx">
+    <EmbeddedResource Update="Resources\MailApiResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailApiResource.Designer.cs</LastGenOutput>
@@ -641,7 +607,7 @@
     <EmbeddedResource Include="Resources\MailApiResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MailApiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MailApiResource.Designer.cs">
+    <Compile Update="Resources\MailApiResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailApiResource.resx</DependentUpon>
@@ -688,7 +654,7 @@
     <EmbeddedResource Include="Resources\MailAttachmentsResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailAttachmentsResource.resx">
+    <EmbeddedResource Update="Resources\MailAttachmentsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailAttachmentsResource.Designer.cs</LastGenOutput>
@@ -714,7 +680,7 @@
     <EmbeddedResource Include="Resources\MailAttachmentsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MailAttachmentsResource.Designer.cs">
+    <Compile Update="Resources\MailAttachmentsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
@@ -767,7 +733,7 @@
     <EmbeddedResource Include="Resources\MailResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>MailResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailResource.resx">
+    <EmbeddedResource Update="Resources\MailResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailResource.Designer.cs</LastGenOutput>
@@ -793,7 +759,7 @@
     <EmbeddedResource Include="Resources\MailResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MailResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MailResource.Designer.cs">
+    <Compile Update="Resources\MailResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailResource.resx</DependentUpon>
@@ -846,7 +812,7 @@
     <EmbeddedResource Include="Resources\MailScriptResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>MailScriptResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MailScriptResource.resx">
+    <EmbeddedResource Update="Resources\MailScriptResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailScriptResource.Designer.cs</LastGenOutput>
@@ -1079,54 +1045,231 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
-      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
-      <Name>ASC.Mail</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
-      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
-      <Name>ASC.FederatedLogin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Products\CRM\ASC.Web.CRM.csproj">
-      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
-      <Name>ASC.Web.CRM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail\ASC.Mail\ASC.Mail.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj" />
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\..\Products\CRM\ASC.Web.CRM.csproj" />
+    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailActionCompleteResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailAdministrationResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailApiErrorsResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailApiResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailAttachmentsResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MailScriptResource.zh-TW.resx" />
+  </ItemGroup>
 </Project>

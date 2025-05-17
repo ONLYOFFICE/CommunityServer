@@ -25,6 +25,7 @@ using System.Web.UI;
 using ASC.Core;
 using ASC.Forum;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.UserControls.Forum

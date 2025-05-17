@@ -99,7 +99,7 @@ namespace ASC.Api.Community
             if (type != FeedType.News && type != FeedType.Order && type != FeedType.Advert && type != FeedType.Poll)
                 throw new ArgumentOutOfRangeException(string.Format("Unknown feed type: {0}.", type));
 
-            var feed = new Feed
+            var feed = new ASC.Web.Community.News.Code.Feed
             {
                 Caption = title,
                 Text = content,

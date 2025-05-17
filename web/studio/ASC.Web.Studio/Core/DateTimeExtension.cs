@@ -15,6 +15,7 @@
 */
 
 
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -53,7 +54,7 @@ namespace System
 
         public static string Yet(this DateTime target)
         {
-            return Yet(target, TenantUtil.DateTimeNow());
+            return target.Yet(TenantUtil.DateTimeNow());
         }
 
         public static string Yet(int days)
@@ -79,7 +80,7 @@ namespace System
         {
             var temp = target.Date;
             temp = temp.AddYears(from.Date.Year - temp.Year);
-            var diff = (temp - from.Date);
+            var diff = temp - from.Date;
 
             return Yet(diff.Days);
 
@@ -88,7 +89,7 @@ namespace System
         public static string Ago(this DateTime target)
         {
             var result = new StringBuilder();
-            var diff = (TenantUtil.DateTimeNow().Date - target.Date);
+            var diff = TenantUtil.DateTimeNow().Date - target.Date;
 
             result.AppendFormat("{0} ", target.ToShortTimeString());
             switch (diff.Days)
@@ -111,9 +112,9 @@ namespace System
         {
             var result = new StringBuilder("");
             TimeSpan diffFrom, diffTo;
-            if ((from.Ticks != 0) && (to.Ticks == 0))
+            if (from.Ticks != 0 && to.Ticks == 0)
             {
-                diffFrom = (TenantUtil.DateTimeNow().Date - from.Date);
+                diffFrom = TenantUtil.DateTimeNow().Date - from.Date;
                 switch (diffFrom.Days)
                 {
                     case 0:
@@ -130,9 +131,9 @@ namespace System
                 result.AppendFormat(" " + Resource.AtTime + " {0} ", from.ToShortTimeString());
             }
 
-            if ((from.Ticks == 0) && (to.Ticks != 0))
+            if (from.Ticks == 0 && to.Ticks != 0)
             {
-                diffTo = (TenantUtil.DateTimeNow().Date - to.Date);
+                diffTo = TenantUtil.DateTimeNow().Date - to.Date;
                 result.AppendFormat(Resource.ToTime);
                 result.AppendFormat(" {0} ", to.ToShortTimeString());
                 switch (diffTo.Days)
@@ -150,10 +151,10 @@ namespace System
 
             }
 
-            if ((from.Ticks != 0) && (to.Ticks != 0))
+            if (from.Ticks != 0 && to.Ticks != 0)
             {
-                diffFrom = (TenantUtil.DateTimeNow().Date - from.Date);
-                diffTo = (TenantUtil.DateTimeNow().Date - to.Date);
+                diffFrom = TenantUtil.DateTimeNow().Date - from.Date;
+                diffTo = TenantUtil.DateTimeNow().Date - to.Date;
 
                 if (diffFrom == diffTo)
                 {
@@ -206,7 +207,7 @@ namespace System
 
         public static string ToShortString(this DateTime targetDateTime)
         {
-            return String.Format("{0} {1}", targetDateTime.ToShortDateString(), targetDateTime.ToShortTimeString());
+            return string.Format("{0} {1}", targetDateTime.ToShortDateString(), targetDateTime.ToShortTimeString());
         }
 
         public static string AgoSentence(this DateTime target)
@@ -216,7 +217,7 @@ namespace System
             var isYesterdayOrDayBefore = false;
 
             var result = new StringBuilder();
-            var diff = (TenantUtil.DateTimeNow() - target);
+            var diff = TenantUtil.DateTimeNow() - target;
 
             var years = diff.Days / yearDuration;
             var months = diff.Days / monthDuration;
@@ -250,7 +251,7 @@ namespace System
             if (result.Length == 0)
                 return Resource.DrnAgoFewMoments;
             else if (!isYesterdayOrDayBefore)
-                return String.Format(Resource.DrnAgo, result.ToString());
+                return string.Format(Resource.DrnAgo, result.ToString());
 
             return result.ToString();
         }

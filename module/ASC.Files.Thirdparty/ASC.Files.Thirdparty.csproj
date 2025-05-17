@@ -1,134 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D51D3E43-6047-45DD-A0FA-321CE7C3885B}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Files.Thirdparty</RootNamespace>
-    <AssemblyName>ASC.Files.Thirdparty</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.Files.Thirdparty.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Box\BoxDaoSelector.cs" />
-    <Compile Include="Box\BoxProviderInfo.cs" />
-    <Compile Include="Box\BoxStorage.cs" />
-    <Compile Include="Box\BoxDaoBase.cs" />
-    <Compile Include="Box\BoxFolderDao.cs" />
-    <Compile Include="Box\BoxFileDao.cs" />
-    <Compile Include="Box\BoxSecurityDao.cs" />
-    <Compile Include="Box\BoxTagDao.cs" />
-    <Compile Include="Dropbox\DropboxDaoBase.cs" />
-    <Compile Include="Dropbox\DropboxDaoSelector.cs" />
-    <Compile Include="Dropbox\DropboxFileDao.cs" />
-    <Compile Include="Dropbox\DropboxFolderDao.cs" />
-    <Compile Include="Dropbox\DropboxProviderInfo.cs" />
-    <Compile Include="Dropbox\DropboxSecurityDao.cs" />
-    <Compile Include="Dropbox\DropboxStorage.cs" />
-    <Compile Include="Dropbox\DropboxTagDao.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveDaoBase.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveDaoSelector.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveFileDao.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveFolderDao.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveProviderInfo.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveSecurityDao.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveStorage.cs" />
-    <Compile Include="GoogleDrive\GoogleDriveTagDao.cs" />
-    <Compile Include="OneDrive\OneDriveDaoBase.cs" />
-    <Compile Include="OneDrive\OneDriveDaoSelector.cs" />
-    <Compile Include="OneDrive\OneDriveFileDao.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="OneDrive\OneDriveFolderDao.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="OneDrive\OneDriveProviderInfo.cs" />
-    <Compile Include="OneDrive\OneDriveSecurityDao.cs" />
-    <Compile Include="OneDrive\OneDriveStorage.cs" />
-    <Compile Include="OneDrive\OneDriveTagDao.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DbDaoSelector.cs" />
-    <Compile Include="IDaoSelector.cs" />
-    <Compile Include="CachedProviderAccountDao.cs" />
-    <Compile Include="ProviderDao\ProviderDaoBase.cs" />
-    <Compile Include="ProviderDao\ProviderFileDao.cs" />
-    <Compile Include="ProviderDao\ProviderFolderDao.cs" />
-    <Compile Include="ProviderDao\ProviderSecutiryDao.cs" />
-    <Compile Include="ProviderDao\ProviderTagDao.cs" />
-    <Compile Include="RegexDaoSelectorBase.cs" />
-    <Compile Include="ProviderDao\ProviderDaoFactory.cs" />
-    <Compile Include="SharePoint\SharePointDaoBase.cs" />
-    <Compile Include="SharePoint\SharePointDaoSelector.cs" />
-    <Compile Include="SharePoint\SharePointErrorEntry.cs" />
-    <Compile Include="SharePoint\SharePointFileDao.cs" />
-    <Compile Include="SharePoint\SharePointFolderDao.cs" />
-    <Compile Include="SharePoint\SharePointProviderInfo.cs" />
-    <Compile Include="SharePoint\SharePointSecurityDao.cs" />
-    <Compile Include="SharePoint\SharePointTagDao.cs" />
-    <Compile Include="ProviderAccountDao.cs" />
-    <Compile Include="Sharpbox\SharpBoxDaoBase.cs" />
-    <Compile Include="Sharpbox\SharpBoxDaoSelector.cs" />
-    <Compile Include="Sharpbox\SharpBoxFileDao.cs" />
-    <Compile Include="Sharpbox\SharpBoxFolderDao.cs" />
-    <Compile Include="Sharpbox\SharpBoxProviderInfo.cs" />
-    <Compile Include="Sharpbox\SharpBoxSecurityDao.cs" />
-    <Compile Include="Sharpbox\SharpBoxTagDao.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
-      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
-      <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj" />
+    <ProjectReference Include="..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppLimit.CloudComputing.SharpBox">
@@ -157,5 +50,4 @@
       <Version>4.3.4</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

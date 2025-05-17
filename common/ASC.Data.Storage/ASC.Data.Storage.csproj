@@ -1,24 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3F6B420F-ABD3-4B5A-9F4C-5D61FFBB01DE}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Data.Storage</RootNamespace>
-    <AssemblyName>ASC.Data.Storage</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -35,84 +19,19 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="BaseStorage.cs" />
-    <Compile Include="ChunkedUploader\CommonChunkedUploadSession.cs" />
-    <Compile Include="ChunkedUploader\CommonChunkedUploadSessionHolder.cs" />
-    <Compile Include="Configuration\ACL.cs" />
-    <Compile Include="Configuration\AppenderConfigurationCollection.cs" />
-    <Compile Include="Configuration\AppenderConfigurationElement.cs" />
-    <Compile Include="Configuration\HandlerConfigurationElement.cs" />
-    <Compile Include="Configuration\HandlersConfigurationCollection.cs" />
-    <Compile Include="Configuration\DomainConfigurationElement.cs" />
-    <Compile Include="Configuration\DomainConfigurationCollection.cs" />
-    <Compile Include="Configuration\ModuleConfigurationCollection.cs" />
-    <Compile Include="Configuration\ModuleConfigurationElement.cs" />
-    <Compile Include="Configuration\StorageSettings.cs" />
-    <Compile Include="Configuration\Schema.cs" />
-    <Compile Include="Configuration\StorageConfigurationSection.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="CrossModuleTransferUtility.cs" />
-    <Compile Include="DataList.cs" />
-    <Compile Include="DataStoreCache.cs" />
-    <Compile Include="DiscStorage\DiscDataStore.cs" />
-    <Compile Include="DiscStorage\DiscDataHandler.cs" />
-    <Compile Include="Encryption\FakeCrypt.cs" />
-    <Compile Include="Encryption\EncryptionFactory.cs" />
-    <Compile Include="DiscStorage\MappedPath.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="GoogleCloud\GoogleCloudStorage.cs" />
-    <Compile Include="IDataStoreValidator.cs" />
-    <Compile Include="IDataStore.cs" />
-    <Compile Include="IQuotaController.cs" />
-    <Compile Include="Migration\IService.cs" />
-    <Compile Include="Migration\MigrateServiceClient.cs" />
-    <Compile Include="PathUtils.cs" />
-    <Compile Include="ProgressStream.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RackspaceCloud\RackspaceCloudStorage.cs" />
-    <Compile Include="S3\S3Storage.cs" />
-    <Compile Include="S3\S3UploadGuard.cs" />
-    <Compile Include="S3\UnencodedUri.cs" />
-    <Compile Include="SecureHelper.cs" />
-    <Compile Include="StaticUploader.cs" />
-    <Compile Include="StorageHandler.cs" />
-    <Compile Include="Selectel\SelectelStorage.cs" />
-    <Compile Include="StorageUploader.cs" />
-    <Compile Include="TenantPath.cs" />
-    <Compile Include="TenantQuotaController.cs" />
-    <Compile Include="Encryption\IEncryptionService.cs" />
-    <Compile Include="Encryption\EncryptionServiceClient.cs" />
-    <Compile Include="Wildcard.cs" />
-    <Compile Include="StorageFactory.cs" />
-    <Compile Include="WebPath.cs" />
-    <Compile Include="ZipOperators\ChunkZipWriteOperator.cs" />
-    <Compile Include="ZipOperators\IDataOperator.cs" />
-    <Compile Include="ZipOperators\IGetterWriteOperator.cs" />
-    <Compile Include="ZipOperators\S3ZipWriteOperator.cs" />
-    <Compile Include="ZipOperators\ZipOperator.cs" />
-    <Compile Include="ZipOperators\ZipWriteOperatorFactory.cs" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -126,24 +45,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Data.Encryption\ASC.Data.Encryption.csproj">
-      <Project>{448851d4-e525-4acc-9ae4-7aec289445bc}</Project>
-      <Name>ASC.Data.Encryption</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\ASC.Data.Encryption\ASC.Data.Encryption.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Extensions.S3.Encryption">
@@ -172,9 +79,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

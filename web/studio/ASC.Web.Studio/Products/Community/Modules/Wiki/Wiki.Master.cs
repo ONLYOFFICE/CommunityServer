@@ -25,7 +25,7 @@ using ASC.Notify.Recipients;
 using ASC.Web.Community.Wiki.Common;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
-
+using ASC.Web.Studio.Masters.MasterManagement;
 using WikiNotifySource = ASC.Web.UserControls.Wiki.WikiNotifySource;
 
 namespace ASC.Web.Community.Wiki

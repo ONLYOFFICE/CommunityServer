@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.ActiveDirectory", "common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj", "{E588E818-F163-470C-802C-3A6E45B36080}"
 EndProject
@@ -121,11 +121,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.Files.ThumbnailBuilder"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.SsoAuth.Svc", "module\ASC.SsoAuth.Svc\ASC.SsoAuth.Svc.csproj", "{531C54F5-D6F3-4047-8C35-685C6CD94EC7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9AF8FFC6-4D0C-4A97-A2E0-A2B8B1AB3225}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.Files.AutoCleanUp", "module\ASC.Files.AutoCleanUp\ASC.Files.AutoCleanUp.csproj", "{F120112A-92BB-4F9F-AE3F-3F0459192C9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.Migration", "module\ASC.Migration\ASC.Migration.csproj", "{72D10CCA-CCF1-4E2F-A17D-443917B154CB}"
@@ -133,6 +128,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.Api.Migration", "module\ASC.Api\ASC.Api.Migration\ASC.Api.Migration.csproj", "{2DA19D11-DC5A-48BB-B0CC-D070A5A2C363}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC.WebDav.Svc", "module\ASC.WebDav.Svc\ASC.WebDav.Svc.csproj", "{B84EC090-06B6-4960-A847-51017D3B0743}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{754FC069-D67B-A9D7-50A1-8D1CA196D8F1}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

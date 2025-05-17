@@ -23,6 +23,7 @@ using System.Web;
 
 using ASC.Core;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 

@@ -26,6 +26,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Users

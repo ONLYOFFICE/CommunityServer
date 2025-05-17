@@ -16,11 +16,11 @@
 
 
 using System;
-using System.Web;
 using System.Web.UI;
 
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Talk.UserControls
 {

@@ -1,90 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E588E818-F163-470C-802C-3A6E45B36080}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.ActiveDirectory</RootNamespace>
-    <AssemblyName>ASC.ActiveDirectory</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.ActiveDirectory.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Base\Data\LdapObjectExtension.cs" />
-    <Compile Include="Base\Data\LdapLogin.cs" />
-    <Compile Include="Base\Data\LdapObject.cs" />
-    <Compile Include="Base\LdapHelper.cs" />
-    <Compile Include="Base\LdapNotifySource.cs" />
-    <Compile Include="Base\LdapUserImporter.cs" />
-    <Compile Include="Base\LdapNotifyHelper.cs" />
-    <Compile Include="Base\LdapNotifyConstants.cs" />
-    <Compile Include="Base\Settings\LdapSettingsChecker.cs" />
-    <Compile Include="Base\Settings\LdapSettingsStatus.cs" />
-    <Compile Include="Base\Settings\LdapSettings.cs" />
-    <Compile Include="ComplexOperations\Data\LdapItemChange.cs" />
-    <Compile Include="ComplexOperations\Data\LdapChangeCollection.cs" />
-    <Compile Include="ComplexOperations\Data\LdapChangeEnums.cs" />
-    <Compile Include="ComplexOperations\Data\LdapChange.cs" />
-    <Compile Include="ComplexOperations\LdapLocalization.cs" />
-    <Compile Include="ComplexOperations\LdapOperation.cs" />
-    <Compile Include="ComplexOperations\LdapOperationType.cs" />
-    <Compile Include="ComplexOperations\LdapSaveSyncOperation.cs" />
-    <Compile Include="LdapUserManager.cs" />
-    <Compile Include="ComplexOperations\LdapOperationStatus.cs" />
-    <Compile Include="Base\LdapConstants.cs" />
-    <Compile Include="Base\Expressions\Criteria.cs" />
-    <Compile Include="Base\Expressions\CriteriaType.cs" />
-    <Compile Include="Base\Expressions\Expression.cs" />
-    <Compile Include="Base\Expressions\Op.cs" />
-    <Compile Include="LdapUtils.cs" />
-    <Compile Include="Novell\Data\NovellLdapObject.cs" />
-    <Compile Include="Novell\NovellLdapUserImporter.cs" />
-    <Compile Include="Base\Data\LdapCertificateConfirmRequest.cs" />
-    <Compile Include="Novell\Extensions\NovellLdapEntryExtension.cs" />
-    <Compile Include="Novell\NovellLdapHelper.cs" />
-    <Compile Include="Novell\Exceptions\NovellLdapTlsCertificateRequestedException.cs" />
-    <Compile Include="Novell\NovellLdapSearcher.cs" />
-    <Compile Include="Novell\NovellLdapSettingsChecker.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02C40A64-FE22-41D0-9037-69F0D6F787A9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
@@ -101,7 +34,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Runtime.Serialization" />
+    <Compile Remove="ASC.ActiveDirectory.Tests\Login\LoginAcceptedTests.cs" />
+    <Compile Remove="ASC.ActiveDirectory.Tests\Properties\AssemblyInfo.cs" />
+    <Compile Remove="ASC.ActiveDirectory.Tests\Query\ParseTests.cs" />
+    <Compile Remove="ASC.ActiveDirectory.Tests\Utils\LdapHelperTests.cs" />
+    <Compile Remove="BuiltIn\SystemLdapHelper.cs" />
+    <Compile Remove="BuiltIn\SystemLdapSearcher.cs" />
+    <Compile Remove="BuiltIn\SystemLdapSettingsChecker.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

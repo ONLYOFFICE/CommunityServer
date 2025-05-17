@@ -1,117 +1,75 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Use64BitIISExpress />
-    <UseGlobalApplicationHostFile />
-  </PropertyGroup>
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7BCED72B-1DDE-4732-8EB3-2CF7002D7305}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.Calendar</RootNamespace>
-    <AssemblyName>ASC.Web.Calendar</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
     <OutputPath>..\..\..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\bin\ASC.Web.Calendar.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Web" />
-  </ItemGroup>
+  <PropertyGroup>
+	  <TargetFramework>net48</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NLog">
       <Version>5.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addon\CalendarAddon.cs" />
-    <Compile Include="Configuration\CalendarSpaceUsageStatManager.cs" />
-    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
+    <Compile Update="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
       <DependentUpon>DocumentsPopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.designer.cs">
+    <Compile Update="Controls\DocumentsPopup\DocumentsPopup.ascx.designer.cs">
       <DependentUpon>DocumentsPopup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
+    <Compile Update="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
+    <Compile Update="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\FilesUploader.cs" />
-    <Compile Include="Notification\CalendarSubscriptionManager.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\CalendarControl.ascx.cs">
+    <Compile Update="UserControls\CalendarControl.ascx.cs">
       <DependentUpon>CalendarControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\CalendarControl.ascx.designer.cs">
+    <Compile Update="UserControls\CalendarControl.ascx.designer.cs">
       <DependentUpon>CalendarControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CalendarResources.ascx.cs">
+    <Compile Update="UserControls\CalendarResources.ascx.cs">
       <DependentUpon>CalendarResources.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\CalendarResources.ascx.designer.cs">
+    <Compile Update="UserControls\CalendarResources.ascx.designer.cs">
       <DependentUpon>CalendarResources.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ButtonSidePanel.ascx.cs">
+    <Compile Update="UserControls\ButtonSidePanel.ascx.cs">
       <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\ButtonSidePanel.ascx.designer.cs">
+    <Compile Update="UserControls\ButtonSidePanel.ascx.designer.cs">
       <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CalendarSidePanel.ascx.cs">
+    <Compile Update="UserControls\CalendarSidePanel.ascx.cs">
       <DependentUpon>CalendarSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\CalendarSidePanel.ascx.designer.cs">
+    <Compile Update="UserControls\CalendarSidePanel.ascx.designer.cs">
       <DependentUpon>CalendarSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SidePanel.ascx.cs">
+    <Compile Update="UserControls\SidePanel.ascx.cs">
       <DependentUpon>SidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\SidePanel.ascx.designer.cs">
+    <Compile Update="UserControls\SidePanel.ascx.designer.cs">
       <DependentUpon>SidePanel.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -164,7 +122,7 @@
     <EmbeddedResource Include="Resources\CalendarJSResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CalendarJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CalendarJSResource.resx">
+    <EmbeddedResource Update="Resources\CalendarJSResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarJSResource.Designer.cs</LastGenOutput>
@@ -190,7 +148,7 @@
     <EmbeddedResource Include="Resources\CalendarJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CalendarJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CalendarJSResource.Designer.cs">
+    <Compile Update="Resources\CalendarJSResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CalendarJSResource.resx</DependentUpon>
@@ -243,7 +201,7 @@
     <EmbeddedResource Include="Resources\CalendarAddonResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CalendarAddonResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CalendarAddonResource.resx">
+    <EmbeddedResource Update="Resources\CalendarAddonResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarAddonResource.Designer.cs</LastGenOutput>
@@ -269,7 +227,7 @@
     <EmbeddedResource Include="Resources\CalendarAddonResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CalendarAddonResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CalendarAddonResource.Designer.cs">
+    <Compile Update="Resources\CalendarAddonResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CalendarAddonResource.resx</DependentUpon>
@@ -456,7 +414,6 @@
     <Content Include="UserControls\popup\img\popup-arrow-big.png" />
     <Content Include="UserControls\popup\img\popup-arrow.png" />
     <Content Include="UserControls\popup\popup.js" />
-    <Content Include="web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -465,69 +422,86 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UserControls\fullcalendar\tmpl\todo.editor.tmpl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Calendar\ASC.Api.Calendar.csproj">
-      <Project>{5f7dc7bd-d831-449a-908d-5a419e4dfe71}</Project>
-      <Name>ASC.Api.Calendar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Calendar\ASC.Api.Calendar.csproj" />
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54560</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.da.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.et.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CalendarAddonResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.da.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.et.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CalendarJSResource.zh-TW.resx" />
+  </ItemGroup>
 </Project>

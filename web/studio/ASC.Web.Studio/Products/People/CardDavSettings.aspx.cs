@@ -23,7 +23,8 @@ using ASC.Common.Radicale.Core;
 using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.People
 {

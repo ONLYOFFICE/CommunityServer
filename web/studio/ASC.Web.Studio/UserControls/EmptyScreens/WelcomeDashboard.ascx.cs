@@ -21,6 +21,7 @@ using System.Web.UI;
 
 using ASC.Core;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.EmptyScreens

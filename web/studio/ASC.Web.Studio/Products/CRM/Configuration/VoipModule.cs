@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Web;
 using System.Web.UI;
 
 using ASC.Data.Storage;
@@ -25,6 +24,7 @@ using ASC.Web.Core.WebZones;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.CRM.Configuration
 {

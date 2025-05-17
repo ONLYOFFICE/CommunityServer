@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+//[assembly: global::System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.8", FrameworkDisplayName = ".NET Framework 4.8")]
+
 [assembly: AssemblyTitle("ASC.Web.Studio")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]

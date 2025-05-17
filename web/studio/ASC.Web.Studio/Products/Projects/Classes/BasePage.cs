@@ -23,8 +23,7 @@ using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Masters;
-using ASC.Web.Studio;
-
+using ASC.Web.Studio.Masters;
 using Autofac;
 
 namespace ASC.Web.Projects

@@ -26,6 +26,7 @@ using ASC.Core.Users;
 using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Presentation

@@ -34,6 +34,7 @@ using ASC.Notify.Recipients;
 using ASC.Web.Community.News.Code.Module;
 using ASC.Web.Community.Search;
 using ASC.Web.Core.Users;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
 

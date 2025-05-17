@@ -28,6 +28,7 @@ using ASC.ElasticSearch;
 using ASC.Forum;
 using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Community.Search;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.UserControls.Common.PollForm;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;

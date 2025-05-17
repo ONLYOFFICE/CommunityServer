@@ -34,7 +34,7 @@ using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Search;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core.Users;
-
+using ASC.Web.Studio.Masters.MasterManagement;
 using Autofac;
 
 using Newtonsoft.Json.Linq;

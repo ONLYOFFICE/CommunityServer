@@ -16,8 +16,7 @@
 
 
 using System;
-
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 
 namespace ASC.Web.Community

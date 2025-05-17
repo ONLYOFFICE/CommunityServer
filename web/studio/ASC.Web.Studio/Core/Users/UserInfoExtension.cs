@@ -58,7 +58,7 @@ namespace ASC.Core.Users
             return sb.ToString();
         }
 
-        public static string RenderCustomProfileLink(this UserInfo userInfo, String containerCssClass, String linkCssClass)
+        public static string RenderCustomProfileLink(this UserInfo userInfo, string containerCssClass, string linkCssClass)
         {
             var containerCss = string.IsNullOrEmpty(containerCssClass) ? "userLink" : "userLink " + containerCssClass;
             var linkCss = string.IsNullOrEmpty(linkCssClass) ? "" : linkCssClass;

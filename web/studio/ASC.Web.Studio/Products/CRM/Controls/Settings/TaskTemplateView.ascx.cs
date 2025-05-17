@@ -17,7 +17,6 @@
 
 using System;
 using System.Text;
-using System.Web;
 
 using ASC.CRM.Core;
 using ASC.Web.Core.Utility.Skins;
@@ -25,6 +24,7 @@ using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.CRM.Controls.Settings
 {

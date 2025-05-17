@@ -17,13 +17,13 @@
 
 using System;
 using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Community.Forum
 {

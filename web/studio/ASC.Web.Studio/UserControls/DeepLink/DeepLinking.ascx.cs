@@ -26,6 +26,7 @@ using System.Web.UI.HtmlControls;
 
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.DeepLink;
 

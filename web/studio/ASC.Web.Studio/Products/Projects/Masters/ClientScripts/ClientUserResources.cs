@@ -30,7 +30,7 @@ using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Users;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
-
+using ASC.Web.Studio.Core.Users;
 using Autofac;
 
 namespace ASC.Web.Projects.Masters.ClientScripts

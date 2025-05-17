@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Studio.UserControls.Statistics

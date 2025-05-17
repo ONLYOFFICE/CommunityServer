@@ -17,8 +17,7 @@
 
 using System;
 using System.Web.UI;
-
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 using ASC.Web.UserControls.Forum.Common;
 
 namespace ASC.Web.Community.Forum

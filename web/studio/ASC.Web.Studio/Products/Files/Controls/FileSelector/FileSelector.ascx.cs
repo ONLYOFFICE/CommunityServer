@@ -16,11 +16,11 @@
 
 
 using System;
-using System.Web;
 using System.Web.UI;
 
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Files.Controls
 {

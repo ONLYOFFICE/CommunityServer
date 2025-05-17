@@ -24,7 +24,7 @@ namespace ASC.Common.Logging
 {
     public class SpecialFolderPathConverter : PatternConverter
     {
-        protected override void Convert(TextWriter writer, object state)
+        public override void Convert(TextWriter writer, object state)
         {
             if (string.IsNullOrEmpty(Option))
             {

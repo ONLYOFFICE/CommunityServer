@@ -17,7 +17,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-
 using ASC.Core.Common.Configuration;
 using ASC.Web.Studio.PublicResources;
 

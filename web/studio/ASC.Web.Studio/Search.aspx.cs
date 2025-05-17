@@ -29,6 +29,7 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core.Search;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common.Search;
 using ASC.Web.Studio.Utility;

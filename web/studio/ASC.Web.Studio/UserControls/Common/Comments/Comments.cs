@@ -21,7 +21,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Common.Comments

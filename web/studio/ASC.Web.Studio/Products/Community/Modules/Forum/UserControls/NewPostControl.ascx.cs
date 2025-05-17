@@ -39,6 +39,7 @@ using ASC.Web.Community.Search;
 using ASC.Web.Studio.Controls.FileUploader;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Forum.Common;

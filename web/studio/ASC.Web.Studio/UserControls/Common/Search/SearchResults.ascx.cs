@@ -17,12 +17,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.Search;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Studio.UserControls.Common.Search
 {

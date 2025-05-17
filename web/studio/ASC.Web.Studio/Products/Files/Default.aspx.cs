@@ -32,9 +32,9 @@ using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Masters;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
-using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Files

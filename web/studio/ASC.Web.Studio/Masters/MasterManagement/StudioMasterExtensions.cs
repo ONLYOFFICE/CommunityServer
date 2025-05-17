@@ -15,13 +15,15 @@
 */
 
 
+using System;
+using System.Web;
 using System.Web.UI;
 
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio.Masters;
 
-namespace System.Web
+namespace ASC.Web.Studio.Masters.MasterManagement
 {
     public static class StudioMasterExtensions
     {
@@ -35,7 +37,7 @@ namespace System.Web
         public static Page RegisterStyle(this Page page, Func<string, string> converter, params string[] absoluteLessPath)
         {
             if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
+            var master = page.GetStudioMaster();
             if (master != null)
             {
                 master.AddStyles(converter, absoluteLessPath);
@@ -57,7 +59,7 @@ namespace System.Web
         public static Page RegisterBodyScripts(this Page page, Func<string, string> converter, params string[] scriptPath)
         {
             if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
+            var master = page.GetStudioMaster();
             if (master != null)
             {
                 master.AddBodyScripts(converter, scriptPath);
@@ -68,7 +70,7 @@ namespace System.Web
         public static Page RegisterStaticScripts(this Page page, ScriptBundleData bundleData)
         {
             if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
+            var master = page.GetStudioMaster();
             if (master != null)
             {
                 master.AddStaticBodyScripts(bundleData);
@@ -79,7 +81,7 @@ namespace System.Web
         public static Page RegisterInlineScript(this Page page, string script, bool beforeBodyScript = false, bool onReady = true)
         {
             if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
+            var master = page.GetStudioMaster();
             if (master != null)
             {
                 master.RegisterInlineScript(script, beforeBodyScript, onReady);
@@ -94,7 +96,7 @@ namespace System.Web
         public static Page RegisterClientScript(this Page page, ClientScript clientScript)
         {
             if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
+            var master = page.GetStudioMaster();
             if (master != null)
             {
                 master.AddClientScript(clientScript);

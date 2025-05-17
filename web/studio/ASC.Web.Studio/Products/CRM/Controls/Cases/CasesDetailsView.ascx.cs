@@ -16,10 +16,10 @@
 
 
 using System;
-using System.Web;
 
 using ASC.CRM.Core;
 using ASC.Web.CRM.Classes;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.CRM.Controls.Cases
 {

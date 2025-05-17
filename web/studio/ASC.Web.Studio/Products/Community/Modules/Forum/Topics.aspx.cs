@@ -24,8 +24,8 @@ using AjaxPro;
 using ASC.Forum;
 using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 

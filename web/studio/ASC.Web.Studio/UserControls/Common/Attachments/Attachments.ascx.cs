@@ -23,7 +23,9 @@ using System.Web.UI;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.Common.MediaViewer;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.Attachments
@@ -107,7 +109,7 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         private void InitViewers()
         {
-            MediaViewersPlaceHolder.Controls.Add(LoadControl(Common.MediaPlayer.Location));
+            MediaViewersPlaceHolder.Controls.Add(LoadControl(MediaPlayer.Location));
         }
 
         protected void Page_Load(object sender, EventArgs e)

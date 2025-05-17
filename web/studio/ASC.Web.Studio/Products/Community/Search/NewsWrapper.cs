@@ -44,7 +44,7 @@ namespace ASC.Web.Community.Search
         [Join(JoinTypeEnum.Sub, "tenant:tenant", "id:poll")]
         public List<PollVariantWrapper> PollVariantWrapper { get; set; }
 
-        public static implicit operator NewsWrapper(Feed feed)
+        public static implicit operator NewsWrapper(ASC.Web.Community.News.Code.Feed feed)
         {
             var result = new NewsWrapper
             {

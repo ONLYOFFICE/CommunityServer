@@ -18,8 +18,8 @@
 using System;
 
 using ASC.Web.People.UserControls;
-using ASC.Web.Studio;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 
 

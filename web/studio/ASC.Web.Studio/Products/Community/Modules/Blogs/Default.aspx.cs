@@ -30,6 +30,7 @@ using ASC.Web.Community.Modules.Blogs.Core.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Blogs

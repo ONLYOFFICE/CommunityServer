@@ -17,7 +17,6 @@
 
 using System;
 using System.Text;
-using System.Web;
 
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -26,6 +25,7 @@ using ASC.Web.Core;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Classes;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.CRM.Controls.Contacts

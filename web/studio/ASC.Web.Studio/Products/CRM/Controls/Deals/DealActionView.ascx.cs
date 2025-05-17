@@ -37,8 +37,9 @@ using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.Services.NotifyService;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
-
+using ASC.Web.Studio.Masters.MasterManagement;
 using Autofac;
 
 #endregion

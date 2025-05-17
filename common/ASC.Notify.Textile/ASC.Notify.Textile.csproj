@@ -1,23 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{659C514B-DD2C-41E3-A40E-4701216B1EA2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Notify.Textile</RootNamespace>
-    <AssemblyName>ASC.Notify.Textile</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -34,33 +18,19 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.Notify.Textile.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="JabberStyler.cs" />
-    <Compile Include="MarkDownStyler.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PushStyler.cs" />
-    <Compile Include="TextileStyler.cs" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\style.css"></EmbeddedResource>
     <EmbeddedResource Include="Resources\NotifyTemplateResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
@@ -99,7 +69,7 @@
     <EmbeddedResource Include="Resources\NotifyTemplateResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\NotifyTemplateResource.resx">
+    <EmbeddedResource Update="Resources\NotifyTemplateResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NotifyTemplateResource.Designer.cs</LastGenOutput>
@@ -122,7 +92,7 @@
     <EmbeddedResource Include="Resources\NotifyTemplateResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\NotifyTemplateResource.Designer.cs">
+    <Compile Update="Resources\NotifyTemplateResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
@@ -147,21 +117,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Textile">
@@ -171,5 +129,26 @@
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.de.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.es.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.it.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\NotifyTemplateResource.zh-TW.resx" />
+  </ItemGroup>
 </Project>

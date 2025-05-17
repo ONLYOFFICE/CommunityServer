@@ -16,14 +16,14 @@
 
 
 using System;
-using System.Web;
 
 using ASC.Bookmarking;
 using ASC.Bookmarking.Common;
 using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Utility;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 
 namespace ASC.Web.Community.Bookmarking.Util

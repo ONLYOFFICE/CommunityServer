@@ -1,572 +1,423 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{48EFB880-3D76-4B21-B31E-1007C0062B5C}</ProjectGuid>
+	  <TargetFramework>net48</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.CRM</RootNamespace>
-    <AssemblyName>ASC.Web.CRM</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkProfile />
     <OutputPath>..\..\bin\</OutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\bin\ASC.Web.CRM.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Calls.aspx.cs">
+    <Compile Update="Calls.aspx.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Calls.aspx.designer.cs">
+    <Compile Update="Calls.aspx.designer.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cases.aspx.cs">
+    <Compile Update="Cases.aspx.cs">
       <DependentUpon>Cases.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cases.aspx.designer.cs">
+    <Compile Update="Cases.aspx.designer.cs">
       <DependentUpon>Cases.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\ContactPhotoManager.cs" />
-    <Compile Include="Classes\ImportFromCSVManager.cs" />
-    <Compile Include="Classes\InvoiceFormattedData.cs" />
-    <Compile Include="Classes\LocalizedEnumConverter.cs" />
-    <Compile Include="Classes\OrganisationLogoManager.cs" />
-    <Compile Include="Classes\RegisterClientScriptHelper.cs" />
-    <Compile Include="Classes\SignalRHelper.cs" />
-    <Compile Include="Classes\SubscriptionManager.cs" />
-    <Compile Include="Classes\TwilioController.cs" />
-    <Compile Include="Classes\VoipEngine.cs" />
-    <Compile Include="Configuration\CRMsSpaceUsageStatManager.cs" />
-    <Compile Include="Configuration\VoipModule.cs" />
-    <Compile Include="Controls\Cases\CasesFullCardView.ascx.cs">
+    <Compile Update="Controls\Cases\CasesFullCardView.ascx.cs">
       <DependentUpon>CasesFullCardView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Cases\CasesFullCardView.ascx.designer.cs">
+    <Compile Update="Controls\Cases\CasesFullCardView.ascx.designer.cs">
       <DependentUpon>CasesFullCardView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ButtonsSidePanel.ascx.cs">
+    <Compile Update="Controls\Common\ButtonsSidePanel.ascx.cs">
       <DependentUpon>ButtonsSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\ButtonsSidePanel.ascx.designer.cs">
+    <Compile Update="Controls\Common\ButtonsSidePanel.ascx.designer.cs">
       <DependentUpon>ButtonsSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ListBaseView.ascx.cs">
+    <Compile Update="Controls\Common\ListBaseView.ascx.cs">
       <DependentUpon>ListBaseView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\ListBaseView.ascx.designer.cs">
+    <Compile Update="Controls\Common\ListBaseView.ascx.designer.cs">
       <DependentUpon>ListBaseView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\NavigationSidePanel.ascx.cs">
+    <Compile Update="Controls\Common\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\NavigationSidePanel.ascx.designer.cs">
+    <Compile Update="Controls\Common\NavigationSidePanel.ascx.designer.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ResultsView.cs" />
-    <Compile Include="Controls\Invoices\InvoiceDetailsView.ascx.cs">
+    <Compile Update="Controls\Invoices\InvoiceDetailsView.ascx.cs">
       <DependentUpon>InvoiceDetailsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Invoices\InvoiceDetailsView.ascx.designer.cs">
+    <Compile Update="Controls\Invoices\InvoiceDetailsView.ascx.designer.cs">
       <DependentUpon>InvoiceDetailsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Invoices\InvoiceActionView.ascx.cs">
+    <Compile Update="Controls\Invoices\InvoiceActionView.ascx.cs">
       <DependentUpon>InvoiceActionView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Invoices\InvoiceActionView.ascx.designer.cs">
+    <Compile Update="Controls\Invoices\InvoiceActionView.ascx.designer.cs">
       <DependentUpon>InvoiceActionView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Invoices\ListInvoiceView.ascx.cs">
+    <Compile Update="Controls\Invoices\ListInvoiceView.ascx.cs">
       <DependentUpon>ListInvoiceView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Invoices\ListInvoiceView.ascx.designer.cs">
+    <Compile Update="Controls\Invoices\ListInvoiceView.ascx.designer.cs">
       <DependentUpon>ListInvoiceView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Sender\SmtpSender.ascx.cs">
+    <Compile Update="Controls\Sender\SmtpSender.ascx.cs">
       <DependentUpon>SmtpSender.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Sender\SmtpSender.ascx.designer.cs">
+    <Compile Update="Controls\Sender\SmtpSender.ascx.designer.cs">
       <DependentUpon>SmtpSender.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Contacts\ContactFullCardView.ascx.cs">
+    <Compile Update="Controls\Contacts\ContactFullCardView.ascx.cs">
       <DependentUpon>ContactFullCardView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Contacts\ContactFullCardView.ascx.designer.cs">
+    <Compile Update="Controls\Contacts\ContactFullCardView.ascx.designer.cs">
       <DependentUpon>ContactFullCardView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Contacts\ListContactView.ascx.cs">
+    <Compile Update="Controls\Contacts\ListContactView.ascx.cs">
       <DependentUpon>ListContactView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Contacts\ListContactView.ascx.designer.cs">
+    <Compile Update="Controls\Contacts\ListContactView.ascx.designer.cs">
       <DependentUpon>ListContactView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ImportFromCSVView.ascx.cs">
+    <Compile Update="Controls\Common\ImportFromCSVView.ascx.cs">
       <DependentUpon>ImportFromCSVView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\ImportFromCSVView.ascx.designer.cs">
+    <Compile Update="Controls\Common\ImportFromCSVView.ascx.designer.cs">
       <DependentUpon>ImportFromCSVView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Deals\DealFullCardView.ascx.cs">
+    <Compile Update="Controls\Deals\DealFullCardView.ascx.cs">
       <DependentUpon>DealFullCardView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Deals\DealFullCardView.ascx.designer.cs">
+    <Compile Update="Controls\Deals\DealFullCardView.ascx.designer.cs">
       <DependentUpon>DealFullCardView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Deals\ListDealView.ascx.cs">
+    <Compile Update="Controls\Deals\ListDealView.ascx.cs">
       <DependentUpon>ListDealView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Deals\ListDealView.ascx.designer.cs">
+    <Compile Update="Controls\Deals\ListDealView.ascx.designer.cs">
       <DependentUpon>ListDealView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\SettingsHeaderView.ascx.cs">
+    <Compile Update="Controls\Settings\SettingsHeaderView.ascx.cs">
       <DependentUpon>SettingsHeaderView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\SettingsHeaderView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\SettingsHeaderView.ascx.designer.cs">
       <DependentUpon>SettingsHeaderView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\CurrencySettingsView.ascx.cs">
+    <Compile Update="Controls\Settings\CurrencySettingsView.ascx.cs">
       <DependentUpon>CurrencySettingsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\CurrencySettingsView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\CurrencySettingsView.ascx.designer.cs">
       <DependentUpon>CurrencySettingsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\DealMilestoneView.ascx.cs">
+    <Compile Update="Controls\Settings\DealMilestoneView.ascx.cs">
       <DependentUpon>DealMilestoneView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\DealMilestoneView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\DealMilestoneView.ascx.designer.cs">
       <DependentUpon>DealMilestoneView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx.cs">
       <DependentUpon>OrganisationProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx.designer.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx.designer.cs">
       <DependentUpon>OrganisationProfile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx.cs">
       <DependentUpon>InvoiceItemActionView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx.designer.cs">
       <DependentUpon>InvoiceItemActionView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx.cs">
       <DependentUpon>InvoiceItemsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx.designer.cs">
       <DependentUpon>InvoiceItemsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.cs">
       <DependentUpon>InvoiceTaxesView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.designer.cs">
       <DependentUpon>InvoiceTaxesView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Reports\ReportsNavigation.ascx.cs">
+    <Compile Update="Controls\Reports\ReportsNavigation.ascx.cs">
       <DependentUpon>ReportsNavigation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Reports\ReportsNavigation.ascx.designer.cs">
+    <Compile Update="Controls\Reports\ReportsNavigation.ascx.designer.cs">
       <DependentUpon>ReportsNavigation.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Reports\ReportsView.ascx.cs">
+    <Compile Update="Controls\Reports\ReportsView.ascx.cs">
       <DependentUpon>ReportsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Reports\ReportsView.ascx.designer.cs">
+    <Compile Update="Controls\Reports\ReportsView.ascx.designer.cs">
       <DependentUpon>ReportsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipCommon.ascx.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipCommon.ascx.cs">
       <DependentUpon>VoipCommon.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipCommon.ascx.designer.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipCommon.ascx.designer.cs">
       <DependentUpon>VoipCommon.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipNumbers.ascx.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipNumbers.ascx.cs">
       <DependentUpon>VoipNumbers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipNumbers.ascx.designer.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipNumbers.ascx.designer.cs">
       <DependentUpon>VoipNumbers.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipCalls.ascx.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipCalls.ascx.cs">
       <DependentUpon>VoipCalls.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipCalls.ascx.designer.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipCalls.ascx.designer.cs">
       <DependentUpon>VoipCalls.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
+    <Compile Update="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\TagSettingsView.ascx.cs">
+    <Compile Update="Controls\Settings\TagSettingsView.ascx.cs">
       <DependentUpon>TagSettingsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\TagSettingsView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\TagSettingsView.ascx.designer.cs">
       <DependentUpon>TagSettingsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\TaskTemplateView.ascx.cs">
+    <Compile Update="Controls\Settings\TaskTemplateView.ascx.cs">
       <DependentUpon>TaskTemplateView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\TaskTemplateView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\TaskTemplateView.ascx.designer.cs">
       <DependentUpon>TaskTemplateView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tasks\ListTaskView.ascx.cs">
+    <Compile Update="Controls\Tasks\ListTaskView.ascx.cs">
       <DependentUpon>ListTaskView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Tasks\ListTaskView.ascx.designer.cs">
+    <Compile Update="Controls\Tasks\ListTaskView.ascx.designer.cs">
       <DependentUpon>ListTaskView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Core\Dao\ListItemHistoryDao.cs" />
-    <Compile Include="Core\DIHelper.cs" />
-    <Compile Include="Core\Entities\Filter.cs" />
-    <Compile Include="Core\Entities\ListItemHistory.cs" />
-    <Compile Include="Core\Enums\ProgressStatus.cs" />
-    <Compile Include="Core\Enums\ReportTimePeriodEnum.cs" />
-    <Compile Include="Core\Enums\ReportTypeEnum.cs" />
-    <Compile Include="Core\Search\BundleSearch.cs" />
-    <Compile Include="Core\Search\CasesWrapper.cs" />
-    <Compile Include="Core\Search\ContactsWrapper.cs" />
-    <Compile Include="Core\Search\DealsWrapper.cs" />
-    <Compile Include="Core\Search\EmailWrapper.cs" />
-    <Compile Include="Core\Search\EventsWrapper.cs" />
-    <Compile Include="Core\Search\FieldsWrapper.cs" />
-    <Compile Include="Core\Search\InfoWrapper.cs" />
-    <Compile Include="Core\Search\InvoicesWrapper.cs" />
-    <Compile Include="Core\Search\TasksWrapper.cs" />
-    <Compile Include="Reports.aspx.cs">
+    <Compile Update="Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports.aspx.designer.cs">
+    <Compile Update="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Core\Dao\CurrencyRateDao.cs" />
-    <Compile Include="Core\Dao\CurrencyInfoDao.cs" />
-    <Compile Include="Core\Entities\CurrencyRate.cs" />
-    <Compile Include="Core\Entities\CurrencyInfo.cs" />
-    <Compile Include="Core\Enums\ShareType.cs" />
-    <Compile Include="HttpHandlers\OrganisationLogoHandler.cs" />
-    <Compile Include="HttpHandlers\ContactPhotoHandler.cs" />
-    <Compile Include="HttpHandlers\ImportFileHandler.cs" />
-    <Compile Include="MailViewer.aspx.cs">
+    <Compile Update="MailViewer.aspx.cs">
       <DependentUpon>MailViewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MailViewer.aspx.designer.cs">
+    <Compile Update="MailViewer.aspx.designer.cs">
       <DependentUpon>MailViewer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Core\Dao\ContactInfoDao.cs" />
-    <Compile Include="Core\Dao\DealMilestoneDao.cs" />
-    <Compile Include="Core\Dao\InvoiceDao.cs" />
-    <Compile Include="Core\Dao\InvoiceItemDao.cs" />
-    <Compile Include="Core\Dao\InvoiceLineDao.cs" />
-    <Compile Include="Core\Dao\InvoiceTaxDao.cs" />
-    <Compile Include="Core\Dao\TaskTemplateContainerDao.cs" />
-    <Compile Include="Core\Entities\ContactInfo.cs" />
-    <Compile Include="Core\Entities\Invoice.cs" />
-    <Compile Include="Core\Entities\InvoiceItem.cs" />
-    <Compile Include="Core\Entities\InvoiceLine.cs" />
-    <Compile Include="Core\Entities\InvoiceTax.cs" />
-    <Compile Include="Core\Entities\Report.cs" />
-    <Compile Include="Core\Entities\TaskTemplateContainer.cs" />
-    <Compile Include="Core\Enums\ContactInfoCategoryEnum.cs" />
-    <Compile Include="Core\Enums\ContactInfoTypeEnum.cs" />
-    <Compile Include="Core\Enums\ContactListViewTypeEnum.cs" />
-    <Compile Include="Core\Enums\ContactSelectorTypeEnum.cs" />
-    <Compile Include="Core\Enums\InvoiceStatus.cs" />
-    <Compile Include="Core\Enums\InvoiceTemplateTypeEnum.cs" />
-    <Compile Include="Core\Security\FileSecurityProvider.cs" />
-    <Compile Include="Help.aspx.cs">
+    <Compile Update="Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Help.aspx.designer.cs">
+    <Compile Update="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\FileHandler.ashx.cs">
+    <Compile Update="HttpHandlers\FileHandler.ashx.cs">
       <DependentUpon>filehandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="HttpHandlers\WebToLeadFromHandler.ashx.cs">
+    <Compile Update="HttpHandlers\WebToLeadFromHandler.ashx.cs">
       <DependentUpon>webtoleadfromhandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Invoices.aspx.cs">
+    <Compile Update="Invoices.aspx.cs">
       <DependentUpon>Invoices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Invoices.aspx.designer.cs">
+    <Compile Update="Invoices.aspx.designer.cs">
       <DependentUpon>Invoices.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
-    <Compile Include="Masters\ClientScripts\ControlsResources.cs" />
-    <Compile Include="Masters\ClientScripts\CRMSettingsResources.cs" />
-    <Compile Include="Sender.aspx.cs">
+    <Compile Update="Sender.aspx.cs">
       <DependentUpon>Sender.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sender.aspx.designer.cs">
+    <Compile Update="Sender.aspx.designer.cs">
       <DependentUpon>Sender.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\PdfQueueWorker.cs" />
-    <Compile Include="Utils\ReportHelper.cs" />
-    <Compile Include="Utils\CurrencyProvider.cs" />
-    <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
-    <Compile Include="Classes\Global.cs" />
-    <Compile Include="Classes\CRMSettings.cs" />
-    <Compile Include="Classes\UrlConstant.cs" />
-    <Compile Include="Classes\UrlParameters.cs" />
-    <Compile Include="Controls\Settings\WebToLeadFormView.ascx.cs">
+    <Compile Update="Controls\Settings\WebToLeadFormView.ascx.cs">
       <DependentUpon>WebToLeadFormView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\WebToLeadFormView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\WebToLeadFormView.ascx.designer.cs">
       <DependentUpon>WebToLeadFormView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\SearchHandler.cs" />
-    <Compile Include="Default.aspx.cs">
+    <Compile Update="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
+    <Compile Update="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cases\CasesActionView.ascx.cs">
+    <Compile Update="Controls\Cases\CasesActionView.ascx.cs">
       <DependentUpon>CasesActionView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Cases\CasesActionView.ascx.designer.cs">
+    <Compile Update="Controls\Cases\CasesActionView.ascx.designer.cs">
       <DependentUpon>CasesActionView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cases\CasesDetailsView.ascx.cs">
+    <Compile Update="Controls\Cases\CasesDetailsView.ascx.cs">
       <DependentUpon>CasesDetailsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Cases\CasesDetailsView.ascx.designer.cs">
+    <Compile Update="Controls\Cases\CasesDetailsView.ascx.designer.cs">
       <DependentUpon>CasesDetailsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cases\ListCasesView.ascx.cs">
+    <Compile Update="Controls\Cases\ListCasesView.ascx.cs">
       <DependentUpon>ListCasesView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Cases\ListCasesView.ascx.designer.cs">
+    <Compile Update="Controls\Cases\ListCasesView.ascx.designer.cs">
       <DependentUpon>ListCasesView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\FileUploader.ascx.cs">
+    <Compile Update="Controls\Common\FileUploader.ascx.cs">
       <DependentUpon>FileUploader.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\FileUploader.ascx.designer.cs">
+    <Compile Update="Controls\Common\FileUploader.ascx.designer.cs">
       <DependentUpon>FileUploader.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\PrivatePanel.ascx.cs">
+    <Compile Update="Controls\Common\PrivatePanel.ascx.cs">
       <DependentUpon>PrivatePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\PrivatePanel.ascx.designer.cs">
+    <Compile Update="Controls\Common\PrivatePanel.ascx.designer.cs">
       <DependentUpon>PrivatePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Contacts\ContactActionView.ascx.cs">
+    <Compile Update="Controls\Contacts\ContactActionView.ascx.cs">
       <DependentUpon>ContactActionView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Contacts\ContactActionView.ascx.designer.cs">
+    <Compile Update="Controls\Contacts\ContactActionView.ascx.designer.cs">
       <DependentUpon>ContactActionView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Contacts\ContactDetailsView.ascx.cs">
+    <Compile Update="Controls\Contacts\ContactDetailsView.ascx.cs">
       <DependentUpon>ContactDetailsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Contacts\ContactDetailsView.ascx.designer.cs">
+    <Compile Update="Controls\Contacts\ContactDetailsView.ascx.designer.cs">
       <DependentUpon>ContactDetailsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\HistoryView.ascx.cs">
+    <Compile Update="Controls\Common\HistoryView.ascx.cs">
       <DependentUpon>HistoryView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\HistoryView.ascx.designer.cs">
+    <Compile Update="Controls\Common\HistoryView.ascx.designer.cs">
       <DependentUpon>HistoryView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Deals\DealActionView.ascx.cs">
+    <Compile Update="Controls\Deals\DealActionView.ascx.cs">
       <DependentUpon>DealActionView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Deals\DealActionView.ascx.designer.cs">
+    <Compile Update="Controls\Deals\DealActionView.ascx.designer.cs">
       <DependentUpon>DealActionView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Deals\DealDetailsView.ascx.cs">
+    <Compile Update="Controls\Deals\DealDetailsView.ascx.cs">
       <DependentUpon>DealDetailsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Deals\DealDetailsView.ascx.designer.cs">
+    <Compile Update="Controls\Deals\DealDetailsView.ascx.designer.cs">
       <DependentUpon>DealDetailsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\CommonSettingsView.ascx.cs">
+    <Compile Update="Controls\Settings\CommonSettingsView.ascx.cs">
       <DependentUpon>CommonSettingsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\CommonSettingsView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\CommonSettingsView.ascx.designer.cs">
       <DependentUpon>CommonSettingsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\CustomFieldsView.ascx.cs">
+    <Compile Update="Controls\Settings\CustomFieldsView.ascx.cs">
       <DependentUpon>CustomFieldsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\CustomFieldsView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\CustomFieldsView.ascx.designer.cs">
       <DependentUpon>CustomFieldsView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Settings\ListItemView.ascx.cs">
+    <Compile Update="Controls\Settings\ListItemView.ascx.cs">
       <DependentUpon>ListItemView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Settings\ListItemView.ascx.designer.cs">
+    <Compile Update="Controls\Settings\ListItemView.ascx.designer.cs">
       <DependentUpon>ListItemView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Core\CRMConstants.cs" />
-    <Compile Include="Core\Dao\AbstractDao.cs" />
-    <Compile Include="Core\Dao\CasesDao.cs" />
-    <Compile Include="Core\Dao\FileDao.cs" />
-    <Compile Include="Core\Dao\ReportDao.cs" />
-    <Compile Include="Core\Dao\SearchDao.cs" />
-    <Compile Include="Core\Entities\Cases.cs" />
-    <Compile Include="Core\Entities\Comment.cs" />
-    <Compile Include="Core\Dao\ContactDao.cs" />
-    <Compile Include="Core\Dao\CustomFieldDao.cs" />
-    <Compile Include="Core\Dao\DaoFactory.cs" />
-    <Compile Include="Core\Dao\DealDao.cs" />
-    <Compile Include="Core\Dao\ListItemDao.cs" />
-    <Compile Include="Core\Dao\RelationshipEventDao.cs" />
-    <Compile Include="Core\Dao\TagDao.cs" />
-    <Compile Include="Core\Dao\TaskDao.cs" />
-    <Compile Include="Core\DomainObject.cs" />
-    <Compile Include="Core\Entities\Contact.cs" />
-    <Compile Include="Core\Entities\DealMilestone.cs" />
-    <Compile Include="Core\Entities\RelationshipEvent.cs" />
-    <Compile Include="Core\Entities\CustomField.cs" />
-    <Compile Include="Core\Entities\Deal.cs" />
-    <Compile Include="Core\Entities\ListItem.cs" />
-    <Compile Include="Core\Entities\OrderBy.cs" />
-    <Compile Include="Core\Entities\Task.cs" />
-    <Compile Include="Core\Enums\BidTypeEnum.cs" />
-    <Compile Include="Core\Enums\CustomFieldTypeEnum.cs" />
-    <Compile Include="Core\Enums\DealMilestoneStatus.cs" />
-    <Compile Include="Core\Enums\EntityTypeEnum.cs" />
-    <Compile Include="Core\Enums\ListTypeEnum.cs" />
-    <Compile Include="Core\Enums\SortedByTypeEnum.cs" />
-    <Compile Include="Core\Security\CRMSecurityObjectProvider.cs" />
-    <Compile Include="Core\Security\CRMSecutiry.cs" />
-    <Compile Include="Deals.aspx.cs">
+    <Compile Update="Deals.aspx.cs">
       <DependentUpon>Deals.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Deals.aspx.designer.cs">
+    <Compile Update="Deals.aspx.designer.cs">
       <DependentUpon>Deals.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\BasicTemplate.Master.cs">
+    <Compile Update="Masters\BasicTemplate.Master.cs">
       <DependentUpon>BasicTemplate.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Masters\BasicTemplate.Master.designer.cs">
+    <Compile Update="Masters\BasicTemplate.Master.designer.cs">
       <DependentUpon>BasicTemplate.Master</DependentUpon>
     </Compile>
-    <Compile Include="Classes\BasePage.cs">
+    <Compile Update="Classes\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Classes\BaseUserControl.cs">
+    <Compile Update="Classes\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Classes\PathProvider.cs" />
-    <Compile Include="Configuration\ProductEntryPoint.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\NotifyService\NotifyClient.cs" />
-    <Compile Include="Services\NotifyService\NotifyConstants.cs" />
-    <Compile Include="Services\NotifyService\NotifySource.cs" />
-    <Compile Include="Settings.aspx.cs">
+    <Compile Update="Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Settings.aspx.designer.cs">
+    <Compile Update="Settings.aspx.designer.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Tasks.aspx.cs">
+    <Compile Update="Tasks.aspx.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Tasks.aspx.designer.cs">
+    <Compile Update="Tasks.aspx.designer.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ExportToCSV.cs" />
-    <Compile Include="Utils\FileHelper.cs" />
-    <Compile Include="Utils\Import\CSV\ImportBase.cs" />
-    <Compile Include="Utils\Import\CSV\ImportCases.cs" />
-    <Compile Include="Utils\Import\CSV\ImportContacts.cs" />
-    <Compile Include="Utils\Import\CSV\ImportCSVSettings.cs" />
-    <Compile Include="Utils\Import\CSV\ImportDataOperation.cs" />
-    <Compile Include="Utils\Import\CSV\ImportDeals.cs" />
-    <Compile Include="Utils\Import\CSV\ImportFromCSV.cs" />
-    <Compile Include="Utils\Import\CSV\ImportTasks.cs" />
-    <Compile Include="Utils\MailSender.cs" />
-    <Compile Include="Utils\PdfCreator.cs" />
-    <Compile Include="Warmup.aspx.cs">
+    <Compile Update="Warmup.aspx.cs">
       <DependentUpon>Warmup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Warmup.aspx.designer.cs">
+    <Compile Update="Warmup.aspx.designer.cs">
       <DependentUpon>Warmup.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -700,12 +551,12 @@
     <Content Include="Tasks.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CRMErrorsResource.resx">
+    <EmbeddedResource Update="Resources\CRMErrorsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMErrorsResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMErrorsResource.Designer.cs">
+    <Compile Update="Resources\CRMErrorsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMErrorsResource.resx</DependentUpon>
@@ -746,7 +597,7 @@
     <EmbeddedResource Include="Resources\CRMVoipResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>CRMVoipResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMVoipResource.resx">
+    <EmbeddedResource Update="Resources\CRMVoipResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMVoipResource.Designer.cs</LastGenOutput>
@@ -769,7 +620,7 @@
     <EmbeddedResource Include="Resources\CRMVoipResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMVoipResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMVoipResource.Designer.cs">
+    <Compile Update="Resources\CRMVoipResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMVoipResource.resx</DependentUpon>
@@ -822,7 +673,7 @@
     <EmbeddedResource Include="Resources\CRMContactResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMContactResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMContactResource.resx">
+    <EmbeddedResource Update="Resources\CRMContactResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMContactResource.Designer.cs</LastGenOutput>
@@ -848,7 +699,7 @@
     <EmbeddedResource Include="Resources\CRMContactResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMContactResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMContactResource.Designer.cs">
+    <Compile Update="Resources\CRMContactResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMContactResource.resx</DependentUpon>
@@ -901,7 +752,7 @@
     <EmbeddedResource Include="Resources\CRMCommonResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMCommonResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMCommonResource.resx">
+    <EmbeddedResource Update="Resources\CRMCommonResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMCommonResource.Designer.cs</LastGenOutput>
@@ -927,7 +778,7 @@
     <EmbeddedResource Include="Resources\CRMCommonResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMCommonResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMCommonResource.Designer.cs">
+    <Compile Update="Resources\CRMCommonResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMCommonResource.resx</DependentUpon>
@@ -980,7 +831,7 @@
     <EmbeddedResource Include="Resources\CRMJSResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMJSResource.resx">
+    <EmbeddedResource Update="Resources\CRMJSResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMJSResource.Designer.cs</LastGenOutput>
@@ -1006,7 +857,7 @@
     <EmbeddedResource Include="Resources\CRMJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMJSResource.Designer.cs">
+    <Compile Update="Resources\CRMJSResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMJSResource.resx</DependentUpon>
@@ -1059,7 +910,7 @@
     <EmbeddedResource Include="Resources\CRMDealResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMDealResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMDealResource.resx">
+    <EmbeddedResource Update="Resources\CRMDealResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMDealResource.Designer.cs</LastGenOutput>
@@ -1085,7 +936,7 @@
     <EmbeddedResource Include="Resources\CRMDealResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMDealResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMDealResource.Designer.cs">
+    <Compile Update="Resources\CRMDealResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMDealResource.resx</DependentUpon>
@@ -1120,7 +971,7 @@
     <EmbeddedResource Include="Resources\CRMReportResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>CRMReportResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMReportResource.resx">
+    <EmbeddedResource Update="Resources\CRMReportResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMReportResource.Designer.cs</LastGenOutput>
@@ -1146,7 +997,7 @@
     <EmbeddedResource Include="Resources\CRMReportResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMReportResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMReportResource.Designer.cs">
+    <Compile Update="Resources\CRMReportResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMReportResource.resx</DependentUpon>
@@ -1199,7 +1050,7 @@
     <EmbeddedResource Include="Resources\CRMSettingResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMSettingResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMSettingResource.resx">
+    <EmbeddedResource Update="Resources\CRMSettingResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMSettingResource.Designer.cs</LastGenOutput>
@@ -1225,7 +1076,7 @@
     <EmbeddedResource Include="Resources\CRMSettingResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMSettingResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMSettingResource.Designer.cs">
+    <Compile Update="Resources\CRMSettingResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMSettingResource.resx</DependentUpon>
@@ -1278,7 +1129,7 @@
     <EmbeddedResource Include="Resources\CRMTaskResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMTaskResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMTaskResource.resx">
+    <EmbeddedResource Update="Resources\CRMTaskResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMTaskResource.Designer.cs</LastGenOutput>
@@ -1304,7 +1155,7 @@
     <EmbeddedResource Include="Resources\CRMTaskResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMTaskResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMTaskResource.Designer.cs">
+    <Compile Update="Resources\CRMTaskResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMTaskResource.resx</DependentUpon>
@@ -1354,7 +1205,7 @@
     <EmbeddedResource Include="Services\NotifyService\CRMPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Services\NotifyService\CRMPatternResource.resx">
+    <EmbeddedResource Update="Services\NotifyService\CRMPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMPatternResource.Designer.cs</LastGenOutput>
@@ -1380,7 +1231,7 @@
     <EmbeddedResource Include="Services\NotifyService\CRMPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Services\NotifyService\CRMPatternResource.Designer.cs">
+    <Compile Update="Services\NotifyService\CRMPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMPatternResource.resx</DependentUpon>
@@ -1421,7 +1272,7 @@
     <EmbeddedResource Include="Resources\CRMInvoiceResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>CRMInvoiceResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMInvoiceResource.resx">
+    <EmbeddedResource Update="Resources\CRMInvoiceResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMInvoiceResource.Designer.cs</LastGenOutput>
@@ -1447,7 +1298,7 @@
     <EmbeddedResource Include="Resources\CRMInvoiceResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMInvoiceResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMInvoiceResource.Designer.cs">
+    <Compile Update="Resources\CRMInvoiceResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMInvoiceResource.resx</DependentUpon>
@@ -1851,7 +1702,7 @@
     <EmbeddedResource Include="Resources\CRMCasesResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMCasesResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMCasesResource.resx">
+    <EmbeddedResource Update="Resources\CRMCasesResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMCasesResource.Designer.cs</LastGenOutput>
@@ -1877,7 +1728,7 @@
     <EmbeddedResource Include="Resources\CRMCasesResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMCasesResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMCasesResource.Designer.cs">
+    <Compile Update="Resources\CRMCasesResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMCasesResource.resx</DependentUpon>
@@ -1930,7 +1781,7 @@
     <EmbeddedResource Include="Resources\CRMEnumResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CRMEnumResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CRMEnumResource.resx">
+    <EmbeddedResource Update="Resources\CRMEnumResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMEnumResource.Designer.cs</LastGenOutput>
@@ -1956,7 +1807,7 @@
     <EmbeddedResource Include="Resources\CRMEnumResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CRMEnumResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CRMEnumResource.Designer.cs">
+    <Compile Update="Resources\CRMEnumResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMEnumResource.resx</DependentUpon>
@@ -2167,50 +2018,17 @@
     <Content Include="App_Themes\default\css\voip.common.less" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
-      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
-      <Name>ASC.ElasticSearch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
-      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
-      <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
-      <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
-      <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
-      <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
-      <Name>ASC.VoipService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.VoipService\ASC.VoipService.csproj" />
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\Files\ASC.Web.Files.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ReportTemplates\SalesByManagers.docbuilder" />
@@ -2261,7 +2079,6 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <CreateItem Include="$(ProjectDir)**\*.css">
       <Output TaskParameter="Include" ItemName="CssFiles" />
@@ -2291,10 +2108,416 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
+    <Compile Remove="Classes\CSVReader.cs" />
+    <Compile Remove="Classes\CSVReaderExtension.cs" />
+    <Compile Remove="Classes\StringConverter.cs" />
+    <Compile Remove="Core\Dao\CommentDao.cs" />
+    <Compile Remove="Core\Dao\ManagerDao.cs" />
+    <Compile Remove="Core\Enums\CommunicationTypeEnum.cs" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.da.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMCasesResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ar-TN.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.be.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.et.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.he.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMCommonResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMContactResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMDealResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.be.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.et.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.he.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMEnumResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMInvoiceResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMJSResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMReportResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMSettingResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMTaskResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CRMVoipResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ca.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.de.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.es.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.et.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.fa.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.hr.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.hu.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.id.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.it.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ka.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ko.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.lt.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.pt.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ro.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Services\NotifyService\CRMPatternResource.zh-TW.resx" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

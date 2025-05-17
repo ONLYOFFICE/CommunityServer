@@ -23,8 +23,8 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.HttpHandlers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.ThirdPartyApp;
-using ASC.Web.Studio;
-
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using Global = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Web.Files

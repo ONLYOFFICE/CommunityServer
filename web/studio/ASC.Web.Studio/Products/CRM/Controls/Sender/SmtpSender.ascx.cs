@@ -17,10 +17,10 @@
 
 using System;
 using System.Text;
-using System.Web;
 
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Common;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.CRM.Controls.Sender
 {

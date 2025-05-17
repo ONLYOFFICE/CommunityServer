@@ -45,6 +45,7 @@ using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.DeepLink;
 using ASC.Web.Studio.Utility;

@@ -1,23 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CAC3DDF1-BFBE-4309-80BA-726E504381C2}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Api.CRM</RootNamespace>
-    <AssemblyName>ASC.Api.CRM</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -35,64 +20,16 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
     <DocumentationFile>$(OutputPath)\ASC.Api.CRM.XML</DocumentationFile>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="CRMApi.CurrencyRates.cs" />
-    <Compile Include="CRMApi.Invoices.cs" />
-    <Compile Include="CRMApi.Cases.cs" />
-    <Compile Include="CRMApi.ContactInfo.cs" />
-    <Compile Include="CRMApi.Contacts.cs" />
-    <Compile Include="CRMApi.cs" />
-    <Compile Include="CRMApi.CustomFields.cs" />
-    <Compile Include="CRMApi.Deals.cs" />
-    <Compile Include="CRMApi.ListItem.cs" />
-    <Compile Include="CRMApi.RelationshipEvent.cs" />
-    <Compile Include="CRMApi.Reports.cs" />
-    <Compile Include="CRMApi.Tag.cs" />
-    <Compile Include="CRMApi.Tasks.cs" />
-    <Compile Include="CRMApi.TaskTemplate.cs" />
-    <Compile Include="CRMApi.Utils.cs" />
-    <Compile Include="CRMApi.Voip.cs" />
-    <Compile Include="CRMApiBase.cs" />
-    <Compile Include="CRMBootstrap.cs" />
-    <Compile Include="CRMCalendar.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wrappers\CasesWrapper.cs" />
-    <Compile Include="Wrappers\ContactInfoWrapper.cs" />
-    <Compile Include="Wrappers\ContactWrapper.cs" />
-    <Compile Include="Wrappers\CurrencyRateWrapper.cs" />
-    <Compile Include="Wrappers\InvoiceWrapper.cs" />
-    <Compile Include="Wrappers\CurrencyInfoWrapper.cs" />
-    <Compile Include="Wrappers\CustomFieldWrapper.cs" />
-    <Compile Include="Wrappers\OpportunityWrapper.cs" />
-    <Compile Include="Wrappers\ListItemWrapper.cs" />
-    <Compile Include="Wrappers\ObjectWrapperBase.cs" />
-    <Compile Include="Wrappers\RelationshipEventWrapper.cs" />
-    <Compile Include="Wrappers\ReportWrapper.cs" />
-    <Compile Include="Wrappers\Subject.cs" />
-    <Compile Include="Wrappers\TaskTemplateContainerWrapper.cs" />
-    <Compile Include="Wrappers\TaskWrapper.cs" />
-    <Compile Include="Wrappers\VoipCallWrapper.cs" />
-  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -106,73 +43,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
-      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
-      <Name>ASC.Web.CRM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
-      <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
-      <Name>ASC.Web.Projects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
-      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
-      <Name>ASC.ElasticSearch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
-      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
-      <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
-      <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
-      <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.VoipService\ASC.VoipService.csproj">
-      <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
-      <Name>ASC.VoipService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Api.Documents\ASC.Api.Documents.csproj">
-      <Project>{991f00f2-71cb-4694-bb6a-4696071bd94d}</Project>
-      <Name>ASC.Api.Documents</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Employee\ASC.Api.Employee.csproj">
-      <Project>{32adbd01-6262-48d7-a69b-0515b03db90e}</Project>
-      <Name>ASC.Api.Employee</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj">
-      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
-      <Name>ASC.Specific</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj" />
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj" />
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj" />
+    <ProjectReference Include="..\..\ASC.ElasticSearch\ASC.ElasticSearch.csproj" />
+    <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj" />
+    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj" />
+    <ProjectReference Include="..\..\ASC.VoipService\ASC.VoipService.csproj" />
+    <ProjectReference Include="..\ASC.Api.Documents\ASC.Api.Documents.csproj" />
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj" />
+    <ProjectReference Include="..\ASC.Employee\ASC.Api.Employee.csproj" />
+    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
@@ -182,5 +68,4 @@
       <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

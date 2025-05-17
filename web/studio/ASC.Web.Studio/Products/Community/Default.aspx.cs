@@ -25,7 +25,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.Utility;
 

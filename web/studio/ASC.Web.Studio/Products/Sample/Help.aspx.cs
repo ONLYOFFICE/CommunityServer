@@ -18,7 +18,7 @@
 using System;
 
 using ASC.Web.Sample.Resources;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 
 namespace ASC.Web.Sample
 {

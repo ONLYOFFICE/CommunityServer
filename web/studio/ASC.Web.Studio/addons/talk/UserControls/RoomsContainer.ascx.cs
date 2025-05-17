@@ -19,6 +19,7 @@ using System;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Talk.UserControls
 {

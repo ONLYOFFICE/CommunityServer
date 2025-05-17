@@ -1,157 +1,113 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7EA1E14F-FC71-48A7-9786-1FB0CD9EC1CD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.People</RootNamespace>
-    <AssemblyName>ASC.Web.People</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkProfile />
     <OutputPath>..\..\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\bin\ASC.Web.People.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+	  <TargetFramework>net48</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Compile Include="CardDavSettings.aspx.cs">
+    <Compile Update="CardDavSettings.aspx.cs">
       <DependentUpon>CardDavSettings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CardDavSettings.aspx.designer.cs">
+    <Compile Update="CardDavSettings.aspx.designer.cs">
       <DependentUpon>CardDavSettings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\BirthdaysModule.cs" />
-    <Compile Include="Classes\BirthdaysNotifyClient.cs" />
-    <Compile Include="Classes\ImportParameters.cs" />
-    <Compile Include="Core\Import\ContactInfo.cs" />
-    <Compile Include="Core\Import\ContactsUploader.cs" />
-    <Compile Include="Core\Import\ContactsUploaderResult.cs" />
-    <Compile Include="Core\Import\EncodingEnum.cs" />
-    <Compile Include="Core\Import\ImportUsersTask.cs" />
-    <Compile Include="Core\Import\IUserImporter.cs" />
-    <Compile Include="Core\Import\TextFileUserImporter.cs" />
-    <Compile Include="Core\Import\UserResults.cs" />
-    <Compile Include="Import.aspx.cs">
+    <Compile Update="Import.aspx.cs">
       <DependentUpon>Import.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Import.aspx.designer.cs">
+    <Compile Update="Import.aspx.designer.cs">
       <DependentUpon>Import.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\PeopleSubscriptionManager.cs" />
-    <Compile Include="Birthdays.aspx.cs">
+    <Compile Update="Birthdays.aspx.cs">
       <DependentUpon>Birthdays.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Birthdays.aspx.designer.cs">
+    <Compile Update="Birthdays.aspx.designer.cs">
       <DependentUpon>Birthdays.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reassigns.aspx.cs">
+    <Compile Update="Reassigns.aspx.cs">
       <DependentUpon>Reassigns.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reassigns.aspx.designer.cs">
+    <Compile Update="Reassigns.aspx.designer.cs">
       <DependentUpon>Reassigns.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Core\SearchHendler.cs" />
-    <Compile Include="Help.aspx.cs">
+    <Compile Update="Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Help.aspx.designer.cs">
+    <Compile Update="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientSettingsResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
-    <Compile Include="Masters\PeopleBaseTemplate.Master.cs">
+    <Compile Update="Masters\PeopleBaseTemplate.Master.cs">
       <DependentUpon>PeopleBaseTemplate.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Masters\PeopleBaseTemplate.Master.designer.cs">
+    <Compile Update="Masters\PeopleBaseTemplate.Master.designer.cs">
       <DependentUpon>PeopleBaseTemplate.Master</DependentUpon>
     </Compile>
-    <Compile Include="Core\PeopleProduct.cs" />
-    <Compile Include="Default.aspx.cs">
+    <Compile Update="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
+    <Compile Update="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Profile.aspx.cs">
+    <Compile Update="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Profile.aspx.designer.cs">
+    <Compile Update="Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ProfileAction.aspx.cs">
+    <Compile Update="ProfileAction.aspx.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ProfileAction.aspx.designer.cs">
+    <Compile Update="ProfileAction.aspx.designer.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\SideButtonsPanel.ascx.cs">
+    <Compile Update="UserControls\SideButtonsPanel.ascx.cs">
       <DependentUpon>SideButtonsPanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\SideButtonsPanel.ascx.designer.cs">
+    <Compile Update="UserControls\SideButtonsPanel.ascx.designer.cs">
       <DependentUpon>SideButtonsPanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ImportUsers\ImportUsers.ascx.cs">
+    <Compile Update="UserControls\ImportUsers\ImportUsers.ascx.cs">
       <DependentUpon>ImportUsers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\ImportUsers\ImportUsers.ascx.designer.cs">
+    <Compile Update="UserControls\ImportUsers\ImportUsers.ascx.designer.cs">
       <DependentUpon>ImportUsers.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SideNavigationPanel.ascx.cs">
+    <Compile Update="UserControls\SideNavigationPanel.ascx.cs">
       <DependentUpon>SideNavigationPanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\SideNavigationPanel.ascx.designer.cs">
+    <Compile Update="UserControls\SideNavigationPanel.ascx.designer.cs">
       <DependentUpon>SideNavigationPanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Warmup.aspx.cs">
+    <Compile Update="Warmup.aspx.cs">
       <DependentUpon>Warmup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Warmup.aspx.designer.cs">
+    <Compile Update="Warmup.aspx.designer.cs">
       <DependentUpon>Warmup.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -296,7 +252,7 @@
     <EmbeddedResource Include="Resources\BirthdayPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\BirthdayPatternResource.resx">
+    <EmbeddedResource Update="Resources\BirthdayPatternResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BirthdayPatternResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -328,7 +284,7 @@
     <EmbeddedResource Include="Resources\BirthdayPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
       <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\BirthdayPatternResource.Designer.cs">
+    <Compile Update="Resources\BirthdayPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
@@ -393,7 +349,7 @@
     <EmbeddedResource Include="Resources\BirthdaysResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>BirthdaysResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\BirthdaysResource.resx">
+    <EmbeddedResource Update="Resources\BirthdaysResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BirthdaysResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -425,7 +381,7 @@
     <EmbeddedResource Include="Resources\BirthdaysResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
       <DependentUpon>BirthdaysResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\BirthdaysResource.Designer.cs">
+    <Compile Update="Resources\BirthdaysResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BirthdaysResource.resx</DependentUpon>
@@ -475,7 +431,7 @@
     <EmbeddedResource Include="Resources\PeopleJSResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>PeopleJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PeopleJSResource.resx">
+    <EmbeddedResource Update="Resources\PeopleJSResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleJSResource.Designer.cs</LastGenOutput>
@@ -501,7 +457,7 @@
     <EmbeddedResource Include="Resources\PeopleJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>PeopleJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\PeopleJSResource.Designer.cs">
+    <Compile Update="Resources\PeopleJSResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PeopleJSResource.resx</DependentUpon>
@@ -554,7 +510,7 @@
     <EmbeddedResource Include="Resources\PeopleResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>PeopleResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PeopleResource.resx">
+    <EmbeddedResource Update="Resources\PeopleResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleResource.Designer.cs</LastGenOutput>
@@ -580,7 +536,7 @@
     <EmbeddedResource Include="Resources\PeopleResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>PeopleResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\PeopleResource.Designer.cs">
+    <Compile Update="Resources\PeopleResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PeopleResource.resx</DependentUpon>
@@ -699,30 +655,12 @@
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
-      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
-      <Name>ASC.Mail</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
-      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
-      <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail\ASC.Mail\ASC.Mail.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj" />
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AjaxPro.2">
@@ -732,7 +670,141 @@
       <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ItemGroup>
+    <Compile Remove="Tests\ASC.Web.People.Tests\Common\PeopleImportParserTests.cs" />
+    <Compile Remove="Tests\ASC.Web.People.Tests\Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.be.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.de.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.el.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.es.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.id.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.it.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\BirthdayPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.be.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.da.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.de.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.el.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.es.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.id.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.it.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\BirthdaysResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.be.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.de.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.el.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.es.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.id.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.it.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\PeopleJSResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.be.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.da.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.de.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.el.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.es.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.et.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.he.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.id.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.it.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\PeopleResource.zh-TW.resx" />
+  </ItemGroup>
 </Project>

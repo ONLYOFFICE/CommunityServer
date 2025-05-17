@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
@@ -24,6 +23,7 @@ using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.Files.Controls
 {

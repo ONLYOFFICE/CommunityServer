@@ -1,23 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5F7DC7BD-D831-449A-908D-5A419E4DFE71}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Api.Calendar</RootNamespace>
-    <AssemblyName>ASC.Api.Calendar</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -35,60 +19,25 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <OutputPath>..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
     <DocumentationFile>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.Calendar.XML</DocumentationFile>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AccessRights.cs" />
-    <Compile Include="BusinessObjects\Calendar.cs" />
-    <Compile Include="BusinessObjects\ColumnCollection.cs" />
-    <Compile Include="BusinessObjects\Todo.cs" />
-    <Compile Include="BusinessObjects\EventNotificationData.cs" />
-    <Compile Include="BusinessObjects\UserViewSettings.cs" />
-    <Compile Include="BusinessObjects\DataProvider.cs" />
-    <Compile Include="BusinessObjects\Event.cs" />
-    <Compile Include="CalendarApi.cs" />
-    <Compile Include="CalendarBootstrap.cs" />
-    <Compile Include="ExternalCalendars\BirthdayReminderCalendar.cs" />
-    <Compile Include="ExternalCalendars\SharedEventsCalendar.cs" />
-    <Compile Include="BusinessObjects\EventHistory.cs" />
-    <Compile Include="Attachments\AttachmentEngine.cs" />
-    <Compile Include="Attachments\SecurityAdapter.cs" />
-    <Compile Include="Attachments\SecurityAdapterProvider.cs" />
-    <Compile Include="iCalParser\DDayICalParser.cs" />
-    <Compile Include="iCalParser\iCalendarCache.cs" />
-    <Compile Include="iCalParser\Emitter.cs" />
-    <Compile Include="iCalParser\iCalendar.cs" />
-    <Compile Include="iCalParser\iCalendarEmitter.cs" />
-    <Compile Include="iCalParser\iCalEvent.cs" />
-    <Compile Include="iCalParser\Parser.cs" />
-    <Compile Include="iCalParser\ParserError.cs" />
-    <Compile Include="iCalParser\Scanner.cs" />
-    <Compile Include="iCalParser\Token.cs" />
-    <Compile Include="Notification\CalendarNotifySource.cs" />
-    <Compile Include="Notification\CalendarPatterns.Designer.cs">
+    <Compile Update="Notification\CalendarPatterns.Designer.cs">
       <DependentUpon>CalendarPatterns.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Resources\CalendarApiResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -137,7 +86,7 @@
     <EmbeddedResource Include="Resources\CalendarApiResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\CalendarApiResource.resx">
+    <EmbeddedResource Update="Resources\CalendarApiResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarApiResource.Designer.cs</LastGenOutput>
@@ -163,22 +112,11 @@
     <EmbeddedResource Include="Resources\CalendarApiResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\CalendarApiResource.Designer.cs">
+    <Compile Update="Resources\CalendarApiResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Wrappers\TodoWrapper.cs" />
-    <Compile Include="Wrappers\EventHistoryWrapper.cs" />
-    <Compile Include="Wrappers\EventAlertWrapper.cs" />
-    <Compile Include="Wrappers\EventWrapper.cs" />
-    <Compile Include="Wrappers\PublicItemCollection.cs" />
-    <Compile Include="Wrappers\CalendarWrapper.cs" />
-    <Compile Include="Wrappers\Permissions.cs" />
-    <Compile Include="Wrappers\PublicItemWrapper.cs" />
-    <Compile Include="Wrappers\AccessOption.cs" />
-    <Compile Include="Wrappers\SubscriptionWrapper.cs" />
-    <Compile Include="Wrappers\TimeZoneWrapper.cs" />
     <EmbeddedResource Include="Resources\CalendarApiResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -247,7 +185,7 @@
     <EmbeddedResource Include="Notification\CalendarPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>CalendarPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Notification\CalendarPatternResource.resx">
+    <EmbeddedResource Update="Notification\CalendarPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarPatternResource.Designer.cs</LastGenOutput>
@@ -273,12 +211,12 @@
     <EmbeddedResource Include="Notification\CalendarPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CalendarPatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Notification\CalendarPatternResource.Designer.cs">
+    <Compile Update="Notification\CalendarPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CalendarPatternResource.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Notification\CalendarPatterns.resx">
+    <EmbeddedResource Update="Notification\CalendarPatterns.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarPatterns.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -306,40 +244,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
-      <Project>{E7BE6CE8-F6B0-4B9B-831B-BA0C85C8D130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj">
-      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
-      <Name>ASC.Specific</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj" />
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj" />
+    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Ical.Net">
@@ -355,5 +269,61 @@
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.bg.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.cs.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.de.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.es.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.fi.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.fr.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.id.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.it.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.ja.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.lv.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.nl.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.pl.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.ru.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.sk.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.sl.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.sv.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.tr.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.uk.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.vi.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Notification\CalendarPatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.da.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.de.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.el.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.es.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.et.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.id.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.it.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\CalendarApiResource.zh-TW.resx" />
+  </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@
 using System;
 
 using ASC.Web.Calendar.UserControls;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Calendar

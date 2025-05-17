@@ -23,6 +23,7 @@ using ASC.Core;
 using ASC.CRM.Core;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio;
+using ASC.Web.Studio.Masters.MasterManagement;
 
 namespace ASC.Web.CRM.Controls.Settings
 {

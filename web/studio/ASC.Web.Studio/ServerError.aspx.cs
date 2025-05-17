@@ -16,7 +16,7 @@
 
 
 using System;
-
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
 

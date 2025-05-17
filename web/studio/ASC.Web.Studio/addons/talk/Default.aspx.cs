@@ -17,10 +17,10 @@
 
 using System;
 using System.Configuration;
-using System.Web;
 
 using ASC.Web.Core.Utility;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Talk.Resources;
 

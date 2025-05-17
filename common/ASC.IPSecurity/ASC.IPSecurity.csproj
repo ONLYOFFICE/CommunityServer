@@ -1,68 +1,56 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2FF2177F-2D1A-4396-84EB-51F14FD99385}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.IPSecurity</RootNamespace>
-    <AssemblyName>ASC.IPSecurity</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.IPSecurity.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	<Version>1.0.0.0</Version>
+	<Company>Ascensio System SIA</Company>
+	<Product>ASC.IpSecurity</Product>
+	<Title>ASC.IpSecurity</Title>
+	<Description></Description>
+	<Copyright>(c) Ascensio System SIA. All rights reserved</Copyright>
+	<NeutralLanguage>en</NeutralLanguage>
+	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
+	  <AssemblyAttribute Include="System.Reflection.AssemblyTrademarkAttribute">
+		  <_Parameter1></_Parameter1>
+	  </AssemblyAttribute>
+	  <AssemblyAttribute Include="System.Reflection.AssemblyCultureAttribute">
+		  <_Parameter1></_Parameter1>
+	  </AssemblyAttribute>
+	  <!-- Setting ComVisible to false makes the types in this assembly not visible 
+     to COM components.  If you need to access a type in this assembly from 
+     COM, set the ComVisible attribute to true on that type
+-->
+	  <AssemblyAttribute Include="System.Runtime.InteropServices.ComVisibleAttribute">
+		  <_Parameter1>false</_Parameter1>
+	  </AssemblyAttribute>
+	  <AssemblyAttribute Include="System.Runtime.InteropServices.GuidAttribute">
+		  <_Parameter1>23937894-101b-4415-9090-0824bee14466</_Parameter1>
+	  </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPAddressRange.cs" />
-    <Compile Include="IPRestriction.cs" />
-    <Compile Include="IPRestrictionsRepository.cs" />
-    <Compile Include="IPRestrictionsService.cs" />
-    <Compile Include="IPSecurity.cs" />
-    <Compile Include="IPSecurityException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Web" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

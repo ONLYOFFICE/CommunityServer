@@ -28,6 +28,7 @@ using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls;
 using ASC.Web.Studio.UserControls.Common;

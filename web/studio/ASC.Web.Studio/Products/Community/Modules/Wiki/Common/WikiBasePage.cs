@@ -24,6 +24,7 @@ using ASC.Core.Users;
 using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;

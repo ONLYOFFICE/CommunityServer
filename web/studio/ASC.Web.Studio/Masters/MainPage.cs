@@ -24,7 +24,6 @@ using System.Threading;
 using System.Web;
 
 using AjaxPro;
-
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Data;
@@ -37,11 +36,12 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Statistic;
 using ASC.Web.Studio.Core.TFA;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
-namespace ASC.Web.Studio
+namespace ASC.Web.Studio.Masters
 {
     /// <summary>
     /// Base page for all pages in projects
@@ -102,7 +102,7 @@ namespace ASC.Web.Studio
 
             if (!MayNotPaid
                 && TenantExtra.EnableTariffSettings
-                && (TenantStatisticsProvider.IsNotPaid())
+                && TenantStatisticsProvider.IsNotPaid()
                 && WarmUp.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true")
             {
                 if (TariffSettings.HidePricingPage && !user.IsAdmin())
@@ -216,7 +216,7 @@ namespace ASC.Web.Studio
                     if (culture.Value != null)
                     {
 
-                        var redirectUrl = String.Format("/{0}/{1}", culture.Key, Request.Path);
+                        var redirectUrl = string.Format("/{0}/{1}", culture.Key, Request.Path);
 
                         if (redirectUrl.EndsWith("Auth.aspx", StringComparison.InvariantCultureIgnoreCase))
                             redirectUrl = redirectUrl.Remove(redirectUrl.IndexOf("Auth.aspx", StringComparison.OrdinalIgnoreCase));
@@ -226,7 +226,7 @@ namespace ASC.Web.Studio
                     }
                 }
             }
-            else if (!String.IsNullOrEmpty(Request["lang"]))
+            else if (!string.IsNullOrEmpty(Request["lang"]))
             {
                 var lang = Request["lang"].Split(',')[0];
                 var cultureInfo = SetupInfo.GetPersonalCulture(lang).Value;
@@ -241,7 +241,7 @@ namespace ASC.Web.Studio
                     Log.WarnFormat("Lang {0} not supported", lang);
                 }
             }
-            else if (!String.IsNullOrEmpty(Request["email"]))
+            else if (!string.IsNullOrEmpty(Request["email"]))
             {
                 var user = CoreContext.UserManager.GetUserByEmail(Request["email"]);
 

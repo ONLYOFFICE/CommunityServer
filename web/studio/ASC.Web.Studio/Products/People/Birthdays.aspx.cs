@@ -27,8 +27,9 @@ using ASC.Web.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.People.Core;
 using ASC.Web.People.Resources;
-using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.People

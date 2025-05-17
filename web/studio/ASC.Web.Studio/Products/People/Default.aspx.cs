@@ -17,14 +17,14 @@
 
 using System;
 using System.Configuration;
-using System.Web;
 
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.People.Resources;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using ASC.Web.Studio.UserControls.Management.ImpersonateUser;
 using ASC.Web.Studio.UserControls.Statistics;

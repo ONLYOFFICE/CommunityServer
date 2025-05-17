@@ -23,7 +23,7 @@ using ASC.Web.Community.Modules.News.Resources;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
 using ASC.Web.Community.Product;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Common.PollForm;
 using ASC.Web.Studio.Utility;
 

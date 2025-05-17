@@ -21,6 +21,7 @@ using System;
 using System.Runtime.Serialization;
 
 using ASC.Common.Security;
+using ASC.Web.Studio.Core;
 
 #endregion
 

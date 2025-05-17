@@ -28,10 +28,10 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio;
 
 using Global = ASC.Web.Files.Classes.Global;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Masters;
 
 namespace ASC.Web.Files
 {

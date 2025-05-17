@@ -38,6 +38,7 @@ using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.Studio.Utility;

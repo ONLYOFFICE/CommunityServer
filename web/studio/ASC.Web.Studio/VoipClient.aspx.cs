@@ -26,6 +26,7 @@ using ASC.VoipService.Dao;
 using ASC.Web.Core;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Common;
 
 namespace ASC.Web.Studio

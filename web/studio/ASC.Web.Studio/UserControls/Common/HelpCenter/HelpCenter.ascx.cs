@@ -24,6 +24,8 @@ using System.Web.UI;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.HelpCenter;
+using ASC.Web.Studio.Masters.MasterManagement;
+using ASC.Web.Studio.UserControls.Common.MediaViewer;
 using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using ASC.Web.Studio.Utility;
 

@@ -23,6 +23,8 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Files.Controls;
 using ASC.Web.Mail.Resources;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Masters.MasterManagement;
+using ASC.Web.Studio.UserControls.Common.MediaViewer;
 
 namespace ASC.Web.Mail.Controls
 {
@@ -62,7 +64,7 @@ namespace ASC.Web.Mail.Controls
                     "~/Products/Files/Controls/Tree/tree.less",
                     "~/Products/Files/Controls/ConvertFile/confirmconvert.less");
             }
-            ControlPlaceHolder.Controls.Add(LoadControl(Studio.UserControls.Common.MediaPlayer.Location));
+            ControlPlaceHolder.Controls.Add(LoadControl(MediaPlayer.Location));
 
             TagsPageHolder.Controls.Add(LoadControl(TagsPage.Location) as TagsPage);
 

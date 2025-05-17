@@ -1,62 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\..\..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\..\..\..\..\packages\NUnit.3.12.0\build\NUnit.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
   <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <UseGlobalApplicationHostFile />
-    <Use64BitIISExpress />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{11ACB4CA-A305-4CAA-8546-392C6DAFC7C4}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.Web.Projects</RootNamespace>
-    <AssemblyName>ASC.Web.Projects</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
-    <TargetFrameworkProfile />
     <OutputPath>..\..\bin\</OutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\bin\ASC.Web.Projects.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+	<PropertyGroup>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<EnableDefaultContentItems>false</EnableDefaultContentItems>
+	</PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
     <Content Include="App_Themes\dark\dark-params.less" />
     <Content Include="App_Themes\dark\dark-ganttchart.less" />
     <Content Include="App_Themes\dark\dark-addmilestonecontainer.less" />
@@ -102,332 +68,206 @@
     <Content Include="js\common.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\NotifyHelper.cs" />
-    <Compile Include="Classes\ProjectsCommonSettings.cs" />
-    <Compile Include="Classes\ProjectSecurityInfo.cs" />
-    <Compile Include="Classes\ResultsView.cs" />
-    <Compile Include="Classes\ReportHelper.cs" />
-    <Compile Include="Classes\Global.cs" />
-    <Compile Include="Classes\PathProvider.cs" />
-    <Compile Include="Classes\ReportInfo.cs" />
-    <Compile Include="Classes\RequestContext.cs" />
-    <Compile Include="Classes\UrlAction.cs" />
-    <Compile Include="Classes\UrlConstant.cs" />
-    <Compile Include="Classes\UrlParameters.cs" />
-    <Compile Include="Classes\BasePage.cs">
+    <Compile Update="Classes\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Classes\BaseUserControl.cs">
+    <Compile Update="Classes\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Configuration\ProductEntryPoint.cs" />
-    <Compile Include="Configuration\ProductSubscriptionManager.cs" />
-    <Compile Include="Configuration\ProjectsSpaceUsageStatManager.cs" />
-    <Compile Include="Configuration\SearchHandler.cs" />
-    <Compile Include="Contacts.aspx.cs">
+    <Compile Update="Contacts.aspx.cs">
       <DependentUpon>Contacts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Contacts.aspx.designer.cs">
+    <Compile Update="Contacts.aspx.designer.cs">
       <DependentUpon>Contacts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\CommonList.ascx.cs">
+    <Compile Update="Controls\Common\CommonList.ascx.cs">
       <DependentUpon>CommonList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\CommonList.ascx.designer.cs">
+    <Compile Update="Controls\Common\CommonList.ascx.designer.cs">
       <DependentUpon>CommonList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ButtonSidePanel.ascx.cs">
+    <Compile Update="Controls\Common\ButtonSidePanel.ascx.cs">
       <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\ButtonSidePanel.ascx.designer.cs">
+    <Compile Update="Controls\Common\ButtonSidePanel.ascx.designer.cs">
       <DependentUpon>ButtonSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\NavigationSidePanel.ascx.cs">
+    <Compile Update="Controls\Common\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\NavigationSidePanel.ascx.designer.cs">
+    <Compile Update="Controls\Common\NavigationSidePanel.ascx.designer.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\ProjectDocumentsPopup.ascx.cs">
+    <Compile Update="Controls\Common\ProjectDocumentsPopup.ascx.cs">
       <DependentUpon>ProjectDocumentsPopup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Common\ProjectDocumentsPopup.ascx.designer.cs">
+    <Compile Update="Controls\Common\ProjectDocumentsPopup.ascx.designer.cs">
       <DependentUpon>ProjectDocumentsPopup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Messages\DiscussionAction.ascx.cs">
+    <Compile Update="Controls\Messages\DiscussionAction.ascx.cs">
       <DependentUpon>DiscussionAction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Messages\DiscussionAction.ascx.designer.cs">
+    <Compile Update="Controls\Messages\DiscussionAction.ascx.designer.cs">
       <DependentUpon>DiscussionAction.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Projects\ProjectAction.ascx.cs">
+    <Compile Update="Controls\Projects\ProjectAction.ascx.cs">
       <DependentUpon>ProjectAction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Projects\ProjectAction.ascx.designer.cs">
+    <Compile Update="Controls\Projects\ProjectAction.ascx.designer.cs">
       <DependentUpon>ProjectAction.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Reports\ReportFile.ascx.cs">
+    <Compile Update="Controls\Reports\ReportFile.ascx.cs">
       <DependentUpon>ReportFile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Reports\ReportFile.ascx.designer.cs">
+    <Compile Update="Controls\Reports\ReportFile.ascx.designer.cs">
       <DependentUpon>ReportFile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Reports\ReportFilters.ascx.cs">
+    <Compile Update="Controls\Reports\ReportFilters.ascx.cs">
       <DependentUpon>ReportFilters.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Reports\ReportFilters.ascx.designer.cs">
+    <Compile Update="Controls\Reports\ReportFilters.ascx.designer.cs">
       <DependentUpon>ReportFilters.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Reports\ReportTemplateView.ascx.cs">
+    <Compile Update="Controls\Reports\ReportTemplateView.ascx.cs">
       <DependentUpon>ReportTemplateView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Reports\ReportTemplateView.ascx.designer.cs">
+    <Compile Update="Controls\Reports\ReportTemplateView.ascx.designer.cs">
       <DependentUpon>ReportTemplateView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Reports\ReportView.ascx.cs">
+    <Compile Update="Controls\Reports\ReportView.ascx.cs">
       <DependentUpon>ReportView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Reports\ReportView.ascx.designer.cs">
+    <Compile Update="Controls\Reports\ReportView.ascx.designer.cs">
       <DependentUpon>ReportView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Templates\EditTemplate.ascx.cs">
+    <Compile Update="Controls\Templates\EditTemplate.ascx.cs">
       <DependentUpon>EditTemplate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Templates\EditTemplate.ascx.designer.cs">
+    <Compile Update="Controls\Templates\EditTemplate.ascx.designer.cs">
       <DependentUpon>EditTemplate.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Core\Dao\BaseDao.cs" />
-    <Compile Include="Core\Dao\CommentDao.cs" />
-    <Compile Include="Core\Dao\DaoFactory.cs" />
-    <Compile Include="Core\Dao\MessageDao.cs" />
-    <Compile Include="Core\Dao\MilestoneDao.cs" />
-    <Compile Include="Core\Dao\ParticipantDao.cs" />
-    <Compile Include="Core\Dao\ProjectDao.cs" />
-    <Compile Include="Core\Dao\ReportDao.cs" />
-    <Compile Include="Core\Dao\SearchDao.cs" />
-    <Compile Include="Core\Dao\StatusDao.cs" />
-    <Compile Include="Core\Dao\SubtaskDao.cs" />
-    <Compile Include="Core\Dao\TagDao.cs" />
-    <Compile Include="Core\Dao\TaskDao.cs" />
-    <Compile Include="Core\Dao\TemplateDao.cs" />
-    <Compile Include="Core\Dao\TimeSpendDao.cs" />
-    <Compile Include="Core\DIHelper.cs" />
-    <Compile Include="Core\Engine\CachedProjectEngine.cs" />
-    <Compile Include="Core\Engine\CommentEngine.cs" />
-    <Compile Include="Core\Engine\EngineFactory.cs" />
-    <Compile Include="Core\Engine\FileEngine.cs" />
-    <Compile Include="Core\Engine\MessageEngine.cs" />
-    <Compile Include="Core\Engine\MilestoneEngine.cs" />
-    <Compile Include="Core\Engine\ParticipantEngine.cs" />
-    <Compile Include="Core\Engine\ProjectEngine.cs" />
-    <Compile Include="Core\Engine\ProjectEntityEngine.cs" />
-    <Compile Include="Core\Engine\ProjectSecurity.cs" />
-    <Compile Include="Core\Engine\ProjectsReassign.cs" />
-    <Compile Include="Core\Engine\ReportEngine.cs" />
-    <Compile Include="Core\Engine\SearchEngine.cs" />
-    <Compile Include="Core\Engine\SecurityAdapter.cs" />
-    <Compile Include="Core\Engine\SecurityAdapterProvider.cs" />
-    <Compile Include="Core\Engine\StatusEngine.cs" />
-    <Compile Include="Core\Engine\SubtaskEngine.cs" />
-    <Compile Include="Core\Engine\TagEngine.cs" />
-    <Compile Include="Core\Engine\TaskEngine.cs" />
-    <Compile Include="Core\Engine\TemplateEngine.cs" />
-    <Compile Include="Core\Engine\TimeTrackingEngine.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ICommentDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IDaoFactory.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IMessageDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IMilestoneDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IParticipantDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IProjectDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IReportDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ISearchDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\IStatusDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ISubtaskDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ITagDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ITaskDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ITemplateDao.cs" />
-    <Compile Include="Core\Model\DataInterfaces\ITimeSpendDao.cs" />
-    <Compile Include="Core\Model\Domain\CustomStatus.cs" />
-    <Compile Include="Core\Model\Domain\DomainObject.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Comment.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\AverageTimeEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\EntityTypeEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\LocalizedEnumConverter.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\MilestoneStatusEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\ModuleTypeEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\PaymentStatusEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\ProjectStatusEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\ProjectTeamSecurity.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\TaskLinkTypeEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\TaskPriorityEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Enums\TaskStatusEnum.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Feed\CommentUpdates.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Message.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Milestone.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Participant.cs" />
-    <Compile Include="Core\Model\Domain\Entities\ParticipantFull.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Project.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Subtask.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Task.cs" />
-    <Compile Include="Core\Model\Domain\Entities\TaskLink.cs" />
-    <Compile Include="Core\Model\Domain\Entities\Template.cs" />
-    <Compile Include="Core\Model\Domain\Entities\TimeSpend.cs" />
-    <Compile Include="Core\Model\Domain\FilterOperationResult.cs" />
-    <Compile Include="Core\Model\Domain\ProjectEntity.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportFile.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportFilter.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportFilterSerializer.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportTemplate.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportTimeInterval.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportType.cs" />
-    <Compile Include="Core\Model\Domain\Reports\ReportViewType.cs" />
-    <Compile Include="Core\Model\Domain\TaskFilter.cs" />
-    <Compile Include="Core\Model\Services\NotifyService\NotifyClient.cs" />
-    <Compile Include="Core\Model\Services\NotifyService\NotifyConstants.cs" />
-    <Compile Include="Core\Model\Services\NotifyService\NotifySource.cs" />
-    <Compile Include="Core\Search\CommentsWrapper.cs" />
-    <Compile Include="Core\Search\MilestonesWrapper.cs" />
-    <Compile Include="Core\Search\TasksWrapper.cs" />
-    <Compile Include="Core\Search\DiscussionsWrapper.cs" />
-    <Compile Include="Core\Search\ProjectsWrapper.cs" />
-    <Compile Include="Core\Search\SubtasksWrapper.cs" />
-    <Compile Include="Default.aspx.cs">
+    <Compile Update="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
+    <Compile Update="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GanttChart.aspx.cs">
+    <Compile Update="GanttChart.aspx.cs">
       <DependentUpon>GanttChart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="GanttChart.aspx.designer.cs">
+    <Compile Update="GanttChart.aspx.designer.cs">
       <DependentUpon>GanttChart.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Help.aspx.cs">
+    <Compile Update="Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Help.aspx.designer.cs">
+    <Compile Update="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
-    <Compile Include="Masters\ClientScripts\ClientUserResources.cs" />
-    <Compile Include="Messages.aspx.cs">
+    <Compile Update="Messages.aspx.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Messages.aspx.designer.cs">
+    <Compile Update="Messages.aspx.designer.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Milestones.aspx.cs">
+    <Compile Update="Milestones.aspx.cs">
       <DependentUpon>Milestones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Milestones.aspx.designer.cs">
+    <Compile Update="Milestones.aspx.designer.cs">
       <DependentUpon>Milestones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Projects.aspx.cs">
+    <Compile Update="Projects.aspx.cs">
       <DependentUpon>Projects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Projects.aspx.designer.cs">
+    <Compile Update="Projects.aspx.designer.cs">
       <DependentUpon>Projects.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Masters\BasicTemplate.Master.cs">
+    <Compile Update="Masters\BasicTemplate.Master.cs">
       <DependentUpon>BasicTemplate.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Masters\BasicTemplate.Master.designer.cs">
+    <Compile Update="Masters\BasicTemplate.Master.designer.cs">
       <DependentUpon>BasicTemplate.Master</DependentUpon>
     </Compile>
-    <Compile Include="ProjectTeam.aspx.cs">
+    <Compile Update="ProjectTeam.aspx.cs">
       <DependentUpon>ProjectTeam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProjectTeam.aspx.designer.cs">
+    <Compile Update="ProjectTeam.aspx.designer.cs">
       <DependentUpon>ProjectTeam.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ProjectTemplates.aspx.cs">
+    <Compile Update="ProjectTemplates.aspx.cs">
       <DependentUpon>ProjectTemplates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProjectTemplates.aspx.designer.cs">
+    <Compile Update="ProjectTemplates.aspx.designer.cs">
       <DependentUpon>ProjectTemplates.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports.aspx.cs">
+    <Compile Update="Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports.aspx.designer.cs">
+    <Compile Update="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Settings.aspx.cs">
+    <Compile Update="Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Settings.aspx.designer.cs">
+    <Compile Update="Settings.aspx.designer.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Tasks.aspx.cs">
+    <Compile Update="Tasks.aspx.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Tasks.aspx.designer.cs">
+    <Compile Update="Tasks.aspx.designer.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Test\BaseTest.cs" />
-    <Compile Include="Test\CustomCaseAttribute.cs" />
-    <Compile Include="Test\DataGenerator.cs" />
-    <Compile Include="Test\DiscussionTest.cs" />
-    <Compile Include="Test\MilestonesTest.cs" />
-    <Compile Include="Test\ProjectsTest.cs" />
-    <Compile Include="Test\ReassignTest.cs" />
-    <Compile Include="Test\SearchTest.cs" />
-    <Compile Include="Test\TaskSecurityTest.cs" />
-    <Compile Include="Test\TasksTest.cs" />
-    <Compile Include="Test\TimeTrackingTest.cs" />
-    <Compile Include="Timer.aspx.cs">
+    <Compile Update="Timer.aspx.cs">
       <DependentUpon>Timer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Timer.aspx.designer.cs">
+    <Compile Update="Timer.aspx.designer.cs">
       <DependentUpon>Timer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TimeTracking.aspx.cs">
+    <Compile Update="TimeTracking.aspx.cs">
       <DependentUpon>TimeTracking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TimeTracking.aspx.designer.cs">
+    <Compile Update="TimeTracking.aspx.designer.cs">
       <DependentUpon>TimeTracking.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TMDocs.aspx.cs">
+    <Compile Update="TMDocs.aspx.cs">
       <DependentUpon>TMDocs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TMDocs.aspx.designer.cs">
+    <Compile Update="TMDocs.aspx.designer.cs">
       <DependentUpon>TMDocs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Warmup.aspx.cs">
+    <Compile Update="Warmup.aspx.cs">
       <DependentUpon>Warmup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Warmup.aspx.designer.cs">
+    <Compile Update="Warmup.aspx.designer.cs">
       <DependentUpon>Warmup.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -591,7 +431,7 @@
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectsEnumResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.resx">
+    <EmbeddedResource Update="Core\Model\Resources\ProjectsEnumResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectsEnumResource.Designer.cs</LastGenOutput>
@@ -617,21 +457,11 @@
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectsEnumResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Core\Model\Resources\ProjectsEnumResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsEnumResource.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Core\Model\Resources\ProjectsPatternResource.resx">
+    <EmbeddedResource Update="Core\Model\Resources\ProjectsPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectsPatternResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Core\Model\Resources\ProjectsPatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsPatternResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Core\Model\Services\NotifyService\PatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>PatternResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -680,7 +510,7 @@
     <EmbeddedResource Include="Core\Model\Services\NotifyService\PatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>PatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Core\Model\Services\NotifyService\PatternResource.resx">
+    <EmbeddedResource Update="Core\Model\Services\NotifyService\PatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PatternResource.Designer.cs</LastGenOutput>
@@ -706,11 +536,6 @@
     <EmbeddedResource Include="Core\Model\Services\NotifyService\PatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>PatternResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Core\Model\Services\NotifyService\PatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PatternResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Core\Engine\EngineResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>EngineResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -756,7 +581,7 @@
     <EmbeddedResource Include="Core\Engine\EngineResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>EngineResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Core\Engine\EngineResource.resx">
+    <EmbeddedResource Update="Core\Engine\EngineResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EngineResource.Designer.cs</LastGenOutput>
@@ -782,11 +607,6 @@
     <EmbeddedResource Include="Core\Engine\EngineResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>EngineResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Core\Engine\EngineResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EngineResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ImportResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ImportResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -835,7 +655,7 @@
     <EmbeddedResource Include="Resources\ImportResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ImportResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ImportResource.resx">
+    <EmbeddedResource Update="Resources\ImportResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ImportResource.Designer.cs</LastGenOutput>
@@ -861,11 +681,6 @@
     <EmbeddedResource Include="Resources\ImportResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ImportResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ImportResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ImportResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ProjectResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ProjectResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -914,7 +729,7 @@
     <EmbeddedResource Include="Resources\ProjectResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProjectResource.resx">
+    <EmbeddedResource Update="Resources\ProjectResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectResource.Designer.cs</LastGenOutput>
@@ -940,11 +755,6 @@
     <EmbeddedResource Include="Resources\ProjectResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ProjectResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ProjectsCommonResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ProjectsCommonResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -993,7 +803,7 @@
     <EmbeddedResource Include="Resources\ProjectsCommonResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectsCommonResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProjectsCommonResource.resx">
+    <EmbeddedResource Update="Resources\ProjectsCommonResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectsCommonResource.Designer.cs</LastGenOutput>
@@ -1019,11 +829,6 @@
     <EmbeddedResource Include="Resources\ProjectsCommonResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectsCommonResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ProjectsCommonResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsCommonResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ProjectsFileResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ProjectsFileResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1072,7 +877,7 @@
     <EmbeddedResource Include="Resources\ProjectsFileResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectsFileResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProjectsFileResource.resx">
+    <EmbeddedResource Update="Resources\ProjectsFileResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectsFileResource.Designer.cs</LastGenOutput>
@@ -1098,11 +903,6 @@
     <EmbeddedResource Include="Resources\ProjectsFileResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectsFileResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ProjectsFileResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsFileResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\GrammaticalResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>GrammaticalResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1151,7 +951,7 @@
     <EmbeddedResource Include="Resources\GrammaticalResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>GrammaticalResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\GrammaticalResource.resx">
+    <EmbeddedResource Update="Resources\GrammaticalResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GrammaticalResource.Designer.cs</LastGenOutput>
@@ -1177,11 +977,6 @@
     <EmbeddedResource Include="Resources\GrammaticalResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>GrammaticalResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\GrammaticalResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GrammaticalResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ProjectsFilterResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ProjectsFilterResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1230,7 +1025,7 @@
     <EmbeddedResource Include="Resources\ProjectsFilterResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectsFilterResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProjectsFilterResource.resx">
+    <EmbeddedResource Update="Resources\ProjectsFilterResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectsFilterResource.Designer.cs</LastGenOutput>
@@ -1256,11 +1051,6 @@
     <EmbeddedResource Include="Resources\ProjectsFilterResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectsFilterResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ProjectsFilterResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsFilterResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ProjectsJSResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ProjectsJSResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1309,7 +1099,7 @@
     <EmbeddedResource Include="Resources\ProjectsJSResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectsJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProjectsJSResource.resx">
+    <EmbeddedResource Update="Resources\ProjectsJSResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectsJSResource.Designer.cs</LastGenOutput>
@@ -1335,11 +1125,6 @@
     <EmbeddedResource Include="Resources\ProjectsJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectsJSResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ProjectsJSResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsJSResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\MessageResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>MessageResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1388,7 +1173,7 @@
     <EmbeddedResource Include="Resources\MessageResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>MessageResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MessageResource.resx">
+    <EmbeddedResource Update="Resources\MessageResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MessageResource.Designer.cs</LastGenOutput>
@@ -1414,11 +1199,6 @@
     <EmbeddedResource Include="Resources\MessageResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MessageResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MessageResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MessageResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\MilestoneResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>MilestoneResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1467,7 +1247,7 @@
     <EmbeddedResource Include="Resources\MilestoneResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>MilestoneResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MilestoneResource.resx">
+    <EmbeddedResource Update="Resources\MilestoneResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MilestoneResource.Designer.cs</LastGenOutput>
@@ -1493,11 +1273,6 @@
     <EmbeddedResource Include="Resources\MilestoneResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>MilestoneResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\MilestoneResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MilestoneResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ProjectTemplatesResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ProjectTemplatesResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1546,7 +1321,7 @@
     <EmbeddedResource Include="Resources\ProjectTemplatesResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ProjectTemplatesResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProjectTemplatesResource.resx">
+    <EmbeddedResource Update="Resources\ProjectTemplatesResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectTemplatesResource.Designer.cs</LastGenOutput>
@@ -1572,11 +1347,6 @@
     <EmbeddedResource Include="Resources\ProjectTemplatesResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ProjectTemplatesResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ProjectTemplatesResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectTemplatesResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\ReportResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>ReportResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1625,7 +1395,7 @@
     <EmbeddedResource Include="Resources\ReportResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>ReportResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ReportResource.resx">
+    <EmbeddedResource Update="Resources\ReportResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ReportResource.Designer.cs</LastGenOutput>
@@ -1651,11 +1421,6 @@
     <EmbeddedResource Include="Resources\ReportResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>ReportResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\ReportResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\TaskResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>TaskResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1704,7 +1469,7 @@
     <EmbeddedResource Include="Resources\TaskResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>TaskResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TaskResource.resx">
+    <EmbeddedResource Update="Resources\TaskResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskResource.Designer.cs</LastGenOutput>
@@ -1730,11 +1495,6 @@
     <EmbeddedResource Include="Resources\TaskResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>TaskResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\TaskResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TaskResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Resources\TimeTrackingResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>TimeTrackingResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1783,7 +1543,7 @@
     <EmbeddedResource Include="Resources\TimeTrackingResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>TimeTrackingResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TimeTrackingResource.resx">
+    <EmbeddedResource Update="Resources\TimeTrackingResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TimeTrackingResource.Designer.cs</LastGenOutput>
@@ -1809,11 +1569,6 @@
     <EmbeddedResource Include="Resources\TimeTrackingResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>TimeTrackingResource.resx</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Resources\TimeTrackingResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TimeTrackingResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.af.resx" Condition="$(Cultures.Contains('af'))">
       <DependentUpon>ProjectsEnumResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -2926,38 +2681,14 @@
     <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj">
-      <Project>{ae1a0e06-6cd4-4e1d-8209-22bbbd6d5652}</Project>
-      <Name>ASC.ElasticSearch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
-      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CRM\ASC.Web.CRM.csproj">
-      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
-      <Name>ASC.Web.CRM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\..\module\ASC.ElasticSearch\ASC.ElasticSearch.csproj" />
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj" />
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj" />
+    <ProjectReference Include="..\CRM\ASC.Web.CRM.csproj" />
+    <ProjectReference Include="..\Files\ASC.Web.Files.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AntiXSS">
@@ -2982,7 +2713,745 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Remove="Classes\ReportTransformer.cs" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.be.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.bg.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ca.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.cs.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.da.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.de.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.el.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.es.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.fa.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.fi.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.fr.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ga.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.he.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.hi.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.hr.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.hu.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.hy.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.id.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.it.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ja.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.kk.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ko.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.lt.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.lv.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.mn.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.my-MM.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.nl.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.pl.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ro.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.ru.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.sk.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.sl.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.sv.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.tr.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.uk.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.vi.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Core\Engine\EngineResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.af.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.be.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.bg.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ca.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.cs.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.da.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.de.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.el.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.es.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.et.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.fa.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.fi.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.fr.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ga.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.he.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.hi.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.hr.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.hu.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.hy.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.id.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.it.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ja.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ka.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.kk.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ko.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.lt.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.lv.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.mn.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.my-MM.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.nl.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.pl.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.pt.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ro.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.ru.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.sk.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.sl.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.sr-Cyrl-CS.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.sv.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.sw.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.th.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.tr.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.uk.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.vi.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Core\Model\Resources\ProjectsEnumResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.be.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.bg.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ca.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.cs.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.da.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.de.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.el.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.es.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.fa.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.fi.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.fr.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ga.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.he.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.hi.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.hr.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.hu.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.hy.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.id.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.it.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ja.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.kk.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ko.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.lt.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.lv.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.mn.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.nl.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.pl.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.pt.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ro.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.ru.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.sk.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.sl.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.sr-Cyrl-CS.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.sv.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.th.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.tr.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.uk.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.vi.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Core\Model\Services\NotifyService\PatternResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.af.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.be.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.da.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.de.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.el.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.es.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.he.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.id.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.it.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.my-MM.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.sw.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.th.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\GrammaticalResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ImportResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.af.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.be.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.da.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.he.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.my-MM.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.sw.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.tg-Cyrl-TJ.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MessageResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ar-TN.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.da.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.de.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.el.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.es.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.he.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.id.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.it.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.sw.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\MilestoneResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ProjectResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsCommonResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.af.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFileResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.th.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsFilterResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.af.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.hy.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.sr-Cyrl-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ProjectsJSResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ProjectTemplatesResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.da.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.de.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.el.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.es.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.he.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.id.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.it.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.mn.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\ReportResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.da.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.de.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.el.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.es.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.he.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.id.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.it.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ka.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\TaskResource.zh-TW.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.af.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ar-AE.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.az-Latn-AZ.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.bg.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.bs-BA.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ca.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.cs.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.da.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.de.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.el.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.es.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.et.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.eu-ES.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.fa.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.fi.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.fr.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ga.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.he.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.hi.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.hr.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.hu.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.id.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.it.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ja.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.kk.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ko.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.lt.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.lv.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.nb-NO.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.nl.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.pl.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.pt-BR.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.pt.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ro.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.ru.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.sk.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.sl.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.sr-Cyrl-CS.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.sr-Latn-CS.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.sv.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.tr.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.uk.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.vi.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.zh-CN.resx" />
+    <EmbeddedResource Remove="Resources\TimeTrackingResource.zh-TW.resx" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -2991,17 +3460,13 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54559</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

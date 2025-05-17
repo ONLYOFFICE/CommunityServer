@@ -27,6 +27,7 @@ using ASC.Core;
 using ASC.Forum;
 using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 

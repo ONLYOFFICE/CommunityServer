@@ -26,6 +26,7 @@ using ASC.FederatedLogin;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.FederatedLogin.Profile;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Studio.Masters.MasterManagement;
 using ASC.Web.Studio.Utility;
 
 using Newtonsoft.Json;

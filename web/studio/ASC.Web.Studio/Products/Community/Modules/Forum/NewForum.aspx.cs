@@ -23,7 +23,7 @@ using AjaxPro;
 
 using ASC.Forum;
 using ASC.Web.Community.Modules.Forum.Resources;
-using ASC.Web.Studio;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Forum

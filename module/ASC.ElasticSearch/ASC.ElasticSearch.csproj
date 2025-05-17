@@ -1,68 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE1A0E06-6CD4-4E1D-8209-22BBBD6D5652}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ASC.ElasticSearch</RootNamespace>
-    <AssemblyName>ASC.ElasticSearch</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <Configurations>Debug;MvcOnly;Release</Configurations>
+	<TargetFramework>net48</TargetFramework>
+	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	<Version>1.0.0.0</Version>
+	<Company>Ascensio System SIA</Company>
+	<Product>ASC.ElasticSearch</Product>
+	<Title>ASC.ElasticSearch</Title>
+	<Description></Description>
+	<Copyright>(c) Ascensio System SIA. All rights reserved</Copyright>
+	<NeutralLanguage>en</NeutralLanguage>
+	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
+  <ItemGroup>
+	  <AssemblyAttribute Include="System.Reflection.AssemblyTrademarkAttribute">
+		  <_Parameter1></_Parameter1>
+	  </AssemblyAttribute>
+	  <AssemblyAttribute Include="System.Reflection.AssemblyCultureAttribute">
+		  <_Parameter1></_Parameter1>
+	  </AssemblyAttribute>
+	  <!-- Setting ComVisible to false makes the types in this assembly not visible 
+     to COM components.  If you need to access a type in this assembly from 
+     COM, set the ComVisible attribute to true on that type
+-->
+	  <AssemblyAttribute Include="System.Runtime.InteropServices.ComVisibleAttribute">
+		  <_Parameter1>false</_Parameter1>
+	  </AssemblyAttribute>
+	  <AssemblyAttribute Include="System.Runtime.InteropServices.GuidAttribute">
+		  <_Parameter1>47042728-2b3e-4888-94c2-5e0d57f9a5ea</_Parameter1>
+	  </AssemblyAttribute>
+  </ItemGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\web\studio\ASC.Web.Studio\bin\ASC.ElasticSearch.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Attributes\ColumnAttribute.cs" />
-    <Compile Include="Attributes\JoinAttribute.cs" />
-    <Compile Include="Config\ElasticSection.cs" />
-    <Compile Include="Core\Document.cs" />
-    <Compile Include="Core\SearchSettings.cs" />
-    <Compile Include="Core\State.cs" />
-    <Compile Include="Core\WrapperWithDoc.cs" />
-    <Compile Include="Engine\BaseIndexer.cs" />
-    <Compile Include="Engine\Client.cs" />
-    <Compile Include="Engine\FactoryIndexer.cs" />
-    <Compile Include="Engine\IIndexer.cs" />
-    <Compile Include="Service\IService.cs" />
-    <Compile Include="Service\Launcher.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\Selector.cs" />
-    <Compile Include="Service\Service.cs" />
-    <Compile Include="Service\ServiceClient.cs" />
-    <Compile Include="Service\Settings.cs" />
-    <Compile Include="Core\Wrapper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj" />
+    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
@@ -76,15 +57,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
