@@ -11,7 +11,7 @@
     "co": "^4.6.0",
     "cookie-parser": "~1.4.5",
     "cross-spawn": "^7.0.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "filenamify-url": "^2.1.2",
     "graceful-fs": "~4.2.4",
     "ipaddr.js": "^2.0.1",
