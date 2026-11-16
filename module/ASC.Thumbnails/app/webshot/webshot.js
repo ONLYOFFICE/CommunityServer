@@ -15,8 +15,7 @@
 */
 
 
-var url = require('url')
-  , fs = require('graceful-fs')
+var fs = require('graceful-fs')
   , tmp = require('tmp')
   , stream = require('stream')
   , crossSpawn = require('cross-spawn')
@@ -105,7 +104,7 @@ module.exports = function() {
 
   // Add protocol to the site url if not present
   if (options.siteType === 'url') {
-    site = url.parse(site).protocol ? site : 'http://' + site;
+    site = URL.canParse(site) ? site : 'http://' + site;
   }
 
   // Remove the given file if it already exists, then call phantom
@@ -124,15 +123,9 @@ module.exports = function() {
   };
 
   if (path) {
-    fs.exists(path, function(exists) {
-      if (exists) {
-        fs.unlink(path, function(err) {
-          if (err) return cb(err);
-          return spawn();
-        });
-      } else {
-        return spawn();
-      }
+    fs.unlink(path, function(err) {
+      if (err && err.code !== 'ENOENT') return cb(err);
+      return spawn();
     });
   } else {
     return spawn();
@@ -271,7 +264,7 @@ function spawnPhantom(site, path, streaming, options, cb) {
 
     phantomProc.stdout.on('data', function(data) {
       clearTimeout(timeoutID);
-      s.emit('data', new Buffer(''+data, 'base64'));
+      s.emit('data', Buffer.from(''+data, 'base64'));
     });
 
     phantomProc.stderr.on('data', function(data) {

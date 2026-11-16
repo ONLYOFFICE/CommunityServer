@@ -104,7 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

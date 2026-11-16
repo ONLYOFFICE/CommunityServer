@@ -11,18 +11,16 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "axios": "^0.21.0",
-    "express": "^4.17.1",
-    "form-data": "^3.0.0",
-    "get-byte": "0.0.0",
-    "help": "^3.0.2",
-    "node-fetch": "^2.6.9",
-    "patch-package": "^6.4.7",
+    "axios": "^1.21.0",
+    "express": "^4.22.3",
+    "form-data": "^4.0.6",
+    "patch-package": "^8.0.1",
     "postinstall-postinstall": "^2.1.0",
-    "request": "^2.88.0",
-    "to-byte-array": "^1.0.2",
-    "webdav-server": "2.6.2",
-    "winston": "^3.2.1",
-    "winston-daily-rotate-file": "^4.5.5"
+    "webdav-server": "2.6.3",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=24.22.1"
   }
 }

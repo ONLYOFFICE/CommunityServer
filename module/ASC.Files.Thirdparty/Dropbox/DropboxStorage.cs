@@ -207,7 +207,7 @@ namespace ASC.Files.Thirdparty.Dropbox
             return _dropboxClient.Files.UploadSessionFinishAsync(
                 new UploadSessionCursor(dropboxSession, (ulong)offset),
                 new CommitInfo(dropboxFilePath, WriteMode.Overwrite.Instance),
-                new MemoryStream()).Result;
+                body: new MemoryStream()).Result;
         }
     }
 }

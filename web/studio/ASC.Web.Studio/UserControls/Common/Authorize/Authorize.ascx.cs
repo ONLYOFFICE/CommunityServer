@@ -301,7 +301,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 {
                     if (!string.IsNullOrEmpty(Request["__EVENTARGUMENT"]) && Request["__EVENTTARGET"] == "signInLogin" && withAccountLink)
                     {
-                        HashId = ASC.Common.Utils.Signature.Read<string>(Request["__EVENTARGUMENT"]);
+                        HashId = LoginProfile.ReadHash(Request["__EVENTARGUMENT"]);
                     }
                 }
 

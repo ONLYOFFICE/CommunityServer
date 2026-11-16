@@ -42,20 +42,20 @@ namespace ASC.Migration.GoogleWorkspace.Models
             var vcfPath = Path.Combine(rootFolder, "Contacts", "All Contacts", "All Contacts.vcf");
             if (!File.Exists(vcfPath)) return;
 
-            var vcards = VCard.Load(vcfPath);
+            var vcards = Vcf.Load(vcfPath);
             foreach (var vcard in vcards)
             {
-                if (vcard.EmailAddresses == null || !vcard.EmailAddresses.Any()) continue; // We can't import contacts without email
+                if (vcard.EMails == null || !vcard.EMails.Any()) continue; // We can't import contacts without email
 
                 var contact = new GwsContact()
                 {
-                    Emails = vcard.EmailAddresses.Select(v => v.Value).Distinct().ToList()
+                    Emails = vcard.EMails.Select(v => v.Value).Distinct().ToList()
                 };
 
                 if (vcard.Addresses != null && vcard.Addresses.Any()) contact.Address = vcard.Addresses.First().Value.ToString();
                 if (vcard.DisplayNames != null && vcard.DisplayNames.Any()) contact.ContactName = vcard.DisplayNames.First().Value.ToString();
                 if (vcard.Notes != null && vcard.Notes.Any()) contact.Description = string.Join("\n", vcard.Notes.Select(v => v.Value));
-                if (vcard.PhoneNumbers != null && vcard.PhoneNumbers.Any()) contact.Phones = vcard.PhoneNumbers.Select(v => v.Value).Distinct().ToList();
+                if (vcard.Phones != null && vcard.Phones.Any()) contact.Phones = vcard.Phones.Select(v => v.Value).Distinct().ToList();
 
                 contacts.Add(contact);
             }

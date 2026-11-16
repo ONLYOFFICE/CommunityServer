@@ -49,7 +49,7 @@ namespace ASC.Core.Common.Notify.Push
         {
             FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromJson(JsonConvert.SerializeObject(new FirebaseApiKey()).Replace("\\\\", "\\"))
+                Credential = CredentialFactory.FromJson<ServiceAccountCredential>(JsonConvert.SerializeObject(new FirebaseApiKey()).Replace("\\\\", "\\")).ToGoogleCredential()
             });
         }
 
@@ -83,7 +83,10 @@ namespace ASC.Core.Common.Notify.Push
                         Data = new Dictionary<string, string>{
                             { "data", msg.Data }
                         },
+                        // FirebaseDeviceToken is an FCM registration token sent by the apps, not an installation id (Fid)
+#pragma warning disable CS0618
                         Token = fb.FirebaseDeviceToken,
+#pragma warning restore CS0618
                         Notification = new Notification()
                         {
                             Body = msg.Content

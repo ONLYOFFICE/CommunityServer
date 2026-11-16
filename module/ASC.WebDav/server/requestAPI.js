@@ -15,9 +15,7 @@
 */
 
 
-const request = require('request');
 const axios = require('axios');
-const nodeFetch = require('node-fetch');
 const {
     getHeader,
     getHeaderPeople,
@@ -313,7 +311,7 @@ var rewritingFile = async function (ctx, fileId, data, token) {
             maxBodyLength: Infinity,
             headers: {
                 Authorization,
-                "Content-Type": `multipart/form-data; boundary=${data._boundary}`
+                "Content-Type": `multipart/form-data; boundary=${data.getBoundary()}`
             }
         });
         logResponse(ctx.context, response, "requestAPI.rewritingFile");
@@ -356,26 +354,15 @@ var createEditSession = async function (ctx, fileId, fileSize, token) {
 var chunkedUploader = async function (ctx, url, data, token, bytesAmount, firstPosition, secondPosition) {
     try {
         const Authorization = token ? token : null;
-        // const response = await axios.post(url, data, {
-        //     maxBodyLength: Infinity,
-        //     headers: {
-        //         Authorization,
-        //         "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
-        //         "Content-Range": `bytes ${firstPosition}-${secondPosition}/${bytesAmount}`
-        //     }
-        // });
-
-        const requestConfig = {
-            method: 'POST',
+        const response = await axios.post(url, data, {
+            maxBodyLength: Infinity,
+            validateStatus: null,
             headers: {
-                "Authorization": Authorization,
-                "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+                Authorization,
+                "Content-Type": `multipart/form-data; boundary=${data.getBoundary()}`,
                 "Content-Range": `bytes ${firstPosition}-${secondPosition}/${bytesAmount}`
-            },
-            body: data
-        };
-
-        const response = await nodeFetch(url, requestConfig);
+            }
+        });
 
         logResponse(null, response, "requestAPI.chunkedUploader");
     } catch (error) {
@@ -398,31 +385,32 @@ var getPresignedUri = async function (ctx, fileId, token) {
 
 var getReadStream = async function (ctx, uri, token) {
     try {
-        const streamRequest = await request.get({
-            url: uri,
+        const response = await axios.get(uri, {
+            responseType: "stream",
             headers: getHeader("application/octet-stream", token)
         });
         logMessage("requestAPI.getReadStream", uri, "OK");
-        return streamRequest;
+        return response.data;
     } catch (error) {
         logErrorAndCheckStatus(ctx.context, error, "requestAPI.getReadStream");
         throw error;
     }
 };
 
-var readFile = function (ctx, fileId, token, callback) {
+var readFile = async function (ctx, fileId, token, callback) {
+    let response;
     try {
         const url = getDomain(ctx.context) + fileHandlerPath.replace("{0}", fileId);
         const headers = getHeader("application/octet-stream", token);
         const range = ctx.context.headers.find("Range");
-        const streamRequest = request.get({ url, headers });
-        callback(null, streamRequest);
-        streamRequest.end();
+        response = await axios.get(url, { responseType: "stream", headers });
         logMessage("requestAPI.readFile", "fileId: " + fileId + (range ? " range: " + range : ""), "OK");
     } catch (error) {
         logErrorAndCheckStatus(ctx.context, error, "requestAPI.readFile");
         callback(error);
+        return;
     }
+    callback(null, response.data);
 };
 
 var createFileTxt = async function (ctx, folderId, title, token) {

@@ -31,7 +31,7 @@ var Hash = function () {
             try {
                 const strHash = getHashBase64(str + secret) + "?" + str;
 
-                let data = new Buffer(strHash).toString("base64");
+                let data = Buffer.from(strHash).toString("base64");
 
                 let cnt = 0;
                 while (data.indexOf("=") !== -1) {
@@ -73,7 +73,7 @@ var Hash = function () {
                 return null;
 
             } catch (ex) {
-                console.error("hash.decode", str, secret, ex);
+                console.error("hash.decode", ex);
                 return null;
             }
         }

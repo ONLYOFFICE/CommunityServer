@@ -160,7 +160,7 @@ namespace ASC.Common.Caching
         {
             var channelName = $"asc:channel:{cacheNotifyAction}:{typeof(T).FullName}".ToLowerInvariant();
 
-            Task.Run(() => _redis.PublishAsync(channelName, new RedisCachePubSubItem<T>() { Object = obj, Action = cacheNotifyAction }))
+            Task.Run(() => _redis.PublishAsync(RedisChannel.Literal(channelName), new RedisCachePubSubItem<T>() { Object = obj, Action = cacheNotifyAction }))
                 .GetAwaiter()
                 .GetResult();
         }
@@ -171,7 +171,7 @@ namespace ASC.Common.Caching
             {
                 var channelName = $"asc:channel:{cacheNotifyAction}:{typeof(T).FullName}".ToLowerInvariant();
 
-                Task.Run(() => _redis.SubscribeAsync<RedisCachePubSubItem<T>>(channelName, (i) =>
+                Task.Run(() => _redis.SubscribeAsync<RedisCachePubSubItem<T>>(RedisChannel.Literal(channelName), (i) =>
                 {
                     onchange(i.Object, i.Action);
 

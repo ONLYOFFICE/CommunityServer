@@ -23,7 +23,6 @@ const filenamify = require('filenamify-url');
 const webshot = require('./webshot/webshot');
 const config = require('../config');
 const log = require('./log.js');
-const fetch = require("node-fetch");
 const dns = require("dns");
 const Address = require("ipaddr.js");
 
@@ -44,10 +43,11 @@ function checkValidUrl(url) {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(res => {
-        var host = new URL(res.url).host;
+        res.body?.cancel();
+        var host = new URL(res.url).hostname;
         dns.lookup(host, (err, ip, family) => {
           if (err) {
-            log.error(error);
+            log.error(err);
             resolve(false);
             return;
           }
@@ -106,7 +106,7 @@ function takeWebShot(url, pathToFile) {
 }
 
 function error(res, e) {
-    res.sendFile(noThumb);
+    if (!res.headersSent) res.sendFile(noThumb);
     if(e) {
         log.error(e);
     }
@@ -139,7 +139,7 @@ module.exports = function (req, res) {
           return;
         }
 
-        if (urls.find(r => r === url) || urls.count > queue) {
+        if (urls.find(r => r === url) || urls.length > queue) {
             error(res);
         } else {
             res.sendFile(noThumb);

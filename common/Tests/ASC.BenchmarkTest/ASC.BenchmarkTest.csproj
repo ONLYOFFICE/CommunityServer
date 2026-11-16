@@ -68,10 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet">
-      <Version>0.13.0</Version>
+      <Version>0.15.8</Version>
     </PackageReference>
     <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows">
-      <Version>0.13.0</Version>
+      <Version>0.15.8</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

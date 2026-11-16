@@ -61,8 +61,8 @@ namespace ASC.VoipService.Twilio
                     response.Play(new Uri(settings.GreetingAudio));
                 }
 
-                response.Enqueue(settings.Queue.Name, new Uri(GetEcho("Enqueue", agent != null)), "POST",
-                   new Uri(GetEcho("Wait", agent != null)), "POST");
+                response.Enqueue(settings.Queue.Name, action: new Uri(GetEcho("Enqueue", agent != null)), method: "POST",
+                   waitUrl: new Uri(GetEcho("Wait", agent != null)), waitUrlMethod: "POST");
             }
 
             return AddVoiceMail(response);
@@ -147,8 +147,8 @@ namespace ASC.VoipService.Twilio
                 SecurityContext.CurrentUser = newCallerId;
             }
 
-            return new VoiceResponse().Enqueue(settings.Queue.Name, new Uri(GetEcho("enqueue")), "POST",
-              new Uri(GetEcho("wait") + "&RedirectTo=" + to), "POST");
+            return new VoiceResponse().Enqueue(settings.Queue.Name, action: new Uri(GetEcho("enqueue")), method: "POST",
+              waitUrl: new Uri(GetEcho("wait") + "&RedirectTo=" + to), waitUrlMethod: "POST");
         }
 
         public VoiceResponse VoiceMail()

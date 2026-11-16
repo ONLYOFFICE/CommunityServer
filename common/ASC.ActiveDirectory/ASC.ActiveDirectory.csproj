@@ -88,13 +88,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>6.2.0</Version>
+      <Version>9.3.4</Version>
     </PackageReference>
     <PackageReference Include="Mono.Security">
       <Version>3.2.3</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="Novell.Directory.LDAP">
       <Version>2.3.8.1</Version>

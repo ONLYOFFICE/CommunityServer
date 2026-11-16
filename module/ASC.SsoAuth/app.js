@@ -29,7 +29,7 @@ const fs = require("fs"),
     winston = require("winston"),
     config = require("./config").get(),
     path = require("path"),
-    exphbs = require("express-handlebars"),
+    { engine } = require("express-handlebars"),
     favicon = require("serve-favicon"),
     cors = require("cors");
 
@@ -65,7 +65,7 @@ logger.stream = {
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")))
@@ -77,7 +77,7 @@ app.use(favicon(path.join(__dirname, "public", "favicon.ico")))
     {
         resave: true,
         saveUninitialized: true,
-        secret: config["core.machinekey"] ? config["core.machinekey"] : config.app.machinekey
+        secret: require("./app/utils/coder").getSecret()
         }))
     .use(cors());
 

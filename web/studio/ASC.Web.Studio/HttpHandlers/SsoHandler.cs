@@ -16,6 +16,8 @@
 
 
 using System;
+using System.Configuration;
+using System.Text;
 using System.Web;
 
 using AjaxPro;
@@ -26,6 +28,7 @@ using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
+using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
@@ -74,7 +77,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 if (context.Request["config"] == "saml")
                 {
                     context.Response.StatusCode = 200;
-                    var signedSettings = Signature.Create(settings);
+                    var signedSettings = CreateSignature(settings);
                     var ssoConfig = JavaScriptSerializer.Serialize(signedSettings);
                     context.Response.Write(ssoConfig.Replace("\"", ""));
                     return;
@@ -100,7 +103,7 @@ namespace ASC.Web.Studio.HttpHandlers
 
                 if (context.Request["auth"] == "true")
                 {
-                    var userData = Signature.Read<SsoUserData>(data);
+                    var userData = ReadSignature<SsoUserData>(data);
 
                     if (userData == null)
                     {
@@ -154,7 +157,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 }
                 else if (context.Request["logout"] == "true")
                 {
-                    var logoutSsoUserData = Signature.Read<LogoutSsoUserData>(data);
+                    var logoutSsoUserData = ReadSignature<LogoutSsoUserData>(data);
 
                     if (logoutSsoUserData == null)
                     {
@@ -206,6 +209,23 @@ namespace ASC.Web.Studio.HttpHandlers
         }
 
         #endregion
+
+        internal static string CreateSignature<T>(T obj)
+        {
+            return Signature.Create(obj, GetSecret());
+        }
+
+        internal static T ReadSignature<T>(string signature)
+        {
+            return Signature.Read<T>(signature, GetSecret());
+        }
+
+        // shared secret with the SSO service, installations without core.sso.secret keep using core.machinekey
+        private static string GetSecret()
+        {
+            var secret = ConfigurationManagerExtension.AppSettings["core.sso.secret"];
+            return !string.IsNullOrEmpty(secret) ? secret : Encoding.UTF8.GetString(MachinePseudoKeys.GetMachineConstant());
+        }
 
         private UserInfo AddUser(UserInfo userInfo)
         {

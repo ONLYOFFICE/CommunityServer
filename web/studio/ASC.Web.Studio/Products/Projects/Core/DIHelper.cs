@@ -173,7 +173,7 @@ namespace ASC.Web.Projects.Core
             LifetimeScope.ResolveOperationBeginning += ResolveOperationBeginning;
         }
 
-        public object ResolveComponent(ResolveRequest request)
+        public object ResolveComponent(in ResolveRequest request)
         {
             return LifetimeScope.ResolveComponent(request);
         }

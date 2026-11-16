@@ -123,8 +123,9 @@ rm -rf "$RPM_BUILD_ROOT"
 %pre
 
 node_version=$(rpm -q --qf '%%{version}' nodejs | awk -F. '{ printf("%%d%%03d%%03d%%03d", $1,$2,$3,$4); }';)
-if [[ "$node_version" -lt "14018000000" ]]; then
-  echo -e "\033[31mFor the %{package_sysname}-communityserver package to work properly, you need to install nodejs version 14.18.0 or higher\033[0m"
+node_min_version=$(echo "%{node_min_version}" | awk -F. '{ printf("%%d%%03d%%03d%%03d", $1,$2,$3,$4); }';)
+if [[ "$node_version" -lt "$node_min_version" ]]; then
+  echo -e "\033[31mFor the %{package_sysname}-communityserver package to work properly, you need to install nodejs version %{node_min_version} or higher\033[0m"
   exit 1
 fi
 
@@ -135,6 +136,9 @@ getent group %{package_sysname} >/dev/null || groupadd -r %{package_sysname}
 getent passwd %{package_sysname} >/dev/null || useradd -r -g %{package_sysname} -d /var/www/%{package_sysname}/ -s /sbin/nologin %{package_sysname}
 
 if [ $1 -ge 2 ]; then
+	# remember the upgrade so that %posttrans starts the services
+	mkdir -p /var/lib/rpm-state
+	touch /var/lib/rpm-state/%{package_sysname}-communityserver-upgrade
 	for SVC in %{package_services}; do
 		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 			systemctl stop $SVC
@@ -258,8 +262,18 @@ EOF
 	fi
 fi
 
+# Let ds and the portal share the exchange dir through the onlyoffice group, as the DEB documentserver package does
+DS_SERVICES=""
+if getent passwd ds >/dev/null && getent group %{package_sysname} >/dev/null && [ -d "${APP_DATA_DIR}" ]; then
+	usermod -a -G %{package_sysname} ds
+	chown %{package_sysname}:%{package_sysname} ${APP_DATA_DIR}
+	chmod g+rwxs ${APP_DATA_DIR}
+	# Running ds processes get the new group only after a restart
+	DS_SERVICES="ds-docservice ds-converter ds-adminpanel"
+fi
 
-for SVC in monoserve %{package_sysname}Thumb %{package_sysname}ThumbnailBuilder
+
+for SVC in monoserve %{package_sysname}Thumb %{package_sysname}ThumbnailBuilder $DS_SERVICES
 do
 	if systemctl is-active $SVC &>/dev/null; then
 		systemctl restart $SVC
@@ -291,6 +305,19 @@ for i in "${!binDirs[@]}"; do
 		find "${binDirs[$i]}" -type f -name "*.json" -exec sed -i "s_\(\"core.machinekey\":\|\"machinekey\":\).*,_\1 \"${CORE_MACHINEKEY}\",_" {} \;
 	fi
 done
+
+# shared secret of the portal and the SSO service, generated once and kept in the config dir across upgrades
+SSO_SECRET_FILE="/etc/%{package_sysname}/communityserver/sso.secret"
+if [ ! -s "${SSO_SECRET_FILE}" ]; then
+	mkdir -p "$(dirname "${SSO_SECRET_FILE}")"
+	(umask 077 && cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 > "${SSO_SECRET_FILE}")
+fi
+SSO_SECRET=$(cat "${SSO_SECRET_FILE}")
+
+sed -i "/core.sso.secret/s_\(value\s*=\s*\"\)[^\"]*\"_\1${SSO_SECRET}\"_" ${DIR}/WebStudio/web.appsettings.config
+if [ -d "${SERVICES_DIR}/ASC.SsoAuth/config" ]; then
+	find "${SERVICES_DIR}/ASC.SsoAuth/config" -type f -name "*.json" -exec sed -i -E "s/(\"ssosecret\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${SSO_SECRET}\"/" {} \;
+fi
 
 #Mail configs changes
 if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
@@ -506,21 +533,28 @@ fi
 
 systemctl daemon-reload
 if [ $1 -ge 2 ]; then
-	for SVC in %{package_services}; do
-		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
-			systemctl enable $SVC
-			systemctl restart $SVC
-		fi
-	done
 	if systemctl is-active %{package_sysname}AutoCleanUp &>/dev/null; then
 		systemctl disable %{package_sysname}AutoCleanUp
 		systemctl stop %{package_sysname}AutoCleanUp
 	fi
 fi
 
-if systemctl is-active monoserve &>/dev/null; then
-	curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true
-fi		
+%posttrans
+# on upgrade the old package files are removed after %post, so the services must start here or stale node_modules crash them
+UPGRADE_MARK=/var/lib/rpm-state/%{package_sysname}-communityserver-upgrade
+if [ -f "$UPGRADE_MARK" ]; then
+	rm -f "$UPGRADE_MARK"
+	systemctl daemon-reload
+	for SVC in %{package_services}; do
+		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
+			systemctl enable $SVC
+			systemctl restart $SVC
+		fi
+	done
+	if systemctl is-active monoserve &>/dev/null; then
+		curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true
+	fi
+fi
 
 %preun
 #if it is deinstallation then we stop and deregister all services

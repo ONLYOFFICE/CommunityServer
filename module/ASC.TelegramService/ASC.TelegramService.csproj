@@ -61,13 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.4</Version>
     </PackageReference>
     <PackageReference Include="Telegram.Bot">
-      <Version>17.0.0</Version>
+      <Version>22.10.3.3</Version>
     </PackageReference>
-    <PackageReference Include="Telegram.Bot.Extensions.Polling">
-      <Version>1.0.2</Version>
+    <PackageReference Include="Microsoft.Extensions.Options">
+      <Version>10.0.14</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

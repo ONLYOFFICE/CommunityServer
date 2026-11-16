@@ -115,7 +115,8 @@ namespace ASC.Files.Thirdparty.SharePoint
                     ss.AppendChar(p);
                 }
                 authUrl = string.Concat(authData.Url.TrimEnd('/'), personalPath);
-                credentials = new SharePointOnlineCredentials(authData.Login, ss);
+                // same as the deprecated (login, password) overload: legacy authentication, no interactive prompt
+                credentials = new SharePointOnlineCredentials(authData.Login, ss, useModernAuth: false, interactiveAuth: false);
 
             }
 

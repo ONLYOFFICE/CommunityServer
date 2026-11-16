@@ -2,7 +2,7 @@
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Assembly Name="ASC.Web.Files" %>
 
-<%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" EnableViewStateMac="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Files._Default" %>
+<%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Files._Default" %>
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>

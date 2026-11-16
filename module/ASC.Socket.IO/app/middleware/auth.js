@@ -20,6 +20,7 @@ module.exports = function (socket, next) {
     const req = socket.client.request;
     const authService = require('./authService.js')();
     const co = require('co');
+    const crypto = require('crypto');
     const session = socket.handshake.session;
 
     if (req.user) {
@@ -33,7 +34,11 @@ module.exports = function (socket, next) {
         return;
     }
 
-    if(session && session.user && session.portal && typeof(session.mailEnabled) !== "undefined") {
+    const authKey = req.cookies['asc_auth_key']
+        ? crypto.createHash('sha256').update(req.cookies['asc_auth_key']).digest('base64')
+        : null;
+
+    if(session && session.user && session.portal && typeof(session.mailEnabled) !== "undefined" && session.authKey === authKey) {
         req.user = session.user;
         req.portal = session.portal;
         req.mailEnabled = session.mailEnabled;
@@ -57,6 +62,7 @@ module.exports = function (socket, next) {
             .get("settings/security/2A923037-8B2D-487b-9A22-5AC0918ACF3F");
 
         [session.user, session.portal, session.mailEnabled] = [req.user, req.portal, req.mailEnabled] = yield apiRequestManager.batch(batchRequest, req);
+        session.authKey = authKey;
         session.save();
         next();
     }).catch((err) => {

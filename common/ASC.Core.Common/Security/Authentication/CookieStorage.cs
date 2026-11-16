@@ -17,6 +17,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 using System.Web;
 
 using ASC.Common.Logging;
@@ -29,6 +30,8 @@ namespace ASC.Core.Security.Authentication
     public class CookieStorage
     {
         private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss,fff";
+        private const string Purpose = "AuthCookie";
+        private const string VersionPrefix = "2.";
 
         public static bool DecryptCookie(string cookie, out int tenant, out Guid userid, out int indexTenant, out DateTime expire, out int indexUser, out int loginEventId)
         {
@@ -47,7 +50,11 @@ namespace ASC.Core.Security.Authentication
             try
             {
                 cookie = (HttpUtility.UrlDecode(cookie) ?? "").Replace(' ', '+');
-                var s = InstanceCrypto.Decrypt(cookie).Split('$');
+                var s = Decrypt(cookie);
+                if (s == null)
+                {
+                    return false;
+                }
 
                 if (1 < s.Length) tenant = int.Parse(s[1]);
                 if (4 < s.Length) userid = new Guid(s[4]);
@@ -80,8 +87,8 @@ namespace ASC.Core.Security.Authentication
             try
             {
                 cookie = (HttpUtility.UrlDecode(cookie) ?? "").Replace(' ', '+');
-                var s = InstanceCrypto.Decrypt(cookie).Split('$');
-                if (8 < s.Length)
+                var s = Decrypt(cookie);
+                if (s != null && 8 < s.Length)
                 {
                     loginEventId = !string.IsNullOrEmpty(s[8]) ? int.Parse(s[8]) : 0;
                 }
@@ -115,7 +122,19 @@ namespace ASC.Core.Security.Authentication
                 indexUser,
                 loginEventId != 0 ? loginEventId.ToString() : null);
 
-            return InstanceCrypto.Encrypt(s);
+            return VersionPrefix + Convert.ToBase64String(AuthSecretProvider.Protect(Purpose, Encoding.UTF8.GetBytes(s)));
+        }
+
+        private static string[] Decrypt(string cookie)
+        {
+            // cookies of the previous format (encrypted with core.machinekey, no MAC) are not accepted
+            if (!cookie.StartsWith(VersionPrefix, StringComparison.Ordinal))
+            {
+                return null;
+            }
+
+            var data = AuthSecretProvider.Unprotect(Purpose, Convert.FromBase64String(cookie.Substring(VersionPrefix.Length)));
+            return data != null ? Encoding.UTF8.GetString(data).Split('$') : null;
         }
 
 

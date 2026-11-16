@@ -104,10 +104,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>4.1.0</Version>
+      <Version>4.5.2</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>4.1.0</Version>
+      <Version>4.5.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

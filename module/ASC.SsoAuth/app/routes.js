@@ -22,17 +22,18 @@ module.exports = function (app, config, logger) {
   const { SamlLib: libsaml } = saml;
   const urlResolver = require("./utils/resolver")(logger);
   const coder = require("./utils/coder");
-  const urn = require("samlify/build/src/urn");
-  const fetch = require("node-fetch");
+  const urn = saml.Constants;
   const fileManager = require('./fileManager');
   const forge = require('node-forge');
+  const crypto = require('crypto');
+  const os = require('os');
   const path = require('path');
-  const uuid = require('uuid');
   const formidable = require('formidable');
   const UserModel = require("./model/user");
   const LogoutModel = require("./model/logout");
   const fs = require('fs');
-  let uploadDir = "";
+  const uploadDir = os.tmpdir();
+  const maxMetadataSize = 10 * 1024 * 1024;
   const selfSignedDomain = "myselfsigned.crt";
 
   function verifySetting(req) {
@@ -91,19 +92,21 @@ module.exports = function (app, config, logger) {
         return;
       }
 
-      if (!files || !files.metadata) {
+      const metadata = files && files.metadata && files.metadata[0];
+
+      if (!metadata) {
         res.status(500).send("Metadata file not transferred").end();
         return;
       }
 
-      if (!files.metadata.name.toLowerCase().endsWith(".xml")) {
-        fileManager.deleteFile(files.metadata.path);
+      if (!metadata.originalFilename || !metadata.originalFilename.toLowerCase().endsWith(".xml")) {
+        fileManager.deleteFile(metadata.filepath);
         res.status(500).send("Incorrect metadata file type. A .xml file is required.").end();
         return;
       }
 
       const idp = saml.IdentityProvider({
-        metadata: fs.readFileSync(files.metadata.path)
+        metadata: fs.readFileSync(metadata.filepath)
       });
       const idpMetadata = idp.entityMeta;
 
@@ -111,25 +114,24 @@ module.exports = function (app, config, logger) {
         !idpMetadata.meta ||
         !idpMetadata.meta.entityDescriptor ||
         !idpMetadata.meta.singleSignOnService) {
-        fileManager.deleteFile(files.metadata.path);
+        fileManager.deleteFile(metadata.filepath);
         res.status(500).send("Invalid metadata xml file").end();
         return;
       }
 
-      fileManager.deleteFile(files.metadata.path);
+      fileManager.deleteFile(metadata.filepath);
       res.status(200).send(idpMetadata).end();
     }
 
-    const form = new formidable.IncomingForm();
-    form.uploadDir = uploadDir;
+    const form = new formidable.IncomingForm({ uploadDir, maxFileSize: maxMetadataSize });
     form.parse(req, formParse);
   }
 
   function onLoadMetadata(req, res) {
     try {
-      const filePath = path.join(uploadDir, uuid.v1() + ".xml");
+      const filePath = path.join(uploadDir, crypto.randomUUID() + ".xml");
 
-      fileManager.downloadFile(req.body.url, filePath)
+      fileManager.downloadFile(req.body.url, filePath, maxMetadataSize)
         .then((result) => {
           const idp = saml.IdentityProvider({
             metadata: fs.readFileSync(result)
@@ -160,10 +162,15 @@ module.exports = function (app, config, logger) {
   function generateCertificate() {
     const pki = forge.pki;
 
-    let keys = pki.rsa.generateKeyPair(2048);
+    const keys = crypto.generateKeyPairSync("rsa", {
+        modulusLength: 2048,
+        publicKeyEncoding: { type: "spki", format: "pem" },
+        privateKeyEncoding: { type: "pkcs1", format: "pem" }
+    });
+    const privateKey = pki.privateKeyFromPem(keys.privateKey);
     let cert = pki.createCertificate();
 
-    cert.publicKey = keys.publicKey;
+    cert.publicKey = pki.publicKeyFromPem(keys.publicKey);
     cert.serialNumber = "01";
     cert.validity.notBefore = new Date();
     cert.validity.notAfter = new Date();
@@ -177,19 +184,22 @@ module.exports = function (app, config, logger) {
     cert.setSubject(attr);
     cert.setIssuer(attr);
 
-    cert.sign(keys.privateKey);
+    cert.sign(privateKey, forge.md.sha256.create());
 
     let crt = pki.certificateToPem(cert);
-    let key = pki.privateKeyToPem(keys.privateKey);
+    let key = keys.privateKey;
 
     return {
         crt: crt,
         key: key
     };
   }
+  function getCommonName(name) {
+    const field = name.split("\n").find((line) => line.startsWith("CN="));
+    return field ? field.substring(3) : "";
+  }
   function validateCertificate(certs){
     const result = [];
-    const pki = forge.pki;
 
     certs.forEach(function (data) {
         if (!data.crt)
@@ -198,32 +208,18 @@ module.exports = function (app, config, logger) {
         if (data.crt[0] !== "-")
             data.crt = "-----BEGIN CERTIFICATE-----\n" + data.crt + "\n-----END CERTIFICATE-----";
 
-        const cert = pki.certificateFromPem(data.crt);
-
-        const publicKey = cert.publicKey;
-        if (!publicKey)
-            throw "Invalid public cert";
+        const cert = new crypto.X509Certificate(data.crt);
 
         if (data.key) {
-            const privateKey = pki.privateKeyFromPem(data.key);
-            if (!privateKey)
-                throw "Invalid private key";
+            const privateKey = crypto.createPrivateKey(data.key);
 
-            const md = forge.md.sha1.create();
-            md.update('sign this', 'utf8');
-            const signature = privateKey.sign(md);
-
-            // verify data with a public key
-            // (defaults to RSASSA PKCS#1 v1.5)
-            const verified = publicKey.verify(md.digest().bytes(), signature);
-
-            if (!verified)
-                throw "Invalid key-pair (unverified signed data test)";
+            if (!cert.checkPrivateKey(privateKey))
+                throw "Invalid key-pair (private key does not match the certificate)";
         }
 
-        const domainName = cert.subject.getField("CN").value || cert.issuer.getField("CN").value;
-        const startDate = cert.validity.notBefore.toISOString().split(".")[0] + "Z";
-        const expiredDate = cert.validity.notAfter.toISOString().split(".")[0] + "Z";
+        const domainName = getCommonName(cert.subject) || getCommonName(cert.issuer);
+        const startDate = new Date(cert.validFrom).toISOString().split(".")[0] + "Z";
+        const expiredDate = new Date(cert.validTo).toISOString().split(".")[0] + "Z";
 
         result.push({
             selfSigned: domainName === selfSignedDomain,
@@ -237,6 +233,20 @@ module.exports = function (app, config, logger) {
     });
 
     return result;
+  }
+
+  // HTTP-Redirect signatures cover the raw query string (saml-bindings 3.4.4.1),
+  // samlify verifies them against req.octetString
+  function withOctetString(req) {
+    const query = req.originalUrl.split("?")[1] || "";
+    const signedParams = ["SAMLRequest", "SAMLResponse", "RelayState", "SigAlg"];
+
+    req.octetString = query
+      .split("&")
+      .filter((param) => signedParams.includes(param.split("=")[0]))
+      .join("&");
+
+    return req;
   }
 
   function sendToIDP(res, request, isPost) {
@@ -317,26 +327,8 @@ module.exports = function (app, config, logger) {
   };
 
   const parseLoginResponse = (sp, idp, method, req) => {
-    return sp.parseLoginResponse(idp, method, req).catch((e) => {
-      const message = getError(e);
-      if (message == "ERR_FAILED_TO_VERIFY_SIGNATURE") {
-        if (
-          idp.entitySetting.messageSigningOrder == urn.MessageSignatureOrder.ETS
-        ) {
-          idp.entitySetting.messageSigningOrder = urn.MessageSignatureOrder.STE;
-        } else {
-          idp.entitySetting.messageSigningOrder = urn.MessageSignatureOrder.ETS;
-        }
-
-        logger.info(
-          `parseLoginResponse -> Changing urn.MessageSignatureOrder to ${idp.entitySetting.messageSigningOrder}`
-        );
-
-        return sp.parseLoginResponse(idp, method, req);
-      } else {
-        logger.error(`parseLoginResponse failed ${message}`);
-      }
-
+    return sp.parseLoginResponse(idp, method, withOctetString(req)).catch((e) => {
+      logger.error(`parseLoginResponse failed ${getError(e)}`);
       return Promise.reject(e);
     });
   };
@@ -641,7 +633,7 @@ module.exports = function (app, config, logger) {
       const isResponse = req.query.SAMLResponse || req.body.SAMLResponse;
 
       if (isResponse) {
-        const responseInfo = await sp.parseLogoutResponse(idp, method, req);
+        const responseInfo = await sp.parseLogoutResponse(idp, method, withOctetString(req));
 
         if (config.app.logSamlData) {
           logger.debug(`onLogout->response ${JSON.stringify(responseInfo)}`);
@@ -649,7 +641,7 @@ module.exports = function (app, config, logger) {
 
         return res.redirect(urlResolver.getPortalAuthUrl(req));
       } else {
-        const requestInfo = await sp.parseLogoutRequest(idp, method, req);
+        const requestInfo = await sp.parseLogoutRequest(idp, method, withOctetString(req));
 
         if (config.app.logSamlData) {
           logger.debug(`onLogout->request ${JSON.stringify(requestInfo)}`);

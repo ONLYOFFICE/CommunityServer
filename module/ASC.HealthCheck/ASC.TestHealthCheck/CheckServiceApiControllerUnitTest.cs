@@ -29,7 +29,7 @@ namespace ASC.TestHealthCheck
     [TestClass]
     public class CheckServiceApiControllerUnitTest
     {
-        private const string JabberService = "OnlyOfficeSvcJabber";
+        private const ServiceEnum JabberService = ServiceEnum.OnlyofficeJabber;
 
         [TestMethod]
         public void CheckServer()
@@ -39,7 +39,6 @@ namespace ASC.TestHealthCheck
             {
                 controller = new CheckServiceApiController { Request = new HttpRequestMessage() };
                 controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-                HealthCheckRunner.ServiceNames = new List<string>();
                 HttpResponseMessage response = controller.GetState();
                 dynamic status;
                 response.TryGetContentValue<dynamic>(out status);
@@ -68,7 +67,6 @@ namespace ASC.TestHealthCheck
                 IServiceRepository serviceRepository = new ServiceRepository();
                 serviceRepository.Add(JabberService);
                 controller.ServiceRepository = serviceRepository;
-                HealthCheckRunner.ServiceNames = new List<string> { JabberService };
 
                 HttpResponseMessage response = controller.GetState();
                 dynamic status;

@@ -12,13 +12,15 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
-    "moment": "^2.26.0",
-    "mysql2": "^2.1.0",
-    "nconf": "^0.10.0",
-    "request": "^2.88.2",
-    "winston": "^3.2.1",
-    "winston-daily-rotate-file": "^4.4.2"
+    "cookie-parser": "^1.4.7",
+    "express": "^4.22.3",
+    "moment": "^2.31.0",
+    "mysql2": "^3.24.6",
+    "nconf": "^0.13.0",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=24.22.1"
   }
 }

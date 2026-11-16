@@ -1092,10 +1092,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         set { }
                         get
                         {
-                            return
-                                _configuration.Type == EditorType.Embedded
-                                    ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDocsEditorEmbed(!_configuration.EditorConfig.Customization.IsRetina))
-                                    : CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDocsEditor(!_configuration.EditorConfig.Customization.IsRetina));
+                            return CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDocsEditorEmbed(!_configuration.EditorConfig.Customization.IsRetina));
                         }
                     }
 

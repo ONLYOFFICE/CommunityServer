@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Files" %>
 
-<%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" EnableViewStateMac="false" AutoEventWireup="true" CodeBehind="FileChoice.aspx.cs" Inherits="ASC.Web.Files.FileChoice" %>
+<%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" AutoEventWireup="true" CodeBehind="FileChoice.aspx.cs" Inherits="ASC.Web.Files.FileChoice" %>
 
 <%@ Import Namespace="ASC.Files.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>

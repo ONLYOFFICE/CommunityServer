@@ -9,24 +9,30 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "cookie-parser": "~1.4.5",
-    "cross-spawn": "^7.0.3",
-    "express": "^4.17.1",
+    "cookie-parser": "^1.4.7",
+    "cross-spawn": "^7.0.6",
+    "express": "^4.22.3",
     "filenamify-url": "^2.1.2",
-    "graceful-fs": "~4.2.4",
-    "ipaddr.js": "^2.0.1",
-    "moment": "^2.26.0",
-    "nconf": "^0.11.0",
-    "node-cache": "^5.1.0",
-    "node-fetch": "2.6.1",
+    "graceful-fs": "^4.2.11",
+    "ipaddr.js": "^2.5.0",
+    "nconf": "^0.13.0",
+    "node-cache": "^5.1.2",
     "phantomjs-prebuilt": "^2.1.16",
-    "request": "^2.88.2",
-    "tmp": "~0.2.1",
-    "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.4.2"
+    "tmp": "^0.2.7",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "resolutions": {
+    "**/request/form-data": "^2.5.6",
+    "**/request/qs": "^6.16.0",
+    "**/request/tough-cookie": "^4.1.4",
+    "**/extract-zip/yauzl": "^3.4.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=24.22.1"
   }
 }

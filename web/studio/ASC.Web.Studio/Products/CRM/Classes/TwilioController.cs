@@ -23,7 +23,8 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
+using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
 
 using ASC.Common.Logging;
 using ASC.Core;
@@ -38,8 +39,7 @@ using ASC.Web.Studio.Utility;
 
 using Autofac;
 
-using Twilio.AspNet.Common;
-using Twilio.AspNet.Mvc;
+using Twilio.Security;
 using Twilio.TwiML;
 
 namespace ASC.Web.CRM.Classes
@@ -374,8 +374,16 @@ namespace ASC.Web.CRM.Classes
         }
     }
 
-    public class TwilioVoiceRequest : VoiceRequest
+    public class TwilioVoiceRequest
     {
+        public string From { get; set; }
+        public string To { get; set; }
+        public string CallSid { get; set; }
+        public string Direction { get; set; }
+        public string Digits { get; set; }
+        public string DialCallSid { get; set; }
+        public string RecordingSid { get; set; }
+
         public Guid CallerId { get; set; }
         public int ContactId { get; set; }
         public string ParentCallSid { get; set; }
@@ -484,13 +492,24 @@ namespace ASC.Web.CRM.Classes
         internal VoiceResponse VoiceMail() { return GetTwilioResponseHelper().VoiceMail(); }
     }
 
-    public class ValidateRequestAttribute : ActionFilterAttribute
+    public class ValidateRequestAttribute : AuthorizationFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        private static readonly ILog Log = LogManager.GetLogger("ASC");
+
+        public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (!new RequestValidationHelper().IsValidRequest(filterContext.HttpContext, ConsumerFactory.Get<Web.Core.Sms.TwilioProvider>()["twilioAuthToken"], HttpContext.Current.Request.GetUrlRewriter().AbsoluteUri))
-                filterContext.Result = new Twilio.AspNet.Mvc.HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            base.OnActionExecuting(filterContext);
+            var request = HttpContext.Current.Request;
+
+            if (request.IsLocal && !request.Headers.AllKeys.Contains("X-Forwarded-For")) return;
+
+            var authToken = ConsumerFactory.Get<Web.Core.Sms.TwilioProvider>()["twilioAuthToken"];
+            var url = request.GetUrlRewriter().AbsoluteUri;
+
+            if (string.IsNullOrEmpty(authToken) || !new RequestValidator(authToken).Validate(url, request.Form, request.Headers["X-Twilio-Signature"]))
+            {
+                Log.WarnFormat("Twilio request rejected: invalid signature for {0}", url);
+                actionContext.Response = new HttpResponseMessage(HttpStatusCode.Forbidden);
+            }
         }
     }
 }

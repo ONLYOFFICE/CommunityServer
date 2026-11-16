@@ -154,7 +154,7 @@ namespace ASC.TelegramService.Core
 
         protected async Task ReplyAsync(string message)
         {
-            await Client.SendTextMessageAsync(Context.Chat, message);
+            await Client.SendMessage(Context.Chat, message);
         }
     }
 

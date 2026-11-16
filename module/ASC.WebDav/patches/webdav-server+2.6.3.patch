@@ -1,0 +1,13 @@
+diff --git a/node_modules/webdav-server/lib/server/v2/commands/Get.js b/node_modules/webdav-server/lib/server/v2/commands/Get.js
+index aa2ffdc..80f890c 100644
+--- a/node_modules/webdav-server/lib/server/v2/commands/Get.js
++++ b/node_modules/webdav-server/lib/server/v2/commands/Get.js
+@@ -157,7 +157,7 @@ class default_1 {
+                                             ctx.response.setHeader('Content-Length', len.toString());
+                                             if (ranges.length <= 1) {
+                                                 ctx.response.setHeader('Content-Type', mimeType);
+-                                                ctx.response.setHeader('Content-Range', `bytes ${ranges[0].min}-${ranges[0].max}/*`);
++                                                ctx.response.setHeader('Content-Range', `bytes ${ranges[0].min}-${ranges[0].max}/${size}`);
+                                                 rstream.on('end', callback);
+                                                 return rstream.pipe(new RangedStream(ranges[0].min, ranges[0].max)).pipe(ctx.response);
+                                             }

@@ -128,6 +128,12 @@ namespace ASC.Web.Studio
             {
                 case ConfirmType.PortalContinue:
                     checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type, key);
+                    if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Invalid)
+                    {
+                        // a portal deactivated before the update has only the link signed with core.machinekey;
+                        // the link just reactivates the portal and does not authenticate
+                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKeyLegacy(_email + _type, key, TimeSpan.MaxValue);
+                    }
                     break;
 
                 case ConfirmType.PhoneActivation:

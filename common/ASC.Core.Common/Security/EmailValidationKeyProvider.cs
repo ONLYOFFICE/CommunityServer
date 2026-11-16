@@ -1,7 +1,7 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2023
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,8 +32,11 @@ namespace ASC.Security.Cryptography
             Expired
         }
 
+        private const string Purpose = "EmailValidationKey";
+
         private static readonly ILog log = LogManager.GetLogger("ASC.KeyValidation.EmailSignature");
         private static readonly DateTime _from = new DateTime(2010, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly TimeSpan _clockSkew = TimeSpan.FromMinutes(5);
 
         public static string GetEmailKey(string email)
         {
@@ -44,25 +47,15 @@ namespace ASC.Security.Cryptography
         {
             if (string.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
 
-            email = FormatEmail(tenantId, email);
-
             var ms = (long)(DateTime.UtcNow - _from).TotalMilliseconds;
-            var hash = GetMashineHashedData(BitConverter.GetBytes(ms), Encoding.ASCII.GetBytes(email));
+            var hash = GetHashedData(tenantId, email, ms);
             return string.Format("{0}.{1}", ms, DoStringFromBytes(hash));
         }
 
         private static string FormatEmail(int tenantId, string email)
         {
             if (email == null) throw new ArgumentNullException("email");
-            try
-            {
-                return string.Format("{0}|{1}|{2}", email.ToLowerInvariant(), tenantId, Encoding.UTF8.GetString(MachinePseudoKeys.GetMachineConstant()));
-            }
-            catch (Exception e)
-            {
-                log.Fatal("Failed to format tenant specific email", e);
-                return email.ToLowerInvariant();
-            }
+            return string.Format("{0}|{1}", email.ToLowerInvariant(), tenantId);
         }
 
         public static ValidationResult ValidateEmailKey(string email, string key)
@@ -82,29 +75,42 @@ namespace ASC.Security.Cryptography
 
         public static ValidationResult ValidateEmailKey(int tenantId, string email, string key, TimeSpan validInterval)
         {
-            var result = ValidateEmailKeyInternal(tenantId, email, key, validInterval);
+            var result = ValidateEmailKeyInternal(tenantId, email, key, validInterval, GetHashedData);
             log.DebugFormat("validation result: {0}, source: {1} with key: {2} interval: {3} tenant: {4}", result, email, key, validInterval, tenantId);
             return result;
         }
 
-        private static ValidationResult ValidateEmailKeyInternal(int tenantId, string email, string key, TimeSpan validInterval)
+        /// <summary>
+        /// Validates a key signed with core.machinekey by versions before AuthSecretProvider.
+        /// Use only for a short transition period, where the request is protected by other means as well.
+        /// </summary>
+        public static ValidationResult ValidateEmailKeyLegacy(string email, string key, TimeSpan validInterval)
+        {
+            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+            var result = ValidateEmailKeyInternal(tenantId, email, key, validInterval, GetLegacyHashedData);
+            log.DebugFormat("legacy validation result: {0}, source: {1} with key: {2} interval: {3} tenant: {4}", result, email, key, validInterval, tenantId);
+            return result;
+        }
+
+        private static ValidationResult ValidateEmailKeyInternal(int tenantId, string email, string key, TimeSpan validInterval, Func<int, string, long, byte[]> getHashedData)
         {
             if (string.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
             if (key == null) throw new ArgumentNullException("key");
 
-            email = FormatEmail(tenantId, email);
             var parts = key.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length != 2) return ValidationResult.Invalid;
 
             long ms = 0;
             if (!Int64.TryParse(parts[0], out ms)) return ValidationResult.Invalid;
 
-            var hash = GetMashineHashedData(BitConverter.GetBytes(ms), Encoding.ASCII.GetBytes(email));
-            var key2 = DoStringFromBytes(hash);
-            var key2_good = String.Compare(parts[1], key2, StringComparison.InvariantCultureIgnoreCase) == 0;
-            if (!key2_good) return ValidationResult.Invalid;
             var ms_current = (long)(DateTime.UtcNow - _from).TotalMilliseconds;
-            return validInterval >= TimeSpan.FromMilliseconds(ms_current - ms) ? ValidationResult.Ok : ValidationResult.Expired;
+            if (ms - ms_current > _clockSkew.TotalMilliseconds) return ValidationResult.Invalid;
+
+            var hash = getHashedData(tenantId, email, ms);
+            var key2 = DoStringFromBytes(hash);
+            var key2_good = AuthSecretProvider.FixedTimeEquals(parts[1].ToUpperInvariant(), key2);
+            if (!key2_good) return ValidationResult.Invalid;
+            return validInterval >= TimeSpan.FromMilliseconds(Math.Max(0, ms_current - ms)) ? ValidationResult.Ok : ValidationResult.Expired;
         }
 
         internal static string DoStringFromBytes(byte[] data)
@@ -114,12 +120,23 @@ namespace ASC.Security.Cryptography
             return str.ToUpperInvariant();
         }
 
-        internal static byte[] GetMashineHashedData(byte[] salt, byte[] data)
+        private static byte[] GetHashedData(int tenantId, string email, long ms)
         {
-            var alldata = new byte[salt.Length + data.Length];
+            return AuthSecretProvider.ComputeHash(Purpose, Concat(Encoding.UTF8.GetBytes(FormatEmail(tenantId, email)), BitConverter.GetBytes(ms)));
+        }
+
+        private static byte[] GetLegacyHashedData(int tenantId, string email, long ms)
+        {
+            var formatted = string.Format("{0}|{1}", FormatEmail(tenantId, email), Encoding.UTF8.GetString(MachinePseudoKeys.GetMachineConstant()));
+            return Hasher.Hash(Concat(Encoding.ASCII.GetBytes(formatted), BitConverter.GetBytes(ms)), HashAlg.SHA256);
+        }
+
+        private static byte[] Concat(byte[] data, byte[] salt)
+        {
+            var alldata = new byte[data.Length + salt.Length];
             Array.Copy(data, alldata, data.Length);
             Array.Copy(salt, 0, alldata, data.Length, salt.Length);
-            return Hasher.Hash(alldata, HashAlg.SHA256);
+            return alldata;
         }
     }
 }

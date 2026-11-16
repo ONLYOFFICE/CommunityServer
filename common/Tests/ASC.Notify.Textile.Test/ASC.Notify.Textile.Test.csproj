@@ -65,10 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>4.1.0</Version>
+      <Version>4.5.2</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>4.1.0</Version>
+      <Version>4.5.2</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
       <Version>8.4.0</Version>

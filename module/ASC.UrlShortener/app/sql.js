@@ -70,15 +70,17 @@ function onError(err) {
     }
 }
 
-const query = (query, params) => new Promise((resolve, reject) => {
-    co(function* () {
-        if (!connection) yield createNewConnection();
-    }).catch(reject);
+const query = (query, params) => co(function* () {
+    if (!connection) yield createNewConnection();
 
-    connection.query(query, params, function(err, res) {
-        if (err) reject(err);
+    return yield new Promise((resolve, reject) => connection.query(query, params, function(err, res) {
+        if (err) {
+            reject(err);
+            return;
+        }
+
         resolve(res);
-    });
+    }));
 });
 
 module.exports = query;

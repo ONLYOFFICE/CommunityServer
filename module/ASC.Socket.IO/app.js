@@ -21,7 +21,7 @@ const cookieParser = require('cookie-parser');
 const expressSession = require("express-session");
 const sharedsession = require("express-socket.io-session");
 const redis = require('redis');
-const RedisStore = require('connect-redis')(expressSession);
+const { RedisStore } = require('connect-redis');
 const MemoryStore = require('memorystore')(expressSession);
 const config = require('./config');
 const winston = require('./app/log.js');
@@ -37,14 +37,23 @@ winston.stream = {
 
 const redisOpt = {
     host: config.get("redis:host"),
-    port: config.get("redis:port"),
-    ttl: 3600
+    port: config.get("redis:port")
 }
 
 let store;
 if(redisOpt.host && redisOpt.port){
-    let redisClient = redis.createClient(redisOpt);
-    store =new RedisStore({ client: redisClient });
+    let redisClient = redis.createClient({ socket: redisOpt });
+    let redisFailed = false;
+    redisClient.on('error', (err) => {
+        if (!redisFailed) winston.error("redis: " + err.message);
+        redisFailed = true;
+    });
+    redisClient.on('ready', () => {
+        if (redisFailed) winston.info("redis: connected");
+        redisFailed = false;
+    });
+    redisClient.connect().catch(() => {});
+    store = new RedisStore({ client: redisClient, ttl: config.get("redis:ttl") });
 } else {
     store = new MemoryStore();
 }
@@ -76,6 +85,7 @@ const server = app.listen(app.get('port'), () => {
 const io = require('socket.io')(server, {
     perMessageDeflate : false,
     cookie: false,
+    serveClient: false,
     handlePreflightRequest: function (req, res) {
         session(req, res, ()=>{});        
         res.writeHead(200, {'Content-Type': 'text/html'});

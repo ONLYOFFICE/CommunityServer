@@ -81,7 +81,9 @@ namespace ASC.Web.Studio.Utility
         Auth,
         TfaActivation,
         TfaAuth,
-        ShareLinkPassword
+        ShareLinkPassword,
+        GuestShareLink,
+        PortalUnblock
     }
 
     public static class CommonLinkUtility

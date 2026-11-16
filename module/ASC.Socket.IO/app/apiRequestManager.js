@@ -17,8 +17,9 @@
 
 const apiBasePath = "/api/2.0/",
     portalManager = require('./portalManager.js'),
-    request = require('request'),
     log = require("./log.js");
+
+const requestTimeout = 30000;
 
 function makeRequest(apiMethod, req, options, onSuccess){
     makeHeaders(req, options);
@@ -26,10 +27,10 @@ function makeRequest(apiMethod, req, options, onSuccess){
     log.info(options.uri);
 
     return new Promise((resolve, reject) => {
-        request(options, (error, response, body) => {
+        send(options).then(({ error, response, body }) => {
             let result = {};
             try {
-                result = typeof body === "string" ? JSON.parse(body) : body;
+                result = body ? JSON.parse(body) : body;
             } catch (err) {
                 log.error(options.uri, err);
             }
@@ -47,8 +48,30 @@ function makeRequest(apiMethod, req, options, onSuccess){
             }
 
             resolve(onSuccess(result));
-        });
+        }).catch(reject);
     });
+}
+
+async function send(options) {
+    const init = {
+        method: options.method,
+        headers: options.headers,
+        signal: AbortSignal.timeout(requestTimeout)
+    };
+
+    if (options.form) {
+        init.body = new URLSearchParams(options.form);
+    } else if (typeof options.body !== "undefined") {
+        init.headers["Content-Type"] = "application/json";
+        init.body = JSON.stringify(options.body);
+    }
+
+    try {
+        const response = await fetch(options.uri, init);
+        return { response, body: await response.text() };
+    } catch (error) {
+        return { error };
+    }
 }
 
 function deleteTrailingSlash(str) {
@@ -56,7 +79,6 @@ function deleteTrailingSlash(str) {
 }
 
 function makeHeaders(req, options) {
-	options.gzip = true;
     options.headers = {};
     
     if (req.cookies && req.cookies['asc_auth_key']) {
@@ -89,8 +111,8 @@ function checkError(error, response, result) {
         return result.error.message;
     }
 
-    if (response.statusCode > 400) {
-        return response.statusCode;
+    if (response.status > 400) {
+        return response.status;
     }
 }
 
@@ -115,24 +137,22 @@ class RequestManager {
         return this.makeRequest(apiMethod, req, { method: "GET" });
     }
     post(apiMethod, req, body) {
-        return this.makeRequest(apiMethod, req, { method: "POST", body, json: true });
+        return this.makeRequest(apiMethod, req, { method: "POST", body });
     }
     put(apiMethod, req, body) {
-        return this.makeRequest(apiMethod, req, { method: "PUT", body, json: true });
+        return this.makeRequest(apiMethod, req, { method: "PUT", body });
     }
     dlt(apiMethod, req, body) {
         const options = { method: "DELETE" };
         if (typeof body !== "undefined") {
-            options.body = req.body;
-            options.json = true;
+            options.body = body;
         }
         return this.makeRequest(apiMethod, req, options);
     }
     batch(batchMethod, req){
         const options = { 
             method: "POST", 
-            form:{ batch: JSON.stringify(batchMethod.methods) }, 
-            json: true
+            form:{ batch: JSON.stringify(batchMethod.methods) }
         };
 
         return makeRequest("batch.json", req, options, (result) => {

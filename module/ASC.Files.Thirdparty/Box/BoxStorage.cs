@@ -79,8 +79,8 @@ namespace ASC.Files.Thirdparty.Box
             }
             catch (Exception ex)
             {
-                var boxException = ex.InnerException as BoxSDK.Exceptions.BoxException;
-                if (boxException != null && boxException.Error.Status == ((int)HttpStatusCode.NotFound).ToString())
+                var boxException = ex.InnerException as BoxSDK.Exceptions.BoxAPIException;
+                if (boxException != null && boxException.StatusCode == HttpStatusCode.NotFound)
                 {
                     return null;
                 }
@@ -96,8 +96,8 @@ namespace ASC.Files.Thirdparty.Box
             }
             catch (Exception ex)
             {
-                var boxException = ex.InnerException as BoxSDK.Exceptions.BoxException;
-                if (boxException != null && boxException.Error.Status == ((int)HttpStatusCode.NotFound).ToString())
+                var boxException = ex.InnerException as BoxSDK.Exceptions.BoxAPIException;
+                if (boxException != null && boxException.StatusCode == HttpStatusCode.NotFound)
                 {
                     return null;
                 }

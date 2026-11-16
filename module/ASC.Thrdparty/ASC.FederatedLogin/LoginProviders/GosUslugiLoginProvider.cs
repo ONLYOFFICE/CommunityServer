@@ -192,6 +192,7 @@ namespace ASC.FederatedLogin.LoginProviders
         {            
             var tokenPayloadString = JwtBuilder.Create()
                                     .WithAlgorithm(new HMACSHA256Algorithm())
+                                    .DoNotVerifySignature()
                                     .Decode(accessToken);
 
             var tokenPayload = JObject.Parse(tokenPayloadString);

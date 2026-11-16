@@ -61,6 +61,8 @@ namespace ASC.Web.Files
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     public class FileHandler : AbstractHttpAsyncHandler
     {
+        private static readonly TimeSpan LegacyTrackKeyPeriod = TimeSpan.FromHours(48);
+
         public static string FileHandlerPath
         {
             get { return FilesLinkUtility.FileHandlerPath; }
@@ -577,7 +579,7 @@ namespace ASC.Web.Files
 
                                 var stringPayload = JwtBuilder.Create()
                                                         .WithAlgorithm(new HMACSHA256Algorithm())
-                                                        .WithSerializer(new DocumentService.JwtSerializer())
+                                                        .WithJsonSerializer(new DocumentService.JwtSerializer())
                                                         .WithSecret(FileUtility.SignatureSecret)
                                                         .MustVerifySignature()
                                                         .Decode(header);
@@ -696,7 +698,7 @@ namespace ASC.Web.Files
 
                         var stringPayload = JwtBuilder.Create()
                                                         .WithAlgorithm(new HMACSHA256Algorithm())
-                                                        .WithSerializer(new DocumentService.JwtSerializer())
+                                                        .WithJsonSerializer(new DocumentService.JwtSerializer())
                                                         .WithSecret(FileUtility.SignatureSecret)
                                                         .MustVerifySignature()
                                                         .Decode(header);
@@ -1198,6 +1200,14 @@ namespace ASC.Web.Files
 
             var callbackSpan = TimeSpan.FromDays(128);
             var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileId + linkId, auth ?? "", callbackSpan);
+            if (validateResult == EmailValidationKeyProvider.ValidationResult.Invalid
+                && !string.IsNullOrEmpty(FileUtility.SignatureSecret)
+                && DateTime.UtcNow - AuthSecretProvider.Created < LegacyTrackKeyPeriod)
+            {
+                // callback urls of editing sessions opened before the update are signed with core.machinekey;
+                // accept them for a short period, the request body is still verified by the document service token
+                validateResult = EmailValidationKeyProvider.ValidateEmailKeyLegacy(fileId + linkId, auth ?? "", callbackSpan);
+            }
             if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
             {
                 Global.Logger.ErrorFormat("DocService track auth error: {0}, {1}: {2}", validateResult.ToString(), FilesLinkUtility.AuthKey, auth);
@@ -1241,7 +1251,7 @@ namespace ASC.Web.Files
                     {
                         var dataString = JwtBuilder.Create()
                                                     .WithAlgorithm(new HMACSHA256Algorithm())
-                                                    .WithSerializer(new DocumentService.JwtSerializer())
+                                                    .WithJsonSerializer(new DocumentService.JwtSerializer())
                                                     .WithSecret(FileUtility.SignatureSecret)
                                                     .MustVerifySignature()
                                                     .Decode(fileData.Token);
@@ -1275,7 +1285,7 @@ namespace ASC.Web.Files
                     {
                         var stringPayload = JwtBuilder.Create()
                                 .WithAlgorithm(new HMACSHA256Algorithm())
-                                .WithSerializer(new DocumentService.JwtSerializer())
+                                .WithJsonSerializer(new DocumentService.JwtSerializer())
                                 .WithSecret(FileUtility.SignatureSecret)
                                 .MustVerifySignature()
                                 .Decode(header);

@@ -54,20 +54,20 @@ namespace ASC.Migration.NextcloudWorkspace.Models.Parse
                 {
                     foreach (var vcardByte in this.addressbooks.Cards)
                     {
-                        var vcard = VCard.Parse(Encoding.Default.GetString(vcardByte.CardData));
+                        var vcard = Vcf.Parse(Encoding.Default.GetString(vcardByte.CardData));
                         foreach (var item in vcard)
                         {
-                            if (item.EmailAddresses == null || !item.EmailAddresses.Any()) continue;
+                            if (item.EMails == null || !item.EMails.Any()) continue;
 
                             var contact = new NCContact()
                             {
-                                Emails = item.EmailAddresses.Select(v => v.Value).Distinct().ToList()
+                                Emails = item.EMails.Select(v => v.Value).Distinct().ToList()
                             };
 
                             if (item.Addresses != null && item.Addresses.Any()) contact.Address = item.Addresses.First().Value.ToString();
                             if (item.DisplayNames != null && item.DisplayNames.Any()) contact.ContactName = item.DisplayNames.First().Value.ToString();
                             if (item.Notes != null && item.Notes.Any()) contact.Description = string.Join("\n", item.Notes.Select(v => v.Value));
-                            if (item.PhoneNumbers != null && item.PhoneNumbers.Any()) contact.Phones = item.PhoneNumbers.Select(v => v.Value).Distinct().ToList();
+                            if (item.Phones != null && item.Phones.Any()) contact.Phones = item.Phones.Select(v => v.Value).Distinct().ToList();
 
                             contacts.Add(contact);
                         }

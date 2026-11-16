@@ -15,12 +15,12 @@
 */
 
 
-using Ionic.Zip;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -52,38 +52,68 @@ namespace ASC.HealthCheck.Classes
             try
             {
                 log.Debug("DownloadArchive");
-                using (var zip = new ZipFile())
+                var logFiles = EnumerateLogFiles().ToList();
+                result.Content = new PushStreamContent((stream, content, context) =>
                 {
-                    zip.AddFiles(EnumerateLogFiles(), true, string.Empty);
-                    result.Content = new PushStreamContent((stream, content, context) =>
+                    try
                     {
-                        try
+                        using (var zip = new ZipArchive(stream, ZipArchiveMode.Create, true))
                         {
-                            // workaround of hanging of threads
-                            zip.ParallelDeflateThreshold = -1;
-                            zip.Save(stream);
+                            foreach (var logFile in logFiles)
+                            {
+                                AddLogFile(zip, logFile);
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            log.ErrorFormat("Error on creating Save stream to zipFile. {0} {1}",
-                                ex.ToString(), ex.InnerException != null ? ex.InnerException.Message : string.Empty);
-                        }
-                        finally
-                        {
-                            stream.Close();
-                        }
-                    }, "application/zip");
-                    result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                    }
+                    catch (Exception ex)
                     {
-                        FileName = GetArchiveName()
-                    };
-                }
+                        log.ErrorFormat("Error on creating Save stream to zipFile. {0} {1}",
+                            ex.ToString(), ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+                    }
+                    finally
+                    {
+                        stream.Close();
+                    }
+                }, "application/zip");
+                result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = GetArchiveName()
+                };
             }
             catch (Exception ex)
             {
                 log.ErrorFormat("Error on DownloadArchive. {0} {1} {2}",
                     ex.Message, ex.StackTrace, ex.InnerException != null ? ex.InnerException.Message : string.Empty);
             }
+        }
+
+        private void AddLogFile(ZipArchive zip, string logFile)
+        {
+            try
+            {
+                // log files are being written by the services, so open them with full sharing
+                using (var fileStream = new FileStream(logFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+                {
+                    var entry = zip.CreateEntry(GetEntryName(logFile), CompressionLevel.Optimal);
+                    entry.LastWriteTime = File.GetLastWriteTime(logFile);
+
+                    using (var entryStream = entry.Open())
+                    {
+                        fileStream.CopyTo(entryStream);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ErrorFormat("Error on adding {0} to zipFile. {1}", logFile, ex.Message);
+            }
+        }
+
+        private static string GetEntryName(string logFile)
+        {
+            // keep the full directory hierarchy without the root, as DotNetZip AddFiles(files, true, "") did
+            var fullPath = Path.GetFullPath(logFile);
+            return fullPath.Substring(Path.GetPathRoot(fullPath).Length).Replace('\\', '/');
         }
 
         private string GetArchiveName()

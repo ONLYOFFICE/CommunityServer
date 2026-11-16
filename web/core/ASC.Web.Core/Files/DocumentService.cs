@@ -934,7 +934,7 @@ namespace ASC.Web.Core.Files
                 return JsonConvert.SerializeObject(obj, Formatting.Indented, settings);
             }
 
-            public T Deserialize<T>(string json)
+            public object Deserialize(Type type, string json)
             {
                 var settings = new JsonSerializerSettings
                 {
@@ -942,7 +942,7 @@ namespace ASC.Web.Core.Files
                     NullValueHandling = NullValueHandling.Ignore,
                 };
 
-                return JsonConvert.DeserializeObject<T>(json, settings);
+                return JsonConvert.DeserializeObject(json, type, settings);
             }
         }
     }

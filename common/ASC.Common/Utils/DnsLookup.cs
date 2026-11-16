@@ -20,21 +20,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-using ARSoft.Tools.Net;
-using ARSoft.Tools.Net.Dns;
+using DnsClient;
 
 namespace ASC.Common.Utils
 {
     public class DnsLookup
     {
-        private readonly IDnsResolver _sDnsResolver;
-        private readonly DnsClient _dnsClient;
-
-        public DnsLookup()
+        // like ARSoft: ask the system DNS servers in order and take the first answer,
+        // don't ask the other servers on NXDOMAIN or empty response
+        private static readonly LookupClient _lookupClient = new LookupClient(new LookupClientOptions
         {
-            _dnsClient = DnsClient.Default;
-            _sDnsResolver = new DnsStubResolver(_dnsClient);
-        }
+            UseCache = false,
+            UseRandomNameServer = false,
+            ContinueOnDnsError = false,
+            ContinueOnEmptyResponse = false
+        });
 
         /// <summary>
         /// Get domain MX records
@@ -43,12 +43,16 @@ namespace ASC.Common.Utils
         /// <exception cref="ArgumentNullException">if domainName is empty</exception>
         /// <exception cref="ArgumentException">if domainName is invalid</exception>
         /// <returns>list of MxRecord</returns>
-        public List<MxRecord> GetDomainMxRecords(string domainName)
+        public List<DnsMxRecord> GetDomainMxRecords(string domainName)
         {
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var mxRecords = DnsResolve<MxRecord>(domainName, RecordType.Mx);
+            var mxRecords = GetDnsMessage(domainName, QueryType.MX)
+                .Answers
+                .MxRecords()
+                .Select(r => new DnsMxRecord(r.Exchange.Value, r.Preference, r.TimeToLive))
+                .ToList();
 
             return mxRecords;
         }
@@ -69,12 +73,12 @@ namespace ASC.Common.Utils
             if (string.IsNullOrEmpty(mxRecord))
                 throw new ArgumentNullException("mxRecord");
 
-            var mxDomain = DomainName.Parse(mxRecord);
+            var mxDomain = ParseDomainName(mxRecord);
 
             var records = GetDomainMxRecords(domainName);
 
             return records.Any(
-                    mx => mx.ExchangeDomainName.Equals(mxDomain));
+                    mx => DomainNameEquals(mx.ExchangeDomainName, mxDomain));
         }
 
         /// <summary>
@@ -90,9 +94,9 @@ namespace ASC.Common.Utils
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var dnsMessage = GetDnsMessage(domainName);
+            var dnsMessage = GetDnsMessage(domainName, QueryType.A);
 
-            return dnsMessage.AnswerRecords.Any();
+            return dnsMessage.Answers.Any();
         }
 
         /// <summary>
@@ -102,12 +106,16 @@ namespace ASC.Common.Utils
         /// <exception cref="ArgumentNullException">if domainName is empty</exception>
         /// <exception cref="ArgumentException">if domainName is invalid</exception>
         /// <returns>list of ARecord</returns>
-        public List<ARecord> GetDomainARecords(string domainName)
+        public List<DnsARecord> GetDomainARecords(string domainName)
         {
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var aRecords = DnsResolve<ARecord>(domainName, RecordType.A);
+            var aRecords = GetDnsMessage(domainName, QueryType.A)
+                .Answers
+                .ARecords()
+                .Select(r => new DnsARecord(r.Address, r.TimeToLive))
+                .ToList();
 
             return aRecords;
         }
@@ -124,9 +132,18 @@ namespace ASC.Common.Utils
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var addresses = _sDnsResolver.ResolveHost(domainName);
+            var domain = ParseDomainName(domainName);
 
-            return addresses;
+            try
+            {
+                var hostEntry = _lookupClient.GetHostEntry(domain);
+
+                return hostEntry != null ? hostEntry.AddressList.ToList() : new List<IPAddress>();
+            }
+            catch (DnsResponseException)
+            {
+                return new List<IPAddress>();
+            }
         }
 
         /// <summary>
@@ -136,12 +153,17 @@ namespace ASC.Common.Utils
         /// <exception cref="ArgumentNullException">if domainName is empty</exception>
         /// <exception cref="ArgumentException">if domainName is invalid</exception>
         /// <returns>list of TxtRecord</returns>
-        public List<TxtRecord> GetDomainTxtRecords(string domainName)
+        public List<DnsTxtRecord> GetDomainTxtRecords(string domainName)
         {
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var txtRecords = DnsResolve<TxtRecord>(domainName, RecordType.Txt);
+            // long TXT values (e.g. DKIM keys) are split into several strings, join them back
+            var txtRecords = GetDnsMessage(domainName, QueryType.TXT)
+                .Answers
+                .TxtRecords()
+                .Select(r => new DnsTxtRecord(string.Concat(r.Text), r.TimeToLive))
+                .ToList();
 
             return txtRecords;
         }
@@ -198,11 +220,11 @@ namespace ASC.Common.Utils
             if (ipAddress == null)
                 throw new ArgumentNullException("ipAddress");
 
-            var domain = DomainName.Parse(domainName);
+            var domain = ParseDomainName(domainName);
 
-            var ptrDomain = _sDnsResolver.ResolvePtr(ipAddress);
+            var dnsMessage = Query(() => _lookupClient.QueryReverse(ipAddress));
 
-            return ptrDomain.Equals(domain);
+            return dnsMessage.Answers.PtrRecords().Any(ptr => DomainNameEquals(ptr.PtrDomainName.Value, domain));
         }
 
         /// <summary>
@@ -219,17 +241,31 @@ namespace ASC.Common.Utils
             return IsDomainPtrRecordExists(IPAddress.Parse(ipAddress), domainName);
         }
 
-        private DnsMessage GetDnsMessage(string domainName, RecordType? type = null)
+        private IDnsQueryResponse GetDnsMessage(string domainName, QueryType type)
         {
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var domain = DomainName.Parse(domainName);
+            var domain = ParseDomainName(domainName);
 
-            var dnsMessage = type.HasValue ? _dnsClient.Resolve(domain, type.Value) : _dnsClient.Resolve(domain);
+            return Query(() => _lookupClient.Query(domain, type));
+        }
+
+        private static IDnsQueryResponse Query(Func<IDnsQueryResponse> query)
+        {
+            IDnsQueryResponse dnsMessage;
+
+            try
+            {
+                dnsMessage = query();
+            }
+            catch (DnsResponseException)
+            {
+                throw new SystemException(); // DNS request failed
+            }
 
             if ((dnsMessage == null) ||
-                ((dnsMessage.ReturnCode != ReturnCode.NoError) && (dnsMessage.ReturnCode != ReturnCode.NxDomain)))
+                (dnsMessage.HasError && dnsMessage.Header.ResponseCode != DnsHeaderResponseCode.NotExistentDomain))
             {
                 throw new SystemException(); // DNS request failed
             }
@@ -237,14 +273,82 @@ namespace ASC.Common.Utils
             return dnsMessage;
         }
 
-        private List<T> DnsResolve<T>(string domainName, RecordType type)
+        private static string ParseDomainName(string domainName)
         {
-            if (string.IsNullOrEmpty(domainName))
-                throw new ArgumentNullException("domainName");
+            var labels = domainName.TrimEnd('.').Split('.');
 
-            var dnsMessage = GetDnsMessage(domainName, type);
+            if (labels.Any(label => label.Length == 0 || label.Length > 63 ||
+                                    label.Any(c => c < 128 && !char.IsLetterOrDigit(c) && c != '-' && c != '_')))
+            {
+                throw new ArgumentException("Invalid domain name: " + domainName, "domainName");
+            }
 
-            return dnsMessage.AnswerRecords.Where(r => r.RecordType == type).Cast<T>().ToList();
+            return DnsString.Parse(domainName).Value;
+        }
+
+        private static bool DomainNameEquals(string first, string second)
+        {
+            return string.Equals(first.TrimEnd('.'), second.TrimEnd('.'), StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    public class DnsMxRecord
+    {
+        public DnsMxRecord(string exchangeDomainName, int preference, int timeToLive)
+        {
+            ExchangeDomainName = exchangeDomainName;
+            Preference = preference;
+            TimeToLive = timeToLive;
+        }
+
+        /// <summary>
+        /// Mail exchanger host name with the trailing dot (e.g. "mx1.example.com.")
+        /// </summary>
+        public string ExchangeDomainName { get; private set; }
+
+        public int Preference { get; private set; }
+
+        public int TimeToLive { get; private set; }
+
+        public override string ToString()
+        {
+            return ExchangeDomainName;
+        }
+    }
+
+    public class DnsARecord
+    {
+        public DnsARecord(IPAddress address, int timeToLive)
+        {
+            Address = address;
+            TimeToLive = timeToLive;
+        }
+
+        public IPAddress Address { get; private set; }
+
+        public int TimeToLive { get; private set; }
+
+        public override string ToString()
+        {
+            return Address.ToString();
+        }
+    }
+
+    public class DnsTxtRecord
+    {
+        public DnsTxtRecord(string textData, int timeToLive)
+        {
+            TextData = textData;
+            TimeToLive = timeToLive;
+        }
+
+        public string TextData { get; private set; }
+
+        public int TimeToLive { get; private set; }
+
+        public override string ToString()
+        {
+            return TextData;
         }
     }
 }

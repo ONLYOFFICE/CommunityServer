@@ -498,16 +498,17 @@ namespace ASC.Core.Billing
                     .Select("ttr.quota", "tt.stamp", "ttr.quantity")
                     .Where(string.Format("tt.id = (SELECT max(id) FROM tenants_tariff WHERE tenant={0})", tenant));
 
-            //additional tariffs: disk, admin1
+            //additional quotas: disk, admin1, storage, backup, aitools, docscloud, docsclouddevpack, docscloudtrial
+            var additionalQuotas = new[] { -4, -5, -11, -12, -13, -15, -16, -17, -18 };
             if (additional.HasValue)
             {
                 if (additional.Value)
                 {
-                    q.Where(Exp.In("ttr.quota", new[] { -4, -5 }));
+                    q.Where(Exp.In("ttr.quota", additionalQuotas) & (Exp.Eq("ttr.due_date", null) | Exp.Ge("ttr.due_date", DateTime.UtcNow)));
                 }
                 else
                 {
-                    q.Where(!Exp.In("ttr.quota", new[] { -4, -5 }));
+                    q.Where(!Exp.In("ttr.quota", additionalQuotas));
                 }
             }
 

@@ -22,7 +22,6 @@ module.exports = (app, config, logger) => {
   const coder = require("../utils/coder");
   const converter = require("../utils/converter")(logger);
   const _ = require("lodash");
-  const fetch = require("node-fetch");
   const routes = _.values(config.routes);
 
   const fetchConfig = async (req, res, next) => {

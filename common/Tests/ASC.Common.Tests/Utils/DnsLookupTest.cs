@@ -70,43 +70,53 @@ namespace ASC.Common.Tests.Utils
             Assert.IsFalse(exists);
         }
 
+        // record values are read from DNS first: the tests check the lookup logic, not the current DNS content of the domain
+
         [TestMethod]
         public void MxExists()
         {
             const string domain = "onlyoffice.com";
-            const string mx_record = "mx1.onlyoffice.com";
 
             var dnsLoopup = new DnsLookup();
 
-            var exists = dnsLoopup.IsDomainMxRecordExists(domain, mx_record);
+            var mxRecord = dnsLoopup.GetDomainMxRecords(domain).Select(r => r.ExchangeDomainName.TrimEnd('.')).FirstOrDefault();
 
-            Assert.IsTrue(exists);
+            Assert.IsNotNull(mxRecord, "no MX records for " + domain);
+            Assert.IsTrue(dnsLoopup.IsDomainMxRecordExists(domain, mxRecord));
+            Assert.IsFalse(dnsLoopup.IsDomainMxRecordExists(domain, "mx-not-exists." + domain));
         }
 
         [TestMethod]
         public void DkimExists()
         {
             const string domain = "onlyoffice.com";
-            const string dkim_record = "v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDiblqlVejxACSfc3Y0OzRzyFFtnUHgkw65k+QGjG4WvjmJJQNcfdJNaaLo9xKPIfw9vTRVigZa78KgeYFymGlqXtR0z323EwiHaNh82Qo1oBICOZT2AVjWpPjBUGwD6qTorulmLnY9+YKn1bV8B7mt964ewpPHDDsqaHddhV7hqQIDAQAB";
+            const string selector = "dkim";
 
             var dnsLoopup = new DnsLookup();
 
-            var exists = dnsLoopup.IsDomainDkimRecordExists(domain, "dkim", dkim_record);
+            var dkimRecord = dnsLoopup.GetDomainTxtRecords(selector + "._domainkey." + domain)
+                .Select(r => r.TextData.Trim('\"'))
+                .FirstOrDefault(r => r.StartsWith("v=DKIM1", StringComparison.OrdinalIgnoreCase));
 
-            Assert.IsTrue(exists);
+            Assert.IsNotNull(dkimRecord, "no DKIM record for selector " + selector + " of " + domain);
+            Assert.IsTrue(dnsLoopup.IsDomainDkimRecordExists(domain, selector, dkimRecord));
+            Assert.IsFalse(dnsLoopup.IsDomainDkimRecordExists(domain, selector, dkimRecord + "AAAA"));
         }
 
         [TestMethod]
         public void TxtSpfExists()
         {
             const string domain = "onlyoffice.com";
-            const string txt_record = "v=spf1 a mx mx:avsmedia.net a:smtp1.uservoice.com a:qamail.teamlab.info include:amazonses.com -all";
 
             var dnsLoopup = new DnsLookup();
 
-            var exists = dnsLoopup.IsDomainTxtRecordExists(domain, txt_record);
+            var spfRecord = dnsLoopup.GetDomainTxtRecords(domain)
+                .Select(r => r.TextData.Trim('\"'))
+                .FirstOrDefault(r => r.StartsWith("v=spf1", StringComparison.OrdinalIgnoreCase));
 
-            Assert.IsTrue(exists);
+            Assert.IsNotNull(spfRecord, "no SPF record for " + domain);
+            Assert.IsTrue(dnsLoopup.IsDomainTxtRecordExists(domain, spfRecord));
+            Assert.IsFalse(dnsLoopup.IsDomainTxtRecordExists(domain, "v=spf1 include:spf-not-exists." + domain + " -all"));
         }
 
         [TestMethod]

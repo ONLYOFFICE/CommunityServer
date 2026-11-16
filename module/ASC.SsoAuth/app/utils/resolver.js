@@ -17,9 +17,7 @@
 
 "use strict";
 
-const config = require("../../config").get(),
-// ReSharper disable once InconsistentNaming
-      URL = require("url");
+const config = require("../../config").get();
 
 // ReSharper disable once InconsistentNaming
 module.exports = function (logger) {

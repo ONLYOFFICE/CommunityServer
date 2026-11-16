@@ -5,33 +5,29 @@
   "homepage": "http://www.onlyoffice.com",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "@authenio/samlify-node-xmllint": "^2.0.0",
-    "body-parser": "1.19.0",
+    "body-parser": "^1.20.9",
     "co": "^4.6.0",
-    "cookie-parser": "1.4.5",
-    "cors": "^2.8.5",
-    "express": "4.17.1",
-    "express-handlebars": "^4.0.6",
-    "express-session": "1.17.1",
-    "formidable": "^1.2.2",
-    "lodash": "^4.17.20",
-    "minify-xml": "^2.5.0",
-    "morgan": "1.10.0",
-    "nconf": "^0.10.0",
-    "node-fetch": "^2.6.1",
-    "node-forge": "^0.10.0",
-    "nodemon": "2.0.4",
-    "request": "^2.88.2",
-    "samlify": "^2.7.6",
-    "serve-favicon": "^2.5.0",
-    "url": "^0.11.0",
-    "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.0"
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^4.22.3",
+    "express-handlebars": "^9.0.4",
+    "express-session": "^1.19.0",
+    "formidable": "^3.5.4",
+    "lodash": "^4.18.1",
+    "minify-xml": "^3.5.0",
+    "morgan": "^1.12.1",
+    "nconf": "^0.13.0",
+    "node-forge": "^1.4.2",
+    "samlify": "^2.15.1",
+    "serve-favicon": "^2.5.1",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "engines": {
-    "node": ">= 12.0.0"
+    "node": ">=24.22.1"
   }
 }

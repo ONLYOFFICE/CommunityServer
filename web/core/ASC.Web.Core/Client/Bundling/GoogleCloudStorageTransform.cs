@@ -99,7 +99,7 @@ namespace ASC.Web.Core.Client.Bundling
 
         private StorageClient GetStorage()
         {
-            var credential = GoogleCredential.FromJson(_json);
+            var credential = CredentialFactory.FromJson<ServiceAccountCredential>(_json).ToGoogleCredential();
 
             return StorageClient.Create(credential);
         }

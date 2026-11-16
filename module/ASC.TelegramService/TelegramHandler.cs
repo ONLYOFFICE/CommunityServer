@@ -66,9 +66,9 @@ namespace ASC.TelegramService
                     return;
                 }
 
-                var chat = await client.GetChatAsync(tgUser.TelegramId);
+                var chat = await client.GetChat(tgUser.TelegramId);
 
-                await client.SendTextMessageAsync(chat, msg.Content, ParseMode.MarkdownV2);
+                await client.SendMessage(chat, msg.Content, ParseMode.MarkdownV2);
             }
             catch (Exception e)
             {
@@ -105,7 +105,7 @@ namespace ASC.TelegramService
 
                     try
                     {
-                        if (!newClient.TestApiAsync().GetAwaiter().GetResult()) return false;
+                        if (!newClient.TestApi().GetAwaiter().GetResult()) return false;
                     }
                     catch (Exception e)
                     {
@@ -135,7 +135,7 @@ namespace ASC.TelegramService
                 {
                     try
                     {
-                        if (!client.TestApiAsync().GetAwaiter().GetResult()) return false;
+                        if (!client.TestApi().GetAwaiter().GetResult()) return false;
                     }
                     catch (Exception e)
                     {

@@ -55,7 +55,7 @@
   </ItemGroup>
 
   <Target Name="YarnInstall"  AfterTargets="Build" Condition="$(YarnBuild) == 'true' " >
-	<Exec Command="yarn install --frozen-lockfile" WorkingDirectory="%(NodeProject.Identity)" ContinueOnError="true"/>
+	<Exec Command="yarn install --frozen-lockfile" WorkingDirectory="%(NodeProject.Identity)"/>
   </Target>
 	
   <Target Name="SetAssemblyInfo">

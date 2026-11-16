@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
 using System.Security.Permissions;
 using System.Text;
 using System.Web;
@@ -37,6 +38,9 @@ namespace ASC.FederatedLogin.Profile
     [DebuggerDisplay("{DisplayName} ({Id})")]
     public class LoginProfile
     {
+        private const string HashPurpose = "LoginProfileHash";
+        private const string TransportPurpose = "LoginProfile";
+
         private IDictionary<string, string> _fields = new Dictionary<string, string>();
 
 
@@ -164,7 +168,7 @@ namespace ASC.FederatedLogin.Profile
         [DataMember(Name = "Hash")]
         public string Hash
         {
-            get { return Common.Utils.Signature.Create(HashId); }
+            get { return Common.Utils.Signature.Create(HashId, AuthSecretProvider.GetSecretString(HashPurpose)); }
             set { throw new NotImplementedException(); }
         }
 
@@ -348,15 +352,22 @@ namespace ASC.FederatedLogin.Profile
             _fields = serialized.Split(PairSeparator).ToDictionary(x => x.Split(KeyValueSeparator)[0], y => y.Split(KeyValueSeparator)[1]);
         }
 
+        public static string ReadHash(string hash)
+        {
+            return Common.Utils.Signature.Read<string>(hash, AuthSecretProvider.GetSecretString(HashPurpose));
+        }
+
         internal string Transport()
         {
-            return HttpServerUtility.UrlTokenEncode(InstanceCrypto.Encrypt(Encoding.UTF8.GetBytes(ToSerializedString())));
+            return HttpServerUtility.UrlTokenEncode(AuthSecretProvider.Protect(TransportPurpose, Encoding.UTF8.GetBytes(ToSerializedString())));
         }
 
         internal void FromTransport(string transportstring)
         {
-            var serialized = Encoding.UTF8.GetString(InstanceCrypto.Decrypt(HttpServerUtility.UrlTokenDecode(transportstring)));
-            FromSerializedString(serialized);
+            var data = AuthSecretProvider.Unprotect(TransportPurpose, HttpServerUtility.UrlTokenDecode(transportstring));
+            if (data == null) throw new CryptographicException("Invalid login profile");
+
+            FromSerializedString(Encoding.UTF8.GetString(data));
         }
 
 

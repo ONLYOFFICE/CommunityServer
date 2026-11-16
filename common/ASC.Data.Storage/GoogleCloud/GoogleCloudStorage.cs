@@ -132,9 +132,14 @@ namespace ASC.Data.Storage.GoogleCloud
 
         private StorageClient GetStorage()
         {
-            var credential = GoogleCredential.FromJson(_json);
+            var credential = CredentialFactory.FromJson<ServiceAccountCredential>(_json).ToGoogleCredential();
 
             return StorageClient.Create(credential);
+        }
+
+        private UrlSigner GetUrlSigner()
+        {
+            return UrlSigner.FromCredential(CredentialFactory.FromJson<ServiceAccountCredential>(_json));
         }
 
         private string MakePath(string domain, string path)
@@ -186,13 +191,10 @@ namespace ASC.Data.Storage.GoogleCloud
 
             var storage = GetStorage();
 
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(_json ?? "")))
-            {
-                var preSignedURL = UrlSigner.FromServiceAccountData(stream)
-                                            .Sign(_bucket, MakePath(domain, path), expire, HttpMethod.Get);
+            var preSignedURL = GetUrlSigner()
+                                .Sign(_bucket, MakePath(domain, path), expire, HttpMethod.Get);
 
-                return MakeUri(preSignedURL);
-            }
+            return MakeUri(preSignedURL);
         }
 
         public Uri GetUriShared(string domain, string path)
@@ -458,7 +460,7 @@ namespace ASC.Data.Storage.GoogleCloud
             var storage = GetStorage();
 
             var objToDel = GetObjects(domain, folderPath, true)
-                              .Where(x => x.Updated >= fromDate && x.Updated <= toDate);
+                              .Where(x => x.UpdatedDateTimeOffset?.LocalDateTime >= fromDate && x.UpdatedDateTimeOffset?.LocalDateTime <= toDate);
 
             foreach (var obj in objToDel)
             {
@@ -742,21 +744,18 @@ namespace ASC.Data.Storage.GoogleCloud
 
             storage.UpdateObject(uploaded);
 
-            using (var mStream = new MemoryStream(Encoding.UTF8.GetBytes(_json ?? "")))
-            {
-                TimeSpan signDuration;
+            TimeSpan signDuration;
 
-                if (expires.Date == DateTime.MinValue)
-                    signDuration = expires.TimeOfDay;
-                else
-                    signDuration = expires.Subtract(DateTime.UtcNow);
+            if (expires.Date == DateTime.MinValue)
+                signDuration = expires.TimeOfDay;
+            else
+                signDuration = expires.Subtract(DateTime.UtcNow);
 
-                var preSignedURL = UrlSigner.FromServiceAccountData(mStream)
-                                .Sign(_bucket, MakePath(domain, path), signDuration, null);
+            var preSignedURL = GetUrlSigner()
+                            .Sign(_bucket, MakePath(domain, path), signDuration, null);
 
-                //TODO: CNAME!
-                return preSignedURL;
-            }
+            //TODO: CNAME!
+            return preSignedURL;
         }
 
         public override void DeleteExpired(string domain, string path, TimeSpan oldThreshold)
@@ -923,7 +922,7 @@ namespace ASC.Data.Storage.GoogleCloud
 
             if (obj == null) throw new FileNotFoundException();
 
-            return obj.Updated ?? obj.TimeCreated ?? DateTime.MinValue;
+            return obj.UpdatedDateTimeOffset?.LocalDateTime ?? obj.TimeCreatedDateTimeOffset?.LocalDateTime ?? DateTime.MinValue;
         }
     }
 }

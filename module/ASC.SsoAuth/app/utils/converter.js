@@ -20,7 +20,7 @@
 const config = require("../../config").get();
 const saml = require("samlify");
 const validator = require("@authenio/samlify-node-xmllint");
-const urn = require("samlify/build/src/urn");
+const urn = saml.Constants;
 const _ = require("lodash");
 const fs = require("fs");
 const path = require("path");
@@ -205,6 +205,9 @@ module.exports = function (logger) {
           ssoConfig.IdpCertificateAdvanced.VerifyLogoutResponsesSign,
         wantLogoutRequestSigned:
           ssoConfig.IdpCertificateAdvanced.VerifyLogoutRequestsSign,
+        // IdPs may still encrypt with RSA-1_5 or 3DES (offered in the portal settings),
+        // samlify refuses them by default; keep accepting them as before
+        allowInsecureDecryptionAlgorithms: true,
         elementsOrder: [
           "KeyDescriptor",
           "SingleLogoutService",

@@ -16,9 +16,17 @@
 
 
 using System;
+using System.Net.Http.Headers;
+using System.Web.Http;
 
 using ASC.HealthCheck.Classes;
 using ASC.HealthCheck.Settings;
+
+using log4net;
+
+using Microsoft.Owin.Hosting;
+
+using Owin;
 
 using TMResourceData;
 

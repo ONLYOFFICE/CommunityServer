@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>6.2.0</Version>
+      <Version>9.3.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,6 +17,7 @@
 
 using ASC.HealthCheck.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Configuration;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Hosting;
@@ -26,6 +27,9 @@ namespace ASC.TestHealthCheck
     [TestClass]
     public class ClearCacheApiControllerUnitTest
     {
+        // healthCheck/portals-web-config-path in App.config
+        private static readonly string[] PortalConfigs = { @"ClearCache\Portal.config", @"ClearCache\Portal2.config" };
+
         [TestMethod]
         public void CheckClearCache()
         {
@@ -36,12 +40,19 @@ namespace ASC.TestHealthCheck
                 controller.Request = new HttpRequestMessage();
                 controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
 
+                var resetKeys = ReadResetKeys();
+
                 HttpResponseMessage response = controller.ClearCache();
                 dynamic status;
                 response.TryGetContentValue(out status);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.AreEqual(1, status.code);
+                var newResetKeys = ReadResetKeys();
+                for (var i = 0; i < PortalConfigs.Length; i++)
+                {
+                    Assert.AreNotEqual(resetKeys[i], newResetKeys[i], PortalConfigs[i]);
+                }
             }
             finally
             {
@@ -50,6 +61,18 @@ namespace ASC.TestHealthCheck
                     controller.Dispose();
                 }
             }
+        }
+
+        private static string[] ReadResetKeys()
+        {
+            var keys = new string[PortalConfigs.Length];
+            for (var i = 0; i < keys.Length; i++)
+            {
+                var configuration = ConfigurationManager.OpenMappedExeConfiguration(
+                    new ExeConfigurationFileMap { ExeConfigFilename = PortalConfigs[i] }, ConfigurationUserLevel.None);
+                keys[i] = configuration.AppSettings.Settings["web.client.cache.resetkey"].Value;
+            }
+            return keys;
         }
     }
 }

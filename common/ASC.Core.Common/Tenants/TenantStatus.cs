@@ -25,6 +25,7 @@ namespace ASC.Core.Tenants
         Transfering = 3,
         Restoring = 4,
         Migrating = 5,
-        Encryption = 6
+        Encryption = 6,
+        Blocked = 7
     }
 }

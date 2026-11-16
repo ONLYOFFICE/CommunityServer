@@ -180,7 +180,7 @@ if (tenants.Count() <= 0 || !CoreContext.TenantManager.GetTenantQuota(tenants.Fi
                 };
                 try
                 {
-                    SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = Core.Configuration.Constants.CoreSystem;
                     CoreContext.UserManager.SaveUserInfo(userInfo);
                 }
                 finally

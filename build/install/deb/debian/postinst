@@ -75,6 +75,23 @@ apply_core_machinekey(){
 	done	
 }
 
+apply_sso_secret(){
+	# shared secret of the portal and the SSO service, generated once and kept in the config dir across upgrades
+	SSO_SECRET_FILE="${CONFIG_DIR}/sso.secret"
+
+	if [ ! -s "${SSO_SECRET_FILE}" ]; then
+		mkdir -p "${CONFIG_DIR}"
+		(umask 077 && cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 > "${SSO_SECRET_FILE}")
+	fi
+
+	SSO_SECRET=$(cat "${SSO_SECRET_FILE}")
+
+	sed -i "/core.sso.secret/s_\(value\s*=\s*\"\)[^\"]*\"_\1${SSO_SECRET}\"_" ${DIR}/WebStudio/web.appsettings.config
+	if [ -d "${APP_SERVICES_DIR}/ASC.SsoAuth/config" ]; then
+		find "${APP_SERVICES_DIR}/ASC.SsoAuth/config" -type f -name "*.json" -exec sed -i -E "s/(\"ssosecret\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"${SSO_SECRET}\"/" {} \;
+	fi
+}
+
 install_db(){
 	db_get {{package_sysname}}-communityserver/db-host || true
 	DB_HOST="$RET"
@@ -245,6 +262,7 @@ case "$1" in
 		install_db
 		apply_connection_string
 		apply_core_machinekey
+		apply_sso_secret
 
 		mkdir -p /etc/mono/registry/LocalMachine
 		mkdir -p /usr/share/.mono/keypairs
@@ -303,11 +321,9 @@ END
         #configure elasticsearch
         service elasticsearch stop
 	
-       	if /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
-			/usr/share/elasticsearch/bin/elasticsearch-plugin remove ingest-attachment
+		if ! /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep -q "ingest-attachment"; then
+			/usr/share/elasticsearch/bin/elasticsearch-plugin install -b ingest-attachment
 		fi
-
-		/usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b ingest-attachment
 
 		if [ ! -d "$APP_INDEX_DIR" ]; then
 			$MYSQL "$DB_NAME" -e "TRUNCATE webstudio_index";

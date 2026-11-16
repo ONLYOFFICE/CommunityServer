@@ -74,7 +74,9 @@ namespace ASC.Core.Data
             {
                 var query = new SqlQuery("login_events")
                     .Select("active")
-                    .Where("id", loginEventId);
+                    .Where("id", loginEventId)
+                    .Where("tenant_id", tenantId)
+                    .Where("user_id", userId);
 
                 var isActive = db.ExecuteScalar<bool>(query);
 

@@ -15,6 +15,7 @@ Group=onlyoffice
 TimeoutSec=600
 
 Restart=always
+RestartSec=5
 PrivateTmp=false
 
 [Install]

@@ -22,12 +22,17 @@ const config = require("../../config").get(),
 
 var Coder = function() {
     return {
+        // must match core.sso.secret of the portal, core.machinekey is used by versions without it
+        getSecret: function() {
+            return config["core.sso.secret"] || config.app.ssosecret || config["core.machinekey"] || config.app.machinekey;
+        },
+
         encodeData: function(data) {
             if (!data && typeof (data) !== "object")
                 return undefined;
 
             const jsonStr = JSON.stringify(data);
-            const dataEncoded = hash.encode(jsonStr, config["core.machinekey"] ? config["core.machinekey"] : config.app.machinekey);
+            const dataEncoded = hash.encode(jsonStr, this.getSecret());
 
             return dataEncoded;
         },
@@ -36,7 +41,7 @@ var Coder = function() {
             if (!data && typeof (data) !== "string")
                 return undefined;
 
-            const jsonStr = hash.decode(data, config["core.machinekey"] ? config["core.machinekey"] : config.app.machinekey);
+            const jsonStr = hash.decode(data, this.getSecret());
             const dataDecoded = JSON.parse(jsonStr);          
 
             return dataDecoded;

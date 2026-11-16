@@ -94,7 +94,7 @@ public class UpdateConfigManagerService : IHostedService, IDisposable
             {
                 while (reader.Read())
                 {
-                    var id = reader.GetString("id");
+                    var id = reader.GetInt32("id").ToString();
                     var defaultVersion = reader.GetBoolean("default_version");
                     var destinationId = defaultVersion ? "Default" : id;
 

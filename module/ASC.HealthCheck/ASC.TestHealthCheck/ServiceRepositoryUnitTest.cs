@@ -18,14 +18,13 @@
 using ASC.HealthCheck.Models;
 using ASC.HealthCheck.Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace ASC.TestHealthCheck
 {
     [TestClass]
     public class ServiceRepositoryUnitTest
     {
-        private const string JabberService = "OnlyOfficeSvcJabber";
+        private const ServiceEnum JabberService = ServiceEnum.OnlyofficeJabber;
 
         [TestMethod]
         public void ServiceRepositoryAddRemove()
@@ -37,20 +36,7 @@ namespace ASC.TestHealthCheck
             Assert.AreEqual(0, service.Attempt);
             Assert.AreEqual(JabberService, service.ServiceName);
             serviceRepository.Remove(JabberService);
-            try
-            {
-                serviceRepository.GetService(JabberService);
-            }
-            catch (InvalidOperationException)
-            {
-                // Expected exception
-                return;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.ToString());
-            }
-            Assert.Fail("Error! Never get this command.");
+            Assert.IsNull(serviceRepository.GetService(JabberService));
         }
 
         [TestMethod]

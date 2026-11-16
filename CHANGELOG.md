@@ -1,5 +1,30 @@
 # Change log
 
+## Version 12.9.0
+
+### General portal changes
+
+* Authentication tokens (confirmation links, auth cookies, third-party login profiles, SSO responses) are now signed with a per-installation secret instead of core.machinekey. Users have to sign in again after the update (Bug 84681).
+* Enabled ViewState MAC validation on Mono; a per-installation machineKey is generated on the first start of monoserve (Bug 84735).
+* Scoped the onlyoffice sudo rule in the Docker image to specific service restarts (Bug 84731).
+* Fixed the issue when Twilio webhooks in CRM accepted requests without a valid signature.
+* Fixed shifted dates of Google Drive files and folders on servers with a non-UTC time zone.
+* Fixed the logo displayed in the newer versions of the document editor.
+* The Elasticsearch ingest-attachment plugin is installed only if it is missing.
+* Updated NuGet packages to fix vulnerabilities: removed BouncyCastle 1.8.1 (ARSoft.Tools.Net replaced with DnsClient, Box.V2 5.8.0), SSH.NET 2026.0.0, removed Twilio.AspNet.Mvc.
+* Updated NuGet packages to new major versions: Autofac 9, Polly 8, Twilio 8, JWT 11, System.IdentityModel.Tokens.Jwt 8, Microsoft.Extensions 10, Google.Cloud.Storage.V1 5, FirebaseAdmin 3, Dropbox.Api 7, libphonenumber-csharp 9, GoogleAuthenticator 3, Telegram.Bot 22, FolkerKinzel.VCards 8.
+* Updated other NuGet packages within current major versions (AWSSDK, Google.Apis, StackExchange.Redis, MailKit/MimeKit, Newtonsoft.Json, NLog, log4net, etc.).
+
+### Node.js services
+
+* Node.js 24.22.1 or later is now required for the Node.js services.
+* Updated dependencies of the Socket.IO, SsoAuth, Thumbnails, UrlShortener and WebDav services to fix vulnerabilities; dropped the deprecated request and node-fetch packages.
+* SsoAuth: fixed signed HTTP-Redirect logout from the IdP; IdP metadata download by URL is limited to http(s), 10 MB and 30 seconds.
+* Socket.IO: fixed the issue when the socket kept the previous user's identity after signing in as another user; a Redis error no longer crashes the service.
+* Thumbnails: fixed phantomjs installation on Node.js 24; URLs with a port are no longer rejected.
+* UrlShortener: fixed the error on the first database query after the service start.
+* WebDav: file reads now fail on 4xx/5xx responses instead of returning the error body as the file content.
+
 ## Version 12.8.0
 
 ### General portal changes
