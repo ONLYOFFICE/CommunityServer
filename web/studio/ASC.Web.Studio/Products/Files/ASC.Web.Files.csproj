@@ -283,6 +283,7 @@
     </Compile>
     <Compile Include="Masters\ClientScripts\FilesLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\FilesConstantsResources.cs" />
+    <Compile Include="Masters\ClientScripts\FilesTemplateResources.cs" />
     <Content Include="App_Themes\default\images\corporatefiles_big.svg" />
     <Content Include="App_Themes\default\images\empty_screen.svg" />
     <Content Include="App_Themes\default\images\empty_screen_corporate.svg" />

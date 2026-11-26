@@ -43,7 +43,16 @@ namespace ASC.Web.Studio.HttpHandlers
             get { return false; }
         }
 
-        private ILog Log = LogManager.GetLogger("ASC.Web.Template");
+        private static readonly ILog Log = LogManager.GetLogger("ASC.Web.Template");
+
+        /// <summary>
+        /// Renders the template with its includes and resources in the given culture,
+        /// so that it can be delivered inside a client script.
+        /// </summary>
+        public static string RenderTemplate(HttpContext context, string templatePath, string templateName, CultureInfo culture)
+        {
+            return RenderDocument(context, templatePath, templateName, culture).ToString();
+        }
 
         public void ProcessRequest(HttpContext context)
         {
@@ -64,7 +73,7 @@ namespace ASC.Web.Studio.HttpHandlers
             }
             else
             {
-                var template = RenderDocument(context, path, name);
+                var template = RenderDocument(context, path, name, null);
                 context.Response.ContentType = "text/xml";
                 context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(System.IO.Path.GetFileNameWithoutExtension(name) + ".xsl"));
                 context.Response.Write(template.ToString());
@@ -77,7 +86,7 @@ namespace ASC.Web.Studio.HttpHandlers
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
         }
 
-        private XDocument RenderDocument(HttpContext context, string templatePath, string templateName)
+        private static XDocument RenderDocument(HttpContext context, string templatePath, string templateName, CultureInfo culture)
         {
             try
             {
@@ -103,7 +112,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 {
                     try
                     {
-                        var xml = RenderDocument(context, templatePath, include.Attribute("href").Value);
+                        var xml = RenderDocument(context, templatePath, include.Attribute("href").Value, culture);
                         include.ReplaceWith(xml.Root.Elements(ns + "template"));
                     }
                     catch (Exception e)
@@ -126,7 +135,7 @@ namespace ASC.Web.Studio.HttpHandlers
                     var typeName = resource.Attribute("name").Value.Split('.');
                     if (typeName.Length == 2 && aliases.ContainsKey(typeName[0]))
                     {
-                        var value = GetModuleResource(aliases[typeName[0]], typeName[1]);
+                        var value = GetModuleResource(aliases[typeName[0]], typeName[1], culture);
                         resource.ReplaceWith(new XText(value));
                     }
                 }
@@ -140,7 +149,7 @@ namespace ASC.Web.Studio.HttpHandlers
             }
         }
 
-        private string GetModuleResource(string typeName, string key)
+        private static string GetModuleResource(string typeName, string key, CultureInfo culture)
         {
             try
             {
@@ -149,14 +158,18 @@ namespace ASC.Web.Studio.HttpHandlers
                     "resourceMan",
                     BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public, null, type, null);
 
-                //custom
-                if (!SecurityContext.IsAuthenticated)
+                if (culture == null)
                 {
-                    SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey));
+                    //custom
+                    if (!SecurityContext.IsAuthenticated)
+                    {
+                        SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey));
+                    }
+
+                    var u = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                    culture = !string.IsNullOrEmpty(u.CultureName) ? CultureInfo.GetCultureInfo(u.CultureName) : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
                 }
 
-                var u = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                var culture = !string.IsNullOrEmpty(u.CultureName) ? CultureInfo.GetCultureInfo(u.CultureName) : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
                 return manager.GetString(key, culture);
             }
             catch (Exception err)

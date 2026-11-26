@@ -26,6 +26,7 @@ namespace ASC.Web.Files.Masters
         {
             Master
                 .AddClientScript(new ClientScripts.FilesLocalizationResources())
+                .AddClientScript(new ClientScripts.FilesTemplateResources())
                 .AddClientScript(new ClientScripts.FilesConstantsResources());
         }
     }

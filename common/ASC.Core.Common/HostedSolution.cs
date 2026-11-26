@@ -182,7 +182,7 @@ namespace ASC.Core
             var tenantSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, Guid.Empty, false);
             var expires = tenantSettings.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(tenantSettings.LifeTime);
             var userSettings = settingsManager.LoadSettingsFor<TenantCookieSettings>(tenantId, user.ID, false);
-            return CookieStorage.EncryptCookie(tenantId, user.ID, tenantSettings.Index, expires, userSettings.Index, 0);
+            return CookieStorage.EncryptCookie(tenantId, user.ID, tenantSettings.Index, expires, userSettings.Index, 0, IsDocspace);
         }
 
         public Tariff GetTariff(int tenant, bool withRequestToPaymentSystem = true)

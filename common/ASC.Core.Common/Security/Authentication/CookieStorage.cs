@@ -109,7 +109,7 @@ namespace ASC.Core.Security.Authentication
             return EncryptCookie(tenant, userid, settingsTenant.Index, expires, settingsUser.Index, loginEventId);
         }
 
-        public static string EncryptCookie(int tenant, Guid userid, int indexTenant, DateTime expires, int indexUser, int loginEventId)
+        public static string EncryptCookie(int tenant, Guid userid, int indexTenant, DateTime expires, int indexUser, int loginEventId, bool useMachineKey = false)
         {
             var s = string.Format("{0}${1}${2}${3}${4}${5}${6}${7}${8}",
                 string.Empty, //login
@@ -121,6 +121,13 @@ namespace ASC.Core.Security.Authentication
                 expires.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
                 indexUser,
                 loginEventId != 0 ? loginEventId.ToString() : null);
+
+            // DocSpace has no AuthSecret mechanism and validates auth cookies with the machine key
+            // (InstanceCrypto), so cookies created for DocSpace portals must use the legacy format.
+            if (useMachineKey)
+            {
+                return InstanceCrypto.Encrypt(s);
+            }
 
             return VersionPrefix + Convert.ToBase64String(AuthSecretProvider.Protect(Purpose, Encoding.UTF8.GetBytes(s)));
         }

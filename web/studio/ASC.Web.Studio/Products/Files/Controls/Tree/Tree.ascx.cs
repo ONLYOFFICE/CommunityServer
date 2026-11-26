@@ -45,6 +45,7 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.RegisterClientScript(new Masters.ClientScripts.FilesTemplateResources());
             Page.RegisterClientScript(new Masters.ClientScripts.FilesConstantsResources());
 
             Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,

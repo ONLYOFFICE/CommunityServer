@@ -1,5 +1,15 @@
 # Change log
 
+## Version 12.9.1
+
+### Documents module
+
+* Fixed the issue when the file list was not displayed in Chrome with the "XSLTProcessor is not defined" error (ONLYOFFICE/CommunityServer#559).
+
+### Node.js services
+
+* Node.js 24.22.3 or later is now required for the Node.js services to get the November 2026 Node.js security fixes (Bug 85325).
+
 ## Version 12.9.0
 
 ### General portal changes

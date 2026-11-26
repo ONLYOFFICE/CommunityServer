@@ -112,6 +112,7 @@ namespace ASC.Web.Projects
                                      "Controls/Tree/tree.js"
                 )
                 .RegisterClientScript(new Files.Masters.ClientScripts.FilesLocalizationResources())
+                .RegisterClientScript(new Files.Masters.ClientScripts.FilesTemplateResources())
                 .RegisterClientScript(new Files.Masters.ClientScripts.FilesConstantsResources());
         }
     }
